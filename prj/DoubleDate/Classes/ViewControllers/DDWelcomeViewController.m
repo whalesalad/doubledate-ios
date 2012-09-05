@@ -10,6 +10,7 @@
 #import "DDFacebookController.h"
 #import "MBProgressHUD.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "DDBasicInfoViewController.h"
 
 @interface DDWelcomeViewController ()<UIActionSheetDelegate>
 
@@ -46,6 +47,12 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 #pragma mark -
@@ -123,7 +130,9 @@
     id<FBGraphUser> user = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
     
     //go to next view controller
-    (void)user;
+    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
+    viewController.user = user;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)fbDidNotGetMe:(NSNotification*)notification

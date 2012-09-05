@@ -12,6 +12,8 @@
 
 @implementation DDViewController
 
+@synthesize viewAfterAppearing;
+
 - (UIView*)viewForHud
 {
     return self.view;
@@ -54,10 +56,17 @@
     [hud hide:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    //show view after appearing
+    [self.viewAfterAppearing setHidden:NO];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self hideHud:YES];
+    [viewAfterAppearing release];
     [super dealloc];
 }
 

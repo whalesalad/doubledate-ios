@@ -31,7 +31,7 @@ static DDFacebookController *_sharedInstance = nil;
 
 - (void)login
 {
-    [FBSession openActiveSessionWithPermissions:[NSArray arrayWithObject:@"email"]
+    [FBSession openActiveSessionWithPermissions:[NSArray arrayWithObjects:@"email", @"user_birthday", @"user_location", nil]
                                    allowLoginUI:YES
                               completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                   if (!error)

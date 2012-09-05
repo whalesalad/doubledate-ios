@@ -14,6 +14,8 @@
 {
 }
 
+@property(nonatomic, retain) UIView *viewAfterAppearing;
+
 - (void)showHudWithText:(NSString*)text animated:(BOOL)animated;
 - (void)hideHud:(BOOL)animated;
 
