@@ -18,6 +18,7 @@
 		96E7F1E015F780B400200E1F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1DF15F780B400200E1F /* MBProgressHUD.m */; };
 		96E7F1E315F788A900200E1F /* DDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1E215F788A900200E1F /* DDViewController.m */; };
 		96E7F1E515F78D0200200E1F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7F1E415F78D0200200E1F /* libsqlite3.dylib */; };
+		96E7F20515F7A06000200E1F /* DDFacebookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F20415F7A06000200E1F /* DDFacebookController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		96E7F1E115F788A900200E1F /* DDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDViewController.h; sourceTree = "<group>"; };
 		96E7F1E215F788A900200E1F /* DDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDViewController.m; sourceTree = "<group>"; };
 		96E7F1E415F78D0200200E1F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		96E7F20315F7A06000200E1F /* DDFacebookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookController.h; sourceTree = "<group>"; };
+		96E7F20415F7A06000200E1F /* DDFacebookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +113,7 @@
 		96E7F1A915F738CA00200E1F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				96E7F20215F7A05F00200E1F /* Controllers */,
 				96E7F1AA15F738CA00200E1F /* AppDelegate */,
 				96E7F1AD15F738CA00200E1F /* ViewControllers */,
 			);
@@ -175,6 +179,15 @@
 				96E7F1DF15F780B400200E1F /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		96E7F20215F7A05F00200E1F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				96E7F20315F7A06000200E1F /* DDFacebookController.h */,
+				96E7F20415F7A06000200E1F /* DDFacebookController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -245,6 +258,7 @@
 				96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */,
 				96E7F1E015F780B400200E1F /* MBProgressHUD.m in Sources */,
 				96E7F1E315F788A900200E1F /* DDViewController.m in Sources */,
+				96E7F20515F7A06000200E1F /* DDFacebookController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

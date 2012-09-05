@@ -7,6 +7,7 @@
 //
 
 #import "DDWelcomeViewController.h"
+#import "DDFacebookController.h"
 #import "MBProgressHUD.h"
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -81,6 +82,9 @@
 {
     //show hud
     [self showHudWithText:NSLocalizedString(@"Logging in", nil) animated:YES];
+    
+    //start facebook
+    [[DDFacebookController sharedController] login];
 }
 
 - (void)joinWithEmail
