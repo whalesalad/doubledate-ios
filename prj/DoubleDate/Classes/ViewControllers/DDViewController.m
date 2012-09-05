@@ -49,8 +49,6 @@
     //remove hud
     hud.removeFromSuperViewOnHide = YES;
     [hud hide:animated];
-    [hud release];
-    hud = nil;
 }
 
 - (void)dealloc
