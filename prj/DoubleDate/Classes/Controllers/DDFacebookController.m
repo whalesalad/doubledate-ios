@@ -31,12 +31,16 @@ static DDFacebookController *_sharedInstance = nil;
 
 - (void)login
 {
+    [self logout];
     [FBSession openActiveSessionWithPermissions:[NSArray arrayWithObjects:@"email", @"user_birthday", @"user_location", nil]
                                    allowLoginUI:YES
                               completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                   if (!error)
                                   {
-                                      [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidLoginNotification object:self];
+                                      if (state == FBSessionStateOpen)
+                                      {
+                                          [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidLoginNotification object:self];
+                                      }
                                   }
                                   else
                                   {

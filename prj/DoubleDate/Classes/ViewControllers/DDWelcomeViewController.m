@@ -56,7 +56,7 @@
 }
 
 #pragma mark -
-#pragma mark IB
+#pragma comment IB
 
 - (IBAction)signupTouched:(id)sender
 {
@@ -71,7 +71,7 @@
 
 
 #pragma mark -
-#pragma mark UIActionSheetDelegate
+#pragma comment UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -87,7 +87,7 @@
 }
 
 #pragma mark -
-#pragma mark other
+#pragma comment other
 
 - (void)joinWithFacebook
 {
@@ -101,7 +101,7 @@
 }
 
 #pragma mark -
-#pragma mark Facebook
+#pragma comment Facebook
 
 - (void)fbDidLogin:(NSNotification*)notification
 {
@@ -118,7 +118,7 @@
     NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotLoginUserInfoErrorKey];
     
     //show error
-    [[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease];
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 - (void)fbDidGetMe:(NSNotification*)notification
@@ -144,7 +144,7 @@
     NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey];
     
     //show error
-    [[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease];
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

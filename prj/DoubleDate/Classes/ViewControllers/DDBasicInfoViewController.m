@@ -9,8 +9,9 @@
 #import "DDBasicInfoViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "DDAppDelegate.h"
+#import <RestKit/RestKit.h>
 
-@interface DDBasicInfoViewController ()
+@interface DDBasicInfoViewController ()<RKRequestDelegate>
 
 @end
 
@@ -85,9 +86,7 @@
         //move main view
         mainView.frame = CGRectMake(mainView.frame.origin.x, mainView.frame.origin.y - fbBonusView.frame.size.height, mainView.frame.size.width, mainView.frame.size.height);
     }
-    
-    NSLog(@"%@", user);
-        
+            
     //fill the data
     textFieldName.text = [user first_name];
     textFieldSurname.text = [user last_name];
@@ -158,10 +157,83 @@
 
 - (void)nextTouched:(id)sender
 {
+    //set params
+    RKParams *params = [RKParams params];
+    [params setValue:textFieldName.text forParam:@"first_name"];
+    [params setValue:textFieldSurname.text forParam:@"last_name"];
+    [params setValue:@"1987/09/09" forParam:@"birthday"];
+    if (segmentedControlMale.selectedSegmentIndex == 0)
+        [params setValue:@"male" forParam:@"gender"];
+    else if (segmentedControlMale.selectedSegmentIndex == 1)
+        [params setValue:@"female" forParam:@"gender"];
+    if (segmentedControlSingle.selectedSegmentIndex == 0)
+        [params setValue:[NSNumber numberWithBool:YES] forParam:@"single"];
+    else if (segmentedControlMale.selectedSegmentIndex == 1)
+        [params setValue:[NSNumber numberWithBool:NO] forParam:@"single"];
+    if (segmentedControlLike.selectedSegmentIndex == 0)
+        [params setValue:@"guys" forParam:@"interested_in"];
+    else if (segmentedControlLike.selectedSegmentIndex == 1)
+        [params setValue:@"girls" forParam:@"interested_in"];
+    else if (segmentedControlLike.selectedSegmentIndex == 2)
+        [params setValue:@"both" forParam:@"interested_in"];
     
+    //create request
+    NSURL *url = [NSURL URLWithString:@"http://dbld8.herokuapp.com/users"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:url];
+    request.method = RKRequestMethodPOST;
+    request.params = params;
+    request.delegate = self;
+    
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //send
+    [request sendAsynchronously];
 }
 
 #pragma mark -
 #pragma comment IB
+
+#pragma mark -
+#pragma mark RKRequest
+
+- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
+{
+    //check response code
+    if (response.statusCode == 200)
+    {
+        //hide hude
+        [self hideHud:YES];
+    }
+    else
+    {
+        //create error
+        NSError *error = [NSError errorWithDomain:@"RKDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Wrong response code", nil) forKey:NSLocalizedDescriptionKey]];
+
+        //handle error
+        [self request:request didFailLoadWithError:error];
+    }
+}
+
+- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)requestDidCancelLoad:(RKRequest *)request
+{
+    //hide hud
+    [self hideHud:YES];
+}
+
+- (void)requestDidTimeout:(RKRequest *)request
+{
+    //hide hud
+    [self hideHud:YES];
+}
 
 @end
