@@ -24,7 +24,10 @@
     
     //check if we should hide first
     if (hud && animated)
+    {
         [self hideHud:YES];
+        hud = nil;
+    }
     
     //check if we should just change a text
     if (hud && !animated)
