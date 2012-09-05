@@ -25,6 +25,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidLogin:) name:DDFacebookControllerSessionDidLoginNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotLogin:) name:DDFacebookControllerSessionDidNotLoginNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidGetMe:) name:DDFacebookControllerSessionDidGetMeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotGetMe:) name:DDFacebookControllerSessionDidNotGetMeNotification object:nil];
     }
     return self;
 }
@@ -80,9 +84,6 @@
 
 - (void)joinWithFacebook
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Logging in", nil) animated:YES];
-    
     //start facebook
     [[DDFacebookController sharedController] login];
 }
@@ -94,5 +95,47 @@
 
 #pragma mark -
 #pragma mark Facebook
+
+- (void)fbDidLogin:(NSNotification*)notification
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Getting Information", nil) animated:YES];
+    
+    //request information about me
+    [[DDFacebookController sharedController] requestMe];
+}
+
+- (void)fbDidNotLogin:(NSNotification*)notification
+{
+    //extract error
+    NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotLoginUserInfoErrorKey];
+    
+    //show error
+    [[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease];
+}
+
+- (void)fbDidGetMe:(NSNotification*)notification
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //extract user information
+    id<FBGraphUser> user = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
+    
+    //go to next view controller
+    (void)user;
+}
+
+- (void)fbDidNotGetMe:(NSNotification*)notification
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //extract error
+    NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey];
+    
+    //show error
+    [[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease];
+}
 
 @end

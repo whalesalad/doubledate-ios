@@ -56,6 +56,8 @@
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self hideHud:YES];
     [super dealloc];
 }
 

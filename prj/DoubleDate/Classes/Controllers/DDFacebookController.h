@@ -8,15 +8,25 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString* DDFacebookControllerSessionDidLoginNotification;
+extern NSString* DDFacebookControllerSessionDidNotLoginNotification;
+extern NSString* DDFacebookControllerSessionDidNotLoginUserInfoErrorKey;
+
+extern NSString *DDFacebookControllerSessionDidGetMeNotification;
+extern NSString *DDFacebookControllerSessionDidGetMeUserInfoObjectKey;
+extern NSString *DDFacebookControllerSessionDidNotGetMeNotification;
+extern NSString *DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey;
+
 @class FBSession;
 
 @interface DDFacebookController : NSObject
 {
-    FBSession *session_;
 }
 
 + (DDFacebookController*)sharedController;
 
 - (void)login;
+- (void)logout;
+- (void)requestMe;
 
 @end
