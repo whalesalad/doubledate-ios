@@ -7,8 +7,13 @@
 //
 
 #import "DDWelcomeViewController.h"
+#import "MBProgressHUD.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface DDWelcomeViewController ()<UIActionSheetDelegate>
+
+- (void)joinWithFacebook;
+- (void)joinWithEmail;
 
 @end
 
@@ -60,6 +65,7 @@
 {
     switch (buttonIndex) {
         case 0:
+            [self joinWithFacebook];
             break;
         case 1:
             break;
@@ -67,5 +73,22 @@
             break;
     }
 }
+
+#pragma mark -
+#pragma mark other
+
+- (void)joinWithFacebook
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Logging in", nil) animated:YES];
+}
+
+- (void)joinWithEmail
+{
+    
+}
+
+#pragma mark -
+#pragma mark Facebook
 
 @end

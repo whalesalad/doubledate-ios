@@ -8,6 +8,7 @@
 
 #import "DDAppDelegate.h"
 #import "DDWelcomeViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation DDAppDelegate
 
@@ -48,6 +49,11 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[FBSession activeSession] handleOpenURL:url];
 }
 
 @end

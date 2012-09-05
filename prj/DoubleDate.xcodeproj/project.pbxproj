@@ -14,6 +14,10 @@
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
+		96E7F1D315F77EDD00200E1F /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7F1D215F77EDD00200E1F /* FacebookSDK.framework */; };
+		96E7F1E015F780B400200E1F /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1DF15F780B400200E1F /* MBProgressHUD.m */; };
+		96E7F1E315F788A900200E1F /* DDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1E215F788A900200E1F /* DDViewController.m */; };
+		96E7F1E515F78D0200200E1F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7F1E415F78D0200200E1F /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +33,12 @@
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
 		96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWelcomeViewController.m; sourceTree = "<group>"; };
 		96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWelcomeViewController.xib; sourceTree = "<group>"; };
+		96E7F1D215F77EDD00200E1F /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		96E7F1DE15F780B400200E1F /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		96E7F1DF15F780B400200E1F /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		96E7F1E115F788A900200E1F /* DDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDViewController.h; sourceTree = "<group>"; };
+		96E7F1E215F788A900200E1F /* DDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDViewController.m; sourceTree = "<group>"; };
+		96E7F1E415F78D0200200E1F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,9 +46,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E7F1E515F78D0200200E1F /* libsqlite3.dylib in Frameworks */,
 				960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */,
 				960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */,
 				960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */,
+				96E7F1D315F77EDD00200E1F /* FacebookSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +77,7 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96E7F1E415F78D0200200E1F /* libsqlite3.dylib */,
 				960A02CC15F7371C00BA9EB0 /* UIKit.framework */,
 				960A02CE15F7371C00BA9EB0 /* Foundation.framework */,
 				960A02D015F7371C00BA9EB0 /* CoreGraphics.framework */,
@@ -75,6 +88,7 @@
 		960A02D215F7371C00BA9EB0 /* DoubleDate */ = {
 			isa = PBXGroup;
 			children = (
+				96E7F1D015F77EDD00200E1F /* Third */,
 				96E7F1A915F738CA00200E1F /* Classes */,
 				96E7F1B015F738CA00200E1F /* Images */,
 				96E7F1B115F738CA00200E1F /* Resources */,
@@ -114,6 +128,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				96E7F1E115F788A900200E1F /* DDViewController.h */,
+				96E7F1E215F788A900200E1F /* DDViewController.m */,
 				96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */,
 				96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */,
 			);
@@ -133,6 +149,32 @@
 				96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		96E7F1D015F77EDD00200E1F /* Third */ = {
+			isa = PBXGroup;
+			children = (
+				96E7F1DD15F780B400200E1F /* MBProgressHUD */,
+				96E7F1D115F77EDD00200E1F /* Facebook */,
+			);
+			path = Third;
+			sourceTree = "<group>";
+		};
+		96E7F1D115F77EDD00200E1F /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				96E7F1D215F77EDD00200E1F /* FacebookSDK.framework */,
+			);
+			path = Facebook;
+			sourceTree = "<group>";
+		};
+		96E7F1DD15F780B400200E1F /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				96E7F1DE15F780B400200E1F /* MBProgressHUD.h */,
+				96E7F1DF15F780B400200E1F /* MBProgressHUD.m */,
+			);
+			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,6 +243,8 @@
 				960A02D915F7371D00BA9EB0 /* main.m in Sources */,
 				96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */,
 				96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */,
+				96E7F1E015F780B400200E1F /* MBProgressHUD.m in Sources */,
+				96E7F1E315F788A900200E1F /* DDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +301,10 @@
 		960A02E715F7371D00BA9EB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoubleDate/DoubleDate-Prefix.pch";
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
@@ -268,6 +316,10 @@
 		960A02E815F7371D00BA9EB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoubleDate/DoubleDate-Prefix.pch";
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
