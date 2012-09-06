@@ -9,9 +9,11 @@
 #import "DDViewController.h"
 
 @class DDUser;
+@class DDAPIController;
 
 @interface DDBasicInfoViewController : DDViewController
 {
+    DDAPIController *controller_;
 }
 
 @property(nonatomic, retain) DDUser *user;

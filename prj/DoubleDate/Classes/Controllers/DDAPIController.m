@@ -15,6 +15,7 @@
 #import "DDUser.h"
 
 NSString *DDAPIControllerMethodIdentifierMe = @"DDAPIControllerMethodIdentifierMe";
+NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentifierCreate";
 
 @interface DDAPIController ()<RKRequestDelegate>
 
@@ -49,6 +50,37 @@ NSString *DDAPIControllerMethodIdentifierMe = @"DDAPIControllerMethodIdentifierM
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     request.userData = DDAPIControllerMethodIdentifierMe;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
+- (void)createUser:(DDUser*)user
+{
+    //create user dictionary
+    NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
+    if (user.firstName)
+        [userDictionary setObject:user.firstName forKey:@"first_name"];
+    if (user.lastName)
+        [userDictionary setObject:user.lastName forKey:@"last_name"];
+    if (user.birthday)
+        [userDictionary setObject:user.birthday forKey:@"birthday"];
+    if (user.gender)
+        [userDictionary setObject:user.gender forKey:@"gender"];
+    if (user.interestedIn)
+        [userDictionary setObject:user.interestedIn forKey:@"interested_in"];
+    [userDictionary setObject:@"123456" forKey:@"password_digest"];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:userDictionary forKey:@"user"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"users"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodPOST;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    request.userData = DDAPIControllerMethodIdentifierCreate;
     
     //send request
     [controller_ startRequest:request];

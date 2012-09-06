@@ -14,10 +14,11 @@
 #import "DDTools.h"
 #import "DDFacebookController.h"
 #import "DDUser.h"
+#import "DDAPIController.h"
 
 NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAuthorizeKey";
 
-@interface DDBasicInfoViewController ()<RKRequestDelegate>
+@interface DDBasicInfoViewController ()<DDAPIControllerDelegate>
 
 @end
 
@@ -39,6 +40,8 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        controller_ = [[DDAPIController alloc] init];
+        controller_.delegate = self;
     }
     return self;
 }
@@ -148,6 +151,8 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     [segmentedControlLike release];
     [segmentedControlSingle release];
     [textFieldLocations release];
+    controller_.delegate = nil;
+    [controller_ release];
     [super dealloc];
 }
 
@@ -162,6 +167,24 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
 
 - (void)nextTouched:(id)sender
 {
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
+    
+    //save dictionary
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    [dictionary setObject:@"Gennadii" forKey:@"first_name"];
+    [dictionary setObject:@"Ivanov" forKey:@"last_name"];
+    [dictionary setObject:@"1987-06-09" forKey:@"birthday"];
+    [dictionary setObject:@"true" forKey:@"signle"];
+    [dictionary setObject:@"girls" forKey:@"interested_in"];
+    [dictionary setObject:@"male" forKey:@"gender"];
+    [dictionary setObject:@"password_digest" forKey:@"123456"];
+    
+    //save new user
+    DDUser *newUser = [[[DDUser alloc] initWithDictionary:dictionary] autorelease];
+    
+    //add user
+    [controller_ createUser:newUser];
 }
 
 #pragma mark -

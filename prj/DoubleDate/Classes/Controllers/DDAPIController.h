@@ -27,4 +27,6 @@
 
 - (void)getMe;
 
+- (void)createUser:(DDUser*)user;
+
 @end
