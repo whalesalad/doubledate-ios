@@ -101,13 +101,31 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
-    //save data
-    NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
-    [[DDAuthenticationController sharedController] setUserId:[dictionary objectForKey:@"user_id"]];
-    [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
-    
-    //post notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidSucceesNotification object:self];
+    //check response code
+    if (response.statusCode == 200)
+    {
+        //save data
+        NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+        [[DDAuthenticationController sharedController] setUserId:[dictionary objectForKey:@"user_id"]];
+        [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
+        
+        //post notification
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidSucceesNotification object:self];
+    }
+    else
+    {
+        //save error message
+        NSString *errorMessage = NSLocalizedString(@"Internal server error", nil);
+        NSString *responseMessage = [DDTools errorMessageFromResponseData:response.body];
+        if (responseMessage)
+            errorMessage = responseMessage;
+        
+        //create error
+        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+        
+        //redirect to self
+        [self request:request didFailLoadWithError:error];
+    }
 }
 
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error

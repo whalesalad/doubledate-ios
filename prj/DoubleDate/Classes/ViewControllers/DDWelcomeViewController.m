@@ -18,10 +18,16 @@
 #import "DDRequestsController.h"
 #import "DDAPIController.h"
 
+#define kTagJoinActionSheet 1
+#define kTagLoginActionSheet 2
+
 @interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate>
 
 - (void)joinWithFacebook;
 - (void)joinWithEmail;
+
+- (void)loginWithFacebook;
+- (void)loginWithEmail;
 
 @end
 
@@ -79,12 +85,15 @@
 - (IBAction)signupTouched:(id)sender
 {
     UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Join with Facebook", nil), NSLocalizedString(@"Join with Email", nil), nil] autorelease];
+    sheet.tag = kTagJoinActionSheet;
     [sheet showInView:self.view];
 }
 
 - (IBAction)loginTouched:(id)sender
 {
-    
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Login with Facebook", nil), NSLocalizedString(@"Login with Email", nil), nil] autorelease];
+    sheet.tag = kTagLoginActionSheet;
+    [sheet showInView:self.view];
 }
 
 
@@ -95,10 +104,16 @@
 {
     switch (buttonIndex) {
         case 0:
-            [self joinWithFacebook];
+            if (actionSheet.tag == kTagJoinActionSheet)
+                [self joinWithFacebook];
+            else if (actionSheet.tag == kTagLoginActionSheet)
+                [self loginWithFacebook];
             break;
         case 1:
-            [self joinWithEmail];
+            if (actionSheet.tag == kTagJoinActionSheet)
+                [self joinWithEmail];
+            else if (actionSheet.tag == kTagLoginActionSheet)
+                [self loginWithEmail];
             break;
         default:
             break;
@@ -110,15 +125,36 @@
 
 - (void)joinWithFacebook
 {
+    //save joining flag
+    joining_ = YES;
+    
     //start facebook
     [[DDFacebookController sharedController] login];
 }
 
 - (void)joinWithEmail
 {
+    //save joining flag
+    joining_ = YES;
+    
     //go to next view controller
     DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)loginWithFacebook
+{
+    //save joining flag
+    joining_ = NO;
+    
+    //start facebook
+    [[DDFacebookController sharedController] login];
+}
+
+- (void)loginWithEmail
+{
+    //save joining flag
+    joining_ = NO;
 }
 
 #pragma mark -
@@ -127,7 +163,7 @@
 - (void)fbDidLogin:(NSNotification*)notification
 {
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Getting Information", nil) animated:YES];
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
     
     //request information about me
     [[DDFacebookController sharedController] requestMe];
@@ -144,14 +180,28 @@
 
 - (void)fbDidGetMe:(NSNotification*)notification
 {
-    //change hud
-    [self showHudWithText:NSLocalizedString(@"Authenticating", nil) animated:NO];
-    
     //extract user information from facebook
     id<FBGraphUser> user = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
     
-    //authonticate user
-    [DDAuthenticationController authenticateWithFbId:[user id] fbToken:[DDFacebookController token]];
+    //check if joining
+    if (joining_)
+    {
+        //hide hud
+        [self hideHud:YES];
+        
+        //go to next view controller
+        DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
+        viewController.user = user;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+    else
+    {
+        //show hud
+        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
+        
+        //request me
+        [DDAuthenticationController authenticateWithFbId:[user id] fbToken:[DDFacebookController token]];
+    }
 }
 
 - (void)fbDidNotGetMe:(NSNotification*)notification
@@ -196,11 +246,6 @@
 {
     //hide hude
     [self hideHud:YES];
-    
-    //go to next view controller
-    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
-    viewController.user = me;
-    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)getMeDidFailedWithError:(NSError*)error

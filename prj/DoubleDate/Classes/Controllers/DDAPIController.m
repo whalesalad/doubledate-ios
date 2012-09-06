@@ -95,24 +95,42 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
-    //check method
-    if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
+    //check response code
+    if (response.statusCode == 200)
     {
-        //get response
-        NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
-        
-        //create user object
-        DDUser *user = [DDUser objectWithDictionary:dictionary];
-        
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(getMeDidSucceed:)])
-            [self.delegate getMeDidSucceed:user];
+        //check method
+        if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
+        {
+            //get response
+            NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            
+            //create user object
+            DDUser *user = [DDUser objectWithDictionary:dictionary];
+            
+            //inform delegate
+            if ([self.delegate respondsToSelector:@selector(getMeDidSucceed:)])
+                [self.delegate getMeDidSucceed:user];
+        }
+        else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
+        {
+            //inform delegate
+            if ([self.delegate respondsToSelector:@selector(createUserSucceed)])
+                [self.delegate createUserSucceed];
+        }
     }
-    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
+    else
     {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(createUserSucceed)])
-            [self.delegate createUserSucceed];
+        //save error message
+        NSString *errorMessage = NSLocalizedString(@"Internal server error", nil);
+        NSString *responseMessage = [DDTools errorMessageFromResponseData:response.body];
+        if (responseMessage)
+            errorMessage = responseMessage;
+        
+        //create error
+        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+        
+        //redirect to self
+        [self request:request didFailLoadWithError:error];
     }
 }
 

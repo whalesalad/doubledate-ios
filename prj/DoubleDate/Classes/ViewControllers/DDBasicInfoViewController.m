@@ -94,18 +94,44 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
         //move main view
         mainView.frame = CGRectMake(mainView.frame.origin.x, mainView.frame.origin.y - fbBonusView.frame.size.height, mainView.frame.size.width, mainView.frame.size.height);
     }
-            
-    //fill the data
-    textFieldName.text = [user firstName];
-    textFieldSurname.text = [user lastName];
-    textFieldBirth.text = [user birthday];
-    segmentedControlMale.selected = YES;
-    if ([user.gender isEqualToString:@"male"])
-        segmentedControlMale.selectedSegmentIndex = 0;
-    else
-        segmentedControlMale.selectedSegmentIndex = 1;
-    segmentedControlLike.selectedSegmentIndex = -1;
-    segmentedControlSingle.selectedSegmentIndex = -1;
+    
+    //check if user exist
+    if (user)
+    {
+        //set name
+        textFieldName.text = [user first_name];
+        
+        //set surname
+        textFieldSurname.text = [user last_name];
+        
+        //set birthday
+        if ([user birthday])
+        {
+            //get date
+            NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
+            [dateFormat setDateFormat:@"MM/dd/yyyy"];
+            NSString *dateString = [user birthday];
+            NSDate *date = [dateFormat dateFromString:dateString];
+
+            //set date
+            [dateFormat setDateFormat:@"yyyy-MM-dd"];
+            textFieldBirth.text = [dateFormat stringFromDate:date];
+        }
+        
+        //set gender
+        if ([[user objectForKey:@"gender"] isEqualToString:@"male"])
+            segmentedControlMale.selectedSegmentIndex = 0;
+        else if ([[user objectForKey:@"gender"] isEqualToString:@"female"])
+            segmentedControlMale.selectedSegmentIndex = 1;
+        else
+            segmentedControlMale.selectedSegmentIndex = -1;
+        
+        //save like
+        segmentedControlLike.selectedSegmentIndex = -1;
+
+        //save single status
+        segmentedControlSingle.selectedSegmentIndex = -1;
+    }
 }
 
 - (void)viewDidUnload
@@ -189,6 +215,10 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     
     //save new user
     DDUser *newUser = [[[DDUser alloc] initWithDictionary:dictionary] autorelease];
+    
+    //check for facebook
+    if (user)
+        newUser.facebookId = [user id];
     
     //add user
     [controller_ createUser:newUser];

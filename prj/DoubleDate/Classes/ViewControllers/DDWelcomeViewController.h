@@ -13,6 +13,7 @@
 @interface DDWelcomeViewController : DDViewController
 {
     DDAPIController *controller_;
+    BOOL joining_;
 }
 
 - (IBAction)signupTouched:(id)sender;
