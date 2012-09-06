@@ -18,9 +18,9 @@ NSString *DDFacebookControllerSessionDidGetMeUserInfoObjectKey = @"DDFacebookCon
 NSString *DDFacebookControllerSessionDidNotGetMeNotification = @"DDFacebookControllerSessionDidNotGetMeNotification";
 NSString *DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey = @"DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey";
 
-@implementation DDFacebookController
-
 static DDFacebookController *_sharedInstance = nil;
+
+@implementation DDFacebookController
 
 + (DDFacebookController*)sharedController
 {
@@ -29,16 +29,23 @@ static DDFacebookController *_sharedInstance = nil;
     return _sharedInstance;
 }
 
++ (NSString*)token
+{
+    return [[FBSession activeSession] accessToken];
+}
+
 - (void)login
 {
     [self logout];
+    __block BOOL alreadyLoggedIn = NO;
     [FBSession openActiveSessionWithPermissions:[NSArray arrayWithObjects:@"email", @"user_birthday", @"user_location", nil]
                                    allowLoginUI:YES
                               completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                   if (!error)
                                   {
-                                      if (state == FBSessionStateOpen)
+                                      if (state == FBSessionStateOpen && !alreadyLoggedIn)
                                       {
+                                          alreadyLoggedIn = YES;
                                           [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidLoginNotification object:self];
                                       }
                                   }

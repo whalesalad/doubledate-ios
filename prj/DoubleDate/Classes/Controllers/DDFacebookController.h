@@ -25,6 +25,8 @@ extern NSString *DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey;
 
 + (DDFacebookController*)sharedController;
 
++ (NSString*)token;
+
 - (void)login;
 - (void)logout;
 - (void)requestMe;

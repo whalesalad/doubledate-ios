@@ -16,6 +16,13 @@
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
 		964A6EBA15F814DA0077AAF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6EB915F814DA0077AAF1 /* CFNetwork.framework */; };
 		964A6EBC15F814F00077AAF1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6EBB15F814F00077AAF1 /* Security.framework */; };
+		964A6EE115F883E90077AAF1 /* DDTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EE015F883E90077AAF1 /* DDTools.m */; };
+		964A6EF515F894220077AAF1 /* libsbjson-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6EF215F893E80077AAF1 /* libsbjson-ios.a */; };
+		964A6EF915F89FDE0077AAF1 /* DDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EF815F89FDE0077AAF1 /* DDUser.m */; };
+		964A6EFC15F8A0080077AAF1 /* DDAPIObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EFB15F8A0080077AAF1 /* DDAPIObject.m */; };
+		964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */; };
+		964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0115F8AFE90077AAF1 /* DDAPIController.m */; };
+		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
@@ -62,6 +69,34 @@
 			remoteGlobalIDString = 259C301615128079003066A2;
 			remoteInfo = RestKitResources;
 		};
+		964A6EED15F893E80077AAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC12323D1391D5CC00131607;
+			remoteInfo = SBJson;
+		};
+		964A6EEF15F893E80077AAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BC1232521391D5CC00131607;
+			remoteInfo = SBJsonTests;
+		};
+		964A6EF115F893E80077AAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCC2626913920FC7003D9994;
+			remoteInfo = "sbjson-ios";
+		};
+		964A6EF315F893E80077AAF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCC2627313920FC7003D9994;
+			remoteInfo = "sbjson-iosTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +113,19 @@
 		964A6E7D15F808B90077AAF1 /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		964A6EB915F814DA0077AAF1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		964A6EBB15F814F00077AAF1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		964A6EDF15F883E90077AAF1 /* DDTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTools.h; sourceTree = "<group>"; };
+		964A6EE015F883E90077AAF1 /* DDTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTools.m; sourceTree = "<group>"; };
+		964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SBJson.xcodeproj; path = SBJson/SBJson.xcodeproj; sourceTree = "<group>"; };
+		964A6EF715F89FDE0077AAF1 /* DDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUser.h; sourceTree = "<group>"; };
+		964A6EF815F89FDE0077AAF1 /* DDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUser.m; sourceTree = "<group>"; };
+		964A6EFA15F8A0080077AAF1 /* DDAPIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAPIObject.h; sourceTree = "<group>"; };
+		964A6EFB15F8A0080077AAF1 /* DDAPIObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAPIObject.m; sourceTree = "<group>"; };
+		964A6EFD15F8A7410077AAF1 /* DDAuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAuthenticationController.h; sourceTree = "<group>"; };
+		964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAuthenticationController.m; sourceTree = "<group>"; };
+		964A6F0015F8AFE90077AAF1 /* DDAPIController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAPIController.h; sourceTree = "<group>"; };
+		964A6F0115F8AFE90077AAF1 /* DDAPIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAPIController.m; sourceTree = "<group>"; };
+		964A6F0315F8B1250077AAF1 /* DDRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRequestsController.h; sourceTree = "<group>"; };
+		964A6F0415F8B1250077AAF1 /* DDRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRequestsController.m; sourceTree = "<group>"; };
 		96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
@@ -98,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964A6EF515F894220077AAF1 /* libsbjson-ios.a in Frameworks */,
 				964A6EBC15F814F00077AAF1 /* Security.framework in Frameworks */,
 				964A6EBA15F814DA0077AAF1 /* CFNetwork.framework in Frameworks */,
 				964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */,
@@ -145,6 +194,8 @@
 		960A02D215F7371C00BA9EB0 /* DoubleDate */ = {
 			isa = PBXGroup;
 			children = (
+				964A6EF615F89FDE0077AAF1 /* API */,
+				964A6EDE15F883E90077AAF1 /* Other */,
 				96E7F1D015F77EDD00200E1F /* Third */,
 				96E7F1A915F738CA00200E1F /* Classes */,
 				96E7F1B015F738CA00200E1F /* Images */,
@@ -182,6 +233,47 @@
 				964A6E9115F808B90077AAF1 /* RestKitResources.bundle */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		964A6EDE15F883E90077AAF1 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				964A6EDF15F883E90077AAF1 /* DDTools.h */,
+				964A6EE015F883E90077AAF1 /* DDTools.m */,
+			);
+			name = Other;
+			path = Classes/Other;
+			sourceTree = "<group>";
+		};
+		964A6EE215F893DC0077AAF1 /* SBJson */ = {
+			isa = PBXGroup;
+			children = (
+				964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */,
+			);
+			name = SBJson;
+			sourceTree = "<group>";
+		};
+		964A6EE415F893E70077AAF1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				964A6EEE15F893E80077AAF1 /* SBJson.framework */,
+				964A6EF015F893E80077AAF1 /* SBJsonTests.octest */,
+				964A6EF215F893E80077AAF1 /* libsbjson-ios.a */,
+				964A6EF415F893E80077AAF1 /* sbjson-iosTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		964A6EF615F89FDE0077AAF1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				964A6EF715F89FDE0077AAF1 /* DDUser.h */,
+				964A6EF815F89FDE0077AAF1 /* DDUser.m */,
+				964A6EFA15F8A0080077AAF1 /* DDAPIObject.h */,
+				964A6EFB15F8A0080077AAF1 /* DDAPIObject.m */,
+			);
+			name = API;
+			path = Classes/API;
 			sourceTree = "<group>";
 		};
 		96E7F1A915F738CA00200E1F /* Classes */ = {
@@ -235,6 +327,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				964A6EE215F893DC0077AAF1 /* SBJson */,
 				964A6E7C15F808AF0077AAF1 /* RestKit */,
 				96E7F1DD15F780B400200E1F /* MBProgressHUD */,
 				96E7F1D115F77EDD00200E1F /* Facebook */,
@@ -262,6 +355,12 @@
 		96E7F20215F7A05F00200E1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				964A6F0315F8B1250077AAF1 /* DDRequestsController.h */,
+				964A6F0415F8B1250077AAF1 /* DDRequestsController.m */,
+				964A6F0015F8AFE90077AAF1 /* DDAPIController.h */,
+				964A6F0115F8AFE90077AAF1 /* DDAPIController.m */,
+				964A6EFD15F8A7410077AAF1 /* DDAuthenticationController.h */,
+				964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */,
 				96E7F20315F7A06000200E1F /* DDFacebookController.h */,
 				96E7F20415F7A06000200E1F /* DDFacebookController.m */,
 			);
@@ -313,6 +412,10 @@
 					ProductGroup = 964A6E7E15F808B90077AAF1 /* Products */;
 					ProjectRef = 964A6E7D15F808B90077AAF1 /* RestKit.xcodeproj */;
 				},
+				{
+					ProductGroup = 964A6EE415F893E70077AAF1 /* Products */;
+					ProjectRef = 964A6EE315F893E70077AAF1 /* SBJson.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -357,6 +460,34 @@
 			remoteRef = 964A6E9015F808B90077AAF1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		964A6EEE15F893E80077AAF1 /* SBJson.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SBJson.framework;
+			remoteRef = 964A6EED15F893E80077AAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		964A6EF015F893E80077AAF1 /* SBJsonTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SBJsonTests.octest;
+			remoteRef = 964A6EEF15F893E80077AAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		964A6EF215F893E80077AAF1 /* libsbjson-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libsbjson-ios.a";
+			remoteRef = 964A6EF115F893E80077AAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		964A6EF415F893E80077AAF1 /* sbjson-iosTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "sbjson-iosTests.octest";
+			remoteRef = 964A6EF315F893E80077AAF1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -383,6 +514,12 @@
 				96E7F1E315F788A900200E1F /* DDViewController.m in Sources */,
 				96E7F20515F7A06000200E1F /* DDFacebookController.m in Sources */,
 				964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */,
+				964A6EE115F883E90077AAF1 /* DDTools.m in Sources */,
+				964A6EF915F89FDE0077AAF1 /* DDUser.m in Sources */,
+				964A6EFC15F8A0080077AAF1 /* DDAPIObject.m in Sources */,
+				964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */,
+				964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */,
+				964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

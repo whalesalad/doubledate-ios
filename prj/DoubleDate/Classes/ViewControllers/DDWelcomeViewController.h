@@ -8,9 +8,13 @@
 
 #import "DDViewController.h"
 
+@class DDAPIController;
+
 @interface DDWelcomeViewController : DDViewController
 {
+    DDAPIController *controller_;
 }
+
 - (IBAction)signupTouched:(id)sender;
 - (IBAction)loginTouched:(id)sender;
 

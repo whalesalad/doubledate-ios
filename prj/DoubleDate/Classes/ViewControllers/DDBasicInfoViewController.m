@@ -10,6 +10,12 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "DDAppDelegate.h"
 #import <RestKit/RestKit.h>
+#import <SBJson/SBJson.h>
+#import "DDTools.h"
+#import "DDFacebookController.h"
+#import "DDUser.h"
+
+NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAuthorizeKey";
 
 @interface DDBasicInfoViewController ()<RKRequestDelegate>
 
@@ -88,17 +94,16 @@
     }
             
     //fill the data
-    textFieldName.text = [user first_name];
-    textFieldSurname.text = [user last_name];
+    textFieldName.text = [user firstName];
+    textFieldSurname.text = [user lastName];
     textFieldBirth.text = [user birthday];
     segmentedControlMale.selected = YES;
-    if ([[user objectForKey:@"gender"] isEqualToString:@"male"])
+    if ([user.gender isEqualToString:@"male"])
         segmentedControlMale.selectedSegmentIndex = 0;
     else
         segmentedControlMale.selectedSegmentIndex = 1;
     segmentedControlLike.selectedSegmentIndex = -1;
     segmentedControlSingle.selectedSegmentIndex = -1;
-    textFieldLocations.text = [[user objectForKey:@"location"] objectForKey:@"name"];
 }
 
 - (void)viewDidUnload
@@ -157,38 +162,6 @@
 
 - (void)nextTouched:(id)sender
 {
-    //set params
-    RKParams *params = [RKParams params];
-    [params setValue:textFieldName.text forParam:@"first_name"];
-    [params setValue:textFieldSurname.text forParam:@"last_name"];
-    [params setValue:@"1987/09/09" forParam:@"birthday"];
-    if (segmentedControlMale.selectedSegmentIndex == 0)
-        [params setValue:@"male" forParam:@"gender"];
-    else if (segmentedControlMale.selectedSegmentIndex == 1)
-        [params setValue:@"female" forParam:@"gender"];
-    if (segmentedControlSingle.selectedSegmentIndex == 0)
-        [params setValue:[NSNumber numberWithBool:YES] forParam:@"single"];
-    else if (segmentedControlMale.selectedSegmentIndex == 1)
-        [params setValue:[NSNumber numberWithBool:NO] forParam:@"single"];
-    if (segmentedControlLike.selectedSegmentIndex == 0)
-        [params setValue:@"guys" forParam:@"interested_in"];
-    else if (segmentedControlLike.selectedSegmentIndex == 1)
-        [params setValue:@"girls" forParam:@"interested_in"];
-    else if (segmentedControlLike.selectedSegmentIndex == 2)
-        [params setValue:@"both" forParam:@"interested_in"];
-    
-    //create request
-    NSURL *url = [NSURL URLWithString:@"http://dbld8.herokuapp.com/users"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:url];
-    request.method = RKRequestMethodPOST;
-    request.params = params;
-    request.delegate = self;
-    
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
-    
-    //send
-    [request sendAsynchronously];
 }
 
 #pragma mark -
@@ -207,8 +180,16 @@
     }
     else
     {
+        //save error message
+        NSString *errorMessage = NSLocalizedString(@"Wrong response code", nil);
+        
+        //check for error from response
+        NSString *responseErrorMessage = [DDTools errorMessageFromResponseData:response.body];
+        if (responseErrorMessage)
+            errorMessage = responseErrorMessage;
+        
         //create error
-        NSError *error = [NSError errorWithDomain:@"RKDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Wrong response code", nil) forKey:NSLocalizedDescriptionKey]];
+        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
 
         //handle error
         [self request:request didFailLoadWithError:error];

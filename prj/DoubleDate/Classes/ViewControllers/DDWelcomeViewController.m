@@ -10,9 +10,15 @@
 #import "DDFacebookController.h"
 #import "MBProgressHUD.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <RestKit/RestKit.h>
+#import <SBJson/SBJson.h>
 #import "DDBasicInfoViewController.h"
+#import "DDTools.h"
+#import "DDAuthenticationController.h"
+#import "DDRequestsController.h"
+#import "DDAPIController.h"
 
-@interface DDWelcomeViewController ()<UIActionSheetDelegate>
+@interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate>
 
 - (void)joinWithFacebook;
 - (void)joinWithEmail;
@@ -30,6 +36,11 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotLogin:) name:DDFacebookControllerSessionDidNotLoginNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidGetMe:) name:DDFacebookControllerSessionDidGetMeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotGetMe:) name:DDFacebookControllerSessionDidNotGetMeNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
+        
+        controller_ = [[DDAPIController alloc] init];
+        controller_.delegate = self;
     }
     return self;
 }
@@ -53,6 +64,13 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+}
+
+- (void)dealloc
+{
+    controller_.delegate = nil;
+    [controller_ release];
+    [super dealloc];
 }
 
 #pragma mark -
@@ -123,16 +141,14 @@
 
 - (void)fbDidGetMe:(NSNotification*)notification
 {
-    //hide hud
-    [self hideHud:YES];
+    //change hud
+    [self showHudWithText:NSLocalizedString(@"Authenticating", nil) animated:NO];
     
-    //extract user information
+    //extract user information from facebook
     id<FBGraphUser> user = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
     
-    //go to next view controller
-    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
-    viewController.user = user;
-    [self.navigationController pushViewController:viewController animated:YES];
+    //authonticate user
+    [DDAuthenticationController authenticateWithFbId:[user id] fbToken:[DDFacebookController token]];
 }
 
 - (void)fbDidNotGetMe:(NSNotification*)notification
@@ -142,6 +158,52 @@
     
     //extract error
     NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma comment API
+
+- (void)apiDidAuthenticate:(NSNotification*)notification
+{
+    //hide hude
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
+    
+    //extract information about me
+    [controller_ getMe];
+}
+
+- (void)apiDidNotAuthenticate:(NSNotification*)notification
+{
+    //hide hude
+    [self hideHud:YES];
+    
+    //try to get error
+    NSError *error = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
+    if (error)
+        [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma comment DDAPIControllerDelegate
+
+- (void)getMeDidSucceed:(DDUser*)me
+{
+    //hide hude
+    [self hideHud:YES];
+    
+    //go to next view controller
+    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
+    viewController.user = me;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)getMeDidFailedWithError:(NSError*)error
+{
+    //hide hude
+    [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
