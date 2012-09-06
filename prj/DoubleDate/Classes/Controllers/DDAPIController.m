@@ -69,7 +69,11 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
         [userDictionary setObject:user.gender forKey:@"gender"];
     if (user.interestedIn)
         [userDictionary setObject:user.interestedIn forKey:@"interested_in"];
-    [userDictionary setObject:@"123456" forKey:@"password_digest"];
+    if (user.facebookId)
+    {
+        [userDictionary setObject:user.facebookId forKey:@"facebook_id"];
+        [userDictionary setObject:[DDFacebookController token] forKey:@"access_token"];
+    }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:userDictionary forKey:@"user"];
     
     //create request
@@ -101,7 +105,14 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
         DDUser *user = [DDUser objectWithDictionary:dictionary];
         
         //inform delegate
-        [self.delegate getMeDidSucceed:user];
+        if ([self.delegate respondsToSelector:@selector(getMeDidSucceed:)])
+            [self.delegate getMeDidSucceed:user];
+    }
+    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
+    {
+        //inform delegate
+        if ([self.delegate respondsToSelector:@selector(createUserSucceed)])
+            [self.delegate createUserSucceed];
     }
 }
 
@@ -111,7 +122,14 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
     {
         //inform delegate
-        [self.delegate getMeDidFailedWithError:error];
+        if ([self.delegate respondsToSelector:@selector(getMeDidFailedWithError:)])
+            [self.delegate getMeDidFailedWithError:error];
+    }
+    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
+    {
+        //inform delegate
+        if ([self.delegate respondsToSelector:@selector(createUserDidFailedWithError:)])
+            [self.delegate createUserDidFailedWithError:error];
     }
 }
 
@@ -124,7 +142,14 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
     {
         //inform delegate
-        [self.delegate getMeDidFailedWithError:error];
+        if ([self.delegate respondsToSelector:@selector(getMeDidFailedWithError:)])
+            [self.delegate getMeDidFailedWithError:error];
+    }
+    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
+    {
+        //inform delegate
+        if ([self.delegate respondsToSelector:@selector(createUserDidFailedWithError:)])
+            [self.delegate createUserDidFailedWithError:error];
     }
 }
 
@@ -136,7 +161,15 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     //check method
     if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
     {
-        [self.delegate getMeDidFailedWithError:error];
+        //inform delegate
+        if ([self.delegate respondsToSelector:@selector(getMeDidFailedWithError:)])
+            [self.delegate getMeDidFailedWithError:error];
+    }
+    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
+    {
+        //inform delegate
+        if ([self.delegate respondsToSelector:@selector(createUserDidFailedWithError:)])
+            [self.delegate createUserDidFailedWithError:error];
     }
 }
 

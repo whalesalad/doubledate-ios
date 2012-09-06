@@ -29,7 +29,5 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlLike;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
 
-@property(nonatomic, retain) IBOutlet UITextField *textFieldLocations;
-
 
 @end

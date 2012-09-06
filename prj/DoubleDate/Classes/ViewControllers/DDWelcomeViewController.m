@@ -98,6 +98,7 @@
             [self joinWithFacebook];
             break;
         case 1:
+            [self joinWithEmail];
             break;
         default:
             break;
@@ -115,7 +116,9 @@
 
 - (void)joinWithEmail
 {
-    
+    //go to next view controller
+    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -

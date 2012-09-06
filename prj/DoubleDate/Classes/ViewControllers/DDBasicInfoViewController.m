@@ -33,7 +33,6 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
 @synthesize segmentedControlMale;
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
-@synthesize textFieldLocations;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -120,7 +119,6 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     [segmentedControlMale release], segmentedControlMale = nil;
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
-    [textFieldLocations release], textFieldLocations = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -150,7 +148,6 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
-    [textFieldLocations release];
     controller_.delegate = nil;
     [controller_ release];
     [super dealloc];
@@ -172,13 +169,23 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     
     //save dictionary
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:@"Gennadii" forKey:@"first_name"];
-    [dictionary setObject:@"Ivanov" forKey:@"last_name"];
-    [dictionary setObject:@"1987-06-09" forKey:@"birthday"];
-    [dictionary setObject:@"true" forKey:@"signle"];
-    [dictionary setObject:@"girls" forKey:@"interested_in"];
-    [dictionary setObject:@"male" forKey:@"gender"];
-    [dictionary setObject:@"password_digest" forKey:@"123456"];
+    [dictionary setObject:textFieldName.text forKey:@"first_name"];
+    [dictionary setObject:textFieldSurname.text forKey:@"last_name"];
+    [dictionary setObject:textFieldBirth.text forKey:@"birthday"];
+    if (segmentedControlSingle.selectedSegmentIndex == 0)
+        [dictionary setObject:@"true" forKey:@"signle"];
+    else if (segmentedControlSingle.selectedSegmentIndex == 1)
+        [dictionary setObject:@"false" forKey:@"signle"];
+    if (segmentedControlLike.selectedSegmentIndex == 0)
+        [dictionary setObject:@"guys" forKey:@"interested_in"];
+    else if (segmentedControlLike.selectedSegmentIndex == 1)
+        [dictionary setObject:@"girls" forKey:@"interested_in"];
+    else if (segmentedControlLike.selectedSegmentIndex == 2)
+        [dictionary setObject:@"both" forKey:@"interested_in"];
+    if (segmentedControlMale.selectedSegmentIndex == 0)
+        [dictionary setObject:@"male" forKey:@"gender"];
+    else if (segmentedControlMale.selectedSegmentIndex == 1)
+        [dictionary setObject:@"female" forKey:@"gender"];
     
     //save new user
     DDUser *newUser = [[[DDUser alloc] initWithDictionary:dictionary] autorelease];
@@ -188,56 +195,20 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
 }
 
 #pragma mark -
-#pragma comment IB
+#pragma mark DDAPIController
 
-#pragma mark -
-#pragma mark RKRequest
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
+- (void)createUserSucceed
 {
-    //check response code
-    if (response.statusCode == 200)
-    {
-        //hide hude
-        [self hideHud:YES];
-    }
-    else
-    {
-        //save error message
-        NSString *errorMessage = NSLocalizedString(@"Wrong response code", nil);
-        
-        //check for error from response
-        NSString *responseErrorMessage = [DDTools errorMessageFromResponseData:response.body];
-        if (responseErrorMessage)
-            errorMessage = responseErrorMessage;
-        
-        //create error
-        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
-
-        //handle error
-        [self request:request didFailLoadWithError:error];
-    }
+    
 }
 
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
+- (void)createUserDidFailedWithError:(NSError*)error
 {
-    //hide hud
+    //hide hude
     [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-- (void)requestDidCancelLoad:(RKRequest *)request
-{
-    //hide hud
-    [self hideHud:YES];
-}
-
-- (void)requestDidTimeout:(RKRequest *)request
-{
-    //hide hud
-    [self hideHud:YES];
 }
 
 @end

@@ -13,8 +13,13 @@
 
 @protocol DDAPIControllerDelegate <NSObject>
 
+@optional
+
 - (void)getMeDidSucceed:(DDUser*)me;
 - (void)getMeDidFailedWithError:(NSError*)error;
+
+- (void)createUserSucceed;
+- (void)createUserDidFailedWithError:(NSError*)error;
 
 @end
 
