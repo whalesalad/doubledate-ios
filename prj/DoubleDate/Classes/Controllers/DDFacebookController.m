@@ -36,9 +36,29 @@ static DDFacebookController *_sharedInstance = nil;
 
 - (void)login
 {
+    //logout first
     [self logout];
+    
+    //unset flag
     __block BOOL alreadyLoggedIn = NO;
-    [FBSession openActiveSessionWithPermissions:[NSArray arrayWithObjects:@"email", @"user_birthday", @"user_location", nil]
+
+    //save permissions
+    NSMutableArray *permissions = [NSMutableArray array];
+    [permissions addObject:@"email"];
+    [permissions addObject:@"user_about_me"];
+    [permissions addObject:@"user_status"];
+    [permissions addObject:@"user_activities"];
+    [permissions addObject:@"user_birthday"];
+    [permissions addObject:@"user_interests"];
+    [permissions addObject:@"user_location"];
+    [permissions addObject:@"user_photos"];
+    [permissions addObject:@"user_relationships"];
+    [permissions addObject:@"user_relationship_details"];
+    [permissions addObject:@"friends_status"];
+    [permissions addObject:@"friends_location"];
+
+    //open session
+    [FBSession openActiveSessionWithPermissions:permissions
                                    allowLoginUI:YES
                               completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
                                   if (!error)
