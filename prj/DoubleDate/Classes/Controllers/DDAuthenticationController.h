@@ -31,5 +31,6 @@ extern NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKe
 + (NSString*)userId;
 
 + (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken;
++ (void)authenticateWithEmail:(NSString*)email password:(NSString*)password;
 
 @end

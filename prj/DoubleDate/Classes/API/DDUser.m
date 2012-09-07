@@ -14,14 +14,17 @@
 @synthesize bio;
 @synthesize lastName;
 @synthesize userId;
-@synthesize facebookId;
 @synthesize gender;
-@synthesize email;
 @synthesize age;
 @synthesize photo;
 @synthesize firstName;
 @synthesize interestedIn;
 @synthesize single;
+
+@synthesize facebookId;
+
+@synthesize email;
+@synthesize password;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -29,8 +32,6 @@
     {
             self.bio = [DDAPIObject stringForObject:[dictionary objectForKey:@"bio"]];
             self.birthday = [DDAPIObject stringForObject:[dictionary objectForKey:@"birthday"]];
-            self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
-            self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
             self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
             self.gender = [DDAPIObject stringForObject:[dictionary objectForKey:@"gender"]];
             self.userId = [DDAPIObject stringForObject:[dictionary objectForKey:@"id"]];
@@ -39,6 +40,9 @@
             self.single = [DDAPIObject stringForObject:[dictionary objectForKey:@"single"]];
             self.age = [DDAPIObject stringForObject:[dictionary objectForKey:@"age"]];
             self.photo = [DDAPIObject stringForObject:[dictionary objectForKey:@"photo"]];
+            self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
+            self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
+            self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
     }
     return self;
 }
@@ -49,14 +53,15 @@
     [bio release];
     [lastName release];
     [userId release];
-    [facebookId release];
     [gender release];
-    [email release];
     [age release];
     [photo release];
     [firstName release];
     [interestedIn release];
     [single release];
+    [facebookId release];
+    [email release];
+    [password release];
     [super dealloc];
 }
 

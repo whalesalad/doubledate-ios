@@ -155,6 +155,12 @@
 {
     //save joining flag
     joining_ = NO;
+    
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //login with email and address
+    [DDAuthenticationController authenticateWithEmail:@"test_email@belluba.com" password:@"test"];
 }
 
 #pragma mark -

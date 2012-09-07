@@ -23,7 +23,7 @@ NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey = @"D
 @property(nonatomic, retain) NSString *userId;
 @property(nonatomic, retain) NSString *token;
 
-- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken;
+- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password;
 
 @end
 
@@ -53,15 +53,28 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 + (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken
 {
-    [[DDAuthenticationController sharedController] authenticateWithFbId:fbId fbToken:fbToken];
+    [[DDAuthenticationController sharedController] authenticateWithFbId:fbId fbToken:fbToken email:nil password:nil];
 }
 
-- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken
++ (void)authenticateWithEmail:(NSString*)email password:(NSString*)password
+{
+    [[DDAuthenticationController sharedController] authenticateWithFbId:nil fbToken:nil email:email password:password];
+}
+
+- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password
 {
     //create parameters
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:fbId forKey:@"facebook_id"];
-    [dictionary setObject:fbToken forKey:@"access_token"];
+    if (fbId)
+    {
+        [dictionary setObject:fbId forKey:@"facebook_id"];
+        [dictionary setObject:fbToken forKey:@"facebook_access_token"];
+    }
+    else if (email)
+    {
+        [dictionary setObject:email forKey:@"email"];
+        [dictionary setObject:password forKey:@"password"];
+    }
     
     //create request
     NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"authenticate"];

@@ -56,6 +56,11 @@
     [hud hide:animated];
 }
 
+- (BOOL)isHudExist
+{
+    return [MBProgressHUD HUDForView:[self viewForHud]] != nil;
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     //show view after appearing

@@ -74,6 +74,11 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
         [userDictionary setObject:user.facebookId forKey:@"facebook_id"];
         [userDictionary setObject:[DDFacebookController token] forKey:@"facebook_access_token"];
     }
+    else if (user.email)
+    {
+        [userDictionary setObject:user.email forKey:@"email"];
+        [userDictionary setObject:user.password forKey:@"password"];
+    }
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:userDictionary forKey:@"user"];
     
     //create request
@@ -96,7 +101,7 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
     //check response code
-    if (response.statusCode == 200 || response.statusCode == 201)
+    if (response.statusCode == 201)
     {
         //check method
         if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])

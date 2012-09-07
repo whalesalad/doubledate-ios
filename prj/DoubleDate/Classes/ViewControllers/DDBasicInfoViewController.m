@@ -219,6 +219,11 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     //check for facebook
     if (user)
         newUser.facebookId = [user id];
+    else
+    {
+        newUser.email = @"test_email@belluba.com";
+        newUser.password = @"test";
+    }
     
     //add user
     [controller_ createUser:newUser];
