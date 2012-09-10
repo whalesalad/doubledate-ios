@@ -63,11 +63,11 @@
 - (void)nextTouched:(id)sender
 {
     //save bio
-    user.bio = self.textViewBio.text;
+    self.user.bio = self.textViewBio.text;
     
     //go next
     DDInterestsViewController *viewController = [[[DDInterestsViewController alloc] init] autorelease];
-    viewController.user = user;
+    viewController.user = self.user;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

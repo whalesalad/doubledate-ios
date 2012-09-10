@@ -11,7 +11,6 @@
 @implementation DDUser
 
 @synthesize birthday;
-@synthesize bio;
 @synthesize lastName;
 @synthesize userId;
 @synthesize gender;
@@ -20,6 +19,10 @@
 @synthesize firstName;
 @synthesize interestedIn;
 @synthesize single;
+
+@synthesize bio;
+
+@synthesize interests;
 
 @synthesize facebookId;
 
@@ -50,7 +53,6 @@
 - (void)dealloc
 {
     [birthday release];
-    [bio release];
     [lastName release];
     [userId release];
     [gender release];
@@ -59,6 +61,8 @@
     [firstName release];
     [interestedIn release];
     [single release];
+    [bio release];
+    [interests release];
     [facebookId release];
     [email release];
     [password release];

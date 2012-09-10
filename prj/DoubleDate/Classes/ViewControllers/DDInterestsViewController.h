@@ -10,8 +10,12 @@
 #import "JSTokenField.h"
 
 @class DDUser;
+@class DDAPIController;
 
 @interface DDInterestsViewController : DDViewController
+{
+    DDAPIController *controller_;
+}
 
 @property(nonatomic, retain) DDUser *user;
 

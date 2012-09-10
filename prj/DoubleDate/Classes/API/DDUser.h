@@ -13,7 +13,6 @@
 }
 
 @property(nonatomic, retain) NSString *birthday;
-@property(nonatomic, retain) NSString *bio;
 @property(nonatomic, retain) NSString *lastName;
 @property(nonatomic, retain) NSString *userId;
 @property(nonatomic, retain) NSString *gender;
@@ -22,6 +21,10 @@
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *interestedIn;
 @property(nonatomic, retain) NSString *single;
+
+@property(nonatomic, retain) NSString *bio;
+
+@property(nonatomic, retain) NSString *interests;
 
 @property(nonatomic, retain) NSString *facebookId;
 
