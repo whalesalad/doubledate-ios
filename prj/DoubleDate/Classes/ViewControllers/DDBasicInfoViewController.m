@@ -50,6 +50,9 @@
     //add right button
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(nextTouched:)] autorelease];
     
+    //check for modal view
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+    
     //check if user exist
     if (facebookUser)
     {
@@ -174,6 +177,11 @@
     DDBioViewController *viewController = [[[DDBioViewController alloc] init] autorelease];
     viewController.user = newUser;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)cancelTouched:(id)sender
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

@@ -9,6 +9,7 @@
 #import "DDViewController.h"
 
 @class DDAPIController;
+@class DDUser;
 
 @interface DDWelcomeViewController : DDViewController
 {
@@ -18,5 +19,7 @@
 
 - (IBAction)signupTouched:(id)sender;
 - (IBAction)loginTouched:(id)sender;
+
+- (void)startWithUser:(DDUser*)user;
 
 @end

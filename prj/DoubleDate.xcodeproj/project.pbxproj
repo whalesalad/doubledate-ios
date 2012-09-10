@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
+		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
 		960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CE15F7371C00BA9EB0 /* Foundation.framework */; };
 		960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02D015F7371C00BA9EB0 /* CoreGraphics.framework */; };
@@ -110,6 +112,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
+		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
+		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
 		960A02C815F7371C00BA9EB0 /* DoubleDate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubleDate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960A02CC15F7371C00BA9EB0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		960A02CE15F7371C00BA9EB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -337,6 +342,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				70C0834F15FE9314000A7E8C /* DDLoginViewController.h */,
+				70C0835015FE9314000A7E8C /* DDLoginViewController.m */,
 				960C846215FDFD9400EAF708 /* DDInterestsViewController.h */,
 				960C846315FDFD9400EAF708 /* DDInterestsViewController.m */,
 				960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */,
@@ -361,6 +368,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70C0835215FE9338000A7E8C /* DDLoginViewController.xib */,
 				960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */,
 				960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */,
 				964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */,
@@ -549,6 +557,7 @@
 				960C845315FDF60200EAF708 /* tokenNormal.png in Resources */,
 				960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */,
 				960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */,
+				70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +585,7 @@
 				960C844F15FDF60200EAF708 /* JSTokenButton.m in Sources */,
 				960C845015FDF60200EAF708 /* JSTokenField.m in Sources */,
 				960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */,
+				70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

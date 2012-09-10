@@ -21,6 +21,7 @@ extern NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification;
 extern NSString *DDAuthenticationControllerAuthenticateDidFailedNotification;
 extern NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey;
 extern NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey;
+extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
 
 @interface DDAuthenticationController : NSObject
 {
@@ -30,7 +31,7 @@ extern NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKe
 + (NSString*)token;
 + (NSString*)userId;
 
-+ (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken;
-+ (void)authenticateWithEmail:(NSString*)email password:(NSString*)password;
++ (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken delegate:(id)delegate;
++ (void)authenticateWithEmail:(NSString*)email password:(NSString*)password delegate:(id)delegate;
 
 @end

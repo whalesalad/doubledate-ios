@@ -19,5 +19,6 @@
 - (void)showHudWithText:(NSString*)text animated:(BOOL)animated;
 - (void)hideHud:(BOOL)animated;
 - (BOOL)isHudExist;
+- (UIView*)viewForHud;
 
 @end

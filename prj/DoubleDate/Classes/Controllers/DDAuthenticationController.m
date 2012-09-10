@@ -17,13 +17,14 @@ NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAut
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey";
+NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthenticationControllerAuthenticateUserInfoDelegateKey";
 
 @interface DDAuthenticationController ()<RKRequestDelegate>
 
 @property(nonatomic, retain) NSString *userId;
 @property(nonatomic, retain) NSString *token;
 
-- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password;
+- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate;
 
 @end
 
@@ -51,17 +52,17 @@ static DDAuthenticationController *_sharedInstance = nil;
     return [[DDAuthenticationController sharedController] userId];
 }
 
-+ (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken
++ (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken delegate:(id)delegate
 {
-    [[DDAuthenticationController sharedController] authenticateWithFbId:fbId fbToken:fbToken email:nil password:nil];
+    [[DDAuthenticationController sharedController] authenticateWithFbId:fbId fbToken:fbToken email:nil password:nil delegate:delegate];
 }
 
-+ (void)authenticateWithEmail:(NSString*)email password:(NSString*)password
++ (void)authenticateWithEmail:(NSString*)email password:(NSString*)password delegate:(id)delegate
 {
-    [[DDAuthenticationController sharedController] authenticateWithFbId:nil fbToken:nil email:email password:password];
+    [[DDAuthenticationController sharedController] authenticateWithFbId:nil fbToken:nil email:email password:password delegate:delegate];
 }
 
-- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password
+- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate
 {
     //create parameters
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
@@ -84,6 +85,7 @@ static DDAuthenticationController *_sharedInstance = nil;
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
     NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    request.userData = delegate;
     
     //send request
     [controller_ startRequest:request];
@@ -122,8 +124,13 @@ static DDAuthenticationController *_sharedInstance = nil;
         [[DDAuthenticationController sharedController] setUserId:[dictionary objectForKey:@"user_id"]];
         [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
         
+        //set delegate
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+        if (request.userData)
+            [userInfo setObject:request.userData forKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey];
+        
         //post notification
-        [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidSucceesNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidSucceesNotification object:self userInfo:userInfo];
     }
     else
     {
@@ -147,6 +154,8 @@ static DDAuthenticationController *_sharedInstance = nil;
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:[NSNumber numberWithInt:DDAuthenticationControllerAuthenticateDidFailedError] forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey];
     [userInfo setObject:error forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
+    if (request.userData)
+        [userInfo setObject:request.userData forKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey];
     
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidFailedNotification object:self userInfo:userInfo];
@@ -157,6 +166,8 @@ static DDAuthenticationController *_sharedInstance = nil;
     //set user info
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:[NSNumber numberWithInt:DDAuthenticationControllerAuthenticateDidFailedCancel] forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey];
+    if (request.userData)
+        [userInfo setObject:request.userData forKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey];
     
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidFailedNotification object:self userInfo:userInfo];
@@ -167,6 +178,8 @@ static DDAuthenticationController *_sharedInstance = nil;
     //set user info
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:[NSNumber numberWithInt:DDAuthenticationControllerAuthenticateDidFailedCancel] forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey];
+    if (request.userData)
+        [userInfo setObject:request.userData forKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey];
     
     //post notification
     [[NSNotificationCenter defaultCenter] postNotificationName:DDAuthenticationControllerAuthenticateDidFailedNotification object:self userInfo:userInfo];

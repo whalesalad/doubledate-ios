@@ -44,6 +44,9 @@
         [[self viewForHud] addSubview:hud];
         [hud show:animated];
     }
+    
+    //bring to parent
+    [hud.superview bringSubviewToFront:hud];
 }
 
 - (void)hideHud:(BOOL)animated

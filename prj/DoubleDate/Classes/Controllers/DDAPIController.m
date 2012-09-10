@@ -101,7 +101,7 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
     //check response code
-    if (response.statusCode == 201)
+    if (response.statusCode == 201 || response.statusCode == 200)
     {
         //check method
         if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
