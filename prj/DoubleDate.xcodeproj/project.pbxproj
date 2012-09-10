@@ -13,6 +13,12 @@
 		960A02D915F7371D00BA9EB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 960A02D815F7371D00BA9EB0 /* main.m */; };
 		960C7E8C15FDD98400EAF708 /* DDBioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */; };
 		960C7E8F15FDD98E00EAF708 /* DDBioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */; };
+		960C844F15FDF60200EAF708 /* JSTokenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C844815FDF60200EAF708 /* JSTokenButton.m */; };
+		960C845015FDF60200EAF708 /* JSTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C844A15FDF60200EAF708 /* JSTokenField.m */; };
+		960C845115FDF60200EAF708 /* tokenHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844B15FDF60200EAF708 /* tokenHighlighted.png */; };
+		960C845215FDF60200EAF708 /* tokenHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844C15FDF60200EAF708 /* tokenHighlighted@2x.png */; };
+		960C845315FDF60200EAF708 /* tokenNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844D15FDF60200EAF708 /* tokenNormal.png */; };
+		960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844E15FDF60200EAF708 /* tokenNormal@2x.png */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -112,6 +118,14 @@
 		960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBioViewController.xib; sourceTree = "<group>"; };
 		960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBioViewController.h; sourceTree = "<group>"; };
 		960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBioViewController.m; sourceTree = "<group>"; };
+		960C844715FDF60200EAF708 /* JSTokenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTokenButton.h; sourceTree = "<group>"; };
+		960C844815FDF60200EAF708 /* JSTokenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTokenButton.m; sourceTree = "<group>"; };
+		960C844915FDF60200EAF708 /* JSTokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSTokenField.h; sourceTree = "<group>"; };
+		960C844A15FDF60200EAF708 /* JSTokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTokenField.m; sourceTree = "<group>"; };
+		960C844B15FDF60200EAF708 /* tokenHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tokenHighlighted.png; sourceTree = "<group>"; };
+		960C844C15FDF60200EAF708 /* tokenHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tokenHighlighted@2x.png"; sourceTree = "<group>"; };
+		960C844D15FDF60200EAF708 /* tokenNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tokenNormal.png; sourceTree = "<group>"; };
+		960C844E15FDF60200EAF708 /* tokenNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tokenNormal@2x.png"; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -218,6 +232,21 @@
 				960A02DA15F7371D00BA9EB0 /* DoubleDate-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		960C844615FDF60200EAF708 /* JSTokenField */ = {
+			isa = PBXGroup;
+			children = (
+				960C844715FDF60200EAF708 /* JSTokenButton.h */,
+				960C844815FDF60200EAF708 /* JSTokenButton.m */,
+				960C844915FDF60200EAF708 /* JSTokenField.h */,
+				960C844A15FDF60200EAF708 /* JSTokenField.m */,
+				960C844B15FDF60200EAF708 /* tokenHighlighted.png */,
+				960C844C15FDF60200EAF708 /* tokenHighlighted@2x.png */,
+				960C844D15FDF60200EAF708 /* tokenNormal.png */,
+				960C844E15FDF60200EAF708 /* tokenNormal@2x.png */,
+			);
+			path = JSTokenField;
 			sourceTree = "<group>";
 		};
 		964A6E7C15F808AF0077AAF1 /* RestKit */ = {
@@ -335,6 +364,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				960C844615FDF60200EAF708 /* JSTokenField */,
 				964A6EE215F893DC0077AAF1 /* SBJson */,
 				964A6E7C15F808AF0077AAF1 /* RestKit */,
 				96E7F1DD15F780B400200E1F /* MBProgressHUD */,
@@ -506,6 +536,10 @@
 				96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */,
 				964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */,
 				960C7E8C15FDD98400EAF708 /* DDBioViewController.xib in Resources */,
+				960C845115FDF60200EAF708 /* tokenHighlighted.png in Resources */,
+				960C845215FDF60200EAF708 /* tokenHighlighted@2x.png in Resources */,
+				960C845315FDF60200EAF708 /* tokenNormal.png in Resources */,
+				960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +564,8 @@
 				964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */,
 				964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */,
 				960C7E8F15FDD98E00EAF708 /* DDBioViewController.m in Sources */,
+				960C844F15FDF60200EAF708 /* JSTokenButton.m in Sources */,
+				960C845015FDF60200EAF708 /* JSTokenField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

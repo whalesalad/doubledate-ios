@@ -16,21 +16,20 @@
 #import "DDUser.h"
 #import "DDBioViewController.h"
 
-@interface DDBasicInfoViewController ()
+@interface DDBasicInfoViewController ()<UITextFieldDelegate>
 
 @end
 
 @implementation DDBasicInfoViewController
 
 @synthesize facebookUser;
-@synthesize fbBonusView;
-@synthesize mainView;
 @synthesize textFieldName;
 @synthesize textFieldSurname;
 @synthesize textFieldBirth;
 @synthesize segmentedControlMale;
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
+@synthesize viewLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,11 +84,6 @@
         //apply main view
         self.viewAfterAppearing = viewToAdd;
     }
-    else
-    {
-        //move main view
-        mainView.frame = CGRectMake(mainView.frame.origin.x, mainView.frame.origin.y - fbBonusView.frame.size.height, mainView.frame.size.width, mainView.frame.size.height);
-    }
     
     //check if user exist
     if (facebookUser)
@@ -128,19 +122,24 @@
         //save single status
         segmentedControlSingle.selectedSegmentIndex = -1;
     }
+    
+    //set delegates
+    textFieldName.delegate = self;
+    textFieldSurname.delegate = self;
+    textFieldBirth.delegate = self;
+    viewLocation.textField.delegate = self;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [fbBonusView release], fbBonusView = nil;
-    [mainView release], mainView = nil;
     [textFieldName release], textFieldName = nil;
     [textFieldSurname release], textFieldSurname = nil;
     [textFieldBirth release], textFieldBirth = nil;
     [segmentedControlMale release], segmentedControlMale = nil;
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
+    [viewLocation release], viewLocation = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -162,14 +161,13 @@
 - (void)dealloc
 {
     [facebookUser release];
-    [fbBonusView release];
-    [mainView release];
     [textFieldName release];
     [textFieldSurname release];
     [textFieldBirth release];
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
+    [viewLocation release];
     [super dealloc];
 }
 
@@ -220,6 +218,24 @@
     DDBioViewController *viewController = [[[DDBioViewController alloc] init] autorelease];
     viewController.user = newUser;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+#pragma mark -
+#pragma comment UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.viewLocation.textField)
+    {
+        for (NSString *text in [textField.text componentsSeparatedByString:@" "])
+            [self.viewLocation addTokenWithTitle:text representedObject:nil];
+    }
 }
 
 @end

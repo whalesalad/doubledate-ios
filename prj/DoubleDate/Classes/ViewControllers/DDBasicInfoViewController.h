@@ -7,6 +7,7 @@
 //
 
 #import "DDViewController.h"
+#import "JSTokenField.h"
 
 @protocol FBGraphUser;
 
@@ -16,9 +17,6 @@
 
 @property(nonatomic, retain) id<FBGraphUser> facebookUser;
 
-@property(nonatomic, retain) IBOutlet UIView *fbBonusView;
-@property(nonatomic, retain) IBOutlet UIScrollView *mainView;
-
 @property(nonatomic, retain) IBOutlet UITextField *textFieldName;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldSurname;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldBirth;
@@ -26,6 +24,8 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlMale;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlLike;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
+
+@property(nonatomic, retain) IBOutlet JSTokenField *viewLocation;
 
 
 @end
