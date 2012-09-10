@@ -29,7 +29,7 @@
 @synthesize segmentedControlMale;
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
-@synthesize viewLocation;
+@synthesize tokenFieldLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,41 +49,6 @@
     
     //add right button
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(nextTouched:)] autorelease];
-    
-    //check for facebook user
-    if (facebookUser)
-    {
-        //save main window
-        UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
-        
-        //create main view
-        UIView *viewToAdd = [[[UIView alloc] initWithFrame:[window bounds]] autorelease];
-        viewToAdd.hidden = YES;
-        [window addSubview:viewToAdd];
-        
-        //add dim
-        UIView *dim = [[[UIView alloc] initWithFrame:viewToAdd.bounds] autorelease];
-        dim.alpha = 0.3f;
-        dim.backgroundColor = [UIColor blackColor];
-        [viewToAdd addSubview:dim];
-        
-        //add image
-        UIView *image = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)] autorelease];
-        image.backgroundColor = [UIColor greenColor];
-        image.center = dim.center;
-        [viewToAdd addSubview:image];
-        
-        //add button
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(0, 0, 60, 30);
-        button.center = CGPointMake(dim.center.x, dim.center.y + 30);
-        [button setTitle:NSLocalizedString(@"Continue", nil) forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(continueTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [viewToAdd addSubview:button];
-        
-        //apply main view
-        self.viewAfterAppearing = viewToAdd;
-    }
     
     //check if user exist
     if (facebookUser)
@@ -127,7 +92,7 @@
     textFieldName.delegate = self;
     textFieldSurname.delegate = self;
     textFieldBirth.delegate = self;
-    viewLocation.textField.delegate = self;
+    tokenFieldLocation.textField.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -139,7 +104,7 @@
     [segmentedControlMale release], segmentedControlMale = nil;
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
-    [viewLocation release], viewLocation = nil;
+    [tokenFieldLocation release], tokenFieldLocation = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -167,43 +132,34 @@
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
-    [viewLocation release];
+    [tokenFieldLocation release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma comment other
 
-- (void)continueTouched:(id)sender
-{
-    [self.viewAfterAppearing removeFromSuperview];
-    self.viewAfterAppearing = nil;
-}
-
 - (void)nextTouched:(id)sender
 {
-    //save dictionary
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    [dictionary setObject:textFieldName.text forKey:@"first_name"];
-    [dictionary setObject:textFieldSurname.text forKey:@"last_name"];
-    [dictionary setObject:textFieldBirth.text forKey:@"birthday"];
+    //fill user data
+    DDUser *newUser = [[[DDUser alloc] init] autorelease];
+    newUser.firstName = textFieldName.text;
+    newUser.lastName = textFieldSurname.text;
+    newUser.birthday = textFieldBirth.text;
     if (segmentedControlSingle.selectedSegmentIndex == 0)
-        [dictionary setObject:@"true" forKey:@"signle"];
+        newUser.single = @"true";
     else if (segmentedControlSingle.selectedSegmentIndex == 1)
-        [dictionary setObject:@"false" forKey:@"signle"];
+        newUser.single = @"false";
     if (segmentedControlLike.selectedSegmentIndex == 0)
-        [dictionary setObject:@"guys" forKey:@"interested_in"];
+        newUser.interestedIn = @"guys";
     else if (segmentedControlLike.selectedSegmentIndex == 1)
-        [dictionary setObject:@"girls" forKey:@"interested_in"];
+        newUser.interestedIn = @"girls";
     else if (segmentedControlLike.selectedSegmentIndex == 2)
-        [dictionary setObject:@"both" forKey:@"interested_in"];
+        newUser.interestedIn = @"both";
     if (segmentedControlMale.selectedSegmentIndex == 0)
-        [dictionary setObject:@"male" forKey:@"gender"];
+        newUser.gender = @"male";
     else if (segmentedControlMale.selectedSegmentIndex == 1)
-        [dictionary setObject:@"female" forKey:@"gender"];
-    
-    //save new user
-    DDUser *newUser = [[[DDUser alloc] initWithDictionary:dictionary] autorelease];
+        newUser.gender = @"female";
     
     //check for facebook
     if (facebookUser)
@@ -231,10 +187,10 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (textField == self.viewLocation.textField)
+    if (textField == self.tokenFieldLocation.textField)
     {
         for (NSString *text in [textField.text componentsSeparatedByString:@" "])
-            [self.viewLocation addTokenWithTitle:text representedObject:nil];
+            [self.tokenFieldLocation addTokenWithTitle:text representedObject:nil];
     }
 }
 

@@ -1,23 +1,22 @@
 //
-//  DDBioViewController.m
+//  DDInterestsViewController.m
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/10/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDBioViewController.h"
-#import "DDUser.h"
 #import "DDInterestsViewController.h"
+#import "DDUser.h"
 
-@interface DDBioViewController ()
+@interface DDInterestsViewController ()
 
 @end
 
-@implementation DDBioViewController
+@implementation DDInterestsViewController
 
 @synthesize user;
-@synthesize textViewBio;
+@synthesize tokenFieldInterests;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,16 +32,19 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Your Bio", nil);
+    self.navigationItem.title = NSLocalizedString(@"Your Interests", nil);
     
     //add right button
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(nextTouched:)] autorelease];
+    
+    //add token title
+    tokenFieldInterests.label.text = NSLocalizedString(@"Interests:", nil);
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [textViewBio release], textViewBio = nil;
+    [tokenFieldInterests release], tokenFieldInterests = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -53,7 +55,7 @@
 - (void)dealloc
 {
     [user release];
-    [textViewBio release];
+    [tokenFieldInterests release];
     [super dealloc];
 }
 
@@ -62,13 +64,6 @@
 
 - (void)nextTouched:(id)sender
 {
-    //save bio
-    user.bio = self.textViewBio.text;
-    
-    //go next
-    DDInterestsViewController *viewController = [[[DDInterestsViewController alloc] init] autorelease];
-    viewController.user = user;
-    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

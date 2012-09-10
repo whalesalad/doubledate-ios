@@ -25,7 +25,7 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlLike;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
 
-@property(nonatomic, retain) IBOutlet JSTokenField *viewLocation;
+@property(nonatomic, retain) IBOutlet JSTokenField *tokenFieldLocation;
 
 
 @end

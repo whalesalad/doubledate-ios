@@ -160,18 +160,18 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Label</string>
-						<object class="NSColor" key="IBUITextColor" id="1058589604">
+						<object class="NSColor" key="IBUITextColor" id="1019085596">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="729383457">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="52469700">
 							<int key="type">1</int>
 							<double key="pointSize">17</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="875010982">
+						<object class="NSFont" key="IBUIFont" id="980111860">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">17</double>
 							<int key="NSfFlags">16</int>
@@ -254,7 +254,7 @@
 						<string key="NSFrame">{{20, 273}, {280, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="853744296"/>
+						<reference key="NSNextKeyView" ref="188061952"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -281,13 +281,13 @@
 							<reference ref="4"/>
 						</array>
 					</object>
-					<object class="IBUILabel" id="853744296">
+					<object class="IBUILabel" id="188061952">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 324}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="637611741"/>
+						<reference key="NSNextKeyView" ref="876630738"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -295,20 +295,19 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<string key="IBUIText">Label</string>
-						<reference key="IBUITextColor" ref="1058589604"/>
+						<reference key="IBUITextColor" ref="1019085596"/>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
 						<float key="IBUIMinimumFontSize">10</float>
-						<reference key="IBUIFontDescription" ref="729383457"/>
-						<reference key="IBUIFont" ref="875010982"/>
+						<reference key="IBUIFontDescription" ref="52469700"/>
+						<reference key="IBUIFont" ref="980111860"/>
 					</object>
-					<object class="IBUIView" id="637611741">
+					<object class="IBUIView" id="876630738">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 353}, {280, 43}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -394,11 +393,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">viewLocation</string>
+						<string key="label">tokenFieldLocation</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="637611741"/>
+						<reference key="destination" ref="876630738"/>
 					</object>
-					<int key="connectionID">41</int>
+					<int key="connectionID">42</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -421,8 +420,8 @@
 							<reference ref="817239621"/>
 							<reference ref="779359395"/>
 							<reference ref="67019918"/>
-							<reference ref="853744296"/>
-							<reference ref="637611741"/>
+							<reference ref="188061952"/>
+							<reference ref="876630738"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -479,12 +478,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">39</int>
-						<reference key="object" ref="853744296"/>
+						<reference key="object" ref="188061952"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">40</int>
-						<reference key="object" ref="637611741"/>
+						<reference key="object" ref="876630738"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -514,7 +513,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">41</int>
+			<int key="maxID">42</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -522,25 +521,15 @@
 					<string key="className">DDBasicInfoViewController</string>
 					<string key="superclassName">DDViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="fbBonusView">UIView</string>
-						<string key="mainView">UIScrollView</string>
 						<string key="segmentedControlLike">UISegmentedControl</string>
 						<string key="segmentedControlMale">UISegmentedControl</string>
 						<string key="segmentedControlSingle">UISegmentedControl</string>
 						<string key="textFieldBirth">UITextField</string>
 						<string key="textFieldName">UITextField</string>
 						<string key="textFieldSurname">UITextField</string>
-						<string key="viewLocation">JSTokenField</string>
+						<string key="tokenFieldLocation">JSTokenField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="fbBonusView">
-							<string key="name">fbBonusView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="mainView">
-							<string key="name">mainView</string>
-							<string key="candidateClassName">UIScrollView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="segmentedControlLike">
 							<string key="name">segmentedControlLike</string>
 							<string key="candidateClassName">UISegmentedControl</string>
@@ -565,8 +554,8 @@
 							<string key="name">textFieldSurname</string>
 							<string key="candidateClassName">UITextField</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="viewLocation">
-							<string key="name">viewLocation</string>
+						<object class="IBToOneOutletInfo" key="tokenFieldLocation">
+							<string key="name">tokenFieldLocation</string>
 							<string key="candidateClassName">JSTokenField</string>
 						</object>
 					</dictionary>

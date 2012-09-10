@@ -19,6 +19,8 @@
 		960C845215FDF60200EAF708 /* tokenHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844C15FDF60200EAF708 /* tokenHighlighted@2x.png */; };
 		960C845315FDF60200EAF708 /* tokenNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844D15FDF60200EAF708 /* tokenNormal.png */; };
 		960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844E15FDF60200EAF708 /* tokenNormal@2x.png */; };
+		960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C846315FDFD9400EAF708 /* DDInterestsViewController.m */; };
+		960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -126,6 +128,9 @@
 		960C844C15FDF60200EAF708 /* tokenHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tokenHighlighted@2x.png"; sourceTree = "<group>"; };
 		960C844D15FDF60200EAF708 /* tokenNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tokenNormal.png; sourceTree = "<group>"; };
 		960C844E15FDF60200EAF708 /* tokenNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tokenNormal@2x.png"; sourceTree = "<group>"; };
+		960C846215FDFD9400EAF708 /* DDInterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterestsViewController.h; sourceTree = "<group>"; };
+		960C846315FDFD9400EAF708 /* DDInterestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterestsViewController.m; sourceTree = "<group>"; };
+		960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInterestsViewController.xib; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -332,6 +337,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				960C846215FDFD9400EAF708 /* DDInterestsViewController.h */,
+				960C846315FDFD9400EAF708 /* DDInterestsViewController.m */,
 				960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */,
 				960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */,
 				964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */,
@@ -354,6 +361,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */,
 				960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */,
 				964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */,
 				96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */,
@@ -540,6 +548,7 @@
 				960C845215FDF60200EAF708 /* tokenHighlighted@2x.png in Resources */,
 				960C845315FDF60200EAF708 /* tokenNormal.png in Resources */,
 				960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */,
+				960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,6 +575,7 @@
 				960C7E8F15FDD98E00EAF708 /* DDBioViewController.m in Sources */,
 				960C844F15FDF60200EAF708 /* JSTokenButton.m in Sources */,
 				960C845015FDF60200EAF708 /* JSTokenField.m in Sources */,
+				960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
