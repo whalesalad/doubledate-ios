@@ -187,7 +187,7 @@
 - (void)fbDidGetMe:(NSNotification*)notification
 {
     //extract user information from facebook
-    id<FBGraphUser> user = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
+    id<FBGraphUser> facebookUser = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
     
     //check if joining
     if (joining_)
@@ -197,7 +197,7 @@
         
         //go to next view controller
         DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
-        viewController.user = user;
+        viewController.facebookUser = facebookUser;
         [self.navigationController pushViewController:viewController animated:YES];
     }
     else
@@ -206,7 +206,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
         
         //request me
-        [DDAuthenticationController authenticateWithFbId:[user id] fbToken:[DDFacebookController token]];
+        [DDAuthenticationController authenticateWithFbId:[facebookUser id] fbToken:[DDFacebookController token]];
     }
 }
 

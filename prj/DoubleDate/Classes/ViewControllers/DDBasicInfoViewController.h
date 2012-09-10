@@ -8,15 +8,13 @@
 
 #import "DDViewController.h"
 
-@class DDAPIController;
 @protocol FBGraphUser;
 
 @interface DDBasicInfoViewController : DDViewController
 {
-    DDAPIController *controller_;
 }
 
-@property(nonatomic, retain) id<FBGraphUser> user;
+@property(nonatomic, retain) id<FBGraphUser> facebookUser;
 
 @property(nonatomic, retain) IBOutlet UIView *fbBonusView;
 @property(nonatomic, retain) IBOutlet UIScrollView *mainView;

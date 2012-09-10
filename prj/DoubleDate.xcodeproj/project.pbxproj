@@ -11,6 +11,8 @@
 		960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CE15F7371C00BA9EB0 /* Foundation.framework */; };
 		960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02D015F7371C00BA9EB0 /* CoreGraphics.framework */; };
 		960A02D915F7371D00BA9EB0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 960A02D815F7371D00BA9EB0 /* main.m */; };
+		960C7E8C15FDD98400EAF708 /* DDBioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */; };
+		960C7E8F15FDD98E00EAF708 /* DDBioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -107,6 +109,9 @@
 		960A02D415F7371D00BA9EB0 /* DoubleDate-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DoubleDate-Info.plist"; sourceTree = "<group>"; };
 		960A02D815F7371D00BA9EB0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		960A02DA15F7371D00BA9EB0 /* DoubleDate-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DoubleDate-Prefix.pch"; sourceTree = "<group>"; };
+		960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBioViewController.xib; sourceTree = "<group>"; };
+		960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBioViewController.h; sourceTree = "<group>"; };
+		960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBioViewController.m; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -298,6 +303,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */,
+				960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */,
 				964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */,
 				964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */,
 				96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */,
@@ -318,6 +325,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */,
 				964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */,
 				96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */,
 			);
@@ -497,6 +505,7 @@
 			files = (
 				96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */,
 				964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */,
+				960C7E8C15FDD98400EAF708 /* DDBioViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +529,7 @@
 				964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */,
 				964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */,
 				964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */,
+				960C7E8F15FDD98E00EAF708 /* DDBioViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

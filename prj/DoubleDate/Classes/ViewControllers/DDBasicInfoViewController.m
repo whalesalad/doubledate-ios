@@ -14,17 +14,15 @@
 #import "DDTools.h"
 #import "DDFacebookController.h"
 #import "DDUser.h"
-#import "DDAPIController.h"
+#import "DDBioViewController.h"
 
-NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAuthorizeKey";
-
-@interface DDBasicInfoViewController ()<DDAPIControllerDelegate>
+@interface DDBasicInfoViewController ()
 
 @end
 
 @implementation DDBasicInfoViewController
 
-@synthesize user;
+@synthesize facebookUser;
 @synthesize fbBonusView;
 @synthesize mainView;
 @synthesize textFieldName;
@@ -39,8 +37,6 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        controller_ = [[DDAPIController alloc] init];
-        controller_.delegate = self;
     }
     return self;
 }
@@ -56,7 +52,7 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(nextTouched:)] autorelease];
     
     //check for facebook user
-    if (user)
+    if (facebookUser)
     {
         //save main window
         UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
@@ -96,21 +92,21 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     }
     
     //check if user exist
-    if (user)
+    if (facebookUser)
     {
         //set name
-        textFieldName.text = [user first_name];
+        textFieldName.text = [facebookUser first_name];
         
         //set surname
-        textFieldSurname.text = [user last_name];
+        textFieldSurname.text = [facebookUser last_name];
         
         //set birthday
-        if ([user birthday])
+        if ([facebookUser birthday])
         {
             //get date
             NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
             [dateFormat setDateFormat:@"MM/dd/yyyy"];
-            NSString *dateString = [user birthday];
+            NSString *dateString = [facebookUser birthday];
             NSDate *date = [dateFormat dateFromString:dateString];
 
             //set date
@@ -119,9 +115,9 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
         }
         
         //set gender
-        if ([[user objectForKey:@"gender"] isEqualToString:@"male"])
+        if ([[facebookUser objectForKey:@"gender"] isEqualToString:@"male"])
             segmentedControlMale.selectedSegmentIndex = 0;
-        else if ([[user objectForKey:@"gender"] isEqualToString:@"female"])
+        else if ([[facebookUser objectForKey:@"gender"] isEqualToString:@"female"])
             segmentedControlMale.selectedSegmentIndex = 1;
         else
             segmentedControlMale.selectedSegmentIndex = -1;
@@ -165,7 +161,7 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
 
 - (void)dealloc
 {
-    [user release];
+    [facebookUser release];
     [fbBonusView release];
     [mainView release];
     [textFieldName release];
@@ -174,8 +170,6 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
-    controller_.delegate = nil;
-    [controller_ release];
     [super dealloc];
 }
 
@@ -190,9 +184,6 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
 
 - (void)nextTouched:(id)sender
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
-    
     //save dictionary
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [dictionary setObject:textFieldName.text forKey:@"first_name"];
@@ -217,33 +208,18 @@ NSString *DDBasicInfoViewControllerAuthorizeKey = @"DDBasicInfoViewControllerAut
     DDUser *newUser = [[[DDUser alloc] initWithDictionary:dictionary] autorelease];
     
     //check for facebook
-    if (user)
-        newUser.facebookId = [user id];
+    if (facebookUser)
+        newUser.facebookId = [facebookUser id];
     else
     {
         newUser.email = @"test_email@belluba.com";
         newUser.password = @"test";
     }
     
-    //add user
-    [controller_ createUser:newUser];
-}
-
-#pragma mark -
-#pragma mark DDAPIController
-
-- (void)createUserSucceed
-{
-    
-}
-
-- (void)createUserDidFailedWithError:(NSError*)error
-{
-    //hide hude
-    [self hideHud:YES];
-    
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    //go next
+    DDBioViewController *viewController = [[[DDBioViewController alloc] init] autorelease];
+    viewController.user = newUser;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end
