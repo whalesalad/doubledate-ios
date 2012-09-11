@@ -75,17 +75,20 @@
 - (void)nextTouched:(id)sender
 {
     //add interests
-    NSMutableString *interests = [NSMutableString string];
+    NSMutableArray *interests = [NSMutableArray array];
     NSArray *tokens = self.tokenFieldInterests.tokens;
     for (JSTokenButton *button in tokens)
     {
-        [interests appendString:button.representedObject];
-        if (button != [tokens lastObject])
-            [interests appendString:@" "];
+        NSString *text = button.representedObject;
+        text = [text stringByReplacingOccurrencesOfString:@"\u200B" withString:@""];
+        [interests addObject:text];
     }
-
+    
     //save interests
-    self.user.interests = interests;
+    if ([interests count])
+        self.user.interests = interests;
+    else
+        self.user.interests = nil;
     
     //go to next
     DDCompleteRegistrationViewController *viewController = [[[DDCompleteRegistrationViewController alloc] init] autorelease];
@@ -100,7 +103,9 @@
         if ([self.tokenFieldInterests.textField.text rangeOfString:@" "].location != NSNotFound)
         {
             for (NSString *text in [self.tokenFieldInterests.textField.text componentsSeparatedByString:@" "])
+            {
                 [self.tokenFieldInterests addTokenWithTitle:text representedObject:text];
+            }
         }
     }
 }

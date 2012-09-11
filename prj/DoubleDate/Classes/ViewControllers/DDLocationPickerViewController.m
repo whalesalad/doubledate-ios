@@ -61,6 +61,7 @@
     
     //add right button
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Choose", nil) style:UIBarButtonItemStyleDone target:self action:@selector(chooseTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     //add right button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
@@ -105,6 +106,9 @@
         MKPointAnnotation *annotation = [[[MKPointAnnotation alloc] init] autorelease];
         annotation.coordinate = coordinate;
         [self.mapView addAnnotation:annotation];
+        
+        //enable right button
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
 

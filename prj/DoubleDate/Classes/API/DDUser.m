@@ -23,14 +23,14 @@
 
 @synthesize bio;
 
-@synthesize interests;
-
 @synthesize facebookId;
 
 @synthesize email;
 @synthesize password;
 
 @synthesize location;
+
+@synthesize interests;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -50,6 +50,7 @@
             self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
             self.location = [[[DDUserLocation alloc] initWithDictionary:[DDAPIObject dictionaryForObject:[dictionary objectForKey:@"location"]]] autorelease];
+            self.interests = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
     }
     return self;
 }
@@ -85,6 +86,8 @@
         [dictionary setObject:self.password forKey:@"password"];
     if ([self.location dictionaryRepresentation])
         [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
+    if (self.interests)
+        [dictionary setObject:self.interests forKey:@"interests"];
     return dictionary;
 }
 
@@ -100,11 +103,11 @@
     [interestedIn release];
     [single release];
     [bio release];
-    [interests release];
     [facebookId release];
     [email release];
     [password release];
     [location release];
+    [interests release];
     [super dealloc];
 }
 

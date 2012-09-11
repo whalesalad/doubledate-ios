@@ -26,13 +26,13 @@
 
 @property(nonatomic, retain) NSString *bio;
 
-@property(nonatomic, retain) NSString *interests;
-
 @property(nonatomic, retain) NSString *facebookId;
 
 @property(nonatomic, retain) NSString *email;
 @property(nonatomic, retain) NSString *password;
 
 @property(nonatomic, retain) DDUserLocation *location;
+
+@property(nonatomic, retain) NSArray *interests;
 
 @end

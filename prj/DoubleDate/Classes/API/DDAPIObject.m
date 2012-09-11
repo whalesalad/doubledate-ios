@@ -44,6 +44,13 @@
     return nil;
 }
 
++ (NSArray*)arrayForObject:(id)object
+{
+    if ([object isKindOfClass:[NSArray class]])
+        return [NSArray arrayWithArray:object];
+    return nil;
+}
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if (!dictionary)

@@ -93,6 +93,14 @@
 
         //save single status
         segmentedControlSingle.selectedSegmentIndex = -1;
+        
+        //save location
+        DDUserLocation *location = [[[DDUserLocation alloc] init] autorelease];
+        location.facebookId = [[facebookUser location] id];
+        location.name = [[facebookUser location] name];
+        location.latitude = [[[[facebookUser location] location] latitude] stringValue];
+        location.longitude = [[[[facebookUser location] location] longitude] stringValue];
+        self.userLocation = location;
     }
     
     //set delegates
