@@ -10,6 +10,8 @@
 #import "DDUser.h"
 #import "DDAPIController.h"
 #import "DDWelcomeViewController.h"
+#import "DDAuthenticationController.h"
+#import "DDFacebookController.h"
 
 @interface DDCompleteRegistrationViewController ()<DDAPIControllerDelegate>
 
@@ -31,6 +33,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
+        
         controller_ = [[DDAPIController alloc] init];
         controller_.delegate = self;
     }
@@ -74,8 +79,10 @@
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
     
     //set email and password
-    self.user.email = textFieldEmail.text;
-    self.user.password = textFieldPassword.text;
+    if ([textFieldEmail.text length])
+        self.user.email = textFieldEmail.text;
+    if ([textFieldPassword.text length])
+        self.user.password = textFieldPassword.text;
     
     //create user
     [controller_ createUser:self.user];
@@ -86,14 +93,20 @@
 
 - (void)createUserSucceed:(DDUser*)u
 {
-    //hide hud
-    [self hideHud:YES];
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Authorizing", nil) animated:NO];
     
-    //copy password for further authentication
+    //save password
     u.password = self.user.password;
     
-    //start with user
-    [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:u];
+    //save user
+    self.user = u;
+    
+    //authonticate user
+    if (u.facebookId)
+        [DDAuthenticationController authenticateWithFbId:self.user.facebookId fbToken:[DDFacebookController token] delegate:self];
+    else
+        [DDAuthenticationController authenticateWithEmail:self.user.email password:self.user.password delegate:self];
 }
 
 - (void)createUserDidFailedWithError:(NSError*)error
@@ -103,6 +116,35 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma comment API
+
+- (void)apiDidAuthenticate:(NSNotification*)notification
+{
+    //check for delegate
+    if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
+    {
+        //hide hud
+        [self hideHud:YES];
+        
+        //start with user
+        [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:self.user];
+    }
+}
+
+- (void)apiDidNotAuthenticate:(NSNotification*)notification
+{
+    //check for delegate
+    if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
+    {
+        //hide hude
+        [self hideHud:YES];
+        
+        //start with dummy
+        [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:nil];
+    }
 }
 
 @end
