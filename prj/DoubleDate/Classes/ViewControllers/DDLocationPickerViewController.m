@@ -15,6 +15,7 @@
 
 @implementation DDLocationPickerViewController
 
+@synthesize delegate;
 @synthesize mapView;
 @synthesize multiplyChoice;
 
@@ -39,7 +40,7 @@
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Choose", nil) style:UIBarButtonItemStyleDone target:self action:@selector(chooseTouched:)] autorelease];
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
 }
 
 - (void)viewDidUnload
@@ -84,14 +85,51 @@
     }
 }
 
+- (void)locationsDecodingFinished:(NSArray*)placemarks
+{
+    NSLog(@"FOUND %d", [placemarks count]);
+}
+
 - (void)chooseTouched:(id)sender
 {
+    //save locations
+    NSMutableArray *locations = [NSMutableArray array];
     
+    //check each annotation
+    for (id<MKAnnotation> annotation in [self.mapView annotations])
+    {
+        CLLocation *location = [[[CLLocation alloc] initWithLatitude:[annotation coordinate].latitude longitude:[annotation coordinate].longitude] autorelease];
+        [locations addObject:location];
+    }
+    
+    //save placemarks
+    __block NSMutableArray *totalPlacemarks = [NSMutableArray array];
+        
+    //save number of locatins
+    __block NSInteger numberOfLocationsToDecode = [locations count];
+    
+    //create geo coder
+    for (CLLocation *location in locations)
+    {
+        CLGeocoder *geoCoder = [[[CLGeocoder alloc] init] autorelease];
+        [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
+                        
+            //decrease the number of locations
+            numberOfLocationsToDecode--;
+            
+            //add placemarks
+            [totalPlacemarks addObjectsFromArray:placemarks];
+            
+            //check for finish
+            if (numberOfLocationsToDecode == 0)
+                [self locationsDecodingFinished:placemarks];
+        }];
+    }
 }
 
 - (void)cancelTouched:(id)sender
 {
-    
+    [self.delegate locationPickerViewControllerDidCancel];
 }
 
 @end
