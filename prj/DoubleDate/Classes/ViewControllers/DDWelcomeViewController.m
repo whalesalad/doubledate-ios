@@ -18,6 +18,8 @@
 #import "DDRequestsController.h"
 #import "DDAPIController.h"
 #import "DDLoginViewController.h"
+#import "DDUser.h"
+#import "DDMeViewController.h"
 
 #define kTagJoinActionSheet 1
 #define kTagLoginActionSheet 2
@@ -285,8 +287,22 @@
     //dismiss all modal view controllers
     [self dismissModalViewControllerAnimated:YES];
     
+    //set me view controller
+    UIImage *imageMe = nil;
+    if ([user.gender isEqualToString:@"male"])
+        imageMe = [UIImage imageNamed:@"profile-male-tab-bar.png"];
+    else if ([user.gender isEqualToString:@"female"])
+        imageMe = [UIImage imageNamed:@"woman-tab-bar"];
+    DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
+    meViewController.user = user;
+    meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Me", nil) image:imageMe tag:0] autorelease];
+    
+    //create tab bar controller
+    UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+    tabBarController.viewControllers = [NSArray arrayWithObjects:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease], nil];
+    
     //go to next view controller
-    [self.navigationController pushViewController:[[[UIViewController alloc] init] autorelease] animated:YES];
+    [self.navigationController pushViewController:tabBarController animated:NO];
 }
 
 @end

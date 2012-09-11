@@ -35,6 +35,12 @@
 		964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */; };
 		964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0115F8AFE90077AAF1 /* DDAPIController.m */; };
 		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
+		96892C9E15FF10F20054C108 /* doubledates-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9A15FF10F20054C108 /* doubledates-tab-bar.png */; };
+		96892C9F15FF10F20054C108 /* profile-male-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9B15FF10F20054C108 /* profile-male-tab-bar.png */; };
+		96892CA015FF10F20054C108 /* wing-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9C15FF10F20054C108 /* wing-tab-bar.png */; };
+		96892CA115FF10F20054C108 /* woman-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9D15FF10F20054C108 /* woman-tab-bar.png */; };
+		96892CA915FF15DD0054C108 /* DDMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892CA815FF15DD0054C108 /* DDMeViewController.m */; };
+		96892CAB15FF15E70054C108 /* DDMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96892CAA15FF15E70054C108 /* DDMeViewController.xib */; };
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
@@ -155,6 +161,13 @@
 		964A6F0115F8AFE90077AAF1 /* DDAPIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAPIController.m; sourceTree = "<group>"; };
 		964A6F0315F8B1250077AAF1 /* DDRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRequestsController.h; sourceTree = "<group>"; };
 		964A6F0415F8B1250077AAF1 /* DDRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRequestsController.m; sourceTree = "<group>"; };
+		96892C9A15FF10F20054C108 /* doubledates-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doubledates-tab-bar.png"; sourceTree = "<group>"; };
+		96892C9B15FF10F20054C108 /* profile-male-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-male-tab-bar.png"; sourceTree = "<group>"; };
+		96892C9C15FF10F20054C108 /* wing-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-tab-bar.png"; sourceTree = "<group>"; };
+		96892C9D15FF10F20054C108 /* woman-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman-tab-bar.png"; sourceTree = "<group>"; };
+		96892CA715FF15DD0054C108 /* DDMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMeViewController.h; sourceTree = "<group>"; };
+		96892CA815FF15DD0054C108 /* DDMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMeViewController.m; sourceTree = "<group>"; };
+		96892CAA15FF15E70054C108 /* DDMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDMeViewController.xib; sourceTree = "<group>"; };
 		96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
@@ -342,6 +355,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				96892CA715FF15DD0054C108 /* DDMeViewController.h */,
+				96892CA815FF15DD0054C108 /* DDMeViewController.m */,
 				70C0834F15FE9314000A7E8C /* DDLoginViewController.h */,
 				70C0835015FE9314000A7E8C /* DDLoginViewController.m */,
 				960C846215FDFD9400EAF708 /* DDInterestsViewController.h */,
@@ -361,6 +376,10 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				96892C9A15FF10F20054C108 /* doubledates-tab-bar.png */,
+				96892C9B15FF10F20054C108 /* profile-male-tab-bar.png */,
+				96892C9C15FF10F20054C108 /* wing-tab-bar.png */,
+				96892C9D15FF10F20054C108 /* woman-tab-bar.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -368,6 +387,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96892CAA15FF15E70054C108 /* DDMeViewController.xib */,
 				70C0835215FE9338000A7E8C /* DDLoginViewController.xib */,
 				960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */,
 				960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */,
@@ -558,6 +578,11 @@
 				960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */,
 				960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */,
 				70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */,
+				96892C9E15FF10F20054C108 /* doubledates-tab-bar.png in Resources */,
+				96892C9F15FF10F20054C108 /* profile-male-tab-bar.png in Resources */,
+				96892CA015FF10F20054C108 /* wing-tab-bar.png in Resources */,
+				96892CA115FF10F20054C108 /* woman-tab-bar.png in Resources */,
+				96892CAB15FF15E70054C108 /* DDMeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -586,6 +611,7 @@
 				960C845015FDF60200EAF708 /* JSTokenField.m in Sources */,
 				960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */,
 				70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */,
+				96892CA915FF15DD0054C108 /* DDMeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
