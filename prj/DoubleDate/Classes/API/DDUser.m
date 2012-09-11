@@ -7,6 +7,7 @@
 //
 
 #import "DDUser.h"
+#import "DDUserLocation.h"
 
 @implementation DDUser
 
@@ -29,6 +30,8 @@
 @synthesize email;
 @synthesize password;
 
+@synthesize location;
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if ((self = [super initWithDictionary:dictionary]))
@@ -46,8 +49,43 @@
             self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
             self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
+            self.location = [[[DDUserLocation alloc] initWithDictionary:[DDAPIObject dictionaryForObject:[dictionary objectForKey:@"location"]]] autorelease];
     }
     return self;
+}
+
+- (NSDictionary*)dictionaryRepresentation
+{
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (self.bio)
+        [dictionary setObject:self.bio forKey:@"bio"];
+    if (self.birthday)
+        [dictionary setObject:self.birthday forKey:@"birthday"];
+    if (self.firstName)
+        [dictionary setObject:self.firstName forKey:@"first_name"];
+    if (self.gender)
+        [dictionary setObject:self.gender forKey:@"gender"];
+    if (self.userId)
+        [dictionary setObject:self.userId forKey:@"id"];
+    if (self.interestedIn)
+        [dictionary setObject:self.interestedIn forKey:@"interested_in"];
+    if (self.lastName)
+        [dictionary setObject:self.lastName forKey:@"last_name"];
+    if (self.single)
+        [dictionary setObject:self.single forKey:@"single"];
+    if (self.age)
+        [dictionary setObject:self.age forKey:@"age"];
+    if (self.photo)
+        [dictionary setObject:self.photo forKey:@"photo"];
+    if (self.facebookId)
+        [dictionary setObject:self.facebookId forKey:@"facebook_id"];
+    if (self.email)
+        [dictionary setObject:self.email forKey:@"email"];
+    if (self.password)
+        [dictionary setObject:self.password forKey:@"password"];
+    if ([self.location dictionaryRepresentation])
+        [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
+    return dictionary;
 }
 
 - (void)dealloc
@@ -66,6 +104,7 @@
     [facebookId release];
     [email release];
     [password release];
+    [location release];
     [super dealloc];
 }
 

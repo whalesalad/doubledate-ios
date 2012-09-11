@@ -29,6 +29,22 @@
     return self;
 }
 
+- (NSDictionary*)dictionaryRepresentation
+{
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (self.locationId)
+        [dictionary setObject:self.locationId forKey:@"id"];
+    if (self.facebookId)
+        [dictionary setObject:self.facebookId forKey:@"fb_id"];
+    if (self.name)
+        [dictionary setObject:self.name forKey:@"name"];
+    if (self.latitude)
+        [dictionary setObject:self.latitude forKey:@"lat"];
+    if (self.longitude)
+        [dictionary setObject:self.longitude forKey:@"lng"];
+    return dictionary;
+}
+
 - (void)dealloc
 {
     [locationId release];

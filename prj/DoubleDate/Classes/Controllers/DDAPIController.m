@@ -13,6 +13,7 @@
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDUserLocation.h"
 
 NSString *DDAPIControllerMethodIdentifierMe = @"DDAPIControllerMethodIdentifierMe";
 NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentifierCreate";
@@ -58,29 +59,8 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
 - (void)createUser:(DDUser*)user
 {
     //create user dictionary
-    NSMutableDictionary *userDictionary = [NSMutableDictionary dictionary];
-    if (user.firstName)
-        [userDictionary setObject:user.firstName forKey:@"first_name"];
-    if (user.lastName)
-        [userDictionary setObject:user.lastName forKey:@"last_name"];
-    if (user.birthday)
-        [userDictionary setObject:user.birthday forKey:@"birthday"];
-    if (user.gender)
-        [userDictionary setObject:user.gender forKey:@"gender"];
-    if (user.interestedIn)
-        [userDictionary setObject:user.interestedIn forKey:@"interested_in"];
-    if (user.facebookId)
-    {
-        [userDictionary setObject:user.facebookId forKey:@"facebook_id"];
-        [userDictionary setObject:[DDFacebookController token] forKey:@"facebook_access_token"];
-    }
-    else if (user.email)
-    {
-        [userDictionary setObject:user.email forKey:@"email"];
-        [userDictionary setObject:user.password forKey:@"password"];
-    }
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:userDictionary forKey:@"user"];
-    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[user dictionaryRepresentation] forKey:@"user"];
+        
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"users"];
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];

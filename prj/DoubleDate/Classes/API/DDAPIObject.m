@@ -37,13 +37,27 @@
     return nil;
 }
 
++ (NSDictionary*)dictionaryForObject:(id)object
+{
+    if ([object isKindOfClass:[NSDictionary class]])
+        return [NSDictionary dictionaryWithDictionary:object];
+    return nil;
+}
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
+    if (!dictionary)
+        return nil;
     if ((self = [self init]))
     {
         
     }
     return self;
+}
+
+- (NSDictionary*)dictionaryRepresentation
+{
+    return nil;
 }
 
 @end

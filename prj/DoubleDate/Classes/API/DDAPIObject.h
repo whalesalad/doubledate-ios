@@ -17,7 +17,10 @@
 + (id)objectWithJsonData:(NSData*)data;
 
 + (NSString*)stringForObject:(id)object;
++ (NSDictionary*)dictionaryForObject:(id)object;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
+
+- (NSDictionary*)dictionaryRepresentation;
 
 @end

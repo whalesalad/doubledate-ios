@@ -15,21 +15,25 @@
 #import "DDFacebookController.h"
 #import "DDUser.h"
 #import "DDBioViewController.h"
+#import "DDLocationPickerViewController.h"
+#import <CoreLocation/CoreLocation.h>
+#import "DDUserLocation.h"
 
-@interface DDBasicInfoViewController ()<UITextFieldDelegate>
+@interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate>
 
 @end
 
 @implementation DDBasicInfoViewController
 
 @synthesize facebookUser;
+@synthesize userLocation;
 @synthesize textFieldName;
 @synthesize textFieldSurname;
 @synthesize textFieldBirth;
 @synthesize segmentedControlMale;
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
-@synthesize tokenFieldLocation;
+@synthesize labelLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -95,7 +99,6 @@
     textFieldName.delegate = self;
     textFieldSurname.delegate = self;
     textFieldBirth.delegate = self;
-    tokenFieldLocation.textField.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -107,7 +110,7 @@
     [segmentedControlMale release], segmentedControlMale = nil;
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
-    [tokenFieldLocation release], tokenFieldLocation = nil;
+    [labelLocation release], labelLocation = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -129,14 +132,26 @@
 - (void)dealloc
 {
     [facebookUser release];
+    [userLocation release];
     [textFieldName release];
     [textFieldSurname release];
     [textFieldBirth release];
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
-    [tokenFieldLocation release];
+    [labelLocation release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma comment IB
+
+- (IBAction)locationTouched:(id)sender
+{
+    DDLocationPickerViewController *viewController = [[[DDLocationPickerViewController alloc] init] autorelease];
+    viewController.delegate = self;
+    viewController.multiplyChoice = NO;
+    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
 }
 
 #pragma mark -
@@ -167,11 +182,10 @@
     //check for facebook
     if (facebookUser)
         newUser.facebookId = [facebookUser id];
-    else
-    {
-        newUser.email = @"test_email@belluba.com";
-        newUser.password = @"test";
-    }
+    
+    //save location
+    if (self.userLocation)
+        newUser.location = self.userLocation;
     
     //go next
     DDBioViewController *viewController = [[[DDBioViewController alloc] init] autorelease];
@@ -193,12 +207,50 @@
     return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
+#pragma mark -
+#pragma comment DDLocationPickerViewControllerDelegate
+
+- (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
-    if (textField == self.tokenFieldLocation.textField)
+    //check placemarks
+    if ([placemarks count] == 1 && [[placemarks lastObject] isKindOfClass:[CLPlacemark class]])
     {
-        for (NSString *text in [textField.text componentsSeparatedByString:@" "])
-            [self.tokenFieldLocation addTokenWithTitle:text representedObject:nil];
+        //get placemark
+        CLPlacemark *placemark = [placemarks lastObject];
+        
+        //convert to user location
+        DDUserLocation *location = [[[DDUserLocation alloc] init] autorelease];
+        location.name = [NSString stringWithFormat:@"%@, %@", placemark.locality, placemark.administrativeArea];
+        location.latitude = [NSString stringWithFormat:@"%f", placemark.location.coordinate.latitude];
+        location.longitude = [NSString stringWithFormat:@"%f", placemark.location.coordinate.longitude];
+        
+        //update user location
+        self.userLocation = location;
+    }
+    
+    //dismiss view controller
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)locationPickerViewControllerDidCancel
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark setter
+
+- (void)setUserLocation:(DDUserLocation *)v
+{
+    //check the same value
+    if (v != self.userLocation)
+    {
+        //init object
+        [userLocation release];
+        userLocation = [v retain];
+        
+        //update label
+        labelLocation.text = v.name;
     }
 }
 
