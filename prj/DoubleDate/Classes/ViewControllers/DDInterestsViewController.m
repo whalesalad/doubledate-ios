@@ -9,6 +9,8 @@
 #import "DDInterestsViewController.h"
 #import "DDUser.h"
 #import "DDAPIController.h"
+#import "DDCompleteRegistrationViewController.h"
+#import "JSTokenButton.h"
 
 @interface DDInterestsViewController ()<DDAPIControllerDelegate>
 
@@ -75,21 +77,20 @@
     //add interests
     NSMutableString *interests = [NSMutableString string];
     NSArray *tokens = self.tokenFieldInterests.tokens;
-    for (NSString *interest in tokens)
+    for (JSTokenButton *button in tokens)
     {
-        [interests appendString:interest];
-        if (interest != [tokens lastObject])
+        [interests appendString:button.representedObject];
+        if (button != [tokens lastObject])
             [interests appendString:@" "];
     }
 
     //save interests
     self.user.interests = interests;
     
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
-    
-    //create user
-    [controller_ createUser:self.user];
+    //go to next
+    DDCompleteRegistrationViewController *viewController = [[[DDCompleteRegistrationViewController alloc] init] autorelease];
+    viewController.user = self.user;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)textFieldTextDidChangeNotification:(NSNotification*)notification
@@ -99,27 +100,9 @@
         if ([self.tokenFieldInterests.textField.text rangeOfString:@" "].location != NSNotFound)
         {
             for (NSString *text in [self.tokenFieldInterests.textField.text componentsSeparatedByString:@" "])
-                [self.tokenFieldInterests addTokenWithTitle:text representedObject:nil];
+                [self.tokenFieldInterests addTokenWithTitle:text representedObject:text];
         }
     }
-}
-
-#pragma mark -
-#pragma comment DDAPIControllerDelegate
-
-- (void)createUserSucceed
-{
-    //hide hud
-    [self hideHud:YES];
-}
-
-- (void)createUserDidFailedWithError:(NSError*)error
-{
-    //hide hud
-    [self hideHud:YES];
-    
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

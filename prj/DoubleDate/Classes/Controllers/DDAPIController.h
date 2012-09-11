@@ -18,7 +18,7 @@
 - (void)getMeDidSucceed:(DDUser*)me;
 - (void)getMeDidFailedWithError:(NSError*)error;
 
-- (void)createUserSucceed;
+- (void)createUserSucceed:(DDUser*)user;
 - (void)createUserDidFailedWithError:(NSError*)error;
 
 @end

@@ -12,6 +12,7 @@
 
 @interface DDViewController : UIViewController
 {
+    NSMutableArray *buffer_;
 }
 
 @property(nonatomic, retain) UIView *viewAfterAppearing;
@@ -20,5 +21,7 @@
 - (void)hideHud:(BOOL)animated;
 - (BOOL)isHudExist;
 - (UIView*)viewForHud;
+
+- (UIViewController*)viewControllerForClass:(Class)vcClass;
 
 @end

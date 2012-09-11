@@ -103,15 +103,12 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     //check response code
     if (response.statusCode == 201 || response.statusCode == 200)
     {
+        //create user object
+        DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+        
         //check method
         if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
         {
-            //get response
-            NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
-            
-            //create user object
-            DDUser *user = [DDUser objectWithDictionary:dictionary];
-            
             //inform delegate
             if ([self.delegate respondsToSelector:@selector(getMeDidSucceed:)])
                 [self.delegate getMeDidSucceed:user];
@@ -119,8 +116,8 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
         else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
         {
             //inform delegate
-            if ([self.delegate respondsToSelector:@selector(createUserSucceed)])
-                [self.delegate createUserSucceed];
+            if ([self.delegate respondsToSelector:@selector(createUserSucceed:)])
+                [self.delegate createUserSucceed:user];
         }
     }
     else

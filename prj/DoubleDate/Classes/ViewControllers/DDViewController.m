@@ -70,6 +70,67 @@
     [self.viewAfterAppearing setHidden:NO];
 }
 
+- (UIViewController*)viewControllerForClass:(Class)vcClass inViewController:(UIViewController*)vc
+{
+    //check dummy
+    if (!vc)
+        return nil;
+    
+    //check if already checked
+    for (NSNumber *number in buffer_)
+    {
+        if ([number unsignedIntegerValue] == [vc hash])
+            return nil;
+    }
+    
+    //mark as checked
+    [buffer_ addObject:[NSNumber numberWithUnsignedInteger:[vc hash]]];
+    
+    //check self
+    if ([vc isKindOfClass:vcClass])
+        return vc;
+    
+    //init value
+    UIViewController *ret = nil;
+    
+    //check parent
+    ret = [self viewControllerForClass:vcClass inViewController:vc.parentViewController];
+    if (ret)
+        return ret;
+    
+    //check presented
+    ret = [self viewControllerForClass:vcClass inViewController:vc.presentedViewController];
+    if (ret)
+        return ret;
+    
+    //check presenting
+    ret = [self viewControllerForClass:vcClass inViewController:vc.presentingViewController];
+    if (ret)
+        return ret;
+    
+    //check navigation controller
+    if ([vc isKindOfClass:[UINavigationController class]])
+    {
+        UINavigationController *nc = (UINavigationController*)vc;
+        for (UIViewController *v in nc.viewControllers)
+        {
+            ret = [self viewControllerForClass:vcClass inViewController:v];
+            if (ret)
+                return ret;
+        }
+    }
+    
+    return nil;
+}
+
+- (UIViewController*)viewControllerForClass:(Class)vcClass
+{
+    buffer_ = [[NSMutableArray alloc] init];
+    UIViewController *ret = [self viewControllerForClass:vcClass inViewController:self];
+    [buffer_ release];
+    return ret;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

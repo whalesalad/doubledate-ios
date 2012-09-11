@@ -17,7 +17,6 @@
 
 @implementation DDLoginViewController
 
-@synthesize welcomeViewController;
 @synthesize textFieldEmail;
 @synthesize textFieldPassword;
 
@@ -65,7 +64,6 @@
 
 - (void)dealloc
 {
-    [welcomeViewController release];
     [textFieldEmail release];
     [textFieldPassword release];
     controller_.delegate = nil;
@@ -122,7 +120,7 @@
     [self hideHud:NO];
     
     //start with user
-    [self.welcomeViewController startWithUser:me];
+    [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:me];
 }
 
 - (void)getMeDidFailedWithError:(NSError*)error
