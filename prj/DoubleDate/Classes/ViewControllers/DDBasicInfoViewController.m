@@ -107,6 +107,13 @@
     textFieldName.delegate = self;
     textFieldSurname.delegate = self;
     textFieldBirth.delegate = self;
+    
+    //customize date picker
+    UIDatePicker *datePicker = [[[UIDatePicker alloc] init] autorelease];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    datePicker.maximumDate = [NSDate date];
+    [datePicker addTarget:self action:@selector(birthdayChanged:) forControlEvents:UIControlEventValueChanged];
+    textFieldBirth.inputView = datePicker;
 }
 
 - (void)viewDidUnload
@@ -206,12 +213,26 @@
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
+- (void)birthdayChanged:(UIDatePicker*)sender
+{
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    self.textFieldBirth.text = [dateFormatter stringFromDate:sender.date];
+}
+
 #pragma mark -
 #pragma comment UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField == self.textFieldBirth)
+        return NO;
     return YES;
 }
 
