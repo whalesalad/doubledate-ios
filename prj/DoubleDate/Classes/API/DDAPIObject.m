@@ -53,7 +53,7 @@
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
-    if (!dictionary)
+    if (![dictionary isKindOfClass:[NSDictionary class]])
         return nil;
     if ((self = [self init]))
     {

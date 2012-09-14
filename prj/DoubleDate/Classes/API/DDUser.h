@@ -8,7 +8,7 @@
 
 #import "DDAPIObject.h"
 
-@class DDUserLocation;
+@class DDPlacemark;
 
 @interface DDUser : DDAPIObject
 {
@@ -31,7 +31,7 @@
 @property(nonatomic, retain) NSString *email;
 @property(nonatomic, retain) NSString *password;
 
-@property(nonatomic, retain) DDUserLocation *location;
+@property(nonatomic, retain) DDPlacemark *location;
 
 @property(nonatomic, retain) NSArray *interests;
 

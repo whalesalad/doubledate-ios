@@ -10,7 +10,7 @@
 #import "JSTokenField.h"
 
 @protocol FBGraphUser;
-@class DDUserLocation;
+@class DDPlacemark;
 
 @interface DDBasicInfoViewController : DDViewController
 {
@@ -18,7 +18,7 @@
 
 @property(nonatomic, retain) id<FBGraphUser> facebookUser;
 
-@property(nonatomic, retain) DDUserLocation *userLocation;
+@property(nonatomic, retain) DDPlacemark *userLocation;
 
 @property(nonatomic, retain) IBOutlet UITextField *textFieldName;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldSurname;

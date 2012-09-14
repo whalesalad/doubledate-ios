@@ -17,7 +17,7 @@
 #import "DDBioViewController.h"
 #import "DDLocationPickerViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "DDUserLocation.h"
+#import "DDPlacemark.h"
 
 @interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate>
 
@@ -95,7 +95,7 @@
         segmentedControlSingle.selectedSegmentIndex = -1;
         
         //save location
-        DDUserLocation *location = [[[DDUserLocation alloc] init] autorelease];
+        DDPlacemark *location = [[[DDPlacemark alloc] init] autorelease];
         location.facebookId = [[facebookUser location] id];
         location.name = [[facebookUser location] name];
         location.latitude = [[[[facebookUser location] location] latitude] stringValue];
@@ -248,7 +248,7 @@
         CLPlacemark *placemark = [placemarks lastObject];
         
         //convert to user location
-        DDUserLocation *location = [[[DDUserLocation alloc] init] autorelease];
+        DDPlacemark *location = [[[DDPlacemark alloc] init] autorelease];
         location.name = [NSString stringWithFormat:@"%@, %@", placemark.locality, placemark.administrativeArea];
         location.latitude = [NSString stringWithFormat:@"%f", placemark.location.coordinate.latitude];
         location.longitude = [NSString stringWithFormat:@"%f", placemark.location.coordinate.longitude];
@@ -269,7 +269,7 @@
 #pragma mark -
 #pragma mark setter
 
-- (void)setUserLocation:(DDUserLocation *)v
+- (void)setUserLocation:(DDPlacemark *)v
 {
     //check the same value
     if (v != self.userLocation)

@@ -13,12 +13,13 @@
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
-#import "DDUserLocation.h"
+#import "DDPlacemark.h"
 
 typedef enum
 {
     DDAPIControllerMethodTypeGetMe,
-    DDAPIControllerMethodTypeCreateUser
+    DDAPIControllerMethodTypeCreateUser,
+    DDAPIControllerMethodTypeSearchPlacemarks
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -102,6 +103,31 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+{
+    //set parameters
+    NSString *params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations/search"];
+    requestPath = [requestPath stringByAppendingFormat:@"?%@", params];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeSearchPlacemarks;
+    userData.succeedSel = @selector(searchPlacemarksSucceed:);
+    userData.failedSel = @selector(searchPlacemarksDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 #pragma mark -
 #pragma comment RKRequestDelegate
 
@@ -127,6 +153,19 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:user withObject:nil];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeSearchPlacemarks)
+        {
+            //extract data
+            NSMutableArray *placemarks = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create placemark
+                DDPlacemark *placemark = [DDPlacemark objectWithDictionary:dic];
+                if (placemark)
+                    [placemarks addObject:placemark];
+            }
         }
     }
     else

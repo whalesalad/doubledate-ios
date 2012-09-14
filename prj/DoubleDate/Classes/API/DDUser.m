@@ -7,7 +7,7 @@
 //
 
 #import "DDUser.h"
-#import "DDUserLocation.h"
+#import "DDPlacemark.h"
 
 @implementation DDUser
 
@@ -49,7 +49,7 @@
             self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
             self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
-            self.location = [[[DDUserLocation alloc] initWithDictionary:[DDAPIObject dictionaryForObject:[dictionary objectForKey:@"location"]]] autorelease];
+            self.location = [[[DDPlacemark alloc] initWithDictionary:[DDAPIObject dictionaryForObject:[dictionary objectForKey:@"location"]]] autorelease];
             self.interests = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
     }
     return self;

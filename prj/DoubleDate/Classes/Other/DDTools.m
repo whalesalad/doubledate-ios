@@ -9,16 +9,19 @@
 #import "DDTools.h"
 #import <SBJson/SBJson.h>
 
+//#define SERVER_URL @"http://dbld8.herokuapp.com"
+#define SERVER_URL @"https://api.dbld8.com"
+
 @implementation DDTools
 
 + (NSString*)apiUrlPath
 {
-    return @"http://dbld8.herokuapp.com";
+    return SERVER_URL;
 }
 
 + (NSString*)authUrlPath
 {
-    return @"http://dbld8.herokuapp.com";
+    return SERVER_URL;
 }
 
 + (NSString*)errorMessageFromResponseData:(NSData*)data

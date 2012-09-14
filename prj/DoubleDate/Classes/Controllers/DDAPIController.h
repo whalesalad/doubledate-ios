@@ -21,6 +21,9 @@
 - (void)createUserSucceed:(DDUser*)user;
 - (void)createUserDidFailedWithError:(NSError*)error;
 
+- (void)searchPlacemarksSucceed:(NSArray*)placemarks;
+- (void)searchPlacemarksDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -33,5 +36,7 @@
 - (void)getMe;
 
 - (void)createUser:(DDUser*)user;
+
+- (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 
 @end
