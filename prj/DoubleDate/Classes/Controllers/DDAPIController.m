@@ -15,8 +15,23 @@
 #import "DDUser.h"
 #import "DDUserLocation.h"
 
-NSString *DDAPIControllerMethodIdentifierMe = @"DDAPIControllerMethodIdentifierMe";
-NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentifierCreate";
+typedef enum
+{
+    DDAPIControllerMethodTypeGetMe,
+    DDAPIControllerMethodTypeCreateUser
+} DDAPIControllerMethodType;
+ 
+@interface DDAPIControllerUserData : NSObject
+
+@property(nonatomic, assign) DDAPIControllerMethodType method;
+@property(nonatomic, assign) SEL succeedSel;
+@property(nonatomic, assign) SEL failedSel;
+
+@end
+
+@implementation DDAPIControllerUserData
+
+@end
 
 @interface DDAPIController ()<RKRequestDelegate>
 
@@ -50,7 +65,13 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
-    request.userData = DDAPIControllerMethodIdentifierMe;
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetMe;
+    userData.succeedSel = @selector(getMeDidSucceed:);
+    userData.failedSel = @selector(getMeDidFailedWithError:);
+    request.userData = userData;
     
     //send request
     [controller_ startRequest:request];
@@ -69,7 +90,13 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
     NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-    request.userData = DDAPIControllerMethodIdentifierCreate;
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeCreateUser;
+    userData.succeedSel = @selector(createUserSucceed:);
+    userData.failedSel = @selector(createUserDidFailedWithError:);
+    request.userData = userData;
     
     //send request
     [controller_ startRequest:request];
@@ -80,24 +107,26 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
-    //check response code
-    if (response.statusCode == 201 || response.statusCode == 200)
+    //extract user data
+    DDAPIControllerUserData *userData = (DDAPIControllerUserData*)request.userData;
+    if (![userData isKindOfClass:[DDAPIControllerUserData class]])
+        return;
+    
+    //check response code and method name
+    if (response.statusCode == 200 ||
+        response.statusCode == 201 ||
+        response.statusCode == 204)
     {
-        //create user object
-        DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
-        
-        //check method
-        if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
+        //check type
+        if (userData.method == DDAPIControllerMethodTypeGetMe ||
+            userData.method == DDAPIControllerMethodTypeCreateUser)
         {
+            //create user object
+            DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
             //inform delegate
-            if ([self.delegate respondsToSelector:@selector(getMeDidSucceed:)])
-                [self.delegate getMeDidSucceed:user];
-        }
-        else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
-        {
-            //inform delegate
-            if ([self.delegate respondsToSelector:@selector(createUserSucceed:)])
-                [self.delegate createUserSucceed:user];
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:user withObject:nil];
         }
     }
     else
@@ -118,19 +147,14 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
 
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
 {
+    //extract user data
+    DDAPIControllerUserData *userData = (DDAPIControllerUserData*)request.userData;
+    if (![userData isKindOfClass:[DDAPIControllerUserData class]])
+        return;
+    
     //check method
-    if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
-    {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(getMeDidFailedWithError:)])
-            [self.delegate getMeDidFailedWithError:error];
-    }
-    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
-    {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(createUserDidFailedWithError:)])
-            [self.delegate createUserDidFailedWithError:error];
-    }
+    if (userData.failedSel && [self.delegate respondsToSelector:userData.failedSel])
+        [self.delegate performSelector:userData.failedSel withObject:error withObject:nil];
 }
 
 - (void)requestDidCancelLoad:(RKRequest *)request
@@ -138,19 +162,8 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     //create error
     NSError *error = [NSError errorWithDomain:@"DDDomain" code:DDErrorTypeCancelled userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Cancelled", nil) forKey:NSLocalizedDescriptionKey]];
     
-    //check method
-    if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
-    {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(getMeDidFailedWithError:)])
-            [self.delegate getMeDidFailedWithError:error];
-    }
-    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
-    {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(createUserDidFailedWithError:)])
-            [self.delegate createUserDidFailedWithError:error];
-    }
+    //redirect to self
+    [self request:request didFailLoadWithError:error];
 }
 
 - (void)requestDidTimeout:(RKRequest *)request
@@ -158,19 +171,8 @@ NSString *DDAPIControllerMethodIdentifierCreate = @"DDAPIControllerMethodIdentif
     //create error
     NSError *error = [NSError errorWithDomain:@"DDDomain" code:DDErrorTypeTimeout userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Timeout", nil) forKey:NSLocalizedDescriptionKey]];
     
-    //check method
-    if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierMe])
-    {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(getMeDidFailedWithError:)])
-            [self.delegate getMeDidFailedWithError:error];
-    }
-    else if ([request.userData isKindOfClass:[NSString class]] && [request.userData isEqualToString:DDAPIControllerMethodIdentifierCreate])
-    {
-        //inform delegate
-        if ([self.delegate respondsToSelector:@selector(createUserDidFailedWithError:)])
-            [self.delegate createUserDidFailedWithError:error];
-    }
+    //redirect to self
+    [self request:request didFailLoadWithError:error];
 }
 
 
