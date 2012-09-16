@@ -21,6 +21,9 @@
 - (void)createUserSucceed:(DDUser*)user;
 - (void)createUserDidFailedWithError:(NSError*)error;
 
+- (void)requestFacebookUserSucceed:(DDUser*)user;
+- (void)requestFacebookDidFailedWithError:(NSError*)error;
+
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks;
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error;
 
@@ -36,6 +39,8 @@
 - (void)getMe;
 
 - (void)createUser:(DDUser*)user;
+
+- (void)requeFacebookUserForToken:(NSString*)fbToken;
 
 - (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 

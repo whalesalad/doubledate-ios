@@ -10,7 +10,7 @@
 #import <SBJson/SBJson.h>
 
 //#define SERVER_URL @"http://dbld8.herokuapp.com"
-#define SERVER_URL @"https://api.dbld8.com"
+#define SERVER_URL @"http://api.dbld8.com"
 
 @implementation DDTools
 

@@ -19,6 +19,7 @@ typedef enum
 {
     DDAPIControllerMethodTypeGetMe,
     DDAPIControllerMethodTypeCreateUser,
+    DDAPIControllerMethodTypeRequestFBUser,
     DDAPIControllerMethodTypeSearchPlacemarks
 } DDAPIControllerMethodType;
  
@@ -103,6 +104,31 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)requeFacebookUserForToken:(NSString*)fbToken
+{
+    //create user dictionary
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:fbToken forKey:@"facebook_access_token"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"users/build"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodPOST;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeRequestFBUser;
+    userData.succeedSel = @selector(requestFacebookUserSucceed:);
+    userData.failedSel = @selector(requestFacebookDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 - (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
 {
     //set parameters
@@ -145,7 +171,8 @@ typedef enum
     {
         //check type
         if (userData.method == DDAPIControllerMethodTypeGetMe ||
-            userData.method == DDAPIControllerMethodTypeCreateUser)
+            userData.method == DDAPIControllerMethodTypeCreateUser ||
+            userData.method == DDAPIControllerMethodTypeRequestFBUser)
         {
             //create user object
             DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
