@@ -44,10 +44,12 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Account Login", nil);
+    self.navigationItem.title = NSLocalizedString(@"Log In", nil);
     
     //add right button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+
+    [textFieldEmail becomeFirstResponder];
 }
 
 - (void)viewDidUnload
