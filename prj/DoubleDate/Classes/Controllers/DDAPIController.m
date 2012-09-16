@@ -20,7 +20,8 @@ typedef enum
     DDAPIControllerMethodTypeGetMe,
     DDAPIControllerMethodTypeCreateUser,
     DDAPIControllerMethodTypeRequestFBUser,
-    DDAPIControllerMethodTypeSearchPlacemarks
+    DDAPIControllerMethodTypeSearchPlacemarks,
+    DDAPIControllerMethodTypeRequestAvailableInterests,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -154,6 +155,25 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)requestAvailableInterests
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"interests"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeRequestAvailableInterests;
+    userData.succeedSel = @selector(requestAvailableInterestsSucceed:);
+    userData.failedSel = @selector(requestAvailableInterestsDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 #pragma mark -
 #pragma comment RKRequestDelegate
 
@@ -193,6 +213,13 @@ typedef enum
                 if (placemark)
                     [placemarks addObject:placemark];
             }
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:placemarks withObject:nil];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeRequestAvailableInterests)
+        {
         }
     }
     else

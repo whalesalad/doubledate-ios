@@ -27,6 +27,9 @@
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks;
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error;
 
+- (void)requestAvailableInterestsSucceed:(NSArray*)interests;
+- (void)requestAvailableInterestsDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -43,5 +46,7 @@
 - (void)requeFacebookUserForToken:(NSString*)fbToken;
 
 - (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
+
+- (void)requestAvailableInterests;
 
 @end
