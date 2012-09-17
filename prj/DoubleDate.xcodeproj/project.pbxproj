@@ -59,6 +59,8 @@
 		96B59E111606FFBC00CFDA1C /* facebook_login_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B59E061606FFBC00CFDA1C /* facebook_login_button.png */; };
 		96B59E121606FFBC00CFDA1C /* facebook_login_button_touched.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B59E071606FFBC00CFDA1C /* facebook_login_button_touched.png */; };
 		96B59E131606FFBC00CFDA1C /* welcome_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B59E081606FFBC00CFDA1C /* welcome_bg.png */; };
+		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
+		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
@@ -207,6 +209,10 @@
 		96B59E061606FFBC00CFDA1C /* facebook_login_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_login_button.png; sourceTree = "<group>"; };
 		96B59E071606FFBC00CFDA1C /* facebook_login_button_touched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_login_button_touched.png; sourceTree = "<group>"; };
 		96B59E081606FFBC00CFDA1C /* welcome_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome_bg.png; sourceTree = "<group>"; };
+		96B59E141607185900CFDA1C /* DDImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImage.h; sourceTree = "<group>"; };
+		96B59E151607185A00CFDA1C /* DDImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImage.m; sourceTree = "<group>"; };
+		96B59E18160719DF00CFDA1C /* DDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageView.h; sourceTree = "<group>"; };
+		96B59E19160719DF00CFDA1C /* DDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageView.m; sourceTree = "<group>"; };
 		96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
@@ -364,6 +370,8 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				96B59E141607185900CFDA1C /* DDImage.h */,
+				96B59E151607185A00CFDA1C /* DDImage.m */,
 				96892D3515FF59750054C108 /* DDPlacemark.h */,
 				96892D3615FF59750054C108 /* DDPlacemark.m */,
 				964A6EF715F89FDE0077AAF1 /* DDUser.h */,
@@ -399,9 +407,19 @@
 			path = welcome;
 			sourceTree = "<group>";
 		};
+		96B59E17160719C100CFDA1C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				96B59E18160719DF00CFDA1C /* DDImageView.h */,
+				96B59E19160719DF00CFDA1C /* DDImageView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		96E7F1A915F738CA00200E1F /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				96B59E17160719C100CFDA1C /* Views */,
 				964A6EF615F89FDE0077AAF1 /* API */,
 				964A6EDE15F883E90077AAF1 /* Other */,
 				96E7F20215F7A05F00200E1F /* Controllers */,
@@ -704,6 +722,8 @@
 				96892CB315FF1F740054C108 /* DDCompleteRegistrationViewController.m in Sources */,
 				96892D3715FF59750054C108 /* DDPlacemark.m in Sources */,
 				96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */,
+				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
+				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

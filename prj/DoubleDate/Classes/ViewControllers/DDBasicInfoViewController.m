@@ -18,6 +18,7 @@
 #import "DDLocationPickerViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DDPlacemark.h"
+#import "DDImage.h"
 
 @interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate>
 
@@ -34,6 +35,7 @@
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
 @synthesize labelLocation;
+@synthesize imageViewPhoto;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -95,6 +97,10 @@
         
         //save location
         self.userLocation = user.location;
+        
+        //save photo
+        if (user.photo.downloadUrl)
+            [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
     }
     
     //set delegates
@@ -120,6 +126,7 @@
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
     [labelLocation release], labelLocation = nil;
+    [imageViewPhoto release], imageViewPhoto = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -149,6 +156,7 @@
     [segmentedControlLike release];
     [segmentedControlSingle release];
     [labelLocation release];
+    [imageViewPhoto release];
     [super dealloc];
 }
 

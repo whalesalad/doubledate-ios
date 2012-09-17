@@ -8,6 +8,7 @@
 
 #import "DDViewController.h"
 #import "JSTokenField.h"
+#import "DDImageView.h"
 
 @class DDUser;
 @class DDPlacemark;
@@ -29,6 +30,8 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
 
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
+
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewPhoto;
 
 - (IBAction)locationTouched:(id)sender;
 

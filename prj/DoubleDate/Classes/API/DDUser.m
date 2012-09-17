@@ -8,6 +8,7 @@
 
 #import "DDUser.h"
 #import "DDPlacemark.h"
+#import "DDImage.h"
 
 NSString *DDUserGenderMale = @"male";
 NSString *DDUserGenderFemale = @"female";
@@ -22,7 +23,6 @@ NSString *DDUserInterestBoth = @"both";
 @synthesize userId;
 @synthesize gender;
 @synthesize age;
-@synthesize photo;
 @synthesize firstName;
 @synthesize interestedIn;
 @synthesize single;
@@ -35,6 +35,8 @@ NSString *DDUserInterestBoth = @"both";
 @synthesize password;
 
 @synthesize location;
+
+@synthesize photo;
 
 @synthesize interests;
 
@@ -51,11 +53,11 @@ NSString *DDUserInterestBoth = @"both";
             self.lastName = [DDAPIObject stringForObject:[dictionary objectForKey:@"last_name"]];
             self.single = [DDAPIObject numberForObject:[dictionary objectForKey:@"single"]];
             self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
-            self.photo = [DDAPIObject stringForObject:[dictionary objectForKey:@"photo"]];
             self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
             self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
-            self.location = [[[DDPlacemark alloc] initWithDictionary:[DDAPIObject dictionaryForObject:[dictionary objectForKey:@"location"]]] autorelease];
+            self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
+            self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
             self.interests = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
     }
     return self;
@@ -92,6 +94,8 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:self.password forKey:@"password"];
     if ([self.location dictionaryRepresentation])
         [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
+    if ([self.photo dictionaryRepresentation])
+        [dictionary setObject:[self.photo dictionaryRepresentation] forKey:@"photo"];
     if (self.interests)
         [dictionary setObject:self.interests forKey:@"interests"];
     return dictionary;
