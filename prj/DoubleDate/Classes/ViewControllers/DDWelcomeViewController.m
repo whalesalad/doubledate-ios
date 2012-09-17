@@ -41,8 +41,6 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidLogin:) name:DDFacebookControllerSessionDidLoginNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotLogin:) name:DDFacebookControllerSessionDidNotLoginNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidGetMe:) name:DDFacebookControllerSessionDidGetMeNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotGetMe:) name:DDFacebookControllerSessionDidNotGetMeNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
         
@@ -146,35 +144,14 @@
     //show hud
     [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
     
-    //request information about me
-    [[DDFacebookController sharedController] requestMe];
+    //try to authonticate with facebook
+    [DDAuthenticationController authenticateWithFbToken:[DDFacebookController token] delegate:self];
 }
 
 - (void)fbDidNotLogin:(NSNotification*)notification
 {
     //extract error
     NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotLoginUserInfoErrorKey];
-    
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-- (void)fbDidGetMe:(NSNotification*)notification
-{
-    //extract user information from facebook
-    id<FBGraphUser> facebookUser = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
-    
-    //try to authonticate with facebook
-    [DDAuthenticationController authenticateWithFbId:[facebookUser id] fbToken:[DDFacebookController token] delegate:self];
-}
-
-- (void)fbDidNotGetMe:(NSNotification*)notification
-{
-    //hide hud
-    [self hideHud:YES];
-    
-    //extract error
-    NSError *error = [[notification userInfo] objectForKey:DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

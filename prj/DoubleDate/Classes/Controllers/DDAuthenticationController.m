@@ -25,7 +25,7 @@ NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthen
 @property(nonatomic, retain) NSString *userId;
 @property(nonatomic, retain) NSString *token;
 
-- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate;
+- (void)authenticateWithFbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate;
 
 @end
 
@@ -53,30 +53,26 @@ static DDAuthenticationController *_sharedInstance = nil;
     return [[DDAuthenticationController sharedController] userId];
 }
 
-+ (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken delegate:(id)delegate
++ (void)authenticateWithFbToken:(NSString*)fbToken delegate:(id)delegate
 {
-    [[DDAuthenticationController sharedController] authenticateWithFbId:fbId fbToken:fbToken email:nil password:nil delegate:delegate];
+    [[DDAuthenticationController sharedController] authenticateWithFbToken:fbToken email:nil password:nil delegate:delegate];
 }
 
 + (void)authenticateWithEmail:(NSString*)email password:(NSString*)password delegate:(id)delegate
 {
-    [[DDAuthenticationController sharedController] authenticateWithFbId:nil fbToken:nil email:email password:password delegate:delegate];
+    [[DDAuthenticationController sharedController] authenticateWithFbToken:nil email:email password:password delegate:delegate];
 }
 
-- (void)authenticateWithFbId:(NSString*)fbId fbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate
+- (void)authenticateWithFbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate
 {
     //create parameters
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (fbId)
-    {
-        [dictionary setObject:fbId forKey:@"facebook_id"];
+    if (fbToken)
         [dictionary setObject:fbToken forKey:@"facebook_access_token"];
-    }
-    else if (email)
-    {
+    if (email)
         [dictionary setObject:email forKey:@"email"];
+    if (password)
         [dictionary setObject:password forKey:@"password"];
-    }
     
     //create request
     NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"authenticate"];
