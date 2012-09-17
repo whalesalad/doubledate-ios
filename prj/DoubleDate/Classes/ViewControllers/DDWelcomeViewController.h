@@ -14,11 +14,10 @@
 @interface DDWelcomeViewController : DDViewController
 {
     DDAPIController *controller_;
-    BOOL joining_;
 }
 
-- (IBAction)signupTouched:(id)sender;
-- (IBAction)loginTouched:(id)sender;
+- (IBAction)facebookTouched:(id)sender;
+- (IBAction)emailTouched:(id)sender;
 
 - (void)startWithUser:(DDUser*)user;
 

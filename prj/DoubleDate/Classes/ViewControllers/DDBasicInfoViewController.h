@@ -9,14 +9,14 @@
 #import "DDViewController.h"
 #import "JSTokenField.h"
 
-@protocol FBGraphUser;
+@class DDUser;
 @class DDPlacemark;
 
 @interface DDBasicInfoViewController : DDViewController
 {
 }
 
-@property(nonatomic, retain) id<FBGraphUser> facebookUser;
+@property(nonatomic, retain) DDUser *user;
 
 @property(nonatomic, retain) DDPlacemark *userLocation;
 

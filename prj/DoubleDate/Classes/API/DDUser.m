@@ -9,6 +9,12 @@
 #import "DDUser.h"
 #import "DDPlacemark.h"
 
+NSString *DDUserGenderMale = @"male";
+NSString *DDUserGenderFemale = @"female";
+NSString *DDUserInterestGuys = @"guys";
+NSString *DDUserInterestGirls = @"girls";
+NSString *DDUserInterestBoth = @"both";
+
 @implementation DDUser
 
 @synthesize birthday;
@@ -43,10 +49,10 @@
             self.userId = [DDAPIObject stringForObject:[dictionary objectForKey:@"id"]];
             self.interestedIn = [DDAPIObject stringForObject:[dictionary objectForKey:@"interested_in"]];
             self.lastName = [DDAPIObject stringForObject:[dictionary objectForKey:@"last_name"]];
-            self.single = [DDAPIObject stringForObject:[dictionary objectForKey:@"single"]];
-            self.age = [DDAPIObject stringForObject:[dictionary objectForKey:@"age"]];
+            self.single = [DDAPIObject numberForObject:[dictionary objectForKey:@"single"]];
+            self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
             self.photo = [DDAPIObject stringForObject:[dictionary objectForKey:@"photo"]];
-            self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
+            self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
             self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
             self.location = [[[DDPlacemark alloc] initWithDictionary:[DDAPIObject dictionaryForObject:[dictionary objectForKey:@"location"]]] autorelease];

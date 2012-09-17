@@ -8,6 +8,12 @@
 
 #import "DDAPIObject.h"
 
+extern NSString *DDUserGenderMale;
+extern NSString *DDUserGenderFemale;
+extern NSString *DDUserInterestGuys;
+extern NSString *DDUserInterestGirls;
+extern NSString *DDUserInterestBoth;
+
 @class DDPlacemark;
 
 @interface DDUser : DDAPIObject
@@ -18,15 +24,15 @@
 @property(nonatomic, retain) NSString *lastName;
 @property(nonatomic, retain) NSString *userId;
 @property(nonatomic, retain) NSString *gender;
-@property(nonatomic, retain) NSString *age;
+@property(nonatomic, retain) NSNumber *age;
 @property(nonatomic, retain) NSString *photo;
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *interestedIn;
-@property(nonatomic, retain) NSString *single;
+@property(nonatomic, retain) NSNumber *single;
 
 @property(nonatomic, retain) NSString *bio;
 
-@property(nonatomic, retain) NSString *facebookId;
+@property(nonatomic, retain) NSNumber *facebookId;
 
 @property(nonatomic, retain) NSString *email;
 @property(nonatomic, retain) NSString *password;

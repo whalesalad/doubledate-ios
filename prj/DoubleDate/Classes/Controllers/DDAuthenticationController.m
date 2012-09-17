@@ -17,6 +17,7 @@ NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAut
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey";
+NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey";
 NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthenticationControllerAuthenticateUserInfoDelegateKey";
 
 @interface DDAuthenticationController ()<RKRequestDelegate>
@@ -140,8 +141,13 @@ static DDAuthenticationController *_sharedInstance = nil;
         if (responseMessage)
             errorMessage = responseMessage;
         
+        //generate user info
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:errorMessage forKey:NSLocalizedDescriptionKey];
+        [userInfo setObject:[NSNumber numberWithInt:response.statusCode] forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey];
+        
         //create error
-        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:userInfo];
         
         //redirect to self
         [self request:request didFailLoadWithError:error];
@@ -151,7 +157,7 @@ static DDAuthenticationController *_sharedInstance = nil;
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
 {
     //set user info
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    NSMutableDictionary *userInfo = [error userInfo]?[NSMutableDictionary dictionaryWithDictionary:[error userInfo]]:[NSMutableDictionary dictionary];
     [userInfo setObject:[NSNumber numberWithInt:DDAuthenticationControllerAuthenticateDidFailedError] forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey];
     [userInfo setObject:error forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
     if (request.userData)

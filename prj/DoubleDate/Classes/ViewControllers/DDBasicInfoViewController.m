@@ -25,7 +25,7 @@
 
 @implementation DDBasicInfoViewController
 
-@synthesize facebookUser;
+@synthesize user;
 @synthesize userLocation;
 @synthesize textFieldName;
 @synthesize textFieldSurname;
@@ -58,49 +58,43 @@
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
     
     //check if user exist
-    if (facebookUser)
+    if (user)
     {
         //set name
-        textFieldName.text = [facebookUser first_name];
+        textFieldName.text = [user firstName];
         
         //set surname
-        textFieldSurname.text = [facebookUser last_name];
+        textFieldSurname.text = [user lastName];
         
         //set birthday
-        if ([facebookUser birthday])
-        {
-            //get date
-            NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-            [dateFormat setDateFormat:@"MM/dd/yyyy"];
-            NSString *dateString = [facebookUser birthday];
-            NSDate *date = [dateFormat dateFromString:dateString];
-
-            //set date
-            [dateFormat setDateFormat:@"yyyy-MM-dd"];
-            textFieldBirth.text = [dateFormat stringFromDate:date];
-        }
+        textFieldBirth.text = [user birthday];
         
         //set gender
-        if ([[facebookUser objectForKey:@"gender"] isEqualToString:@"male"])
+        if ([[user gender] isEqualToString:DDUserGenderMale])
             segmentedControlMale.selectedSegmentIndex = 0;
-        else if ([[facebookUser objectForKey:@"gender"] isEqualToString:@"female"])
+        else if ([[user gender] isEqualToString:DDUserGenderFemale])
             segmentedControlMale.selectedSegmentIndex = 1;
         else
             segmentedControlMale.selectedSegmentIndex = -1;
         
         //save like
-        segmentedControlLike.selectedSegmentIndex = -1;
+        if ([[user interestedIn] isEqualToString:DDUserInterestGuys])
+            segmentedControlLike.selectedSegmentIndex = 0;
+        else if ([[user interestedIn] isEqualToString:DDUserInterestGirls])
+            segmentedControlLike.selectedSegmentIndex = 1;
+        else if ([[user interestedIn] isEqualToString:DDUserInterestBoth])
+            segmentedControlLike.selectedSegmentIndex = 2;
+        else
+            segmentedControlLike.selectedSegmentIndex = -1;
 
         //save single status
-        segmentedControlSingle.selectedSegmentIndex = -1;
+        if ([user.single boolValue])
+            segmentedControlSingle.selectedSegmentIndex = 0;
+        else
+            segmentedControlSingle.selectedSegmentIndex = 1;
         
         //save location
-        DDPlacemark *location = [[[DDPlacemark alloc] init] autorelease];
-        location.facebookId = [[facebookUser location] id];
-        location.name = [[facebookUser location] name];
-        location.latitude = [[[[facebookUser location] location] latitude] stringValue];
-        location.longitude = [[[[facebookUser location] location] longitude] stringValue];
-        self.userLocation = location;
+        self.userLocation = user.location;
     }
     
     //set delegates
@@ -146,7 +140,7 @@
 
 - (void)dealloc
 {
-    [facebookUser release];
+    [user release];
     [userLocation release];
     [textFieldName release];
     [textFieldSurname release];
@@ -180,23 +174,23 @@
     newUser.lastName = textFieldSurname.text;
     newUser.birthday = textFieldBirth.text;
     if (segmentedControlSingle.selectedSegmentIndex == 0)
-        newUser.single = @"true";
+        newUser.single = [NSNumber numberWithBool:YES];
     else if (segmentedControlSingle.selectedSegmentIndex == 1)
-        newUser.single = @"false";
+        newUser.single = [NSNumber numberWithBool:NO];
     if (segmentedControlLike.selectedSegmentIndex == 0)
-        newUser.interestedIn = @"guys";
+        newUser.interestedIn = DDUserInterestGuys;
     else if (segmentedControlLike.selectedSegmentIndex == 1)
-        newUser.interestedIn = @"girls";
+        newUser.interestedIn = DDUserInterestGirls;
     else if (segmentedControlLike.selectedSegmentIndex == 2)
-        newUser.interestedIn = @"both";
+        newUser.interestedIn = DDUserInterestBoth;
     if (segmentedControlMale.selectedSegmentIndex == 0)
-        newUser.gender = @"male";
+        newUser.gender = DDUserGenderMale;
     else if (segmentedControlMale.selectedSegmentIndex == 1)
-        newUser.gender = @"female";
-    
+        newUser.gender = DDUserGenderFemale;
+        
     //check for facebook
-    if (facebookUser)
-        newUser.facebookId = [facebookUser id];
+    if (user)
+        newUser.facebookId = [user facebookId];
     
     //save location
     if (self.userLocation)

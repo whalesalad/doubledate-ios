@@ -21,16 +21,14 @@
 #import "DDUser.h"
 #import "DDMeViewController.h"
 
-#define kTagJoinActionSheet 1
-#define kTagLoginActionSheet 2
+#define kTagEmailActionSheet 1
 
 @interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate>
 
-- (void)joinWithFacebook;
 - (void)joinWithEmail;
-
-- (void)loginWithFacebook;
 - (void)loginWithEmail;
+
+- (void)registerWithUser:(DDUser*)user;
 
 @end
 
@@ -85,20 +83,18 @@
 #pragma mark -
 #pragma comment IB
 
-- (IBAction)signupTouched:(id)sender
+- (IBAction)facebookTouched:(id)sender
 {
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Join with Facebook", nil), NSLocalizedString(@"Join with Email", nil), nil] autorelease];
-    sheet.tag = kTagJoinActionSheet;
-    [sheet showInView:self.view];
+    //start facebook
+    [[DDFacebookController sharedController] login];
 }
 
-- (IBAction)loginTouched:(id)sender
+- (IBAction)emailTouched:(id)sender
 {
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Login with Facebook", nil), NSLocalizedString(@"Login with Email", nil), nil] autorelease];
-    sheet.tag = kTagLoginActionSheet;
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Log In to DoubleDate", nil), NSLocalizedString(@"Sign Up with Email", nil), nil] autorelease];
+    sheet.tag = kTagEmailActionSheet;
     [sheet showInView:self.view];
 }
-
 
 #pragma mark -
 #pragma comment UIActionSheetDelegate
@@ -107,16 +103,12 @@
 {
     switch (buttonIndex) {
         case 0:
-            if (actionSheet.tag == kTagJoinActionSheet)
-                [self joinWithFacebook];
-            else if (actionSheet.tag == kTagLoginActionSheet)
-                [self loginWithFacebook];
+            if (actionSheet.tag == kTagEmailActionSheet)
+                [self loginWithEmail];
             break;
         case 1:
-            if (actionSheet.tag == kTagJoinActionSheet)
+            if (actionSheet.tag == kTagEmailActionSheet)
                 [self joinWithEmail];
-            else if (actionSheet.tag == kTagLoginActionSheet)
-                [self loginWithEmail];
             break;
         default:
             break;
@@ -126,42 +118,24 @@
 #pragma mark -
 #pragma comment other
 
-- (void)joinWithFacebook
-{
-    //save joining flag
-    joining_ = YES;
-    
-    //start facebook
-    [[DDFacebookController sharedController] login];
-}
-
 - (void)joinWithEmail
 {
-    //save joining flag
-    joining_ = YES;
-    
-    //go to next view controller
-    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
-    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
-    [self.navigationController presentModalViewController:navigationController animated:YES];
-}
-
-- (void)loginWithFacebook
-{
-    //save joining flag
-    joining_ = NO;
-    
-    //start facebook
-    [[DDFacebookController sharedController] login];
+    [self registerWithUser:nil];
 }
 
 - (void)loginWithEmail
 {
-    //save joining flag
-    joining_ = NO;
-    
     //login with email and address
     [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:[[[DDLoginViewController alloc] init] autorelease]] autorelease] animated:YES];
+}
+
+- (void)registerWithUser:(DDUser*)user
+{
+    //go to next view controller
+    DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
+    viewController.user = user;
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
+    [self.navigationController presentModalViewController:navigationController animated:YES];
 }
 
 #pragma mark -
@@ -190,26 +164,8 @@
     //extract user information from facebook
     id<FBGraphUser> facebookUser = (id<FBGraphUser>)[[notification userInfo] objectForKey:DDFacebookControllerSessionDidGetMeUserInfoObjectKey];
     
-    //check if joining
-    if (joining_)
-    {
-        //hide hud
-        [self hideHud:YES];
-        
-        //go to next view controller
-        DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
-        viewController.facebookUser = facebookUser;
-        UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
-        [self.navigationController presentModalViewController:navigationController animated:YES];
-    }
-    else
-    {
-        //show hud
-        [self showHudWithText:NSLocalizedString(@"Authorizing", nil) animated:NO];
-        
-        //request me
-        [DDAuthenticationController authenticateWithFbId:[facebookUser id] fbToken:[DDFacebookController token] delegate:self];
-    }
+    //try to authonticate with facebook
+    [DDAuthenticationController authenticateWithFbId:[facebookUser id] fbToken:[DDFacebookController token] delegate:self];
 }
 
 - (void)fbDidNotGetMe:(NSNotification*)notification
@@ -245,13 +201,25 @@
     //check for delegate
     if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
     {
-        //hide hude
-        [self hideHud:YES];
-        
-        //try to get error
-        NSError *error = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
-        if (error)
-            [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+        //if user is not exist fetch new data
+        if ([[[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey] intValue] == 404)
+        {
+            //show hud
+            [self showHudWithText:NSLocalizedString(@"Fetching User", nil) animated:NO];
+            
+            //request information about the user
+            [controller_ requeFacebookUserForToken:[DDFacebookController token]];
+        }
+        else
+        {
+            //hide hude
+            [self hideHud:YES];
+            
+            //try to get error
+            NSError *error = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
+            if (error)
+                [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+        }
     }
 }
 
@@ -276,6 +244,24 @@
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
+- (void)requestFacebookUserSucceed:(DDUser*)user
+{
+    //hide hude
+    [self hideHud:YES];
+    
+    //register user
+    [self registerWithUser:user];
+}
+
+- (void)requestFacebookDidFailedWithError:(NSError*)error
+{
+    //hide hude
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
 #pragma mark -
 #pragma comment other
 
@@ -289,9 +275,9 @@
     {
         //set me view controller
         UIImage *imageMe = nil;
-        if ([user.gender isEqualToString:@"male"])
+        if ([user.gender isEqualToString:DDUserGenderMale])
             imageMe = [UIImage imageNamed:@"profile-male-tab-bar.png"];
-        else if ([user.gender isEqualToString:@"female"])
+        else if ([user.gender isEqualToString:DDUserGenderFemale])
             imageMe = [UIImage imageNamed:@"woman-tab-bar"];
         DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
         meViewController.user = user;

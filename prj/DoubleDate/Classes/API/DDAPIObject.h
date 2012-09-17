@@ -19,6 +19,7 @@
 + (NSString*)stringForObject:(id)object;
 + (NSDictionary*)dictionaryForObject:(id)object;
 + (NSArray*)arrayForObject:(id)object;
++ (NSNumber*)numberForObject:(id)object;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 

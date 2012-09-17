@@ -104,7 +104,7 @@
     
     //authonticate user
     if (u.facebookId)
-        [DDAuthenticationController authenticateWithFbId:self.user.facebookId fbToken:[DDFacebookController token] delegate:self];
+        [DDAuthenticationController authenticateWithFbId:[self.user.facebookId stringValue] fbToken:[DDFacebookController token] delegate:self];
     else
         [DDAuthenticationController authenticateWithEmail:self.user.email password:self.user.password delegate:self];
 }

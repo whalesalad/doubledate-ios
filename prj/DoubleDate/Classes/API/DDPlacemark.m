@@ -28,11 +28,11 @@
         self.country = [DDAPIObject stringForObject:[dictionary objectForKey:@"country"]];
         self.adminCode = [DDAPIObject stringForObject:[dictionary objectForKey:@"admin_code"]];
         self.adminName = [DDAPIObject stringForObject:[dictionary objectForKey:@"admin_name"]];
-        self.latitude = [DDAPIObject stringForObject:[dictionary objectForKey:@"latitude"]];
+        self.latitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"latitude"]];
         self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
         self.identifier = [DDAPIObject stringForObject:[dictionary objectForKey:@"id"]];
-        self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
-        self.longitude = [DDAPIObject stringForObject:[dictionary objectForKey:@"longitude"]];
+        self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
+        self.longitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"longitude"]];
         self.distance = [DDAPIObject stringForObject:[dictionary objectForKey:@"distance"]];
         self.locality = [DDAPIObject stringForObject:[dictionary objectForKey:@"locality"]];
     }

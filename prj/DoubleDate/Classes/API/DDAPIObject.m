@@ -51,6 +51,13 @@
     return nil;
 }
 
++ (NSArray*)numberForObject:(id)object
+{
+    if ([object isKindOfClass:[NSNumber class]])
+        return [[object copy] autorelease];
+    return nil;
+}
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if (![dictionary isKindOfClass:[NSDictionary class]])
