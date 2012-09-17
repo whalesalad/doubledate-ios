@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DDAPIObject : NSObject
+@interface DDAPIObject : NSObject<NSCopying>
 {
 }
 

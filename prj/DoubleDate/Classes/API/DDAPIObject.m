@@ -74,4 +74,10 @@
     return nil;
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    return [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
+}
+
+
 @end

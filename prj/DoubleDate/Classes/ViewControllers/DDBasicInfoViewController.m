@@ -177,7 +177,9 @@
 - (void)nextTouched:(id)sender
 {
     //fill user data
-    DDUser *newUser = [[[DDUser alloc] init] autorelease];
+    DDUser *newUser = [[user copy] autorelease];
+    if (!newUser)
+        newUser = [[[DDUser alloc] init] autorelease];
     newUser.firstName = textFieldName.text;
     newUser.lastName = textFieldSurname.text;
     newUser.birthday = textFieldBirth.text;
