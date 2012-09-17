@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>DDViewController</key>
+	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>color</key>
+			<dict>
+				<key>r</key>
+				<integer>220</integer>
+				<key>g</key>
+				<integer>0</integer>
+				<key>b</key>
+				<integer>78</integer>
+				<key>a</key>
+				<string>255</string>
+			</dict>
+		</dict>
+		<key>CALayer</key>
+		<dict>
+			<key>shadowOffset</key>
+			<string>{2, 2}</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

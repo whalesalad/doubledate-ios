@@ -197,10 +197,6 @@
         newUser.gender = DDUserGenderMale;
     else if (segmentedControlMale.selectedSegmentIndex == 1)
         newUser.gender = DDUserGenderFemale;
-        
-    //check for facebook
-    if (user)
-        newUser.facebookId = [user facebookId];
     
     //save location
     if (self.userLocation)

@@ -30,6 +30,7 @@ NSString *DDUserInterestBoth = @"both";
 @synthesize bio;
 
 @synthesize facebookId;
+@synthesize facebookAccessToken;
 
 @synthesize email;
 @synthesize password;
@@ -54,6 +55,7 @@ NSString *DDUserInterestBoth = @"both";
             self.single = [DDAPIObject numberForObject:[dictionary objectForKey:@"single"]];
             self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
             self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
+            self.facebookAccessToken = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_access_token"]];
             self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
             self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
@@ -88,6 +90,8 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:self.photo forKey:@"photo"];
     if (self.facebookId)
         [dictionary setObject:self.facebookId forKey:@"facebook_id"];
+    if (self.facebookAccessToken)
+        [dictionary setObject:self.facebookAccessToken forKey:@"facebook_access_token"];
     if (self.email)
         [dictionary setObject:self.email forKey:@"email"];
     if (self.password)
@@ -114,6 +118,7 @@ NSString *DDUserInterestBoth = @"both";
     [single release];
     [bio release];
     [facebookId release];
+    [facebookAccessToken release];
     [email release];
     [password release];
     [location release];

@@ -105,7 +105,7 @@ typedef enum
     [controller_ startRequest:request];
 }
 
-- (void)requeFacebookUserForToken:(NSString*)fbToken
+- (void)requestFacebookUserForToken:(NSString*)fbToken
 {
     //create user dictionary
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:fbToken forKey:@"facebook_access_token"];

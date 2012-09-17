@@ -24,4 +24,6 @@
 
 - (UIViewController*)viewControllerForClass:(Class)vcClass;
 
+- (void)customize;
+
 @end

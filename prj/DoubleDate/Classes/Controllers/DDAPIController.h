@@ -43,7 +43,7 @@
 
 - (void)createUser:(DDUser*)user;
 
-- (void)requeFacebookUserForToken:(NSString*)fbToken;
+- (void)requestFacebookUserForToken:(NSString*)fbToken;
 
 - (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 

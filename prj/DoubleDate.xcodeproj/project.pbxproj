@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
@@ -138,6 +139,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7093AA381607DA7B00FC9C65 /* Design.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Design.plist; sourceTree = "<group>"; };
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
 		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		960A02D315F7371D00BA9EB0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7093AA381607DA7B00FC9C65 /* Design.plist */,
 				960A02D415F7371D00BA9EB0 /* DoubleDate-Info.plist */,
 				960A02D815F7371D00BA9EB0 /* main.m */,
 				960A02DA15F7371D00BA9EB0 /* DoubleDate-Prefix.pch */,
@@ -690,6 +693,7 @@
 				96B59E111606FFBC00CFDA1C /* facebook_login_button.png in Resources */,
 				96B59E121606FFBC00CFDA1C /* facebook_login_button_touched.png in Resources */,
 				96B59E131606FFBC00CFDA1C /* welcome_bg.png in Resources */,
+				7093AA391607DA7B00FC9C65 /* Design.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

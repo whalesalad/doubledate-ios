@@ -30,6 +30,8 @@
 
 - (void)registerWithUser:(DDUser*)user;
 
+- (void)startWithUser:(DDUser*)user animated:(BOOL)animated;
+
 @end
 
 @implementation DDWelcomeViewController
@@ -185,7 +187,7 @@
             [self showHudWithText:NSLocalizedString(@"Fetching User", nil) animated:NO];
             
             //request information about the user
-            [controller_ requeFacebookUserForToken:[DDFacebookController token]];
+            [controller_ requestFacebookUserForToken:[DDFacebookController token]];
         }
         else
         {
@@ -209,7 +211,7 @@
     [self hideHud:YES];
     
     //start with user
-    [self startWithUser:me];
+    [self startWithUser:me animated:YES];
 }
 
 - (void)getMeDidFailedWithError:(NSError*)error
@@ -225,6 +227,9 @@
 {
     //hide hude
     [self hideHud:YES];
+    
+    //save access token
+    user.facebookAccessToken = [DDFacebookController token];
     
     //register user
     [self registerWithUser:user];
@@ -242,7 +247,7 @@
 #pragma mark -
 #pragma comment other
 
-- (void)startWithUser:(DDUser*)user
+- (void)startWithUser:(DDUser*)user animated:(BOOL)animated
 {
     //dismiss all modal view controllers
     [self dismissModalViewControllerAnimated:YES];
@@ -265,8 +270,13 @@
         tabBarController.viewControllers = [NSArray arrayWithObjects:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease], nil];
         
         //go to next view controller
-        [self.navigationController pushViewController:tabBarController animated:NO];
+        [self.navigationController pushViewController:tabBarController animated:animated];
     }
+}
+
+- (void)startWithUser:(DDUser *)user
+{
+    [self startWithUser:user animated:NO];
 }
 
 @end

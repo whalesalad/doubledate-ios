@@ -33,6 +33,7 @@ extern NSString *DDUserInterestBoth;
 @property(nonatomic, retain) NSString *bio;
 
 @property(nonatomic, retain) NSNumber *facebookId;
+@property(nonatomic, retain) NSString *facebookAccessToken;
 
 @property(nonatomic, retain) NSString *email;
 @property(nonatomic, retain) NSString *password;

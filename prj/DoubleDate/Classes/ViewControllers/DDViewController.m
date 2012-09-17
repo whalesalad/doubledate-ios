@@ -9,6 +9,7 @@
 #import "DDViewController.h"
 #import "MBProgressHUD.h"
 #import "DDAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDViewController
 
@@ -68,6 +69,47 @@
 {
     //show view after appearing
     [self.viewAfterAppearing setHidden:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //make customization
+    [self customize];
+}
+
+- (void)customize
+{
+    //load dictionay
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Design" ofType:@"plist"]];
+    
+    //read each class
+    for (NSString *key in [dictionary allKeys])
+    {
+        //check class
+        Class curClass = NSClassFromString(key);
+        
+        //check if it's the same
+        if ([self isKindOfClass:curClass])
+        {
+            //check navigation bar
+            NSDictionary *dicUINavigationBar = [[dictionary objectForKey:key] objectForKey:@"UINavigationBar"];
+            if ([dicUINavigationBar objectForKey:@"color"])
+            {
+                NSNumber *r = [[dicUINavigationBar objectForKey:@"color"] objectForKey:@"r"];
+                NSNumber *g = [[dicUINavigationBar objectForKey:@"color"] objectForKey:@"g"];
+                NSNumber *b = [[dicUINavigationBar objectForKey:@"color"] objectForKey:@"b"];
+                NSNumber *a = [[dicUINavigationBar objectForKey:@"color"] objectForKey:@"a"];
+                self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:[r floatValue]/255.0f green:[g floatValue]/255.0f blue:[b floatValue]/255.0f alpha:[a floatValue]/255.0f];
+            }
+            
+            //check layer
+            NSDictionary *dicCALayer = [[dictionary objectForKey:key] objectForKey:@"CALayer"];
+            if ([dicCALayer objectForKey:@"shadowOffset"])
+                self.view.layer.shadowOffset = CGSizeFromString([dicCALayer objectForKey:@"shadowOffset"]);
+        }
+    }
 }
 
 - (UIViewController*)viewControllerForClass:(Class)vcClass inViewController:(UIViewController*)vc
