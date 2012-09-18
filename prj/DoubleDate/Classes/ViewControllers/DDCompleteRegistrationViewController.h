@@ -15,6 +15,9 @@
 {
     DDAPIController *controller_;
     DDUser *createdUser_;
+    BOOL locationSent_;
+    BOOL interestsSent_;
+    BOOL posterSent_;
 }
 
 @property(nonatomic, retain) DDUser *user;

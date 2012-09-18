@@ -93,6 +93,11 @@
     newUser.location = nil;
     newUser.photo = nil;
     
+    //unset flags
+    locationSent_ = NO;
+    interestsSent_ = NO;
+    posterSent_ = NO;
+    
     //create user
     [controller_ createUser:newUser];
 }
@@ -112,7 +117,7 @@
 - (void)createUserSucceed:(DDUser*)u
 {
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
+    [self showHudWithText:NSLocalizedString(@"Authorizing", nil) animated:NO];
     
     //save created user
     [createdUser_ release];
@@ -134,7 +139,7 @@
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
-- (void)updateUserSucceed:(DDUser *)u
+- (void)updateMeSucceed:(DDUser *)u
 {
     //update object
     if (createdUser_ != u)
@@ -144,17 +149,25 @@
     }
     
     //check if we need to update the interests
-    if (self.user.interests && !u.interests)
+    if (self.user.interests && !u.interests && !interestsSent_)
     {
+        //save flag
+        interestsSent_ = YES;
+        
+        //update user
         DDUser *newUser = [[[DDUser alloc] init] autorelease];
         newUser.interests = self.user.interests;
-        [controller_ updateUser:newUser forId:[u.userId stringValue]];
+        [controller_ updateMe:newUser];
     }
-    else if (self.user.location && !u.location)
+    else if (self.user.location && !u.location && !locationSent_)
     {
+        //save flag
+        locationSent_ = YES;
+        
+        //update user
         DDUser *newUser = [[[DDUser alloc] init] autorelease];
         newUser.location = self.user.location;
-        [controller_ updateUser:newUser forId:[u.userId stringValue]];
+        [controller_ updateMe:newUser];
     }
     else
     {
@@ -166,7 +179,7 @@
     }
 }
 
-- (void)updateUserDidFailedWithError:(NSError *)error
+- (void)updateMeDidFailedWithError:(NSError *)error
 {
     //hide hud
     [self hideHud:YES];
@@ -187,10 +200,10 @@
     if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
     {
         //show hud
-        [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:YES];
+        [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
 
         //update created user
-        [self updateUserSucceed:createdUser_];
+        [self updateMeSucceed:createdUser_];
     }
 }
 

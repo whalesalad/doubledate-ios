@@ -290,7 +290,10 @@
 - (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks
 {
     if (!self.userLocation)
-        self.userLocation = [placemarks objectAtIndex:0];
+    {
+        if ([placemarks count] > 0)
+            self.userLocation = [placemarks objectAtIndex:0];
+    }
 }
 
 #pragma mark -
