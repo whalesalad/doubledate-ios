@@ -12,9 +12,11 @@
 
 @class DDUser;
 @class DDPlacemark;
+@class DDLocationController;
 
 @interface DDBasicInfoViewController : DDViewController
 {
+    DDLocationController *locationController_;
 }
 
 @property(nonatomic, retain) DDUser *user;

@@ -19,8 +19,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "DDPlacemark.h"
 #import "DDImage.h"
+#import "DDLocationController.h"
 
-@interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate>
+@interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate>
 
 @end
 
@@ -42,6 +43,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        locationController_ = [[DDLocationController alloc] init];
+        locationController_.delegate = self;
     }
     return self;
 }
@@ -114,6 +117,9 @@
     datePicker.maximumDate = [NSDate date];
     [datePicker addTarget:self action:@selector(birthdayChanged:) forControlEvents:UIControlEventValueChanged];
     textFieldBirth.inputView = datePicker;
+    
+    //force location update
+    [locationController_ forceSearchPlacemarks];
 }
 
 - (void)viewDidUnload
@@ -147,6 +153,8 @@
 
 - (void)dealloc
 {
+    locationController_.delegate = nil;
+    [locationController_ release];
     [user release];
     [userLocation release];
     [textFieldName release];
@@ -264,6 +272,25 @@
 - (void)locationPickerViewControllerDidCancel
 {
     [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma comment DDLocationControllerDlegate
+
+- (void)locationManagerDidFoundLocation:(CLLocation*)location
+{
+    
+}
+
+- (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location
+{
+    return self.userLocation == nil;
+}
+
+- (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks
+{
+    if (!self.userLocation)
+        self.userLocation = [placemarks objectAtIndex:0];
 }
 
 #pragma mark -

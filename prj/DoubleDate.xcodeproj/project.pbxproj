@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
+		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
 		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
@@ -144,6 +145,8 @@
 /* Begin PBXFileReference section */
 		708AB1591608FC50009817FC /* DDInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterest.h; sourceTree = "<group>"; };
 		708AB15A1608FC50009817FC /* DDInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterest.m; sourceTree = "<group>"; };
+		708AB15C160904CA009817FC /* DDLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationController.h; sourceTree = "<group>"; };
+		708AB15D160904CA009817FC /* DDLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationController.m; sourceTree = "<group>"; };
 		7093AA381607DA7B00FC9C65 /* Design.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Design.plist; sourceTree = "<group>"; };
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
@@ -541,6 +544,8 @@
 		96E7F20215F7A05F00200E1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				708AB15C160904CA009817FC /* DDLocationController.h */,
+				708AB15D160904CA009817FC /* DDLocationController.m */,
 				964A6F0315F8B1250077AAF1 /* DDRequestsController.h */,
 				964A6F0415F8B1250077AAF1 /* DDRequestsController.m */,
 				964A6F0015F8AFE90077AAF1 /* DDAPIController.h */,
@@ -746,6 +751,7 @@
 				961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */,
 				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
 				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
+				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
