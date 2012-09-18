@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
@@ -141,6 +142,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		708AB1591608FC50009817FC /* DDInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterest.h; sourceTree = "<group>"; };
+		708AB15A1608FC50009817FC /* DDInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterest.m; sourceTree = "<group>"; };
 		7093AA381607DA7B00FC9C65 /* Design.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Design.plist; sourceTree = "<group>"; };
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				708AB1591608FC50009817FC /* DDInterest.h */,
+				708AB15A1608FC50009817FC /* DDInterest.m */,
 				96B59E141607185900CFDA1C /* DDImage.h */,
 				96B59E151607185A00CFDA1C /* DDImage.m */,
 				96892D3515FF59750054C108 /* DDPlacemark.h */,
@@ -740,6 +745,7 @@
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
 				961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */,
 				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
+				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

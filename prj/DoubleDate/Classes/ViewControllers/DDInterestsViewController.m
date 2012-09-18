@@ -11,6 +11,7 @@
 #import "DDAPIController.h"
 #import "DDCompleteRegistrationViewController.h"
 #import "JSTokenButton.h"
+#import "DDInterest.h"
 
 @interface DDInterestsViewController ()<DDAPIControllerDelegate>
 
@@ -81,18 +82,23 @@
     {
         NSString *text = button.representedObject;
         text = [text stringByReplacingOccurrencesOfString:@"\u200B" withString:@""];
-        [interests addObject:text];
+        DDInterest *interest = [[[DDInterest alloc] init] autorelease];
+        interest.name = text;
+        [interests addObject:interest];
     }
     
-    //save interests
+    //fill user data
+    DDUser *newUser = [[user copy] autorelease];
+    if (!newUser)
+        newUser = [[[DDUser alloc] init] autorelease];
     if ([interests count])
-        self.user.interests = interests;
+        newUser.interests = interests;
     else
-        self.user.interests = nil;
+        newUser.interests = nil;
     
     //go to next
     DDCompleteRegistrationViewController *viewController = [[[DDCompleteRegistrationViewController alloc] init] autorelease];
-    viewController.user = self.user;
+    viewController.user = newUser;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

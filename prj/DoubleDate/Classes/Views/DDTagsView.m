@@ -100,7 +100,7 @@
         for (NSString *lineToAdd in correctedLines)
         {
             UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, [correctedLines indexOfObject:lineToAdd] * (lineSize.height + self.gap) + offset - self.gap/2, self.frame.size.width, lineSize.height + self.gap)] autorelease];
-            label.backgroundColor = [UIColor greenColor];
+            label.backgroundColor = [UIColor clearColor];
             label.text = lineToAdd;
             label.textAlignment = UITextAlignmentCenter;
             label.font = self.font;

@@ -9,6 +9,7 @@
 #import "DDUser.h"
 #import "DDPlacemark.h"
 #import "DDImage.h"
+#import "DDInterest.h"
 
 NSString *DDUserGenderMale = @"male";
 NSString *DDUserGenderFemale = @"female";
@@ -60,7 +61,14 @@ NSString *DDUserInterestBoth = @"both";
             self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
             self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
             self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
-            self.interests = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
+            NSArray *interestsDicArray = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
+            NSMutableArray *interestsObjArray = [NSMutableArray array];
+            for (NSDictionary *interestDic in interestsDicArray)
+            {
+                DDInterest *interest = [DDInterest objectWithDictionary:interestDic];
+                [interestsObjArray addObject:interest];
+            }
+            self.interests = [NSArray arrayWithArray:interestsObjArray];
     }
     return self;
 }
@@ -101,7 +109,12 @@ NSString *DDUserInterestBoth = @"both";
     if ([self.photo dictionaryRepresentation])
         [dictionary setObject:[self.photo dictionaryRepresentation] forKey:@"photo"];
     if (self.interests)
-        [dictionary setObject:self.interests forKey:@"interests"];
+    {
+        NSMutableArray *interestsDicArray = [NSMutableArray array];
+        for (DDInterest *interest in self.interests)
+            [interestsDicArray addObject:interest.name];
+        [dictionary setObject:interestsDicArray forKey:@"interest_names"];
+    }
     return dictionary;
 }
 

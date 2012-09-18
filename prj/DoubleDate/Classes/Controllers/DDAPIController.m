@@ -14,6 +14,7 @@
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
 #import "DDPlacemark.h"
+#import "DDInterest.h"
 
 typedef enum
 {
@@ -161,7 +162,6 @@ typedef enum
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"interests"];
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
     request.method = RKRequestMethodGET;
-    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
@@ -220,6 +220,20 @@ typedef enum
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestAvailableInterests)
         {
+            //extract data
+            NSMutableArray *interests = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create placemark
+                DDInterest *interest = [DDInterest objectWithDictionary:dic];
+                if (interest)
+                    [interests addObject:interest];
+            }
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:interests withObject:nil];
         }
     }
     else
