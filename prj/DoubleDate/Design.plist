@@ -24,25 +24,10 @@
 			<dict>
 				<key>layer</key>
 				<dict>
-					<key>shadowOpacity</key>
-					<dict>
-						<key>float</key>
-						<integer>1</integer>
-					</dict>
-					<key>shadowColor</key>
-					<dict>
-						<key>CGColorRef</key>
-						<string>(0,255,0,255)</string>
-					</dict>
-					<key>shadowOffset</key>
-					<dict>
-						<key>CGSize</key>
-						<string>(5,-5)</string>
-					</dict>
 					<key>cornerRadius</key>
 					<dict>
 						<key>CGFloat</key>
-						<integer>50</integer>
+						<integer>40</integer>
 					</dict>
 					<key>masksToBounds</key>
 					<dict>
