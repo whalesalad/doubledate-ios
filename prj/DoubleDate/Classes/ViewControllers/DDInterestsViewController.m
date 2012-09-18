@@ -89,8 +89,6 @@
     
     //fill user data
     DDUser *newUser = [[user copy] autorelease];
-    if (!newUser)
-        newUser = [[[DDUser alloc] init] autorelease];
     if ([interests count])
         newUser.interests = interests;
     else

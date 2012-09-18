@@ -15,6 +15,8 @@
 
 @interface DDCompleteRegistrationViewController ()<DDAPIControllerDelegate>
 
+- (void)handleFinishForUser:(DDUser*)user;
+
 @end
 
 @implementation DDCompleteRegistrationViewController
@@ -63,6 +65,7 @@
 - (void)dealloc
 {
     [user release];
+    [createdUser_ release];
     [textFieldEmail release];
     [textFieldPassword release];
     controller_.delegate = nil;
@@ -78,14 +81,29 @@
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
     
-    //set email and password
+    //fill user data
+    DDUser *newUser = [[user copy] autorelease];
     if ([textFieldEmail.text length])
-        self.user.email = textFieldEmail.text;
+        newUser.email = textFieldEmail.text;
     if ([textFieldPassword.text length])
-        self.user.password = textFieldPassword.text;
+        newUser.password = textFieldPassword.text;
+    
+    //remove not needed fields
+    newUser.interests = nil;
+    newUser.location = nil;
+    newUser.photo = nil;
     
     //create user
-    [controller_ createUser:self.user];
+    [controller_ createUser:newUser];
+}
+
+#pragma mark -
+#pragma comment other
+
+- (void)handleFinishForUser:(DDUser*)user
+{
+    //start with user
+    [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:self.user];
 }
 
 #pragma mark -
@@ -94,19 +112,17 @@
 - (void)createUserSucceed:(DDUser*)u
 {
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Authorizing", nil) animated:NO];
+    [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
     
-    //save password
-    u.password = self.user.password;
-    
-    //save user
-    self.user = u;
+    //save created user
+    [createdUser_ release];
+    createdUser_ = [u retain];
     
     //authonticate user
     if (u.facebookId)
         [DDAuthenticationController authenticateWithFbToken:[DDFacebookController token] delegate:self];
     else
-        [DDAuthenticationController authenticateWithEmail:self.user.email password:self.user.password delegate:self];
+        [DDAuthenticationController authenticateWithEmail:textFieldEmail.text password:textFieldPassword.text delegate:self];
 }
 
 - (void)createUserDidFailedWithError:(NSError*)error
@@ -118,6 +134,50 @@
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
+- (void)updateUserSucceed:(DDUser *)u
+{
+    //update object
+    if (createdUser_ != u)
+    {
+        [createdUser_ release];
+        createdUser_ = [u retain];
+    }
+    
+    //check if we need to update the interests
+    if (self.user.interests && !u.interests)
+    {
+        DDUser *newUser = [[[DDUser alloc] init] autorelease];
+        newUser.interests = self.user.interests;
+        [controller_ updateUser:newUser forId:[u.userId stringValue]];
+    }
+    else if (self.user.location && !u.location)
+    {
+        DDUser *newUser = [[[DDUser alloc] init] autorelease];
+        newUser.location = self.user.location;
+        [controller_ updateUser:newUser forId:[u.userId stringValue]];
+    }
+    else
+    {
+        //hide hud
+        [self hideHud:YES];
+        
+        //finish
+        [self handleFinishForUser:createdUser_];
+    }
+}
+
+- (void)updateUserDidFailedWithError:(NSError *)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //try to get error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //finish
+    [self handleFinishForUser:createdUser_];
+}
+
 #pragma mark -
 #pragma comment API
 
@@ -126,11 +186,11 @@
     //check for delegate
     if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
     {
-        //hide hud
-        [self hideHud:YES];
-        
-        //start with user
-        [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:self.user];
+        //show hud
+        [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:YES];
+
+        //update created user
+        [self updateUserSucceed:createdUser_];
     }
 }
 
@@ -142,8 +202,10 @@
         //hide hude
         [self hideHud:YES];
         
-        //start with dummy
-        [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:nil];
+        //try to get error
+        NSError *error = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
+        if (error)
+            [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
     }
 }
 

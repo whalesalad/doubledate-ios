@@ -50,7 +50,7 @@ NSString *DDUserInterestBoth = @"both";
             self.birthday = [DDAPIObject stringForObject:[dictionary objectForKey:@"birthday"]];
             self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
             self.gender = [DDAPIObject stringForObject:[dictionary objectForKey:@"gender"]];
-            self.userId = [DDAPIObject stringForObject:[dictionary objectForKey:@"id"]];
+            self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
             self.interestedIn = [DDAPIObject stringForObject:[dictionary objectForKey:@"interested_in"]];
             self.lastName = [DDAPIObject stringForObject:[dictionary objectForKey:@"last_name"]];
             self.single = [DDAPIObject numberForObject:[dictionary objectForKey:@"single"]];
@@ -68,7 +68,8 @@ NSString *DDUserInterestBoth = @"both";
                 DDInterest *interest = [DDInterest objectWithDictionary:interestDic];
                 [interestsObjArray addObject:interest];
             }
-            self.interests = [NSArray arrayWithArray:interestsObjArray];
+            if ([interestsObjArray count])
+                self.interests = [NSArray arrayWithArray:interestsObjArray];
     }
     return self;
 }
@@ -108,7 +109,7 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
     if ([self.photo dictionaryRepresentation])
         [dictionary setObject:[self.photo dictionaryRepresentation] forKey:@"photo"];
-    if (self.interests)
+    if ([self.interests count])
     {
         NSMutableArray *interestsDicArray = [NSMutableArray array];
         for (DDInterest *interest in self.interests)

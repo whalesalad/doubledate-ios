@@ -23,7 +23,7 @@ extern NSString *DDUserInterestBoth;
 
 @property(nonatomic, retain) NSString *birthday;
 @property(nonatomic, retain) NSString *lastName;
-@property(nonatomic, retain) NSString *userId;
+@property(nonatomic, retain) NSNumber *userId;
 @property(nonatomic, retain) NSString *gender;
 @property(nonatomic, retain) NSNumber *age;
 @property(nonatomic, retain) NSString *firstName;

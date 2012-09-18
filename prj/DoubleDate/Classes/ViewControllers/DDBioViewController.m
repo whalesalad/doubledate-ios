@@ -64,8 +64,6 @@
 {
     //fill user data
     DDUser *newUser = [[user copy] autorelease];
-    if (!newUser)
-        newUser = [[[DDUser alloc] init] autorelease];
     newUser.bio = self.textViewBio.text;
     
     //go next

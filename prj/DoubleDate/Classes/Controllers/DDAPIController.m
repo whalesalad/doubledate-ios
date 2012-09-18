@@ -20,6 +20,7 @@ typedef enum
 {
     DDAPIControllerMethodTypeGetMe,
     DDAPIControllerMethodTypeCreateUser,
+    DDAPIControllerMethodTypeUpdateUser,
     DDAPIControllerMethodTypeRequestFBUser,
     DDAPIControllerMethodTypeSearchPlacemarks,
     DDAPIControllerMethodTypeRequestAvailableInterests,
@@ -100,6 +101,31 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeCreateUser;
     userData.succeedSel = @selector(createUserSucceed:);
     userData.failedSel = @selector(createUserDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
+- (void)updateUser:(DDUser*)user forId:(NSString*)userId
+{
+    //create user dictionary
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[user dictionaryRepresentation] forKey:@"user"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"users/%@", userId]];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodPUT;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeUpdateUser;
+    userData.succeedSel = @selector(updateUserSucceed:);
+    userData.failedSel = @selector(updateUserDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -192,6 +218,7 @@ typedef enum
         //check type
         if (userData.method == DDAPIControllerMethodTypeGetMe ||
             userData.method == DDAPIControllerMethodTypeCreateUser ||
+            userData.method == DDAPIControllerMethodTypeUpdateUser ||
             userData.method == DDAPIControllerMethodTypeRequestFBUser)
         {
             //create user object

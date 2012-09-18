@@ -14,6 +14,7 @@
 @interface DDCompleteRegistrationViewController : DDViewController
 {
     DDAPIController *controller_;
+    DDUser *createdUser_;
 }
 
 @property(nonatomic, retain) DDUser *user;

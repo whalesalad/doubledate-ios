@@ -21,6 +21,9 @@
 - (void)createUserSucceed:(DDUser*)user;
 - (void)createUserDidFailedWithError:(NSError*)error;
 
+- (void)updateUserSucceed:(DDUser*)user;
+- (void)updateUserDidFailedWithError:(NSError*)error;
+
 - (void)requestFacebookUserSucceed:(DDUser*)user;
 - (void)requestFacebookDidFailedWithError:(NSError*)error;
 
@@ -42,6 +45,8 @@
 - (void)getMe;
 
 - (void)createUser:(DDUser*)user;
+
+- (void)updateUser:(DDUser*)user forId:(NSString*)userId;
 
 - (void)requestFacebookUserForToken:(NSString*)fbToken;
 
