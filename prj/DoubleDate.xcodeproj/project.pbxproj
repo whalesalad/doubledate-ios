@@ -24,6 +24,7 @@
 		960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844E15FDF60200EAF708 /* tokenNormal@2x.png */; };
 		960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C846315FDFD9400EAF708 /* DDInterestsViewController.m */; };
 		960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */; };
+		961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E356516084A2E0053B88B /* DDViewController+Design.m */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -164,6 +165,8 @@
 		960C846215FDFD9400EAF708 /* DDInterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterestsViewController.h; sourceTree = "<group>"; };
 		960C846315FDFD9400EAF708 /* DDInterestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterestsViewController.m; sourceTree = "<group>"; };
 		960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInterestsViewController.xib; sourceTree = "<group>"; };
+		961E356416084A2E0053B88B /* DDViewController+Design.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDViewController+Design.h"; sourceTree = "<group>"; };
+		961E356516084A2E0053B88B /* DDViewController+Design.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDViewController+Design.m"; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -460,6 +463,8 @@
 				964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */,
 				96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */,
 				96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */,
+				961E356416084A2E0053B88B /* DDViewController+Design.h */,
+				961E356516084A2E0053B88B /* DDViewController+Design.m */,
 				96E7F1E115F788A900200E1F /* DDViewController.h */,
 				96E7F1E215F788A900200E1F /* DDViewController.m */,
 			);
@@ -728,6 +733,7 @@
 				96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */,
 				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
+				961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

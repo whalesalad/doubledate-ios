@@ -4,24 +4,53 @@
 <dict>
 	<key>DDViewController</key>
 	<dict>
-		<key>UINavigationBar</key>
+		<key>navigationController</key>
 		<dict>
-			<key>color</key>
+			<key>navigationBar</key>
 			<dict>
-				<key>r</key>
-				<integer>220</integer>
-				<key>g</key>
-				<integer>0</integer>
-				<key>b</key>
-				<integer>78</integer>
-				<key>a</key>
-				<string>255</string>
+				<key>tintColor</key>
+				<dict>
+					<key>UIColor</key>
+					<string>(255,0,0,255)</string>
+				</dict>
 			</dict>
 		</dict>
-		<key>CALayer</key>
+	</dict>
+	<key>DDMeViewController</key>
+	<dict>
+		<key>view</key>
 		<dict>
-			<key>shadowOffset</key>
-			<string>{2, 2}</string>
+			<key>viewWithTag:1</key>
+			<dict>
+				<key>layer</key>
+				<dict>
+					<key>shadowOpacity</key>
+					<dict>
+						<key>float</key>
+						<integer>1</integer>
+					</dict>
+					<key>shadowColor</key>
+					<dict>
+						<key>CGColorRef</key>
+						<string>(0,255,0,255)</string>
+					</dict>
+					<key>shadowOffset</key>
+					<dict>
+						<key>CGSize</key>
+						<string>(5,-5)</string>
+					</dict>
+					<key>cornerRadius</key>
+					<dict>
+						<key>CGFloat</key>
+						<integer>50</integer>
+					</dict>
+					<key>masksToBounds</key>
+					<dict>
+						<key>BOOL</key>
+						<true/>
+					</dict>
+				</dict>
+			</dict>
 		</dict>
 	</dict>
 </dict>

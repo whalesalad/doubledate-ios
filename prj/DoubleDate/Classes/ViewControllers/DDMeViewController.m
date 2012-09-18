@@ -8,6 +8,9 @@
 
 #import "DDMeViewController.h"
 #import "DDUser.h"
+#import "DDImage.h"
+#import "DDImageView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDMeViewController ()
 
@@ -17,6 +20,7 @@
 
 @synthesize user;
 @synthesize labelTitle;
+@synthesize imageViewPoster;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,12 +43,17 @@
     
     //set title
     labelTitle.text = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
+    
+    //set poster
+    if (user.photo.downloadUrl)
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
     [labelTitle release], labelTitle = nil;
+    [imageViewPoster release], imageViewPoster = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -56,6 +65,7 @@
 {
     [user release];
     [labelTitle release];
+    [imageViewPoster release];
     [super dealloc];
 }
 
