@@ -10,6 +10,7 @@
 
 @class DDUser;
 @class DDImageView;
+@class DDTagsView;
 
 @interface DDMeViewController : DDViewController
 
@@ -22,5 +23,6 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelAge;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UITextView *textViewBio;
+@property(nonatomic, retain) IBOutlet DDTagsView *tagsViewInterests;
 
 @end

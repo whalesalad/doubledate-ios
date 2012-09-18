@@ -12,6 +12,7 @@
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DDPlacemark.h"
+#import "DDTagsView.h"
 
 @interface DDMeViewController ()<UIWebViewDelegate>
 
@@ -27,6 +28,7 @@
 @synthesize labelAge;
 @synthesize labelLocation;
 @synthesize textViewBio;
+@synthesize tagsViewInterests;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,6 +68,12 @@
     
     //set location
     labelLocation.text = [[user location] name];
+    
+    
+    tagsViewInterests.tags = [NSArray arrayWithObjects:@"HI", @"YOU", @"How are things going one", @"my name is testing", @"AnD yours?", nil];
+    tagsViewInterests.gap = 4;
+    tagsViewInterests.bubbleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    [tagsViewInterests customize];
 }
 
 - (void)viewDidUnload
@@ -76,6 +84,7 @@
     [imageViewMale release], imageViewMale = nil;
     [imageViewFemale release], imageViewFemale = nil;
     [textViewBio release], textViewBio = nil;
+    [tagsViewInterests release], tagsViewInterests = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -91,6 +100,7 @@
     [imageViewMale release];
     [imageViewFemale release];
     [textViewBio release];
+    [tagsViewInterests release];
     [super dealloc];
 }
 

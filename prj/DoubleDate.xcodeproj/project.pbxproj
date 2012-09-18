@@ -37,6 +37,7 @@
 		964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */; };
 		964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0115F8AFE90077AAF1 /* DDAPIController.m */; };
 		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
+		965FCA671608AE8A00984566 /* DDTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FCA661608AE8A00984566 /* DDTagsView.m */; };
 		96892C9E15FF10F20054C108 /* doubledates-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9A15FF10F20054C108 /* doubledates-tab-bar.png */; };
 		96892C9F15FF10F20054C108 /* profile-male-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9B15FF10F20054C108 /* profile-male-tab-bar.png */; };
 		96892CA015FF10F20054C108 /* wing-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 96892C9C15FF10F20054C108 /* wing-tab-bar.png */; };
@@ -186,6 +187,8 @@
 		964A6F0115F8AFE90077AAF1 /* DDAPIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAPIController.m; sourceTree = "<group>"; };
 		964A6F0315F8B1250077AAF1 /* DDRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRequestsController.h; sourceTree = "<group>"; };
 		964A6F0415F8B1250077AAF1 /* DDRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRequestsController.m; sourceTree = "<group>"; };
+		965FCA651608AE8A00984566 /* DDTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTagsView.h; sourceTree = "<group>"; };
+		965FCA661608AE8A00984566 /* DDTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTagsView.m; sourceTree = "<group>"; };
 		96892C9A15FF10F20054C108 /* doubledates-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doubledates-tab-bar.png"; sourceTree = "<group>"; };
 		96892C9B15FF10F20054C108 /* profile-male-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-male-tab-bar.png"; sourceTree = "<group>"; };
 		96892C9C15FF10F20054C108 /* wing-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-tab-bar.png"; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				965FCA651608AE8A00984566 /* DDTagsView.h */,
+				965FCA661608AE8A00984566 /* DDTagsView.m */,
 				96B59E18160719DF00CFDA1C /* DDImageView.h */,
 				96B59E19160719DF00CFDA1C /* DDImageView.m */,
 			);
@@ -734,6 +739,7 @@
 				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
 				961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */,
+				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
