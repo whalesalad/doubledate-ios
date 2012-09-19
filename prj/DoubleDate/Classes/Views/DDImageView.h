@@ -12,6 +12,7 @@
 {
     NSURLConnection *connection_;
     UIActivityIndicatorView *activityIndicatorView_;
+    NSMutableData *data_;
 }
 
 - (void)reloadFromUrl:(NSURL*)url;

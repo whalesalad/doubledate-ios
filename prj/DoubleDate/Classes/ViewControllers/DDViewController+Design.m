@@ -110,6 +110,22 @@
     return CGRectZero;
 }
 
+- (BOOL)isEdgeInsetsForKey:(NSString*)key
+{
+    return [key isEqualToString:@"UIEdgeInsets"];
+}
+
+- (UIEdgeInsets)edgeInsetsForValue:(NSObject*)value
+{
+    if ([value isKindOfClass:[NSString class]])
+    {
+        NSInteger t = 0, l = 0, b = 0, r = 0;
+        sscanf([(NSString*)value cStringUsingEncoding:NSASCIIStringEncoding], [@"(%d,%d,%d,%d)" cStringUsingEncoding:NSASCIIStringEncoding], &t, &l, &b, &r);
+        return UIEdgeInsetsMake(t, l, b, r);
+    }
+    return UIEdgeInsetsZero;
+}
+
 - (void)applyKey:(NSString*)key forObject:(NSObject*)object fromDictionary:(NSDictionary*)dictionary
 {
     //set special cases
@@ -138,25 +154,28 @@
             BOOL parameterInside = NO;
             for (NSString *key in [(NSDictionary*)dicObject allKeys])
             {
-                if ([self isColorForKey:key] || [self isFloatForKey:key] || [self isBoolForKey:key] || [self isPointForKey:key] || [self isSizeForKey:key] || [self isCGColorForKey:key] || [self isRectForKey:key])
+                if ([self isColorForKey:key] || [self isFloatForKey:key] || [self isBoolForKey:key] || [self isPointForKey:key] || [self isSizeForKey:key] || [self isCGColorForKey:key] || [self isRectForKey:key] || [self isEdgeInsetsForKey:key])
                     parameterInside = YES;
             }
             
-            //get child object
+            //get child object only if not value
             NSObject *childObject = nil;
-            if (!separatedSelector)
-                childObject = [object performSelector:sel];
-            else
+            if (!parameterInside)
             {
-                //int parameter
-                if (separatedSelector == @selector(viewWithTag:))
+                if (!separatedSelector)
+                    childObject = [object performSelector:sel];
+                else
                 {
-                    childObject = objc_msgSend(object, separatedSelector, [param intValue]);
+                    //int parameter
+                    if (separatedSelector == @selector(viewWithTag:))
+                    {
+                        childObject = objc_msgSend(object, separatedSelector, [param intValue]);
+                    }
                 }
             }
                 
             //check if we have object to make an action
-            if (childObject && !parameterInside)
+            if (childObject)
             {
                 //enumerate all keys
                 for (NSString *childKey in [[dictionary objectForKey:key] allKeys])
@@ -225,6 +244,15 @@
                     else if ([self isRectForKey:key])
                     {
                         CGRect v = [self rectForValue:value];
+                        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[object methodSignatureForSelector:NSSelectorFromString(setterString)]];
+                        invocation.selector = NSSelectorFromString(setterString);
+                        invocation.target = object;
+                        [invocation setArgument:&v atIndex:2];
+                        [invocation invoke];
+                    }
+                    else if ([self isEdgeInsetsForKey:key])
+                    {
+                        UIEdgeInsets v = [self edgeInsetsForValue:value];
                         NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[object methodSignatureForSelector:NSSelectorFromString(setterString)]];
                         invocation.selector = NSSelectorFromString(setterString);
                         invocation.target = object;

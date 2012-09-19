@@ -10,6 +10,7 @@
 #import "DDRequestsController.h"
 
 @class DDUser;
+@class DDImage;
 
 @protocol DDAPIControllerDelegate <NSObject>
 
@@ -20,6 +21,9 @@
 
 - (void)updateMeSucceed:(DDUser*)user;
 - (void)updateMeDidFailedWithError:(NSError*)error;
+
+- (void)updatePhotoForMeSucceed:(DDImage*)photo;
+- (void)updatePhotoForMeDidFailedWithError:(NSError*)error;
 
 - (void)createUserSucceed:(DDUser*)user;
 - (void)createUserDidFailedWithError:(NSError*)error;
@@ -45,6 +49,8 @@
 - (void)getMe;
 
 - (void)updateMe:(DDUser*)user;
+
+- (void)updatePhotoForMe:(UIImage*)photo;
 
 - (void)createUser:(DDUser*)user;
 

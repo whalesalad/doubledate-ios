@@ -105,8 +105,8 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:self.email forKey:@"email"];
     if (self.password)
         [dictionary setObject:self.password forKey:@"password"];
-    if ([self.location dictionaryRepresentation])
-        [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
+    if (self.location.identifier)
+        [dictionary setObject:self.location.identifier forKey:@"location_id"];
     if ([self.photo dictionaryRepresentation])
         [dictionary setObject:[self.photo dictionaryRepresentation] forKey:@"photo"];
     if ([self.interests count])
@@ -117,6 +117,15 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:interestsDicArray forKey:@"interest_names"];
     }
     return dictionary;
+}
+
+- (id)copyWithZone:(NSZone*)zone
+{
+    DDUser *ret = [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
+    ret.photo = [[self.photo copy] autorelease];
+    ret.location = [[self.location copy] autorelease];
+    ret.interests = self.interests;
+    return ret;
 }
 
 - (void)dealloc

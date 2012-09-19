@@ -12,6 +12,7 @@
 #import "DDWelcomeViewController.h"
 #import "DDAuthenticationController.h"
 #import "DDFacebookController.h"
+#import "DDImage.h"
 
 @interface DDCompleteRegistrationViewController ()<DDAPIControllerDelegate>
 
@@ -105,10 +106,10 @@
 #pragma mark -
 #pragma comment other
 
-- (void)handleFinishForUser:(DDUser*)user
+- (void)handleFinishForUser:(DDUser*)u
 {
     //start with user
-    [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:self.user];
+    [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:u];
 }
 
 #pragma mark -
@@ -159,6 +160,7 @@
         newUser.interests = self.user.interests;
         [controller_ updateMe:newUser];
     }
+    //check if we need to update the location
     else if (self.user.location && !u.location && !locationSent_)
     {
         //save flag
@@ -168,6 +170,15 @@
         DDUser *newUser = [[[DDUser alloc] init] autorelease];
         newUser.location = self.user.location;
         [controller_ updateMe:newUser];
+    }
+    //check if we need to post the photo
+    else if (self.user.photo.uploadImage && !posterSent_)
+    {
+        //save that poster sent
+        posterSent_ = YES;
+        
+        //update user
+        [controller_ updatePhotoForMe:self.user.photo.uploadImage];
     }
     else
     {
@@ -180,6 +191,27 @@
 }
 
 - (void)updateMeDidFailedWithError:(NSError *)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //try to get error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //finish
+    [self handleFinishForUser:createdUser_];
+}
+
+- (void)updatePhotoForMeSucceed:(DDImage*)photo
+{
+    //copy data
+    createdUser_.photo = photo;
+    
+    //update user
+    [self updateMeSucceed:createdUser_];
+}
+
+- (void)updatePhotoForMeDidFailedWithError:(NSError*)error
 {
     //hide hud
     [self hideHud:YES];

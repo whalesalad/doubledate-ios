@@ -13,5 +13,6 @@
 }
 
 @property(nonatomic, retain) NSString *downloadUrl;
+@property(nonatomic, retain) UIImage *uploadImage;
 
 @end

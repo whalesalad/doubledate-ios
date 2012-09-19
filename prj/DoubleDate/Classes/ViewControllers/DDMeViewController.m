@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DDPlacemark.h"
 #import "DDTagsView.h"
+#import "DDInterest.h"
 
 @interface DDMeViewController ()<UIWebViewDelegate>
 
@@ -69,10 +70,16 @@
     //set location
     labelLocation.text = [[user location] name];
     
-    
-    tagsViewInterests.tags = [NSArray arrayWithObjects:@"HI", @"YOU", @"How are things going one", @"my name is testing", @"AnD yours?", nil];
-    tagsViewInterests.gap = 4;
-    tagsViewInterests.bubbleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    //set interests
+    NSMutableArray *tags = [NSMutableArray array];
+    for (DDInterest *interest in [user interests])
+        [tags addObject:interest.name];
+    tagsViewInterests.tags = tags;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [tagsViewInterests customize];
 }
 

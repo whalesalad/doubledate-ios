@@ -47,9 +47,16 @@
     [connection_ release];
     connection_ = nil;
     
+    //remove data
+    [data_ release];
+    data_ = nil;
+    
     //start connection
     if (url)
     {
+        //create data
+        data_ = [[NSMutableData alloc] init];
+        
         //show loading
         [activityIndicatorView_ startAnimating];
         
@@ -68,13 +75,18 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    self.image = [UIImage imageWithData:data];
+    if (data)
+        [data_ appendData:data];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     //stop loading
     [activityIndicatorView_ stopAnimating];
+    
+    //updte image
+    if (data_)
+        self.image = [UIImage imageWithData:data_];
     
     //release connection
     [connection_ release];
@@ -85,6 +97,7 @@
 {
     [connection_ release];
     [activityIndicatorView_ release];
+    [data_ release];
     [super dealloc];
 }
 

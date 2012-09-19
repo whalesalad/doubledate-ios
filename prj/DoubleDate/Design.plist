@@ -36,6 +36,19 @@
 					</dict>
 				</dict>
 			</dict>
+			<key>viewWithTag:2</key>
+			<dict>
+				<key>bubbleEdgeInsets</key>
+				<dict>
+					<key>UIEdgeInsets</key>
+					<string>(10,10,10,10)</string>
+				</dict>
+				<key>gap</key>
+				<dict>
+					<key>CGFloat</key>
+					<integer>4</integer>
+				</dict>
+			</dict>
 		</dict>
 	</dict>
 </dict>

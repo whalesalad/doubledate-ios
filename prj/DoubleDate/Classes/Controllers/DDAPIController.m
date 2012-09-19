@@ -15,11 +15,13 @@
 #import "DDUser.h"
 #import "DDPlacemark.h"
 #import "DDInterest.h"
+#import "DDImage.h"
 
 typedef enum
 {
     DDAPIControllerMethodTypeGetMe,
     DDAPIControllerMethodTypeUpdateMe,
+    DDAPIControllerMethodTypeUpdatePhotoForMe,
     DDAPIControllerMethodTypeCreateUser,
     DDAPIControllerMethodTypeRequestFBUser,
     DDAPIControllerMethodTypeSearchPlacemarks,
@@ -101,6 +103,31 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeUpdateMe;
     userData.succeedSel = @selector(updateMeSucceed:);
     userData.failedSel = @selector(updateMeDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
+- (void)updatePhotoForMe:(UIImage*)photo
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodPOST;
+    RKParams *params = [RKParams params];
+    RKParamsAttachment *attachement = [params setData:UIImagePNGRepresentation(photo) MIMEType:@"image/png" forParam:@"image"];
+    attachement.fileName = @"image.png";
+    request.params = params;
+    NSArray *keys = [NSArray arrayWithObjects:@"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeUpdatePhotoForMe;
+    userData.succeedSel = @selector(updatePhotoForMeSucceed:);
+    userData.failedSel = @selector(updatePhotoForMeDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -200,6 +227,12 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)clearRequest:(RKRequest*)request
+{
+    request.delegate = nil;
+    request.params = nil;
+}
+
 #pragma mark -
 #pragma comment RKRequestDelegate
 
@@ -208,7 +241,10 @@ typedef enum
     //extract user data
     DDAPIControllerUserData *userData = (DDAPIControllerUserData*)request.userData;
     if (![userData isKindOfClass:[DDAPIControllerUserData class]])
+    {
+        [self clearRequest:request];
         return;
+    }
     
     //check response code and method name
     if (response.statusCode == 200 ||
@@ -262,6 +298,15 @@ typedef enum
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:interests withObject:nil];
         }
+        if (userData.method == DDAPIControllerMethodTypeUpdatePhotoForMe)
+        {
+            //create photo object
+            DDImage *photo = [DDImage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:photo withObject:nil];
+        }
     }
     else
     {
@@ -277,6 +322,9 @@ typedef enum
         //redirect to self
         [self request:request didFailLoadWithError:error];
     }
+    
+    //clear request
+    [self clearRequest:request];
 }
 
 - (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error
@@ -289,6 +337,9 @@ typedef enum
     //check method
     if (userData.failedSel && [self.delegate respondsToSelector:userData.failedSel])
         [self.delegate performSelector:userData.failedSel withObject:error withObject:nil];
+    
+    //clear request
+    [self clearRequest:request];
 }
 
 - (void)requestDidCancelLoad:(RKRequest *)request
@@ -298,6 +349,9 @@ typedef enum
     
     //redirect to self
     [self request:request didFailLoadWithError:error];
+    
+    //clear request
+    [self clearRequest:request];
 }
 
 - (void)requestDidTimeout:(RKRequest *)request
@@ -307,6 +361,9 @@ typedef enum
     
     //redirect to self
     [self request:request didFailLoadWithError:error];
+    
+    //clear request
+    [self clearRequest:request];
 }
 
 

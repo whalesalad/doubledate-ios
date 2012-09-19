@@ -11,6 +11,7 @@
 @implementation DDImage
 
 @synthesize downloadUrl;
+@synthesize uploadImage;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -29,9 +30,17 @@
     return dictionary;
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    DDImage *ret = [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
+    ret.uploadImage = self.uploadImage;
+    return ret;
+}
+
 - (void)dealloc
 {
     [downloadUrl release];
+    [uploadImage release];
     [super dealloc];
 }
 
