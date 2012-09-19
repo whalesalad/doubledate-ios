@@ -17,6 +17,7 @@
 @interface DDBasicInfoViewController : DDViewController
 {
     DDLocationController *locationController_;
+    UIImage *posterImage_;
 }
 
 @property(nonatomic, retain) DDUser *user;
@@ -36,5 +37,6 @@
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPhoto;
 
 - (IBAction)locationTouched:(id)sender;
+- (IBAction)posterTouched:(id)sender;
 
 @end

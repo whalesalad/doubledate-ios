@@ -49,7 +49,12 @@
 
 - (void)forceSearchPlacemarks
 {
-    [apiController_ searchPlacemarksForLatitude:locationManager_.location.coordinate.latitude longitude:locationManager_.location.coordinate.longitude];
+    [self forceSearchPlacemarksForLocation:locationManager_.location];
+}
+
+- (void)forceSearchPlacemarksForLocation:(CLLocation*)location
+{
+    [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
 }
 
 #pragma mark -

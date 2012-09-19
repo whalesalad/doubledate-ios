@@ -21,7 +21,7 @@
 #import "DDImage.h"
 #import "DDLocationController.h"
 
-@interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate>
+@interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -155,6 +155,7 @@
 {
     locationController_.delegate = nil;
     [locationController_ release];
+    [posterImage_ release];
     [user release];
     [userLocation release];
     [textFieldName release];
@@ -177,6 +178,14 @@
     viewController.delegate = self;
     viewController.multiplyChoice = NO;
     [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
+}
+
+- (IBAction)posterTouched:(id)sender
+{
+    UIImagePickerController *imagePickerController = [[[UIImagePickerController alloc] init] autorelease];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    [self.navigationController presentModalViewController:imagePickerController animated:YES];
 }
 
 #pragma mark -
@@ -209,6 +218,14 @@
     //save location
     if (self.userLocation)
         newUser.location = self.userLocation;
+    
+    //save poster
+    if (posterImage_)
+    {
+        if (!newUser.photo)
+            newUser.photo = [[[DDImage alloc] init] autorelease];
+        newUser.photo.uploadImage = posterImage_;
+    }
     
     //go next
     DDBioViewController *viewController = [[[DDBioViewController alloc] init] autorelease];
@@ -255,14 +272,11 @@
         //get placemark
         CLPlacemark *placemark = [placemarks lastObject];
         
-        //convert to user location
-        DDPlacemark *location = [[[DDPlacemark alloc] init] autorelease];
-        location.name = [NSString stringWithFormat:@"%@, %@", placemark.locality, placemark.administrativeArea];
-        location.latitude = [NSString stringWithFormat:@"%f", placemark.location.coordinate.latitude];
-        location.longitude = [NSString stringWithFormat:@"%f", placemark.location.coordinate.longitude];
+        //unset old location
+        self.userLocation = nil;
         
-        //update user location
-        self.userLocation = location;
+        //try to decode location
+        [locationController_ forceSearchPlacemarksForLocation:placemark.location];
     }
     
     //dismiss view controller
@@ -273,6 +287,31 @@
 {
     [self dismissModalViewControllerAnimated:YES];
 }
+
+#pragma mark -
+#pragma comment UIImagePickerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    //save image
+    [posterImage_ release];
+    posterImage_ = [image retain];
+    
+    //set image view image
+    self.imageViewPhoto.image = image;
+    
+    //dismiss modal view controller
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma comment UINavigationControllerDelegate
+
 
 #pragma mark -
 #pragma comment DDLocationControllerDlegate

@@ -27,5 +27,6 @@
 @property(nonatomic, assign) id<DDLocationControllerDelegate> delegate;
 
 - (void)forceSearchPlacemarks;
+- (void)forceSearchPlacemarksForLocation:(CLLocation*)location;
 
 @end
