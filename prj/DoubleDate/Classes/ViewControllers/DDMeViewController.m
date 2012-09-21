@@ -53,6 +53,11 @@
     //set title
     labelTitle.text = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     
+    labelTitle.layer.shadowOpacity = 0.8;
+    labelTitle.layer.shadowRadius = 1.0;
+    labelTitle.layer.shadowColor = [UIColor blackColor].CGColor;
+    labelTitle.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    
     //set poster
     if (user.photo.downloadUrl)
         [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
@@ -64,11 +69,26 @@
     //set biography
     textViewBio.text = user.bio;
     
+    textViewBio.layer.shadowOpacity = 1.0;
+    textViewBio.layer.shadowRadius = 0.0;
+    textViewBio.layer.shadowColor = [UIColor whiteColor].CGColor;
+    textViewBio.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    
     //set age
     labelAge.text = [[user age] stringValue];
     
+    labelAge.layer.shadowOpacity = 0.8;
+    labelAge.layer.shadowRadius = 1.0;
+    labelAge.layer.shadowColor = [UIColor blackColor].CGColor;
+    labelAge.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    
     //set location
     labelLocation.text = [[user location] name];
+    
+    labelLocation.layer.shadowOpacity = 0.8;
+    labelLocation.layer.shadowRadius = 1.0;
+    labelLocation.layer.shadowColor = [UIColor blackColor].CGColor;
+    labelLocation.layer.shadowOffset = CGSizeMake(0.0, 2.0);
     
     //set interests
     NSMutableArray *tags = [NSMutableArray array];

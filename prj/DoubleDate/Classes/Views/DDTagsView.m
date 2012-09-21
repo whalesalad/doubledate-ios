@@ -50,7 +50,7 @@
     //generate lines
     NSMutableArray *lines = [NSMutableArray array];
     NSMutableString *line = [NSMutableString string];
-    NSString *endCharacter = @" · ";
+    NSString *endCharacter = @" • ";
     for (NSString *word in self.tags)
     {
         if ([[line stringByAppendingFormat:@"%@%@", endCharacter, word] sizeWithFont:self.font].width >= self.frame.size.width)
