@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
 		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
@@ -160,6 +161,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
+		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
 		708AB1591608FC50009817FC /* DDInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterest.h; sourceTree = "<group>"; };
 		708AB15A1608FC50009817FC /* DDInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterest.m; sourceTree = "<group>"; };
 		708AB15C160904CA009817FC /* DDLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationController.h; sourceTree = "<group>"; };
@@ -299,6 +302,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70803B131610FF3400BFDE8B /* TITokenField */ = {
+			isa = PBXGroup;
+			children = (
+				70803B141610FF3400BFDE8B /* TITokenField.h */,
+				70803B151610FF3400BFDE8B /* TITokenField.m */,
+			);
+			path = TITokenField;
+			sourceTree = "<group>";
+		};
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +580,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				70803B131610FF3400BFDE8B /* TITokenField */,
 				960C844615FDF60200EAF708 /* JSTokenField */,
 				964A6EE215F893DC0077AAF1 /* SBJson */,
 				964A6E7C15F808AF0077AAF1 /* RestKit */,
@@ -822,6 +835,7 @@
 				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
 				96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */,
+				70803B161610FF3400BFDE8B /* TITokenField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

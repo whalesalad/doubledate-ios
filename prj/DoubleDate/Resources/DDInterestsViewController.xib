@@ -12,6 +12,7 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
+			<string>IBUIScrollView</string>
 			<string>IBUIView</string>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -34,31 +35,29 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIView" id="644859317">
+					<object class="IBUIScrollView" id="402030816">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{20, 20}, {280, 32}}</string>
+						<string key="NSFrameSize">{320, 416}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-							<object class="NSColorSpace" key="NSCustomColorSpace" id="561629307">
-								<int key="NSID">2</int>
-							</object>
-						</object>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="644859317"/>
+				<reference key="NSNextKeyView" ref="402030816"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
-					<reference key="NSCustomColorSpace" ref="561629307"/>
+					<object class="NSColorSpace" key="NSCustomColorSpace">
+						<int key="NSID">2</int>
+					</object>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
@@ -79,11 +78,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tokenFieldInterests</string>
+						<string key="label">tokenFieldViewInterests</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="644859317"/>
+						<reference key="destination" ref="402030816"/>
 					</object>
-					<int key="connectionID">5</int>
+					<int key="connectionID">7</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -98,7 +97,7 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="644859317"/>
+							<reference ref="402030816"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -114,8 +113,8 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="644859317"/>
+						<int key="objectID">6</int>
+						<reference key="object" ref="402030816"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -126,14 +125,14 @@
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="4.CustomClassName">JSTokenField</string>
-				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="6.CustomClassName">TITokenFieldView</string>
+				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">5</int>
+			<int key="maxID">7</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -141,14 +140,14 @@
 					<string key="className">DDInterestsViewController</string>
 					<string key="superclassName">DDViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">tokenFieldInterests</string>
-						<string key="NS.object.0">JSTokenField</string>
+						<string key="NS.key.0">tokenFieldViewInterests</string>
+						<string key="NS.object.0">TITokenFieldView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">tokenFieldInterests</string>
+						<string key="NS.key.0">tokenFieldViewInterests</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">tokenFieldInterests</string>
-							<string key="candidateClassName">JSTokenField</string>
+							<string key="name">tokenFieldViewInterests</string>
+							<string key="candidateClassName">TITokenFieldView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -165,11 +164,11 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">JSTokenField</string>
-					<string key="superclassName">UIView</string>
+					<string key="className">TITokenFieldView</string>
+					<string key="superclassName">UIScrollView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/JSTokenField.h</string>
+						<string key="minorKey">./Classes/TITokenFieldView.h</string>
 					</object>
 				</object>
 			</array>
