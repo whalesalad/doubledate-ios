@@ -91,6 +91,7 @@
     if (!cell)
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
     cell.textLabel.text = [[placemarks_ objectAtIndex:indexPath.row] name];
+    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upper_userinfo_location_icon.png"]] autorelease];
     return cell;
 }
 
