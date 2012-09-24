@@ -81,6 +81,8 @@
 		968BE2B8161038B20029F61F /* woman-tab-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE29A161038B20029F61F /* woman-tab-bar@2x.png */; };
 		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
 		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
+		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
+		96D77FE616108D0E00E65D91 /* DDLocationChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */; };
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
@@ -257,6 +259,9 @@
 		96B59E151607185A00CFDA1C /* DDImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImage.m; sourceTree = "<group>"; };
 		96B59E18160719DF00CFDA1C /* DDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageView.h; sourceTree = "<group>"; };
 		96B59E19160719DF00CFDA1C /* DDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageView.m; sourceTree = "<group>"; };
+		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
+		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
+		96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLocationChooserViewController.xib; sourceTree = "<group>"; };
 		96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
@@ -501,6 +506,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */,
+				96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */,
 				96892D4915FF61770054C108 /* DDLocationPickerViewController.h */,
 				96892D4A15FF61770054C108 /* DDLocationPickerViewController.m */,
 				96892CB115FF1F740054C108 /* DDCompleteRegistrationViewController.h */,
@@ -545,6 +552,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
 				96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */,
 				96892CAA15FF15E70054C108 /* DDMeViewController.xib */,
@@ -774,6 +782,7 @@
 				968BE2B6161038B20029F61F /* wing-tab-bar@2x.png in Resources */,
 				968BE2B7161038B20029F61F /* woman-tab-bar.png in Resources */,
 				968BE2B8161038B20029F61F /* woman-tab-bar@2x.png in Resources */,
+				96D77FE616108D0E00E65D91 /* DDLocationChooserViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +821,7 @@
 				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
 				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
+				96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

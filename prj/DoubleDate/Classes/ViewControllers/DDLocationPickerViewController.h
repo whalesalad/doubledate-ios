@@ -21,8 +21,6 @@
 
 @property(nonatomic, assign) id<DDLocationPickerViewControllerDelegate> delegate;
 
-@property(nonatomic, assign) BOOL multiplyChoice;
-
 @property(nonatomic, retain) IBOutlet MKMapView *mapView;
 
 @end
