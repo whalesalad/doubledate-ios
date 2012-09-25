@@ -190,7 +190,7 @@ typedef enum
     NSString *params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
     
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations/search"];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations"];
     requestPath = [requestPath stringByAppendingFormat:@"?%@", params];
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
     request.method = RKRequestMethodGET;

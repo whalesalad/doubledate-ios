@@ -176,7 +176,6 @@
 {
     DDLocationPickerViewController *viewController = [[[DDLocationPickerViewController alloc] init] autorelease];
     viewController.delegate = self;
-    viewController.multiplyChoice = NO;
     [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
 }
 
@@ -266,17 +265,28 @@
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
-    //check placemarks
-    if ([placemarks count] == 1 && [[placemarks lastObject] isKindOfClass:[CLPlacemark class]])
+    //check one location
+    if ([placemarks count] == 1)
     {
-        //get placemark
-        CLPlacemark *placemark = [placemarks lastObject];
-        
-        //unset old location
-        self.userLocation = nil;
-        
-        //try to decode location
-        [locationController_ forceSearchPlacemarksForLocation:placemark.location];
+        if ([[placemarks lastObject] isKindOfClass:[CLPlacemark class]])
+        {
+            //get placemark
+            CLPlacemark *placemark = [placemarks lastObject];
+            
+            //unset old location
+            self.userLocation = nil;
+            
+            //try to decode location
+            [locationController_ forceSearchPlacemarksForLocation:placemark.location];
+        }
+        else if ([[placemarks lastObject] isKindOfClass:[DDPlacemark class]])
+        {
+            //get placemark
+            DDPlacemark *placemark = [placemarks lastObject];
+            
+            //unset old location
+            self.userLocation = placemark;
+        }
     }
     
     //dismiss view controller

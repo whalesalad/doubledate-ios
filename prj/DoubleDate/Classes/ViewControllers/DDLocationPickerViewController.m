@@ -8,26 +8,9 @@
 
 #import "DDLocationPickerViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "DDLocationChooserViewController.h"
 
-@interface DDLocationPickerActionSheet : UIActionSheet
-
-@property(nonatomic, retain) NSObject *userData;
-
-@end
-
-@implementation DDLocationPickerActionSheet
-
-@synthesize userData;
-
-- (void)dealloc
-{
-    [userData release];
-    [super dealloc];
-}
-
-@end
-
-@interface DDLocationPickerViewController ()<UIActionSheetDelegate>
+@interface DDLocationPickerViewController ()
 
 @end
 
@@ -35,7 +18,6 @@
 
 @synthesize delegate;
 @synthesize mapView;
-@synthesize multiplyChoice;
 
 - (UIView*)viewForHud
 {
@@ -93,8 +75,7 @@
     if (sender.view == self.mapView && sender.state == UIGestureRecognizerStateRecognized)
     {
         //check if we have only one choice
-        if (!self.multiplyChoice)
-            [self.mapView removeAnnotations:self.mapView.annotations];
+        [self.mapView removeAnnotations:self.mapView.annotations];
             
         //save touch position
         CGPoint locationInView = [sender locationInView:sender.view];
@@ -112,36 +93,8 @@
     }
 }
 
-- (void)locationsDecodingFinished:(NSArray*)placemarks
-{
-    //hide hud
-    [self hideHud:YES];
-    
-    //check if we need to select only one location
-    if (!self.multiplyChoice)
-    {
-        //add action sheed
-        DDLocationPickerActionSheet *actionSheet = [[[DDLocationPickerActionSheet alloc] initWithTitle:NSLocalizedString(@"Choose Location", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
-        
-        //set user data
-        actionSheet.userData = placemarks;
-        
-        //add locations
-        for (CLPlacemark *placemark in placemarks)
-            [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@, %@", placemark.locality, placemark.administrativeArea]];
-
-        //show actions sheet
-        [actionSheet showInView:self.navigationController.view];
-    }
-    else
-        [self.delegate locationPickerViewControllerDidFoundPlacemarks:placemarks];
-}
-
 - (void)chooseTouched:(id)sender
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
-    
     //save locations
     NSMutableArray *locations = [NSMutableArray array];
     
@@ -155,47 +108,19 @@
         }
     }
     
-    //save placemarks
-    NSMutableArray *totalPlacemarks = [NSMutableArray array];
-        
-    //save number of locatins
-    __block NSInteger numberOfLocationsToDecode = [locations count];
-    
-    //create geo coder
-    for (CLLocation *location in locations)
+    //check only one location
+    if ([locations count] == 1)
     {
-        CLGeocoder *geoCoder = [[[CLGeocoder alloc] init] autorelease];
-        [geoCoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-                        
-            //decrease the number of locations
-            numberOfLocationsToDecode--;
-            
-            //add placemarks
-            [totalPlacemarks addObjectsFromArray:placemarks];
-            
-            //check for finish
-            if (numberOfLocationsToDecode == 0)
-                [self locationsDecodingFinished:totalPlacemarks];
-        }];
+        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+        locationChooserViewController.location = [locations lastObject];
+        locationChooserViewController.delegate = self.delegate;
+        [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
 }
 
 - (void)cancelTouched:(id)sender
 {
     [self.delegate locationPickerViewControllerDidCancel];
-}
-
-#pragma mark -
-#pragma comment UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (actionSheet.cancelButtonIndex != buttonIndex && [actionSheet isKindOfClass:[DDLocationPickerActionSheet class]])
-    {
-        DDLocationPickerActionSheet *sheet = (DDLocationPickerActionSheet*)actionSheet;
-        CLPlacemark *placemark = (CLPlacemark*)[(NSArray*)sheet.userData objectAtIndex:buttonIndex-1];
-        [self.delegate locationPickerViewControllerDidFoundPlacemarks:[NSArray arrayWithObject:placemark]];
-    }
 }
 
 @end

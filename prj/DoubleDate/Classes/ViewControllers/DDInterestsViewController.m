@@ -20,20 +20,35 @@
 @implementation DDInterestsViewController
 
 @synthesize user;
-@synthesize tokenFieldInterests;
+@synthesize tokenFieldViewInterests;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        //add observer
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChangeNotification:) name:UITextFieldTextDidChangeNotification object:nil];
-        
         controller_ = [[DDAPIController alloc] init];
         controller_.delegate = self;
     }
     return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //check if we need to make a request
+    if (!interestsRequested_)
+    {
+        //save that interests already requested
+        interestsRequested_ = YES;
+        
+        //show hud
+        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        
+        //search for placemarks
+        [controller_ requestAvailableInterests];
+    }
 }
 
 - (void)viewDidLoad
@@ -47,13 +62,13 @@
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(nextTouched:)] autorelease];
     
     //add token title
-    tokenFieldInterests.label.text = NSLocalizedString(@"Interests:", nil);
+    [tokenFieldViewInterests.tokenField setPromptText:NSLocalizedString(@"Interests:", nil)];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [tokenFieldInterests release], tokenFieldInterests = nil;
+    [tokenFieldViewInterests release], tokenFieldViewInterests = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -64,7 +79,7 @@
 - (void)dealloc
 {
     [user release];
-    [tokenFieldInterests release];
+    [tokenFieldViewInterests release];
     controller_.delegate = nil;
     [controller_ release];
     [super dealloc];
@@ -77,13 +92,10 @@
 {
     //add interests
     NSMutableArray *interests = [NSMutableArray array];
-    NSArray *tokens = self.tokenFieldInterests.tokens;
-    for (JSTokenButton *button in tokens)
+    for (NSString *title in self.tokenFieldViewInterests.tokenTitles)
     {
-        NSString *text = button.representedObject;
-        text = [text stringByReplacingOccurrencesOfString:@"\u200B" withString:@""];
         DDInterest *interest = [[[DDInterest alloc] init] autorelease];
-        interest.name = text;
+        interest.name = title;
         [interests addObject:interest];
     }
     
@@ -100,18 +112,30 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)textFieldTextDidChangeNotification:(NSNotification*)notification
+#pragma mark -
+#pragma comment -
+
+- (void)requestAvailableInterestsSucceed:(NSArray*)interests
 {
-    if ([notification object] == self.tokenFieldInterests.textField)
-    {
-        if ([self.tokenFieldInterests.textField.text rangeOfString:@" "].location != NSNotFound)
-        {
-            for (NSString *text in [self.tokenFieldInterests.textField.text componentsSeparatedByString:@" "])
-            {
-                [self.tokenFieldInterests addTokenWithTitle:text representedObject:text];
-            }
-        }
-    }
+    //hide hud
+    [self hideHud:YES];
+    
+    //copy interests
+    NSMutableArray *res = [NSMutableArray array];
+    for (DDInterest *interest in interests)
+        [res addObject:interest.name];
+    
+    //save interest
+    self.tokenFieldViewInterests.sourceArray = res;
+}
+
+- (void)requestAvailableInterestsDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

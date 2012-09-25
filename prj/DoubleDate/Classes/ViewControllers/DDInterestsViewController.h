@@ -7,7 +7,7 @@
 //
 
 #import "DDViewController.h"
-#import "JSTokenField.h"
+#import "TITokenField.h"
 
 @class DDUser;
 @class DDAPIController;
@@ -15,10 +15,11 @@
 @interface DDInterestsViewController : DDViewController
 {
     DDAPIController *controller_;
+    BOOL interestsRequested_;
 }
 
 @property(nonatomic, retain) DDUser *user;
 
-@property (nonatomic, retain) IBOutlet JSTokenField *tokenFieldInterests;
+@property (nonatomic, retain) IBOutlet TITokenFieldView *tokenFieldViewInterests;
 
 @end
