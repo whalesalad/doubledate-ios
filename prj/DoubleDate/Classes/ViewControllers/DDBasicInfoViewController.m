@@ -256,6 +256,7 @@
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     self.textFieldBirth.text = [dateFormatter stringFromDate:sender.date];
+    [self.textFieldBirth resignFirstResponder];
 }
 
 #pragma mark -
