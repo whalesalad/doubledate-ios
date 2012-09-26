@@ -15,7 +15,7 @@
 #import "DDFacebookController.h"
 #import "DDUser.h"
 #import "DDBioViewController.h"
-#import "DDLocationPickerViewController.h"
+#import "DDLocationChooserViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DDPlacemark.h"
 #import "DDImage.h"
@@ -35,7 +35,7 @@
 @synthesize segmentedControlMale;
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
-@synthesize labelLocation;
+@synthesize textFieldLocation;
 @synthesize imageViewPhoto;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -118,6 +118,12 @@
     [datePicker addTarget:self action:@selector(birthdayChanged:) forControlEvents:UIControlEventValueChanged];
     textFieldBirth.inputView = datePicker;
     
+    //customize location text field
+    self.textFieldLocation.leftViewMode = UITextFieldViewModeAlways;
+    
+    //update location
+    self.userLocation = self.userLocation;
+    
     //force location update
     [locationController_ forceSearchPlacemarks];
 }
@@ -131,7 +137,7 @@
     [segmentedControlMale release], segmentedControlMale = nil;
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
-    [labelLocation release], labelLocation = nil;
+    [textFieldLocation release], textFieldLocation = nil;
     [imageViewPhoto release], imageViewPhoto = nil;
 }
 
@@ -164,7 +170,7 @@
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
-    [labelLocation release];
+    [textFieldLocation release];
     [imageViewPhoto release];
     [super dealloc];
 }
@@ -174,9 +180,17 @@
 
 - (IBAction)locationTouched:(id)sender
 {
-    DDLocationPickerViewController *viewController = [[[DDLocationPickerViewController alloc] init] autorelease];
-    viewController.delegate = self;
-    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
+    //check if location is exist
+    if (self.userLocation)
+    {
+        //create view controller
+        DDLocationChooserViewController *viewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+        viewController.delegate = self;
+        viewController.location = [[[CLLocation alloc] initWithLatitude:[self.userLocation.latitude floatValue] longitude:[self.userLocation.longitude floatValue]] autorelease];
+        
+        //create navigation controller
+        [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
+    }
 }
 
 - (IBAction)posterTouched:(id)sender
@@ -356,10 +370,16 @@
         //init object
         [userLocation release];
         userLocation = [v retain];
-        
-        //update label
-        labelLocation.text = v.name;
     }
+    
+    //update label
+    if (v.name)
+        self.textFieldLocation.text = [NSString stringWithFormat:@" %@", v.name];
+    else
+        self.textFieldLocation.text = nil;
+        
+    //update icon
+    self.textFieldLocation.leftView = [[[UIImageView alloc] initWithImage:self.textFieldLocation.text?[UIImage imageNamed:@"location-marker"]:[UIImage animatedImageNamed:@"location-spinner" duration:0.3f]] autorelease];
 }
 
 @end

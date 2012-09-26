@@ -32,7 +32,7 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlLike;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
 
-@property(nonatomic, retain) IBOutlet UILabel *labelLocation;
+@property(nonatomic, retain) IBOutlet UITextField *textFieldLocation;
 
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPhoto;
 

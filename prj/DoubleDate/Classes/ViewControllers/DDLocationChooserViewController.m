@@ -47,6 +47,17 @@
     }
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //set title
+    self.navigationItem.title = NSLocalizedString(@"Location", nil);
+    
+    //add left button
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -91,7 +102,7 @@
     if (!cell)
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
     cell.textLabel.text = [[placemarks_ objectAtIndex:indexPath.row] name];
-    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upper_userinfo_location_icon.png"]] autorelease];
+    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
     return cell;
 }
 
@@ -118,6 +129,14 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma comment other
+
+- (void)cancelTouched:(id)sender
+{
+    [self.delegate locationPickerViewControllerDidCancel];
 }
 
 @end
