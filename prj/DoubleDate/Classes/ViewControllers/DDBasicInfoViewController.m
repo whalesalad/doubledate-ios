@@ -72,9 +72,6 @@
         //set surname
         textFieldSurname.text = [user lastName];
         
-        //set birthday
-        textFieldBirth.text = [user birthday];
-        
         //set gender
         if ([[user gender] isEqualToString:DDUserGenderMale])
             segmentedControlMale.selectedSegmentIndex = 0;
@@ -135,6 +132,18 @@
     datePicker.minimumDate = minDate;
     [datePicker addTarget:self action:@selector(birthdayChanged:) forControlEvents:UIControlEventValueChanged];
     textFieldBirth.inputView = datePicker;
+    
+    //set current date of date picker
+    if ([user birthday])
+    {
+        //update current date of date formatter
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        datePicker.date = [dateFormatter dateFromString:[user birthday]];
+        
+        //apply change
+        [self birthdayChanged:datePicker];
+    }
     
     //customize location text field
     self.textFieldLocation.leftViewMode = UITextFieldViewModeAlways;
@@ -240,7 +249,9 @@
         newUser = [[[DDUser alloc] init] autorelease];
     newUser.firstName = textFieldName.text;
     newUser.lastName = textFieldSurname.text;
-    newUser.birthday = textFieldBirth.text;
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    newUser.birthday = [dateFormatter stringFromDate:[(UIDatePicker*)textFieldBirth.inputView date]];
     if (segmentedControlSingle.selectedSegmentIndex == 0)
         newUser.single = [NSNumber numberWithBool:YES];
     else if (segmentedControlSingle.selectedSegmentIndex == 1)
@@ -282,7 +293,7 @@
 - (void)birthdayChanged:(UIDatePicker*)sender
 {
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
     self.textFieldBirth.text = [dateFormatter stringFromDate:sender.date];
 }
 
