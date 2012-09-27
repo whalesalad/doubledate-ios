@@ -80,7 +80,7 @@
     labelAge.layer.shadowOpacity = 0.8;
     labelAge.layer.shadowRadius = 1.0;
     labelAge.layer.shadowColor = [UIColor blackColor].CGColor;
-    labelAge.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    labelAge.layer.shadowOffset = CGSizeMake(0.0, 1.0);
     
     //set location
     labelLocation.text = [[user location] name];
@@ -88,7 +88,7 @@
     labelLocation.layer.shadowOpacity = 0.8;
     labelLocation.layer.shadowRadius = 1.0;
     labelLocation.layer.shadowColor = [UIColor blackColor].CGColor;
-    labelLocation.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    labelLocation.layer.shadowOffset = CGSizeMake(0.0, 1.0);
     
     //set interests
     NSMutableArray *tags = [NSMutableArray array];

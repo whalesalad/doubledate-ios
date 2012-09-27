@@ -25,7 +25,7 @@
 				<key>layer</key>
 				<dict>
 					<key>borderWidth</key>
-					<real>2</real>
+					<integer>2</integer>
 					<key>borderColor</key>
 					<dict>
 						<key>UIColor</key>
