@@ -13,6 +13,7 @@
 @protocol DDLocationControllerDelegate <NSObject>
 
 - (void)locationManagerDidFoundLocation:(CLLocation*)location;
+- (void)locationManagerDidFailedWithError:(NSError*)error;
 - (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location;
 - (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks;
 

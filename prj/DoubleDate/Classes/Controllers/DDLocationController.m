@@ -70,6 +70,12 @@
         [self.delegate locationManagerDidFoundLocation:newLocation];
 }
 
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+    [self.delegate locationManagerDidFailedWithError:error];
+}
+
 #pragma mark -
 #pragma comment DDAPIControllerDelegate
 

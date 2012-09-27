@@ -87,8 +87,19 @@
     //updte image
     if (data_)
         self.image = [UIImage imageWithData:data_];
-    
+        
     //release connection
+    [connection_ release];
+    connection_ = nil;
+}
+
+- (void)setImage:(UIImage *)i
+{
+    //set image
+    [super setImage:i];
+
+    //remove connection
+    [connection_ cancel];
     [connection_ release];
     connection_ = nil;
 }

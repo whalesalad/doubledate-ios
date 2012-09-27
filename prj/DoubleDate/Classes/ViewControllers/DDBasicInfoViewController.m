@@ -107,14 +107,15 @@
             [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
     }
     
-    //apply mask for layer
-    UIImage *_maskingImage = [UIImage imageNamed:@"photo-mask"];
-    CALayer *_maskingLayer = [CALayer layer];
-    _maskingLayer.frame = CGRectMake(0, 0, self.imageViewPhoto.bounds.size.width, self.imageViewPhoto.bounds.size.height-3);
-    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
-    [self.imageViewPhoto.layer setMask:_maskingLayer];
-    //self.imageViewPhoto.layer.masksToBounds = YES;
-
+    //customize image view
+    self.imageViewPhoto.contentMode = UIViewContentModeTopLeft;
+    self.imageViewPhoto.clipsToBounds = YES;
+    UIImage *maskingImage = [UIImage imageNamed:@"photo-mask.png"];
+    CALayer *maskingLayer = [CALayer layer];
+    maskingLayer.frame = CGRectMake(0, 0, self.imageViewPhoto.bounds.size.width, self.imageViewPhoto.bounds.size.height);
+    [maskingLayer setContents:(id)[maskingImage CGImage]];
+    [self.imageViewPhoto.layer setMask:maskingLayer];
+    self.imageViewPhoto.layer.masksToBounds = YES;
     
     //set delegates
     textFieldName.delegate = self;
@@ -122,9 +123,16 @@
     textFieldBirth.delegate = self;
     
     //customize date picker
+    NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    NSDateComponents *offsetComponents = [[[NSDateComponents alloc] init] autorelease];
+    [offsetComponents setYear:-17];
+    NSDate *maxDate = [gregorian dateByAddingComponents:offsetComponents toDate:[NSDate date] options:0];
+    [offsetComponents setYear:-80];
+    NSDate *minDate = [gregorian dateByAddingComponents:offsetComponents toDate:maxDate options:0];
     UIDatePicker *datePicker = [[[UIDatePicker alloc] init] autorelease];
     datePicker.datePickerMode = UIDatePickerModeDate;
-    datePicker.maximumDate = [NSDate date];
+    datePicker.maximumDate = maxDate;
+    datePicker.minimumDate = minDate;
     [datePicker addTarget:self action:@selector(birthdayChanged:) forControlEvents:UIControlEventValueChanged];
     textFieldBirth.inputView = datePicker;
     
@@ -211,6 +219,16 @@
     [self.navigationController presentModalViewController:imagePickerController animated:YES];
 }
 
+- (IBAction)freeAreaTouched:(id)sender
+{
+    if (self.textFieldName.isFirstResponder)
+        [self.textFieldName resignFirstResponder];
+    if (self.textFieldSurname.isFirstResponder)
+        [self.textFieldSurname resignFirstResponder];
+    if (self.textFieldBirth.isFirstResponder)
+        [self.textFieldBirth resignFirstResponder];
+}
+
 #pragma mark -
 #pragma comment other
 
@@ -266,7 +284,6 @@
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     self.textFieldBirth.text = [dateFormatter stringFromDate:sender.date];
-    [self.textFieldBirth resignFirstResponder];
 }
 
 #pragma mark -
@@ -354,6 +371,15 @@
 - (void)locationManagerDidFoundLocation:(CLLocation*)location
 {
     
+}
+
+- (void)locationManagerDidFailedWithError:(NSError*)error
+{
+    //remove loading
+    self.textFieldLocation.leftView = nil;
+    
+    //updat text
+    self.textFieldLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
 }
 
 - (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location

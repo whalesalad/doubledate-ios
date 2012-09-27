@@ -38,5 +38,6 @@
 
 - (IBAction)locationTouched:(id)sender;
 - (IBAction)posterTouched:(id)sender;
+- (IBAction)freeAreaTouched:(id)sender;
 
 @end
