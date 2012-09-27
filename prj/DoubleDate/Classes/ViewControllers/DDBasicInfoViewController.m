@@ -20,6 +20,7 @@
 #import "DDPlacemark.h"
 #import "DDImage.h"
 #import "DDLocationController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -105,6 +106,15 @@
         if (user.photo.downloadUrl)
             [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
     }
+    
+    //apply mask for layer
+    UIImage *_maskingImage = [UIImage imageNamed:@"photo-mask"];
+    CALayer *_maskingLayer = [CALayer layer];
+    _maskingLayer.frame = CGRectMake(0, 0, self.imageViewPhoto.bounds.size.width, self.imageViewPhoto.bounds.size.height-3);
+    [_maskingLayer setContents:(id)[_maskingImage CGImage]];
+    [self.imageViewPhoto.layer setMask:_maskingLayer];
+    //self.imageViewPhoto.layer.masksToBounds = YES;
+
     
     //set delegates
     textFieldName.delegate = self;
