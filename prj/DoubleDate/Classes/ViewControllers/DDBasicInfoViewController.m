@@ -105,7 +105,7 @@
     }
     
     //customize image view
-    self.imageViewPhoto.contentMode = UIViewContentModeTopLeft;
+    self.imageViewPhoto.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewPhoto.clipsToBounds = YES;
     UIImage *maskingImage = [UIImage imageNamed:@"photo-mask.png"];
     CALayer *maskingLayer = [CALayer layer];
