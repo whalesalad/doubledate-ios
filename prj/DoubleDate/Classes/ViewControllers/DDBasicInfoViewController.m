@@ -58,10 +58,10 @@
     self.navigationItem.title = NSLocalizedString(@"Basic Info", nil);
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(nextTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(nextTouched:)] autorelease];
     
     //check for modal view
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelTouched:)] autorelease];
     
     //check if user exist
     if (user)
@@ -115,7 +115,9 @@
     self.imageViewPhoto.layer.masksToBounds = YES;
     
     //set delegates
+    textFieldName.returnKeyType = UIReturnKeyDone;
     textFieldName.delegate = self;
+    textFieldSurname.returnKeyType = UIReturnKeyDone;
     textFieldSurname.delegate = self;
     textFieldBirth.delegate = self;
     
@@ -144,6 +146,8 @@
         //apply change
         [self birthdayChanged:datePicker];
     }
+    else
+        datePicker.date = [NSDate date];
     
     //customize location text field
     self.textFieldLocation.leftViewMode = UITextFieldViewModeAlways;
