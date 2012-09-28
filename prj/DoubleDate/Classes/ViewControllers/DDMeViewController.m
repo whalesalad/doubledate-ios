@@ -15,7 +15,7 @@
 #import "DDTagsView.h"
 #import "DDInterest.h"
 
-@interface DDMeViewController ()<UIWebViewDelegate>
+@interface DDMeViewController ()
 
 @end
 
@@ -24,6 +24,7 @@
 @synthesize user;
 @synthesize labelTitle;
 @synthesize imageViewPoster;
+@synthesize imageViewOverlay;
 @synthesize imageViewMale;
 @synthesize imageViewFemale;
 @synthesize labelAge;
@@ -61,6 +62,8 @@
     //set poster
     if (user.photo.downloadUrl)
         [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
+    else
+        imageViewOverlay.hidden = YES;
     
     //apply gender
     imageViewFemale.hidden = ![user.gender isEqualToString:DDUserGenderFemale];
@@ -95,6 +98,9 @@
     for (DDInterest *interest in [user interests])
         [tags addObject:interest.name];
     tagsViewInterests.tags = tags;
+    
+    //watch for text view change
+    [textViewBio sizeToFit];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -108,6 +114,7 @@
     [super viewDidUnload];
     [labelTitle release], labelTitle = nil;
     [imageViewPoster release], imageViewPoster = nil;
+    [imageViewOverlay release], imageViewOverlay = nil;
     [imageViewMale release], imageViewMale = nil;
     [imageViewFemale release], imageViewFemale = nil;
     [textViewBio release], textViewBio = nil;
@@ -124,6 +131,7 @@
     [user release];
     [labelTitle release];
     [imageViewPoster release];
+    [imageViewOverlay release];
     [imageViewMale release];
     [imageViewFemale release];
     [textViewBio release];

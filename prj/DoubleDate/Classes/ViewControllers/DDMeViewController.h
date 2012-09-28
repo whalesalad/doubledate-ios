@@ -18,6 +18,7 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPoster;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewOverlay;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewMale;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewFemale;
 @property(nonatomic, retain) IBOutlet UILabel *labelAge;
