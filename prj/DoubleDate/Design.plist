@@ -34,7 +34,7 @@
 					<key>cornerRadius</key>
 					<dict>
 						<key>CGFloat</key>
-						<integer>40</integer>
+						<real>42.5</real>
 					</dict>
 					<key>masksToBounds</key>
 					<dict>
