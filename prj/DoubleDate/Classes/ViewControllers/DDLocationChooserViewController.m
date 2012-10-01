@@ -56,6 +56,9 @@
     
     //add left button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+    
+    //unset background color of the table view
+    self.tableView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidUnload
