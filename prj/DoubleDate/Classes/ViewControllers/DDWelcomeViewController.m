@@ -181,7 +181,9 @@
     if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
     {
         //if user is not exist fetch new data
-        if ([[[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey] intValue] == 401)
+        NSNumber *responseCode = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey];
+        NSString *code = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoCodeKey];
+        if ([responseCode intValue] == 401 && [code isEqualToString:@"NO_FACEBOOK_USER"])
         {
             //show hud
             [self showHudWithText:NSLocalizedString(@"Fetching User", nil) animated:NO];

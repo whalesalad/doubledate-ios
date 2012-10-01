@@ -24,5 +24,6 @@ typedef enum
 + (NSString*)authUrlPath;
 
 + (NSString*)errorMessageFromResponseData:(NSData*)data;
++ (NSString*)codeMessageFromResponseData:(NSData*)data;
 
 @end

@@ -41,4 +41,21 @@
     return ret;
 }
 
++ (NSString*)codeMessageFromResponseData:(NSData*)data
+{
+    NSString *ret = nil;
+    
+    //save response object
+    NSDictionary *responseObject = [[[[SBJsonParser alloc] init] autorelease] objectWithData:data];
+    
+    //extract message
+    if ([responseObject isKindOfClass:[NSDictionary class]])
+    {
+        if ([[responseObject objectForKey:@"code"] isKindOfClass:[NSString class]])
+            ret = [responseObject objectForKey:@"code"];
+    }
+    
+    return ret;
+}
+
 @end

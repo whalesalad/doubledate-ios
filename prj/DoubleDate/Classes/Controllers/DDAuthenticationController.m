@@ -17,6 +17,7 @@ NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAut
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoReasonKey";
+NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoCodeKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoCodeKey";
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey";
 NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthenticationControllerAuthenticateUserInfoDelegateKey";
 
@@ -137,10 +138,15 @@ static DDAuthenticationController *_sharedInstance = nil;
         if (responseMessage)
             errorMessage = responseMessage;
         
+        //save internal response code
+        NSString *codeMessage = [DDTools codeMessageFromResponseData:response.body];
+        
         //generate user info
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         [userInfo setObject:errorMessage forKey:NSLocalizedDescriptionKey];
         [userInfo setObject:[NSNumber numberWithInt:response.statusCode] forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey];
+        if (codeMessage)
+            [userInfo setObject:codeMessage forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoCodeKey];
         
         //create error
         NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:userInfo];
