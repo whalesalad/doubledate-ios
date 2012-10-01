@@ -12,6 +12,10 @@
 #import "DDCompleteRegistrationViewController.h"
 #import "JSTokenButton.h"
 #import "DDInterest.h"
+#import "DDAuthenticationController.h"
+#import "DDFacebookController.h"
+#import "DDWelcomeViewController.h"
+#import "DDImage.h"
 
 @interface DDInterestsViewController ()<DDAPIControllerDelegate>
 
@@ -27,6 +31,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
+    
         controller_ = [[DDAPIController alloc] init];
         controller_.delegate = self;
     }
@@ -59,7 +66,13 @@
     self.navigationItem.title = NSLocalizedString(@"Your Interests", nil);
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(nextTouched:)] autorelease];
+    if (!user.facebookId)
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(nextTouched:)] autorelease];
+    else
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Finish", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(finishTouched:)] autorelease];
+
+    //add left button
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
     
     //add token title
     [tokenFieldViewInterests.tokenField setPromptText:NSLocalizedString(@"Interests:", nil)];
@@ -112,6 +125,33 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (void)finishTouched:(id)sender
+{
+    //fill user data
+    DDUser *newUser = [[user copy] autorelease];
+    
+    //remove not needed fields
+    newUser.interests = nil;
+    newUser.location = nil;
+    newUser.photo = nil;
+    
+    //unset flags
+    locationSent_ = NO;
+    interestsSent_ = NO;
+    posterSent_ = NO;
+    
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
+    
+    //create user
+    [controller_ createUser:newUser];
+}
+
+- (void)backTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma comment -
 
@@ -136,6 +176,166 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma comment other
+
+- (void)handleFinishForUser:(DDUser*)u
+{
+    //start with user
+    [(DDWelcomeViewController*)[self viewControllerForClass:[DDWelcomeViewController class]] startWithUser:u];
+}
+
+#pragma mark -
+#pragma comment DDAPIControllerDelegate
+
+- (void)createUserSucceed:(DDUser*)u
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Authorizing", nil) animated:NO];
+    
+    //save created user
+    [createdUser_ release];
+    createdUser_ = [u retain];
+    
+    //authonticate user
+    if (u.facebookId)
+        [DDAuthenticationController authenticateWithFbToken:[DDFacebookController token] delegate:self];
+    else
+        assert(0);
+}
+
+- (void)createUserDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)updateMeSucceed:(DDUser *)u
+{
+    //add interests
+    NSMutableArray *interests = [NSMutableArray array];
+    for (NSString *title in self.tokenFieldViewInterests.tokenTitles)
+    {
+        DDInterest *interest = [[[DDInterest alloc] init] autorelease];
+        interest.name = title;
+        [interests addObject:interest];
+    }
+    
+    //update object
+    if (createdUser_ != u)
+    {
+        [createdUser_ release];
+        createdUser_ = [u retain];
+    }
+    
+    //check if we need to update the interests
+    if ([interests count] && !u.interests && !interestsSent_)
+    {
+        //save flag
+        interestsSent_ = YES;
+        
+        //update user
+        DDUser *newUser = [[[DDUser alloc] init] autorelease];
+        newUser.interests = interests;
+        [controller_ updateMe:newUser];
+    }
+    //check if we need to update the location
+    else if (self.user.location && !u.location && !locationSent_)
+    {
+        //save flag
+        locationSent_ = YES;
+        
+        //update user
+        DDUser *newUser = [[[DDUser alloc] init] autorelease];
+        newUser.location = self.user.location;
+        [controller_ updateMe:newUser];
+    }
+    //check if we need to post the photo
+    else if (self.user.photo.uploadImage && !posterSent_)
+    {
+        //save that poster sent
+        posterSent_ = YES;
+        
+        //update user
+        [controller_ updatePhotoForMe:self.user.photo.uploadImage];
+    }
+    else
+    {
+        //hide hud
+        [self hideHud:YES];
+        
+        //finish
+        [self handleFinishForUser:createdUser_];
+    }
+}
+
+- (void)updateMeDidFailedWithError:(NSError *)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //try to get error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //finish
+    [self handleFinishForUser:createdUser_];
+}
+
+- (void)updatePhotoForMeSucceed:(DDImage*)photo
+{
+    //copy data
+    createdUser_.photo = photo;
+    
+    //update user
+    [self updateMeSucceed:createdUser_];
+}
+
+- (void)updatePhotoForMeDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //try to get error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //finish
+    [self handleFinishForUser:createdUser_];
+}
+
+#pragma mark -
+#pragma comment API
+
+- (void)apiDidAuthenticate:(NSNotification*)notification
+{
+    //check for delegate
+    if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
+    {
+        //show hud
+        [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
+        
+        //update created user
+        [self updateMeSucceed:createdUser_];
+    }
+}
+
+- (void)apiDidNotAuthenticate:(NSNotification*)notification
+{
+    //check for delegate
+    if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
+    {
+        //hide hude
+        [self hideHud:YES];
+        
+        //try to get error
+        NSError *error = [[notification userInfo] objectForKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoErrorKey];
+        if (error)
+            [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    }
 }
 
 @end

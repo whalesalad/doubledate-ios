@@ -36,7 +36,10 @@
     self.navigationItem.title = NSLocalizedString(@"Your Bio", nil);
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(nextTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(nextTouched:)] autorelease];
+    
+    //add left button
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
 }
 
 - (void)viewDidUnload
@@ -70,6 +73,11 @@
     DDInterestsViewController *viewController = [[[DDInterestsViewController alloc] init] autorelease];
     viewController.user = newUser;
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)backTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -51,6 +51,12 @@
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Almost Done!", nil);
+    
+    //add right button
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Finish", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(finishTouched:)] autorelease];
+    
+    //add left button
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
 }
 
 - (void)viewDidUnload
@@ -77,7 +83,7 @@
 #pragma mark -
 #pragma comment IB
 
-- (IBAction)joinTouched:(id)sender
+- (IBAction)finishTouched:(id)sender
 {
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
@@ -103,6 +109,11 @@
     [controller_ createUser:newUser];
 }
 
+- (void)backTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma comment other
 
@@ -126,7 +137,7 @@
     
     //authonticate user
     if (u.facebookId)
-        [DDAuthenticationController authenticateWithFbToken:[DDFacebookController token] delegate:self];
+        assert(0);
     else
         [DDAuthenticationController authenticateWithEmail:textFieldEmail.text password:textFieldPassword.text delegate:self];
 }

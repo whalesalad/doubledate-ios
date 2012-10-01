@@ -25,6 +25,4 @@
 @property(nonatomic, retain) IBOutlet UITextField *textFieldEmail;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldPassword;
 
-- (IBAction)joinTouched:(id)sender;
-
 @end
