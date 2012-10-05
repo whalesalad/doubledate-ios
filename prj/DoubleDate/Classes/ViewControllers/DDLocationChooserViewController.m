@@ -59,6 +59,7 @@
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = nil;
 }
 
 - (void)viewDidUnload
