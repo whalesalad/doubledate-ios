@@ -46,14 +46,19 @@
 {
     [super viewDidLoad];
     
-    //set title
-    self.navigationItem.title = NSLocalizedString(@"My Profile", nil);
-    
     //we can edit only yourself
     if ([[DDAuthenticationController userId] isEqualToString:[user.userId stringValue]])
     {
+        //set title
+        self.navigationItem.title = NSLocalizedString(@"My Profile", nil);
+        
         //add right button
         self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) style:UIBarButtonItemStyleDone target:self action:@selector(editTouched:)] autorelease];
+    }
+    else
+    {
+        //set title
+        self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     }
     
     //set title
