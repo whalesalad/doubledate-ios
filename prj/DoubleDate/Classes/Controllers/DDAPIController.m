@@ -33,6 +33,7 @@ typedef enum
     DDAPIControllerMethodTypeRequestApproveFriendship,
     DDAPIControllerMethodTypeRequestDenyFriendship,
     DDAPIControllerMethodTypeRequestDeleteFriend,
+    DDAPIControllerMethodTypeGetFriend,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -329,6 +330,25 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)getFriend:(DDShortUser*)user
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [user.identifier intValue]]];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetFriend;
+    userData.succeedSel = @selector(getFriendSucceed:);
+    userData.failedSel = @selector(getFriendDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 - (void)clearRequest:(RKRequest*)request
 {
     request.delegate = nil;
@@ -357,7 +377,8 @@ typedef enum
         if (userData.method == DDAPIControllerMethodTypeGetMe ||
             userData.method == DDAPIControllerMethodTypeUpdateMe ||
             userData.method == DDAPIControllerMethodTypeCreateUser ||
-            userData.method == DDAPIControllerMethodTypeRequestFBUser)
+            userData.method == DDAPIControllerMethodTypeRequestFBUser ||
+            userData.method == DDAPIControllerMethodTypeGetFriend)
         {
             //create user object
             DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
@@ -452,13 +473,8 @@ typedef enum
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:friendship withObject:nil];
         }
-        else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendship)
-        {
-            //inform delegate
-            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:nil withObject:nil];
-        }
-        else if (userData.method == DDAPIControllerMethodTypeRequestDeleteFriend)
+        else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendship ||
+                 userData.method == DDAPIControllerMethodTypeRequestDeleteFriend)
         {
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

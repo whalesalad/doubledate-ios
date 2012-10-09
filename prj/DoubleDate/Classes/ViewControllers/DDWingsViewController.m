@@ -12,6 +12,7 @@
 #import "DDFriendship.h"
 #import "DDImageView.h"
 #import "DDAuthenticationController.h"
+#import "DDMeViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagMainLabel 1
@@ -229,7 +230,7 @@
         self.tableView.editing = !self.tableView.editing;
 }
 
-- (void)tabChanged:(id)sender
+- (void)tabChanged:(UISegmentedControl*)sender
 {
     //unset editing
     self.tableView.editing = NO;
@@ -239,6 +240,9 @@
     
     //update navigation buttons
     [self updateNavigationButtons];
+    
+    //update title
+    self.navigationItem.title = [sender titleForSegmentAtIndex:sender.selectedSegmentIndex];
 }
 
 - (void)inviteTouched:(UIButton*)sender
@@ -290,9 +294,24 @@
 #pragma mark -
 #pragma comment UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 50;
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //get cell
+    DDWingsViewControllerTableViewCell *wingsTableViewCell = (DDWingsViewControllerTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+    
+    //request information about user
+    [self.apiController getFriend:wingsTableViewCell.shortuser];
+    
+    //deselect row
+    [aTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -
@@ -369,7 +388,7 @@
         [view addSubview:buttonRemove];
         [buttonRemove addTarget:self action:@selector(denyTouched:) forControlEvents:UIControlEventTouchUpInside];
         tableViewCell.accessoryView = view;
-        tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        tableViewCell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     
     //check for main label
@@ -550,6 +569,26 @@
 {
     //reload data
     [self refresh:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getFriendSucceed:(DDUser*)user
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //add view controller
+    DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
+    meViewController.user = user;
+    [self.navigationController pushViewController:meViewController animated:YES];
+}
+
+- (void)getFriendDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
