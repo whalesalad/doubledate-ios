@@ -58,7 +58,7 @@
 
 @interface DDWingsViewController () <UITableViewDataSource, UITableViewDelegate>
 
-- (void)reloadData;
+- (void)reloadData:(BOOL)animated;
 - (void)onDataReloaded;
 - (BOOL)isWingsMode;
 - (BOOL)isInvitationsMode;
@@ -106,7 +106,7 @@
     
     //check if we need to make a request
     if (!friends_ && !pendingInvitations_)
-        [self reloadData];
+        [self reloadData:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -178,7 +178,7 @@
     return [[self segmentedControl] selectedSegmentIndex] == 1;
 }
 
-- (void)reloadData
+- (void)reloadData:(BOOL)animated
 {
     //unset old values
     [friends_ release];
@@ -187,7 +187,7 @@
     pendingInvitations_ = nil;
     
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:animated];
     
     //request friends
     [self.apiController getFriends];
@@ -489,11 +489,8 @@
 
 - (void)requestApproveFriendshipSucceed:(DDFriendship*)friendship
 {
-    //hide hud
-    [self hideHud:YES];
-    
     //reload data
-    [self reloadData];
+    [self reloadData:NO];
 }
 
 - (void)requestApproveFriendshipDidFailedWithError:(NSError*)error
@@ -507,11 +504,8 @@
 
 - (void)requestDenyFriendshipSucceed
 {
-    //hide hud
-    [self hideHud:YES];
-    
     //reload data
-    [self reloadData];
+    [self reloadData:NO];
 }
 
 - (void)requestDenyFriendshipDidFailedWithError:(NSError*)error
@@ -525,11 +519,8 @@
 
 - (void)requestDeleteFriendSucceed
 {
-    //hide hud
-    [self hideHud:YES];
-    
     //reload data
-    [self reloadData];
+    [self reloadData:NO];
 }
 
 - (void)requestDeleteFriendDidFailedWithError:(NSError*)error
