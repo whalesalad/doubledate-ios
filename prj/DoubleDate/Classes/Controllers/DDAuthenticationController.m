@@ -23,8 +23,8 @@ NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthen
 
 @interface DDAuthenticationController ()<RKRequestDelegate>
 
-@property(nonatomic, retain) NSString *userId;
-@property(nonatomic, retain) NSString *token;
+@property(nonatomic, retain) NSObject *userId;
+@property(nonatomic, retain) NSObject *token;
 
 - (void)authenticateWithFbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate;
 
@@ -46,12 +46,22 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 + (NSString*)token
 {
-    return [[DDAuthenticationController sharedController] token];
+    NSObject *ret = [[DDAuthenticationController sharedController] token];
+    if ([ret isKindOfClass:[NSNumber class]])
+        return [(NSNumber*)ret stringValue];
+    else if ([ret isKindOfClass:[NSString class]])
+        return (NSString*)ret;
+    return nil;
 }
 
 + (NSString*)userId
 {
-    return [[DDAuthenticationController sharedController] userId];
+    NSObject *ret = [[DDAuthenticationController sharedController] userId];
+    if ([ret isKindOfClass:[NSNumber class]])
+        return [(NSNumber*)ret stringValue];
+    else if ([ret isKindOfClass:[NSString class]])
+        return (NSString*)ret;
+    return nil;
 }
 
 + (void)authenticateWithFbToken:(NSString*)fbToken delegate:(id)delegate

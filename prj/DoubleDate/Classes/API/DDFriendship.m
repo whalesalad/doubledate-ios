@@ -14,7 +14,7 @@
 @synthesize createdAt;
 @synthesize identifier;
 @synthesize uuid;
-@synthesize meUser;
+@synthesize user;
 @synthesize friendUser;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
@@ -25,7 +25,7 @@
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.uuid = [DDAPIObject stringForObject:[dictionary objectForKey:@"uuid"]];
-        self.meUser = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
+        self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.friendUser = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"friend"]];
     }
     return self;
@@ -42,8 +42,8 @@
         [dictionary setObject:self.identifier forKey:@"id"];
     if (self.uuid)
         [dictionary setObject:self.uuid forKey:@"uuid"];
-    if (self.meUser)
-        [dictionary setObject:[self.meUser dictionaryRepresentation] forKey:@"user"];
+    if (self.user)
+        [dictionary setObject:[self.user dictionaryRepresentation] forKey:@"user"];
     if (self.friendUser)
         [dictionary setObject:[self.friendUser dictionaryRepresentation] forKey:@"friend"];
     return dictionary;
@@ -55,7 +55,7 @@
     [createdAt release];
     [identifier release];
     [uuid release];
-    [meUser release];
+    [user release];
     [friendUser release];
     [super dealloc];
 }

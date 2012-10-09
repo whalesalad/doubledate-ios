@@ -15,7 +15,7 @@
 @property(nonatomic, retain) NSString *createdAt;
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSString *uuid;
-@property(nonatomic, retain) DDShortUser *meUser;
+@property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *friendUser;
 
 @end

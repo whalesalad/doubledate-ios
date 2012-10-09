@@ -10,8 +10,8 @@
 
 @interface DDWingsViewController : DDViewController
 {
-    NSArray *friends_;
-    NSArray *pendingInvitations_;
+    NSMutableArray *friends_;
+    NSMutableArray *pendingInvitations_;
 }
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
