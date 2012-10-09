@@ -454,7 +454,8 @@
             if (friend.location)
                 [detailedText appendString:@", "];
         }
-        [detailedText appendString:friend.location];
+        if (friend.location)
+            [detailedText appendString:friend.location];
         [(UILabel*)[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setText:detailedText];
         
         //set photo
