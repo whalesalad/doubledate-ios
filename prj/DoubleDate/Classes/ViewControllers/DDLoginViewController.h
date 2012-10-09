@@ -13,7 +13,6 @@
 
 @interface DDLoginViewController : DDViewController
 {
-    DDAPIController *controller_;
 }
 
 @property(nonatomic, retain) IBOutlet UITextField *textFieldEmail;

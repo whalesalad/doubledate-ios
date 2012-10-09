@@ -11,6 +11,8 @@
 
 @class DDUser;
 @class DDImage;
+@class DDFriendship;
+@class DDShortUser;
 
 @protocol DDAPIControllerDelegate <NSObject>
 
@@ -37,6 +39,21 @@
 - (void)requestAvailableInterestsSucceed:(NSArray*)interests;
 - (void)requestAvailableInterestsDidFailedWithError:(NSError*)error;
 
+- (void)getFriendsSucceed:(NSArray*)friends;
+- (void)getFriendsDidFailedWithError:(NSError*)error;
+
+- (void)getFriendshipInvitationsSucceed:(NSArray*)invitations;
+- (void)getFriendshipInvitationsDidFailedWithError:(NSError*)error;
+
+- (void)requestApproveFriendshipSucceed:(DDFriendship*)friendship;
+- (void)requestApproveFriendshipDidFailedWithError:(NSError*)error;
+
+- (void)requestDenyFriendshipSucceed;
+- (void)requestDenyFriendshipDidFailedWithError:(NSError*)error;
+
+- (void)requestDeleteFriendSucceed;
+- (void)requestDeleteFriendDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -59,5 +76,15 @@
 - (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 
 - (void)requestAvailableInterests;
+
+- (void)getFriends;
+
+- (void)getFriendshipInvitations;
+
+- (void)requestApproveFriendship:(DDFriendship*)friendship;
+
+- (void)requestDenyFriendship:(DDFriendship*)friendship;
+
+- (void)requestDeleteFriend:(DDShortUser*)user;
 
 @end

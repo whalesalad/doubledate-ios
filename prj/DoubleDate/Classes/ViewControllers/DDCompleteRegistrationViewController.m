@@ -26,11 +26,6 @@
 @synthesize textFieldEmail;
 @synthesize textFieldPassword;
 
-- (UIView*)viewForHud
-{
-    return self.parentViewController.view;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -38,9 +33,6 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
-        
-        controller_ = [[DDAPIController alloc] init];
-        controller_.delegate = self;
     }
     return self;
 }
@@ -75,8 +67,6 @@
     [createdUser_ release];
     [textFieldEmail release];
     [textFieldPassword release];
-    controller_.delegate = nil;
-    [controller_ release];
     [super dealloc];
 }
 
@@ -106,7 +96,7 @@
     posterSent_ = NO;
     
     //create user
-    [controller_ createUser:newUser];
+    [self.apiController createUser:newUser];
 }
 
 - (void)backTouched:(id)sender
@@ -169,7 +159,7 @@
         //update user
         DDUser *newUser = [[[DDUser alloc] init] autorelease];
         newUser.interests = self.user.interests;
-        [controller_ updateMe:newUser];
+        [self.apiController updateMe:newUser];
     }
     //check if we need to update the location
     else if (self.user.location && !u.location && !locationSent_)
@@ -180,7 +170,7 @@
         //update user
         DDUser *newUser = [[[DDUser alloc] init] autorelease];
         newUser.location = self.user.location;
-        [controller_ updateMe:newUser];
+        [self.apiController updateMe:newUser];
     }
     //check if we need to post the photo
     else if (self.user.photo.uploadImage && !posterSent_)
@@ -189,7 +179,7 @@
         posterSent_ = YES;
         
         //update user
-        [controller_ updatePhotoForMe:self.user.photo.uploadImage];
+        [self.apiController updatePhotoForMe:self.user.photo.uploadImage];
     }
     else
     {

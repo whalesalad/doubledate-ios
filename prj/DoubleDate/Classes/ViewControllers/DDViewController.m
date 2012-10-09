@@ -10,15 +10,46 @@
 #import "DDViewController+Design.h"
 #import "MBProgressHUD.h"
 #import "DDAppDelegate.h"
+#import "DDAPIController.h"
 #import <QuartzCore/QuartzCore.h>
+
+@interface DDViewController (hidden) <DDAPIControllerDelegate>
+
+@end
 
 @implementation DDViewController
 
 @synthesize viewAfterAppearing;
+@synthesize apiController=apiController_;
+
+- (void)initSelf
+{
+    apiController_ = [[DDAPIController alloc] init];
+    apiController_.delegate = self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+    {
+        [self initSelf];
+    }
+    return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+    {
+        [self initSelf];
+    }
+    return self;
+}
 
 - (UIView*)viewForHud
 {
-    return self.view;
+    NSArray *windows = [UIApplication sharedApplication].windows;
+    return [windows objectAtIndex:[windows count]-1];
 }
 
 - (void)showHudWithText:(NSString*)text animated:(BOOL)animated
@@ -144,6 +175,8 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    apiController_.delegate = nil;
+    [apiController_ release];
     [self hideHud:YES];
     [viewAfterAppearing release];
     [super dealloc];

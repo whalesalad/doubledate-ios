@@ -15,7 +15,6 @@
 @interface DDLocationChooserViewController : DDViewController
 {
     NSArray *placemarks_;
-    DDAPIController *apiController_;
 }
 
 @property(nonatomic, retain) CLLocation *location;

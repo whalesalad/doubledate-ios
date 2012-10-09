@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
+		702846AB1623639200693673 /* DDWingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702846AA1623639200693673 /* DDWingsViewController.xib */; };
+		702846B516236E5800693673 /* approve-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AD16236E5800693673 /* approve-invite.png */; };
+		702846B616236E5800693673 /* approve-invite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AE16236E5800693673 /* approve-invite@2x.png */; };
+		702846B716236E5800693673 /* deny-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AF16236E5800693673 /* deny-invite.png */; };
+		702846B816236E5800693673 /* deny-invite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B016236E5800693673 /* deny-invite@2x.png */; };
+		702846B916236E5800693673 /* disclosure-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B116236E5800693673 /* disclosure-arrow.png */; };
+		702846BA16236E5800693673 /* disclosure-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B216236E5800693673 /* disclosure-arrow@2x.png */; };
+		702846BB16236E5800693673 /* user-photo-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B316236E5800693673 /* user-photo-overlay.png */; };
+		702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B416236E5800693673 /* user-photo-overlay@2x.png */; };
+		702846BF16236F8300693673 /* DDFriendship.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846BE16236F8300693673 /* DDFriendship.m */; };
+		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
@@ -180,6 +192,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
+		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
+		702846AA1623639200693673 /* DDWingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingsViewController.xib; sourceTree = "<group>"; };
+		702846AD16236E5800693673 /* approve-invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approve-invite.png"; sourceTree = "<group>"; };
+		702846AE16236E5800693673 /* approve-invite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approve-invite@2x.png"; sourceTree = "<group>"; };
+		702846AF16236E5800693673 /* deny-invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deny-invite.png"; sourceTree = "<group>"; };
+		702846B016236E5800693673 /* deny-invite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deny-invite@2x.png"; sourceTree = "<group>"; };
+		702846B116236E5800693673 /* disclosure-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disclosure-arrow.png"; sourceTree = "<group>"; };
+		702846B216236E5800693673 /* disclosure-arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disclosure-arrow@2x.png"; sourceTree = "<group>"; };
+		702846B316236E5800693673 /* user-photo-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-photo-overlay.png"; sourceTree = "<group>"; };
+		702846B416236E5800693673 /* user-photo-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-photo-overlay@2x.png"; sourceTree = "<group>"; };
+		702846BD16236F8300693673 /* DDFriendship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFriendship.h; sourceTree = "<group>"; };
+		702846BE16236F8300693673 /* DDFriendship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFriendship.m; sourceTree = "<group>"; };
+		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
+		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
 		708AB1591608FC50009817FC /* DDInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterest.h; sourceTree = "<group>"; };
@@ -341,6 +368,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		702846AC16236E5800693673 /* wingman */ = {
+			isa = PBXGroup;
+			children = (
+				702846AD16236E5800693673 /* approve-invite.png */,
+				702846AE16236E5800693673 /* approve-invite@2x.png */,
+				702846AF16236E5800693673 /* deny-invite.png */,
+				702846B016236E5800693673 /* deny-invite@2x.png */,
+				702846B116236E5800693673 /* disclosure-arrow.png */,
+				702846B216236E5800693673 /* disclosure-arrow@2x.png */,
+				702846B316236E5800693673 /* user-photo-overlay.png */,
+				702846B416236E5800693673 /* user-photo-overlay@2x.png */,
+			);
+			path = wingman;
+			sourceTree = "<group>";
+		};
 		70803B131610FF3400BFDE8B /* TITokenField */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +514,10 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				702846C416238AB800693673 /* DDShortUser.h */,
+				702846C516238AB900693673 /* DDShortUser.m */,
+				702846BD16236F8300693673 /* DDFriendship.h */,
+				702846BE16236F8300693673 /* DDFriendship.m */,
 				708AB1591608FC50009817FC /* DDInterest.h */,
 				708AB15A1608FC50009817FC /* DDInterest.m */,
 				96B59E141607185900CFDA1C /* DDImage.h */,
@@ -558,6 +604,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				702846A51623638100693673 /* DDWingsViewController.h */,
+				702846A61623638100693673 /* DDWingsViewController.m */,
 				96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */,
 				96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */,
 				96892D4915FF61770054C108 /* DDLocationPickerViewController.h */,
@@ -587,6 +635,7 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				702846AC16236E5800693673 /* wingman */,
 				96EE8450161493B300AE6EC1 /* general */,
 				96F1EB5B1612F63F00A9ED12 /* basic info */,
 				968BE27B161038B20029F61F /* doubledates-tab-bar.png */,
@@ -606,6 +655,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				702846AA1623639200693673 /* DDWingsViewController.xib */,
 				96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
 				96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */,
@@ -888,6 +938,15 @@
 				96EE8458161493B300AE6EC1 /* textfield-bg@2x.png in Resources */,
 				963D816C1615C78C00BFCD42 /* me-photo-overlay.png in Resources */,
 				963D816D1615C78C00BFCD42 /* me-photo-overlay@2x.png in Resources */,
+				702846AB1623639200693673 /* DDWingsViewController.xib in Resources */,
+				702846B516236E5800693673 /* approve-invite.png in Resources */,
+				702846B616236E5800693673 /* approve-invite@2x.png in Resources */,
+				702846B716236E5800693673 /* deny-invite.png in Resources */,
+				702846B816236E5800693673 /* deny-invite@2x.png in Resources */,
+				702846B916236E5800693673 /* disclosure-arrow.png in Resources */,
+				702846BA16236E5800693673 /* disclosure-arrow@2x.png in Resources */,
+				702846BB16236E5800693673 /* user-photo-overlay.png in Resources */,
+				702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -928,6 +987,9 @@
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
 				96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */,
 				70803B161610FF3400BFDE8B /* TITokenField.m in Sources */,
+				702846A81623638100693673 /* DDWingsViewController.m in Sources */,
+				702846BF16236F8300693673 /* DDFriendship.m in Sources */,
+				702846C616238AB900693673 /* DDShortUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

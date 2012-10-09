@@ -20,11 +20,6 @@
 @synthesize textFieldEmail;
 @synthesize textFieldPassword;
 
-- (UIView*)viewForHud
-{
-    return self.parentViewController.view;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,9 +27,6 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
-        
-        controller_ = [[DDAPIController alloc] init];
-        controller_.delegate = self;
     }
     return self;
 }
@@ -49,6 +41,7 @@
     //add right button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
 
+    //set focus
     [textFieldEmail becomeFirstResponder];
 }
 
@@ -68,8 +61,6 @@
 {
     [textFieldEmail release];
     [textFieldPassword release];
-    controller_.delegate = nil;
-    [controller_ release];
     [super dealloc];
 }
 
@@ -97,7 +88,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
     
         //extract information about me
-        [controller_ getMe];
+        [self.apiController getMe];
     }
 }
 

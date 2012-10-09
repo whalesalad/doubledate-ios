@@ -25,8 +25,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        apiController_ = [[DDAPIController alloc] init];
-        apiController_.delegate = self;
     }
     return self;
 }
@@ -43,7 +41,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //search for placemarks
-        [apiController_ searchPlacemarksForLatitude:self.location.coordinate.latitude longitude:location.coordinate.longitude];
+        [self.apiController searchPlacemarksForLatitude:self.location.coordinate.latitude longitude:location.coordinate.longitude];
     }
 }
 
@@ -72,8 +70,6 @@
 {
     [location release];
     [placemarks_ release];
-    apiController_.delegate = nil;
-    [apiController_ release];
     [tableView release];
     [super dealloc];
 }

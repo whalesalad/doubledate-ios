@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @class MBProgressHUD;
+@class DDAPIController;
 
 @interface DDViewController : UIViewController
 {
     NSMutableArray *buffer_;
+    DDAPIController *apiController_;
 }
 
+@property(nonatomic, readonly) DDAPIController *apiController;
 @property(nonatomic, retain) UIView *viewAfterAppearing;
 
 - (void)showHudWithText:(NSString*)text animated:(BOOL)animated;

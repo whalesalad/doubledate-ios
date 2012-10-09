@@ -13,7 +13,6 @@
 
 @interface DDWelcomeViewController : DDViewController
 {
-    DDAPIController *controller_;
 }
 
 - (IBAction)facebookTouched:(id)sender;

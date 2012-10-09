@@ -20,6 +20,7 @@
 #import "DDLoginViewController.h"
 #import "DDUser.h"
 #import "DDMeViewController.h"
+#import "DDWingsViewController.h"
 
 #define kTagEmailActionSheet 1
 
@@ -45,9 +46,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fbDidNotLogin:) name:DDFacebookControllerSessionDidNotLoginNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidAuthenticate:) name:DDAuthenticationControllerAuthenticateDidSucceesNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(apiDidNotAuthenticate:) name:DDAuthenticationControllerAuthenticateDidFailedNotification object:nil];
-        
-        controller_ = [[DDAPIController alloc] init];
-        controller_.delegate = self;
     }
     return self;
 }
@@ -75,8 +73,6 @@
 
 - (void)dealloc
 {
-    controller_.delegate = nil;
-    [controller_ release];
     [super dealloc];
 }
 
@@ -171,7 +167,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
     
         //extract information about me
-        [controller_ getMe];
+        [self.apiController getMe];
     }
 }
 
@@ -189,7 +185,7 @@
             [self showHudWithText:NSLocalizedString(@"Fetching User", nil) animated:NO];
             
             //request information about the user
-            [controller_ requestFacebookUserForToken:[DDFacebookController token]];
+            [self.apiController requestFacebookUserForToken:[DDFacebookController token]];
         }
         else
         {
@@ -267,9 +263,21 @@
         meViewController.user = user;
         meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Me", nil) image:imageMe tag:0] autorelease];
         
+        //set wingman view controller
+        DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] init] autorelease];
+        wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Wings", nil) image:[UIImage imageNamed:@"wing-tab-bar.png"] tag:1] autorelease];
+        
+        //set doubledates view controller
+        DDViewController *doubledatesViewController = [[[DDViewController alloc] init] autorelease];
+        doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DoubleDates", nil) image:[UIImage imageNamed:@"doubledates-tab-bar.png"] tag:2] autorelease];
+        
         //create tab bar controller
         UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-        tabBarController.viewControllers = [NSArray arrayWithObjects:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease], nil];
+        NSMutableArray *viewControllers = [NSMutableArray array];
+        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease]];
+        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:wingsViewController] autorelease]];
+        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:doubledatesViewController] autorelease]];
+        tabBarController.viewControllers = viewControllers;
         
         //go to next view controller
         [self.navigationController pushViewController:tabBarController animated:animated];

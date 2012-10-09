@@ -19,11 +19,6 @@
 @synthesize delegate;
 @synthesize mapView;
 
-- (UIView*)viewForHud
-{
-    return self.parentViewController.view;
-}
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];

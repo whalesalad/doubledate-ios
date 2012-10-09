@@ -58,5 +58,19 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>DDWingsViewController</key>
+	<dict>
+		<key>navigationItem</key>
+		<dict>
+			<key>titleView</key>
+			<dict>
+				<key>tintColor</key>
+				<dict>
+					<key>UIColor</key>
+					<string>(220,0,78,255)</string>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

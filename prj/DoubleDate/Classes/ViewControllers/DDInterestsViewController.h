@@ -14,7 +14,6 @@
 
 @interface DDInterestsViewController : DDViewController
 {
-    DDAPIController *controller_;
     BOOL interestsRequested_;
     DDUser *createdUser_;
     BOOL locationSent_;

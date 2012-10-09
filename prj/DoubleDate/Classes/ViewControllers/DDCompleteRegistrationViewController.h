@@ -13,7 +13,6 @@
 
 @interface DDCompleteRegistrationViewController : DDViewController
 {
-    DDAPIController *controller_;
     DDUser *createdUser_;
     BOOL locationSent_;
     BOOL interestsSent_;
