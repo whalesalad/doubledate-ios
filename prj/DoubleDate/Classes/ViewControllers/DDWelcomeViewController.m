@@ -265,6 +265,7 @@
         
         //set wingman view controller
         DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] init] autorelease];
+        wingsViewController.user = user;
         wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Wings", nil) image:[UIImage imageNamed:@"wing-tab-bar.png"] tag:1] autorelease];
         
         //set doubledates view controller

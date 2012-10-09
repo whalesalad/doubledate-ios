@@ -42,34 +42,42 @@ NSString *DDUserInterestBoth = @"both";
 
 @synthesize interests;
 
+@synthesize uuid;
+
+@synthesize inviteSlug;
+@synthesize invitePath;
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if ((self = [super initWithDictionary:dictionary]))
     {
-            self.bio = [DDAPIObject stringForObject:[dictionary objectForKey:@"bio"]];
-            self.birthday = [DDAPIObject stringForObject:[dictionary objectForKey:@"birthday"]];
-            self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
-            self.gender = [DDAPIObject stringForObject:[dictionary objectForKey:@"gender"]];
-            self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
-            self.interestedIn = [DDAPIObject stringForObject:[dictionary objectForKey:@"interested_in"]];
-            self.lastName = [DDAPIObject stringForObject:[dictionary objectForKey:@"last_name"]];
-            self.single = [DDAPIObject numberForObject:[dictionary objectForKey:@"single"]];
-            self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
-            self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
-            self.facebookAccessToken = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_access_token"]];
-            self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
-            self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
-            self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
-            self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
-            NSArray *interestsDicArray = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
-            NSMutableArray *interestsObjArray = [NSMutableArray array];
-            for (NSDictionary *interestDic in interestsDicArray)
-            {
-                DDInterest *interest = [DDInterest objectWithDictionary:interestDic];
-                [interestsObjArray addObject:interest];
-            }
-            if ([interestsObjArray count])
-                self.interests = [NSArray arrayWithArray:interestsObjArray];
+        self.bio = [DDAPIObject stringForObject:[dictionary objectForKey:@"bio"]];
+        self.birthday = [DDAPIObject stringForObject:[dictionary objectForKey:@"birthday"]];
+        self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
+        self.gender = [DDAPIObject stringForObject:[dictionary objectForKey:@"gender"]];
+        self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
+        self.interestedIn = [DDAPIObject stringForObject:[dictionary objectForKey:@"interested_in"]];
+        self.lastName = [DDAPIObject stringForObject:[dictionary objectForKey:@"last_name"]];
+        self.single = [DDAPIObject numberForObject:[dictionary objectForKey:@"single"]];
+        self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
+        self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
+        self.facebookAccessToken = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_access_token"]];
+        self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
+        self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
+        self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
+        self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
+        NSArray *interestsDicArray = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
+        NSMutableArray *interestsObjArray = [NSMutableArray array];
+        for (NSDictionary *interestDic in interestsDicArray)
+        {
+            DDInterest *interest = [DDInterest objectWithDictionary:interestDic];
+            [interestsObjArray addObject:interest];
+        }
+        if ([interestsObjArray count])
+            self.interests = [NSArray arrayWithArray:interestsObjArray];
+        self.uuid = [DDAPIObject stringForObject:[dictionary objectForKey:@"uuid"]];
+        self.inviteSlug = [DDAPIObject stringForObject:[dictionary objectForKey:@"invite_slug"]];
+        self.invitePath = [DDAPIObject stringForObject:[dictionary objectForKey:@"invite_path"]];
     }
     return self;
 }
@@ -116,6 +124,12 @@ NSString *DDUserInterestBoth = @"both";
             [interestsDicArray addObject:interest.name];
         [dictionary setObject:interestsDicArray forKey:@"interest_names"];
     }
+    if (self.uuid)
+        [dictionary setObject:self.uuid forKey:@"uuid"];
+    if (self.inviteSlug)
+        [dictionary setObject:self.inviteSlug forKey:@"invite_slug"];
+    if (self.invitePath)
+        [dictionary setObject:self.invitePath forKey:@"invite_path"];
     return dictionary;
 }
 
@@ -146,6 +160,9 @@ NSString *DDUserInterestBoth = @"both";
     [password release];
     [location release];
     [interests release];
+    [uuid release];
+    [inviteSlug release];
+    [invitePath release];
     [super dealloc];
 }
 

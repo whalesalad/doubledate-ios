@@ -19,6 +19,7 @@
 		702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B416236E5800693673 /* user-photo-overlay@2x.png */; };
 		702846BF16236F8300693673 /* DDFriendship.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846BE16236F8300693673 /* DDFriendship.m */; };
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
+		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
@@ -207,6 +208,7 @@
 		702846BE16236F8300693673 /* DDFriendship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFriendship.m; sourceTree = "<group>"; };
 		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
 		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
+		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
 		708AB1591608FC50009817FC /* DDInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterest.h; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */,
 				96EE845A16149B8600AE6EC1 /* QuartzCore.framework in Frameworks */,
 				96892D4F15FF68E40054C108 /* CoreLocation.framework in Frameworks */,
 				96892D3E15FF5CBD0054C108 /* MapKit.framework in Frameworks */,
@@ -412,6 +415,7 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7045B79E1624B84300E8D3C8 /* MessageUI.framework */,
 				96EE845916149B8600AE6EC1 /* QuartzCore.framework */,
 				96892D4E15FF68E40054C108 /* CoreLocation.framework */,
 				96892D3D15FF5CBC0054C108 /* MapKit.framework */,

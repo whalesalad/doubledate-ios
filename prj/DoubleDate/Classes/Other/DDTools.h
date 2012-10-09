@@ -20,6 +20,7 @@ typedef enum
 {
 }
 
++ (NSString*)serverUrlPath;
 + (NSString*)apiUrlPath;
 + (NSString*)authUrlPath;
 

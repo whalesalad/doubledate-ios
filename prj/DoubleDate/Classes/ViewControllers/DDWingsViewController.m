@@ -11,15 +11,17 @@
 #import "DDUser.h"
 #import "DDFriendship.h"
 #import "DDImageView.h"
-#import "DDAuthenticationController.h"
 #import "DDMeViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import <MessageUI/MessageUI.h>
+#import "DDTools.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
 #define kTagPhoto 3
 #define kTagConfirmDeleteFriendshipAlert 4
 #define kTagConfirmDeleteFriendAlert 5
+#define kTagActionSheetInvite 6
 
 @interface DDWingsViewControllerAlertView : UIAlertView
 @property(nonatomic, retain) DDShortUser *shortuser;
@@ -59,7 +61,7 @@
 
 @end
 
-@interface DDWingsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface DDWingsViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 - (void)refresh:(BOOL)animated;
 - (void)onDataRefreshed;
@@ -67,12 +69,15 @@
 - (BOOL)isInvitationsMode;
 - (void)updateSegmentedControl;
 - (void)updateNavigationButtons;
+- (void)inviteBySms;
+- (void)inviteByFacebook;
 
 @end
 
 @implementation DDWingsViewController
 
 @synthesize tableView;
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -120,6 +125,7 @@
 - (void)dealloc
 {
     [tableView release];
+    [user release];
     [friends_ release];
     [pendingInvitations_ release];
     [super dealloc];
@@ -221,7 +227,9 @@
 
 - (void)plusTouched:(id)sender
 {
-    
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), NSLocalizedString(@"From Facebook Friends", nil), nil] autorelease];
+    sheet.tag = kTagActionSheetInvite;
+    [sheet showFromTabBar:self.tabBarController.tabBar];
 }
 
 - (void)editTouched:(id)sender
@@ -289,6 +297,27 @@
         alertView.friendship = cell.friendship;
         [alertView show];
     }
+}
+
+- (void)inviteBySms
+{
+    if ([MFMessageComposeViewController canSendText])
+    {
+        MFMessageComposeViewController *messageComposer = [[[MFMessageComposeViewController alloc] init] autorelease];
+        messageComposer.delegate = self;
+        messageComposer.body = [NSString stringWithFormat:@"Become my wing on DoubleDate! %@%@", [DDTools serverUrlPath], user.invitePath];
+        [self.navigationController presentModalViewController:messageComposer animated:YES];
+    }
+    else
+    {
+        //show error
+        [[[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"You are not able to send text messages", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    }
+}
+
+- (void)inviteByFacebook
+{
+    
 }
 
 #pragma mark -
@@ -575,14 +604,14 @@
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
-- (void)getFriendSucceed:(DDUser*)user
+- (void)getFriendSucceed:(DDUser*)friend
 {
     //hide hud
     [self hideHud:YES];
     
     //add view controller
     DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
-    meViewController.user = user;
+    meViewController.user = friend;
     [self.navigationController pushViewController:meViewController animated:YES];
 }
 
@@ -652,6 +681,37 @@
             [shortuser release];
         }
     }
+}
+
+#pragma mark -
+#pragma comment UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag == kTagActionSheetInvite)
+    {
+        if (buttonIndex != actionSheet.cancelButtonIndex)
+        {
+            switch (buttonIndex) {
+                case 0:
+                    [self inviteBySms];
+                    break;
+                case 1:
+                    [self inviteByFacebook];
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+#pragma mark -
+#pragma comment -
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 @end

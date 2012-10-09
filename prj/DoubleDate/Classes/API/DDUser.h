@@ -44,4 +44,9 @@ extern NSString *DDUserInterestBoth;
 
 @property(nonatomic, retain) NSArray *interests;
 
+@property(nonatomic, retain) NSString *uuid;
+
+@property(nonatomic, retain) NSString *inviteSlug;
+@property(nonatomic, retain) NSString *invitePath;
+
 @end

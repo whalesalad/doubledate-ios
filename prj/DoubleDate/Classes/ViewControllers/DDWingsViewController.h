@@ -8,6 +8,8 @@
 
 #import "DDViewController.h"
 
+@class DDUser;
+
 @interface DDWingsViewController : DDViewController
 {
     NSMutableArray *friends_;
@@ -15,5 +17,7 @@
 }
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
+
+@property(nonatomic, retain) DDUser *user;
 
 @end
