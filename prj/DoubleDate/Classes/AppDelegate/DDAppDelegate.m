@@ -45,6 +45,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [[FBSession activeSession] handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

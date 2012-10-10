@@ -58,28 +58,29 @@ static DDFacebookController *_sharedInstance = nil;
     [permissions addObject:@"friends_location"];
 
     //open session
-    [FBSession openActiveSessionWithPermissions:permissions
-                                   allowLoginUI:YES
-                              completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                  if (!error)
-                                  {
-                                      if (state == FBSessionStateOpen && !alreadyLoggedIn)
-                                      {
-                                          alreadyLoggedIn = YES;
-                                          [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidLoginNotification object:self];
-                                      }
-                                  }
-                                  else
-                                  {
-                                      NSDictionary *userInfo = [NSDictionary dictionaryWithObject:error forKey:DDFacebookControllerSessionDidNotLoginUserInfoErrorKey];
-                                      [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidNotLoginNotification object:self userInfo:userInfo];
-                                  }
-                              }];
+    FBSession *session = [[[FBSession alloc] initWithPermissions:permissions] autorelease];
+    [session openWithBehavior:FBSessionLoginBehaviorWithNoFallbackToWebView completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        if (!error)
+        {
+            if (status == FBSessionStateOpen && !alreadyLoggedIn)
+            {
+                alreadyLoggedIn = YES;
+                [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidLoginNotification object:self];
+            }
+        }
+        else
+        {
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObject:error forKey:DDFacebookControllerSessionDidNotLoginUserInfoErrorKey];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidNotLoginNotification object:self userInfo:userInfo];
+        }
+    }];
+    [FBSession setActiveSession:session];
 }
 
 - (void)logout
 {
     [[FBSession activeSession] closeAndClearTokenInformation];
+    [FBSession setActiveSession:nil];
 }
 
 - (void)requestMe
