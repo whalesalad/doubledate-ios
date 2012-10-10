@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4CD1D2281625DBF2000A717D /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1D2271625DBF2000A717D /* dd-app@2x.png */; };
+		4CD1D22A1625DBF5000A717D /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CD1D2291625DBF5000A717D /* dd-app.png */; };
 		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
 		702846AB1623639200693673 /* DDWingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702846AA1623639200693673 /* DDWingsViewController.xib */; };
 		702846B516236E5800693673 /* approve-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AD16236E5800693673 /* approve-invite.png */; };
@@ -195,6 +197,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4CD1D2271625DBF2000A717D /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
+		4CD1D2291625DBF5000A717D /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app.png"; sourceTree = "<group>"; };
 		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
 		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
 		702846AA1623639200693673 /* DDWingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingsViewController.xib; sourceTree = "<group>"; };
@@ -404,6 +408,8 @@
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
+				4CD1D2291625DBF5000A717D /* dd-app.png */,
+				4CD1D2271625DBF2000A717D /* dd-app@2x.png */,
 				960A02D215F7371C00BA9EB0 /* DoubleDate */,
 				960A02CB15F7371C00BA9EB0 /* Frameworks */,
 				960A02C915F7371C00BA9EB0 /* Products */,
@@ -959,6 +965,8 @@
 				702846BA16236E5800693673 /* disclosure-arrow@2x.png in Resources */,
 				702846BB16236E5800693673 /* user-photo-overlay.png in Resources */,
 				702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */,
+				4CD1D2281625DBF2000A717D /* dd-app@2x.png in Resources */,
+				4CD1D22A1625DBF5000A717D /* dd-app.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
