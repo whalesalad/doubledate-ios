@@ -304,7 +304,7 @@
     if ([MFMessageComposeViewController canSendText])
     {
         MFMessageComposeViewController *messageComposer = [[[MFMessageComposeViewController alloc] init] autorelease];
-        messageComposer.delegate = self;
+        messageComposer.messageComposeDelegate = self;
         messageComposer.body = [NSString stringWithFormat:@"Become my wing on DoubleDate! %@%@", [DDTools serverUrlPath], user.invitePath];
         [self.navigationController presentModalViewController:messageComposer animated:YES];
     }
