@@ -434,7 +434,7 @@
     if (![tableViewCell.contentView viewWithTag:kTagDetailedLabel])
     {
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        label.font = [UIFont systemFontOfSize:13];
+        label.font = [UIFont systemFontOfSize:14];
         label.textColor = [UIColor grayColor];
         label.tag = kTagDetailedLabel;
         label.backgroundColor = [UIColor clearColor];
@@ -451,16 +451,17 @@
     }
     
     //check for correct geometry
-    [[tableViewCell.contentView viewWithTag:kTagPhoto] setFrame:CGRectMake(5, 5, 40, 40)];
+    [[tableViewCell.contentView viewWithTag:kTagPhoto] setFrame:CGRectMake(10, 5, 40, 40)];
+    
     if ([self isWingsMode])
     {
-        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setFrame:CGRectMake(55, 2, 225, 28)];
-        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setFrame:CGRectMake(55, 32, 225, 15)];
+        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setFrame:CGRectMake(60, 6, 225, 22)];
+        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setFrame:CGRectMake(60, 28, 225, 15)];
     }
     else if ([self isInvitationsMode])
     {
-        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setFrame:CGRectMake(55, 2, 195, 28)];
-        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setFrame:CGRectMake(55, 32, 195, 15)];
+        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setFrame:CGRectMake(60, 2, 195, 28)];
+        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setFrame:CGRectMake(60, 32, 195, 15)];
     }
     
     //check friend
