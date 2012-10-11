@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C017297162678220009298C /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C017296162678220009298C /* dd-app@2x.png */; };
-		4C017299162678280009298C /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C017298162678280009298C /* dd-app.png */; };
 		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
 		702846AB1623639200693673 /* DDWingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702846AA1623639200693673 /* DDWingsViewController.xib */; };
 		702846B516236E5800693673 /* approve-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AD16236E5800693673 /* approve-invite.png */; };
@@ -28,6 +26,8 @@
 		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
+		70E6720B162748BE004D14CA /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67209162748BE004D14CA /* dd-app.png */; };
+		70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6720A162748BE004D14CA /* dd-app@2x.png */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
 		960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CE15F7371C00BA9EB0 /* Foundation.framework */; };
 		960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02D015F7371C00BA9EB0 /* CoreGraphics.framework */; };
@@ -197,8 +197,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C017296162678220009298C /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dd-app@2x.png"; path = "../../dd-app@2x.png"; sourceTree = "<group>"; };
-		4C017298162678280009298C /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dd-app.png"; path = "../../dd-app.png"; sourceTree = "<group>"; };
 		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
 		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
 		702846AA1623639200693673 /* DDWingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingsViewController.xib; sourceTree = "<group>"; };
@@ -225,6 +223,8 @@
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
 		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
+		70E67209162748BE004D14CA /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app.png"; sourceTree = "<group>"; };
+		70E6720A162748BE004D14CA /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
 		960A02C815F7371C00BA9EB0 /* DoubleDate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubleDate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960A02CC15F7371C00BA9EB0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		960A02CE15F7371C00BA9EB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -651,8 +651,8 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				4C017298162678280009298C /* dd-app.png */,
-				4C017296162678220009298C /* dd-app@2x.png */,
+				70E67209162748BE004D14CA /* dd-app.png */,
+				70E6720A162748BE004D14CA /* dd-app@2x.png */,
 				702846AC16236E5800693673 /* wingman */,
 				96EE8450161493B300AE6EC1 /* general */,
 				96F1EB5B1612F63F00A9ED12 /* basic info */,
@@ -965,8 +965,8 @@
 				702846BA16236E5800693673 /* disclosure-arrow@2x.png in Resources */,
 				702846BB16236E5800693673 /* user-photo-overlay.png in Resources */,
 				702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */,
-				4C017297162678220009298C /* dd-app@2x.png in Resources */,
-				4C017299162678280009298C /* dd-app.png in Resources */,
+				70E6720B162748BE004D14CA /* dd-app.png in Resources */,
+				70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
