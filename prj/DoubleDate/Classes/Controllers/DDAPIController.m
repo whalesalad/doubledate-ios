@@ -34,6 +34,7 @@ typedef enum
     DDAPIControllerMethodTypeRequestDenyFriendship,
     DDAPIControllerMethodTypeRequestDeleteFriend,
     DDAPIControllerMethodTypeGetFriend,
+    DDAPIControllerMethodTypeGetFacebookFriends,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -349,6 +350,25 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)getFacebookFriends
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/facebook"]];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetFacebookFriends;
+    userData.succeedSel = @selector(getFacebookFriendsSucceed:);
+    userData.failedSel = @selector(getFacebookFriendsDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 - (void)clearRequest:(RKRequest*)request
 {
     request.delegate = nil;
@@ -479,6 +499,24 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:nil withObject:nil];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetFacebookFriends)
+        {
+            //extract data
+            NSMutableArray *facebookFriends = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create placemark
+                DDShortUser *facebookUser = [DDShortUser objectWithDictionary:dic];
+                if (facebookUser)
+                    [facebookFriends addObject:facebookUser];
+            }
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:facebookFriends withObject:nil];
+
         }
     }
     else

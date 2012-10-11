@@ -28,6 +28,13 @@
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		70E6720B162748BE004D14CA /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67209162748BE004D14CA /* dd-app.png */; };
 		70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6720A162748BE004D14CA /* dd-app@2x.png */; };
+		70E67217162753F1004D14CA /* DDFacebookFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */; };
+		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
+		70E67221162760DC004D14CA /* DDUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E67220162760DC004D14CA /* DDUserTableViewCell.m */; };
+		70E67232162778E1004D14CA /* button-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6722E162778E1004D14CA /* button-blue.png */; };
+		70E67233162778E1004D14CA /* button-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6722F162778E1004D14CA /* button-blue@2x.png */; };
+		70E67234162778E1004D14CA /* button-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67230162778E1004D14CA /* button-grey.png */; };
+		70E67235162778E1004D14CA /* button-grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67231162778E1004D14CA /* button-grey@2x.png */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
 		960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CE15F7371C00BA9EB0 /* Foundation.framework */; };
 		960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02D015F7371C00BA9EB0 /* CoreGraphics.framework */; };
@@ -225,6 +232,15 @@
 		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
 		70E67209162748BE004D14CA /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app.png"; sourceTree = "<group>"; };
 		70E6720A162748BE004D14CA /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
+		70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDFacebookFriendsViewController.xib; sourceTree = "<group>"; };
+		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
+		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
+		70E6721F162760DC004D14CA /* DDUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserTableViewCell.h; sourceTree = "<group>"; };
+		70E67220162760DC004D14CA /* DDUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserTableViewCell.m; sourceTree = "<group>"; };
+		70E6722E162778E1004D14CA /* button-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-blue.png"; sourceTree = "<group>"; };
+		70E6722F162778E1004D14CA /* button-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-blue@2x.png"; sourceTree = "<group>"; };
+		70E67230162778E1004D14CA /* button-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-grey.png"; sourceTree = "<group>"; };
+		70E67231162778E1004D14CA /* button-grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-grey@2x.png"; sourceTree = "<group>"; };
 		960A02C815F7371C00BA9EB0 /* DoubleDate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubleDate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960A02CC15F7371C00BA9EB0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		960A02CE15F7371C00BA9EB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -403,6 +419,17 @@
 				70803B151610FF3400BFDE8B /* TITokenField.m */,
 			);
 			path = TITokenField;
+			sourceTree = "<group>";
+		};
+		70E6720D16275399004D14CA /* facebook friends */ = {
+			isa = PBXGroup;
+			children = (
+				70E6722E162778E1004D14CA /* button-blue.png */,
+				70E6722F162778E1004D14CA /* button-blue@2x.png */,
+				70E67230162778E1004D14CA /* button-grey.png */,
+				70E67231162778E1004D14CA /* button-grey@2x.png */,
+			);
+			path = "facebook friends";
 			sourceTree = "<group>";
 		};
 		960A02BD15F7371C00BA9EB0 = {
@@ -587,6 +614,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70E6721F162760DC004D14CA /* DDUserTableViewCell.h */,
+				70E67220162760DC004D14CA /* DDUserTableViewCell.m */,
 				965FCA651608AE8A00984566 /* DDTagsView.h */,
 				965FCA661608AE8A00984566 /* DDTagsView.m */,
 				96B59E18160719DF00CFDA1C /* DDImageView.h */,
@@ -620,6 +649,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */,
+				70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */,
 				702846A51623638100693673 /* DDWingsViewController.h */,
 				702846A61623638100693673 /* DDWingsViewController.m */,
 				96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */,
@@ -651,6 +682,7 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				70E6720D16275399004D14CA /* facebook friends */,
 				70E67209162748BE004D14CA /* dd-app.png */,
 				70E6720A162748BE004D14CA /* dd-app@2x.png */,
 				702846AC16236E5800693673 /* wingman */,
@@ -673,6 +705,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
 				702846AA1623639200693673 /* DDWingsViewController.xib */,
 				96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
@@ -967,6 +1000,11 @@
 				702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */,
 				70E6720B162748BE004D14CA /* dd-app.png in Resources */,
 				70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */,
+				70E67217162753F1004D14CA /* DDFacebookFriendsViewController.xib in Resources */,
+				70E67232162778E1004D14CA /* button-blue.png in Resources */,
+				70E67233162778E1004D14CA /* button-blue@2x.png in Resources */,
+				70E67234162778E1004D14CA /* button-grey.png in Resources */,
+				70E67235162778E1004D14CA /* button-grey@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1010,6 +1048,8 @@
 				702846A81623638100693673 /* DDWingsViewController.m in Sources */,
 				702846BF16236F8300693673 /* DDFriendship.m in Sources */,
 				702846C616238AB900693673 /* DDShortUser.m in Sources */,
+				70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */,
+				70E67221162760DC004D14CA /* DDUserTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

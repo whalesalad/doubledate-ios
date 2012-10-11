@@ -57,6 +57,9 @@
 - (void)getFriendSucceed:(DDUser*)user;
 - (void)getFriendDidFailedWithError:(NSError*)error;
 
+- (void)getFacebookFriendsSucceed:(NSArray*)friends;
+- (void)getFacebookFriendsDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -91,5 +94,7 @@
 - (void)requestDeleteFriend:(DDShortUser*)user;
 
 - (void)getFriend:(DDShortUser*)user;
+
+- (void)getFacebookFriends;
 
 @end

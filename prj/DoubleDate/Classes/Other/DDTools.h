@@ -27,4 +27,6 @@ typedef enum
 + (NSString*)errorMessageFromResponseData:(NSData*)data;
 + (NSString*)codeMessageFromResponseData:(NSData*)data;
 
++ (UIImage*)imageFromView:(UIView*)view;
+
 @end

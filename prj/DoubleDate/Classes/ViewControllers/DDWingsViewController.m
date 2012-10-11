@@ -15,6 +15,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MessageUI/MessageUI.h>
 #import "DDTools.h"
+#import "DDFacebookFriendsViewController.h"
+#import "DDUserTableViewCell.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -24,37 +26,36 @@
 #define kTagActionSheetInvite 6
 
 @interface DDWingsViewControllerAlertView : UIAlertView
-@property(nonatomic, retain) DDShortUser *shortuser;
+@property(nonatomic, retain) DDShortUser *shortUser;
 @property(nonatomic, retain) DDFriendship *friendship;
 @end
 
 @implementation DDWingsViewControllerAlertView
 
-@synthesize shortuser;
+@synthesize shortUser;
 @synthesize friendship;
 
 - (void)dealloc
 {
-    [shortuser release];
+    [shortUser release];
     [friendship release];
     [super dealloc];
 }
 
 @end
 
-@interface DDWingsViewControllerTableViewCell : UITableViewCell
-@property(nonatomic, retain) DDShortUser *shortuser;
+@interface DDWingsViewControllerTableViewCell : DDUserTableViewCell
+
 @property(nonatomic, retain) DDFriendship *friendship;
+
 @end
 
 @implementation DDWingsViewControllerTableViewCell
 
-@synthesize shortuser;
 @synthesize friendship;
 
 - (void)dealloc
 {
-    [shortuser release];
     [friendship release];
     [super dealloc];
 }
@@ -227,9 +228,19 @@
 
 - (void)plusTouched:(id)sender
 {
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), NSLocalizedString(@"From Facebook Friends", nil), nil] autorelease];
-    sheet.tag = kTagActionSheetInvite;
-    [sheet showFromTabBar:self.tabBarController.tabBar];
+    //check facebook user
+    if (user.facebookId)
+    {
+        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), NSLocalizedString(@"From Facebook Friends", nil), nil] autorelease];
+        sheet.tag = kTagActionSheetInvite;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+    }
+    else
+    {
+        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), nil] autorelease];
+        sheet.tag = kTagActionSheetInvite;
+        [sheet showFromTabBar:self.tabBarController.tabBar];
+    }
 }
 
 - (void)editTouched:(id)sender
@@ -293,7 +304,7 @@
     {
         DDWingsViewControllerAlertView *alertView = [[[DDWingsViewControllerAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Are you sure you want to ignore this invitation?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Yes, Ignore", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil] autorelease];
         alertView.tag = kTagConfirmDeleteFriendshipAlert;
-        alertView.shortuser = cell.shortuser;
+        alertView.shortUser = cell.shortUser;
         alertView.friendship = cell.friendship;
         [alertView show];
     }
@@ -317,7 +328,8 @@
 
 - (void)inviteByFacebook
 {
-    
+    DDFacebookFriendsViewController *viewController = [[[DDFacebookFriendsViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -
@@ -325,7 +337,7 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return [DDWingsViewControllerTableViewCell height];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -334,10 +346,10 @@
     [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
     
     //get cell
-    DDWingsViewControllerTableViewCell *wingsTableViewCell = (DDWingsViewControllerTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+    DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
     
     //request information about user
-    [self.apiController getFriend:wingsTableViewCell.shortuser];
+    [self.apiController getFriend:wingsTableViewCell.shortUser];
     
     //deselect row
     [aTableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -355,21 +367,20 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //get cell
-        DDWingsViewControllerTableViewCell *wingsTableViewCell = (DDWingsViewControllerTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
-        if ([wingsTableViewCell isKindOfClass:[DDWingsViewControllerTableViewCell class]])
+        DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+        if ([wingsTableViewCell isKindOfClass:[DDUserTableViewCell class]])
         {
             //generate message
-            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you would like to remove %@ from your wings?", nil) , wingsTableViewCell.shortuser.fullName];
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you would like to remove %@ from your wings?", nil) , wingsTableViewCell.shortUser.fullName];
             
             //create alert
             DDWingsViewControllerAlertView *alertView = [[[DDWingsViewControllerAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:NSLocalizedString(@"Yes, Remove", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil] autorelease];
             alertView.tag = kTagConfirmDeleteFriendAlert;
-            alertView.shortuser = wingsTableViewCell.shortuser;
+            alertView.shortUser = wingsTableViewCell.shortUser;
             [alertView show];
         }
     }
 }
-
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
@@ -383,12 +394,15 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set identifier
-    NSString *cellIdentifier = @"DDWingsControllerTableViewCell";
+    NSString *cellIdentifier = [[DDWingsViewControllerTableViewCell class] description];
     
     //create cell if needed
     DDWingsViewControllerTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!tableViewCell)
         tableViewCell = [[[DDWingsViewControllerTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    
+    //set selection style
+    tableViewCell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
     //unset friend
     DDShortUser *friend = nil;
@@ -397,12 +411,13 @@
     //check for wings
     if ([self isWingsMode])
     {
+        tableViewCell.type = DDUserTableViewCellTypeWings;
         friend = [friends_ objectAtIndex:indexPath.row];
         tableViewCell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure-arrow.png"]] autorelease];
-        tableViewCell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     else if ([self isInvitationsMode])
     {
+        tableViewCell.type = DDUserTableViewCellTypeInvitations;
         friendship = [pendingInvitations_ objectAtIndex:indexPath.row];
         friend = friendship.user;
         UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 44)] autorelease];
@@ -417,102 +432,14 @@
         [view addSubview:buttonRemove];
         [buttonRemove addTarget:self action:@selector(denyTouched:) forControlEvents:UIControlEventTouchUpInside];
         tableViewCell.accessoryView = view;
-        tableViewCell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    }
-    
-    //check for main label
-    if (![tableViewCell.contentView viewWithTag:kTagMainLabel])
-    {
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        label.font = [UIFont boldSystemFontOfSize:16];
-        label.tag = kTagMainLabel;
-        label.backgroundColor = [UIColor clearColor];
-        [tableViewCell.contentView addSubview:label];
-    }
-    
-    //check for detailed label
-    if (![tableViewCell.contentView viewWithTag:kTagDetailedLabel])
-    {
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        label.font = [UIFont systemFontOfSize:14];
-        label.textColor = [UIColor grayColor];
-        label.tag = kTagDetailedLabel;
-        label.backgroundColor = [UIColor clearColor];
-        [tableViewCell.contentView addSubview:label];
-    }
-    
-    //check for photo
-    if (![tableViewCell.contentView viewWithTag:kTagPhoto])
-    {
-        UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user-photo-overlay.png"]] autorelease];
-        imageView.tag = kTagPhoto;
-        imageView.backgroundColor = [UIColor clearColor];
-        [tableViewCell.contentView addSubview:imageView];
-    }
-    
-    //check for correct geometry
-    [[tableViewCell.contentView viewWithTag:kTagPhoto] setFrame:CGRectMake(10, 5, 40, 40)];
-    
-    if ([self isWingsMode])
-    {
-        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setFrame:CGRectMake(60, 6, 225, 22)];
-        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setFrame:CGRectMake(60, 28, 225, 15)];
-    }
-    else if ([self isInvitationsMode])
-    {
-        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setFrame:CGRectMake(60, 2, 195, 28)];
-        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setFrame:CGRectMake(60, 32, 195, 15)];
-    }
-    
-    //check friend
-    if (friend)
-    {
-        //show all
-        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setHidden:NO];
-        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setHidden:NO];
-        [[tableViewCell.contentView viewWithTag:kTagPhoto] setHidden:NO];
-        
-        //set text
-        NSString *mainText = friend.fullName;
-        [(UILabel*)[tableViewCell.contentView viewWithTag:kTagMainLabel] setText:mainText];
-        
-        //set text
-        NSMutableString *detailedText = [NSMutableString string];
-        if (friend.age)
-        {
-            [detailedText appendFormat:@"%dM", [friend.age intValue]];
-            if (friend.location)
-                [detailedText appendString:@", "];
-        }
-        if (friend.location)
-            [detailedText appendString:friend.location];
-        [(UILabel*)[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setText:detailedText];
-        
-        //set photo
-        UIImageView *photoView = (UIImageView*)[tableViewCell.contentView viewWithTag:kTagPhoto];
-        while ([[photoView subviews] count])
-            [[[photoView subviews] lastObject] removeFromSuperview];
-        if (friend.photo.downloadUrl)
-        {
-            //set image view
-            DDImageView *imageView = [[[DDImageView alloc] initWithFrame:CGRectMake(0, 0, photoView.frame.size.width-1, photoView.frame.size.height-1)] autorelease];
-            imageView.layer.cornerRadius = 19;
-            imageView.layer.masksToBounds = YES;
-            [imageView reloadFromUrl:[NSURL URLWithString:friend.photo.downloadUrl]];
-            [photoView addSubview:imageView];
-        }
-    }
-    else
-    {
-        //hide all
-        [[tableViewCell.contentView viewWithTag:kTagMainLabel] setHidden:YES];
-        [[tableViewCell.contentView viewWithTag:kTagDetailedLabel] setHidden:YES];
-        [[tableViewCell.contentView viewWithTag:kTagPhoto] setHidden:YES];
     }
     
     //save data
-    [(DDWingsViewControllerTableViewCell*)tableViewCell setShortuser:friend];
-    [(DDWingsViewControllerTableViewCell*)tableViewCell setFriendship:friendship];
+    [tableViewCell setShortUser:friend];
+    [tableViewCell setFriendship:friendship];
+    
+    //update layouts
+    [tableViewCell setNeedsLayout];
     
     return tableViewCell;
 }
@@ -667,7 +594,7 @@
         if (buttonIndex == 0)
         {
             //save user
-            DDShortUser *shortuser = [wingsAlertView.shortuser retain];
+            DDShortUser *shortuser = [wingsAlertView.shortUser retain];
             
             //remove silent
             [friends_ removeObject:shortuser];

@@ -8,6 +8,7 @@
 
 #import "DDTools.h"
 #import <SBJson/SBJson.h>
+#import <QuartzCore/QuartzCore.h>
 
 //#define API_URL @"http://localhost:3000"
 #define API_URL @"http://api.dbld8.com"
@@ -62,6 +63,15 @@
     }
     
     return ret;
+}
+
++ (UIImage*)imageFromView:(UIView*)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end
