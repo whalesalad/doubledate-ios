@@ -9,7 +9,7 @@
 #import "DDTools.h"
 #import <SBJson/SBJson.h>
 
-//#define API_URL @"http://dbld8.herokuapp.com"
+//#define API_URL @"http://localhost:3000"
 #define API_URL @"http://api.dbld8.com"
 #define SERVER_URL @"http://dbld8.com"
 

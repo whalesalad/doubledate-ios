@@ -45,6 +45,7 @@ static DDFacebookController *_sharedInstance = nil;
     //save permissions
     NSMutableArray *permissions = [NSMutableArray array];
     [permissions addObject:@"email"];
+    [permissions addObject:@"publish_stream"];
     [permissions addObject:@"user_about_me"];
     [permissions addObject:@"user_status"];
     [permissions addObject:@"user_activities"];
