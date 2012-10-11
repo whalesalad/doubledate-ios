@@ -191,7 +191,24 @@
 
 - (void)addTouched:(id)sender
 {
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
     
+    //init arrays
+    NSMutableArray *fbIds = [NSMutableArray array];
+    NSMutableArray *ddIds = [NSMutableArray array];
+    
+    //fill data
+    for (DDShortUser *friend in friendsToInvite_)
+    {
+        if (friend.facebookId)
+            [fbIds addObject:friend.facebookId];
+        else if (friend.identifier)
+            [ddIds addObject:[friend.identifier stringValue]];
+    }
+    
+    //make api call
+    [self.apiController requestInvitationsForFBUsers:fbIds andDDUsers:ddIds];
 }
 
 - (void)updateNavifationBar
@@ -359,33 +376,6 @@
     [friends_ release];
     friends_ = [[NSMutableArray alloc] initWithArray:friends];
     
-    {
-        DDShortUser *f = [[[DDShortUser alloc] init] autorelease];
-        f.name = @"TEST";
-        [(NSMutableArray*)friends_ addObject:f];
-    }
-    {
-        DDShortUser *f = [[[DDShortUser alloc] init] autorelease];
-        f.name = @"TAST";
-        [(NSMutableArray*)friends_ addObject:f];
-    }
-    {
-        DDShortUser *f = [[[DDShortUser alloc] init] autorelease];
-        f.name = @"TEST2";
-        [(NSMutableArray*)friends_ addObject:f];
-    }
-    {
-        DDShortUser *f = [[[DDShortUser alloc] init] autorelease];
-        f.name = @"TEST3";
-        [(NSMutableArray*)friends_ addObject:f];
-    }
-    
-    {
-        DDShortUser *f = [[[DDShortUser alloc] init] autorelease];
-        f.name = @"Data";
-        [(NSMutableArray*)friends_ addObject:f];
-    }
-    
     //hide hud
     [self hideHud:YES];
     
@@ -414,6 +404,24 @@
 }
 
 - (void)getFriendDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)requestInvitationsSucceed:(NSArray*)friends
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:@"OK" delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)requestInvitationsDidFailedWithError:(NSError*)error
 {
     //hide hud
     [self hideHud:YES];

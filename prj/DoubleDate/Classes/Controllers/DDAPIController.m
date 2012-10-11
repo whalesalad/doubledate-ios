@@ -35,6 +35,7 @@ typedef enum
     DDAPIControllerMethodTypeRequestDeleteFriend,
     DDAPIControllerMethodTypeGetFriend,
     DDAPIControllerMethodTypeGetFacebookFriends,
+    DDAPIControllerMethodTypeRequestInvitations
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -363,6 +364,35 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeGetFacebookFriends;
     userData.succeedSel = @selector(getFacebookFriendsSucceed:);
     userData.failedSel = @selector(getFacebookFriendsDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
+- (void)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/invite"]];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodPOST;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //set http body
+    NSDictionary *dictionary = [NSMutableDictionary dictionary];
+    if ([fbIds count])
+        [dictionary setValue:fbIds forKey:@"facebook_ids"];
+    if ([ddIds count])
+        [dictionary setValue:ddIds forKey:@"user_ids"];
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeRequestInvitations;
+    userData.succeedSel = @selector(requestInvitationsSucceed:);
+    userData.failedSel = @selector(requestInvitationsDidFailedWithError:);
     request.userData = userData;
     
     //send request

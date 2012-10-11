@@ -60,6 +60,9 @@
 - (void)getFacebookFriendsSucceed:(NSArray*)friends;
 - (void)getFacebookFriendsDidFailedWithError:(NSError*)error;
 
+- (void)requestInvitationsSucceed:(NSArray*)friends;
+- (void)requestInvitationsDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -96,5 +99,7 @@
 - (void)getFriend:(DDShortUser*)user;
 
 - (void)getFacebookFriends;
+
+- (void)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds;
 
 @end
