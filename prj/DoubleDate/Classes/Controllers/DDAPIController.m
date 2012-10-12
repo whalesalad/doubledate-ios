@@ -383,9 +383,29 @@ typedef enum
     //set http body
     NSDictionary *dictionary = [NSMutableDictionary dictionary];
     if ([fbIds count])
-        [dictionary setValue:fbIds forKey:@"facebook_ids"];
+    {
+        NSMutableArray *numberValues = [NSMutableArray array];
+        for (NSObject *num in fbIds)
+        {
+            if ([num isKindOfClass:[NSNumber class]])
+                [numberValues addObject:num];
+            else if ([num isKindOfClass:[NSString class]])
+                [numberValues addObject:[NSNumber numberWithLongLong:[(NSString*)num longLongValue]]];
+        }
+        [dictionary setValue:numberValues forKey:@"facebook_ids"];
+    }
     if ([ddIds count])
-        [dictionary setValue:ddIds forKey:@"user_ids"];
+    {
+        NSMutableArray *numberValues = [NSMutableArray array];
+        for (NSObject *num in ddIds)
+        {
+            if ([num isKindOfClass:[NSNumber class]])
+                [numberValues addObject:num];
+            else if ([num isKindOfClass:[NSString class]])
+                [numberValues addObject:[NSNumber numberWithLongLong:[(NSString*)num longLongValue]]];
+        }
+        [dictionary setValue:numberValues forKey:@"user_ids"];
+    }
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
     
     //create user data
