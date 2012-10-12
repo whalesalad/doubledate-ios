@@ -524,7 +524,8 @@ typedef enum
                 [self.delegate performSelector:userData.succeedSel withObject:friendship withObject:nil];
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendship ||
-                 userData.method == DDAPIControllerMethodTypeRequestDeleteFriend)
+                 userData.method == DDAPIControllerMethodTypeRequestDeleteFriend ||
+                 userData.method == DDAPIControllerMethodTypeRequestInvitations)
         {
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

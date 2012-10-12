@@ -13,24 +13,6 @@
 #import "DDMeViewController.h"
 #import "DDTools.h"
 
-@interface DDFacebookFriendsViewControllerButton : UIButton
-
-@property(nonatomic, retain) DDShortUser *friend;
-
-@end
-
-@implementation DDFacebookFriendsViewControllerButton
-
-@synthesize friend;
-
-- (void)dealloc
-{
-    [friend release];
-    [super dealloc];
-}
-
-@end
-
 @interface DDFacebookFriendsViewControllerTableViewCell : UITableViewCell
 
 @property(nonatomic, retain) DDShortUser *friend;
@@ -226,30 +208,6 @@
     }
 }
 
-- (void)removeTouched:(DDFacebookFriendsViewControllerButton*)sender
-{
-    //remove from list
-    [friendsToInvite_ removeObject:sender.friend];
-    
-    //update navigation bar
-    [self updateNavifationBar];
-    
-    //reload the table
-    [self.tableView reloadData];
-}
-
-- (void)inviteTouched:(DDFacebookFriendsViewControllerButton*)sender
-{
-    //add to list
-    [friendsToInvite_ addObject:sender.friend];
-    
-    //update navigation bar
-    [self updateNavifationBar];
-    
-    //reload the table
-    [self.tableView reloadData];
-}
-
 #pragma mark -
 #pragma comment UITableViewDelegate
 
@@ -260,17 +218,20 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    //add user to invite
+    DDUserTableViewCell *tableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
     
-    //get cell
-    DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+    //update state
+    if ([friendsToInvite_ containsObject:tableViewCell.shortUser])
+        [friendsToInvite_ removeObject:tableViewCell.shortUser];
+    else
+        [friendsToInvite_ addObject:tableViewCell.shortUser];
     
-    //request information about user
-    [self.apiController getFriend:wingsTableViewCell.shortUser];
+    //update navigation bar
+    [self updateNavifationBar];
     
-    //deselect row
-    [aTableView deselectRowAtIndexPath:indexPath animated:YES];
+    //update cell
+    [aTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark -
@@ -326,43 +287,14 @@
     //update layouts
     [tableViewCell setNeedsLayout];
     
-    //customize accessory view
-    {
-        //check if user is already invited
-        BOOL invited = [friendsToInvite_ containsObject:tableViewCell.shortUser];
-        
-        //set accessory button
-        DDFacebookFriendsViewControllerButton *button = [DDFacebookFriendsViewControllerButton buttonWithType:UIButtonTypeCustom];
-        button.friend = friend;
-        button.titleLabel.font = [UIFont systemFontOfSize:13];
-        UIImage *image = nil;
-        NSString *title = nil;
-        SEL sel = nil;
-        if (!invited)
-        {
-            image = [UIImage imageNamed:@"button-blue.png"];
-            title = NSLocalizedString(@"Invite", nil);
-            sel = @selector(inviteTouched:);
-        }
-        else
-        {
-            image = [UIImage imageNamed:@"button-grey.png"];
-            title = NSLocalizedString(@"Remove", nil);
-            sel = @selector(removeTouched:);
-        }
-        CGFloat width = [title sizeWithFont:button.titleLabel.font].width + 10;
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(0, image.size.width/2, 0, image.size.width/2)];
-        UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
-        imageView.frame = CGRectMake(0, 0, width, image.size.height);
-        image = [DDTools imageFromView:imageView];
-        button.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-        [button setTitle:title forState:UIControlStateNormal];
-        [button setBackgroundImage:image forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
-        tableViewCell.accessoryView = button;
-    }
+    //check if user is already invited
+    BOOL invited = [friendsToInvite_ containsObject:tableViewCell.shortUser];
     
+    //apply checkmark style
+    if (invited)
+        tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    else
+        tableViewCell.accessoryType = UITableViewCellAccessoryNone;
     
     return tableViewCell;
 }
@@ -418,7 +350,7 @@
     [self hideHud:YES];
     
     //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:@"OK" delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    [[[[UIAlertView alloc] initWithTitle:nil message:@"Succeed" delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 - (void)requestInvitationsDidFailedWithError:(NSError*)error
