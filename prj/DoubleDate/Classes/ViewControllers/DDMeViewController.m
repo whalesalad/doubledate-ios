@@ -26,8 +26,8 @@
 @synthesize labelTitle;
 @synthesize imageViewPoster;
 @synthesize imageViewOverlay;
-@synthesize imageViewMale;
-@synthesize imageViewFemale;
+//@synthesize imageViewMale;
+//@synthesize imageViewFemale;
 @synthesize labelAge;
 @synthesize labelLocation;
 @synthesize textViewBio;
@@ -76,8 +76,8 @@
         imageViewOverlay.hidden = YES;
     
     //apply gender
-    imageViewFemale.hidden = ![user.gender isEqualToString:DDUserGenderFemale];
-    imageViewMale.hidden = ![user.gender isEqualToString:DDUserGenderMale];
+//    imageViewFemale.hidden = ![user.gender isEqualToString:DDUserGenderFemale];
+//    imageViewMale.hidden = ![user.gender isEqualToString:DDUserGenderMale];
     
     //set biography
     textViewBio.text = user.bio;
@@ -87,8 +87,19 @@
     textViewBio.layer.shadowColor = [UIColor whiteColor].CGColor;
     textViewBio.layer.shadowOffset = CGSizeMake(0.0, 1.0);
     
-    //set age
-    labelAge.text = [[user age] stringValue];
+    // Set age/gender text
+    NSMutableString *ageText = [NSMutableString string];
+    
+    if (user.age) {
+        [ageText appendFormat:@"%d", [user.age intValue]];
+        if ([user.gender isEqualToString:DDUserGenderFemale]) {
+            [ageText appendString:@"F"];
+        } else if ([user.gender isEqualToString:DDUserGenderMale]) {
+            [ageText appendString:@"M"];
+        }
+    }
+    
+    [labelAge setText:ageText];
     
     labelAge.layer.shadowOpacity = 0.8;
     labelAge.layer.shadowRadius = 1.0;
@@ -125,8 +136,8 @@
     [labelTitle release], labelTitle = nil;
     [imageViewPoster release], imageViewPoster = nil;
     [imageViewOverlay release], imageViewOverlay = nil;
-    [imageViewMale release], imageViewMale = nil;
-    [imageViewFemale release], imageViewFemale = nil;
+//    [imageViewMale release], imageViewMale = nil;
+//    [imageViewFemale release], imageViewFemale = nil;
     [textViewBio release], textViewBio = nil;
     [tagsViewInterests release], tagsViewInterests = nil;
 }
@@ -142,8 +153,8 @@
     [labelTitle release];
     [imageViewPoster release];
     [imageViewOverlay release];
-    [imageViewMale release];
-    [imageViewFemale release];
+//    [imageViewMale release];
+//    [imageViewFemale release];
     [textViewBio release];
     [tagsViewInterests release];
     [super dealloc];
