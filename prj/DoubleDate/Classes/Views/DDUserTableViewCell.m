@@ -17,10 +17,6 @@
 
 @synthesize shortUser;
 
-@synthesize labelMain;
-@synthesize labelDetails;
-@synthesize imageView;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
@@ -36,9 +32,16 @@
         labelDetails_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:labelDetails_];
         
-        imageView_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user-photo-overlay.png"]] autorelease];
+        imageView_ = [[[DDImageView alloc] initWithFrame:CGRectZero] autorelease];
+        imageView_.contentMode = UIViewContentModeCenter;
+        imageView_.layer.cornerRadius = 19;
+        imageView_.layer.masksToBounds = YES;
         imageView_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:imageView_];
+        
+        overlayImageView_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user-photo-overlay.png"]] autorelease];
+        overlayImageView_.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:overlayImageView_];
     }
     return self;
 }
@@ -47,7 +50,8 @@
 {
     [super layoutSubviews];
     
-    [imageView_ setFrame:CGRectMake(10, 5, 40, 40)];
+    [imageView_ setFrame:CGRectMake(11, 6, 38, 38)];
+    [overlayImageView_ setFrame:CGRectMake(10, 5, 41, 41)];
     
     if (self.type == DDUserTableViewCellTypeWings)
     {
@@ -56,13 +60,13 @@
     }
     else if (self.type == DDUserTableViewCellTypeInvitations)
     {
-        [labelMain_ setFrame:CGRectMake(60, 6, 195, 28)];
-        [labelDetails_ setFrame:CGRectMake(60, 32, 195, 15)];
+        [labelMain_ setFrame:CGRectMake(60, 6, 195, 22)];
+        [labelDetails_ setFrame:CGRectMake(60, 28, 195, 15)];
     }
     else if (self.type == DDUserTableViewCellTypeFacebook)
     {
-        [labelMain_ setFrame:CGRectMake(60, 6, 195, 28)];
-        [labelDetails_ setFrame:CGRectMake(60, 32, 195, 15)];
+        [labelMain_ setFrame:CGRectMake(60, 6, 205, 22)];
+        [labelDetails_ setFrame:CGRectMake(60, 28, 205, 15)];
     }
 }
 
@@ -104,17 +108,10 @@
             [labelDetails_ setText:detailedText];
             
             //set photo
-            while ([[imageView_ subviews] count])
-                [[[imageView_ subviews] lastObject] removeFromSuperview];
             if (shortUser.photo.downloadUrl)
-            {
-                //set image view
-                DDImageView *photoView = [[[DDImageView alloc] initWithFrame:CGRectMake(0, 0, imageView_.frame.size.width-1, imageView_.frame.size.height-1)] autorelease];
-                photoView.layer.cornerRadius = 19;
-                photoView.layer.masksToBounds = YES;
-                [photoView reloadFromUrl:[NSURL URLWithString:shortUser.photo.downloadUrl]];
-                [imageView_ addSubview:photoView];
-            }
+                [imageView_ reloadFromUrl:[NSURL URLWithString:shortUser.photo.downloadUrl]];
+            else
+                imageView_.image = nil;
         }
         else
         {

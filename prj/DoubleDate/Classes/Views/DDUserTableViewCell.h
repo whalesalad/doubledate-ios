@@ -10,6 +10,7 @@
 
 @class DDFriendship;
 @class DDShortUser;
+@class DDImageView;
 
 typedef enum
 {
@@ -22,16 +23,13 @@ typedef enum
 {
     UILabel *labelMain_;
     UILabel *labelDetails_;
-    UIImageView *imageView_;
+    DDImageView *imageView_;
+    UIImageView *overlayImageView_;
 }
 
 @property(nonatomic, assign) DDUserTableViewCellType type;
 
 @property(nonatomic, retain) DDShortUser *shortUser;
-
-@property(nonatomic, readonly) UILabel *labelMain;
-@property(nonatomic, readonly) UILabel *labelDetails;
-@property(nonatomic, readonly) UIImageView *imageView;
 
 + (CGFloat)height;
 
