@@ -44,7 +44,7 @@
         [self.contentView addSubview:labelDetails_];
         
         imageView_ = [[[DDImageView alloc] initWithFrame:CGRectZero] autorelease];
-        imageView_.contentMode = UIViewContentModeCenter;
+        imageView_.contentMode = UIViewContentModeScaleAspectFill;
         imageView_.layer.cornerRadius = 19;
         imageView_.layer.masksToBounds = YES;
         imageView_.backgroundColor = [UIColor clearColor];

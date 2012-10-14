@@ -59,14 +59,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    //add left button
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelTouched:)] autorelease];
+    
+    //add right button
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addTouched:)] autorelease];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addTouched:)] autorelease];
     
     //check if we need to make a request
     if (!friendsRequired_)
@@ -191,6 +194,11 @@
     
     //make api call
     [self.apiController requestInvitationsForFBUsers:fbIds andDDUsers:ddIds];
+}
+
+- (void)cancelTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updateNavifationBar
