@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		701BE75C162B7C5D008E5AF4 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 701BE75A162B7C5D008E5AF4 /* 37x-Checkmark.png */; };
+		701BE75D162B7C5D008E5AF4 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701BE75B162B7C5D008E5AF4 /* 37x-Checkmark@2x.png */; };
 		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
 		702846AB1623639200693673 /* DDWingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702846AA1623639200693673 /* DDWingsViewController.xib */; };
 		702846B516236E5800693673 /* approve-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AD16236E5800693673 /* approve-invite.png */; };
@@ -204,6 +206,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		701BE75A162B7C5D008E5AF4 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
+		701BE75B162B7C5D008E5AF4 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
 		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
 		702846AA1623639200693673 /* DDWingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingsViewController.xib; sourceTree = "<group>"; };
@@ -770,6 +774,8 @@
 		96EE8450161493B300AE6EC1 /* general */ = {
 			isa = PBXGroup;
 			children = (
+				701BE75A162B7C5D008E5AF4 /* 37x-Checkmark.png */,
+				701BE75B162B7C5D008E5AF4 /* 37x-Checkmark@2x.png */,
 				96EE8451161493B300AE6EC1 /* noise_bg.png */,
 				96EE8452161493B300AE6EC1 /* noise_bg@2x.png */,
 				96EE8453161493B300AE6EC1 /* textfield-bg.png */,
@@ -1005,6 +1011,8 @@
 				70E67233162778E1004D14CA /* button-blue@2x.png in Resources */,
 				70E67234162778E1004D14CA /* button-grey.png in Resources */,
 				70E67235162778E1004D14CA /* button-grey@2x.png in Resources */,
+				701BE75C162B7C5D008E5AF4 /* 37x-Checkmark.png in Resources */,
+				701BE75D162B7C5D008E5AF4 /* 37x-Checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

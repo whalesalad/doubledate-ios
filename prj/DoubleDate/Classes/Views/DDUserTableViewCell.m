@@ -97,6 +97,7 @@
             [labelMain_ setHidden:NO];
             [labelDetails_ setHidden:NO];
             [imageView_ setHidden:NO];
+            [overlayImageView_ setHidden:NO];
             
             //set text
             NSString *mainText = nil;
@@ -119,10 +120,9 @@
             [labelDetails_ setText:detailedText];
             
             //set photo
+            imageView_.image = nil;
             if (shortUser.photo.downloadUrl)
                 [imageView_ reloadFromUrl:[NSURL URLWithString:shortUser.photo.downloadUrl]];
-            else
-                imageView_.image = nil;
         }
         else
         {
@@ -130,6 +130,7 @@
             [labelMain_ setHidden:YES];
             [labelDetails_ setHidden:YES];
             [imageView_ setHidden:YES];
+            [overlayImageView_ setHidden:YES];
         }
     }
 }

@@ -12,6 +12,9 @@
 #import "DDUserTableViewCell.h"
 #import "DDMeViewController.h"
 #import "DDTools.h"
+#import "MBProgressHUD.h"
+
+#define kTagInviteErrorAlert 5234
 
 @interface DDFacebookFriendsViewControllerTableViewCell : UITableViewCell
 
@@ -216,6 +219,26 @@
     }
 }
 
+- (NSArray*)sortedFriends:(NSArray*)friends
+{
+    NSMutableArray *friendsToRemove = [NSMutableArray arrayWithArray:friends];
+    NSMutableArray *ret = [NSMutableArray array];
+    
+    while ([friendsToRemove count])
+    {
+        DDShortUser *lowest = [friendsToRemove objectAtIndex:0];
+        for (DDShortUser *u in friendsToRemove)
+        {
+            if ([[lowest name] compare:[u name] options:NSCaseInsensitiveSearch] == NSOrderedDescending)
+                lowest = u;
+        }
+        [ret addObject:lowest];
+        [friendsToRemove removeObject:lowest];
+    }
+    
+    return ret;
+}
+
 #pragma mark -
 #pragma comment UITableViewDelegate
 
@@ -314,7 +337,7 @@
 {
     //save facebook friends
     [friends_ release];
-    friends_ = [[NSMutableArray alloc] initWithArray:friends];
+    friends_ = [[NSMutableArray alloc] initWithArray:[self sortedFriends:friends]];
     
     //hide hud
     [self hideHud:YES];
@@ -357,8 +380,20 @@
     //hide hud
     [self hideHud:YES];
     
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:@"Succeed" delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    //show succeed message
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! We've invited %d of your friends.", nil), [friendsToInvite_ count]];
+
+    //add hud
+    MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:[self viewForHud]] autorelease];
+    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.labelText = message;
+    [[self viewForHud] addSubview:hud];
+    [hud show:YES];
+    [hud hide:YES afterDelay:2];
+    
+    //go back
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)requestInvitationsDidFailedWithError:(NSError*)error
@@ -367,7 +402,25 @@
     [self hideHud:YES];
     
     //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Try Again", nil), nil] autorelease];
+    alert.tag = kTagInviteErrorAlert;
+    [alert show];
+}
+
+#pragma mark -
+#pragma comment UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //check for invitation error
+    if (alertView.tag == kTagInviteErrorAlert)
+    {
+        //check needed action
+        if (buttonIndex == 0)
+            [self.navigationController popViewControllerAnimated:YES];
+        else
+            [self addTouched:nil];
+    }
 }
 
 @end
