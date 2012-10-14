@@ -25,5 +25,6 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UITextView *textViewBio;
 @property(nonatomic, retain) IBOutlet DDTagsView *tagsViewInterests;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewLocation;
 
 @end

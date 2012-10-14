@@ -32,6 +32,7 @@
 @synthesize labelLocation;
 @synthesize textViewBio;
 @synthesize tagsViewInterests;
+@synthesize imageViewLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,11 +109,15 @@
     
     //set location
     labelLocation.text = [[user location] name];
+    labelLocation.text = nil;
     
     labelLocation.layer.shadowOpacity = 0.8;
     labelLocation.layer.shadowRadius = 1.0;
     labelLocation.layer.shadowColor = [UIColor blackColor].CGColor;
     labelLocation.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    
+    //hide or show
+    imageViewLocation.hidden = [labelLocation.text length] > 0;
     
     //set interests
     NSMutableArray *tags = [NSMutableArray array];
@@ -140,6 +145,7 @@
 //    [imageViewFemale release], imageViewFemale = nil;
     [textViewBio release], textViewBio = nil;
     [tagsViewInterests release], tagsViewInterests = nil;
+    [imageViewLocation release], imageViewLocation = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -157,6 +163,7 @@
 //    [imageViewFemale release];
     [textViewBio release];
     [tagsViewInterests release];
+    [imageViewLocation release];
     [super dealloc];
 }
 

@@ -13,6 +13,8 @@
 #import "DDAPIController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define kTagHud 34985123
+
 @interface DDViewController (hidden) <DDAPIControllerDelegate>
 
 @end
@@ -52,10 +54,18 @@
     return [windows objectAtIndex:[windows count]-1];
 }
 
+- (MBProgressHUD*)HUDForView:(UIView*)view
+{
+    MBProgressHUD *hud = [MBProgressHUD HUDForView:view];
+    if (hud.tag == 34985123)
+        return hud;
+    return nil;
+}
+
 - (void)showHudWithText:(NSString*)text animated:(BOOL)animated
 {
     //get hud
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:[self viewForHud]];
+    MBProgressHUD *hud = [self HUDForView:[self viewForHud]];
     
     //check if we should hide first
     if (hud && animated)
@@ -74,6 +84,7 @@
         hud = [[[MBProgressHUD alloc] initWithView:[self viewForHud]] autorelease];
         hud.dimBackground = YES;
         hud.labelText = text;
+        hud.tag = kTagHud;
         [[self viewForHud] addSubview:hud];
         [hud show:animated];
     }
@@ -85,7 +96,7 @@
 - (void)hideHud:(BOOL)animated
 {
     //get hud
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:[self viewForHud]];
+    MBProgressHUD *hud = [self HUDForView:[self viewForHud]];
     
     //remove hud
     hud.removeFromSuperViewOnHide = YES;
@@ -94,7 +105,7 @@
 
 - (BOOL)isHudExist
 {
-    return [MBProgressHUD HUDForView:[self viewForHud]] != nil;
+    return [self HUDForView:[self viewForHud]] != nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated
