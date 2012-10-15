@@ -116,7 +116,7 @@
     labelLocation.layer.shadowOffset = CGSizeMake(0.0, 1.0);
     
     //hide or show
-    imageViewLocation.hidden = [labelLocation.text length] > 0;
+    imageViewLocation.hidden = ![labelLocation.text length] > 0;
     
     //set interests
     NSMutableArray *tags = [NSMutableArray array];
