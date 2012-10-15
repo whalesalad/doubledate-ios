@@ -413,7 +413,16 @@
     {
         tableViewCell.type = DDUserTableViewCellTypeWings;
         friend = [friends_ objectAtIndex:indexPath.row];
-        tableViewCell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosure-arrow.png"]] autorelease];
+        
+        UIImage *normalArrow = [UIImage imageNamed:@"disclosure-arrow.png"];
+        UIImage *selectedArrow = [UIImage imageNamed:@"disclosure-arrow-inverted.png"];
+        
+        UIButton *accessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
+        accessoryView.frame = CGRectMake(0.0f, 0.0f, normalArrow.size.width, normalArrow.size.height);
+        accessoryView.userInteractionEnabled = NO;
+        [accessoryView setImage:normalArrow forState:UIControlStateNormal];
+        [accessoryView setImage:selectedArrow forState:UIControlStateHighlighted];
+        tableViewCell.accessoryView = accessoryView;
     }
     else if ([self isInvitationsMode])
     {

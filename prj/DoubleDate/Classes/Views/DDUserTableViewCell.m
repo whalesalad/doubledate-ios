@@ -39,7 +39,7 @@
         labelDetails_ = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         labelDetails_.font = [UIFont systemFontOfSize:14];
         labelDetails_.textColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.5f alpha:1];
-        labelDetails_.highlightedTextColor = [self inverseColor:labelDetails_.textColor];
+        labelDetails_.highlightedTextColor = [UIColor whiteColor];
         labelDetails_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:labelDetails_];
         
