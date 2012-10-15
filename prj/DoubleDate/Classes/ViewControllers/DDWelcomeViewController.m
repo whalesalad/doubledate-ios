@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <RestKit/RestKit.h>
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 #import "DDBasicInfoViewController.h"
 #import "DDTools.h"
 #import "DDAuthenticationController.h"

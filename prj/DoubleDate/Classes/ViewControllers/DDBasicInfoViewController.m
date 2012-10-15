@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "DDAppDelegate.h"
 #import <RestKit/RestKit.h>
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 #import "DDTools.h"
 #import "DDFacebookController.h"
 #import "DDUser.h"

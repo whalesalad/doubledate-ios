@@ -7,7 +7,7 @@
 //
 
 #import "DDTools.h"
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 #import <QuartzCore/QuartzCore.h>
 
 //#define API_URL @"http://localhost:3000"

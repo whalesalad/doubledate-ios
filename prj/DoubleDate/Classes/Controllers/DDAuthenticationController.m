@@ -9,7 +9,7 @@
 #import "DDAuthenticationController.h"
 #import <RestKit/RestKit.h>
 #import "DDFacebookController.h"
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 #import "DDTools.h"
 #import "DDRequestsController.h"
 

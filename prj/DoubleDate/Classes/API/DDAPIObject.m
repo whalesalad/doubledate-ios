@@ -7,7 +7,7 @@
 //
 
 #import "DDAPIObject.h"
-#import <SBJson/SBJson.h>
+#import "SBJson.h"
 
 @implementation DDAPIObject
 
