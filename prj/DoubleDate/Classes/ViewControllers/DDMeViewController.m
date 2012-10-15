@@ -109,7 +109,6 @@
     
     //set location
     labelLocation.text = [[user location] name];
-    labelLocation.text = nil;
     
     labelLocation.layer.shadowOpacity = 0.8;
     labelLocation.layer.shadowRadius = 1.0;
