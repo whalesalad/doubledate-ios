@@ -79,6 +79,8 @@
 
 @synthesize tableView;
 @synthesize user;
+@synthesize delegate;
+@synthesize isSelectingMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -169,6 +171,11 @@
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.rightBarButtonItem = nil;
     }
+    else if (self.isSelectingMode)
+    {
+        //add back button
+        self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelTouched:)] autorelease];
+    }
     else
     {
         //add left button
@@ -245,8 +252,15 @@
 
 - (void)editTouched:(id)sender
 {
+    //update editing mode
     if ([self isWingsMode])
         self.tableView.editing = !self.tableView.editing;
+    
+    //set right button
+    if (self.tableView.editing)
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(editTouched:)] autorelease];
+    else
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(editTouched:)] autorelease];
 }
 
 - (void)tabChanged:(UISegmentedControl*)sender
@@ -310,6 +324,11 @@
     }
 }
 
+- (void)cancelTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)inviteBySms
 {
     if ([MFMessageComposeViewController canSendText])
@@ -342,17 +361,24 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
-    
-    //get cell
-    DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
-    
-    //request information about user
-    [self.apiController getFriend:wingsTableViewCell.shortUser];
-    
-    //deselect row
-    [aTableView deselectRowAtIndexPath:indexPath animated:YES];
+    //check if we need expand
+    if (!self.isSelectingMode)
+    {
+        //show hud
+        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        
+        //get cell
+        DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+        
+        //request information about user
+        [self.apiController getFriend:wingsTableViewCell.shortUser];
+        
+        //deselect row
+        [aTableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+
+    //inform delegate about selecting
+    [self.delegate wingsViewController:self didSelectUser:[(DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] shortUser]];
 }
 
 #pragma mark -
@@ -414,15 +440,19 @@
         tableViewCell.type = DDUserTableViewCellTypeWings;
         friend = [friends_ objectAtIndex:indexPath.row];
         
-        UIImage *normalArrow = [UIImage imageNamed:@"disclosure-arrow.png"];
-        UIImage *selectedArrow = [UIImage imageNamed:@"disclosure-arrow-inverted.png"];
-        
-        UIButton *accessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
-        accessoryView.frame = CGRectMake(0.0f, 0.0f, normalArrow.size.width, normalArrow.size.height);
-        accessoryView.userInteractionEnabled = NO;
-        [accessoryView setImage:normalArrow forState:UIControlStateNormal];
-        [accessoryView setImage:selectedArrow forState:UIControlStateHighlighted];
-        tableViewCell.accessoryView = accessoryView;
+        if (!self.isSelectingMode)
+        {
+            
+            UIImage *normalArrow = [UIImage imageNamed:@"disclosure-arrow.png"];
+            UIImage *selectedArrow = [UIImage imageNamed:@"disclosure-arrow-inverted.png"];
+            
+            UIButton *accessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
+            accessoryView.frame = CGRectMake(0.0f, 0.0f, normalArrow.size.width, normalArrow.size.height);
+            accessoryView.userInteractionEnabled = NO;
+            [accessoryView setImage:normalArrow forState:UIControlStateNormal];
+            [accessoryView setImage:selectedArrow forState:UIControlStateHighlighted];
+            tableViewCell.accessoryView = accessoryView;
+        }
     }
     else if ([self isInvitationsMode])
     {
