@@ -10,4 +10,8 @@
 
 @interface DDCreateDoubleDateViewController : DDViewController
 
+@property(nonatomic, retain) IBOutlet UITextField *textFieldWing;
+
+- (IBAction)wingTouched:(id)sender;
+
 @end
