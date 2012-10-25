@@ -121,6 +121,8 @@
 		969353D016392DD6007376AA /* location-icon-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 969353C416392DD6007376AA /* location-icon-selected@2x.png */; };
 		969353D116392DD6007376AA /* location-reset-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 969353C516392DD6007376AA /* location-reset-button.png */; };
 		969353D216392DD6007376AA /* location-reset-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 969353C616392DD6007376AA /* location-reset-button@2x.png */; };
+		969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353D416392E08007376AA /* DDDoubleDatesViewController.m */; };
+		969353D916392E1D007376AA /* DDDoubleDatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */; };
 		969A77A51613109A0070FF6F /* location-spinner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A11613109A0070FF6F /* location-spinner1.png */; };
 		969A77A61613109A0070FF6F /* location-spinner1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A21613109A0070FF6F /* location-spinner1@2x.png */; };
 		969A77A71613109A0070FF6F /* location-spinner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A31613109A0070FF6F /* location-spinner2.png */; };
@@ -363,6 +365,9 @@
 		969353C416392DD6007376AA /* location-icon-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-icon-selected@2x.png"; sourceTree = "<group>"; };
 		969353C516392DD6007376AA /* location-reset-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-reset-button.png"; sourceTree = "<group>"; };
 		969353C616392DD6007376AA /* location-reset-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-reset-button@2x.png"; sourceTree = "<group>"; };
+		969353D316392E08007376AA /* DDDoubleDatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDatesViewController.h; sourceTree = "<group>"; };
+		969353D416392E08007376AA /* DDDoubleDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDatesViewController.m; sourceTree = "<group>"; };
+		969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDatesViewController.xib; sourceTree = "<group>"; };
 		969A77A11613109A0070FF6F /* location-spinner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner1.png"; sourceTree = "<group>"; };
 		969A77A21613109A0070FF6F /* location-spinner1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner1@2x.png"; sourceTree = "<group>"; };
 		969A77A31613109A0070FF6F /* location-spinner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner2.png"; sourceTree = "<group>"; };
@@ -702,6 +707,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				969353D316392E08007376AA /* DDDoubleDatesViewController.h */,
+				969353D416392E08007376AA /* DDDoubleDatesViewController.m */,
 				70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */,
 				70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */,
 				702846A51623638100693673 /* DDWingsViewController.h */,
@@ -759,6 +766,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */,
 				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
 				702846AA1623639200693673 /* DDWingsViewController.xib */,
 				96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */,
@@ -1077,6 +1085,7 @@
 				969353D016392DD6007376AA /* location-icon-selected@2x.png in Resources */,
 				969353D116392DD6007376AA /* location-reset-button.png in Resources */,
 				969353D216392DD6007376AA /* location-reset-button@2x.png in Resources */,
+				969353D916392E1D007376AA /* DDDoubleDatesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,6 +1131,7 @@
 				702846C616238AB900693673 /* DDShortUser.m in Sources */,
 				70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */,
 				70E67221162760DC004D14CA /* DDUserTableViewCell.m in Sources */,
+				969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

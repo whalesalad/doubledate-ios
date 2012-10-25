@@ -21,6 +21,7 @@
 #import "DDUser.h"
 #import "DDMeViewController.h"
 #import "DDWingsViewController.h"
+#import "DDDoubleDatesViewController.h"
 
 #define kTagEmailActionSheet 1
 
@@ -269,7 +270,7 @@
         wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Wings", nil) image:[UIImage imageNamed:@"wing-tab-bar.png"] tag:1] autorelease];
         
         //set doubledates view controller
-        DDViewController *doubledatesViewController = [[[DDViewController alloc] init] autorelease];
+        DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
         doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DoubleDates", nil) image:[UIImage imageNamed:@"doubledates-tab-bar.png"] tag:2] autorelease];
         
         //create tab bar controller
