@@ -7,6 +7,7 @@
 //
 
 #import "DDDoubleDatesViewController.h"
+#import "DDCreateDoubleDateViewController.h"
 
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -58,6 +59,8 @@
 
 - (void)plusTouched:(id)sender
 {
+    DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -
