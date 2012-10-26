@@ -7,10 +7,11 @@
 //
 
 #import "DDViewController.h"
+#import "DDButton.h"
 
 @interface DDCreateDoubleDateViewController : DDViewController
 
-@property(nonatomic, retain) IBOutlet UITextField *textFieldWing;
+@property(nonatomic, retain) IBOutlet DDButton *buttonWing;
 
 - (IBAction)wingTouched:(id)sender;
 

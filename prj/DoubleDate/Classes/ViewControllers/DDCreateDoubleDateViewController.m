@@ -9,6 +9,8 @@
 #import "DDCreateDoubleDateViewController.h"
 #import "DDShortUser.h"
 #import "DDWingsViewController.h"
+#import "DDImageView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate>
 
@@ -18,7 +20,7 @@
 
 @implementation DDCreateDoubleDateViewController
 
-@synthesize textFieldWing;
+@synthesize buttonWing;
 @synthesize wing;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,11 +38,14 @@
     
     //apply wing
     self.wing = self.wing;
+    
+    //apply text
+    self.buttonWing.placeholder = NSLocalizedString(@"Choose a wing...", nil);
 }
 
 - (void)viewDidUnload
 {
-    [textFieldWing release], textFieldWing = nil;
+    [buttonWing release], buttonWing = nil;
     [super viewDidUnload];
 }
 
@@ -51,7 +56,7 @@
 
 - (void)dealloc
 {
-    [textFieldWing release];
+    [buttonWing release];
     [wing release];
     [super dealloc];
 }
@@ -76,16 +81,25 @@
         wing = [v retain];
     }
     
+    //apply blank image by default
+    self.buttonWing.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blank-wingman-icon.png"]] autorelease];
     
-    
-    //apply needed image
-    if (!wing)
+    //apply wing
+    if (wing)
     {
-        //apply blank image
-        self.textFieldWing.leftView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blank-wingman-icon.png"]] autorelease];
+        //load image
+        if ([[wing photo] downloadUrl])
+        {
+            DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
+            imageView.frame = CGRectMake(0, 0, 34, 34);
+            imageView.layer.cornerRadius = 17;
+            imageView.layer.masksToBounds = YES;
+            [imageView reloadFromUrl:[NSURL URLWithString:[[wing photo] downloadUrl]]];
+            self.buttonWing.normalIcon = imageView;
+        }
         
-        //apply left view mode
-        self.textFieldWing.leftViewMode = UITextFieldViewModeAlways;
+        //apply text
+        self.buttonWing.text = [wing fullName];
     }
 }
 
@@ -95,6 +109,7 @@
 - (void)wingsViewController:(DDWingsViewController*)viewController didSelectUser:(DDShortUser*)user
 {
     [self setWing:user];
+    [viewController.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -36,7 +36,7 @@
 @synthesize segmentedControlMale;
 @synthesize segmentedControlLike;
 @synthesize segmentedControlSingle;
-@synthesize textFieldLocation;
+@synthesize buttonLocation;
 @synthesize imageViewPhoto;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -62,6 +62,9 @@
     
     //add left button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelTouched:)] autorelease];
+    
+    //set placeholder
+    self.buttonLocation.placeholder = NSLocalizedString(@"We're finding your location...", nil);
     
     //check if user exist
     if (user)
@@ -149,9 +152,6 @@
     else
         datePicker.date = [NSDate date];
     
-    //customize location text field
-    self.textFieldLocation.leftViewMode = UITextFieldViewModeAlways;
-    
     //update location
     self.userLocation = self.userLocation;
     
@@ -168,7 +168,7 @@
     [segmentedControlMale release], segmentedControlMale = nil;
     [segmentedControlLike release], segmentedControlLike = nil;
     [segmentedControlSingle release], segmentedControlSingle = nil;
-    [textFieldLocation release], textFieldLocation = nil;
+    [buttonLocation release], buttonLocation = nil;
     [imageViewPhoto release], imageViewPhoto = nil;
 }
 
@@ -201,7 +201,7 @@
     [segmentedControlMale release];
     [segmentedControlLike release];
     [segmentedControlSingle release];
-    [textFieldLocation release];
+    [buttonLocation release];
     [imageViewPhoto release];
     [super dealloc];
 }
@@ -391,10 +391,11 @@
 - (void)locationManagerDidFailedWithError:(NSError*)error
 {
     //remove loading
-    self.textFieldLocation.leftView = nil;
+    self.buttonLocation.normalIcon = nil;
+    self.buttonLocation.selectedIcon = nil;
     
     //updat text
-    self.textFieldLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
+    self.buttonLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
 }
 
 - (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location
@@ -426,12 +427,12 @@
     
     //update label
     if (v.name)
-        self.textFieldLocation.text = [NSString stringWithFormat:@" %@", v.name];
+        self.buttonLocation.text = [NSString stringWithFormat:@"%@", v.name];
     else
-        self.textFieldLocation.text = nil;
+        self.buttonLocation.text = nil;
         
     //update icon
-    self.textFieldLocation.leftView = [[[UIImageView alloc] initWithImage:self.textFieldLocation.text?[UIImage imageNamed:@"location-marker"]:[UIImage animatedImageNamed:@"location-spinner" duration:0.3f]] autorelease];
+    self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:self.buttonLocation.text?[UIImage imageNamed:@"location-marker"]:[UIImage animatedImageNamed:@"location-spinner" duration:0.3f]] autorelease];
 }
 
 @end

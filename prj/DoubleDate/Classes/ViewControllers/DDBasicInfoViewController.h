@@ -9,6 +9,7 @@
 #import "DDViewController.h"
 #import "JSTokenField.h"
 #import "DDImageView.h"
+#import "DDButton.h"
 
 @class DDUser;
 @class DDPlacemark;
@@ -32,7 +33,7 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlLike;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
 
-@property(nonatomic, retain) IBOutlet UITextField *textFieldLocation;
+@property(nonatomic, retain) IBOutlet DDButton *buttonLocation;
 
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPhoto;
 
