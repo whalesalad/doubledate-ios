@@ -396,6 +396,9 @@
     
     //updat text
     self.buttonLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
+    
+    //disable button
+    self.buttonLocation.enabled = NO;
 }
 
 - (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location

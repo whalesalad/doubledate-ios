@@ -57,6 +57,11 @@
     [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
 }
 
+- (CLLocation*)location
+{
+    return locationManager_.location;
+}
+
 #pragma mark -
 #pragma comment CLLocationManagerDelegate
 

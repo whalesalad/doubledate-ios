@@ -10,24 +10,31 @@
 #import "DDShortUser.h"
 #import "DDWingsViewController.h"
 #import "DDImageView.h"
+#import "DDPlacemark.h"
+#import "DDLocationChooserViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate>
+@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
+@property(nonatomic, retain) DDPlacemark *location;
 
 @end
 
 @implementation DDCreateDoubleDateViewController
 
-@synthesize buttonWing;
 @synthesize wing;
+@synthesize location;
+@synthesize buttonWing;
+@synthesize buttonLocation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        locationController_ = [[DDLocationController alloc] init];
+        locationController_.delegate = self;
     }
     return self;
 }
@@ -36,11 +43,20 @@
 {
     [super viewDidLoad];
     
+    //apply text
+    self.buttonWing.placeholder = NSLocalizedString(@"Choose a wing...", nil);
+    
+    //apply text
+    self.buttonLocation.placeholder = NSLocalizedString(@"Choose a location...", nil);
+    
     //apply wing
     self.wing = self.wing;
     
-    //apply text
-    self.buttonWing.placeholder = NSLocalizedString(@"Choose a wing...", nil);
+    //apply location
+    self.location = self.location;
+    
+    //force location update
+    [locationController_ forceSearchPlacemarks];
 }
 
 - (void)viewDidUnload
@@ -56,8 +72,12 @@
 
 - (void)dealloc
 {
+    locationController_.delegate = nil;
+    [locationController_ release];
     [buttonWing release];
+    [buttonLocation release];
     [wing release];
+    [location release];
     [super dealloc];
 }
 
@@ -70,6 +90,14 @@
     wingsViewController.delegate = self;
     wingsViewController.isSelectingMode = YES;
     [self.navigationController pushViewController:wingsViewController animated:YES];
+}
+
+- (IBAction)locationTouched:(id)sender
+{
+    DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+    locationChooserViewController.delegate = self;
+    locationChooserViewController.location = locationController_.location;
+    [self.navigationController pushViewController:locationChooserViewController animated:YES];
 }
 
 - (void)setWing:(DDShortUser *)v
@@ -103,6 +131,29 @@
     }
 }
 
+- (void)setLocation:(DDPlacemark *)v
+{
+    //update value
+    if (location != v)
+    {
+        [location release];
+        location = [v retain];
+    }
+    
+    //apply blank image by default
+    self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-icon-blank.png"]] autorelease];
+    
+    //apply location
+    if (location)
+    {
+        //apply image
+        self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-icon-selected.png"]] autorelease];
+        
+        //set location text
+        self.buttonLocation.text = [location name];
+    }
+}
+
 #pragma mark -
 #pragma comment DDWingsViewControllerDelegate
 
@@ -110,6 +161,50 @@
 {
     [self setWing:user];
     [viewController.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma comment DDLocationPickerViewControllerDelegate
+
+- (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
+{
+    [self setLocation:[placemarks objectAtIndex:0]];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)locationPickerViewControllerDidCancel
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma comment DDLocationControllerDlegate
+
+- (void)locationManagerDidFoundLocation:(CLLocation*)location
+{
+    
+}
+
+- (void)locationManagerDidFailedWithError:(NSError*)error
+{
+    //remove loading
+    self.buttonLocation.normalIcon = nil;
+    self.buttonLocation.selectedIcon = nil;
+    
+    //updat text
+    self.buttonLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
+    
+    //disable button
+    self.buttonLocation.enabled = NO;
+}
+
+- (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location
+{
+    return NO;
+}
+
+- (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks
+{
 }
 
 @end
