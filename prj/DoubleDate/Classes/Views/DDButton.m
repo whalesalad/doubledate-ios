@@ -27,7 +27,7 @@
     [self addTarget:self action:@selector(onUnselected) forControlEvents:UIControlEventTouchUpInside];
     [self addTarget:self action:@selector(onUnselected) forControlEvents:UIControlEventTouchUpOutside];
     [self addTarget:self action:@selector(onUnselected) forControlEvents:UIControlEventTouchCancel];
-     [self addTarget:self action:@selector(onUnselected) forControlEvents:UIControlEventTouchDragExit];
+    [self addTarget:self action:@selector(onUnselected) forControlEvents:UIControlEventTouchDragExit];
 }
 
 - (void)onSelected
@@ -65,6 +65,11 @@
 {
     [super layoutSubviews];
     textField_.frame = CGRectMake(10, 0, self.frame.size.width-20, self.frame.size.height);
+    if (rightView_)
+    {
+        rightView_.center = CGPointMake(self.frame.size.width-rightView_.frame.size.width-5+rightView_.frame.size.width/2, self.frame.size.height/2);
+        textField_.frame = CGRectMake(textField_.frame.origin.x, textField_.frame.origin.y, textField_.frame.size.width - rightView_.frame.size.width, textField_.frame.size.height);
+    }
 }
 
 - (NSString*)prefix
@@ -176,11 +181,34 @@
     [self setPlaceholder:self.placeholder];
 }
 
+- (UIView*)leftView
+{
+    return textField_.leftView;
+}
+
+- (void)setRightView:(UIView *)rightView
+{
+    if (rightView != rightView_)
+    {
+        [rightView_ removeFromSuperview];
+        [rightView_ release];
+        rightView_ = [rightView retain];
+        [self addSubview:rightView_];
+        [self setNeedsLayout];
+    }
+}
+
+- (UIView*)rightView
+{
+    return rightView_;
+}
+
 - (void)dealloc
 {
     [textField_ release];
     [normalIcon_ release];
     [selectedIcon_ release];
+    [rightView_ release];
     [super dealloc];
 }
 

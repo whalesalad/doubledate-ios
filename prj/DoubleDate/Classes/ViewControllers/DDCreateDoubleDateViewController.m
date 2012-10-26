@@ -62,6 +62,7 @@
 - (void)viewDidUnload
 {
     [buttonWing release], buttonWing = nil;
+    [buttonLocation release], buttonLocation = nil;
     [super viewDidUnload];
 }
 
@@ -143,6 +144,12 @@
     //apply blank image by default
     self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-icon-blank.png"]] autorelease];
     
+    //set text by default
+    self.buttonLocation.text = nil;
+    
+    //unset right view by default
+    self.buttonLocation.rightView = nil;
+    
     //apply location
     if (location)
     {
@@ -151,7 +158,20 @@
         
         //set location text
         self.buttonLocation.text = [location name];
+        
+        //set close button
+        UIImage *closeImage = [UIImage imageNamed:@"location-reset-button.png"];
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        closeButton.frame = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
+        [closeButton addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton setBackgroundImage:closeImage forState:UIControlStateNormal];
+        self.buttonLocation.rightView = closeButton;
     }
+}
+
+- (void)resetLocationTouched:(id)sender
+{
+    self.location = nil;
 }
 
 #pragma mark -

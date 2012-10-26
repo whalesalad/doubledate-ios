@@ -15,10 +15,12 @@
     NSString *text_;
     UIView *normalIcon_;
     UIView *selectedIcon_;
+    UIView *rightView_;
 }
 
 @property(nonatomic, retain) UIView *normalIcon;
 @property(nonatomic, retain) UIView *selectedIcon;
+@property(nonatomic, retain) UIView *rightView;
 @property(nonatomic, retain) UIFont *font;
 @property(nonatomic, retain) NSString *placeholder;
 @property(nonatomic, retain) NSString *text;
