@@ -13,8 +13,10 @@
 #import "DDPlacemark.h"
 #import "DDLocationChooserViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "DDTextView.h"
+#import "DDDoubleDate.h"
 
-@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate>
+@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
@@ -27,6 +29,9 @@
 @synthesize location;
 @synthesize buttonWing;
 @synthesize buttonLocation;
+@synthesize textViewDetails;
+@synthesize textFieldTitle;
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,6 +40,8 @@
     {
         locationController_ = [[DDLocationController alloc] init];
         locationController_.delegate = self;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
 }
@@ -42,6 +49,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //set title
+    self.navigationItem.title = NSLocalizedString(@"New DoubleDate", nil);
+    
+    //add left button
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
+    
+    //set right button
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Post", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(postTouched:)] autorelease];
+    
+    //set next button
+    self.textFieldTitle.returnKeyType = UIReturnKeyNext;
+    
+    //set text field observer
+    
+    //set text vide delegte
+    self.textViewDetails.textView.delegate = self;
     
     //apply text
     self.buttonWing.placeholder = NSLocalizedString(@"Choose a wing...", nil);
@@ -57,12 +81,17 @@
     
     //force location update
     [locationController_ forceSearchPlacemarks];
+    
+    //update navigation bar
+    [self updateNavigationBar];
 }
 
 - (void)viewDidUnload
 {
     [buttonWing release], buttonWing = nil;
     [buttonLocation release], buttonLocation = nil;
+    [textViewDetails release], textViewDetails = nil;
+    [textFieldTitle release], textFieldTitle = nil;
     [super viewDidUnload];
 }
 
@@ -77,8 +106,11 @@
     [locationController_ release];
     [buttonWing release];
     [buttonLocation release];
+    [textViewDetails release];
+    [textFieldTitle release];
     [wing release];
     [location release];
+    [user release];
     [super dealloc];
 }
 
@@ -99,6 +131,14 @@
     locationChooserViewController.delegate = self;
     locationChooserViewController.location = locationController_.location;
     [self.navigationController pushViewController:locationChooserViewController animated:YES];
+}
+
+- (IBAction)freeAreaTouched:(id)sender
+{
+    if ([self.textFieldTitle isFirstResponder])
+        [self.textFieldTitle resignFirstResponder];
+    if ([self.textViewDetails.textView isFirstResponder])
+        [self.textViewDetails.textView resignFirstResponder];
 }
 
 - (void)setWing:(DDShortUser *)v
@@ -130,6 +170,9 @@
         //apply text
         self.buttonWing.text = [wing fullName];
     }
+    
+    //update navigation button
+    [self updateNavigationBar];
 }
 
 - (void)setLocation:(DDPlacemark *)v
@@ -167,6 +210,9 @@
         [closeButton setBackgroundImage:closeImage forState:UIControlStateNormal];
         self.buttonLocation.rightView = closeButton;
     }
+    
+    //update navigation button
+    [self updateNavigationBar];
 }
 
 - (void)resetLocationTouched:(id)sender
@@ -174,12 +220,48 @@
     self.location = nil;
 }
 
+- (void)backTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)postTouched:(id)sender
+{
+    DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
+    doubleDate.title = self.textFieldTitle.text;
+    doubleDate.details = self.textViewDetails.text;
+    doubleDate.wingId = self.wing.identifier;
+    doubleDate.userId = self.user.userId;
+    doubleDate.locationId = self.location.identifier;
+    
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
+    
+    //request friends
+    [self.apiController createDoubleDate:doubleDate];
+}
+
+- (void)updateNavigationBar
+{
+    //update right button
+    BOOL rightButtonEnabled = YES;
+    if ([self.textFieldTitle.text length] == 0)
+        rightButtonEnabled = NO;
+    if ([self.textViewDetails.text length] == 0)
+        rightButtonEnabled = NO;
+    if (!self.location)
+        rightButtonEnabled = NO;
+    if (!self.wing)
+        rightButtonEnabled = NO;
+    self.navigationItem.rightBarButtonItem.enabled = rightButtonEnabled;
+}
+
 #pragma mark -
 #pragma comment DDWingsViewControllerDelegate
 
-- (void)wingsViewController:(DDWingsViewController*)viewController didSelectUser:(DDShortUser*)user
+- (void)wingsViewController:(DDWingsViewController*)viewController didSelectUser:(DDShortUser*)aUser
 {
-    [self setWing:user];
+    [self setWing:aUser];
     [viewController.navigationController popViewControllerAnimated:YES];
 }
 
@@ -225,6 +307,56 @@
 
 - (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks
 {
+}
+
+#pragma mark -
+#pragma comment API
+
+- (void)createDoubleDateSucceed:(DDDoubleDate*)doubleDate
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show succeed message
+    NSString *message = NSLocalizedString(@"Done", nil);
+    
+    //show completed hud
+    [self showCompletedHudWithText:message];
+    
+    //go back
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)createDoubleDateDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma comment UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self.textViewDetails.textView becomeFirstResponder];
+    return YES;
+}
+
+- (void)textFieldTextDidChange:(NSNotification*)notification
+{
+    if ([notification object] == self.textFieldTitle)
+        [self updateNavigationBar];
+}
+
+#pragma mark -
+#pragma comment UITextVideDelegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    [self updateNavigationBar];
 }
 
 @end

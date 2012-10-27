@@ -383,14 +383,8 @@
     //show succeed message
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! We've invited %d of your friends.", nil), [friendsToInvite_ count]];
 
-    //add hud
-    MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:[self viewForHud]] autorelease];
-    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
-    hud.mode = MBProgressHUDModeCustomView;
-    hud.labelText = message;
-    [[self viewForHud] addSubview:hud];
-    [hud show:YES];
-    [hud hide:YES afterDelay:2];
+    //show completed hud
+    [self showCompletedHudWithText:message];
     
     //go back
     [self.navigationController popViewControllerAnimated:YES];

@@ -30,7 +30,7 @@
         self.adminName = [DDAPIObject stringForObject:[dictionary objectForKey:@"admin_name"]];
         self.latitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"latitude"]];
         self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
-        self.identifier = [DDAPIObject stringForObject:[dictionary objectForKey:@"id"]];
+        self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
         self.longitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"longitude"]];
         self.distance = [DDAPIObject stringForObject:[dictionary objectForKey:@"distance"]];

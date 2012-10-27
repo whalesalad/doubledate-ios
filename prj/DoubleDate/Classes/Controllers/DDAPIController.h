@@ -13,6 +13,7 @@
 @class DDImage;
 @class DDFriendship;
 @class DDShortUser;
+@class DDDoubleDate;
 
 @protocol DDAPIControllerDelegate <NSObject>
 
@@ -63,6 +64,9 @@
 - (void)requestInvitationsSucceed:(NSArray*)friends;
 - (void)requestInvitationsDidFailedWithError:(NSError*)error;
 
+- (void)createDoubleDateSucceed:(DDDoubleDate*)doubleDate;
+- (void)createDoubleDateDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -101,5 +105,7 @@
 - (void)getFacebookFriends;
 
 - (void)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds;
+
+- (void)createDoubleDate:(DDDoubleDate*)doubleDate;
 
 @end

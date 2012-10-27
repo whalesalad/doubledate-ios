@@ -271,6 +271,7 @@
         
         //set doubledates view controller
         DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
+        doubledatesViewController.user = user;
         doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DoubleDates", nil) image:[UIImage imageNamed:@"doubledates-tab-bar.png"] tag:2] autorelease];
         
         //create tab bar controller

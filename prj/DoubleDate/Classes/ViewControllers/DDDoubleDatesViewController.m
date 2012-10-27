@@ -16,6 +16,7 @@
 @implementation DDDoubleDatesViewController
 
 @synthesize tableView;
+@synthesize user;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,6 +52,7 @@
 - (void)dealloc
 {
     [tableView release];
+    [user release];
     [super dealloc];
 }
 
@@ -60,6 +62,7 @@
 - (void)plusTouched:(id)sender
 {
     DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
+    viewController.user = self.user;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

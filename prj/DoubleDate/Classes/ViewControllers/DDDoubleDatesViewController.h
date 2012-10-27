@@ -7,9 +7,12 @@
 //
 
 #import "DDViewController.h"
+#import "DDUser.h"
 
 @interface DDDoubleDatesViewController : DDViewController
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
+
+@property(nonatomic, retain) DDUser *user;
 
 @end

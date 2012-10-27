@@ -24,6 +24,7 @@
 - (void)hideHud:(BOOL)animated;
 - (BOOL)isHudExist;
 - (UIView*)viewForHud;
+- (void)showCompletedHudWithText:(NSString*)text;
 
 - (UIViewController*)viewControllerForClass:(Class)vcClass;
 

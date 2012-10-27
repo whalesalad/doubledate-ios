@@ -18,6 +18,7 @@
 #import "DDImage.h"
 #import "DDFriendship.h"
 #import "DDShortUser.h"
+#import "DDDoubleDate.h"
 
 typedef enum
 {
@@ -35,7 +36,8 @@ typedef enum
     DDAPIControllerMethodTypeRequestDeleteFriend,
     DDAPIControllerMethodTypeGetFriend,
     DDAPIControllerMethodTypeGetFacebookFriends,
-    DDAPIControllerMethodTypeRequestInvitations
+    DDAPIControllerMethodTypeRequestInvitations,
+    DDAPIControllerMethodTypeCreateDoubleDate
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -419,6 +421,31 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)createDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //create user dictionary
+    NSDictionary *dictionary = [doubleDate dictionaryRepresentation];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodPOST;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeCreateDoubleDate;
+    userData.succeedSel = @selector(createDoubleDateSucceed:);
+    userData.failedSel = @selector(createDoubleDateDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 - (void)clearRequest:(RKRequest*)request
 {
     request.delegate = nil;
@@ -567,7 +594,15 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:facebookFriends withObject:nil];
-
+        }
+        else if (userData.method == DDAPIControllerMethodTypeCreateDoubleDate)
+        {
+            //create photo object
+            DDDoubleDate *doubleDate = [DDDoubleDate objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:doubleDate withObject:nil];
         }
     }
     else
