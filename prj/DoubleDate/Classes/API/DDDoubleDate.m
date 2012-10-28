@@ -8,10 +8,10 @@
 
 #import "DDDoubleDate.h"
 
-NSString *DDDoubleDateDayPrefWeekday = @"Weekday";
-NSString *DDDoubleDateDayPrefWeekend = @"Weekend";
-NSString *DDDoubleDateTimePrefDaytime = @"Daytime";
-NSString *DDDoubleDateTimePrefNighttime = @"Nighttime";
+NSString *DDDoubleDateDayPrefWeekday = @"weekday";
+NSString *DDDoubleDateDayPrefWeekend = @"weekend";
+NSString *DDDoubleDateTimePrefDaytime = @"day";
+NSString *DDDoubleDateTimePrefNighttime = @"night";
 
 @implementation DDDoubleDate
 

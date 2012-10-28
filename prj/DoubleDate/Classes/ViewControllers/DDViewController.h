@@ -15,6 +15,7 @@
 {
     NSMutableArray *buffer_;
     DDAPIController *apiController_;
+    MBProgressHUD *hud_;
 }
 
 @property(nonatomic, readonly) DDAPIController *apiController;

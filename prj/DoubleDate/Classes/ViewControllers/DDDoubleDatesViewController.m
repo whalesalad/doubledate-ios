@@ -40,6 +40,9 @@
     
     //add left button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(plusTouched:)] autorelease];
+    
+    //add right button
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(editTouched:)] autorelease];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -97,6 +100,18 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (void)editTouched:(id)sender
+{
+    //update edigin style
+    self.tableView.editing = !self.tableView.editing;
+    
+    //set right button
+    if (self.tableView.editing)
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(editTouched:)] autorelease];
+    else
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(editTouched:)] autorelease];
+}
+
 - (void)refresh:(BOOL)animated
 {
     //unset old values
@@ -115,6 +130,31 @@
 
 #pragma mark -
 #pragma comment UITableViewDataSource
+
+- (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        //get doubledate
+        DDDoubleDate *doubleDate = [[doubleDates_ objectAtIndex:indexPath.row] retain];
+
+        //remove sliently
+        [doubleDates_ removeObject:doubleDate];
+        
+        //reload the table
+        [self.tableView reloadData];
+        
+        //request delete doubledate
+        [self.apiController requestDeleteDoubleDate:doubleDate];
+        
+        //release object
+        [doubleDate release];
+    }
+}
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
@@ -162,6 +202,19 @@
     
     //inform about reloaded data
     [self.tableView reloadData];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)requestDeleteDoubleDateSucceed
+{
+}
+
+- (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error
+{
+    //reload data
+    [self refresh:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

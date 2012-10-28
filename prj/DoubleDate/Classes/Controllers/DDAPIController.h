@@ -70,6 +70,9 @@
 - (void)getDoubleDatesSucceed:(NSArray*)doubleDates;
 - (void)getDoubleDatesDidFailedWithError:(NSError*)error;
 
+- (void)requestDeleteDoubleDateSucceed;
+- (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -112,5 +115,7 @@
 - (void)createDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (void)getDoubleDates;
+
+- (void)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
 
 @end

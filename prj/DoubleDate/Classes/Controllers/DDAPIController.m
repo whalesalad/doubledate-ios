@@ -39,6 +39,7 @@ typedef enum
     DDAPIControllerMethodTypeRequestInvitations,
     DDAPIControllerMethodTypeCreateDoubleDate,
     DDAPIControllerMethodTypeGetDoubleDates,
+    DDAPIControllerMethodTypeRequestDeleteDoubleDate
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -466,6 +467,25 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d", [doubleDate.identifier intValue]]];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodDELETE;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeRequestDeleteDoubleDate;
+    userData.succeedSel = @selector(requestDeleteDoubleDateSucceed);
+    userData.failedSel = @selector(requestDeleteDoubleDateDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 - (void)clearRequest:(RKRequest*)request
 {
     request.delegate = nil;
@@ -592,7 +612,8 @@ typedef enum
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendship ||
                  userData.method == DDAPIControllerMethodTypeRequestDeleteFriend ||
-                 userData.method == DDAPIControllerMethodTypeRequestInvitations)
+                 userData.method == DDAPIControllerMethodTypeRequestInvitations ||
+                 userData.method == DDAPIControllerMethodTypeRequestDeleteDoubleDate)
         {
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

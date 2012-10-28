@@ -56,10 +56,11 @@
 
 - (MBProgressHUD*)HUDForView:(UIView*)view
 {
-    MBProgressHUD *hud = [MBProgressHUD HUDForView:view];
+    /*MBProgressHUD *hud = [MBProgressHUD HUDForView:view];
     if (hud.tag == 34985123)
         return hud;
-    return nil;
+    return nil;*/
+    return hud_;
 }
 
 - (void)showHudWithText:(NSString*)text animated:(BOOL)animated
@@ -70,8 +71,13 @@
     //check if we should hide first
     if (hud && animated)
     {
+        //hide hud
         [self hideHud:YES];
         hud = nil;
+        
+        //unset own hud
+        [hud_ release];
+        hud_ = nil;
     }
     
     //check if we should just change a text
@@ -81,12 +87,16 @@
     //check if no hud
     if (!hud)
     {
+        //add hud
         hud = [[[MBProgressHUD alloc] initWithView:[self viewForHud]] autorelease];
         hud.dimBackground = YES;
         hud.labelText = text;
         hud.tag = kTagHud;
         [[self viewForHud] addSubview:hud];
         [hud show:animated];
+        
+        //save own hud
+        hud_ = [hud retain];
     }
     
     //bring to parent
@@ -101,6 +111,10 @@
     //remove hud
     hud.removeFromSuperViewOnHide = YES;
     [hud hide:animated];
+    
+    //unset own hud
+    [hud_ release];
+    hud_ = nil;
 }
 
 - (BOOL)isHudExist
