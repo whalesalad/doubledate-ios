@@ -15,7 +15,6 @@
 			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUIScrollView</string>
-			<string>IBUISegmentedControl</string>
 			<string>IBUITextField</string>
 			<string>IBUIView</string>
 		</array>
@@ -123,7 +122,7 @@
 								<string key="NSFrame">{{9, 207}, {302, 44}}</string>
 								<reference key="NSSuperview" ref="589882701"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="647144848"/>
+								<reference key="NSNextKeyView" ref="562564386"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -186,68 +185,27 @@
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
-							<object class="IBUISegmentedControl" id="647144848">
+							<object class="IBUIButton" id="562564386">
 								<reference key="NSNextResponder" ref="589882701"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{9, 259}, {302, 44}}</string>
 								<reference key="NSSuperview" ref="589882701"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="440046296"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBNumberOfSegments">2</int>
-								<array key="IBSegmentTitles">
-									<string>Weekday</string>
-									<string>Weekend</string>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentWidths">
-									<real value="0.0"/>
-									<real value="0.0"/>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentEnabledStates">
-									<boolean value="YES"/>
-									<boolean value="YES"/>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentContentOffsets">
-									<string>{0, 0}</string>
-									<string>{0, 0}</string>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentImages">
-									<object class="NSNull" id="4"/>
-									<reference ref="4"/>
-								</array>
-							</object>
-							<object class="IBUISegmentedControl" id="440046296">
-								<reference key="NSNextResponder" ref="589882701"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{9, 310}, {302, 44}}</string>
-								<reference key="NSSuperview" ref="589882701"/>
-								<reference key="NSWindow"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIOpaque">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBNumberOfSegments">2</int>
-								<array key="IBSegmentTitles">
-									<string>Daytime</string>
-									<string>Nighttime</string>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentWidths">
-									<real value="0.0"/>
-									<real value="0.0"/>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentEnabledStates">
-									<boolean value="YES"/>
-									<boolean value="YES"/>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentContentOffsets">
-									<string>{0, 0}</string>
-									<string>{0, 0}</string>
-								</array>
-								<array class="NSMutableArray" key="IBSegmentImages">
-									<reference ref="4"/>
-									<reference ref="4"/>
-								</array>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<reference key="IBUIHighlightedTitleColor" ref="941588950"/>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<reference key="IBUINormalTitleShadowColor" ref="140478687"/>
+								<reference key="IBUINormalBackgroundImage" ref="474263511"/>
+								<reference key="IBUIFontDescription" ref="755636499"/>
+								<reference key="IBUIFont" ref="605415888"/>
 							</object>
 						</array>
 						<string key="NSFrameSize">{320, 367}</string>
@@ -325,19 +283,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">segmentedControlDay</string>
+						<string key="label">buttonDayTime</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="647144848"/>
+						<reference key="destination" ref="562564386"/>
 					</object>
-					<int key="connectionID">25</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">segmentedControlTime</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="440046296"/>
-					</object>
-					<int key="connectionID">26</int>
+					<int key="connectionID">28</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -373,6 +323,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">20</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">dayTimeTouched:</string>
+						<reference key="source" ref="562564386"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">29</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -412,8 +371,7 @@
 							<reference ref="335470316"/>
 							<reference ref="556629199"/>
 							<reference ref="933340930"/>
-							<reference ref="647144848"/>
-							<reference ref="440046296"/>
+							<reference ref="562564386"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -448,13 +406,8 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">23</int>
-						<reference key="object" ref="647144848"/>
-						<reference key="parent" ref="589882701"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">24</int>
-						<reference key="object" ref="440046296"/>
+						<int key="objectID">27</int>
+						<reference key="object" ref="562564386"/>
 						<reference key="parent" ref="589882701"/>
 					</object>
 				</array>
@@ -472,28 +425,10 @@
 				<string key="15.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<object class="NSMutableDictionary" key="22.IBAttributePlaceholdersKey">
-					<string key="NS.key.0">IBUserDefinedRuntimeAttributesPlaceholderName</string>
-					<object class="IBUIUserDefinedRuntimeAttributesPlaceholder" key="NS.object.0">
-						<string key="name">IBUserDefinedRuntimeAttributesPlaceholderName</string>
-						<reference key="object" ref="589882701"/>
-						<array key="userDefinedRuntimeAttributes">
-							<object class="IBUserDefinedRuntimeAttribute">
-								<string key="typeIdentifier">com.apple.InterfaceBuilder.userDefinedRuntimeAttributeType.size</string>
-								<string key="keyPath">contentSize</string>
-								<object class="NSValue" key="value">
-									<int key="NS.special">2</int>
-									<string key="NS.sizeval">{320, 480}</string>
-								</object>
-							</object>
-						</array>
-					</object>
-				</object>
+				<dictionary class="NSMutableDictionary" key="22.IBAttributePlaceholdersKey"/>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<integer value="1" key="23.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
-				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<integer value="1" key="24.IUISegmentedControlInspectorSelectedSegmentMetadataKey"/>
+				<string key="27.CustomClassName">DDButton</string>
+				<string key="27.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.CustomClassName">DDButton</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -501,7 +436,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">26</int>
+			<int key="maxID">29</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -517,11 +452,16 @@
 					<string key="className">DDCreateDoubleDateViewController</string>
 					<string key="superclassName">DDViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="dayTimeTouched:">id</string>
 						<string key="freeAreaTouched:">id</string>
 						<string key="locationTouched:">id</string>
 						<string key="wingTouched:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="dayTimeTouched:">
+							<string key="name">dayTimeTouched:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="freeAreaTouched:">
 							<string key="name">freeAreaTouched:</string>
 							<string key="candidateClassName">id</string>
@@ -536,14 +476,17 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="buttonDayTime">DDButton</string>
 						<string key="buttonLocation">DDButton</string>
 						<string key="buttonWing">DDButton</string>
-						<string key="segmentedControlDay">UISegmentedControl</string>
-						<string key="segmentedControlTime">UISegmentedControl</string>
 						<string key="textFieldTitle">UITextField</string>
 						<string key="textViewDetails">DDTextView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="buttonDayTime">
+							<string key="name">buttonDayTime</string>
+							<string key="candidateClassName">DDButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="buttonLocation">
 							<string key="name">buttonLocation</string>
 							<string key="candidateClassName">DDButton</string>
@@ -551,14 +494,6 @@
 						<object class="IBToOneOutletInfo" key="buttonWing">
 							<string key="name">buttonWing</string>
 							<string key="candidateClassName">DDButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="segmentedControlDay">
-							<string key="name">segmentedControlDay</string>
-							<string key="candidateClassName">UISegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="segmentedControlTime">
-							<string key="name">segmentedControlTime</string>
-							<string key="candidateClassName">UISegmentedControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="textFieldTitle">
 							<string key="name">textFieldTitle</string>

@@ -22,8 +22,7 @@
 @property(nonatomic, retain) IBOutlet DDButton *buttonLocation;
 @property(nonatomic, retain) IBOutlet DDTextView *textViewDetails;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldTitle;
-@property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlDay;
-@property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlTime;
+@property(nonatomic, retain) IBOutlet DDButton *buttonDayTime;
 
 @property(nonatomic, retain) DDUser *user;
 
@@ -31,6 +30,9 @@
 
 - (IBAction)wingTouched:(id)sender;
 - (IBAction)locationTouched:(id)sender;
+- (IBAction)dayTimeTouched:(id)sender;
 - (IBAction)freeAreaTouched:(id)sender;
+
++ (NSString*)titleForDDDoubleDateProperty:(NSString*)property;
 
 @end
