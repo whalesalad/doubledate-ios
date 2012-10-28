@@ -8,6 +8,11 @@
 
 #import "DDDoubleDate.h"
 
+NSString *DDDoubleDateDayPrefWeekday = @"Weekday";
+NSString *DDDoubleDateDayPrefWeekend = @"Weekend";
+NSString *DDDoubleDateTimePrefDaytime = @"Daytime";
+NSString *DDDoubleDateTimePrefNighttime = @"Nighttime";
+
 @implementation DDDoubleDate
 
 @synthesize identifier;

@@ -67,6 +67,9 @@
 - (void)createDoubleDateSucceed:(DDDoubleDate*)doubleDate;
 - (void)createDoubleDateDidFailedWithError:(NSError*)error;
 
+- (void)getDoubleDatesSucceed:(NSArray*)doubleDates;
+- (void)getDoubleDatesDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -107,5 +110,7 @@
 - (void)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds;
 
 - (void)createDoubleDate:(DDDoubleDate*)doubleDate;
+
+- (void)getDoubleDates;
 
 @end

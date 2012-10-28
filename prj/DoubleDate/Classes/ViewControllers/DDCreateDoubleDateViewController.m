@@ -15,6 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DDTextView.h"
 #import "DDDoubleDate.h"
+#import "DDDoubleDatesViewController.h"
 
 @interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
 
@@ -31,7 +32,10 @@
 @synthesize buttonLocation;
 @synthesize textViewDetails;
 @synthesize textFieldTitle;
+@synthesize segmentedControlDay;
+@synthesize segmentedControlTime;
 @synthesize user;
+@synthesize doubleDatesViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -92,6 +96,8 @@
     [buttonLocation release], buttonLocation = nil;
     [textViewDetails release], textViewDetails = nil;
     [textFieldTitle release], textFieldTitle = nil;
+    [segmentedControlDay release], segmentedControlDay = nil;
+    [segmentedControlTime release], segmentedControlTime = nil;
     [super viewDidUnload];
 }
 
@@ -108,9 +114,12 @@
     [buttonLocation release];
     [textViewDetails release];
     [textFieldTitle release];
+    [segmentedControlDay release];
+    [segmentedControlTime release];
     [wing release];
     [location release];
     [user release];
+    [doubleDatesViewController release];
     [super dealloc];
 }
 
@@ -227,12 +236,33 @@
 
 - (void)postTouched:(id)sender
 {
+    //set up double date
     DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
     doubleDate.title = self.textFieldTitle.text;
     doubleDate.details = self.textViewDetails.text;
     doubleDate.wingId = self.wing.identifier;
     doubleDate.userId = self.user.userId;
     doubleDate.locationId = self.location.identifier;
+    switch (self.segmentedControlDay.selectedSegmentIndex) {
+        case 0:
+            doubleDate.dayPref = DDDoubleDateDayPrefWeekday;
+            break;
+        case 1:
+            doubleDate.dayPref = DDDoubleDateDayPrefWeekend;
+            break;
+        default:
+            break;
+    }
+    switch (self.segmentedControlTime.selectedSegmentIndex) {
+        case 0:
+            doubleDate.timePref = DDDoubleDateTimePrefDaytime;
+            break;
+        case 1:
+            doubleDate.timePref = DDDoubleDateTimePrefNighttime;
+            break;
+        default:
+            break;
+    }
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
@@ -316,6 +346,9 @@
 {
     //hide hud
     [self hideHud:YES];
+    
+    //add doubledate
+    [self.doubleDatesViewController setDoubleDateToAdd:doubleDate];
     
     //show succeed message
     NSString *message = NSLocalizedString(@"Done", nil);

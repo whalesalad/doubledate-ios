@@ -11,6 +11,7 @@
 #import "DDLocationController.h"
 #import "DDTextView.h"
 #import "DDUser.h"
+#import "DDDoubleDatesViewController.h"
 
 @interface DDCreateDoubleDateViewController : DDViewController
 {
@@ -21,8 +22,12 @@
 @property(nonatomic, retain) IBOutlet DDButton *buttonLocation;
 @property(nonatomic, retain) IBOutlet DDTextView *textViewDetails;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldTitle;
+@property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlDay;
+@property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlTime;
 
 @property(nonatomic, retain) DDUser *user;
+
+@property(nonatomic, retain) DDDoubleDatesViewController *doubleDatesViewController;
 
 - (IBAction)wingTouched:(id)sender;
 - (IBAction)locationTouched:(id)sender;

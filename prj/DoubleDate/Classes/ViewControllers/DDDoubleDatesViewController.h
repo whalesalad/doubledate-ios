@@ -8,11 +8,17 @@
 
 #import "DDViewController.h"
 #import "DDUser.h"
+#import "DDDoubleDate.h"
 
 @interface DDDoubleDatesViewController : DDViewController
+{
+    NSMutableArray *doubleDates_;
+}
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @property(nonatomic, retain) DDUser *user;
+
+@property(nonatomic, retain) DDDoubleDate *doubleDateToAdd;
 
 @end

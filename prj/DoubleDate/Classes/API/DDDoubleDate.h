@@ -8,6 +8,11 @@
 
 #import "DDAPIObject.h"
 
+extern NSString *DDDoubleDateDayPrefWeekday;
+extern NSString *DDDoubleDateDayPrefWeekend;
+extern NSString *DDDoubleDateTimePrefDaytime;
+extern NSString *DDDoubleDateTimePrefNighttime;
+
 @interface DDDoubleDate : DDAPIObject
 {
 }

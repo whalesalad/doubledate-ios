@@ -37,7 +37,8 @@ typedef enum
     DDAPIControllerMethodTypeGetFriend,
     DDAPIControllerMethodTypeGetFacebookFriends,
     DDAPIControllerMethodTypeRequestInvitations,
-    DDAPIControllerMethodTypeCreateDoubleDate
+    DDAPIControllerMethodTypeCreateDoubleDate,
+    DDAPIControllerMethodTypeGetDoubleDates,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -446,6 +447,25 @@ typedef enum
     [controller_ startRequest:request];
 }
 
+- (void)getDoubleDates
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities/mine"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetDoubleDates;
+    userData.succeedSel = @selector(getDoubleDatesSucceed:);
+    userData.failedSel = @selector(getDoubleDatesDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
 - (void)clearRequest:(RKRequest*)request
 {
     request.delegate = nil;
@@ -603,6 +623,23 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:doubleDate withObject:nil];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetDoubleDates)
+        {
+            //extract data
+            NSMutableArray *doubleDates = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create placemark
+                DDDoubleDate *doubleDate = [DDDoubleDate objectWithDictionary:dic];
+                if (doubleDate)
+                    [doubleDates addObject:doubleDate];
+            }
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:doubleDates withObject:nil];
         }
     }
     else
