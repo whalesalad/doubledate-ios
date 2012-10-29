@@ -16,11 +16,15 @@
 #import "DDTextView.h"
 #import "DDDoubleDate.h"
 #import "DDDoubleDatesViewController.h"
+#import "DDCreateDoubleDateViewControllerChooseDate.h"
 
-@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate>
+@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
+
+@property(nonatomic, retain) NSString *day;
+@property(nonatomic, retain) NSString *time;
 
 @end
 
@@ -32,10 +36,11 @@
 @synthesize buttonLocation;
 @synthesize textViewDetails;
 @synthesize textFieldTitle;
-@synthesize segmentedControlDay;
-@synthesize segmentedControlTime;
+@synthesize buttonDayTime;
 @synthesize user;
 @synthesize doubleDatesViewController;
+@synthesize day;
+@synthesize time;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,9 +70,7 @@
     
     //set next button
     self.textFieldTitle.returnKeyType = UIReturnKeyNext;
-    
-    //set text field observer
-    
+        
     //set text vide delegte
     self.textViewDetails.textView.delegate = self;
     
@@ -76,6 +79,16 @@
     
     //apply text
     self.buttonLocation.placeholder = NSLocalizedString(@"Choose a location...", nil);
+    
+    //apply daytime
+    self.buttonDayTime.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"daytime-icon.png"]] autorelease];
+    self.buttonDayTime.text = NSLocalizedString(@"Anytime", nil);
+    
+    //apply day
+    self.day = self.day;
+    
+    //apply time
+    self.time = self.time;
     
     //apply wing
     self.wing = self.wing;
@@ -96,8 +109,7 @@
     [buttonLocation release], buttonLocation = nil;
     [textViewDetails release], textViewDetails = nil;
     [textFieldTitle release], textFieldTitle = nil;
-    [segmentedControlDay release], segmentedControlDay = nil;
-    [segmentedControlTime release], segmentedControlTime = nil;
+    [buttonDayTime release], buttonDayTime = nil;
     [super viewDidUnload];
 }
 
@@ -114,17 +126,31 @@
     [buttonLocation release];
     [textViewDetails release];
     [textFieldTitle release];
-    [segmentedControlDay release];
-    [segmentedControlTime release];
+    [buttonDayTime release];
     [wing release];
     [location release];
     [user release];
     [doubleDatesViewController release];
+    [day release];
+    [time release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma comment other
+
++ (NSString*)titleForDDDoubleDateProperty:(NSString*)property
+{
+    if ([property isEqualToString:DDDoubleDateDayPrefWeekday])
+        return NSLocalizedString(@"Weekday", nil);
+    else if ([property isEqualToString:DDDoubleDateDayPrefWeekend])
+        return NSLocalizedString(@"Weekend", nil);
+    else if ([property isEqualToString:DDDoubleDateTimePrefDaytime])
+        return NSLocalizedString(@"During the Day", nil);
+    else if ([property isEqualToString:DDDoubleDateTimePrefNighttime])
+        return NSLocalizedString(@"At Night", nil);
+    return NSLocalizedString(@"Anytime", nil);
+}
 
 - (IBAction)wingTouched:(id)sender
 {
@@ -140,6 +166,15 @@
     locationChooserViewController.delegate = self;
     locationChooserViewController.location = locationController_.location;
     [self.navigationController pushViewController:locationChooserViewController animated:YES];
+}
+
+- (IBAction)dayTimeTouched:(id)sender
+{
+    DDCreateDoubleDateViewControllerChooseDate *viewController = [[[DDCreateDoubleDateViewControllerChooseDate alloc] init] autorelease];
+    viewController.day = self.day;
+    viewController.time = self.time;
+    viewController.delegate = self;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)freeAreaTouched:(id)sender
@@ -224,6 +259,47 @@
     [self updateNavigationBar];
 }
 
+- (void)setDay:(NSString *)v
+{
+    //save value
+    if (day != v)
+    {
+        [day release];
+        day = [v retain];
+    }
+    
+    //update day and time
+    [self updateDayTime];
+}
+
+- (void)setTime:(NSString *)v
+{
+    //save value
+    if (time != v)
+    {
+        [time release];
+        time = [v retain];
+    }
+    
+    //update day and time
+    [self updateDayTime];
+}
+
+- (void)updateDayTime
+{
+    if (self.day && self.time)
+    {
+        self.buttonDayTime.text = [NSString stringWithFormat:@"%@, %@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day], [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
+    }
+    else if (self.day)
+        self.buttonDayTime.text = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day]];
+    else if (self.time)
+        self.buttonDayTime.text = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
+    else
+        self.buttonDayTime.text = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:nil]];
+
+}
+
 - (void)resetLocationTouched:(id)sender
 {
     self.location = nil;
@@ -243,26 +319,6 @@
     doubleDate.wingId = self.wing.identifier;
     doubleDate.userId = self.user.userId;
     doubleDate.locationId = self.location.identifier;
-    switch (self.segmentedControlDay.selectedSegmentIndex) {
-        case 0:
-            doubleDate.dayPref = DDDoubleDateDayPrefWeekday;
-            break;
-        case 1:
-            doubleDate.dayPref = DDDoubleDateDayPrefWeekend;
-            break;
-        default:
-            break;
-    }
-    switch (self.segmentedControlTime.selectedSegmentIndex) {
-        case 0:
-            doubleDate.timePref = DDDoubleDateTimePrefDaytime;
-            break;
-        case 1:
-            doubleDate.timePref = DDDoubleDateTimePrefNighttime;
-            break;
-        default:
-            break;
-    }
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
@@ -385,11 +441,20 @@
 }
 
 #pragma mark -
-#pragma comment UITextVideDelegate
+#pragma comment UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
 {
     [self updateNavigationBar];
+}
+
+#pragma mark -
+#pragma comment DDCreateDoubleDateViewControllerChooseDateDelegate
+
+- (void)createDoubleDateViewControllerChooseDateUpdatedDayTime:(id)sender
+{
+    self.day = [(DDCreateDoubleDateViewControllerChooseDate*)sender day];
+    self.time = [(DDCreateDoubleDateViewControllerChooseDate*)sender time];
 }
 
 @end
