@@ -7,6 +7,7 @@
 //
 
 #import "DDDoubleDate.h"
+#import "DDShortUser.h"
 
 NSString *DDDoubleDateDayPrefWeekday = @"weekday";
 NSString *DDDoubleDateDayPrefWeekend = @"weekend";
@@ -25,6 +26,8 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
 @synthesize wingId;
 @synthesize updatedAt;
 @synthesize locationId;
+@synthesize user;
+@synthesize wing;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -40,6 +43,8 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.updatedAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at"]];
         self.locationId = [DDAPIObject numberForObject:[dictionary objectForKey:@"location_id"]];
+        self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
+        self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
     }
     return self;
 }
@@ -67,6 +72,10 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         [dictionary setObject:self.updatedAt forKey:@"updated_at"];
     if (self.locationId)
         [dictionary setObject:self.locationId forKey:@"location_id"];
+    if (self.user)
+        [dictionary setObject:[self.user dictionaryRepresentation] forKey:@"user"];
+    if (self.wing)
+        [dictionary setObject:[self.wing dictionaryRepresentation] forKey:@"wing"];
     return dictionary;
 }
 
@@ -82,6 +91,8 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
     [wingId release];
     [updatedAt release];
     [locationId release];
+    [user release];
+    [wing release];
     [super dealloc];
 }
 

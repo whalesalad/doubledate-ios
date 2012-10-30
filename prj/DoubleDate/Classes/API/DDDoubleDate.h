@@ -8,6 +8,8 @@
 
 #import "DDAPIObject.h"
 
+@class DDShortUser;
+
 extern NSString *DDDoubleDateDayPrefWeekday;
 extern NSString *DDDoubleDateDayPrefWeekend;
 extern NSString *DDDoubleDateTimePrefDaytime;
@@ -27,5 +29,7 @@ extern NSString *DDDoubleDateTimePrefNighttime;
 @property(nonatomic, retain) NSNumber *wingId;
 @property(nonatomic, retain) NSString *updatedAt;
 @property(nonatomic, retain) NSNumber *locationId;
+@property(nonatomic, retain) DDShortUser *user;
+@property(nonatomic, retain) DDShortUser *wing;
 
 @end
