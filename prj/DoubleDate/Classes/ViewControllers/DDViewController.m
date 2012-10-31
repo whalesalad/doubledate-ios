@@ -122,8 +122,18 @@
     return [self HUDForView:[self viewForHud]] != nil;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //set background color
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     //show view after appearing
     [self.viewAfterAppearing setHidden:NO];
 }

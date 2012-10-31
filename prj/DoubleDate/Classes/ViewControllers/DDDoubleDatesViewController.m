@@ -9,6 +9,7 @@
 #import "DDDoubleDatesViewController.h"
 #import "DDCreateDoubleDateViewController.h"
 #import "DDDoubleDate.h"
+#import "DDDoubleDateViewTableViewCell.h"
 
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -128,6 +129,35 @@
 #pragma mark -
 #pragma comment UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 5;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *ret = [[[UIView alloc] init] autorelease];
+    ret.backgroundColor = [UIColor clearColor];
+    return ret;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *ret = [[[UIView alloc] init] autorelease];
+    ret.backgroundColor = [UIColor clearColor];
+    return ret;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 54;
+}
+
 #pragma mark -
 #pragma comment UITableViewDataSource
 
@@ -156,21 +186,28 @@
     }
 }
 
-- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [doubleDates_ count];
 }
 
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //save class
+    Class cellClass = [DDDoubleDateViewTableViewCell class];
+    
     //create cell
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[[UITableViewCell class] description]];
+    DDDoubleDateViewTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[cellClass description]];
     if (!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[[UITableViewCell class] description]];
+        cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[cellClass description]];
     
     //apply data
-    DDDoubleDate *doubleDate = [doubleDates_ objectAtIndex:indexPath.row];
-    cell.textLabel.text = [doubleDate title];
+    cell.doubleDate = [doubleDates_ objectAtIndex:indexPath.section];
     
     return cell;
 }
