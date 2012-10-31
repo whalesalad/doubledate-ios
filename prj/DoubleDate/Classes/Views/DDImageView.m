@@ -42,6 +42,9 @@
 
 - (void)reloadFromUrl:(NSURL*)url
 {
+    //unset previous image
+    self.image = nil;
+    
     //remove connection
     [connection_ cancel];
     [connection_ release];
