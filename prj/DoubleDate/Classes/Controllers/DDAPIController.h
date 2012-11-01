@@ -70,6 +70,9 @@
 - (void)getDoubleDatesSucceed:(NSArray*)doubleDates;
 - (void)getDoubleDatesDidFailedWithError:(NSError*)error;
 
+- (void)getDoubleMyDatesSucceed:(NSArray*)doubleDates;
+- (void)getDoubleMyDatesDidFailedWithError:(NSError*)error;
+
 - (void)requestDeleteDoubleDateSucceed;
 - (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error;
 
@@ -115,6 +118,8 @@
 - (void)createDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (void)getDoubleDates;
+
+- (void)getMyDoubleDates;
 
 - (void)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
 

@@ -10,9 +10,17 @@
 #import "DDUser.h"
 #import "DDDoubleDate.h"
 
+typedef enum
+{
+    DDDoubleDatesViewControllerModeAll,
+    DDDoubleDatesViewControllerModeMine
+} DDDoubleDatesViewControllerMode;
+
 @interface DDDoubleDatesViewController : DDViewController
 {
-    NSMutableArray *doubleDates_;
+    NSMutableArray *allDoubleDates_;
+    NSMutableArray *mineDoubleDates_;
+    DDDoubleDatesViewControllerMode mode_;
 }
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
