@@ -39,6 +39,7 @@ typedef enum
     DDAPIControllerMethodTypeRequestInvitations,
     DDAPIControllerMethodTypeCreateDoubleDate,
     DDAPIControllerMethodTypeGetDoubleDates,
+    DDAPIControllerMethodTypeGetMyDoubleDates,
     DDAPIControllerMethodTypeRequestDeleteDoubleDate
 } DDAPIControllerMethodType;
  
@@ -451,7 +452,7 @@ typedef enum
 - (void)getDoubleDates
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities/mine"];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities"];
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
@@ -461,6 +462,25 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeGetDoubleDates;
     userData.succeedSel = @selector(getDoubleDatesSucceed:);
     userData.failedSel = @selector(getDoubleDatesDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    [controller_ startRequest:request];
+}
+
+- (void)getMyDoubleDates
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities/mine"];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetMyDoubleDates;
+    userData.succeedSel = @selector(getMyDoubleDatesSucceed:);
+    userData.failedSel = @selector(getMyDoubleDatesDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -645,7 +665,8 @@ typedef enum
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:doubleDate withObject:nil];
         }
-        else if (userData.method == DDAPIControllerMethodTypeGetDoubleDates)
+        else if (userData.method == DDAPIControllerMethodTypeGetDoubleDates ||
+                 userData.method == DDAPIControllerMethodTypeGetMyDoubleDates)
         {
             //extract data
             NSMutableArray *doubleDates = [NSMutableArray array];

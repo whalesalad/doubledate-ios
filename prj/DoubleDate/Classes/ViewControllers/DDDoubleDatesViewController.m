@@ -14,6 +14,10 @@
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate>
 
 - (void)refresh:(BOOL)animated;
+- (NSArray*)doubleDates;
+- (void)segmentedControlTouched:(id)sender;
+- (void)onDataRefreshed;
+- (void)removeDoubleDate:(DDDoubleDate*)doubleDate;
 
 @end
 
@@ -28,6 +32,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        mode_ = DDDoubleDatesViewControllerModeAll;
     }
     return self;
 }
@@ -37,7 +42,14 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Double Dates", nil);
+    UISegmentedControl *segmentedControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"List", nil), NSLocalizedString(@"Mine", nil), nil]] autorelease];
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    if (mode_ == DDDoubleDatesViewControllerModeAll)
+        segmentedControl.selectedSegmentIndex = 0;
+    else if (mode_ == DDDoubleDatesViewControllerModeMine)
+        segmentedControl.selectedSegmentIndex = 1;
+    [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segmentedControl;
     
     //add left button
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(plusTouched:)] autorelease];
@@ -54,7 +66,8 @@
     if (self.doubleDateToAdd)
     {
         //add doubledate
-        [doubleDates_ addObject:self.doubleDateToAdd];
+        [allDoubleDates_ addObject:self.doubleDateToAdd];
+        [mineDoubleDates_ addObject:self.doubleDateToAdd];
         
         //reload the table
         [self.tableView reloadData];
@@ -66,7 +79,7 @@
     [super viewDidAppear:animated];
     
     //check if we need to make a request
-    if (!doubleDates_)
+    if (!allDoubleDates_ || !mineDoubleDates_)
         [self refresh:YES];
 }
 
@@ -83,7 +96,8 @@
 
 - (void)dealloc
 {
-    [doubleDates_ release];
+    [allDoubleDates_ release];
+    [mineDoubleDates_ release];
     [tableView release];
     [user release];
     [doubleDateToAdd release];
@@ -116,14 +130,89 @@
 - (void)refresh:(BOOL)animated
 {
     //unset old values
-    [doubleDates_ release];
-    doubleDates_ = nil;
+    [allDoubleDates_ release];
+    allDoubleDates_ = nil;
+    [mineDoubleDates_ release];
+    mineDoubleDates_ = nil;
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:animated];
     
     //request doubledates
     [self.apiController getDoubleDates];
+    
+    //request doubledates
+    [self.apiController getMyDoubleDates];
+}
+
+- (NSArray*)doubleDates
+{
+    if (mode_ == DDDoubleDatesViewControllerModeAll)
+        return allDoubleDates_;
+    else if (mode_ == DDDoubleDatesViewControllerModeMine)
+        return mineDoubleDates_;
+    return nil;
+}
+
+- (void)segmentedControlTouched:(UISegmentedControl*)sender
+{
+    //switch mode
+    switch (sender.selectedSegmentIndex)
+    {
+        case 0:
+            mode_ = DDDoubleDatesViewControllerModeAll;
+            break;
+        case 1:
+            mode_ = DDDoubleDatesViewControllerModeMine;
+            break;
+        default:
+            break;
+    }
+    
+    //reload the table
+    [self.tableView reloadData];
+}
+
+- (void)onDataRefreshed
+{
+    //check for both data
+    if (allDoubleDates_ && mineDoubleDates_)
+    {
+        //hide hud
+        [self hideHud:YES];
+    
+        //reload data
+        [self.tableView reloadData];
+    }
+}
+
+- (void)removeDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //init array
+    NSMutableArray *doubleDatesToRemove = [NSMutableArray array];
+
+    //add from all doubledates
+    for (DDDoubleDate *d in allDoubleDates_)
+    {
+        if ([[d identifier] intValue] == [[doubleDate identifier] intValue])
+            [doubleDatesToRemove addObject:d];
+    }
+    
+    //add from mine doubledates
+    for (DDDoubleDate *d in mineDoubleDates_)
+    {
+        if ([[d identifier] intValue] == [[doubleDate identifier] intValue])
+            [doubleDatesToRemove addObject:d];
+    }
+    
+    //remove
+    while ([doubleDatesToRemove count])
+    {
+        DDDoubleDate *d = [doubleDatesToRemove lastObject];
+        [allDoubleDates_ removeObject:d];
+        [mineDoubleDates_ removeObject:d];
+        [doubleDatesToRemove removeObject:d];
+    }
 }
 
 #pragma mark -
@@ -170,10 +259,10 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //get doubledate
-        DDDoubleDate *doubleDate = [[doubleDates_ objectAtIndex:indexPath.row] retain];
+        DDDoubleDate *doubleDate = [[[self doubleDates] objectAtIndex:indexPath.row] retain];
 
         //remove sliently
-        [doubleDates_ removeObject:doubleDate];
+        [self removeDoubleDate:doubleDate];
         
         //reload the table
         [self.tableView reloadData];
@@ -188,7 +277,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [doubleDates_ count];
+    return [[self doubleDates] count];
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
@@ -207,7 +296,7 @@
         cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[cellClass description]];
     
     //apply data
-    cell.doubleDate = [doubleDates_ objectAtIndex:indexPath.section];
+    cell.doubleDate = [[self doubleDates] objectAtIndex:indexPath.section];
     
     return cell;
 }
@@ -217,31 +306,48 @@
 
 - (void)getDoubleDatesSucceed:(NSArray*)doubleDates
 {
-    //hide hud
-    [self hideHud:YES];
-    
     //save doubledates
-    [doubleDates_ release];
-    doubleDates_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
+    [allDoubleDates_ release];
+    allDoubleDates_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
     
-    //reload data
-    [self.tableView reloadData];
+    //inform about completion
+    [self onDataRefreshed];
 }
 
 - (void)getDoubleDatesDidFailedWithError:(NSError*)error
 {
-    //hide hud
-    [self hideHud:YES];
-    
     //save friends
-    [doubleDates_ release];
-    doubleDates_ = [[NSMutableArray alloc] init];
-    
-    //inform about reloaded data
-    [self.tableView reloadData];
+    [allDoubleDates_ release];
+    allDoubleDates_ = [[NSMutableArray alloc] init];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //inform about completion
+    [self onDataRefreshed];
+}
+
+- (void)getMyDoubleDatesSucceed:(NSArray*)doubleDates
+{
+    //save doubledates
+    [mineDoubleDates_ release];
+    mineDoubleDates_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
+    
+    //inform about completion
+    [self onDataRefreshed];
+}
+
+- (void)getMyDoubleDatesDidFailedWithError:(NSError*)error
+{
+    //save friends
+    [mineDoubleDates_ release];
+    mineDoubleDates_ = [[NSMutableArray alloc] init];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //inform about completion
+    [self onDataRefreshed];
 }
 
 - (void)requestDeleteDoubleDateSucceed
