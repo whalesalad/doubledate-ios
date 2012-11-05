@@ -22,10 +22,11 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
         //add arrow
-        self.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-detail-arrow.png"]] autorelease];
+        imageViewArrow_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-detail-arrow.png"]];
+        [self.contentView addSubview:imageViewArrow_];
         
         //add background
-        imageViewPhotosBackground_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doublephoto-container.png"]] autorelease];
+        imageViewPhotosBackground_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doublephoto-container.png"]];
         [self.contentView addSubview:imageViewPhotosBackground_];
         
         {
@@ -73,9 +74,8 @@
         [self.contentView addSubview:labelTitle_];
         
         //add location image view
-        UIImageView *imageViewLocation = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
-        imageViewLocation.center = CGPointMake(110, 36);
-        imageViewLocation.transform = CGAffineTransformMakeScale(0.5f, 0.5f);
+        UIImageView *imageViewLocation = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-location-icon.png"]] autorelease];
+        imageViewLocation.center = CGPointMake(110, 34);
         [self.contentView addSubview:imageViewLocation];
         
         //add location
@@ -101,6 +101,7 @@
 {
     [super layoutSubviews];
     imageViewPhotosBackground_.center = CGPointMake(56, self.contentView.frame.size.height/2-1);
+    imageViewArrow_.center = CGPointMake(self.contentView.frame.size.width-20, self.contentView.frame.size.height/2-1);
     labelTitle_.frame = CGRectMake(105, 2, 190, 26);
     labelLocation_.frame = CGRectMake(120, 25, labelLocation_.frame.size.width, labelLocation_.frame.size.height);
     labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+10, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
@@ -133,8 +134,10 @@
 
 - (void)dealloc
 {
+    [imageViewPhotosBackground_ release];
     [imageViewUser_ release];
     [imageViewWing_ release];
+    [imageViewArrow_ release];
     [labelTitle_ release];
     [labelLocation_ release];
     [labelDistance_ release];

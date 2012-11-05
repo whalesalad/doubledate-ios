@@ -16,6 +16,7 @@
     UIImageView *imageViewPhotosBackground_;
     DDImageView *imageViewUser_;
     DDImageView *imageViewWing_;
+    UIImageView *imageViewArrow_;
     UILabel *labelTitle_;
     UILabel *labelLocation_;
     UILabel *labelDistance_;
