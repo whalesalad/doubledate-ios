@@ -7,7 +7,7 @@
 //
 
 #import "DDTableViewCell.h"
-#import <QuartzCore/QuartzCore.h>
+#import "DDTools.h"
 
 @implementation DDTableViewCell
 
@@ -55,9 +55,7 @@
     //check background image name
     if (backgroundImageName)
     {
-        UIImage *image = [UIImage imageNamed:backgroundImageName];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width/2, image.size.height/2, image.size.width/2)];
-        self.backgroundView = [[[UIImageView alloc] initWithImage:image] autorelease];
+        self.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:backgroundImageName]]] autorelease];
     }
     else
         self.backgroundView = nil;

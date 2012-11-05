@@ -15,4 +15,8 @@
 + (id)barButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 + (id)backBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 
++ (id)leftBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
++ (id)middleBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
++ (id)rightBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
+
 @end

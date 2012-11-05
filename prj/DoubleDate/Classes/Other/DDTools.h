@@ -29,4 +29,8 @@ typedef enum
 
 + (UIImage*)imageFromView:(UIView*)view;
 
++ (UIImage*)resizableImageFromImage:(UIImage*)image;
+
++ (UIImage*)clearImage;
+
 @end
