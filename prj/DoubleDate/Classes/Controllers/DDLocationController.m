@@ -58,7 +58,7 @@
 
 - (void)forceSearchPlacemarksForLocation:(CLLocation*)location
 {
-    [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
+    requestId_ = [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
 }
 
 - (CLLocation*)location
@@ -74,7 +74,10 @@
            fromLocation:(CLLocation *)oldLocation
 {
     if ([self.delegate locationManagerShouldGeoDecodeLocation:newLocation])
-        [self forceSearchPlacemarks];
+    {
+        if (![apiController_ isRequestExist:requestId_])
+            [self forceSearchPlacemarks];
+    }
     else
         [self.delegate locationManagerDidFoundLocation:newLocation];
 }

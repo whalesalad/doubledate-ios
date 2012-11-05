@@ -93,6 +93,26 @@ typedef enum
     return requestId;
 }
 
+- (BOOL)isRequestExist:(DDRequestId)requestId
+{
+    for (RKRequest *request in [controller_ requests])
+    {
+        if ([request hash] == requestId)
+            return YES;
+    }
+    return NO;
+}
+
+- (BOOL)cancelRequest:(DDRequestId)requestId
+{
+    for (RKRequest *request in [controller_ requests])
+    {
+        [request cancel];
+        return YES;
+    }
+    return NO;
+}
+
 - (DDRequestId)getMe
 {
     //create request

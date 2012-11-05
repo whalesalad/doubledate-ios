@@ -94,6 +94,9 @@ typedef int DDRequestId;
 
 @property(nonatomic, assign) id<DDAPIControllerDelegate> delegate;
 
+- (BOOL)isRequestExist:(DDRequestId)requestId;
+- (BOOL)cancelRequest:(DDRequestId)requestId;
+
 - (DDRequestId)getMe;
 
 - (DDRequestId)updateMe:(DDUser*)user;

@@ -23,6 +23,7 @@
 {
     CLLocationManager *locationManager_;
     DDAPIController *apiController_;
+    DDRequestId requestId_;
 }
 
 @property(nonatomic, assign) DDLocationSearchOptions options;

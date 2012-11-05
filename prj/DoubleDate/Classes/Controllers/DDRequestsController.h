@@ -18,6 +18,8 @@
 
 @property(nonatomic, assign) id<RKRequestDelegate> delegate;
 
+@property(nonatomic, readonly) NSArray *requests;
+
 - (void)startRequest:(RKRequest*)request;
 - (void)stopAllRequests;
 

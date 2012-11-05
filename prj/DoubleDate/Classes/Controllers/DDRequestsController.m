@@ -21,6 +21,7 @@
 @implementation DDRequestsController
 
 @synthesize delegate;
+@synthesize requests=requests_;
 
 - (id)init
 {
