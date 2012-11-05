@@ -61,7 +61,7 @@
     if (self.distance)
         [dictionary setObject:self.distance forKey:@"distance"];
     if (self.locality)
-        [dictionary setObject:self.distance forKey:@"locality"];
+        [dictionary setObject:self.locality forKey:@"locality"];
     return dictionary;
 }
 
