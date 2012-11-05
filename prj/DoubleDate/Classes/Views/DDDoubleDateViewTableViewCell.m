@@ -73,7 +73,7 @@
         
         //add location image view
         UIImageView *imageViewLocation = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
-        imageViewLocation.center = CGPointMake(106, 40);
+        imageViewLocation.center = CGPointMake(110, 36);
         imageViewLocation.transform = CGAffineTransformMakeScale(0.5f, 0.5f);
         [self.contentView addSubview:imageViewLocation];
         
@@ -97,9 +97,9 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    imageViewPhotosBackground_.center = CGPointMake(48, self.contentView.frame.size.height/2-1);
-    labelTitle_.frame = CGRectMake(100, 4, 190, 26);
-    labelLocation_.frame = CGRectMake(114, 29, labelLocation_.frame.size.width, labelLocation_.frame.size.height);
+    imageViewPhotosBackground_.center = CGPointMake(56, self.contentView.frame.size.height/2-1);
+    labelTitle_.frame = CGRectMake(105, 2, 190, 26);
+    labelLocation_.frame = CGRectMake(120, 25, labelLocation_.frame.size.width, labelLocation_.frame.size.height);
     labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+10, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
 }
 
