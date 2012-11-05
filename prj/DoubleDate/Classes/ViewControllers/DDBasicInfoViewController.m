@@ -46,6 +46,7 @@
     if (self)
     {
         locationController_ = [[DDLocationController alloc] init];
+        locationController_.options = DDLocationSearchOptionsCities;
         locationController_.delegate = self;
     }
     return self;

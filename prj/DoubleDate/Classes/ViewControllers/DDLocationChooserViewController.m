@@ -20,6 +20,7 @@
 @synthesize delegate;
 @synthesize location;
 @synthesize tableView;
+@synthesize options;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +43,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //search for placemarks
-        [self.apiController searchPlacemarksForLatitude:self.location.coordinate.latitude longitude:location.coordinate.longitude];
+        [self.apiController searchPlacemarksForLatitude:self.location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
     }
 }
 

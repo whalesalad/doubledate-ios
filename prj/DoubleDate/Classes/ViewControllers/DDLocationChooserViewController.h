@@ -8,6 +8,7 @@
 
 #import "DDViewController.h"
 #import "DDLocationPickerViewController.h"
+#import "DDAPIController.h"
 #import <CoreLocation/CoreLocation.h>
 
 @class DDAPIController;
@@ -18,6 +19,8 @@
 }
 
 @property(nonatomic, retain) CLLocation *location;
+
+@property(nonatomic, assign) DDLocationSearchOptions options;
 
 @property(nonatomic, assign) id<DDLocationPickerViewControllerDelegate> delegate;
 

@@ -25,6 +25,8 @@
     DDAPIController *apiController_;
 }
 
+@property(nonatomic, assign) DDLocationSearchOptions options;
+
 @property(nonatomic, assign) id<DDLocationControllerDelegate> delegate;
 
 @property(nonatomic, readonly) CLLocation *location;

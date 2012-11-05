@@ -80,7 +80,20 @@ typedef enum
     [super dealloc];
 }
 
-- (void)getMe
+- (void)clearRequest:(RKRequest*)request
+{
+    request.delegate = nil;
+    request.params = nil;
+}
+
+- (DDRequestId)startRequest:(RKRequest*)request
+{
+    DDRequestId requestId = [request hash];
+    [controller_ startRequest:request];
+    return requestId;
+}
+
+- (DDRequestId)getMe
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me"];
@@ -96,10 +109,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)updateMe:(DDUser*)user
+- (DDRequestId)updateMe:(DDUser*)user
 {
     //create user dictionary
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[user dictionaryRepresentation] forKey:@"user"];
@@ -121,10 +134,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)updatePhotoForMe:(UIImage*)photo
+- (DDRequestId)updatePhotoForMe:(UIImage*)photo
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo"];
@@ -146,10 +159,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)createUser:(DDUser*)user
+- (DDRequestId)createUser:(DDUser*)user
 {
     //create user dictionary
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[user dictionaryRepresentation] forKey:@"user"];
@@ -171,10 +184,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestFacebookUserForToken:(NSString*)fbToken
+- (DDRequestId)requestFacebookUserForToken:(NSString*)fbToken
 {
     //create user dictionary
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:fbToken forKey:@"facebook_access_token"];
@@ -196,16 +209,48 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+{
+    return [self searchPlacemarksForLatitude:latitude longitude:longitude query:nil options:DDLocationSearchOptionsBoth];
+}
+
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query
+{
+    return [self searchPlacemarksForLatitude:latitude longitude:longitude query:query options:DDLocationSearchOptionsBoth];
+}
+
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude options:(DDLocationSearchOptions)options
+{
+    return [self searchPlacemarksForLatitude:latitude longitude:longitude query:nil options:options];
+}
+
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options
 {
     //set parameters
     NSString *params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
     
+    //add query if needed
+    if (query)
+        params = [NSString stringWithFormat:@"%@&query=%@", params, query];
+    
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations"];
+    NSString *requestPath = nil;
+    switch (options) {
+        case DDLocationSearchOptionsCities:
+            requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations/cities"];
+            break;
+        case DDLocationSearchOptionsVenues:
+            requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations/venues"];
+            break;
+        case DDLocationSearchOptionsBoth:
+            requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"locations/both"];
+            break;
+        default:
+            break;
+    }
     requestPath = [requestPath stringByAppendingFormat:@"?%@", params];
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
     request.method = RKRequestMethodGET;
@@ -221,10 +266,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestAvailableInterests
+- (DDRequestId)requestAvailableInterests
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"interests"];
@@ -239,10 +284,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)getFriends
+- (DDRequestId)getFriends
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/friends"];
@@ -258,10 +303,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)getFriendshipInvitations
+- (DDRequestId)getFriendshipInvitations
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/friendships/pending"];
@@ -277,10 +322,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestApproveFriendship:(DDFriendship*)friendship
+- (DDRequestId)requestApproveFriendship:(DDFriendship*)friendship
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friendships/%d", [friendship.identifier intValue]]];
@@ -296,10 +341,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestDenyFriendship:(DDFriendship*)friendship
+- (DDRequestId)requestDenyFriendship:(DDFriendship*)friendship
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friendships/%d", [friendship.identifier intValue]]];
@@ -315,10 +360,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestDeleteFriend:(DDShortUser*)user
+- (DDRequestId)requestDeleteFriend:(DDShortUser*)user
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [user.identifier intValue]]];
@@ -334,10 +379,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)getFriend:(DDShortUser*)user
+- (DDRequestId)getFriend:(DDShortUser*)user
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [user.identifier intValue]]];
@@ -353,10 +398,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)getFacebookFriends
+- (DDRequestId)getFacebookFriends
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/facebook"]];
@@ -372,10 +417,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds
+- (DDRequestId)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/invite"]];
@@ -421,10 +466,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)createDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)createDoubleDate:(DDDoubleDate*)doubleDate
 {
     //create user dictionary
     NSDictionary *dictionary = [doubleDate dictionaryRepresentation];
@@ -446,10 +491,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)getDoubleDates
+- (DDRequestId)getDoubleDates
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities"];
@@ -465,10 +510,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)getMyDoubleDates
+- (DDRequestId)getMyDoubleDates
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities/mine"];
@@ -484,10 +529,10 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
+    return [self startRequest:request];
 }
 
-- (void)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d", [doubleDate.identifier intValue]]];
@@ -503,13 +548,7 @@ typedef enum
     request.userData = userData;
     
     //send request
-    [controller_ startRequest:request];
-}
-
-- (void)clearRequest:(RKRequest*)request
-{
-    request.delegate = nil;
-    request.params = nil;
+    return [self startRequest:request];
 }
 
 #pragma mark -

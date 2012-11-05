@@ -15,6 +15,7 @@
 @implementation DDLocationController
 
 @synthesize delegate;
+@synthesize options;
 
 - (id)init
 {
@@ -29,6 +30,9 @@
         //api controller
         apiController_ = [[DDAPIController alloc] init];
         apiController_.delegate = self;
+        
+        //set search options
+        options = DDLocationSearchOptionsBoth;
     }
     return self;
 }
@@ -54,7 +58,7 @@
 
 - (void)forceSearchPlacemarksForLocation:(CLLocation*)location
 {
-    [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
+    [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
 }
 
 - (CLLocation*)location

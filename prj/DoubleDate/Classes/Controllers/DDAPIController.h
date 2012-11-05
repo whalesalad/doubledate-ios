@@ -15,6 +15,15 @@
 @class DDShortUser;
 @class DDDoubleDate;
 
+typedef enum
+{
+    DDLocationSearchOptionsCities,
+    DDLocationSearchOptionsVenues,
+    DDLocationSearchOptionsBoth
+} DDLocationSearchOptions;
+
+typedef int DDRequestId;
+
 @protocol DDAPIControllerDelegate <NSObject>
 
 @optional
@@ -85,42 +94,45 @@
 
 @property(nonatomic, assign) id<DDAPIControllerDelegate> delegate;
 
-- (void)getMe;
+- (DDRequestId)getMe;
 
-- (void)updateMe:(DDUser*)user;
+- (DDRequestId)updateMe:(DDUser*)user;
 
-- (void)updatePhotoForMe:(UIImage*)photo;
+- (DDRequestId)updatePhotoForMe:(UIImage*)photo;
 
-- (void)createUser:(DDUser*)user;
+- (DDRequestId)createUser:(DDUser*)user;
 
-- (void)requestFacebookUserForToken:(NSString*)fbToken;
+- (DDRequestId)requestFacebookUserForToken:(NSString*)fbToken;
 
-- (void)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query;
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude options:(DDLocationSearchOptions)options;
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options;
 
-- (void)requestAvailableInterests;
+- (DDRequestId)requestAvailableInterests;
 
-- (void)getFriends;
+- (DDRequestId)getFriends;
 
-- (void)getFriendshipInvitations;
+- (DDRequestId)getFriendshipInvitations;
 
-- (void)requestApproveFriendship:(DDFriendship*)friendship;
+- (DDRequestId)requestApproveFriendship:(DDFriendship*)friendship;
 
-- (void)requestDenyFriendship:(DDFriendship*)friendship;
+- (DDRequestId)requestDenyFriendship:(DDFriendship*)friendship;
 
-- (void)requestDeleteFriend:(DDShortUser*)user;
+- (DDRequestId)requestDeleteFriend:(DDShortUser*)user;
 
-- (void)getFriend:(DDShortUser*)user;
+- (DDRequestId)getFriend:(DDShortUser*)user;
 
-- (void)getFacebookFriends;
+- (DDRequestId)getFacebookFriends;
 
-- (void)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds;
+- (DDRequestId)requestInvitationsForFBUsers:(NSArray*)fbIds andDDUsers:(NSArray*)ddIds;
 
-- (void)createDoubleDate:(DDDoubleDate*)doubleDate;
+- (DDRequestId)createDoubleDate:(DDDoubleDate*)doubleDate;
 
-- (void)getDoubleDates;
+- (DDRequestId)getDoubleDates;
 
-- (void)getMyDoubleDates;
+- (DDRequestId)getMyDoubleDates;
 
-- (void)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
+- (DDRequestId)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
 
 @end
