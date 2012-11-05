@@ -13,7 +13,7 @@
 + (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage target:(id)target action:(SEL)action
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    button.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14];
     normalImage = [normalImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, normalImage.size.width/2, 0, normalImage.size.width/2)];
     highlightedImage = [highlightedImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, highlightedImage.size.width/2, 0, highlightedImage.size.width/2)];
     [button setBackgroundImage:normalImage forState:UIControlStateNormal];
