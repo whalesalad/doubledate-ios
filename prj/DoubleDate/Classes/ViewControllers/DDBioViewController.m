@@ -9,6 +9,7 @@
 #import "DDBioViewController.h"
 #import "DDUser.h"
 #import "DDInterestsViewController.h"
+#import "DDBarButtonItem.h"
 
 @interface DDBioViewController ()
 
@@ -36,10 +37,10 @@
     self.navigationItem.title = NSLocalizedString(@"Your Bio", nil);
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(nextTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Next", nil) target:self action:@selector(nextTouched:)];
     
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
 }
 
 - (void)viewDidUnload

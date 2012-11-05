@@ -13,6 +13,7 @@
 #import "DDAuthenticationController.h"
 #import "DDFacebookController.h"
 #import "DDImage.h"
+#import "DDBarButtonItem.h"
 
 @interface DDCompleteRegistrationViewController ()<DDAPIControllerDelegate>
 
@@ -45,10 +46,10 @@
     self.navigationItem.title = NSLocalizedString(@"Almost Done!", nil);
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Finish", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(finishTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Finish", nil) target:self action:@selector(finishTouched:)];
     
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
 }
 
 - (void)viewDidUnload

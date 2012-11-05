@@ -20,6 +20,7 @@
 #import "DDPlacemark.h"
 #import "DDImage.h"
 #import "DDLocationController.h"
+#import "DDBarButtonItem.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDBasicInfoViewController ()<UITextFieldDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
@@ -58,10 +59,10 @@
     self.navigationItem.title = NSLocalizedString(@"Basic Info", nil);
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(nextTouched:)] autorelease];
-    
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Next", nil) target:self action:@selector(nextTouched:)];
+
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     
     //set placeholder
     self.buttonLocation.placeholder = NSLocalizedString(@"We're finding your location...", nil);

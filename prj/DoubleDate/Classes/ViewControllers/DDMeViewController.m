@@ -15,6 +15,7 @@
 #import "DDTagsView.h"
 #import "DDInterest.h"
 #import "DDAuthenticationController.h"
+#import "DDBarButtonItem.h"
 
 @interface DDMeViewController ()
 
@@ -54,7 +55,7 @@
         self.navigationItem.title = NSLocalizedString(@"My Profile", nil);
         
         //add right button
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(editTouched:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
     }
     else
     {

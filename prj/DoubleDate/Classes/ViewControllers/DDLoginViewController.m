@@ -10,6 +10,7 @@
 #import "DDAuthenticationController.h"
 #import "DDAPIController.h"
 #import "DDWelcomeViewController.h"
+#import "DDBarButtonItem.h"
 
 @interface DDLoginViewController ()<DDAPIControllerDelegate>
 
@@ -39,7 +40,7 @@
     self.navigationItem.title = NSLocalizedString(@"Log In", nil);
     
     //add right button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
 
     //set focus
     [textFieldEmail becomeFirstResponder];

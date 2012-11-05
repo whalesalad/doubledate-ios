@@ -16,6 +16,7 @@
 #import "DDFacebookController.h"
 #import "DDWelcomeViewController.h"
 #import "DDImage.h"
+#import "DDBarButtonItem.h"
 
 @interface DDInterestsViewController ()<DDAPIControllerDelegate>
 
@@ -64,12 +65,12 @@
     
     //add right button
     if (!user.facebookId)
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(nextTouched:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Next", nil) target:self action:@selector(nextTouched:)];
     else
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Finish", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(finishTouched:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Finish", nil) target:self action:@selector(finishTouched:)];
 
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
     
     //add token title
     [tokenFieldViewInterests.tokenField setPromptText:NSLocalizedString(@"Interests:", nil)];

@@ -13,6 +13,7 @@
 #import "DDMeViewController.h"
 #import "DDTools.h"
 #import "MBProgressHUD.h"
+#import "DDBarButtonItem.h"
 
 #define kTagInviteErrorAlert 5234
 
@@ -64,10 +65,10 @@
     [super viewWillAppear:animated];
     
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Add", nil) target:self action:@selector(addTouched:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated

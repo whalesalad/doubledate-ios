@@ -154,6 +154,8 @@
 		969353D916392E1D007376AA /* DDDoubleDatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */; };
 		969353DD16393951007376AA /* DDCreateDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */; };
 		969353E01639397B007376AA /* DDCreateDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */; };
+		9695DD2D1647A94700A80922 /* DDBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9695DD2C1647A94700A80922 /* DDBarButtonItem.m */; };
+		9695DD301647AECC00A80922 /* Avenir.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9695DD2F1647AECC00A80922 /* Avenir.ttc */; };
 		969A77A51613109A0070FF6F /* location-spinner1.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A11613109A0070FF6F /* location-spinner1.png */; };
 		969A77A61613109A0070FF6F /* location-spinner1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A21613109A0070FF6F /* location-spinner1@2x.png */; };
 		969A77A71613109A0070FF6F /* location-spinner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A31613109A0070FF6F /* location-spinner2.png */; };
@@ -437,6 +439,9 @@
 		969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewController.h; sourceTree = "<group>"; };
 		969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewController.m; sourceTree = "<group>"; };
 		969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDCreateDoubleDateViewController.xib; sourceTree = "<group>"; };
+		9695DD2B1647A94700A80922 /* DDBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBarButtonItem.h; sourceTree = "<group>"; };
+		9695DD2C1647A94700A80922 /* DDBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBarButtonItem.m; sourceTree = "<group>"; };
+		9695DD2F1647AECC00A80922 /* Avenir.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Avenir.ttc; sourceTree = "<group>"; };
 		969A77A11613109A0070FF6F /* location-spinner1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner1.png"; sourceTree = "<group>"; };
 		969A77A21613109A0070FF6F /* location-spinner1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner1@2x.png"; sourceTree = "<group>"; };
 		969A77A31613109A0070FF6F /* location-spinner2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner2.png"; sourceTree = "<group>"; };
@@ -584,6 +589,7 @@
 				96E7F1D015F77EDD00200E1F /* Third */,
 				96E7F1A915F738CA00200E1F /* Classes */,
 				96E7F1B015F738CA00200E1F /* Images */,
+				9695DD2E1647AECC00A80922 /* Fonts */,
 				96E7F1B115F738CA00200E1F /* Resources */,
 				960A02D315F7371D00BA9EB0 /* Supporting Files */,
 			);
@@ -763,9 +769,19 @@
 			path = "create doubledate";
 			sourceTree = "<group>";
 		};
+		9695DD2E1647AECC00A80922 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9695DD2F1647AECC00A80922 /* Avenir.ttc */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9695DD2B1647A94700A80922 /* DDBarButtonItem.h */,
+				9695DD2C1647A94700A80922 /* DDBarButtonItem.m */,
 				960FB55316415011003563FD /* DDDoubleDateViewTableViewCell.h */,
 				960FB55416415011003563FD /* DDDoubleDateViewTableViewCell.m */,
 				960FB54A16413964003563FD /* DDTableViewCell.h */,
@@ -1229,6 +1245,7 @@
 				4C53D9501647660A007613A8 /* back-btn@2x.png in Resources */,
 				4C448AC31647703C00F1437C /* dd-tablecell-location-icon.png in Resources */,
 				4C448AC41647703C00F1437C /* dd-tablecell-location-icon@2x.png in Resources */,
+				9695DD301647AECC00A80922 /* Avenir.ttc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1282,6 +1299,7 @@
 				7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */,
 				960FB54C16413964003563FD /* DDTableViewCell.m in Sources */,
 				960FB55516415012003563FD /* DDDoubleDateViewTableViewCell.m in Sources */,
+				9695DD2D1647A94700A80922 /* DDBarButtonItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1349,7 +1367,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/SBJson/Classes\"",
 				);
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1370,7 +1388,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/SBJson/Classes\"",
 				);
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;

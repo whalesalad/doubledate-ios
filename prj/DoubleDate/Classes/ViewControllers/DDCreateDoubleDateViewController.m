@@ -17,6 +17,7 @@
 #import "DDDoubleDate.h"
 #import "DDDoubleDatesViewController.h"
 #import "DDCreateDoubleDateViewControllerChooseDate.h"
+#import "DDBarButtonItem.h"
 
 @interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
 
@@ -63,10 +64,10 @@
     self.navigationItem.title = NSLocalizedString(@"New DoubleDate", nil);
     
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Post", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(postTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Post", nil) target:self action:@selector(postTouched:)];
     
     //set next button
     self.textFieldTitle.returnKeyType = UIReturnKeyNext;

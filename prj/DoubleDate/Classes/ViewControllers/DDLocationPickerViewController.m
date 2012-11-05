@@ -9,6 +9,7 @@
 #import "DDLocationPickerViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DDLocationChooserViewController.h"
+#import "DDBarButtonItem.h"
 
 @interface DDLocationPickerViewController ()
 
@@ -37,11 +38,11 @@
     [self.mapView addGestureRecognizer:tapRecognizer];
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Choose", nil) style:UIBarButtonItemStyleDone target:self action:@selector(chooseTouched:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Choose", nil) target:self action:@selector(chooseTouched:)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    
+
     //add right button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleDone target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
 }
 
 - (void)viewDidUnload

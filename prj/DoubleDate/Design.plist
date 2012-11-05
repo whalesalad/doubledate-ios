@@ -3,19 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>DDViewController</key>
-	<dict>
-		<key>navigationController</key>
-		<dict>
-			<key>navigationBar</key>
-			<dict>
-				<key>tintColor</key>
-				<dict>
-					<key>UIColor</key>
-					<string>(220,0,78,255)</string>
-				</dict>
-			</dict>
-		</dict>
-	</dict>
+	<dict/>
 	<key>DDMeViewController</key>
 	<dict>
 		<key>view</key>

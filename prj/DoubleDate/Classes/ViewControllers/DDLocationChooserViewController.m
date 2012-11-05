@@ -9,6 +9,7 @@
 #import "DDLocationChooserViewController.h"
 #import "DDAPIController.h"
 #import "DDPlacemark.h"
+#import "DDBarButtonItem.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -53,7 +54,7 @@
     self.navigationItem.title = NSLocalizedString(@"Location", nil);
     
     //add left button
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(cancelTouched:)] autorelease];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
