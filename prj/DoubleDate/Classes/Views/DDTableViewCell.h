@@ -8,8 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum
+{
+    DDTableViewCellStyleNone,
+    DDTableViewCellStylePlain,
+    DDTableViewCellStyleGroupedTop,
+    DDTableViewCellStyleGroupedCenter,
+    DDTableViewCellStyleGroupedBottom,
+    DDTableViewCellStyleGroupedSolid
+} DDTableViewCellStyle;
+
 @interface DDTableViewCell : UITableViewCell
 {
 }
+
+@property(nonatomic, assign) DDTableViewCellStyle backgroundStyle;
+
+- (void)applyGroupedBackgroundStyleForTableView:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath;
 
 @end

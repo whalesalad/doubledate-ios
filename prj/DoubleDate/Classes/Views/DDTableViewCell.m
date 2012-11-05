@@ -11,15 +11,70 @@
 
 @implementation DDTableViewCell
 
+@synthesize backgroundStyle;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-        UIImage *image = [UIImage imageNamed:@"dd-tablecell-background.png"];
+        self.backgroundStyle = DDTableViewCellStyleNone;
+    }
+    return self;
+}
+
+- (void)setBackgroundStyle:(DDTableViewCellStyle)v
+{
+    //apply value
+    backgroundStyle = v;
+    
+    //switch background image name
+    NSString *backgroundImageName = nil;
+    switch (v) {
+        case DDTableViewCellStyleNone:
+            backgroundImageName = nil;
+            break;
+        case DDTableViewCellStylePlain:
+            backgroundImageName = @"dd-tablecell-background.png";
+            break;
+        case DDTableViewCellStyleGroupedTop:
+            backgroundImageName = @"dd-tableview-cell-top.png";
+            break;
+        case DDTableViewCellStyleGroupedCenter:
+            backgroundImageName = @"dd-tableview-cell-center.png";
+            break;
+        case DDTableViewCellStyleGroupedBottom:
+            backgroundImageName = @"dd-tableview-cell-bottom.png";
+            break;
+        case DDTableViewCellStyleGroupedSolid:
+            backgroundImageName = @"dd-tableview-cell-center.png";
+            break;
+        default:
+            break;
+    }
+    
+    //check background image name
+    if (backgroundImageName)
+    {
+        UIImage *image = [UIImage imageNamed:backgroundImageName];
         image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width/2, image.size.height/2, image.size.width/2)];
         self.backgroundView = [[[UIImageView alloc] initWithImage:image] autorelease];
     }
-    return self;
+    else
+        self.backgroundView = nil;
+}
+
+- (void)applyGroupedBackgroundStyleForTableView:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath
+{
+    DDTableViewCellStyle style = DDTableViewCellStyleNone;
+    if ([tableView numberOfRowsInSection:indexPath.section] <= 1)
+        style = DDTableViewCellStyleGroupedSolid;
+    else if (indexPath.row == 0)
+        style = DDTableViewCellStyleGroupedTop;
+    else if (indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1)
+        style = DDTableViewCellStyleGroupedBottom;
+    else
+        style = DDTableViewCellStyleGroupedCenter;
+    self.backgroundStyle = style;
 }
 
 - (void)dealloc

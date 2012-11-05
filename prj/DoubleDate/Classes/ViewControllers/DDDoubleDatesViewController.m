@@ -296,6 +296,9 @@
     if (!cell)
         cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[cellClass description]];
     
+    //apply style
+    cell.backgroundStyle = DDTableViewCellStylePlain;
+    
     //apply data
     cell.doubleDate = [[self doubleDates] objectAtIndex:indexPath.section];
     
