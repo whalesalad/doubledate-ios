@@ -8,17 +8,23 @@
 
 #import "DDAPIObject.h"
 
+extern NSString *DDPlacemarkTypeCity;
+extern NSString *DDPlacemarkTypeVenue;
+
 @interface DDPlacemark : DDAPIObject
 
-@property(nonatomic, retain) NSString *country;
-@property(nonatomic, retain) NSString *adminCode;
-@property(nonatomic, retain) NSString *adminName;
-@property(nonatomic, retain) NSNumber *latitude;
-@property(nonatomic, retain) NSString *name;
+@property(nonatomic, retain) NSNumber *activitiesCount;
+@property(nonatomic, retain) NSString *address;
 @property(nonatomic, retain) NSNumber *identifier;
-@property(nonatomic, retain) NSNumber *facebookId;
-@property(nonatomic, retain) NSNumber *longitude;
-@property(nonatomic, retain) NSString *distance;
+@property(nonatomic, retain) NSNumber *latitude;
 @property(nonatomic, retain) NSString *locality;
+@property(nonatomic, retain) NSNumber *longitude;
+@property(nonatomic, retain) NSString *name;
+@property(nonatomic, retain) NSString *state;
+@property(nonatomic, retain) NSNumber *usersCount;
+@property(nonatomic, retain) NSString *venue;
+@property(nonatomic, retain) NSString *country;
+@property(nonatomic, retain) NSString *type;
+@property(nonatomic, retain) NSString *locationName;
 
 @end

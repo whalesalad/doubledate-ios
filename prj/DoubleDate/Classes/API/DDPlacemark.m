@@ -8,33 +8,42 @@
 
 #import "DDPlacemark.h"
 
+NSString *DDPlacemarkTypeCity = @"city";
+NSString *DDPlacemarkTypeVenue = @"venue";
+
 @implementation DDPlacemark
 
-@synthesize country;
-@synthesize adminCode;
-@synthesize adminName;
-@synthesize latitude;
-@synthesize name;
+@synthesize activitiesCount;
+@synthesize address;
 @synthesize identifier;
-@synthesize facebookId;
-@synthesize longitude;
-@synthesize distance;
+@synthesize latitude;
 @synthesize locality;
+@synthesize longitude;
+@synthesize name;
+@synthesize state;
+@synthesize usersCount;
+@synthesize venue;
+@synthesize country;
+@synthesize type;
+@synthesize locationName;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if ((self = [super initWithDictionary:dictionary]))
     {
-        self.country = [DDAPIObject stringForObject:[dictionary objectForKey:@"country"]];
-        self.adminCode = [DDAPIObject stringForObject:[dictionary objectForKey:@"admin_code"]];
-        self.adminName = [DDAPIObject stringForObject:[dictionary objectForKey:@"admin_name"]];
-        self.latitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"latitude"]];
-        self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
+        self.activitiesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"activities_count"]];
+        self.address = [DDAPIObject stringForObject:[dictionary objectForKey:@"address"]];
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
-        self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
-        self.longitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"longitude"]];
-        self.distance = [DDAPIObject stringForObject:[dictionary objectForKey:@"distance"]];
+        self.latitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"latitude"]];
         self.locality = [DDAPIObject stringForObject:[dictionary objectForKey:@"locality"]];
+        self.longitude = [DDAPIObject numberForObject:[dictionary objectForKey:@"longitude"]];
+        self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
+        self.state = [DDAPIObject stringForObject:[dictionary objectForKey:@"state"]];
+        self.usersCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"users_count"]];
+        self.venue = [DDAPIObject stringForObject:[dictionary objectForKey:@"venue"]];
+        self.country = [DDAPIObject stringForObject:[dictionary objectForKey:@"country"]];
+        self.type = [DDAPIObject stringForObject:[dictionary objectForKey:@"type"]];
+        self.locationName = [DDAPIObject stringForObject:[dictionary objectForKey:@"location_name"]];
     }
     return self;
 }
@@ -42,41 +51,50 @@
 - (NSDictionary*)dictionaryRepresentation
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (self.country)
-        [dictionary setObject:self.country forKey:@"country"];
-    if (self.adminCode)
-        [dictionary setObject:self.adminCode forKey:@"admin_code"];
-    if (self.adminName)
-        [dictionary setObject:self.adminName forKey:@"admin_name"];
-    if (self.latitude)
-        [dictionary setObject:self.latitude forKey:@"latitude"];
-    if (self.name)
-        [dictionary setObject:self.name forKey:@"name"];
+    if (self.activitiesCount)
+        [dictionary setObject:self.activitiesCount forKey:@"activities_count"];
+    if (self.address)
+        [dictionary setObject:self.address forKey:@"address"];
     if (self.identifier)
         [dictionary setObject:self.identifier forKey:@"id"];
-    if (self.facebookId)
-        [dictionary setObject:self.facebookId forKey:@"facebook_id"];
-    if (self.longitude)
-        [dictionary setObject:self.longitude forKey:@"longitude"];
-    if (self.distance)
-        [dictionary setObject:self.distance forKey:@"distance"];
+    if (self.latitude)
+        [dictionary setObject:self.latitude forKey:@"latitude"];
     if (self.locality)
         [dictionary setObject:self.locality forKey:@"locality"];
+    if (self.longitude)
+        [dictionary setObject:self.longitude forKey:@"longitude"];
+    if (self.name)
+        [dictionary setObject:self.name forKey:@"name"];
+    if (self.state)
+        [dictionary setObject:self.state forKey:@"state"];
+    if (self.usersCount)
+        [dictionary setObject:self.usersCount forKey:@"users_count"];
+    if (self.venue)
+        [dictionary setObject:self.venue forKey:@"venue"];
+    if (self.country)
+        [dictionary setObject:self.country forKey:@"country"];
+    if (self.type)
+        [dictionary setObject:self.type forKey:@"type"];
+    if (self.locationName)
+        [dictionary setObject:self.locationName forKey:@"location_name"];
     return dictionary;
 }
 
 - (void)dealloc
 {
-    [country release];
-    [adminCode release];
-    [adminName release];
-    [latitude release];
-    [name release];
+    [activitiesCount release];
+    [address release];
     [identifier release];
-    [facebookId release];
-    [longitude release];
-    [distance release];
+    [latitude release];
     [locality release];
+    [longitude release];
+    [name release];
+    [state release];
+    [usersCount release];
+    [venue release];
+    [country release];
+    [type release];
+    [locationName release];
     [super dealloc];
 }
 

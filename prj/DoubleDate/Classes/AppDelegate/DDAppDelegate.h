@@ -14,6 +14,4 @@
 
 @property (strong, nonatomic) UIViewController *viewController;
 
-- (void)applyStylesheet;
-
 @end
