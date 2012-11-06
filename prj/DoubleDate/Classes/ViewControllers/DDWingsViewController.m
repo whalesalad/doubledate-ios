@@ -18,6 +18,7 @@
 #import "DDFacebookFriendsViewController.h"
 #import "DDUserTableViewCell.h"
 #import "DDBarButtonItem.h"
+#import "DDSegmentedControl.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -152,9 +153,8 @@
     {
         //add segmented control
         NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"Wings", nil), NSLocalizedString(@"Incoming", nil), nil];
-        UISegmentedControl *segmentedControl = [[[UISegmentedControl alloc] initWithItems:items] autorelease];
+        UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items] autorelease];
         segmentedControl.selectedSegmentIndex = 0;
-        segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
         [segmentedControl addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
     }

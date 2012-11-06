@@ -10,7 +10,14 @@
 
 @interface DDBarButtonItem : UIBarButtonItem
 {
+    UIImage *normalImage_;
+    UIImage *highlightedImage_;
+    UIImage *disabledImage_;
 }
+
+- (UIImage*)normalImage;
+- (UIImage*)highlightedImage;
+- (UIImage*)disabledImage;
 
 + (id)barButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 + (id)backBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;

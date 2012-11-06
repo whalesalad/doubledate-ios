@@ -11,6 +11,7 @@
 #import "DDDoubleDate.h"
 #import "DDDoubleDateViewTableViewCell.h"
 #import "DDBarButtonItem.h"
+#import "DDSegmentedControl.h"
 
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -43,7 +44,7 @@
     [super viewDidLoad];
     
     //set title
-    UISegmentedControl *segmentedControl = [[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"List", nil), NSLocalizedString(@"Mine", nil), nil]] autorelease];
+    UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"List", nil), NSLocalizedString(@"Mine", nil), nil]] autorelease];
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     if (mode_ == DDDoubleDatesViewControllerModeAll)
         segmentedControl.selectedSegmentIndex = 0;
