@@ -12,6 +12,7 @@
 #import "DDDoubleDate.h"
 #import "DDImage.h"
 #import "DDShortUser.h"
+#import "DDPlacemark.h"
 
 @implementation DDDoubleDateViewTableViewCell
 
@@ -124,8 +125,10 @@
     labelTitle_.text = [v title];
     
     //apply location
-    labelLocation_.text = [[v locationId] stringValue];
+    labelLocation_.text = [[v location] name];
     [labelLocation_ sizeToFit];
+    if (labelLocation_.frame.size.width > 120)
+        labelLocation_.frame = CGRectMake(0, 0, 120, labelLocation_.frame.size.height);
     
     //apply distance
     labelDistance_.text = @"3 mi";

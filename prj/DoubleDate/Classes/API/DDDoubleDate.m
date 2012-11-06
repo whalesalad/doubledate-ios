@@ -8,6 +8,7 @@
 
 #import "DDDoubleDate.h"
 #import "DDShortUser.h"
+#import "DDPlacemark.h"
 
 NSString *DDDoubleDateDayPrefWeekday = @"weekday";
 NSString *DDDoubleDateDayPrefWeekend = @"weekend";
@@ -28,6 +29,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
 @synthesize locationId;
 @synthesize user;
 @synthesize wing;
+@synthesize location;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -45,6 +47,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         self.locationId = [DDAPIObject numberForObject:[dictionary objectForKey:@"location_id"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
+        self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
     }
     return self;
 }
@@ -76,6 +79,8 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         [dictionary setObject:[self.user dictionaryRepresentation] forKey:@"user"];
     if (self.wing)
         [dictionary setObject:[self.wing dictionaryRepresentation] forKey:@"wing"];
+    if (self.location)
+        [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
     return dictionary;
 }
 
@@ -93,6 +98,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
     [locationId release];
     [user release];
     [wing release];
+    [location release];
     [super dealloc];
 }
 
