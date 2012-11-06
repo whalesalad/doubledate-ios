@@ -10,6 +10,7 @@
 #import "DDAPIController.h"
 #import "DDLocation.h"
 #import "DDBarButtonItem.h"
+#import "DDTableViewCell.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -100,9 +101,11 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *identifier = [[[self class] description] stringByAppendingString:@"Cell"];
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:identifier];
+    DDTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell)
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+    [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
     cell.textLabel.text = [[placemarks_ objectAtIndex:indexPath.row] name];
     cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
     return cell;
