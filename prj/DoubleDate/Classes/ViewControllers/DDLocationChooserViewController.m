@@ -8,7 +8,7 @@
 
 #import "DDLocationChooserViewController.h"
 #import "DDAPIController.h"
-#import "DDPlacemark.h"
+#import "DDLocation.h"
 #import "DDBarButtonItem.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>

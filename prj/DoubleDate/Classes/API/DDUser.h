@@ -14,7 +14,7 @@ extern NSString *DDUserInterestGuys;
 extern NSString *DDUserInterestGirls;
 extern NSString *DDUserInterestBoth;
 
-@class DDPlacemark;
+@class DDLocation;
 @class DDImage;
 
 @interface DDUser : DDAPIObject
@@ -38,7 +38,7 @@ extern NSString *DDUserInterestBoth;
 @property(nonatomic, retain) NSString *email;
 @property(nonatomic, retain) NSString *password;
 
-@property(nonatomic, retain) DDPlacemark *location;
+@property(nonatomic, retain) DDLocation *location;
 
 @property(nonatomic, retain) DDImage *photo;
 

@@ -7,7 +7,7 @@
 //
 
 #import "DDUser.h"
-#import "DDPlacemark.h"
+#import "DDLocation.h"
 #import "DDImage.h"
 #import "DDInterest.h"
 
@@ -64,7 +64,7 @@ NSString *DDUserInterestBoth = @"both";
         self.facebookAccessToken = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_access_token"]];
         self.email = [DDAPIObject stringForObject:[dictionary objectForKey:@"email"]];
         self.password = [DDAPIObject stringForObject:[dictionary objectForKey:@"password"]];
-        self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
+        self.location = [DDLocation objectWithDictionary:[dictionary objectForKey:@"location"]];
         self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
         NSArray *interestsDicArray = [DDAPIObject arrayForObject:[dictionary objectForKey:@"interests"]];
         NSMutableArray *interestsObjArray = [NSMutableArray array];

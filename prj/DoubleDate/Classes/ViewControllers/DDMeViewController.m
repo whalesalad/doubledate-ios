@@ -11,7 +11,7 @@
 #import "DDImage.h"
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "DDPlacemark.h"
+#import "DDLocation.h"
 #import "DDTagsView.h"
 #import "DDInterest.h"
 #import "DDAuthenticationController.h"

@@ -13,7 +13,7 @@
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
-#import "DDPlacemark.h"
+#import "DDLocation.h"
 #import "DDInterest.h"
 #import "DDImage.h"
 #import "DDFriendship.h"
@@ -611,7 +611,7 @@ typedef enum
             for (NSDictionary *dic in responseData)
             {
                 //create placemark
-                DDPlacemark *placemark = [DDPlacemark objectWithDictionary:dic];
+                DDLocation *placemark = [DDLocation objectWithDictionary:dic];
                 if (placemark)
                     [placemarks addObject:placemark];
             }

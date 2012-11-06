@@ -130,7 +130,7 @@
 		96892CAB15FF15E70054C108 /* DDMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96892CAA15FF15E70054C108 /* DDMeViewController.xib */; };
 		96892CB315FF1F740054C108 /* DDCompleteRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892CB215FF1F740054C108 /* DDCompleteRegistrationViewController.m */; };
 		96892CB515FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */; };
-		96892D3715FF59750054C108 /* DDPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892D3615FF59750054C108 /* DDPlacemark.m */; };
+		96892D3715FF59750054C108 /* DDLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892D3615FF59750054C108 /* DDLocation.m */; };
 		96892D3E15FF5CBD0054C108 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96892D3D15FF5CBC0054C108 /* MapKit.framework */; };
 		96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892D4A15FF61770054C108 /* DDLocationPickerViewController.m */; };
 		96892D4D15FF61830054C108 /* DDLocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */; };
@@ -437,8 +437,8 @@
 		96892CB115FF1F740054C108 /* DDCompleteRegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCompleteRegistrationViewController.h; sourceTree = "<group>"; };
 		96892CB215FF1F740054C108 /* DDCompleteRegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCompleteRegistrationViewController.m; sourceTree = "<group>"; };
 		96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDCompleteRegistrationViewController.xib; sourceTree = "<group>"; };
-		96892D3515FF59750054C108 /* DDPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPlacemark.h; sourceTree = "<group>"; };
-		96892D3615FF59750054C108 /* DDPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPlacemark.m; sourceTree = "<group>"; };
+		96892D3515FF59750054C108 /* DDLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocation.h; sourceTree = "<group>"; };
+		96892D3615FF59750054C108 /* DDLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocation.m; sourceTree = "<group>"; };
 		96892D3D15FF5CBC0054C108 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		96892D4915FF61770054C108 /* DDLocationPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationPickerViewController.h; sourceTree = "<group>"; };
 		96892D4A15FF61770054C108 /* DDLocationPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationPickerViewController.m; sourceTree = "<group>"; };
@@ -753,8 +753,8 @@
 				708AB15A1608FC50009817FC /* DDInterest.m */,
 				96B59E141607185900CFDA1C /* DDImage.h */,
 				96B59E151607185A00CFDA1C /* DDImage.m */,
-				96892D3515FF59750054C108 /* DDPlacemark.h */,
-				96892D3615FF59750054C108 /* DDPlacemark.m */,
+				96892D3515FF59750054C108 /* DDLocation.h */,
+				96892D3615FF59750054C108 /* DDLocation.m */,
 				964A6EF715F89FDE0077AAF1 /* DDUser.h */,
 				964A6EF815F89FDE0077AAF1 /* DDUser.m */,
 				964A6EFA15F8A0080077AAF1 /* DDAPIObject.h */,
@@ -1377,7 +1377,7 @@
 				70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */,
 				96892CA915FF15DD0054C108 /* DDMeViewController.m in Sources */,
 				96892CB315FF1F740054C108 /* DDCompleteRegistrationViewController.m in Sources */,
-				96892D3715FF59750054C108 /* DDPlacemark.m in Sources */,
+				96892D3715FF59750054C108 /* DDLocation.m in Sources */,
 				96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */,
 				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,

@@ -12,7 +12,7 @@
 #import "DDDoubleDate.h"
 #import "DDImage.h"
 #import "DDShortUser.h"
-#import "DDPlacemark.h"
+#import "DDLocation.h"
 
 @implementation DDDoubleDateViewTableViewCell
 
