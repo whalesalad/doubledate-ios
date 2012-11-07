@@ -10,7 +10,8 @@
 #import "DDAPIController.h"
 #import "DDLocation.h"
 #import "DDBarButtonItem.h"
-#import "DDTableViewCell.h"
+#import "DDLocationTableViewCell.h"
+#import "DDLocation.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -22,12 +23,14 @@
 @synthesize location;
 @synthesize tableView;
 @synthesize options;
+@synthesize allowsMultiplyChoice;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        selectedLocations_ = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -44,7 +47,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //search for placemarks
-        [self.apiController searchPlacemarksForLatitude:self.location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
+        [self.apiController searchPlacemarksForLatitude:[self.location.latitude floatValue] longitude:[location.longitude floatValue] options:self.options];
     }
 }
 
@@ -54,9 +57,6 @@
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Location", nil);
-    
-    //add left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -69,20 +69,89 @@
     [tableView release], tableView = nil;
 }
 
+- (void)setLocation:(DDLocation *)v
+{
+    if (v != location)
+    {
+        [location release];
+        location = [v retain];
+    }
+    [selectedLocations_ removeAllObjects];
+    if (location)
+        [selectedLocations_ addObject:location];
+}
+
+- (BOOL)isLocationSelected:(DDLocation*)loc
+{
+    for (DDLocation *l in selectedLocations_)
+    {
+        if ([[l identifier] intValue] > 0 && [[l identifier] intValue] == [[loc identifier] intValue])
+            return YES;
+    }
+    return NO;
+}
+
+- (DDLocationSearchOptions)optionForSection:(NSInteger)section
+{
+    if (self.options == DDLocationSearchOptionsBoth)
+    {
+        if (section == 0)
+            return DDLocationSearchOptionsVenues;
+        return DDLocationSearchOptionsCities;
+    }
+    return self.options;
+}
+
+- (NSArray*)locationsForSection:(NSInteger)section
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDLocation *loc in placemarks_)
+    {
+        BOOL isVenue = [[loc type] isEqualToString:DDLocationTypeVenue];
+        BOOL venueRequired = [self optionForSection:section] == DDLocationSearchOptionsVenues;
+        if (isVenue == venueRequired)
+            [ret addObject:loc];
+    }
+    return ret;
+}
+
 - (void)dealloc
 {
     [location release];
     [placemarks_ release];
     [tableView release];
+    [selectedLocations_ release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate locationPickerViewControllerDidFoundPlacemarks:[NSArray arrayWithObject:[placemarks_ objectAtIndex:indexPath.row]]];
+    //save location
+    DDLocation *selectedLocation = [(DDLocationTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] location];
+    
+    //remove from selected list
+    if ([selectedLocations_ containsObject:selectedLocation])
+        [selectedLocations_ removeObject:selectedLocation];
+    else
+    {
+        if (!self.allowsMultiplyChoice)
+            [selectedLocations_ removeAllObjects];
+        [selectedLocations_ addObject:selectedLocation];
+    }
+    
+    //reload the cell
+    [aTableView reloadData];
+    
+    //inform delegate
+    [self.delegate locationPickerViewControllerDidFoundPlacemarks:[NSArray arrayWithObject:selectedLocation]];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DDLocationTableViewCell height];
 }
 
 #pragma mark -
@@ -90,24 +159,57 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return NSLocalizedString(@"Nearby Locations", nil);
+    switch ([self optionForSection:section]) {
+        case DDLocationSearchOptionsCities:
+            return NSLocalizedString(@"CITIES", nil);
+            break;
+        case DDLocationSearchOptionsVenues:
+            return NSLocalizedString(@"VENUES", nil);
+            break;
+        default:
+            break;
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return [placemarks_ count];
+    return [[self locationsForSection:section] count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (self.options == DDLocationSearchOptionsBoth)
+        return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = [[[self class] description] stringByAppendingString:@"Cell"];
-    DDTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:identifier];
+    //save location
+    DDLocation *selectedLocation = [[self locationsForSection:indexPath.section] objectAtIndex:indexPath.row];
+    
+    //create cell of needed type
+    NSString *identifier = [[[self class] description] stringByAppendingString:@"DDLocationTableViewCell"];
+    UITableViewCellStyle cellStyle = UITableViewCellStyleDefault;
+    if ([self optionForSection:indexPath.section] == DDLocationSearchOptionsVenues)
+        cellStyle = UITableViewCellStyleSubtitle;
+    DDLocationTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell)
-        cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        cell = [[[DDLocationTableViewCell alloc] initWithStyle:cellStyle reuseIdentifier:nil] autorelease];
+    
+    //apply needed cell design
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
-    cell.textLabel.backgroundColor = [UIColor clearColor];
-    cell.textLabel.text = [[placemarks_ objectAtIndex:indexPath.row] name];
-    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
+
+    //set cell location
+    cell.location = selectedLocation;
+    
+    //update selected ui
+    if ([self isLocationSelected:cell.location])
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
+    else
+        cell.accessoryView = nil;
+    
     return cell;
 }
 
@@ -134,14 +236,6 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-#pragma mark -
-#pragma comment other
-
-- (void)cancelTouched:(id)sender
-{
-    [self.delegate locationPickerViewControllerDidCancel];
 }
 
 @end

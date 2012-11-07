@@ -12,17 +12,21 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class DDAPIController;
+@class DDLocation;
 
 @interface DDLocationChooserViewController : DDViewController
 {
     NSArray *placemarks_;
+    NSMutableArray *selectedLocations_;
 }
 
-@property(nonatomic, retain) CLLocation *location;
+@property(nonatomic, retain) DDLocation *location;
 
 @property(nonatomic, assign) DDLocationSearchOptions options;
 
 @property(nonatomic, assign) id<DDLocationPickerViewControllerDelegate> delegate;
+
+@property(nonatomic, assign) BOOL allowsMultiplyChoice;
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 

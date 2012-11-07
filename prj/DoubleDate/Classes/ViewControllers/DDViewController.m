@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "DDAppDelegate.h"
 #import "DDAPIController.h"
+#import "DDBarButtonItem.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagHud 34985123
@@ -131,6 +132,9 @@
     
     //customize navigation bar
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    //customize left button
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -220,6 +224,11 @@
     [[self viewForHud] addSubview:hud];
     [hud show:YES];
     [hud hide:YES afterDelay:2];
+}
+
+- (void)backTouched:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc

@@ -219,11 +219,11 @@
         //create view controller
         DDLocationChooserViewController *viewController = [[[DDLocationChooserViewController alloc] init] autorelease];
         viewController.delegate = self;
-        viewController.location = [[[CLLocation alloc] initWithLatitude:[self.userLocation.latitude floatValue] longitude:[self.userLocation.longitude floatValue]] autorelease];
-        viewController.options = DDLocationSearchOptionsCities;
+        viewController.location = self.userLocation;
+        viewController.options = DDLocationSearchOptionsBoth;
         
         //create navigation controller
-        [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
+        [self.navigationController pushViewController:viewController animated:YES];
     }
 }
 
@@ -348,14 +348,10 @@
             self.userLocation = placemark;
         }
     }
-    
-    //dismiss view controller
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)locationPickerViewControllerDidCancel
 {
-    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

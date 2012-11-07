@@ -18,6 +18,7 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
         self.backgroundStyle = DDTableViewCellStyleNone;
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }

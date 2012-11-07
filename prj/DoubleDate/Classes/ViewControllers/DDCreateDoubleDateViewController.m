@@ -63,9 +63,6 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"New DoubleDate", nil);
     
-    //add left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
-    
     //set right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Post", nil) target:self action:@selector(postTouched:)];
     
@@ -165,7 +162,7 @@
 {
     DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
     locationChooserViewController.delegate = self;
-    locationChooserViewController.location = locationController_.location;
+    locationChooserViewController.location = self.location;
     locationChooserViewController.options = DDLocationSearchOptionsBoth;
     [self.navigationController pushViewController:locationChooserViewController animated:YES];
 }
@@ -305,11 +302,6 @@
 - (void)resetLocationTouched:(id)sender
 {
     self.location = nil;
-}
-
-- (void)backTouched:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)postTouched:(id)sender

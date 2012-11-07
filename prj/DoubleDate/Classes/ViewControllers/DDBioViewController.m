@@ -38,9 +38,6 @@
     
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Next", nil) target:self action:@selector(nextTouched:)];
-    
-    //add left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
 }
 
 - (void)viewDidUnload
@@ -74,11 +71,6 @@
     DDInterestsViewController *viewController = [[[DDInterestsViewController alloc] init] autorelease];
     viewController.user = newUser;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)backTouched:(id)sender
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
