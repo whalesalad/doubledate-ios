@@ -115,6 +115,38 @@
     return ret;
 }
 
+- (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText
+{
+    //set general view
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)] autorelease];
+    view.backgroundColor = [UIColor clearColor];
+    
+    //add label
+    UILabel *labelMain = [[UILabel alloc] initWithFrame:CGRectZero];
+    labelMain.font = [UIFont fontWithName:@"Avenir-Black" size:18];
+    labelMain.textColor = [UIColor grayColor];
+    labelMain.text = mainText;
+    [labelMain sizeToFit];
+    labelMain.frame = CGRectMake(22, 14, labelMain.frame.size.width, labelMain.frame.size.height);
+    labelMain.backgroundColor = [UIColor clearColor];
+    [view addSubview:labelMain];
+    
+    //add label
+    if ([detailedText length])
+    {
+        UILabel *labelDetailed = [[UILabel alloc] initWithFrame:CGRectZero];
+        labelDetailed.font = [UIFont fontWithName:@"Avenir" size:12];
+        labelDetailed.textColor = [UIColor grayColor];
+        labelDetailed.text = detailedText;
+        [labelDetailed sizeToFit];
+        labelDetailed.frame = CGRectMake(labelMain.frame.origin.x+labelMain.frame.size.width+8, labelMain.frame.origin.y+2, labelDetailed.frame.size.width, labelMain.frame.size.height);
+        labelDetailed.backgroundColor = [UIColor clearColor];
+        [view addSubview:labelDetailed];
+    }
+    
+    return view;
+}
+
 - (void)dealloc
 {
     [location release];
@@ -157,17 +189,20 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-    switch ([self optionForSection:section]) {
-        case DDLocationSearchOptionsCities:
-            return NSLocalizedString(@"CITIES", nil);
-            break;
-        case DDLocationSearchOptionsVenues:
-            return NSLocalizedString(@"VENUES", nil);
-            break;
-        default:
-            break;
+    return [[self tableView:aTableView viewForHeaderInSection:section] frame].size.height;
+}
+
+- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self optionForSection:section] == DDLocationSearchOptionsCities)
+    {
+        return [self viewForHeaderWithMainText:NSLocalizedString(@"CITIES", nil) detailedText:nil];
+    }
+    else if ([self optionForSection:section] == DDLocationSearchOptionsVenues)
+    {
+        return [self viewForHeaderWithMainText:NSLocalizedString(@"VENUES", nil) detailedText:NSLocalizedString(@"POWERED BY FOURSQUARE", nil)];
     }
     return nil;
 }
@@ -179,6 +214,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (placemarks_ == nil)
+        return 0;
     if (self.options == DDLocationSearchOptionsBoth)
         return 2;
     return 1;
