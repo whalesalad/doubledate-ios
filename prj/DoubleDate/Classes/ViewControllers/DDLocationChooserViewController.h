@@ -20,7 +20,8 @@
     NSMutableArray *selectedLocations_;
 }
 
-@property(nonatomic, retain) DDPlacemark *location;
+@property(nonatomic, retain) DDPlacemark *ddLocation;
+@property(nonatomic, retain) CLLocation *clLocation;
 
 @property(nonatomic, assign) DDLocationSearchOptions options;
 

@@ -23,7 +23,8 @@
 @implementation DDLocationChooserViewController
 
 @synthesize delegate;
-@synthesize location;
+@synthesize ddLocation;
+@synthesize clLocation;
 @synthesize tableView;
 @synthesize options;
 @synthesize allowsMultiplyChoice;
@@ -50,7 +51,19 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //search for placemarks
-        [self.apiController searchPlacemarksForLatitude:[self.location.latitude floatValue] longitude:[location.longitude floatValue] options:self.options];
+        CGFloat latitude = 0;
+        CGFloat longitude = 0;
+        if (self.ddLocation)
+        {
+            latitude = [self.ddLocation.latitude floatValue];
+            longitude = [self.ddLocation.longitude floatValue];
+        }
+        else if (self.clLocation)
+        {
+            latitude = self.clLocation.coordinate.latitude;
+            longitude = self.clLocation.coordinate.longitude;
+        }
+        [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude options:self.options];
     }
 }
 
@@ -81,16 +94,25 @@
     [tableView release], tableView = nil;
 }
 
-- (void)setLocation:(DDPlacemark *)v
+- (void)setDdLocation:(DDPlacemark *)v
 {
-    if (v != location)
+    if (v != ddLocation)
     {
-        [location release];
-        location = [v retain];
+        [ddLocation release];
+        ddLocation = [v retain];
     }
     [selectedLocations_ removeAllObjects];
-    if (location)
-        [selectedLocations_ addObject:location];
+    if (ddLocation)
+        [selectedLocations_ addObject:ddLocation];
+}
+
+- (void)setClLocation:(CLLocation *)v
+{
+    if (v != clLocation)
+    {
+        [clLocation release];
+        clLocation = [v retain];
+    }
 }
 
 - (BOOL)isLocationSelected:(DDPlacemark *)placemark
@@ -176,7 +198,8 @@
 
 - (void)dealloc
 {
-    [location release];
+    [ddLocation release];
+    [clLocation release];
     [placemarks_ release];
     [tableView release];
     [selectedLocations_ release];

@@ -162,7 +162,10 @@
 {
     DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
     locationChooserViewController.delegate = self;
-    locationChooserViewController.location = self.location;
+    if (self.location)
+        locationChooserViewController.ddLocation = self.location;
+    else
+        locationChooserViewController.clLocation = locationController_.location;
     locationChooserViewController.options = DDLocationSearchOptionsBoth;
     [self.navigationController pushViewController:locationChooserViewController animated:YES];
 }

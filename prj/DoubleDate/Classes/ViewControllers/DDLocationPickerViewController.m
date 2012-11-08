@@ -108,7 +108,7 @@
     if ([locations count] == 1)
     {
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
-        locationChooserViewController.location = [locations lastObject];
+        locationChooserViewController.clLocation = [locations lastObject];
         locationChooserViewController.delegate = self.delegate;
         locationChooserViewController.options = DDLocationSearchOptionsBoth;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];

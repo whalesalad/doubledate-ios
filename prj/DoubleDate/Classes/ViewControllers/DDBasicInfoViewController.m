@@ -219,7 +219,7 @@
         //create view controller
         DDLocationChooserViewController *viewController = [[[DDLocationChooserViewController alloc] init] autorelease];
         viewController.delegate = self;
-        viewController.location = self.userLocation;
+        viewController.ddLocation = self.userLocation;
         viewController.options = DDLocationSearchOptionsCities;
         
         //create navigation controller
