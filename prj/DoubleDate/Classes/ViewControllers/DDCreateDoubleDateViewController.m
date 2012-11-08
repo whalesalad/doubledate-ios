@@ -79,7 +79,7 @@
     self.buttonLocation.placeholder = NSLocalizedString(@"Choose a location...", nil);
     
     //apply daytime
-    self.buttonDayTime.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"daytime-icon.png"]] autorelease];
+    self.buttonDayTime.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-selected-daytime.png"]] autorelease];
     self.buttonDayTime.text = NSLocalizedString(@"Anytime", nil);
     
     //apply day
@@ -194,7 +194,7 @@
     }
     
     //apply blank image by default
-    self.buttonWing.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blank-wingman-icon.png"]] autorelease];
+    self.buttonWing.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-unselected-wing.png"]] autorelease];
     
     //apply wing
     if (wing)
@@ -228,7 +228,7 @@
     }
     
     //apply blank image by default
-    self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-icon-blank.png"]] autorelease];
+    self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-unselected-location.png"]] autorelease];
     
     //set text by default
     self.buttonLocation.text = nil;
@@ -240,13 +240,13 @@
     if (location)
     {
         //apply image
-        self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-icon-selected.png"]] autorelease];
+        self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-selected-location.png"]] autorelease];
         
         //set location text
         self.buttonLocation.text = [location name];
         
         //set close button
-        UIImage *closeImage = [UIImage imageNamed:@"location-reset-button.png"];
+        UIImage *closeImage = [UIImage imageNamed:@"search-clear-button.png"];
         UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         closeButton.frame = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
         [closeButton addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
