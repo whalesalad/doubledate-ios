@@ -243,7 +243,7 @@
     
     //update selected ui
     if ([self isLocationSelected:cell.location])
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"location-marker.png"]] autorelease];
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.png"]] autorelease];
     else
         cell.accessoryView = nil;
     
