@@ -86,6 +86,7 @@
 		708893A8164C49C8000D3A00 /* search-input-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7088936C164C49C8000D3A00 /* search-input-background@2x.png */; };
 		708893A9164C49C8000D3A00 /* textfield-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7088936D164C49C8000D3A00 /* textfield-bg.png */; };
 		708893AA164C49C8000D3A00 /* textfield-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7088936E164C49C8000D3A00 /* textfield-bg@2x.png */; };
+		708893AD164C4D1B000D3A00 /* DDIconTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 708893AC164C4D1B000D3A00 /* DDIconTableView.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
 		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
@@ -382,6 +383,8 @@
 		7088936C164C49C8000D3A00 /* search-input-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-input-background@2x.png"; sourceTree = "<group>"; };
 		7088936D164C49C8000D3A00 /* textfield-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield-bg.png"; sourceTree = "<group>"; };
 		7088936E164C49C8000D3A00 /* textfield-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield-bg@2x.png"; sourceTree = "<group>"; };
+		708893AB164C4D1B000D3A00 /* DDIconTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDIconTableView.h; sourceTree = "<group>"; };
+		708893AC164C4D1B000D3A00 /* DDIconTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDIconTableView.m; sourceTree = "<group>"; };
 		708AB1591608FC50009817FC /* DDInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterest.h; sourceTree = "<group>"; };
 		708AB15A1608FC50009817FC /* DDInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterest.m; sourceTree = "<group>"; };
 		708AB15C160904CA009817FC /* DDLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationController.h; sourceTree = "<group>"; };
@@ -862,6 +865,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				708893AB164C4D1B000D3A00 /* DDIconTableView.h */,
+				708893AC164C4D1B000D3A00 /* DDIconTableView.m */,
 				968973AE164BBDC400896FDC /* DDTextField.h */,
 				968973AF164BBDC400896FDC /* DDTextField.m */,
 				968973AB164BA8F300896FDC /* DDSearchBar.h */,
@@ -1476,6 +1481,7 @@
 				96B3A499164AA03F00048385 /* DDLocationTableViewCell.m in Sources */,
 				968973AD164BA8F300896FDC /* DDSearchBar.m in Sources */,
 				968973B0164BBDC400896FDC /* DDTextField.m in Sources */,
+				708893AD164C4D1B000D3A00 /* DDIconTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

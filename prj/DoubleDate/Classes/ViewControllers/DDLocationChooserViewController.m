@@ -13,6 +13,7 @@
 #import "DDLocationTableViewCell.h"
 #import "DDPlacemark.h"
 #import "DDSearchBar.h"
+#import "DDTools.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
@@ -167,7 +168,7 @@
     
     //add label
     UILabel *labelMain = [[UILabel alloc] initWithFrame:CGRectZero];
-    labelMain.font = [UIFont fontWithName:@"Avenir-Black" size:18];
+    labelMain.font = [DDTools boldAvenirFontOfSize:18];
     labelMain.textColor = [UIColor grayColor];
     labelMain.text = mainText;
     [labelMain sizeToFit];
@@ -179,7 +180,7 @@
     if ([detailedText length])
     {
         UILabel *labelDetailed = [[UILabel alloc] initWithFrame:CGRectZero];
-        labelDetailed.font = [UIFont fontWithName:@"Avenir" size:12];
+        labelDetailed.font = [DDTools avenirFontOfSize:12];
         labelDetailed.textColor = [UIColor grayColor];
         labelDetailed.text = detailedText;
         [labelDetailed sizeToFit];

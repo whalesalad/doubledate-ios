@@ -13,6 +13,7 @@
 #import "DDImage.h"
 #import "DDShortUser.h"
 #import "DDPlacemark.h"
+#import "DDTools.h"
 
 @implementation DDDoubleDateViewTableViewCell
 
@@ -71,7 +72,7 @@
         labelTitle_.textColor = [UIColor whiteColor];
         labelTitle_.contentMode = UIViewContentModeLeft;
         labelTitle_.backgroundColor = [UIColor clearColor];
-        labelTitle_.font = [UIFont fontWithName:@"Avenir" size:14];
+        labelTitle_.font = [DDTools avenirFontOfSize:14];
         [self.contentView addSubview:labelTitle_];
         
         //add location image view
@@ -84,7 +85,7 @@
         labelLocation_.textColor = [UIColor lightGrayColor];
         labelLocation_.contentMode = UIViewContentModeLeft;
         labelLocation_.backgroundColor = [UIColor clearColor];
-        labelLocation_.font = [UIFont fontWithName:@"Avenir" size:14];
+        labelLocation_.font = [DDTools avenirFontOfSize:14];
         [self.contentView addSubview:labelLocation_];
         
         //add distance
@@ -92,7 +93,7 @@
         labelDistance_.textColor = [UIColor lightGrayColor];
         labelDistance_.contentMode = UIViewContentModeLeft;
         labelDistance_.backgroundColor = [UIColor clearColor];
-        labelDistance_.font = [UIFont fontWithName:@"Avenir" size:14];
+        labelDistance_.font = [DDTools avenirFontOfSize:14];
         [self.contentView addSubview:labelDistance_];
     }
     return self;

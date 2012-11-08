@@ -27,7 +27,7 @@
     [[self textField] setTextColor:[UIColor grayColor]];
     
     //set text font
-    [[self textField] setFont:[UIFont fontWithName:@"Avenir-Bold" size:12]];
+    [[self textField] setFont:[DDTools boldAvenirFontOfSize:12]];
     
     //always enable search button
     [self textField].enablesReturnKeyAutomatically = NO;

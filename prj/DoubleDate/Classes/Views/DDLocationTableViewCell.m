@@ -8,6 +8,7 @@
 
 #import "DDLocationTableViewCell.h"
 #import "DDPlacemark.h"
+#import "DDTools.h"
 
 @implementation DDLocationTableViewCell
 
@@ -22,9 +23,9 @@
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-        self.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:18];
+        self.textLabel.font = [DDTools boldAvenirFontOfSize:18];
         self.textLabel.textColor = [UIColor whiteColor];
-        self.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14];
+        self.detailTextLabel.font = [DDTools boldAvenirFontOfSize:14];
         self.detailTextLabel.textColor = [UIColor grayColor];
     }
     return self;

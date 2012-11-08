@@ -96,4 +96,14 @@
     return image;
 }
 
++ (UIFont*)avenirFontOfSize:(CGFloat)size
+{
+    return [UIFont fontWithName:@"Avenir" size:size];
+}
+
++ (UIFont*)boldAvenirFontOfSize:(CGFloat)size
+{
+    return [UIFont fontWithName:@"Avenir-Black" size:size];
+}
+
 @end
