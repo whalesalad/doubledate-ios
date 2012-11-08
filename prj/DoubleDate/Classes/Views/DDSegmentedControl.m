@@ -101,6 +101,9 @@
         [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-left-selected.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-right-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
         
+        //apply clear background
+        [self setBackgroundImage:[DDTools clearImageOfSize:CGSizeMake(1, [self dividerImageForLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault].size.height)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        
         //update items
         [self updateItems];
         
