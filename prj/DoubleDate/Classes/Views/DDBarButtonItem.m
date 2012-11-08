@@ -53,53 +53,69 @@
     return disabledImage_;
 }
 
-+ (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage disabledImage:(UIImage*)disabledImage target:(id)target action:(SEL)action
++ (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage disabledImage:(UIImage*)disabledImage target:(id)target action:(SEL)action contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.titleLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14];
-    CGFloat width = [title sizeWithFont:button.titleLabel.font].width + 14;
+    CGFloat width = [title sizeWithFont:button.titleLabel.font].width + normalImage.size.width;
     if (width < normalImage.size.height)
         width = normalImage.size.height;
     button.frame = CGRectMake(0, 0, width, normalImage.size.height);
     [button setTitle:title forState:UIControlStateNormal];
+    [button setContentEdgeInsets:contentEdgeInsets];
     [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     DDBarButtonItem *barButtonItem = [[[DDBarButtonItem alloc] initWithCustomView:button] autorelease];
-    [button setBackgroundImage:[DDTools resizableImageFromImage:normalImage] forState:UIControlStateNormal];
+    [button setBackgroundImage:normalImage forState:UIControlStateNormal];
     [barButtonItem setNormalImage:[DDTools imageFromView:button]];
-    [button setBackgroundImage:[DDTools resizableImageFromImage:highlightedImage] forState:UIControlStateNormal];
+    [button setBackgroundImage:highlightedImage forState:UIControlStateNormal];
     [barButtonItem setHighlightedImage:[DDTools imageFromView:button]];
-    [button setBackgroundImage:[DDTools resizableImageFromImage:disabledImage] forState:UIControlStateNormal];
+    [button setBackgroundImage:disabledImage forState:UIControlStateNormal];
     [barButtonItem setDisabledImage:[DDTools imageFromView:button]];
-    [button setBackgroundImage:[DDTools resizableImageFromImage:normalImage] forState:UIControlStateNormal];
-    [button setBackgroundImage:[DDTools resizableImageFromImage:highlightedImage] forState:UIControlStateHighlighted];
-    [button setBackgroundImage:[DDTools resizableImageFromImage:disabledImage] forState:UIControlStateDisabled];
+    [button setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+    [button setBackgroundImage:disabledImage forState:UIControlStateDisabled];
     return barButtonItem;
 }
 
 + (id)barButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"nav-btn.png"] highlightedImage:[UIImage imageNamed:@"nav-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"nav-btn.png"] target:target action:action];
+    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
+    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn-highlight.png"]];
+    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
 + (id)backBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"back-btn.png"] highlightedImage:[UIImage imageNamed:@"back-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"back-btn.png"] target:target action:action];
+    UIImage *normalImage = [[UIImage imageNamed:@"back-btn.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 14, 15, 7)];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"back-btn-highlight.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 14, 15, 7)];
+    UIImage *disabledImage = [[UIImage imageNamed:@"back-btn.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 14, 15, 7)];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 0)];
 }
 
 + (id)leftBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"dd-segmented-left-btn.png"] highlightedImage:[UIImage imageNamed:@"dd-segmented-left-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"dd-segmented-left-btn-disabled.png"] target:target action:action];
+    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn.png"]];
+    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn-highlight.png"]];
+    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn-disabled.png"]];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
 + (id)middleBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"dd-segmented-center-btn"] highlightedImage:[UIImage imageNamed:@"dd-segmented-center-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"dd-segmented-center-btn-disabled.png"] target:target action:action];
+    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-center-btn"]];
+    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-center-btn-highlight.png"]];
+    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-center-btn-disabled.png"]];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
 + (id)rightBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"dd-segmented-right-btn.png"] highlightedImage:[UIImage imageNamed:@"dd-segmented-right-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"dd-segmented-right-btn-disabled.png"] target:target action:action];
+    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn.png"]];
+    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn-highlight.png"]];
+    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn-disabled.png"]];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
 - (void)dealloc
