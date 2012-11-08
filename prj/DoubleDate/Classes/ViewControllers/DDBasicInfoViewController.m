@@ -209,7 +209,7 @@
 }
 
 #pragma mark -
-#pragma comment IB
+#pragma mark IB
 
 - (IBAction)locationTouched:(id)sender
 {
@@ -246,7 +246,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)nextTouched:(id)sender
 {
@@ -305,7 +305,7 @@
 }
 
 #pragma mark -
-#pragma comment UITextFieldDelegate
+#pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -321,7 +321,7 @@
 }
 
 #pragma mark -
-#pragma comment DDLocationPickerViewControllerDelegate
+#pragma mark DDLocationPickerViewControllerDelegate
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
@@ -355,7 +355,7 @@
 }
 
 #pragma mark -
-#pragma comment UIImagePickerDelegate
+#pragma mark UIImagePickerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
@@ -376,11 +376,11 @@
 }
 
 #pragma mark -
-#pragma comment UINavigationControllerDelegate
+#pragma mark UINavigationControllerDelegate
 
 
 #pragma mark -
-#pragma comment DDLocationControllerDlegate
+#pragma mark DDLocationControllerDlegate
 
 - (void)locationManagerDidFoundLocation:(CLLocation*)location
 {

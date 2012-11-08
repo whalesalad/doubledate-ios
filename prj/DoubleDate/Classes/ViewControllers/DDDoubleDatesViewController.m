@@ -107,7 +107,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)plusTouched:(id)sender
 {
@@ -218,7 +218,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDelegate
+#pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -250,7 +250,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDataSource
+#pragma mark UITableViewDataSource
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -307,7 +307,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)getDoubleDatesSucceed:(NSArray*)doubleDates
 {

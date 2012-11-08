@@ -78,7 +78,7 @@
 }
 
 #pragma mark -
-#pragma comment IB
+#pragma mark IB
 
 - (IBAction)facebookTouched:(id)sender
 {
@@ -94,7 +94,7 @@
 }
 
 #pragma mark -
-#pragma comment UIActionSheetDelegate
+#pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -113,7 +113,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)joinWithEmail
 {
@@ -136,7 +136,7 @@
 }
 
 #pragma mark -
-#pragma comment Facebook
+#pragma mark Facebook
 
 - (void)fbDidLogin:(NSNotification*)notification
 {
@@ -157,7 +157,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)apiDidAuthenticate:(NSNotification*)notification
 {
@@ -202,7 +202,7 @@
 }
 
 #pragma mark -
-#pragma comment DDAPIControllerDelegate
+#pragma mark DDAPIControllerDelegate
 
 - (void)getMeDidSucceed:(DDUser*)me
 {
@@ -244,7 +244,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)startWithUser:(DDUser*)user animated:(BOOL)animated
 {

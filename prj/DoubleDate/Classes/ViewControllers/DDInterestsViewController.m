@@ -92,7 +92,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)nextTouched:(id)sender
 {
@@ -141,7 +141,7 @@
 }
 
 #pragma mark -
-#pragma comment -
+#pragma mark -
 
 - (void)requestAvailableInterestsSucceed:(NSArray*)interests
 {
@@ -167,7 +167,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)handleFinishForUser:(DDUser*)u
 {
@@ -176,7 +176,7 @@
 }
 
 #pragma mark -
-#pragma comment DDAPIControllerDelegate
+#pragma mark DDAPIControllerDelegate
 
 - (void)createUserSucceed:(DDUser*)u
 {
@@ -296,7 +296,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)apiDidAuthenticate:(NSNotification*)notification
 {

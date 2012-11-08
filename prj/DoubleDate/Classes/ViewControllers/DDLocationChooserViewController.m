@@ -12,8 +12,11 @@
 #import "DDBarButtonItem.h"
 #import "DDLocationTableViewCell.h"
 #import "DDLocation.h"
+#import "DDSearchBar.h"
 
-@interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+
+@property(nonatomic, readonly) UISearchBar *searchBar;
 
 @end
 
@@ -61,6 +64,15 @@
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
+    
+    //set header as search bar
+    DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    searchBar.delegate = self;
+    searchBar.placeholder = NSLocalizedString(@"All locations", nil);
+    self.tableView.tableHeaderView = searchBar;
+    
+    //move header
+    self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
 }
 
 - (void)viewDidUnload
@@ -109,7 +121,17 @@
     {
         BOOL isVenue = [[loc type] isEqualToString:DDLocationTypeVenue];
         BOOL venueRequired = [self optionForSection:section] == DDLocationSearchOptionsVenues;
-        if (isVenue == venueRequired)
+        BOOL existInSearch = [self.searchBar.text length] == 0;
+        if (self.searchBar.text)
+        {
+            if (loc.name && [loc.name rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+            if (loc.locationName && [loc.locationName rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+            if (loc.address && [loc.address rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+        }
+        if (isVenue == venueRequired && existInSearch)
             [ret addObject:loc];
     }
     return ret;
@@ -145,6 +167,11 @@
     }
     
     return view;
+}
+
+- (UISearchBar*)searchBar
+{
+    return (UISearchBar*)self.tableView.tableHeaderView;
 }
 
 - (void)dealloc
@@ -251,7 +278,7 @@
 }
 
 #pragma mark -
-#pragma comment DDAPIControllerDelegate
+#pragma mark DDAPIControllerDelegate
 
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks
 {
@@ -273,6 +300,15 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [self.tableView reloadData];
+    [searchBar resignFirstResponder];
 }
 
 @end

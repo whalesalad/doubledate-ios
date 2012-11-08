@@ -69,7 +69,7 @@
 }
 
 #pragma mark -
-#pragma comment IB
+#pragma mark IB
 
 - (IBAction)finishTouched:(id)sender
 {
@@ -98,7 +98,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)handleFinishForUser:(DDUser*)u
 {
@@ -107,7 +107,7 @@
 }
 
 #pragma mark -
-#pragma comment DDAPIControllerDelegate
+#pragma mark DDAPIControllerDelegate
 
 - (void)createUserSucceed:(DDUser*)u
 {
@@ -218,7 +218,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)apiDidAuthenticate:(NSNotification*)notification
 {

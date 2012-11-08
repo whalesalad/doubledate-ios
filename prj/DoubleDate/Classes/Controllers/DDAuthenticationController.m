@@ -120,7 +120,7 @@ static DDAuthenticationController *_sharedInstance = nil;
 }
 
 #pragma mark -
-#pragma comment RKRequestDelegate
+#pragma mark RKRequestDelegate
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {

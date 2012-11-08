@@ -137,7 +137,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (UISegmentedControl*)segmentedControl
 {
@@ -353,7 +353,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDelegate
+#pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -383,7 +383,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDataSource
+#pragma mark UITableViewDataSource
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -485,7 +485,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)getFriendsSucceed:(NSArray*)friends
 {
@@ -593,7 +593,7 @@
 }
 
 #pragma mark -
-#pragma comment UIAlertViewDelegate
+#pragma mark UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -652,7 +652,7 @@
 }
 
 #pragma mark -
-#pragma comment UIActionSheetDelegate
+#pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -675,7 +675,7 @@
 }
 
 #pragma mark -
-#pragma comment -
+#pragma mark -
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {

@@ -59,7 +59,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)nextTouched:(id)sender
 {

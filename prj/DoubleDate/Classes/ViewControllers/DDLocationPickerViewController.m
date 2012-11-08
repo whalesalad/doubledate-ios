@@ -63,7 +63,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (void)tap:(UITapGestureRecognizer*)sender
 {

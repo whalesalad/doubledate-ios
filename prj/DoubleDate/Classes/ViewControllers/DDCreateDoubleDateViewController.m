@@ -135,7 +135,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 + (NSString*)titleForDDDoubleDateProperty:(NSString*)property
 {
@@ -337,7 +337,7 @@
 }
 
 #pragma mark -
-#pragma comment DDWingsViewControllerDelegate
+#pragma mark DDWingsViewControllerDelegate
 
 - (void)wingsViewController:(DDWingsViewController*)viewController didSelectUser:(DDShortUser*)aUser
 {
@@ -346,7 +346,7 @@
 }
 
 #pragma mark -
-#pragma comment DDLocationPickerViewControllerDelegate
+#pragma mark DDLocationPickerViewControllerDelegate
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
@@ -360,7 +360,7 @@
 }
 
 #pragma mark -
-#pragma comment DDLocationControllerDlegate
+#pragma mark DDLocationControllerDlegate
 
 - (void)locationManagerDidFoundLocation:(CLLocation*)location
 {
@@ -390,7 +390,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)createDoubleDateSucceed:(DDDoubleDate*)doubleDate
 {
@@ -420,7 +420,7 @@
 }
 
 #pragma mark -
-#pragma comment UITextFieldDelegate
+#pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -435,7 +435,7 @@
 }
 
 #pragma mark -
-#pragma comment UITextViewDelegate
+#pragma mark UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
 {
@@ -443,7 +443,7 @@
 }
 
 #pragma mark -
-#pragma comment DDCreateDoubleDateViewControllerChooseDateDelegate
+#pragma mark DDCreateDoubleDateViewControllerChooseDateDelegate
 
 - (void)createDoubleDateViewControllerChooseDateUpdatedDayTime:(id)sender
 {

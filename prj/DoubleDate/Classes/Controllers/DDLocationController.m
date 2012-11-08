@@ -67,7 +67,7 @@
 }
 
 #pragma mark -
-#pragma comment CLLocationManagerDelegate
+#pragma mark CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager
 	didUpdateToLocation:(CLLocation *)newLocation
@@ -89,7 +89,7 @@
 }
 
 #pragma mark -
-#pragma comment DDAPIControllerDelegate
+#pragma mark DDAPIControllerDelegate
 
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks
 {

@@ -65,7 +65,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (BOOL)isCellSelected:(UITableViewCell*)cell
 {
@@ -81,7 +81,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDelegate
+#pragma mark UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -145,7 +145,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDataSource
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

@@ -112,7 +112,7 @@
 }
 
 #pragma mark -
-#pragma comment other
+#pragma mark other
 
 - (NSArray*)friendsForTableView:(UITableView*)aTableView
 {
@@ -241,7 +241,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDelegate
+#pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -267,7 +267,7 @@
 }
 
 #pragma mark -
-#pragma comment UITableViewDataSource
+#pragma mark UITableViewDataSource
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
@@ -332,7 +332,7 @@
 }
 
 #pragma mark -
-#pragma comment API
+#pragma mark API
 
 - (void)getFacebookFriendsSucceed:(NSArray*)friends
 {
@@ -403,7 +403,7 @@
 }
 
 #pragma mark -
-#pragma comment UIAlertViewDelegate
+#pragma mark UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
