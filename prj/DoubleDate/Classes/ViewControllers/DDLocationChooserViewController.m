@@ -8,10 +8,10 @@
 
 #import "DDLocationChooserViewController.h"
 #import "DDAPIController.h"
-#import "DDLocation.h"
+#import "DDPlacemark.h"
 #import "DDBarButtonItem.h"
 #import "DDLocationTableViewCell.h"
-#import "DDLocation.h"
+#import "DDPlacemark.h"
 #import "DDSearchBar.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
@@ -81,7 +81,7 @@
     [tableView release], tableView = nil;
 }
 
-- (void)setLocation:(DDLocation *)v
+- (void)setLocation:(DDPlacemark *)v
 {
     if (v != location)
     {
@@ -93,11 +93,11 @@
         [selectedLocations_ addObject:location];
 }
 
-- (BOOL)isLocationSelected:(DDLocation*)loc
+- (BOOL)isLocationSelected:(DDPlacemark *)placemark
 {
-    for (DDLocation *l in selectedLocations_)
+    for (DDPlacemark *l in selectedLocations_)
     {
-        if ([[l identifier] intValue] > 0 && [[l identifier] intValue] == [[loc identifier] intValue])
+        if ([[l identifier] intValue] > 0 && [[l identifier] intValue] == [[placemark identifier] intValue])
             return YES;
     }
     return NO;
@@ -117,9 +117,9 @@
 - (NSArray*)locationsForSection:(NSInteger)section
 {
     NSMutableArray *ret = [NSMutableArray array];
-    for (DDLocation *loc in placemarks_)
+    for (DDPlacemark *loc in placemarks_)
     {
-        BOOL isVenue = [[loc type] isEqualToString:DDLocationTypeVenue];
+        BOOL isVenue = [[loc type] isEqualToString:DDPlacemarkTypeVenue];
         BOOL venueRequired = [self optionForSection:section] == DDLocationSearchOptionsVenues;
         BOOL existInSearch = [self.searchBar.text length] == 0;
         if (self.searchBar.text)
@@ -189,7 +189,7 @@
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //save location
-    DDLocation *selectedLocation = [(DDLocationTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] location];
+    DDPlacemark *selectedLocation = [(DDLocationTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] location];
     
     //remove from selected list
     if ([selectedLocations_ containsObject:selectedLocation])
@@ -251,7 +251,7 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //save location
-    DDLocation *selectedLocation = [[self locationsForSection:indexPath.section] objectAtIndex:indexPath.row];
+    DDPlacemark *selectedLocation = [[self locationsForSection:indexPath.section] objectAtIndex:indexPath.row];
     
     //create cell of needed type
     NSString *identifier = [[[self class] description] stringByAppendingString:@"DDLocationTableViewCell"];

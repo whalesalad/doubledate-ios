@@ -1,5 +1,5 @@
 //
-//  DDLocation.h
+//  DDPlacemark.h
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/11/12.
@@ -8,10 +8,10 @@
 
 #import "DDAPIObject.h"
 
-extern NSString *DDLocationTypeCity;
-extern NSString *DDLocationTypeVenue;
+extern NSString *DDPlacemarkTypeCity;
+extern NSString *DDPlacemarkTypeVenue;
 
-@interface DDLocation : DDAPIObject
+@interface DDPlacemark : DDAPIObject
 
 @property(nonatomic, retain) NSNumber *activitiesCount;
 @property(nonatomic, retain) NSString *address;

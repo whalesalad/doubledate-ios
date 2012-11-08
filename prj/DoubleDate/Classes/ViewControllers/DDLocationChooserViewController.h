@@ -12,7 +12,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class DDAPIController;
-@class DDLocation;
+@class DDPlacemark;
 
 @interface DDLocationChooserViewController : DDViewController
 {
@@ -20,7 +20,7 @@
     NSMutableArray *selectedLocations_;
 }
 
-@property(nonatomic, retain) DDLocation *location;
+@property(nonatomic, retain) DDPlacemark *location;
 
 @property(nonatomic, assign) DDLocationSearchOptions options;
 

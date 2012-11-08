@@ -10,7 +10,7 @@
 #import "DDShortUser.h"
 #import "DDWingsViewController.h"
 #import "DDImageView.h"
-#import "DDLocation.h"
+#import "DDPlacemark.h"
 #import "DDLocationChooserViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DDTextView.h"
@@ -22,7 +22,7 @@
 @interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
-@property(nonatomic, retain) DDLocation *location;
+@property(nonatomic, retain) DDPlacemark *location;
 
 @property(nonatomic, retain) NSString *day;
 @property(nonatomic, retain) NSString *time;
@@ -218,7 +218,7 @@
     [self updateNavigationBar];
 }
 
-- (void)setLocation:(DDLocation *)v
+- (void)setLocation:(DDPlacemark *)v
 {
     //update value
     if (location != v)

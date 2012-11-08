@@ -7,7 +7,7 @@
 //
 
 #import "DDLocationTableViewCell.h"
-#import "DDLocation.h"
+#import "DDPlacemark.h"
 
 @implementation DDLocationTableViewCell
 
@@ -30,7 +30,7 @@
     return self;
 }
 
-- (void)setLocation:(DDLocation *)v
+- (void)setLocation:(DDPlacemark *)v
 {
     //save value
     if (v != location)
@@ -43,7 +43,7 @@
     self.textLabel.text = [location name];
     
     //check for venue
-    if ([location.type isEqualToString:DDLocationTypeVenue])
+    if ([location.type isEqualToString:DDPlacemarkTypeVenue])
     {
         NSMutableString *text = [NSMutableString stringWithString:@""];
         if ([location address])

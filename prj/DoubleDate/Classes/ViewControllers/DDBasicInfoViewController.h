@@ -12,7 +12,7 @@
 #import "DDButton.h"
 
 @class DDUser;
-@class DDLocation;
+@class DDPlacemark;
 @class DDLocationController;
 
 @interface DDBasicInfoViewController : DDViewController
@@ -23,7 +23,7 @@
 
 @property(nonatomic, retain) DDUser *user;
 
-@property(nonatomic, retain) DDLocation *userLocation;
+@property(nonatomic, retain) DDPlacemark *userLocation;
 
 @property(nonatomic, retain) IBOutlet UITextField *textFieldName;
 @property(nonatomic, retain) IBOutlet UITextField *textFieldSurname;

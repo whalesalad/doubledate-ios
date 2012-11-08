@@ -17,7 +17,7 @@
 #import "DDBioViewController.h"
 #import "DDLocationChooserViewController.h"
 #import <CoreLocation/CoreLocation.h>
-#import "DDLocation.h"
+#import "DDPlacemark.h"
 #import "DDImage.h"
 #import "DDLocationController.h"
 #import "DDBarButtonItem.h"
@@ -339,10 +339,10 @@
             //try to decode location
             [locationController_ forceSearchPlacemarksForLocation:placemark.location];
         }
-        else if ([[placemarks lastObject] isKindOfClass:[DDLocation class]])
+        else if ([[placemarks lastObject] isKindOfClass:[DDPlacemark class]])
         {
             //get placemark
-            DDLocation *placemark = [placemarks lastObject];
+            DDPlacemark *placemark = [placemarks lastObject];
             
             //unset old location
             self.userLocation = placemark;
@@ -417,7 +417,7 @@
 #pragma mark -
 #pragma mark setter
 
-- (void)setUserLocation:(DDLocation *)v
+- (void)setUserLocation:(DDPlacemark *)v
 {
     //check the same value
     if (v != self.userLocation)

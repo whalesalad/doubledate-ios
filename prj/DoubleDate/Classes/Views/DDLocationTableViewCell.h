@@ -8,13 +8,13 @@
 
 #import "DDTableViewCell.h"
 
-@class DDLocation;
+@class DDPlacemark;
 
 @interface DDLocationTableViewCell : DDTableViewCell
 {
 }
 
-@property(nonatomic, retain) DDLocation *location;
+@property(nonatomic, retain) DDPlacemark *location;
 
 + (CGFloat)height;
 

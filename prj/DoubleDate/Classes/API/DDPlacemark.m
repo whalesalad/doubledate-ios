@@ -1,17 +1,17 @@
 //
-//  DDLocation.m
+//  DDPlacemark.m
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/11/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDLocation.h"
+#import "DDPlacemark.h"
 
-NSString *DDLocationTypeCity = @"city";
-NSString *DDLocationTypeVenue = @"venue";
+NSString *DDPlacemarkTypeCity = @"city";
+NSString *DDPlacemarkTypeVenue = @"venue";
 
-@implementation DDLocation
+@implementation DDPlacemark
 
 @synthesize activitiesCount;
 @synthesize address;
