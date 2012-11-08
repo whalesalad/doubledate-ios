@@ -1,15 +1,15 @@
 //
-//  DDIconTableView.m
+//  DDIconTableViewCell.m
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/17/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDIconTableView.h"
+#import "DDIconTableViewCell.h"
 #import "DDTools.h"
 
-@implementation DDIconTableView
+@implementation DDIconTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

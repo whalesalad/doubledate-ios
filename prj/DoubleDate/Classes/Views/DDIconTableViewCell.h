@@ -1,5 +1,5 @@
 //
-//  DDIconTableView.h
+//  DDIconTableViewCell.h
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/17/12.
@@ -8,7 +8,7 @@
 
 #import "DDTableViewCell.h"
 
-@interface DDIconTableView : DDTableViewCell
+@interface DDIconTableViewCell : DDTableViewCell
 {
     UIImageView *icon_;
     UITextField *leftLabel_;
