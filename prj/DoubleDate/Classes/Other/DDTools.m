@@ -67,11 +67,11 @@
 
 + (UIImage*)imageFromView:(UIView*)view
 {
-    UIGraphicsBeginImageContext(view.bounds.size);
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return image;
+    return [UIImage imageWithCGImage:image.CGImage scale:[[UIScreen mainScreen] scale] orientation:UIImageOrientationUp];
 }
 
 + (UIImage*)resizableImageFromImage:(UIImage*)image

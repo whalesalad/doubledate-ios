@@ -89,17 +89,17 @@
 
 + (id)leftBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"segment-btn-left.png"] highlightedImage:[UIImage imageNamed:@"segment-btn-left-highlight.png"] disabledImage:[UIImage imageNamed:@"segment-btn-left-disabled.png"] target:target action:action];
+    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"dd-segmented-left-btn.png"] highlightedImage:[UIImage imageNamed:@"dd-segmented-left-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"dd-segmented-left-btn-disabled.png"] target:target action:action];
 }
 
 + (id)middleBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"segment-btn-center.png"] highlightedImage:[UIImage imageNamed:@"segment-btn-center-highlight.png"] disabledImage:[UIImage imageNamed:@"segment-btn-center-disabled.png"] target:target action:action];
+    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"dd-segmented-center-btn"] highlightedImage:[UIImage imageNamed:@"dd-segmented-center-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"dd-segmented-center-btn-disabled.png"] target:target action:action];
 }
 
 + (id)rightBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"segment-btn-right.png"] highlightedImage:[UIImage imageNamed:@"segment-btn-right-highlight.png"] disabledImage:[UIImage imageNamed:@"segment-btn-right-disabled.png"] target:target action:action];
+    return [self barButtonItemWithTitle:title normalImage:[UIImage imageNamed:@"dd-segmented-right-btn.png"] highlightedImage:[UIImage imageNamed:@"dd-segmented-right-btn-highlight.png"] disabledImage:[UIImage imageNamed:@"dd-segmented-right-btn-disabled.png"] target:target action:action];
 }
 
 - (void)dealloc

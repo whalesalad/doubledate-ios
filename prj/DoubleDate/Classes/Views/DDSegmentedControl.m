@@ -96,8 +96,10 @@
         //apply style
         self.segmentedControlStyle = UISegmentedControlStyleBar;
         
-        //clear divider
-        [self setDividerImage:[DDTools clearImage] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        //set dividers
+        [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-none-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-left-selected.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-right-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
         
         //update items
         [self updateItems];
