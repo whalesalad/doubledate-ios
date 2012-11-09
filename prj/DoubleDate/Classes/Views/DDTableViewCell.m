@@ -8,10 +8,12 @@
 
 #import "DDTableViewCell.h"
 #import "DDTools.h"
+#import "DDImageView.h"
 
 @implementation DDTableViewCell
 
 @synthesize backgroundStyle;
+@synthesize userData;
 
 + (CGFloat)height
 {
@@ -85,8 +87,35 @@
     self.backgroundStyle = style;
 }
 
+- (void)attachImageView:(DDImageView*)ddImageView
+{
+    //check image view
+    if (ddImageView)
+    {
+        //remove all previous
+        for (DDImageView *child in [self.imageView subviews])
+        {
+            if ([child isKindOfClass:[DDImageView class]])
+                ddImageView = child;
+        }
+        
+        //set needed size
+        self.imageView.image = [DDTools clearImageOfSize:ddImageView.frame.size];
+        
+        //applt needed frame
+        ddImageView.frame = CGRectMake(0, 0, ddImageView.frame.size.width, ddImageView.frame.size.height);
+        
+        //add image view
+        if (![[self.imageView subviews] containsObject:ddImageView])
+            [self.imageView addSubview:ddImageView];
+    }
+    else
+        self.imageView.image = nil;
+}
+
 - (void)dealloc
 {
+    [userData release];
     [super dealloc];
 }
 

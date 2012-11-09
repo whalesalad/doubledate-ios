@@ -211,9 +211,9 @@
 		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
 		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
-		96D77FE616108D0E00E65D91 /* DDLocationChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */; };
 		96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */; };
 		96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */; };
+		96E78E38164D3C0D00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */; };
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
@@ -551,11 +551,12 @@
 		96B59E19160719DF00CFDA1C /* DDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageView.m; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
-		96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLocationChooserViewController.xib; sourceTree = "<group>"; };
 		96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextFieldTableViewCell.h; sourceTree = "<group>"; };
 		96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextFieldTableViewCell.m; sourceTree = "<group>"; };
 		96E78E30164D0F9200897C4F /* DDTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextViewTableViewCell.h; sourceTree = "<group>"; };
 		96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextViewTableViewCell.m; sourceTree = "<group>"; };
+		96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewControllerChooseWing.h; sourceTree = "<group>"; };
+		96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseWing.m; sourceTree = "<group>"; };
 		96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
@@ -930,6 +931,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */,
+				96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */,
 				7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */,
 				7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */,
 				969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */,
@@ -998,7 +1001,6 @@
 				969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */,
 				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
 				702846AA1623639200693673 /* DDWingsViewController.xib */,
-				96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
 				96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */,
 				96892CAA15FF15E70054C108 /* DDMeViewController.xib */,
@@ -1315,7 +1317,6 @@
 				968BE2B6161038B20029F61F /* wing-tab-bar@2x.png in Resources */,
 				968BE2B7161038B20029F61F /* woman-tab-bar.png in Resources */,
 				968BE2B8161038B20029F61F /* woman-tab-bar@2x.png in Resources */,
-				96D77FE616108D0E00E65D91 /* DDLocationChooserViewController.xib in Resources */,
 				96F1EB661612F63F00A9ED12 /* location-marker.png in Resources */,
 				96F1EB671612F63F00A9ED12 /* location-marker@2x.png in Resources */,
 				969A77A51613109A0070FF6F /* location-spinner1.png in Resources */,
@@ -1494,6 +1495,7 @@
 				708893AD164C4D1B000D3A00 /* DDIconTableViewCell.m in Sources */,
 				96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */,
 				96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */,
+				96E78E38164D3C0D00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

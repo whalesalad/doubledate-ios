@@ -18,6 +18,7 @@
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property(nonatomic, readonly) UISearchBar *searchBar;
+@property(nonatomic, readonly) UITableView *tableView;
 
 @end
 
@@ -26,7 +27,6 @@
 @synthesize delegate;
 @synthesize ddLocation;
 @synthesize clLocation;
-@synthesize tableView;
 @synthesize options;
 @synthesize allowsMultiplyChoice;
 
@@ -75,24 +75,29 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Location", nil);
     
-    //unset background color of the table view
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.tableView.backgroundView = nil;
+    //add table view
+    tableView_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
+    tableView_.dataSource = self;
+    tableView_.delegate = self;
+    tableView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:tableView_];
+    tableView_.backgroundColor = [UIColor clearColor];
+    tableView_.backgroundView = nil;
     
     //set header as search bar
     DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
     searchBar.delegate = self;
     searchBar.placeholder = NSLocalizedString(@"All locations", nil);
-    self.tableView.tableHeaderView = searchBar;
+    tableView_.tableHeaderView = searchBar;
     
     //move header
-    self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    tableView_.contentOffset = CGPointMake(0, searchBar.frame.size.height);
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [tableView release], tableView = nil;
+    [tableView_ release], tableView_ = nil;
 }
 
 - (void)setDdLocation:(DDPlacemark *)v
@@ -162,7 +167,12 @@
 
 - (UISearchBar*)searchBar
 {
-    return (UISearchBar*)self.tableView.tableHeaderView;
+    return (UISearchBar*)tableView_.tableHeaderView;
+}
+
+- (UITableView*)tableView
+{
+    return tableView_;
 }
 
 - (void)dealloc
@@ -170,7 +180,7 @@
     [ddLocation release];
     [clLocation release];
     [placemarks_ release];
-    [tableView release];
+    [tableView_ release];
     [selectedLocations_ release];
     [super dealloc];
 }
@@ -282,7 +292,7 @@
     placemarks_ = [placemarks retain];
     
     //reload the table
-    [self.tableView reloadData];
+    [tableView_ reloadData];
 }
 
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error
@@ -299,7 +309,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [self.tableView reloadData];
+    [tableView_ reloadData];
     [searchBar resignFirstResponder];
 }
 

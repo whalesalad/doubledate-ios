@@ -8,7 +8,7 @@
 
 #import "DDCreateDoubleDateViewController.h"
 #import "DDShortUser.h"
-#import "DDWingsViewController.h"
+#import "DDCreateDoubleDateViewControllerChooseWing.h"
 #import "DDImageView.h"
 #import "DDPlacemark.h"
 #import "DDLocationChooserViewController.h"
@@ -23,7 +23,7 @@
 #import "DDTextField.h"
 #import "DDTextViewTableViewCell.h"
 
-@interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
@@ -418,15 +418,6 @@
 }
 
 #pragma mark -
-#pragma mark DDWingsViewControllerDelegate
-
-- (void)wingsViewController:(DDWingsViewController*)viewController didSelectUser:(DDShortUser*)aUser
-{
-    [self setWing:aUser];
-    [viewController.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark -
 #pragma mark DDLocationPickerViewControllerDelegate
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
@@ -534,6 +525,14 @@
 }
 
 #pragma mark -
+#pragma mark DDCreateDoubleDateViewControllerChooseWingDelegate
+
+- (void)createDoubleDateViewControllerChooseWingUpdatedWing:(id)sender
+{
+    self.wing = [(DDCreateDoubleDateViewControllerChooseWing*)sender wing];
+}
+
+#pragma mark -
 #pragma mark UITableViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -554,9 +553,9 @@
     //check pressed cell
     if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
     {
-        DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] init] autorelease];
+        DDCreateDoubleDateViewControllerChooseWing *wingsViewController = [[[DDCreateDoubleDateViewControllerChooseWing alloc] init] autorelease];
         wingsViewController.delegate = self;
-        wingsViewController.isSelectingMode = YES;
+        wingsViewController.wing = self.wing;
         [self.navigationController pushViewController:wingsViewController animated:YES];
     }
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)

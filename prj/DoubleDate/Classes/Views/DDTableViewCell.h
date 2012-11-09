@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class DDImageView;
+
 typedef enum
 {
     DDTableViewCellStyleNone,
@@ -23,9 +25,12 @@ typedef enum
 }
 
 @property(nonatomic, assign) DDTableViewCellStyle backgroundStyle;
+@property(nonatomic, retain) NSObject *userData;
 
 + (CGFloat)height;
 
 - (void)applyGroupedBackgroundStyleForTableView:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath;
+
+- (void)attachImageView:(DDImageView*)ddImageView;
 
 @end

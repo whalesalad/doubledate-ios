@@ -18,6 +18,7 @@
 {
     NSArray *placemarks_;
     NSMutableArray *selectedLocations_;
+    UITableView *tableView_;
 }
 
 @property(nonatomic, retain) DDPlacemark *ddLocation;
@@ -28,7 +29,5 @@
 @property(nonatomic, assign) id<DDLocationPickerViewControllerDelegate> delegate;
 
 @property(nonatomic, assign) BOOL allowsMultiplyChoice;
-
-@property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
