@@ -432,12 +432,10 @@
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
     [self setLocation:[placemarks objectAtIndex:0]];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)locationPickerViewControllerDidCancel
 {
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
@@ -569,7 +567,7 @@
             locationChooserViewController.ddLocation = self.location;
         else
             locationChooserViewController.clLocation = locationController_.location;
-        locationChooserViewController.options = DDLocationSearchOptionsBoth;
+        locationChooserViewController.options = DDLocationSearchOptionsVenues;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
     else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
