@@ -18,10 +18,11 @@
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-        //add text field
+        //add text view
         textView_ = [[DDTextView alloc] initWithFrame:CGRectZero];
         textView_.backgroundColor = [UIColor clearColor];
         textView_.textView.textColor = [UIColor whiteColor];
+        textView_.font = [DDTools avenirFontOfSize:14];
         [self.contentView addSubview:textView_];
     }
     return self;

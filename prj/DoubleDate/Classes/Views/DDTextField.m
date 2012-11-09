@@ -69,6 +69,7 @@
 
 - (void)clear
 {
+    [self becomeFirstResponder];
     self.text = nil;
     [self updateClearButton];
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:self];
