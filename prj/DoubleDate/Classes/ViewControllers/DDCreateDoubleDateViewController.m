@@ -363,6 +363,9 @@
     //update delegate
     cell.textField.delegate = self;
     
+    //set next button
+    cell.textField.returnKeyType = UIReturnKeyNext;
+    
     //set placeholder
     cell.textField.placeholder = NSLocalizedString(@"Title", nil);
 }
@@ -495,7 +498,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+    [[[self textViewDetails] textView] becomeFirstResponder];
     return YES;
 }
 
@@ -534,6 +537,12 @@
 
 #pragma mark -
 #pragma mark UITableViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([[[self textViewDetails] textView] isFirstResponder])
+        [[[self textViewDetails] textView] resignFirstResponder];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
