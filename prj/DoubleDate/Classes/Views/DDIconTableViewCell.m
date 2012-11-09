@@ -8,6 +8,7 @@
 
 #import "DDIconTableViewCell.h"
 #import "DDTools.h"
+#import "DDImageView.h"
 
 @implementation DDIconTableViewCell
 
@@ -16,9 +17,9 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
         //add icon
-        icon_ = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        icon_.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:icon_];
+        iconImageView_ = [[DDImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        iconImageView_.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:iconImageView_];
         
         //add left label
         leftLabel_ = [[UITextField alloc] initWithFrame:CGRectZero];
@@ -59,20 +60,15 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    icon_.center = CGPointMake(100, self.contentView.frame.size.height/2);
-    leftLabel_.frame = CGRectMake(0, 0, 70, self.contentView.frame.size.height);
-    rightLabelText_.frame = CGRectMake(130, 0, 160, self.contentView.frame.size.height);
+    leftLabel_.frame = CGRectMake(0, 0, 50, self.contentView.frame.size.height);
+    iconImageView_.center = CGPointMake(70, self.contentView.frame.size.height/2);
+    rightLabelText_.frame = CGRectMake(90, 0, 190, self.contentView.frame.size.height);
     rightLabelPlaceholder_.frame = rightLabelText_.frame;
 }
 
-- (void)setImage:(UIImage *)image
+- (DDImageView*)iconImageView
 {
-    [icon_ setImage:image];
-}
-
-- (UIImage*)image
-{
-    return icon_.image;
+    return iconImageView_;
 }
 
 - (void)setLeftText:(NSString *)leftText
@@ -109,7 +105,7 @@
 
 - (void)dealloc
 {
-    [icon_ release];
+    [iconImageView_ release];
     [leftLabel_ release];
     [rightLabelText_ release];
     [rightLabelPlaceholder_ release];

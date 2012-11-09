@@ -16,6 +16,4 @@
 
 @property(nonatomic, retain) DDPlacemark *location;
 
-+ (CGFloat)height;
-
 @end

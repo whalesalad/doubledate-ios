@@ -7,6 +7,7 @@
 //
 
 #import "DDTextView.h"
+#import "DDTools.h"
 
 @implementation DDTextView
 
@@ -17,6 +18,7 @@
     [textView_ release];
     textView_ = [[UITextView alloc] init];
     textView_.backgroundColor = [UIColor clearColor];
+    textView_.font = [DDTools boldAvenirFontOfSize:14];
     [self addSubview:textView_];
     
     //add text field
@@ -26,6 +28,7 @@
     textField_.userInteractionEnabled = NO;
     textField_.font = textView_.font;
     textField_.backgroundColor = [UIColor clearColor];
+    textField_.font = [DDTools boldAvenirFontOfSize:14];
     [self addSubview:textField_];
     
     //add notification handling
@@ -67,7 +70,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    textField_.frame = CGRectMake(5, 0, self.frame.size.width-10, self.frame.size.height);
+    textField_.frame = CGRectMake(8, 9, self.frame.size.width-10, self.frame.size.height-8);
     textView_.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 

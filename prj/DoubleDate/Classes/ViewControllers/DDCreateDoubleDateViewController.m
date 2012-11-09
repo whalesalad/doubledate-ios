@@ -18,14 +18,22 @@
 #import "DDDoubleDatesViewController.h"
 #import "DDCreateDoubleDateViewControllerChooseDate.h"
 #import "DDBarButtonItem.h"
+#import "DDIconTableViewCell.h"
+#import "DDTextFieldTableViewCell.h"
+#import "DDTextField.h"
+#import "DDTextViewTableViewCell.h"
 
 @interface DDCreateDoubleDateViewController () <DDWingsViewControllerDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
+@property(nonatomic, retain) NSError *locationError;
 
 @property(nonatomic, retain) NSString *day;
 @property(nonatomic, retain) NSString *time;
+
+@property(nonatomic, retain) NSString *title;
+@property(nonatomic, retain) NSString *details;
 
 @end
 
@@ -33,15 +41,14 @@
 
 @synthesize wing;
 @synthesize location;
-@synthesize buttonWing;
-@synthesize buttonLocation;
-@synthesize textViewDetails;
-@synthesize textFieldTitle;
-@synthesize buttonDayTime;
+@synthesize locationError;
 @synthesize user;
 @synthesize doubleDatesViewController;
 @synthesize day;
 @synthesize time;
+@synthesize tableView;
+@synthesize title;
+@synthesize details;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -66,21 +73,9 @@
     //set right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Post", nil) target:self action:@selector(postTouched:)];
     
-    //set next button
-    self.textFieldTitle.returnKeyType = UIReturnKeyNext;
-        
-    //set text vide delegte
-    self.textViewDetails.textView.delegate = self;
-    
-    //apply text
-    self.buttonWing.placeholder = NSLocalizedString(@"Choose a wing...", nil);
-    
-    //apply text
-    self.buttonLocation.placeholder = NSLocalizedString(@"Choose a location...", nil);
-    
-    //apply daytime
-    self.buttonDayTime.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-selected-daytime.png"]] autorelease];
-    self.buttonDayTime.text = NSLocalizedString(@"Anytime", nil);
+    //unset background color of the table view
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = nil;
     
     //apply day
     self.day = self.day;
@@ -103,12 +98,8 @@
 
 - (void)viewDidUnload
 {
-    [buttonWing release], buttonWing = nil;
-    [buttonLocation release], buttonLocation = nil;
-    [textViewDetails release], textViewDetails = nil;
-    [textFieldTitle release], textFieldTitle = nil;
-    [buttonDayTime release], buttonDayTime = nil;
     [super viewDidUnload];
+    [tableView release], tableView = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -120,17 +111,16 @@
 {
     locationController_.delegate = nil;
     [locationController_ release];
-    [buttonWing release];
-    [buttonLocation release];
-    [textViewDetails release];
-    [textFieldTitle release];
-    [buttonDayTime release];
     [wing release];
     [location release];
+    [locationError release];
     [user release];
     [doubleDatesViewController release];
     [day release];
     [time release];
+    [tableView release];
+    [title release];
+    [details release];
     [super dealloc];
 }
 
@@ -150,43 +140,6 @@
     return NSLocalizedString(@"Anytime", nil);
 }
 
-- (IBAction)wingTouched:(id)sender
-{
-    DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] init] autorelease];
-    wingsViewController.delegate = self;
-    wingsViewController.isSelectingMode = YES;
-    [self.navigationController pushViewController:wingsViewController animated:YES];
-}
-
-- (IBAction)locationTouched:(id)sender
-{
-    DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
-    locationChooserViewController.delegate = self;
-    if (self.location)
-        locationChooserViewController.ddLocation = self.location;
-    else
-        locationChooserViewController.clLocation = locationController_.location;
-    locationChooserViewController.options = DDLocationSearchOptionsBoth;
-    [self.navigationController pushViewController:locationChooserViewController animated:YES];
-}
-
-- (IBAction)dayTimeTouched:(id)sender
-{
-    DDCreateDoubleDateViewControllerChooseDate *viewController = [[[DDCreateDoubleDateViewControllerChooseDate alloc] init] autorelease];
-    viewController.day = self.day;
-    viewController.time = self.time;
-    viewController.delegate = self;
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (IBAction)freeAreaTouched:(id)sender
-{
-    if ([self.textFieldTitle isFirstResponder])
-        [self.textFieldTitle resignFirstResponder];
-    if ([self.textViewDetails.textView isFirstResponder])
-        [self.textViewDetails.textView resignFirstResponder];
-}
-
 - (void)setWing:(DDShortUser *)v
 {
     //update value
@@ -196,26 +149,8 @@
         wing = [v retain];
     }
     
-    //apply blank image by default
-    self.buttonWing.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-unselected-wing.png"]] autorelease];
-    
-    //apply wing
-    if (wing)
-    {
-        //load image
-        if ([[wing photo] downloadUrl])
-        {
-            DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-            imageView.frame = CGRectMake(0, 0, 34, 34);
-            imageView.layer.cornerRadius = 17;
-            imageView.layer.masksToBounds = YES;
-            [imageView reloadFromUrl:[NSURL URLWithString:[[wing photo] downloadUrl]]];
-            self.buttonWing.normalIcon = imageView;
-        }
-        
-        //apply text
-        self.buttonWing.text = [wing fullName];
-    }
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
     
     //update navigation button
     [self updateNavigationBar];
@@ -230,32 +165,24 @@
         location = [v retain];
     }
     
-    //apply blank image by default
-    self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-unselected-location.png"]] autorelease];
-    
-    //set text by default
-    self.buttonLocation.text = nil;
-    
-    //unset right view by default
-    self.buttonLocation.rightView = nil;
-    
-    //apply location
-    if (location)
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self locationIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
+        
+    //update navigation button
+    [self updateNavigationBar];
+}
+
+- (void)setLocationError:(NSError *)v
+{
+    //update value
+    if (locationError != v)
     {
-        //apply image
-        self.buttonLocation.normalIcon = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"create-dd-selected-location.png"]] autorelease];
-        
-        //set location text
-        self.buttonLocation.text = [location name];
-        
-        //set close button
-        UIImage *closeImage = [UIImage imageNamed:@"search-clear-button.png"];
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        closeButton.frame = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
-        [closeButton addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [closeButton setBackgroundImage:closeImage forState:UIControlStateNormal];
-        self.buttonLocation.rightView = closeButton;
+        [locationError release];
+        locationError = [v retain];
     }
+    
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self locationIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
     
     //update navigation button
     [self updateNavigationBar];
@@ -270,8 +197,8 @@
         day = [v retain];
     }
     
-    //update day and time
-    [self updateDayTime];
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self dayTimeIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)setTime:(NSString *)v
@@ -283,23 +210,8 @@
         time = [v retain];
     }
     
-    //update day and time
-    [self updateDayTime];
-}
-
-- (void)updateDayTime
-{
-    if (self.day && self.time)
-    {
-        self.buttonDayTime.text = [NSString stringWithFormat:@"%@, %@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day], [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
-    }
-    else if (self.day)
-        self.buttonDayTime.text = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day]];
-    else if (self.time)
-        self.buttonDayTime.text = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
-    else
-        self.buttonDayTime.text = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:nil]];
-
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self dayTimeIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)resetLocationTouched:(id)sender
@@ -311,8 +223,8 @@
 {
     //set up double date
     DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
-    doubleDate.title = self.textFieldTitle.text;
-    doubleDate.details = self.textViewDetails.text;
+    doubleDate.title = self.title;
+    doubleDate.details = self.details;
     doubleDate.wingId = self.wing.identifier;
     doubleDate.userId = self.user.userId;
     doubleDate.locationId = self.location.identifier;
@@ -328,15 +240,178 @@
 {
     //update right button
     BOOL rightButtonEnabled = YES;
-    if ([self.textFieldTitle.text length] == 0)
+    if ([self.title length] == 0)
         rightButtonEnabled = NO;
-    if ([self.textViewDetails.text length] == 0)
+    if ([self.details length] == 0)
         rightButtonEnabled = NO;
     if (!self.location)
         rightButtonEnabled = NO;
     if (!self.wing)
         rightButtonEnabled = NO;
     self.navigationItem.rightBarButtonItem.enabled = rightButtonEnabled;
+}
+
+- (void)updateWingCell:(DDIconTableViewCell*)cell
+{
+    //apply blank image by default
+    cell.iconImageView.image = [UIImage imageNamed:@"create-dd-unselected-wing.png"];
+    
+    //set left text
+    cell.leftText = NSLocalizedString(@"wing", nil);
+    
+    //set right placeholder
+    cell.rightPlaceholder = NSLocalizedString(@"Choose a wing...", nil);
+    
+    //unset right text
+    cell.rightText = nil;
+    
+    //unset accessory view
+    cell.accessoryView = nil;
+    
+    //apply location
+    if (wing)
+    {
+        //load image
+        if ([[wing photo] downloadUrl])
+        {
+            DDImageView *imageView = cell.iconImageView;
+            imageView.layer.cornerRadius = 17;
+            imageView.layer.masksToBounds = YES;
+            [imageView reloadFromUrl:[NSURL URLWithString:[[wing photo] downloadUrl]]];
+        }
+        
+        //set location text
+        cell.rightText = [wing fullName];
+    }
+}
+
+- (void)updateLocationCell:(DDIconTableViewCell*)cell
+{
+    //apply blank image by default
+    cell.iconImageView.image = [UIImage imageNamed:@"create-dd-unselected-location.png"];
+    
+    //set left text
+    cell.leftText = NSLocalizedString(@"where", nil);
+    
+    //set right placeholder
+    cell.rightPlaceholder = NSLocalizedString(@"Choose a location...", nil);
+    
+    //unset right text
+    cell.rightText = nil;
+    
+    //unset accessory view
+    cell.accessoryView = nil;
+    
+    //enable/disable touch
+    cell.userInteractionEnabled = locationError == nil;
+    
+    //apply location
+    if (locationError)
+    {
+        cell.rightPlaceholder = NSLocalizedString(@"Failed to find location", nil);
+    }
+    else if (location)
+    {
+        //apply image
+        cell.iconImageView.image = [UIImage imageNamed:@"create-dd-selected-location.png"];
+        
+        //set location text
+        cell.rightText = [location name];
+        
+        //set close button
+        UIImage *closeImage = [UIImage imageNamed:@"search-clear-button.png"];
+        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        closeButton.frame = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
+        [closeButton addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton setBackgroundImage:closeImage forState:UIControlStateNormal];
+        cell.accessoryView = closeButton;
+    }
+}
+
+- (void)updateDayTimeCell:(DDIconTableViewCell*)cell
+{
+    //apply blank image by default
+    cell.iconImageView.image = [UIImage imageNamed:@"create-dd-selected-daytime.png"];
+    
+    //set left text
+    cell.leftText = NSLocalizedString(@"when", nil);
+    
+    //set right placeholder
+    cell.rightPlaceholder = NSLocalizedString(@"Choose a day/time...", nil);
+    
+    //unset right text
+    cell.rightText = NSLocalizedString(@"Anytime", nil);
+    
+    //set text
+    if (self.day && self.time)
+    {
+        cell.rightText = [NSString stringWithFormat:@"%@, %@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day], [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
+    }
+    else if (self.day)
+        cell.rightText = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day]];
+    else if (self.time)
+        cell.rightText = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
+    else
+        cell.rightText = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:nil]];
+}
+
+- (void)updateTitleCell:(DDTextFieldTableViewCell*)cell
+{
+    //apply title
+    cell.textField.text = self.title;
+    
+    //update delegate
+    cell.textField.delegate = self;
+    
+    //set placeholder
+    cell.textField.placeholder = NSLocalizedString(@"Title", nil);
+}
+
+- (void)updateDetailsCell:(DDTextViewTableViewCell*)cell
+{
+    //apply title
+    cell.textView.text = self.details;
+    
+    //update delegate
+    cell.textView.textView.delegate = self;
+    
+    //set placeholder
+    cell.textView.placeholder = NSLocalizedString(@"Have any extra details?", nil);
+}
+
+- (NSIndexPath*)wingIndexPath
+{
+    return [NSIndexPath indexPathForRow:0 inSection:1];
+}
+
+- (NSIndexPath*)locationIndexPath
+{
+    return [NSIndexPath indexPathForRow:1 inSection:1];
+}
+
+- (NSIndexPath*)dayTimeIndexPath
+{
+    return [NSIndexPath indexPathForRow:2 inSection:1];
+}
+
+- (NSIndexPath*)titleIndexPath
+{
+    return [NSIndexPath indexPathForRow:0 inSection:0];
+}
+
+- (NSIndexPath*)detailsIndexPath
+{
+    return [NSIndexPath indexPathForRow:1 inSection:0];
+}
+
+- (DDTextField*)textFieldTitle
+{
+    return [(DDTextFieldTableViewCell*)[self.tableView cellForRowAtIndexPath:[self titleIndexPath]] textField];
+}
+
+- (DDTextView*)textViewDetails
+{
+    return [(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[self detailsIndexPath]] textView];
 }
 
 #pragma mark -
@@ -372,15 +447,8 @@
 
 - (void)locationManagerDidFailedWithError:(NSError*)error
 {
-    //remove loading
-    self.buttonLocation.normalIcon = nil;
-    self.buttonLocation.selectedIcon = nil;
-    
-    //updat text
-    self.buttonLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
-    
-    //disable button
-    self.buttonLocation.enabled = NO;
+    //save location error
+    self.locationError = error;
 }
 
 - (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location
@@ -427,14 +495,20 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.textViewDetails.textView becomeFirstResponder];
+    [textField resignFirstResponder];
     return YES;
 }
 
 - (void)textFieldTextDidChange:(NSNotification*)notification
 {
-    if ([notification object] == self.textFieldTitle)
+    if ([notification object] == [self textFieldTitle])
+    {
+        //update title
+        self.title = [[self textFieldTitle] text];
+        
+        //update navigation bar
         [self updateNavigationBar];
+    }
 }
 
 #pragma mark -
@@ -442,6 +516,10 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
+    //update details
+    self.details = [[self textViewDetails] text];
+    
+    //update navigation bar
     [self updateNavigationBar];
 }
 
@@ -452,6 +530,105 @@
 {
     self.day = [(DDCreateDoubleDateViewControllerChooseDate*)sender day];
     self.time = [(DDCreateDoubleDateViewControllerChooseDate*)sender time];
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
+        return 100;
+    return [DDTableViewCell height];
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //check pressed cell
+    if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+    {
+        DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] init] autorelease];
+        wingsViewController.delegate = self;
+        wingsViewController.isSelectingMode = YES;
+        [self.navigationController pushViewController:wingsViewController animated:YES];
+    }
+    else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
+    {
+        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+        locationChooserViewController.delegate = self;
+        if (self.location)
+            locationChooserViewController.ddLocation = self.location;
+        else
+            locationChooserViewController.clLocation = locationController_.location;
+        locationChooserViewController.options = DDLocationSearchOptionsBoth;
+        [self.navigationController pushViewController:locationChooserViewController animated:YES];
+    }
+    else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
+    {
+        DDCreateDoubleDateViewControllerChooseDate *viewController = [[[DDCreateDoubleDateViewControllerChooseDate alloc] init] autorelease];
+        viewController.day = self.day;
+        viewController.time = self.time;
+        viewController.delegate = self;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+    
+    //unselect row
+    [aTableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section == 0)
+        return 2;
+    else if (section == 1)
+        return 3;
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //set cell identifier
+    NSString *cellIdentifier = [NSString stringWithFormat:@"s%dr%d", indexPath.section, indexPath.row];
+    
+    //get exist cell
+    DDTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell)
+    {
+        //create icon table view cell
+        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
+            cell = [[[DDIconTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        //create text field table view cell
+        else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
+            cell = [[[DDTextFieldTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        //create text view table view cell
+        else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
+            cell = [[[DDTextViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    }
+    
+    //apply table view style
+    [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+    
+    //check index path
+    if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+        [self updateWingCell:(DDIconTableViewCell*)cell];
+    else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
+        [self updateLocationCell:(DDIconTableViewCell*)cell];
+    else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
+        [self updateDayTimeCell:(DDIconTableViewCell*)cell];
+    else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
+        [self updateTitleCell:(DDTextFieldTableViewCell*)cell];
+    else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
+        [self updateDetailsCell:(DDTextViewTableViewCell*)cell];
+    
+    return cell;
 }
 
 @end

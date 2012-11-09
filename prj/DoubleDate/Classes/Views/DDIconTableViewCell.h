@@ -8,15 +8,18 @@
 
 #import "DDTableViewCell.h"
 
+@class DDImageView;
+
 @interface DDIconTableViewCell : DDTableViewCell
 {
-    UIImageView *icon_;
+    DDImageView *iconImageView_;
     UITextField *leftLabel_;
     UITextField *rightLabelText_;
     UITextField *rightLabelPlaceholder_;
 }
 
-@property(nonatomic, retain) UIImage *image;
+@property(nonatomic, readonly) DDImageView *iconImageView;
+
 @property(nonatomic, retain) NSString *leftText;
 @property(nonatomic, retain) NSString *rightText;
 @property(nonatomic, retain) NSString *rightPlaceholder;

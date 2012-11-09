@@ -14,11 +14,6 @@
 
 @synthesize location;
 
-+ (CGFloat)height
-{
-    return 50;
-}
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))

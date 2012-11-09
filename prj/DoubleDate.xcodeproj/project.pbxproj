@@ -212,6 +212,8 @@
 		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
 		96D77FE616108D0E00E65D91 /* DDLocationChooserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */; };
+		96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */; };
+		96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */; };
 		96E7F1B315F738CA00200E1F /* DDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */; };
 		96E7F1B415F738CA00200E1F /* DDWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */; };
 		96E7F1B515F738CA00200E1F /* DDWelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96E7F1B215F738CA00200E1F /* DDWelcomeViewController.xib */; };
@@ -550,6 +552,10 @@
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
 		96D77FE516108D0E00E65D91 /* DDLocationChooserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLocationChooserViewController.xib; sourceTree = "<group>"; };
+		96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextFieldTableViewCell.h; sourceTree = "<group>"; };
+		96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextFieldTableViewCell.m; sourceTree = "<group>"; };
+		96E78E30164D0F9200897C4F /* DDTextViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextViewTableViewCell.h; sourceTree = "<group>"; };
+		96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextViewTableViewCell.m; sourceTree = "<group>"; };
 		96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAppDelegate.h; sourceTree = "<group>"; };
 		96E7F1AC15F738CA00200E1F /* DDAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAppDelegate.m; sourceTree = "<group>"; };
 		96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWelcomeViewController.h; sourceTree = "<group>"; };
@@ -865,6 +871,10 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				96E78E30164D0F9200897C4F /* DDTextViewTableViewCell.h */,
+				96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */,
+				96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */,
+				96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */,
 				708893AB164C4D1B000D3A00 /* DDIconTableViewCell.h */,
 				708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */,
 				968973AE164BBDC400896FDC /* DDTextField.h */,
@@ -1482,6 +1492,8 @@
 				968973AD164BA8F300896FDC /* DDSearchBar.m in Sources */,
 				968973B0164BBDC400896FDC /* DDTextField.m in Sources */,
 				708893AD164C4D1B000D3A00 /* DDIconTableViewCell.m in Sources */,
+				96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */,
+				96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

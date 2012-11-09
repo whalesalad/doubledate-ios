@@ -18,20 +18,11 @@
     DDLocationController *locationController_;
 }
 
-@property(nonatomic, retain) IBOutlet DDButton *buttonWing;
-@property(nonatomic, retain) IBOutlet DDButton *buttonLocation;
-@property(nonatomic, retain) IBOutlet DDTextView *textViewDetails;
-@property(nonatomic, retain) IBOutlet UITextField *textFieldTitle;
-@property(nonatomic, retain) IBOutlet DDButton *buttonDayTime;
-
 @property(nonatomic, retain) DDUser *user;
 
 @property(nonatomic, retain) DDDoubleDatesViewController *doubleDatesViewController;
 
-- (IBAction)wingTouched:(id)sender;
-- (IBAction)locationTouched:(id)sender;
-- (IBAction)dayTimeTouched:(id)sender;
-- (IBAction)freeAreaTouched:(id)sender;
+@property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 + (NSString*)titleForDDDoubleDateProperty:(NSString*)property;
 

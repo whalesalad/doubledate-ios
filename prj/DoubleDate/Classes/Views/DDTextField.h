@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UITextField (Placeholder)
+@interface DDTextField : UITextField
 
 @end

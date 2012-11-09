@@ -24,6 +24,8 @@ typedef enum
 
 @property(nonatomic, assign) DDTableViewCellStyle backgroundStyle;
 
++ (CGFloat)height;
+
 - (void)applyGroupedBackgroundStyleForTableView:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath;
 
 @end
