@@ -9,6 +9,7 @@
 #import "DDCreateDoubleDateViewControllerChooseDate.h"
 #import "DDDoubleDate.h"
 #import "DDCreateDoubleDateViewController.h"
+#import "DDTableViewCell.h"
 
 @interface DDCreateDoubleDateViewControllerChooseDate () <UITableViewDataSource, UITableViewDelegate>
 
@@ -42,7 +43,8 @@
     tableView_.delegate = self;
     tableView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:tableView_];
-    tableView_.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noise_bg.png"]] autorelease];
+    tableView_.backgroundColor = [UIColor clearColor];
+    tableView_.backgroundView = nil;
 }
 
 - (void)viewDidUnload
@@ -75,7 +77,7 @@
 - (void)setCell:(UITableViewCell*)cell selected:(BOOL)selected
 {
     if (selected)
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"approve-invite.png"]] autorelease];
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.png"]] autorelease];
     else
         cell.accessoryView = nil;
 }
@@ -125,21 +127,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 1)
-        return 40;
-    return 0;
+    return [self tableView:tableView viewForHeaderInSection:section].frame.size.height;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 1)
     {
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 32)] autorelease];
-        label.font = [UIFont systemFontOfSize:14];
-        label.backgroundColor = [UIColor clearColor];
-        label.contentMode = UIViewContentModeBottomLeft;
-        label.text = NSLocalizedString(@"    Or, you can be more specific:", nil);
-        return label;
+        return [self viewForHeaderWithMainText:NSLocalizedString(@"CONTROL FREAK? GET SPECIFIC.", nil) detailedText:nil];
     }
     return nil;
 }
@@ -173,9 +168,12 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //create cell
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[[UITableViewCell class] description]];
+    DDTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[[UITableViewCell class] description]];
     if (!cell)
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[[UITableViewCell class] description]] autorelease];
+        cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[[UITableViewCell class] description]] autorelease];
+    
+    //apply needed style
+    [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
             
     //apply data
     if (indexPath.section == 0)

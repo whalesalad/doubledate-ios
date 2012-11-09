@@ -24,6 +24,10 @@
     {
         self.backgroundStyle = DDTableViewCellStyleNone;
         self.backgroundColor = [UIColor clearColor];
+        self.textLabel.font = [DDTools boldAvenirFontOfSize:18];
+        self.textLabel.textColor = [UIColor whiteColor];
+        self.detailTextLabel.font = [DDTools boldAvenirFontOfSize:14];
+        self.detailTextLabel.textColor = [UIColor grayColor];
     }
     return self;
 }

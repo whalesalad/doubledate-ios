@@ -29,4 +29,6 @@
 
 - (UIViewController*)viewControllerForClass:(Class)vcClass;
 
+- (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
+
 @end
