@@ -470,7 +470,7 @@ typedef enum
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [searchTerm_ release];
-    searchTerm_ = [searchBar text];
+    searchTerm_ = [[searchBar text] retain];
     [self.tableView reloadData];
     [searchBar resignFirstResponder];
 }
