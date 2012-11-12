@@ -23,10 +23,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
 @synthesize details;
 @synthesize dayPref;
 @synthesize timePref;
-@synthesize userId;
-@synthesize wingId;
 @synthesize updatedAt;
-@synthesize locationId;
 @synthesize user;
 @synthesize wing;
 @synthesize location;
@@ -41,10 +38,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         self.details = [DDAPIObject stringForObject:[dictionary objectForKey:@"details"]];
         self.dayPref = [DDAPIObject stringForObject:[dictionary objectForKey:@"day_pref"]];
         self.timePref = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_pref"]];
-        self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
-        self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.updatedAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at"]];
-        self.locationId = [DDAPIObject numberForObject:[dictionary objectForKey:@"location_id"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
         self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
@@ -67,21 +61,24 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         [dictionary setObject:self.dayPref forKey:@"day_pref"];
     if (self.timePref)
         [dictionary setObject:self.timePref forKey:@"time_pref"];
-    if (self.userId)
-        [dictionary setObject:self.userId forKey:@"user_id"];
-    if (self.wingId)
-        [dictionary setObject:self.wingId forKey:@"wing_id"];
     if (self.updatedAt)
         [dictionary setObject:self.updatedAt forKey:@"updated_at"];
-    if (self.locationId)
-        [dictionary setObject:self.locationId forKey:@"location_id"];
-    if (self.user)
-        [dictionary setObject:[self.user dictionaryRepresentation] forKey:@"user"];
-    if (self.wing)
-        [dictionary setObject:[self.wing dictionaryRepresentation] forKey:@"wing"];
-    if (self.location)
-        [dictionary setObject:[self.location dictionaryRepresentation] forKey:@"location"];
+    if (self.user.identifier)
+        [dictionary setObject:self.user.identifier forKey:@"user_id"];
+    if (self.wing.identifier)
+        [dictionary setObject:self.wing.identifier forKey:@"wing_id"];
+    if (self.location.identifier)
+        [dictionary setObject:self.location.identifier forKey:@"location_id"];
     return dictionary;
+}
+
+- (id)copyWithZone:(NSZone*)zone
+{
+    DDDoubleDate *ret = [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
+    ret.user = self.user;
+    ret.wing = self.wing;
+    ret.location = self.location;
+    return ret;
 }
 
 - (void)dealloc
@@ -92,10 +89,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
     [details release];
     [dayPref release];
     [timePref release];
-    [userId release];
-    [wingId release];
     [updatedAt release];
-    [locationId release];
     [user release];
     [wing release];
     [location release];

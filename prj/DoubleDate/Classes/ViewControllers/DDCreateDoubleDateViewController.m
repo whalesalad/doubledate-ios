@@ -225,9 +225,12 @@
     DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
     doubleDate.title = self.title;
     doubleDate.details = self.details;
-    doubleDate.wingId = self.wing.identifier;
-    doubleDate.userId = self.user.userId;
-    doubleDate.locationId = self.location.identifier;
+    doubleDate.wing = [[[DDShortUser alloc] init] autorelease];
+    doubleDate.wing.identifier = self.wing.identifier;
+    doubleDate.user = [[[DDShortUser alloc] init] autorelease];
+    doubleDate.user.identifier = self.user.userId;
+    doubleDate.location = [[[DDPlacemark alloc] init] autorelease];
+    doubleDate.location.identifier = self.location.identifier;
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
