@@ -22,7 +22,7 @@
 
 - (UIButton*)button
 {
-    return button_;
+    return [[button_ retain] autorelease];
 }
 
 - (void)setNormalImage:(UIImage *)normalImage
