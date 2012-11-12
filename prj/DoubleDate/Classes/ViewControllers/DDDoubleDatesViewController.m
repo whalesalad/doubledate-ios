@@ -78,7 +78,7 @@ typedef enum
     searchBar.delegate = self;
     searchBar.placeholder = NSLocalizedString(@"All doubledates", nil);
     self.tableView.tableHeaderView = searchBar;
-    
+        
     //move header
     self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
 }
@@ -207,8 +207,6 @@ typedef enum
             [ret addObject:dd];
     }
     return ret;
-    
-    return doubleDates;
 }
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section
@@ -305,25 +303,36 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-    return [self tableView:aTableView viewForHeaderInSection:section].frame.size.height;
+    UIView *headerView = [self tableView:aTableView viewForHeaderInSection:section];
+    if (headerView)
+        return headerView.frame.size.height;
+    return FLT_MIN;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
 {
-    if (mode_ == DDDoubleDatesViewControllerModeMine)
+    return FLT_MIN;
+}
+
+- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self tableView:aTableView numberOfRowsInSection:section] > 0)
     {
-        switch (section) {
-            case 0:
-                return [self viewForHeaderWithMainText:NSLocalizedString(@"I'VE CREATED", nil) detailedText:nil];
-                break;
-            case 1:
-                return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M A WING", nil) detailedText:nil];
-                break;
-            case 2:
-                return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M ATTENDING", nil) detailedText:nil];
-                break;
-            default:
-                break;
+        if (mode_ == DDDoubleDatesViewControllerModeMine)
+        {
+            switch (section) {
+                case 0:
+                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'VE CREATED", nil) detailedText:nil];
+                    break;
+                case 1:
+                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M A WING", nil) detailedText:nil];
+                    break;
+                case 2:
+                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M ATTENDING", nil) detailedText:nil];
+                    break;
+                default:
+                    break;
+            }
         }
     }
     return nil;
@@ -364,14 +373,14 @@ typedef enum
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    if (mode_ == DDDoubleDatesViewControllerModeMine)
+        return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-        return [[self doubleDatesForSection:section] count];
-    return 0;
+    return [[self doubleDatesForSection:section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

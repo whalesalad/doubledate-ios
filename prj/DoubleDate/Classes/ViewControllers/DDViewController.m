@@ -244,7 +244,7 @@
     labelMain.textColor = [UIColor grayColor];
     labelMain.text = mainText;
     [labelMain sizeToFit];
-    labelMain.frame = CGRectMake(22, 14, labelMain.frame.size.width, labelMain.frame.size.height);
+    labelMain.frame = CGRectMake(22, 18, labelMain.frame.size.width, labelMain.frame.size.height);
     labelMain.backgroundColor = [UIColor clearColor];
     [view addSubview:labelMain];
     

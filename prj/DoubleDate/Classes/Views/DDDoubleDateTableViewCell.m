@@ -28,6 +28,11 @@
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
+        //unset cell
+        self.backgroundColor = [UIColor clearColor];
+        self.backgroundView = nil;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         //add background
         imageViewBackground_ = [[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-tablecell-background.png"]]];
         [self addSubview:imageViewBackground_];
