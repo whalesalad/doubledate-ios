@@ -21,6 +21,7 @@ typedef enum
     NSMutableArray *allDoubleDates_;
     NSMutableArray *mineDoubleDates_;
     DDDoubleDatesViewControllerMode mode_;
+    NSString *searchTerm_;
 }
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;

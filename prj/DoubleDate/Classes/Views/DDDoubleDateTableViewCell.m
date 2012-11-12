@@ -1,12 +1,12 @@
 //
-//  DDDoubleDateViewTableViewCell.m
+//  DDDoubleDateTableViewCell.m
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/17/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDDoubleDateViewTableViewCell.h"
+#import "DDDoubleDateTableViewCell.h"
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DDDoubleDate.h"
@@ -15,17 +15,23 @@
 #import "DDPlacemark.h"
 #import "DDTools.h"
 
-@implementation DDDoubleDateViewTableViewCell
+@implementation DDDoubleDateTableViewCell
 
 @synthesize doubleDate;
+
++ (CGFloat)height
+{
+    return 60;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-        //add arrow
-        imageViewArrow_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-detail-arrow.png"]];
-        [self.contentView addSubview:imageViewArrow_];
+        //add background
+        imageViewBackground_ = [[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-tablecell-background.png"]]];
+        [self addSubview:imageViewBackground_];
+        [self bringSubviewToFront:self.contentView];
         
         //add background
         imageViewPhotosBackground_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doublephoto-container.png"]];
@@ -76,9 +82,8 @@
         [self.contentView addSubview:labelTitle_];
         
         //add location image view
-        UIImageView *imageViewLocation = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-location-icon.png"]] autorelease];
-        imageViewLocation.center = CGPointMake(110, 34);
-        [self.contentView addSubview:imageViewLocation];
+        imageViewLocation_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-location-icon.png"]];
+        [self.contentView addSubview:imageViewLocation_];
         
         //add location
         labelLocation_ = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -102,11 +107,13 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    imageViewBackground_.frame = CGRectMake(0, 0, self.frame.size.width, imageViewBackground_.image.size.height);
+    imageViewBackground_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     imageViewPhotosBackground_.center = CGPointMake(56, self.contentView.frame.size.height/2-1);
-    imageViewArrow_.center = CGPointMake(self.contentView.frame.size.width-20, self.contentView.frame.size.height/2-1);
-    labelTitle_.frame = CGRectMake(105, 2, 190, 26);
-    labelLocation_.frame = CGRectMake(120, 25, labelLocation_.frame.size.width, labelLocation_.frame.size.height);
-    labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+10, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
+    imageViewLocation_.center = CGPointMake(110, 38);
+    labelTitle_.frame = CGRectMake(105, 6, 190, 26);
+    labelLocation_.frame = CGRectMake(120, 30, labelLocation_.frame.size.width, labelLocation_.frame.size.height);
+    labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+4, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
 }
 
 - (void)setDoubleDate:(DDDoubleDate *)v
@@ -141,7 +148,7 @@
     [imageViewPhotosBackground_ release];
     [imageViewUser_ release];
     [imageViewWing_ release];
-    [imageViewArrow_ release];
+    [imageViewLocation_ release];
     [labelTitle_ release];
     [labelLocation_ release];
     [labelDistance_ release];

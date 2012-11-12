@@ -9,14 +9,28 @@
 #import "DDDoubleDatesViewController.h"
 #import "DDCreateDoubleDateViewController.h"
 #import "DDDoubleDate.h"
-#import "DDDoubleDateViewTableViewCell.h"
+#import "DDDoubleDateTableViewCell.h"
 #import "DDBarButtonItem.h"
 #import "DDSegmentedControl.h"
+#import "DDSearchBar.h"
+#import "DDPlacemark.h"
+#import "DDShortUser.h"
+#import "DDUser.h"
 
-@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate>
+typedef enum
+{
+    DDDoubleDatesViewControllerFilterNone,
+    DDDoubleDatesViewControllerFilterCreated,
+    DDDoubleDatesViewControllerFilterWing,
+    DDDoubleDatesViewControllerFilterAttending,
+} DDDoubleDatesViewControllerFilter;
+
+@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+
+@property(nonatomic, readonly) UISearchBar *searchBar;
 
 - (void)refresh:(BOOL)animated;
-- (NSArray*)doubleDates;
+- (NSArray*)doubleDatesForSection:(NSInteger)section;
 - (void)segmentedControlTouched:(id)sender;
 - (void)onDataRefreshed;
 - (void)removeDoubleDate:(DDDoubleDate*)doubleDate;
@@ -58,6 +72,15 @@
     
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
+    
+    //set header as search bar
+    DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    searchBar.delegate = self;
+    searchBar.placeholder = NSLocalizedString(@"All doubledates", nil);
+    self.tableView.tableHeaderView = searchBar;
+    
+    //move header
+    self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -100,6 +123,7 @@
 {
     [allDoubleDates_ release];
     [mineDoubleDates_ release];
+    [searchTerm_ release];
     [tableView release];
     [user release];
     [doubleDateToAdd release];
@@ -147,12 +171,66 @@
     [self.apiController getMyDoubleDates];
 }
 
-- (NSArray*)doubleDates
+- (NSArray*)filteredDoubleDates:(NSArray*)doubleDates filter:(DDDoubleDatesViewControllerFilter)filter
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDDoubleDate *dd in doubleDates)
+    {
+        //check search condition
+        BOOL existInSearch = [searchTerm_ length] == 0;
+        if (searchTerm_)
+        {
+            if (dd.title && [dd.title rangeOfString:searchTerm_ options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+            if (dd.details && [dd.details rangeOfString:searchTerm_ options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+            if (dd.location.name && [dd.location.name rangeOfString:searchTerm_ options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+        }
+        
+        //check filter condition
+        BOOL existInFilter = filter == DDDoubleDatesViewControllerFilterNone;
+        switch (filter) {
+            case DDDoubleDatesViewControllerFilterCreated:
+                existInFilter = [self.user.userId intValue] == [dd.user.identifier intValue];
+                break;
+            case DDDoubleDatesViewControllerFilterWing:
+                existInFilter = [self.user.userId intValue] == [dd.wing.identifier intValue];
+                break;
+                
+            default:
+                break;
+        }
+        
+        //check if we can add the double date
+        if (existInSearch && existInFilter)
+            [ret addObject:dd];
+    }
+    return ret;
+    
+    return doubleDates;
+}
+
+- (NSArray*)doubleDatesForSection:(NSInteger)section
 {
     if (mode_ == DDDoubleDatesViewControllerModeAll)
-        return allDoubleDates_;
+        return [self filteredDoubleDates:allDoubleDates_ filter:DDDoubleDatesViewControllerFilterNone];
     else if (mode_ == DDDoubleDatesViewControllerModeMine)
-        return mineDoubleDates_;
+    {
+        switch (section) {
+            case 0:
+                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterCreated];
+                break;
+            case 1:
+                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterWing];
+                break;
+            case 2:
+                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterAttending];
+                break;
+            default:
+                break;
+        }
+    }
     return nil;
 }
 
@@ -217,36 +295,43 @@
     }
 }
 
+- (UISearchBar*)searchBar
+{
+    return (UISearchBar*)self.tableView.tableHeaderView;
+}
+
 #pragma mark -
 #pragma mark UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-    return 5;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 5;
+    return [self tableView:aTableView viewForHeaderInSection:section].frame.size.height;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *ret = [[[UIView alloc] init] autorelease];
-    ret.backgroundColor = [UIColor clearColor];
-    return ret;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *ret = [[[UIView alloc] init] autorelease];
-    ret.backgroundColor = [UIColor clearColor];
-    return ret;
+    if (mode_ == DDDoubleDatesViewControllerModeMine)
+    {
+        switch (section) {
+            case 0:
+                return [self viewForHeaderWithMainText:NSLocalizedString(@"I'VE CREATED", nil) detailedText:nil];
+                break;
+            case 1:
+                return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M A WING", nil) detailedText:nil];
+                break;
+            case 2:
+                return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M ATTENDING", nil) detailedText:nil];
+                break;
+            default:
+                break;
+        }
+    }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 54;
+    return [DDDoubleDateTableViewCell height];
 }
 
 #pragma mark -
@@ -261,7 +346,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //get doubledate
-        DDDoubleDate *doubleDate = [[[self doubleDates] objectAtIndex:indexPath.row] retain];
+        DDDoubleDate *doubleDate = [[[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row] retain];
 
         //remove sliently
         [self removeDoubleDate:doubleDate];
@@ -279,29 +364,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self doubleDates] count];
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (section == 0)
+        return [[self doubleDatesForSection:section] count];
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //save class
-    Class cellClass = [DDDoubleDateViewTableViewCell class];
+    Class cellClass = [DDDoubleDateTableViewCell class];
     
     //create cell
-    DDDoubleDateViewTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[cellClass description]];
+    DDDoubleDateTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[cellClass description]];
     if (!cell)
         cell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[cellClass description]];
     
-    //apply style
-    cell.backgroundStyle = DDTableViewCellStylePlain;
+    //set accessory view
+    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-detail-arrow.png"]] autorelease];
     
     //apply data
-    cell.doubleDate = [[self doubleDates] objectAtIndex:indexPath.section];
+    cell.doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
     
     return cell;
 }
@@ -366,6 +453,17 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark UISearchBarDelegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchTerm_ release];
+    searchTerm_ = [searchBar text];
+    [self.tableView reloadData];
+    [searchBar resignFirstResponder];
 }
 
 @end
