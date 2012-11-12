@@ -11,6 +11,20 @@
 
 @implementation DDBarButtonItem
 
+- (void)setButton:(UIButton*)button
+{
+    if (button_ != button)
+    {
+        [button_ release];
+        button_ = [button retain];
+    }
+}
+
+- (UIButton*)button
+{
+    return button_;
+}
+
 - (void)setNormalImage:(UIImage *)normalImage
 {
     if (normalImage_ != normalImage)
@@ -63,9 +77,9 @@
     button.frame = CGRectMake(0, 0, width, normalImage.size.height);
     [button setTitle:title forState:UIControlStateNormal];
     [button setContentEdgeInsets:contentEdgeInsets];
-    [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     DDBarButtonItem *barButtonItem = [[[DDBarButtonItem alloc] initWithCustomView:button] autorelease];
+    [barButtonItem setButton:button];
     [button setBackgroundImage:normalImage forState:UIControlStateNormal];
     [barButtonItem setNormalImage:[DDTools imageFromView:button]];
     [button setBackgroundImage:highlightedImage forState:UIControlStateNormal];
@@ -83,6 +97,14 @@
     UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
     UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn-highlight.png"]];
     UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
+}
+
++ (id)largeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
+{
+    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]];
+    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]];
+    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]];
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
@@ -123,6 +145,7 @@
     [normalImage_ release];
     [highlightedImage_ release];
     [disabledImage_ release];
+    [button_ release];
     [super dealloc];
 }
 
