@@ -56,7 +56,7 @@
 + (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage disabledImage:(UIImage*)disabledImage target:(id)target action:(SEL)action contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [DDTools boldAvenirFontOfSize:14];
+    DD_F_BUTTON(button.titleLabel);
     CGFloat width = [title sizeWithFont:button.titleLabel.font].width + normalImage.size.width;
     if (width < normalImage.size.height)
         width = normalImage.size.height;

@@ -18,7 +18,7 @@
     [textView_ release];
     textView_ = [[UITextView alloc] init];
     textView_.backgroundColor = [UIColor clearColor];
-    textView_.font = [DDTools boldAvenirFontOfSize:14];
+    DD_F_TEXT(textView_);
     [self addSubview:textView_];
     
     //add text field
@@ -28,7 +28,7 @@
     textField_.userInteractionEnabled = NO;
     textField_.font = textView_.font;
     textField_.backgroundColor = [UIColor clearColor];
-    textField_.font = [DDTools boldAvenirFontOfSize:14];
+    DD_F_TEXT(textField_);
     [self addSubview:textField_];
     
     //add notification handling

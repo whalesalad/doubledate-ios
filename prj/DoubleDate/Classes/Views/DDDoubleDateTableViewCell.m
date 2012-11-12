@@ -80,10 +80,9 @@
         
         //add title
         labelTitle_ = [[UILabel alloc] initWithFrame:CGRectZero];
-        labelTitle_.textColor = [UIColor whiteColor];
         labelTitle_.contentMode = UIViewContentModeLeft;
         labelTitle_.backgroundColor = [UIColor clearColor];
-        labelTitle_.font = [DDTools avenirFontOfSize:14];
+        DD_F_TABLE_CELL_MAIN(labelTitle_);
         [self.contentView addSubview:labelTitle_];
         
         //add location image view
@@ -92,18 +91,16 @@
         
         //add location
         labelLocation_ = [[UILabel alloc] initWithFrame:CGRectZero];
-        labelLocation_.textColor = [UIColor lightGrayColor];
         labelLocation_.contentMode = UIViewContentModeLeft;
         labelLocation_.backgroundColor = [UIColor clearColor];
-        labelLocation_.font = [DDTools avenirFontOfSize:14];
+        DD_F_TABLE_CELL_DETAILED(labelLocation_);
         [self.contentView addSubview:labelLocation_];
         
         //add distance
         labelDistance_ = [[UILabel alloc] initWithFrame:CGRectZero];
-        labelDistance_.textColor = [UIColor lightGrayColor];
         labelDistance_.contentMode = UIViewContentModeLeft;
         labelDistance_.backgroundColor = [UIColor clearColor];
-        labelDistance_.font = [DDTools avenirFontOfSize:14];
+        DD_F_TABLE_CELL_DETAILED(labelDistance_);
         [self.contentView addSubview:labelDistance_];
     }
     return self;

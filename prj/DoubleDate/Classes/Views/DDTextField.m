@@ -15,22 +15,12 @@
 
 @implementation UITextField (Placeholder)
 
-- (UIColor*)standardColor
-{
-    return [UIColor grayColor];
-}
-
-- (UIColor*)searchBarColor
-{
-    return [UIColor lightGrayColor];
-}
-
 - (void)drawPlaceholderInRect:(CGRect)rect
 {
-    if ([self.superview isKindOfClass:[DDSearchBar class]])
-        [[self searchBarColor] setFill];
-    else
-        [[self standardColor] setFill];
+    UILabel *temp = [[[UILabel alloc] init] autorelease];
+    DD_F_PLACEHOLDER(temp);
+    [temp.textColor setFill];
+    CGContextSetShadowWithColor(UIGraphicsGetCurrentContext(), temp.shadowOffset, 0, temp.shadowColor.CGColor);
     [[self placeholder] drawInRect:rect withFont:[self font]];
 }
 
@@ -43,7 +33,7 @@
 - (void)selfInit
 {
     //set font
-    self.font = [DDTools boldAvenirFontOfSize:14];
+    DD_F_TEXT(self);
     
     //add reset button
     UIImage *clearImage = [UIImage imageNamed:@"search-clear-button.png"];

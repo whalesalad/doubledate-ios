@@ -34,7 +34,4 @@ typedef enum
 + (UIImage*)clearImage;
 + (UIImage*)clearImageOfSize:(CGSize)size;
 
-+ (UIFont*)avenirFontOfSize:(CGFloat)size;
-+ (UIFont*)boldAvenirFontOfSize:(CGFloat)size;
-
 @end

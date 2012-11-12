@@ -27,8 +27,7 @@
         leftLabel_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         leftLabel_.textAlignment = UITextAlignmentRight;
         leftLabel_.backgroundColor = [UIColor clearColor];
-        leftLabel_.font = [DDTools boldAvenirFontOfSize:12];
-        leftLabel_.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.5f];
+        DD_F_ICON_BUTTON_DETAILS(leftLabel_);
         leftLabel_.contentMode = UIViewContentModeBottom;
         [self.contentView addSubview:leftLabel_];
         
@@ -38,9 +37,8 @@
         rightLabelText_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         rightLabelText_.textAlignment = UITextAlignmentLeft;
         rightLabelText_.backgroundColor = [UIColor clearColor];
-        rightLabelText_.font = [DDTools boldAvenirFontOfSize:16];
+        DD_F_ICON_BUTTON_TEXT(rightLabelText_);
         rightLabelText_.hidden = YES;
-        rightLabelText_.textColor = [UIColor whiteColor];
         [self.contentView addSubview:rightLabelText_];
         
         //add right label
@@ -49,9 +47,8 @@
         rightLabelPlaceholder_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         rightLabelPlaceholder_.textAlignment = UITextAlignmentLeft;
         rightLabelPlaceholder_.backgroundColor = [UIColor clearColor];
-        rightLabelPlaceholder_.font = [DDTools boldAvenirFontOfSize:16];
+        DD_F_ICON_BUTTON_PLACEHOLDER(rightLabelPlaceholder_);
         rightLabelPlaceholder_.hidden = NO;
-        rightLabelPlaceholder_.textColor = [UIColor grayColor];
         [self.contentView addSubview:rightLabelPlaceholder_];
     }
     return self;

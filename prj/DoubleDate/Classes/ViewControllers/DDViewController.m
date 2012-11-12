@@ -240,7 +240,7 @@
     
     //add label
     UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-    labelMain.font = [DDTools boldAvenirFontOfSize:14];
+    DD_F_HEADER_MAIN(labelMain);
     labelMain.textColor = [UIColor grayColor];
     labelMain.text = mainText;
     [labelMain sizeToFit];
@@ -252,7 +252,7 @@
     if ([detailedText length])
     {
         UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        labelDetailed.font = [DDTools avenirFontOfSize:11];
+        DD_F_HEADER_DETAILED(labelDetailed);
         labelDetailed.textColor = [UIColor grayColor];
         labelDetailed.text = detailedText;
         [labelDetailed sizeToFit];

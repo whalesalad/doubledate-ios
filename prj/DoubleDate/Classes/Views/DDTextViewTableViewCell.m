@@ -22,7 +22,7 @@
         textView_ = [[DDTextView alloc] initWithFrame:CGRectZero];
         textView_.backgroundColor = [UIColor clearColor];
         textView_.textView.textColor = [UIColor whiteColor];
-        textView_.font = [DDTools avenirFontOfSize:14];
+        DD_F_TEXT(textView_);
         [self.contentView addSubview:textView_];
     }
     return self;
