@@ -34,8 +34,13 @@
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         //add background
-        imageViewBackground_ = [[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-tablecell-background.png"]]];
-        [self addSubview:imageViewBackground_];
+        imageViewBackgroundNormal_ = [[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-tablecell-background.png"]]];
+        [self addSubview:imageViewBackgroundNormal_];
+        [self bringSubviewToFront:self.contentView];
+        
+        //add background
+        imageViewBackgroundSelected_ = [[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-tablecell-background-highlight.png"]]];
+        [self addSubview:imageViewBackgroundSelected_];
         [self bringSubviewToFront:self.contentView];
         
         //add background
@@ -112,8 +117,9 @@
     CGFloat leftTextAlignment_ = 92;
     
     [super layoutSubviews];
-    imageViewBackground_.frame = CGRectMake(0, 0, self.frame.size.width, imageViewBackground_.image.size.height);
-    imageViewBackground_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    imageViewBackgroundNormal_.frame = CGRectMake(0, 0, self.frame.size.width, imageViewBackgroundNormal_.image.size.height);
+    imageViewBackgroundNormal_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    imageViewBackgroundSelected_.frame = imageViewBackgroundNormal_.frame;
     imageViewPhotosBackground_.center = CGPointMake(44, self.contentView.frame.size.height/2+2);
     
  // labelTitle_.frame = CGRectMake(105, 6, 190, 26);
@@ -152,8 +158,22 @@
 //    [labelDistance_ sizeToFit];
 }
 
+- (void)setHighlighted:(BOOL)highlighted
+{
+    imageViewBackgroundNormal_.hidden = highlighted;
+    imageViewBackgroundSelected_.hidden = !highlighted;
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
+{
+    imageViewBackgroundNormal_.hidden = highlighted;
+    imageViewBackgroundSelected_.hidden = !highlighted;
+}
+
 - (void)dealloc
 {
+    [imageViewBackgroundNormal_ release];
+    [imageViewBackgroundSelected_ release];
     [imageViewPhotosBackground_ release];
     [imageViewUser_ release];
     [imageViewWing_ release];

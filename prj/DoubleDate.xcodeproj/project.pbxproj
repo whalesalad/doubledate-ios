@@ -120,6 +120,8 @@
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
+		70C9A135165308070046F98F /* dd-tablecell-background-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A133165308070046F98F /* dd-tablecell-background-highlight.png */; };
+		70C9A136165308070046F98F /* dd-tablecell-background-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A134165308070046F98F /* dd-tablecell-background-highlight@2x.png */; };
 		70E6720B162748BE004D14CA /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67209162748BE004D14CA /* dd-app.png */; };
 		70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6720A162748BE004D14CA /* dd-app@2x.png */; };
 		70E67217162753F1004D14CA /* DDFacebookFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */; };
@@ -454,6 +456,8 @@
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
 		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
+		70C9A133165308070046F98F /* dd-tablecell-background-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tablecell-background-highlight.png"; sourceTree = "<group>"; };
+		70C9A134165308070046F98F /* dd-tablecell-background-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tablecell-background-highlight@2x.png"; sourceTree = "<group>"; };
 		70E67209162748BE004D14CA /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app.png"; sourceTree = "<group>"; };
 		70E6720A162748BE004D14CA /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
 		70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDFacebookFriendsViewController.xib; sourceTree = "<group>"; };
@@ -1131,6 +1135,8 @@
 		96EE8450161493B300AE6EC1 /* general */ = {
 			isa = PBXGroup;
 			children = (
+				70C9A133165308070046F98F /* dd-tablecell-background-highlight.png */,
+				70C9A134165308070046F98F /* dd-tablecell-background-highlight@2x.png */,
 				708C09E61651A26000A40FD9 /* large-button-down-arrow.png */,
 				708C09E71651A26000A40FD9 /* large-button-down-arrow@2x.png */,
 				708C09E81651A26000A40FD9 /* large-button-highlight.png */,
@@ -1550,6 +1556,8 @@
 				708C0A151651A26000A40FD9 /* large-segment-right@2x.png in Resources */,
 				4CA80EDC16521233004A4BE9 /* app-icon.png in Resources */,
 				4CA80EDE16521236004A4BE9 /* app-icon@2x.png in Resources */,
+				70C9A135165308070046F98F /* dd-tablecell-background-highlight.png in Resources */,
+				70C9A136165308070046F98F /* dd-tablecell-background-highlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

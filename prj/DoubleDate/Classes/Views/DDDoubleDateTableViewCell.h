@@ -13,7 +13,8 @@
 
 @interface DDDoubleDateTableViewCell : UITableViewCell
 {
-    UIImageView *imageViewBackground_;
+    UIImageView *imageViewBackgroundNormal_;
+    UIImageView *imageViewBackgroundSelected_;
     UIImageView *imageViewPhotosBackground_;
     UIImageView *imageViewLocation_;
     DDImageView *imageViewUser_;
