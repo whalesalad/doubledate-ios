@@ -18,6 +18,7 @@
 #import "DDUser.h"
 #import "DDDoubleDateFilter.h"
 #import "UIViewController+Design.h"
+#import "DDTableViewController+Refresh.h"
 
 typedef enum
 {

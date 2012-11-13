@@ -304,14 +304,6 @@
         //unset table view
         [[(UITableViewController*)self tableView] setBackgroundColor:[UIColor clearColor]];
         [[(UITableViewController*)self tableView] setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
-        
-        //apply refresh control
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
-        {
-            UIRefreshControl *refreshControl = [[[UIRefreshControl alloc] init] autorelease];
-            [refreshControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-            ((UITableViewController*)self).refreshControl = refreshControl;
-        }
     }
     
     //customize navigation bar
@@ -319,63 +311,6 @@
     
     //customize left button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
-}
-
-- (void)refreshControlValueChanged:(UIRefreshControl*)sender
-{
-    [self startRefreshWithText:NSLocalizedString(@"Loading...", nil)];
-}
-
-- (UIRefreshControl*)refreshControl
-{
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
-    {
-        if ([self isKindOfClass:[UITableViewController class]])
-            return ((UITableViewController*)self).refreshControl;
-    }
-    return nil;
-}
-
-- (void)startRefreshWithText:(NSString*)text
-{
-    //check if refresh control exist
-    if ([self refreshControl])
-        [[self refreshControl] beginRefreshing];
-//    else
-    {
-        if ([self isKindOfClass:[DDViewController class]])
-            [(DDViewController*)self showHudWithText:text animated:YES];
-        if ([self isKindOfClass:[DDTableViewController class]])
-            [(DDTableViewController*)self showHudWithText:text animated:YES];
-    }
-    
-    //refresh
-    [self onRefresh];
-}
-
-- (void)onRefresh
-{
-    
-}
-
-- (void)finishRefresh
-{
-    //check if refresh control exist
-    if ([self refreshControl])
-    {
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setDateStyle:kCFDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
-        [self refreshControl].attributedTitle = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Last updated: %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
-        [[self refreshControl] endRefreshing];
-    }
-//    else
-    {
-        if ([self isKindOfClass:[DDViewController class]])
-            [(DDViewController*)self hideHud:YES];
-        if ([self isKindOfClass:[DDTableViewController class]])
-            [(DDTableViewController*)self hideHud:YES];
-    }
 }
 
 @end
