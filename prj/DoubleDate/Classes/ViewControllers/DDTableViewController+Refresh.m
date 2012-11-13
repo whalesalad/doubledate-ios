@@ -36,8 +36,14 @@
 {
     //check if refresh control exist
     if ([self sharedRefreshControl])
+    {
+        //disable touch
+        self.view.userInteractionEnabled = NO;
+        
+        //start refreshing
         [[self sharedRefreshControl] beginRefreshing];
-    //    else
+    }
+    else
         [self showHudWithText:text animated:YES];
     
     //refresh
@@ -54,13 +60,19 @@
     //check if refresh control exist
     if ([self sharedRefreshControl])
     {
+        //enable touch
+        self.view.userInteractionEnabled = YES;
+        
+        //update label
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateStyle:kCFDateFormatterShortStyle];
         [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
         [self sharedRefreshControl].attributedTitle = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Last updated: %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
+
+        //stop refreshing
         [[self sharedRefreshControl] endRefreshing];
     }
-    //    else
+    else
         [self hideHud:YES];
 }
 
