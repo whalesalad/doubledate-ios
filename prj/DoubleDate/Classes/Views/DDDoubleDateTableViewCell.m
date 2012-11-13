@@ -101,21 +101,28 @@
         labelDistance_.contentMode = UIViewContentModeLeft;
         labelDistance_.backgroundColor = [UIColor clearColor];
         DD_F_TABLE_CELL_DETAILED(labelDistance_);
-        [self.contentView addSubview:labelDistance_];
+//        [self.contentView addSubview:labelDistance_];
     }
     return self;
 }
 
 - (void)layoutSubviews
 {
+    
+    CGFloat leftTextAlignment_ = 92;
+    
     [super layoutSubviews];
     imageViewBackground_.frame = CGRectMake(0, 0, self.frame.size.width, imageViewBackground_.image.size.height);
     imageViewBackground_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-    imageViewPhotosBackground_.center = CGPointMake(56, self.contentView.frame.size.height/2-1);
-    imageViewLocation_.center = CGPointMake(110, 38);
-    labelTitle_.frame = CGRectMake(105, 6, 190, 26);
-    labelLocation_.frame = CGRectMake(120, 30, labelLocation_.frame.size.width, labelLocation_.frame.size.height);
-    labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+4, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
+    imageViewPhotosBackground_.center = CGPointMake(44, self.contentView.frame.size.height/2+2);
+    
+ // labelTitle_.frame = CGRectMake(105, 6, 190, 26);
+    labelTitle_.frame = CGRectMake(leftTextAlignment_, 10, 190, 26);
+    
+    imageViewLocation_.center = CGPointMake(leftTextAlignment_+(imageViewLocation_.frame.size.width/2), 40);
+    
+    labelLocation_.frame = CGRectMake(imageViewLocation_.frame.origin.x+imageViewLocation_.frame.size.width+5, 32, labelLocation_.frame.size.width+10, labelLocation_.frame.size.height);
+//    labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+4, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
 }
 
 - (void)setDoubleDate:(DDDoubleDate *)v
@@ -137,12 +144,12 @@
     //apply location
     labelLocation_.text = [[v location] name];
     [labelLocation_ sizeToFit];
-    if (labelLocation_.frame.size.width > 120)
-        labelLocation_.frame = CGRectMake(0, 0, 120, labelLocation_.frame.size.height);
+    if (labelLocation_.frame.size.width > 130)
+        labelLocation_.frame = CGRectMake(0, 0, 130, labelLocation_.frame.size.height);
     
     //apply distance
-    labelDistance_.text = @"3 mi";
-    [labelDistance_ sizeToFit];
+//    labelDistance_.text = @"3 mi";
+//    [labelDistance_ sizeToFit];
 }
 
 - (void)dealloc

@@ -57,9 +57,9 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    leftLabel_.frame = CGRectMake(0, 0, 50, self.contentView.frame.size.height);
-    iconImageView_.center = CGPointMake(70, self.contentView.frame.size.height/2);
-    rightLabelText_.frame = CGRectMake(90, 0, 180, self.contentView.frame.size.height);
+    leftLabel_.frame = CGRectMake(0, 0, 55, self.contentView.frame.size.height);
+    iconImageView_.center = CGPointMake(80, self.contentView.frame.size.height/2);
+    rightLabelText_.frame = CGRectMake(105, 0, 180, self.contentView.frame.size.height);
     rightLabelPlaceholder_.frame = rightLabelText_.frame;
 }
 

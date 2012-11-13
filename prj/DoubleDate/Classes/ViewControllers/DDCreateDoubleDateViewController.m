@@ -260,7 +260,7 @@
     cell.iconImageView.image = [UIImage imageNamed:@"create-dd-unselected-wing.png"];
     
     //set left text
-    cell.leftText = NSLocalizedString(@"wing", nil);
+    cell.leftText = NSLocalizedString(@"WING", nil);
     
     //set right placeholder
     cell.rightPlaceholder = NSLocalizedString(@"Choose a wing...", nil);
@@ -294,7 +294,7 @@
     cell.iconImageView.image = [UIImage imageNamed:@"create-dd-unselected-location.png"];
     
     //set left text
-    cell.leftText = NSLocalizedString(@"where", nil);
+    cell.leftText = NSLocalizedString(@"WHERE", nil);
     
     //set right placeholder
     cell.rightPlaceholder = NSLocalizedString(@"Choose a location...", nil);
@@ -337,7 +337,7 @@
     cell.iconImageView.image = [UIImage imageNamed:@"create-dd-selected-daytime.png"];
     
     //set left text
-    cell.leftText = NSLocalizedString(@"when", nil);
+    cell.leftText = NSLocalizedString(@"WHEN", nil);
     
     //set right placeholder
     cell.rightPlaceholder = NSLocalizedString(@"Choose a day/time...", nil);
