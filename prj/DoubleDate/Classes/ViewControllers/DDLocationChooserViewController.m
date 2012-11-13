@@ -7,6 +7,7 @@
 //
 
 #import "DDLocationChooserViewController.h"
+#import "UIViewController+Design.h"
 #import "DDAPIController.h"
 #import "DDPlacemark.h"
 #import "DDBarButtonItem.h"
@@ -16,6 +17,8 @@
 #import "DDTools.h"
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+
+- (void)refresh:(BOOL)animated;
 
 @property(nonatomic, readonly) UISearchBar *searchBar;
 @property(nonatomic, readonly) UITableView *tableView;
@@ -47,25 +50,7 @@
     
     //check if we need to make a request
     if (!placemarks_)
-    {
-        //show hud
-        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
-        
-        //search for placemarks
-        CGFloat latitude = 0;
-        CGFloat longitude = 0;
-        if (self.ddLocation)
-        {
-            latitude = [self.ddLocation.latitude floatValue];
-            longitude = [self.ddLocation.longitude floatValue];
-        }
-        else if (self.clLocation)
-        {
-            latitude = self.clLocation.coordinate.latitude;
-            longitude = self.clLocation.coordinate.longitude;
-        }
-        [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude options:self.options];
-    }
+        [self refresh:YES];
 }
 
 - (void)viewDidLoad
@@ -75,29 +60,40 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Location", nil);
     
-    //add table view
-    tableView_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
-    tableView_.dataSource = self;
-    tableView_.delegate = self;
-    tableView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:tableView_];
-    tableView_.backgroundColor = [UIColor clearColor];
-    tableView_.backgroundView = nil;
-    
     //set header as search bar
     DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
     searchBar.delegate = self;
     searchBar.placeholder = NSLocalizedString(@"All locations", nil);
-    tableView_.tableHeaderView = searchBar;
+    self.tableView.tableHeaderView = searchBar;
     
     //move header
-    tableView_.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [tableView_ release], tableView_ = nil;
+}
+
+- (void)refresh:(BOOL)animated
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //search for placemarks
+    CGFloat latitude = 0;
+    CGFloat longitude = 0;
+    if (self.ddLocation)
+    {
+        latitude = [self.ddLocation.latitude floatValue];
+        longitude = [self.ddLocation.longitude floatValue];
+    }
+    else if (self.clLocation)
+    {
+        latitude = self.clLocation.coordinate.latitude;
+        longitude = self.clLocation.coordinate.longitude;
+    }
+    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude options:self.options];
 }
 
 - (void)setDdLocation:(DDPlacemark *)v
@@ -167,12 +163,7 @@
 
 - (UISearchBar*)searchBar
 {
-    return (UISearchBar*)tableView_.tableHeaderView;
-}
-
-- (UITableView*)tableView
-{
-    return tableView_;
+    return (UISearchBar*)self.tableView.tableHeaderView;
 }
 
 - (void)dealloc
@@ -180,7 +171,6 @@
     [ddLocation release];
     [clLocation release];
     [placemarks_ release];
-    [tableView_ release];
     [selectedLocations_ release];
     [super dealloc];
 }
@@ -291,14 +281,20 @@
     [placemarks_ release];
     placemarks_ = [placemarks retain];
     
+    //finish refreshing
+    [self finishRefresh];
+    
     //reload the table
-    [tableView_ reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error
 {
     //hide hud
     [self hideHud:YES];
+    
+    //finish refreshing
+    [self finishRefresh];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -309,8 +305,16 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [tableView_ reloadData];
+    [self.tableView reloadData];
     [searchBar resignFirstResponder];
+}
+
+#pragma mark -
+#pragma mark Refreshing
+
+- (void)onRefreshStarted
+{
+    [self refresh:YES];
 }
 
 @end

@@ -16,6 +16,8 @@
 #import "DDPlacemark.h"
 #import "DDShortUser.h"
 #import "DDUser.h"
+#import "DDDoubleDateFilter.h"
+#import "UIViewController+Design.h"
 
 typedef enum
 {
@@ -34,14 +36,14 @@ typedef enum
 - (void)segmentedControlTouched:(id)sender;
 - (void)onDataRefreshed;
 - (void)removeDoubleDate:(DDDoubleDate*)doubleDate;
+- (void)updateNavigationBar;
+- (void)updateSearchBar;
 
 @end
 
 @implementation DDDoubleDatesViewController
 
-@synthesize tableView;
 @synthesize user;
-@synthesize doubleDateToAdd;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,33 +72,22 @@ typedef enum
     //add left button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"+", nil) target:self action:@selector(plusTouched:)];
     
-    //add right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
+    //customize separators
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    //set header as search bar
-    DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
-    searchBar.delegate = self;
-    searchBar.placeholder = NSLocalizedString(@"Search DoubleDates…", nil);
-    self.tableView.tableHeaderView = searchBar;
-        
+    //update navigation bar
+    [self updateNavigationBar];
+    
+    //update search bar
+    [self updateSearchBar];
+    
     //move header
-    self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    self.tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    //add doubledate if needed
-    if (self.doubleDateToAdd)
-    {
-        //add doubledate
-        [allDoubleDates_ addObject:self.doubleDateToAdd];
-        [mineDoubleDates_ addObject:self.doubleDateToAdd];
-        
-        //reload the table
-        [self.tableView reloadData];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -111,7 +102,6 @@ typedef enum
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [tableView release], tableView = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -124,9 +114,7 @@ typedef enum
     [allDoubleDates_ release];
     [mineDoubleDates_ release];
     [searchTerm_ release];
-    [tableView release];
     [user release];
-    [doubleDateToAdd release];
     [super dealloc];
 }
 
@@ -146,11 +134,8 @@ typedef enum
     //update edigin style
     self.tableView.editing = !self.tableView.editing;
     
-    //set right button
-    if (self.tableView.editing)
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"DONE", nil) target:self action:@selector(editTouched:)];
-    else
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
+    //update navigation bar
+    [self updateNavigationBar];
 }
 
 - (void)refresh:(BOOL)animated
@@ -165,7 +150,7 @@ typedef enum
     [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:animated];
     
     //request doubledates
-    [self.apiController getDoubleDates];
+    [self.apiController getDoubleDatesWithFilter:nil];
     
     //request doubledates
     [self.apiController getMyDoubleDates];
@@ -247,6 +232,12 @@ typedef enum
             break;
     }
     
+    //update navigation bar
+    [self updateNavigationBar];
+    
+    //update search bar
+    [self updateSearchBar];
+    
     //reload the table
     [self.tableView reloadData];
 }
@@ -258,6 +249,9 @@ typedef enum
     {
         //hide hud
         [self hideHud:YES];
+        
+        //make super
+        [self finishRefresh];
     
         //reload data
         [self.tableView reloadData];
@@ -290,6 +284,40 @@ typedef enum
         [allDoubleDates_ removeObject:d];
         [mineDoubleDates_ removeObject:d];
         [doubleDatesToRemove removeObject:d];
+    }
+}
+
+- (void)updateNavigationBar
+{
+    //check current mode
+    if (mode_ == DDDoubleDatesViewControllerModeMine)
+    {
+        if (self.tableView.editing)
+            self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"DONE", nil) target:self action:@selector(editTouched:)];
+        else
+            self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
+    }
+    else
+        self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)updateSearchBar
+{
+    //check current mode
+    if (mode_ == DDDoubleDatesViewControllerModeAll)
+    {
+        //set header as search bar
+        DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+        searchBar.delegate = self;
+        searchBar.placeholder = NSLocalizedString(@"Search DoubleDates…", nil);
+        searchBar.text = searchTerm_;
+        self.tableView.tableHeaderView = searchBar;
+    }
+    else
+    {
+        UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, FLT_MIN)] autorelease];
+        v.backgroundColor = [UIColor clearColor];
+        self.tableView.tableHeaderView = v;
     }
 }
 
@@ -348,7 +376,7 @@ typedef enum
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    return (mode_ == DDDoubleDatesViewControllerModeMine) && (indexPath.section == 0);
 }
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -397,7 +425,10 @@ typedef enum
     cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-tablecell-detail-arrow.png"]] autorelease];
     
     //apply data
-    cell.doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
+    if (indexPath.row < [[self doubleDatesForSection:indexPath.section] count])
+        cell.doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
+    else
+        cell.doubleDate = nil;
     
     return cell;
 }
@@ -473,6 +504,14 @@ typedef enum
     searchTerm_ = [[searchBar text] retain];
     [self.tableView reloadData];
     [searchBar resignFirstResponder];
+}
+
+#pragma mark -
+#pragma mark Refreshing
+
+- (void)onRefreshStarted
+{
+    [self refresh:YES];
 }
 
 @end

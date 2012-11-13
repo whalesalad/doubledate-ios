@@ -1,16 +1,18 @@
 //
-//  DDViewController+Design.m
+//  UIViewController+Design.m
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/5/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController+Design.h"
+#import "UIViewController+Design.h"
+#import "DDBarButtonItem.h"
+#import "DDTools.h"
 #import <objc/message.h>
 #import <QuartzCore/QuartzCore.h>
 
-@implementation DDViewController (Design)
+@implementation UIViewController (Design)
 
 - (BOOL)isColorForKey:(NSString*)key
 {
@@ -265,7 +267,7 @@
     }
 }
 
-- (void)customize
+- (void)customizeViewWillAppear
 {
     //load dictionay
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Design" ofType:@"plist"]];
@@ -287,6 +289,65 @@
                 [self applyKey:childKey forObject:self fromDictionary:(NSDictionary*)[dictionary objectForKey:key]];
         }
     }
+}
+
+- (void)customizeViewDidLoad
+{
+    //set background color
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
+    
+    //check table view controller
+    if ([self isKindOfClass:[UITableViewController class]])
+    {
+        //unset table view
+        [[(UITableViewController*)self tableView] setBackgroundColor:[UIColor clearColor]];
+        [[(UITableViewController*)self tableView] setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
+        
+        //apply refresh control
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
+        {
+            UIRefreshControl *refreshControl = [[[UIRefreshControl alloc] init] autorelease];
+            [refreshControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+            ((UITableViewController*)self).refreshControl = refreshControl;
+        }
+    }
+    
+    //customize navigation bar
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    //customize left button
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
+}
+
+- (void)refreshControlValueChanged:(UIRefreshControl*)sender
+{
+    [self onRefreshStarted];
+}
+
+- (void)finishRefresh
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
+    {
+        if ([self isKindOfClass:[UITableViewController class]])
+        {
+            UIRefreshControl *refreshControl = ((UITableViewController*)self).refreshControl;
+            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+            [dateFormatter setDateStyle:kCFDateFormatterShortStyle];
+            [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
+            [[[[NSDateFormatter alloc] init] autorelease] stringFromDate:[NSDate date]];
+            refreshControl.attributedTitle = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Last updated: %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
+            [refreshControl endRefreshing];
+            [self onRefreshFinished];
+        }
+    }
+}
+
+- (void)onRefreshStarted
+{
+}
+
+- (void)onRefreshFinished
+{
 }
 
 @end

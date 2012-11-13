@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
 #import "DDLocationPickerViewController.h"
 #import "DDAPIController.h"
 #import <CoreLocation/CoreLocation.h>
@@ -14,11 +14,10 @@
 @class DDAPIController;
 @class DDPlacemark;
 
-@interface DDLocationChooserViewController : DDViewController
+@interface DDLocationChooserViewController : DDTableViewController
 {
     NSArray *placemarks_;
     NSMutableArray *selectedLocations_;
-    UITableView *tableView_;
 }
 
 @property(nonatomic, retain) DDPlacemark *ddLocation;

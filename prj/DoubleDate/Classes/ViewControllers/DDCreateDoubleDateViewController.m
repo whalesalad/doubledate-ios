@@ -463,9 +463,6 @@
     //hide hud
     [self hideHud:YES];
     
-    //add doubledate
-    [self.doubleDatesViewController setDoubleDateToAdd:doubleDate];
-    
     //show succeed message
     NSString *message = NSLocalizedString(@"Done", nil);
     
@@ -563,7 +560,7 @@
     }
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
     {
-        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
         if (self.location)
             locationChooserViewController.ddLocation = self.location;

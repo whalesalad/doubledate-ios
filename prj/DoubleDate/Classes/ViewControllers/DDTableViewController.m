@@ -1,12 +1,12 @@
 //
-//  DDViewController.h
+//  DDTableViewController.h
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/5/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
 #import "UIViewController+Design.h"
 #import "MBProgressHUD.h"
 #import "DDAppDelegate.h"
@@ -17,11 +17,11 @@
 
 #define kTagHud 34985123
 
-@interface DDViewController (hidden) <DDAPIControllerDelegate>
+@interface DDTableViewController (hidden) <DDAPIControllerDelegate>
 
 @end
 
-@implementation DDViewController
+@implementation DDTableViewController
 
 @synthesize viewAfterAppearing;
 @synthesize apiController=apiController_;
@@ -59,9 +59,9 @@
 - (MBProgressHUD*)HUDForView:(UIView*)view
 {
     /*MBProgressHUD *hud = [MBProgressHUD HUDForView:view];
-    if (hud.tag == 34985123)
-        return hud;
-    return nil;*/
+     if (hud.tag == 34985123)
+     return hud;
+     return nil;*/
     return hud_;
 }
 

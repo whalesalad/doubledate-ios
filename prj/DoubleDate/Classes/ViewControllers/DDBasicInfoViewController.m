@@ -217,7 +217,7 @@
     if (self.userLocation)
     {
         //create view controller
-        DDLocationChooserViewController *viewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+        DDLocationChooserViewController *viewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         viewController.delegate = self;
         viewController.ddLocation = self.userLocation;
         viewController.options = DDLocationSearchOptionsCities;

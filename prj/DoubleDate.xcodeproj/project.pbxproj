@@ -155,7 +155,7 @@
 		960FB56C1641530E003563FD /* doublephoto-left-image-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5601641530E003563FD /* doublephoto-left-image-mask@2x.png */; };
 		960FB56D1641530E003563FD /* doublephoto-right-image-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5611641530E003563FD /* doublephoto-right-image-mask.png */; };
 		960FB56E1641530E003563FD /* doublephoto-right-image-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5621641530E003563FD /* doublephoto-right-image-mask@2x.png */; };
-		961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E356516084A2E0053B88B /* DDViewController+Design.m */; };
+		961E356616084A2E0053B88B /* UIViewController+Design.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E356516084A2E0053B88B /* UIViewController+Design.m */; };
 		962B410016256397004E0656 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B40FF16256397004E0656 /* FacebookSDK.framework */; };
 		962B410416256413004E0656 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410216256413004E0656 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		962B410516256413004E0656 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410316256413004E0656 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -224,7 +224,6 @@
 		968BE2B7161038B20029F61F /* woman-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE299161038B20029F61F /* woman-tab-bar.png */; };
 		968BE2B8161038B20029F61F /* woman-tab-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE29A161038B20029F61F /* woman-tab-bar@2x.png */; };
 		969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353D416392E08007376AA /* DDDoubleDatesViewController.m */; };
-		969353D916392E1D007376AA /* DDDoubleDatesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */; };
 		969353DD16393951007376AA /* DDCreateDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */; };
 		969353E01639397B007376AA /* DDCreateDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */; };
 		9695DD2D1647A94700A80922 /* DDBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9695DD2C1647A94700A80922 /* DDBarButtonItem.m */; };
@@ -238,6 +237,7 @@
 		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
 		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
 		96C6D65916523F4100DAC219 /* DDDoubleDateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */; };
+		96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65B16524BAF00DAC219 /* DDTableViewController.m */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
 		96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */; };
 		96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */; };
@@ -499,8 +499,8 @@
 		960FB5601641530E003563FD /* doublephoto-left-image-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublephoto-left-image-mask@2x.png"; sourceTree = "<group>"; };
 		960FB5611641530E003563FD /* doublephoto-right-image-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublephoto-right-image-mask.png"; sourceTree = "<group>"; };
 		960FB5621641530E003563FD /* doublephoto-right-image-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublephoto-right-image-mask@2x.png"; sourceTree = "<group>"; };
-		961E356416084A2E0053B88B /* DDViewController+Design.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDViewController+Design.h"; sourceTree = "<group>"; };
-		961E356516084A2E0053B88B /* DDViewController+Design.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDViewController+Design.m"; sourceTree = "<group>"; };
+		961E356416084A2E0053B88B /* UIViewController+Design.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Design.h"; sourceTree = "<group>"; };
+		961E356516084A2E0053B88B /* UIViewController+Design.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Design.m"; sourceTree = "<group>"; };
 		962B40FF16256397004E0656 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		962B410216256413004E0656 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		962B410316256413004E0656 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -586,7 +586,6 @@
 		968BE29A161038B20029F61F /* woman-tab-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman-tab-bar@2x.png"; sourceTree = "<group>"; };
 		969353D316392E08007376AA /* DDDoubleDatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDatesViewController.h; sourceTree = "<group>"; };
 		969353D416392E08007376AA /* DDDoubleDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDatesViewController.m; sourceTree = "<group>"; };
-		969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDatesViewController.xib; sourceTree = "<group>"; };
 		969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewController.h; sourceTree = "<group>"; };
 		969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewController.m; sourceTree = "<group>"; };
 		969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDCreateDoubleDateViewController.xib; sourceTree = "<group>"; };
@@ -607,6 +606,8 @@
 		96B59E19160719DF00CFDA1C /* DDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageView.m; sourceTree = "<group>"; };
 		96C6D65716523F4100DAC219 /* DDDoubleDateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilter.h; sourceTree = "<group>"; };
 		96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilter.m; sourceTree = "<group>"; };
+		96C6D65A16524BAF00DAC219 /* DDTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTableViewController.h; sourceTree = "<group>"; };
+		96C6D65B16524BAF00DAC219 /* DDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTableViewController.m; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
 		96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -1025,10 +1026,12 @@
 				964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */,
 				96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */,
 				96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */,
-				961E356416084A2E0053B88B /* DDViewController+Design.h */,
-				961E356516084A2E0053B88B /* DDViewController+Design.m */,
+				96C6D65A16524BAF00DAC219 /* DDTableViewController.h */,
+				96C6D65B16524BAF00DAC219 /* DDTableViewController.m */,
 				96E7F1E115F788A900200E1F /* DDViewController.h */,
 				96E7F1E215F788A900200E1F /* DDViewController.m */,
+				961E356416084A2E0053B88B /* UIViewController+Design.h */,
+				961E356516084A2E0053B88B /* UIViewController+Design.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1062,7 +1065,6 @@
 			isa = PBXGroup;
 			children = (
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
-				969353D816392E1D007376AA /* DDDoubleDatesViewController.xib */,
 				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
 				702846AA1623639200693673 /* DDWingsViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
@@ -1439,7 +1441,6 @@
 				70E67235162778E1004D14CA /* button-grey@2x.png in Resources */,
 				4C9AF112162BB7C40025E1FB /* disclosure-arrow-inverted.png in Resources */,
 				4C9AF113162BB7C40025E1FB /* disclosure-arrow-inverted@2x.png in Resources */,
-				969353D916392E1D007376AA /* DDDoubleDatesViewController.xib in Resources */,
 				969353E01639397B007376AA /* DDCreateDoubleDateViewController.xib in Resources */,
 				960FB5651641530E003563FD /* dd-tablecell-detail-arrow.png in Resources */,
 				960FB5661641530E003563FD /* dd-tablecell-detail-arrow@2x.png in Resources */,
@@ -1582,7 +1583,7 @@
 				96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */,
 				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
-				961E356616084A2E0053B88B /* DDViewController+Design.m in Sources */,
+				961E356616084A2E0053B88B /* UIViewController+Design.m in Sources */,
 				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
 				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
@@ -1612,6 +1613,7 @@
 				9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */,
 				708C09E51651922D00A40FD9 /* NSObject+DD.m in Sources */,
 				96C6D65916523F4100DAC219 /* DDDoubleDateFilter.m in Sources */,
+				96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

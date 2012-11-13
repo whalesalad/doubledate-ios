@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
 #import "DDUser.h"
 #import "DDDoubleDate.h"
 
@@ -16,7 +16,7 @@ typedef enum
     DDDoubleDatesViewControllerModeMine
 } DDDoubleDatesViewControllerMode;
 
-@interface DDDoubleDatesViewController : DDViewController
+@interface DDDoubleDatesViewController : DDTableViewController
 {
     NSMutableArray *allDoubleDates_;
     NSMutableArray *mineDoubleDates_;
@@ -24,10 +24,6 @@ typedef enum
     NSString *searchTerm_;
 }
 
-@property(nonatomic, retain) IBOutlet UITableView *tableView;
-
 @property(nonatomic, retain) DDUser *user;
-
-@property(nonatomic, retain) DDDoubleDate *doubleDateToAdd;
 
 @end

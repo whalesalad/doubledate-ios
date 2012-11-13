@@ -107,7 +107,7 @@
     //check only one location
     if ([locations count] == 1)
     {
-        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] init] autorelease];
+        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.clLocation = [locations lastObject];
         locationChooserViewController.delegate = self.delegate;
         locationChooserViewController.options = DDLocationSearchOptionsBoth;
