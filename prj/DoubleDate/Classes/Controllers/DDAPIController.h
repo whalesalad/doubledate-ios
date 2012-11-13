@@ -14,6 +14,7 @@
 @class DDFriendship;
 @class DDShortUser;
 @class DDDoubleDate;
+@class DDDoubleDateFilter;
 
 typedef enum
 {
@@ -132,7 +133,7 @@ typedef int DDRequestId;
 
 - (DDRequestId)createDoubleDate:(DDDoubleDate*)doubleDate;
 
-- (DDRequestId)getDoubleDates;
+- (DDRequestId)getDoubleDatesWithFilter:(DDDoubleDateFilter*)filter;
 
 - (DDRequestId)getMyDoubleDates;
 

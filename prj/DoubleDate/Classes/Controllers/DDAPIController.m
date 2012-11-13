@@ -19,6 +19,7 @@
 #import "DDFriendship.h"
 #import "DDShortUser.h"
 #import "DDDoubleDate.h"
+#import "DDDoubleDateFilter.h"
 
 typedef enum
 {
@@ -514,10 +515,12 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)getDoubleDates
+- (DDRequestId)getDoubleDatesWithFilter:(DDDoubleDateFilter*)filter
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities"];
+    if ([[filter queryString] length])
+        requestPath = [NSString stringWithFormat:@"%@?%@", requestPath, [filter queryString]];
     RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];

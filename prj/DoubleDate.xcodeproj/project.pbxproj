@@ -237,6 +237,7 @@
 		96B3A499164AA03F00048385 /* DDLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B3A498164AA03F00048385 /* DDLocationTableViewCell.m */; };
 		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
 		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
+		96C6D65916523F4100DAC219 /* DDDoubleDateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
 		96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */; };
 		96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */; };
@@ -604,6 +605,8 @@
 		96B59E151607185A00CFDA1C /* DDImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImage.m; sourceTree = "<group>"; };
 		96B59E18160719DF00CFDA1C /* DDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageView.h; sourceTree = "<group>"; };
 		96B59E19160719DF00CFDA1C /* DDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageView.m; sourceTree = "<group>"; };
+		96C6D65716523F4100DAC219 /* DDDoubleDateFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilter.h; sourceTree = "<group>"; };
+		96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilter.m; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
 		96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -849,6 +852,8 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				96C6D65716523F4100DAC219 /* DDDoubleDateFilter.h */,
+				96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */,
 				7099E8AD163BF1D100594BAA /* DDDoubleDate.h */,
 				7099E8AE163BF1D100594BAA /* DDDoubleDate.m */,
 				702846C416238AB800693673 /* DDShortUser.h */,
@@ -1606,6 +1611,7 @@
 				96E78E38164D3C0D00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m in Sources */,
 				9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */,
 				708C09E51651922D00A40FD9 /* NSObject+DD.m in Sources */,
+				96C6D65916523F4100DAC219 /* DDDoubleDateFilter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1673,7 +1679,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/SBJson/Classes\"",
 				);
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1694,7 +1700,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/SBJson/Classes\"",
 				);
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
