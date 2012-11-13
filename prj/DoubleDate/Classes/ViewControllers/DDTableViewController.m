@@ -7,7 +7,6 @@
 //
 
 #import "DDTableViewController.h"
-#import "UIViewController+Design.h"
 #import "MBProgressHUD.h"
 #import "DDAppDelegate.h"
 #import "DDAPIController.h"
@@ -128,7 +127,19 @@
 {
     [super viewDidLoad];
     
-    [self customizeViewDidLoad];
+    //set background color
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
+    
+    //set table view properties
+    [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setSeparatorColor:[UIColor clearColor]];
+    
+    //customize navigation bar
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    //customize left button
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated

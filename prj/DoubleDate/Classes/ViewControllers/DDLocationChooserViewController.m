@@ -8,7 +8,6 @@
 
 #import "DDLocationChooserViewController.h"
 #import "DDTableViewController+Refresh.h"
-#import "UIViewController+Design.h"
 #import "DDAPIController.h"
 #import "DDPlacemark.h"
 #import "DDBarButtonItem.h"

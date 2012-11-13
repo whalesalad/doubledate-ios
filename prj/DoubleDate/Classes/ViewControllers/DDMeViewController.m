@@ -63,6 +63,16 @@
         self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     }
     
+    //customize poster
+    self.imageViewPoster.layer.borderWidth = 2;
+    self.imageViewPoster.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.imageViewPoster.layer.cornerRadius = 42.5f;
+    self.imageViewPoster.layer.masksToBounds = YES;
+    
+    //customize interests view
+    self.tagsViewInterests.bubbleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.tagsViewInterests.gap = 4;
+    
     //set title
     labelTitle.text = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     

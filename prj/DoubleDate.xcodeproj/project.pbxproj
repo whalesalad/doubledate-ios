@@ -116,7 +116,6 @@
 		708C0A131651A26000A40FD9 /* large-segment-right-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09FB1651A26000A40FD9 /* large-segment-right-selected@2x.png */; };
 		708C0A141651A26000A40FD9 /* large-segment-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09FC1651A26000A40FD9 /* large-segment-right.png */; };
 		708C0A151651A26000A40FD9 /* large-segment-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09FD1651A26000A40FD9 /* large-segment-right@2x.png */; };
-		7093AA391607DA7B00FC9C65 /* Design.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7093AA381607DA7B00FC9C65 /* Design.plist */; };
 		7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AB163BE2B800594BAA /* DDTextView.m */; };
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
@@ -155,7 +154,6 @@
 		960FB56C1641530E003563FD /* doublephoto-left-image-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5601641530E003563FD /* doublephoto-left-image-mask@2x.png */; };
 		960FB56D1641530E003563FD /* doublephoto-right-image-mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5611641530E003563FD /* doublephoto-right-image-mask.png */; };
 		960FB56E1641530E003563FD /* doublephoto-right-image-mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5621641530E003563FD /* doublephoto-right-image-mask@2x.png */; };
-		961E356616084A2E0053B88B /* UIViewController+Design.m in Sources */ = {isa = PBXBuildFile; fileRef = 961E356516084A2E0053B88B /* UIViewController+Design.m */; };
 		962B410016256397004E0656 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B40FF16256397004E0656 /* FacebookSDK.framework */; };
 		962B410416256413004E0656 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410216256413004E0656 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		962B410516256413004E0656 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410316256413004E0656 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -448,7 +446,6 @@
 		708C09FB1651A26000A40FD9 /* large-segment-right-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-segment-right-selected@2x.png"; sourceTree = "<group>"; };
 		708C09FC1651A26000A40FD9 /* large-segment-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-segment-right.png"; sourceTree = "<group>"; };
 		708C09FD1651A26000A40FD9 /* large-segment-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-segment-right@2x.png"; sourceTree = "<group>"; };
-		7093AA381607DA7B00FC9C65 /* Design.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Design.plist; sourceTree = "<group>"; };
 		7099E8AA163BE2B800594BAA /* DDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextView.h; sourceTree = "<group>"; };
 		7099E8AB163BE2B800594BAA /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 		7099E8AD163BF1D100594BAA /* DDDoubleDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDate.h; sourceTree = "<group>"; };
@@ -500,8 +497,6 @@
 		960FB5601641530E003563FD /* doublephoto-left-image-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublephoto-left-image-mask@2x.png"; sourceTree = "<group>"; };
 		960FB5611641530E003563FD /* doublephoto-right-image-mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublephoto-right-image-mask.png"; sourceTree = "<group>"; };
 		960FB5621641530E003563FD /* doublephoto-right-image-mask@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doublephoto-right-image-mask@2x.png"; sourceTree = "<group>"; };
-		961E356416084A2E0053B88B /* UIViewController+Design.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Design.h"; sourceTree = "<group>"; };
-		961E356516084A2E0053B88B /* UIViewController+Design.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Design.m"; sourceTree = "<group>"; };
 		962B40FF16256397004E0656 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		962B410216256413004E0656 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		962B410316256413004E0656 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -761,7 +756,6 @@
 		960A02D315F7371D00BA9EB0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7093AA381607DA7B00FC9C65 /* Design.plist */,
 				960A02D415F7371D00BA9EB0 /* DoubleDate-Info.plist */,
 				960A02D815F7371D00BA9EB0 /* main.m */,
 				960A02DA15F7371D00BA9EB0 /* DoubleDate-Prefix.pch */,
@@ -1035,8 +1029,6 @@
 				96C6D65B16524BAF00DAC219 /* DDTableViewController.m */,
 				96E7F1E115F788A900200E1F /* DDViewController.h */,
 				96E7F1E215F788A900200E1F /* DDViewController.m */,
-				961E356416084A2E0053B88B /* UIViewController+Design.h */,
-				961E356516084A2E0053B88B /* UIViewController+Design.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1383,7 +1375,6 @@
 				96892CAB15FF15E70054C108 /* DDMeViewController.xib in Resources */,
 				96892CB515FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib in Resources */,
 				96892D4D15FF61830054C108 /* DDLocationPickerViewController.xib in Resources */,
-				7093AA391607DA7B00FC9C65 /* Design.plist in Resources */,
 				968BE29B161038B20029F61F /* doubledates-tab-bar.png in Resources */,
 				968BE29C161038B20029F61F /* doubledates-tab-bar@2x.png in Resources */,
 				968BE29F161038B20029F61F /* upper_userinfo_bg.png in Resources */,
@@ -1588,7 +1579,6 @@
 				96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */,
 				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
-				961E356616084A2E0053B88B /* UIViewController+Design.m in Sources */,
 				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
 				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
