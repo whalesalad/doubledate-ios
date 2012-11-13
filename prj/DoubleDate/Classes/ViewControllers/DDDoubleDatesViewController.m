@@ -58,7 +58,7 @@ typedef enum
     [super viewDidLoad];
     
     //set title
-    UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"List", nil), NSLocalizedString(@"Mine", nil), nil]] autorelease];
+    UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"LIST", nil), NSLocalizedString(@"MINE", nil), nil]] autorelease];
     segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     if (mode_ == DDDoubleDatesViewControllerModeAll)
         segmentedControl.selectedSegmentIndex = 0;
@@ -71,12 +71,12 @@ typedef enum
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"+", nil) target:self action:@selector(plusTouched:)];
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
     
     //set header as search bar
     DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
     searchBar.delegate = self;
-    searchBar.placeholder = NSLocalizedString(@"All doubledates", nil);
+    searchBar.placeholder = NSLocalizedString(@"Search DoubleDates…", nil);
     self.tableView.tableHeaderView = searchBar;
         
     //move header
@@ -148,9 +148,9 @@ typedef enum
     
     //set right button
     if (self.tableView.editing)
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"DONE", nil) target:self action:@selector(editTouched:)];
     else
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
 }
 
 - (void)refresh:(BOOL)animated
