@@ -69,7 +69,7 @@ typedef enum
     self.navigationItem.titleView = segmentedControl;
     
     //add left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"+", nil) target:self action:@selector(plusTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
     
     //customize separators
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

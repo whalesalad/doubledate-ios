@@ -23,6 +23,7 @@
 - (UIImage*)disabledImage;
 
 + (id)barButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
++ (id)barButtonItemWithImage:(UIImage*)image target:(id)target action:(SEL)action;
 + (id)largeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 + (id)backBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 
