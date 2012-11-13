@@ -221,7 +221,9 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //save location
-    DDPlacemark *selectedLocation = [[self locationsForSection:indexPath.section] objectAtIndex:indexPath.row];
+    DDPlacemark *selectedLocation = nil;
+    if (indexPath.row < [[self locationsForSection:indexPath.section] count])
+        selectedLocation = [[self locationsForSection:indexPath.section] objectAtIndex:indexPath.row];
     
     //create cell of needed type
     NSString *identifier = [[[self class] description] stringByAppendingString:@"DDLocationTableViewCell"];
