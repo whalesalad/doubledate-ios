@@ -153,9 +153,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    //make customization
-    [self customizeViewWillAppear];
 }
 
 - (UIViewController*)viewControllerForClass:(Class)vcClass inViewController:(UIViewController*)vc

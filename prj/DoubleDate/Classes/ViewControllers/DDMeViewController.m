@@ -16,6 +16,7 @@
 #import "DDInterest.h"
 #import "DDAuthenticationController.h"
 #import "DDBarButtonItem.h"
+#import "DDWingsViewController.h"
 
 @interface DDMeViewController ()
 
@@ -182,6 +183,14 @@
 
 - (void)editTouched:(id)sender
 {
+}
+
+- (void)backTouched:(id)sender
+{
+    if ([[DDAuthenticationController userId] isEqualToString:[user.userId stringValue]])
+        [self.tabBarController.navigationController popViewControllerAnimated:YES];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
