@@ -31,7 +31,6 @@ typedef enum
 
 @property(nonatomic, readonly) UISearchBar *searchBar;
 
-- (void)refresh:(BOOL)animated;
 - (NSArray*)doubleDatesForSection:(NSInteger)section;
 - (void)segmentedControlTouched:(id)sender;
 - (void)onDataRefreshed;
@@ -96,7 +95,7 @@ typedef enum
     
     //check if we need to make a request
     if (!allDoubleDates_ || !mineDoubleDates_)
-        [self refresh:YES];
+        [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
 - (void)viewDidUnload
@@ -136,24 +135,6 @@ typedef enum
     
     //update navigation bar
     [self updateNavigationBar];
-}
-
-- (void)refresh:(BOOL)animated
-{
-    //unset old values
-    [allDoubleDates_ release];
-    allDoubleDates_ = nil;
-    [mineDoubleDates_ release];
-    mineDoubleDates_ = nil;
-    
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:animated];
-    
-    //request doubledates
-    [self.apiController getDoubleDatesWithFilter:nil];
-    
-    //request doubledates
-    [self.apiController getMyDoubleDates];
 }
 
 - (NSArray*)filteredDoubleDates:(NSArray*)doubleDates filter:(DDDoubleDatesViewControllerFilter)filter
@@ -488,8 +469,8 @@ typedef enum
 
 - (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error
 {
-    //reload data
-    [self refresh:YES];
+    //refresh
+    [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -509,9 +490,19 @@ typedef enum
 #pragma mark -
 #pragma mark Refreshing
 
-- (void)onRefreshStarted
+- (void)onRefresh
 {
-    [self refresh:YES];
+    //unset old values
+    [allDoubleDates_ release];
+    allDoubleDates_ = nil;
+    [mineDoubleDates_ release];
+    mineDoubleDates_ = nil;
+    
+    //request doubledates
+    [self.apiController getDoubleDatesWithFilter:nil];
+    
+    //request doubledates
+    [self.apiController getMyDoubleDates];
 }
 
 @end

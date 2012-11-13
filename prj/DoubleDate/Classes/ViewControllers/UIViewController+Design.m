@@ -9,6 +9,8 @@
 #import "UIViewController+Design.h"
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
+#import "DDViewController.h"
+#import "DDTableViewController.h"
 #import <objc/message.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -321,33 +323,59 @@
 
 - (void)refreshControlValueChanged:(UIRefreshControl*)sender
 {
-    [self onRefreshStarted];
+    [self startRefreshWithText:NSLocalizedString(@"Loading...", nil)];
 }
 
-- (void)finishRefresh
+- (UIRefreshControl*)refreshControl
 {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
     {
         if ([self isKindOfClass:[UITableViewController class]])
-        {
-            UIRefreshControl *refreshControl = ((UITableViewController*)self).refreshControl;
-            NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-            [dateFormatter setDateStyle:kCFDateFormatterShortStyle];
-            [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
-            [[[[NSDateFormatter alloc] init] autorelease] stringFromDate:[NSDate date]];
-            refreshControl.attributedTitle = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Last updated: %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
-            [refreshControl endRefreshing];
-            [self onRefreshFinished];
-        }
+            return ((UITableViewController*)self).refreshControl;
     }
+    return nil;
 }
 
-- (void)onRefreshStarted
+- (void)startRefreshWithText:(NSString*)text
 {
+    //check if refresh control exist
+    if ([self refreshControl])
+        [[self refreshControl] beginRefreshing];
+//    else
+    {
+        if ([self isKindOfClass:[DDViewController class]])
+            [(DDViewController*)self showHudWithText:text animated:YES];
+        if ([self isKindOfClass:[DDTableViewController class]])
+            [(DDTableViewController*)self showHudWithText:text animated:YES];
+    }
+    
+    //refresh
+    [self onRefresh];
 }
 
-- (void)onRefreshFinished
+- (void)onRefresh
 {
+    
+}
+
+- (void)finishRefresh
+{
+    //check if refresh control exist
+    if ([self refreshControl])
+    {
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setDateStyle:kCFDateFormatterShortStyle];
+        [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
+        [self refreshControl].attributedTitle = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Last updated: %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
+        [[self refreshControl] endRefreshing];
+    }
+//    else
+    {
+        if ([self isKindOfClass:[DDViewController class]])
+            [(DDViewController*)self hideHud:YES];
+        if ([self isKindOfClass:[DDTableViewController class]])
+            [(DDTableViewController*)self hideHud:YES];
+    }
 }
 
 @end

@@ -18,8 +18,6 @@
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
-- (void)refresh:(BOOL)animated;
-
 @property(nonatomic, readonly) UISearchBar *searchBar;
 @property(nonatomic, readonly) UITableView *tableView;
 
@@ -50,7 +48,7 @@
     
     //check if we need to make a request
     if (!placemarks_)
-        [self refresh:YES];
+        [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
 - (void)viewDidLoad
@@ -73,27 +71,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-}
-
-- (void)refresh:(BOOL)animated
-{
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
-    
-    //search for placemarks
-    CGFloat latitude = 0;
-    CGFloat longitude = 0;
-    if (self.ddLocation)
-    {
-        latitude = [self.ddLocation.latitude floatValue];
-        longitude = [self.ddLocation.longitude floatValue];
-    }
-    else if (self.clLocation)
-    {
-        latitude = self.clLocation.coordinate.latitude;
-        longitude = self.clLocation.coordinate.longitude;
-    }
-    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude options:self.options];
 }
 
 - (void)setDdLocation:(DDPlacemark *)v
@@ -274,15 +251,12 @@
 
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks
 {
-    //hide hud
-    [self hideHud:YES];
+    //hide refresh UI
+    [self finishRefresh];
     
     //save placemarks
     [placemarks_ release];
     placemarks_ = [placemarks retain];
-    
-    //finish refreshing
-    [self finishRefresh];
     
     //reload the table
     [self.tableView reloadData];
@@ -290,10 +264,7 @@
 
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error
 {
-    //hide hud
-    [self hideHud:YES];
-    
-    //finish refreshing
+    //hide refresh UI
     [self finishRefresh];
     
     //show error
@@ -312,9 +283,22 @@
 #pragma mark -
 #pragma mark Refreshing
 
-- (void)onRefreshStarted
+- (void)onRefresh
 {
-    [self refresh:YES];
+    //search for placemarks
+    CGFloat latitude = 0;
+    CGFloat longitude = 0;
+    if (self.ddLocation)
+    {
+        latitude = [self.ddLocation.latitude floatValue];
+        longitude = [self.ddLocation.longitude floatValue];
+    }
+    else if (self.clLocation)
+    {
+        latitude = self.clLocation.coordinate.latitude;
+        longitude = self.clLocation.coordinate.longitude;
+    }
+    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude options:self.options];
 }
 
 @end

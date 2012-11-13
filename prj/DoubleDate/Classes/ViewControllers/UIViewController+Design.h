@@ -13,8 +13,8 @@
 - (void)customizeViewDidLoad;
 - (void)customizeViewWillAppear;
 
+- (void)startRefreshWithText:(NSString*)text;
+- (void)onRefresh;
 - (void)finishRefresh;
-- (void)onRefreshStarted;
-- (void)onRefreshFinished;
 
 @end
