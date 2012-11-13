@@ -8,6 +8,7 @@
 
 #import "DDDoubleDatesViewController.h"
 #import "DDCreateDoubleDateViewController.h"
+#import "DDDoubleDateFilterViewController.h"
 #import "DDDoubleDate.h"
 #import "DDDoubleDateTableViewCell.h"
 #import "DDBarButtonItem.h"
@@ -122,10 +123,12 @@ typedef enum
 
 - (void)plusTouched:(id)sender
 {
-    DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
-    viewController.user = self.user;
-    viewController.doubleDatesViewController = self;
-    [self.navigationController pushViewController:viewController animated:YES];
+//    DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
+//    viewController.user = self.user;
+//    viewController.doubleDatesViewController = self;
+//    [self.navigationController pushViewController:viewController animated:YES];
+    DDDoubleDateFilterViewController *viewController = [[[DDDoubleDateFilterViewController alloc] init] autorelease];
+    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
 }
 
 - (void)editTouched:(id)sender

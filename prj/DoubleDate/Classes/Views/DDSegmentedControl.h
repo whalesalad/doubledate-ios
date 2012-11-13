@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum
+{
+    DDSegmentedControlStyleRedBar,
+    DDSegmentedControlStyleBlackLarge,
+} DDSegmentedControlStyle;
+
 @interface DDSegmentedControl : UISegmentedControl
 {
     NSMutableArray *items_;
 }
+
+- (id)initWithItems:(NSArray *)items style:(DDSegmentedControlStyle)style;
 
 @end

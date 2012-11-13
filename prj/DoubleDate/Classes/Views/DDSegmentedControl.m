@@ -61,6 +61,11 @@
 
 - (id)initWithItems:(NSArray *)items
 {
+    return [self initWithItems:items style:DDSegmentedControlStyleRedBar];
+}
+
+- (id)initWithItems:(NSArray *)items style:(DDSegmentedControlStyle)style
+{
     //save items for internal representation
     NSMutableArray *itemsInternal = [NSMutableArray array];
     for (NSObject *item in items)
@@ -70,12 +75,24 @@
 
         //add bar button items
         DDBarButtonItem *barButtonItem = nil;
-        if (item == [items objectAtIndex:0])
-            barButtonItem = [DDBarButtonItem leftBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
-        else if (item == [items lastObject])
-            barButtonItem = [DDBarButtonItem rightBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
-        else
-            barButtonItem = [DDBarButtonItem middleBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+        if (style == DDSegmentedControlStyleRedBar)
+        {
+            if (item == [items objectAtIndex:0])
+                barButtonItem = [DDBarButtonItem leftBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+            else if (item == [items lastObject])
+                barButtonItem = [DDBarButtonItem rightBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+            else
+                barButtonItem = [DDBarButtonItem middleBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+        }
+        else if (style == DDSegmentedControlStyleBlackLarge)
+        {
+            if (item == [items objectAtIndex:0])
+                barButtonItem = [DDBarButtonItem leftLargeBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+            else if (item == [items lastObject])
+                barButtonItem = [DDBarButtonItem rightLargeBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+            else
+                barButtonItem = [DDBarButtonItem middleLargeBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+        }
         
         //create segmented control item
         DDSegmentedControlItem *segmentedControlItem = [[[DDSegmentedControlItem alloc] init] autorelease];

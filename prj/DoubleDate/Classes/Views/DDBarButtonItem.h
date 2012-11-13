@@ -28,7 +28,10 @@
 + (id)backBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 
 + (id)leftBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
++ (id)leftLargeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 + (id)middleBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
++ (id)middleLargeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 + (id)rightBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
++ (id)rightLargeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action;
 
 @end

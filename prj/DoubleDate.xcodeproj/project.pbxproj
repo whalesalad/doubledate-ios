@@ -124,6 +124,8 @@
 		70C9A136165308070046F98F /* dd-tablecell-background-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A134165308070046F98F /* dd-tablecell-background-highlight@2x.png */; };
 		70C9A13916530AF10046F98F /* dd-button-add-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A13716530AF10046F98F /* dd-button-add-icon.png */; };
 		70C9A13A16530AF10046F98F /* dd-button-add-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A13816530AF10046F98F /* dd-button-add-icon@2x.png */; };
+		70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */; };
+		70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */; };
 		70E6720B162748BE004D14CA /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67209162748BE004D14CA /* dd-app.png */; };
 		70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6720A162748BE004D14CA /* dd-app@2x.png */; };
 		70E67217162753F1004D14CA /* DDFacebookFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */; };
@@ -462,6 +464,9 @@
 		70C9A134165308070046F98F /* dd-tablecell-background-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tablecell-background-highlight@2x.png"; sourceTree = "<group>"; };
 		70C9A13716530AF10046F98F /* dd-button-add-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-button-add-icon.png"; sourceTree = "<group>"; };
 		70C9A13816530AF10046F98F /* dd-button-add-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-button-add-icon@2x.png"; sourceTree = "<group>"; };
+		70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewController.h; sourceTree = "<group>"; };
+		70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewController.m; sourceTree = "<group>"; };
+		70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateFilterViewController.xib; sourceTree = "<group>"; };
 		70E67209162748BE004D14CA /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app.png"; sourceTree = "<group>"; };
 		70E6720A162748BE004D14CA /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
 		70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDFacebookFriendsViewController.xib; sourceTree = "<group>"; };
@@ -1042,6 +1047,8 @@
 				96C6D65B16524BAF00DAC219 /* DDTableViewController.m */,
 				96E7F1E115F788A900200E1F /* DDViewController.h */,
 				96E7F1E215F788A900200E1F /* DDViewController.m */,
+				70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */,
+				70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -1074,6 +1081,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
 				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
 				702846AA1623639200693673 /* DDWingsViewController.xib */,
@@ -1566,6 +1574,7 @@
 				70C9A136165308070046F98F /* dd-tablecell-background-highlight@2x.png in Resources */,
 				70C9A13916530AF10046F98F /* dd-button-add-icon.png in Resources */,
 				70C9A13A16530AF10046F98F /* dd-button-add-icon@2x.png in Resources */,
+				70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1632,6 +1641,7 @@
 				96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */,
 				96C6D69B16527D7000DAC219 /* DDTableViewController+Refresh.m in Sources */,
 				96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */,
+				70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
