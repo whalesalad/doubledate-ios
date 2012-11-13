@@ -14,8 +14,8 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>dd-app@2x.png</string>
-				<string>dd-app.png</string>
+				<string>app-icon@2x.png</string>
+				<string>app-icon.png</string>
 			</array>
 		</dict>
 	</dict>
@@ -46,16 +46,16 @@
 	<string>255402027911088</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Avenir.ttc</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackTranslucent</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Avenir.ttc</string>
-	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
