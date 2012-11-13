@@ -237,6 +237,7 @@
 		96C6D65916523F4100DAC219 /* DDDoubleDateFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */; };
 		96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65B16524BAF00DAC219 /* DDTableViewController.m */; };
 		96C6D69B16527D7000DAC219 /* DDTableViewController+Refresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */; };
+		96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
 		96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */; };
 		96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */; };
@@ -606,6 +607,8 @@
 		96C6D65B16524BAF00DAC219 /* DDTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTableViewController.m; sourceTree = "<group>"; };
 		96C6D69916527D6F00DAC219 /* DDTableViewController+Refresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDTableViewController+Refresh.h"; sourceTree = "<group>"; };
 		96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDTableViewController+Refresh.m"; sourceTree = "<group>"; };
+		96C6D6C8165296FD00DAC219 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
+		96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
 		96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -993,6 +996,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				96C6D6C8165296FD00DAC219 /* UIViewController+Extensions.h */,
+				96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */,
 				96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */,
 				96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */,
 				7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */,
@@ -1610,6 +1615,7 @@
 				96C6D65916523F4100DAC219 /* DDDoubleDateFilter.m in Sources */,
 				96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */,
 				96C6D69B16527D7000DAC219 /* DDTableViewController+Refresh.m in Sources */,
+				96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
