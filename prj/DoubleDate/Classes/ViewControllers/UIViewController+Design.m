@@ -301,9 +301,9 @@
     //check table view controller
     if ([self isKindOfClass:[UITableViewController class]])
     {
-        //unset table view
-        [[(UITableViewController*)self tableView] setBackgroundColor:[UIColor clearColor]];
         [[(UITableViewController*)self tableView] setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
+        [[(UITableViewController*)self tableView] setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [[(UITableViewController*)self tableView] setSeparatorColor:[UIColor clearColor]];
     }
     
     //customize navigation bar
