@@ -13,5 +13,7 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelSort;
 @property(nonatomic, retain) IBOutlet UIView *viewSortContainer;
+@property(nonatomic, retain) IBOutlet UILabel *labelWhen;
+@property(nonatomic, retain) IBOutlet UIView *viewWhenContainer;
 
 @end
