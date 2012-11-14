@@ -127,7 +127,7 @@
     
     imageViewLocation_.center = CGPointMake(leftTextAlignment_+(imageViewLocation_.frame.size.width/2), 40);
     
-    labelLocation_.frame = CGRectMake(imageViewLocation_.frame.origin.x+imageViewLocation_.frame.size.width+5, 32, labelLocation_.frame.size.width+10, labelLocation_.frame.size.height);
+    labelLocation_.frame = CGRectMake(imageViewLocation_.frame.origin.x+imageViewLocation_.frame.size.width+5, 32, 130, labelLocation_.frame.size.height);
 //    labelDistance_.frame = CGRectMake(labelLocation_.frame.origin.x+labelLocation_.frame.size.width+4, labelLocation_.frame.origin.y, labelDistance_.frame.size.width, labelLocation_.frame.size.height);
 }
 
