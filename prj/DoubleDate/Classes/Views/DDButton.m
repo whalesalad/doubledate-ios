@@ -213,3 +213,63 @@
 }
 
 @end
+
+@implementation DDToggleButton
+
+@synthesize toggled;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+    {
+        [self addTarget:self action:@selector(touched) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return self;
+}
+
+- (void)setBackgroundImage:(UIImage *)image forState:(UIControlState)state
+{
+    [super setBackgroundImage:image forState:state];
+    if (state == UIControlStateNormal)
+    {
+        [normalImage_ release];
+        normalImage_ = [image retain];
+    }
+    if (state == UIControlStateHighlighted)
+    {
+        [highlightedImage_ release];
+        highlightedImage_ = [image retain];
+    }
+}
+
+- (UIImage*)backgroundImageForState:(UIControlState)state
+{
+    if (state == UIControlStateNormal)
+        return normalImage_;
+    if (state == UIControlStateHighlighted)
+        return highlightedImage_;
+    return [super imageForState:state];
+}
+
+- (void)touched
+{
+    self.toggled = !self.toggled;
+}
+
+- (void)setToggled:(BOOL)v
+{
+    toggled = v;
+    if (toggled)
+        [super setBackgroundImage:highlightedImage_ forState:UIControlStateNormal];
+    else
+        [super setBackgroundImage:normalImage_ forState:UIControlStateNormal];
+}
+
+- (void)dealloc
+{
+    [normalImage_ release];
+    [highlightedImage_ release];
+    [super dealloc];
+}
+
+@end

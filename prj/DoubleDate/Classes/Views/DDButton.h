@@ -26,3 +26,13 @@
 @property(nonatomic, retain) NSString *text;
 
 @end
+
+@interface DDToggleButton : UIButton
+{
+    UIImage *normalImage_;
+    UIImage *highlightedImage_;
+}
+
+@property(nonatomic, assign) BOOL toggled;
+
+@end
