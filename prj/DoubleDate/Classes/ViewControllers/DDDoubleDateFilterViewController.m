@@ -30,8 +30,18 @@
 {
     [super viewDidLoad];
     
+    //unset parameters
+    self.labelSort.backgroundColor = [UIColor clearColor];
+    DD_F_HEADER_MAIN(self.labelSort);
+    self.viewSortContainer.backgroundColor = [UIColor clearColor];
+    
     //add sort segmented control
-    DDSegmentedControl *sortSegmentedControl = [[[DDSegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"MAGIC", nil), NSLocalizedString(@"CLOSEST", nil), NSLocalizedString(@"NEWEST", nil), nil] style:DDSegmentedControlStyleBlackLarge] autorelease];
+    NSInteger itemWidth = self.viewSortContainer.frame.size.width/3;
+    NSMutableArray *items = [NSMutableArray array];
+    [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"MAGIC", nil) width:itemWidth]];
+    [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"CLOSEST", nil) width:itemWidth]];
+    [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"NEWEST", nil) width:itemWidth]];
+    DDSegmentedControl *sortSegmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleLarge] autorelease];
     sortSegmentedControl.frame = CGRectMake(0, 0, self.viewSortContainer.frame.size.width, self.viewSortContainer.frame.size.height);
     [self.viewSortContainer addSubview:sortSegmentedControl];
 }

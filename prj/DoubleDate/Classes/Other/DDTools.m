@@ -79,6 +79,15 @@
     return [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width/2, image.size.height/2, image.size.width/2)];
 }
 
++ (UIImage*)scaledImageFromImage:(UIImage*)image ofSize:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *ret = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return ret;
+}
+
 + (UIImage*)clearImage
 {
     return [self clearImageOfSize:CGSizeMake(1, 1)];
@@ -86,7 +95,7 @@
 
 + (UIImage*)clearImageOfSize:(CGSize)size
 {
-    UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     CGRect fillRect = CGRectMake(0, 0, size.width, size.height);
     CGContextSetFillColorWithColor(currentContext, [UIColor clearColor].CGColor);

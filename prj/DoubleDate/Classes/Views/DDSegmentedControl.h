@@ -10,9 +10,20 @@
 
 typedef enum
 {
-    DDSegmentedControlStyleRedBar,
-    DDSegmentedControlStyleBlackLarge,
+    DDSegmentedControlStyleSmall,
+    DDSegmentedControlStyleLarge,
 } DDSegmentedControlStyle;
+
+@interface DDSegmentedControlItem : NSObject
+{
+}
+@property (nonatomic, retain) NSString *title;
+@property (nonatomic, assign) CGFloat width;
+
++ (id)itemWithTitle:(NSString*)title;
++ (id)itemWithTitle:(NSString*)title width:(CGFloat)width;
+
+@end
 
 @interface DDSegmentedControl : UISegmentedControl
 {

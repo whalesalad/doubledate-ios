@@ -31,6 +31,8 @@ typedef enum
 
 + (UIImage*)resizableImageFromImage:(UIImage*)image;
 
++ (UIImage*)scaledImageFromImage:(UIImage*)image ofSize:(CGSize)size;
+
 + (UIImage*)clearImage;
 + (UIImage*)clearImageOfSize:(CGSize)size;
 

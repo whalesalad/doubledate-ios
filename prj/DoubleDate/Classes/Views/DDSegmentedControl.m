@@ -10,7 +10,35 @@
 #import "DDTools.h"
 #import "DDBarButtonItem.h"
 
-@interface DDSegmentedControlItem : NSObject
+@implementation DDSegmentedControlItem
+
+@synthesize title;
+@synthesize width;
+
++ (id)itemWithTitle:(NSString*)title
+{
+    DDSegmentedControlItem *ret = [[[DDSegmentedControlItem alloc] init] autorelease];
+    ret.title = title;
+    return ret;
+}
+
++ (id)itemWithTitle:(NSString*)title width:(CGFloat)width
+{
+    DDSegmentedControlItem *ret = [[[DDSegmentedControlItem alloc] init] autorelease];
+    ret.title = title;
+    ret.width = width;
+    return ret;
+}
+
+- (void)dealloc
+{
+    [title release];
+    [super dealloc];
+}
+
+@end
+
+@interface DDSegmentedControlItemImages : NSObject
 
 @property(nonatomic, retain) UIImage *normalImage;
 @property(nonatomic, retain) UIImage *highlightedImage;
@@ -18,7 +46,7 @@
 
 @end
 
-@implementation DDSegmentedControlItem
+@implementation DDSegmentedControlItemImages
 
 @synthesize normalImage;
 @synthesize highlightedImage;
@@ -42,7 +70,7 @@
     for (int i = 0; i < [items_ count]; i++)
     {
         //get item
-        DDSegmentedControlItem *item = [items_ objectAtIndex:i];
+        DDSegmentedControlItemImages *item = [items_ objectAtIndex:i];
         
         //swtich image
         UIImage *image = item.normalImage;
@@ -61,41 +89,55 @@
 
 - (id)initWithItems:(NSArray *)items
 {
-    return [self initWithItems:items style:DDSegmentedControlStyleRedBar];
+    return [self initWithItems:items style:DDSegmentedControlStyleSmall];
 }
 
 - (id)initWithItems:(NSArray *)items style:(DDSegmentedControlStyle)style
 {
     //save items for internal representation
     NSMutableArray *itemsInternal = [NSMutableArray array];
+    NSMutableArray *itemsStrings = [NSMutableArray array];
     for (NSObject *item in items)
     {
-        //support strings only
-        assert([item isKindOfClass:[NSString class]]);
+        //support only needed objects
+        assert([item isKindOfClass:[NSString class]] || [item isKindOfClass:[DDSegmentedControlItem class]]);
+        
+        //save parameters
+        NSString *itemTitle = nil;
+        if ([item isKindOfClass:[NSString class]])
+            itemTitle = (NSString*)item;
+        if ([item isKindOfClass:[DDSegmentedControlItem class]])
+            itemTitle = [(DDSegmentedControlItem*)item title];
+        CGFloat itemWidth = 0;
+        if ([item isKindOfClass:[DDSegmentedControlItem class]])
+            itemWidth = [(DDSegmentedControlItem*)item width];
+        
+        //add title
+        [itemsStrings addObject:itemTitle];
 
         //add bar button items
         DDBarButtonItem *barButtonItem = nil;
-        if (style == DDSegmentedControlStyleRedBar)
+        if (style == DDSegmentedControlStyleSmall)
         {
             if (item == [items objectAtIndex:0])
-                barButtonItem = [DDBarButtonItem leftBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+                barButtonItem = [DDBarButtonItem leftBarButtonItemWithTitle:itemTitle target:nil action:nil];
             else if (item == [items lastObject])
-                barButtonItem = [DDBarButtonItem rightBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+                barButtonItem = [DDBarButtonItem rightBarButtonItemWithTitle:itemTitle target:nil action:nil];
             else
-                barButtonItem = [DDBarButtonItem middleBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+                barButtonItem = [DDBarButtonItem middleBarButtonItemWithTitle:itemTitle target:nil action:nil];
         }
-        else if (style == DDSegmentedControlStyleBlackLarge)
+        else if (style == DDSegmentedControlStyleLarge)
         {
             if (item == [items objectAtIndex:0])
-                barButtonItem = [DDBarButtonItem leftLargeBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+                barButtonItem = [DDBarButtonItem leftLargeBarButtonItemWithTitle:itemTitle target:nil action:nil size:itemWidth];
             else if (item == [items lastObject])
-                barButtonItem = [DDBarButtonItem rightLargeBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+                barButtonItem = [DDBarButtonItem rightLargeBarButtonItemWithTitle:itemTitle target:nil action:nil size:itemWidth];
             else
-                barButtonItem = [DDBarButtonItem middleLargeBarButtonItemWithTitle:(NSString*)item target:nil action:nil];
+                barButtonItem = [DDBarButtonItem middleLargeBarButtonItemWithTitle:itemTitle target:nil action:nil size:itemWidth];
         }
         
         //create segmented control item
-        DDSegmentedControlItem *segmentedControlItem = [[[DDSegmentedControlItem alloc] init] autorelease];
+        DDSegmentedControlItemImages *segmentedControlItem = [[[DDSegmentedControlItemImages alloc] init] autorelease];
         segmentedControlItem.normalImage = barButtonItem.normalImage;
         segmentedControlItem.highlightedImage = barButtonItem.highlightedImage;
         segmentedControlItem.disabledImage = barButtonItem.disabledImage;
@@ -105,7 +147,7 @@
     }
     
     //usual init
-    if ((self = [super initWithItems:items]))
+    if ((self = [super initWithItems:itemsStrings]))
     {
         //save items
         items_ = [itemsInternal retain];
@@ -114,9 +156,18 @@
         self.segmentedControlStyle = UISegmentedControlStyleBar;
         
         //set dividers
-        [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-none-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-left-selected.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-        [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-right-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        if (style == DDSegmentedControlStyleSmall)
+        {
+            [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-none-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-left-selected.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [self setDividerImage:[UIImage imageNamed:@"dd-segmented-divider-right-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        }
+        else if (style == DDSegmentedControlStyleLarge)
+        {
+            [self setDividerImage:[UIImage imageNamed:@"large-divider-none-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [self setDividerImage:[UIImage imageNamed:@"large-divider-left-selected.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [self setDividerImage:[UIImage imageNamed:@"large-divider-right-selected.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        }
         
         //apply clear background
         [self setBackgroundImage:[DDTools clearImageOfSize:CGSizeMake(1, [self dividerImageForLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault].size.height)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
