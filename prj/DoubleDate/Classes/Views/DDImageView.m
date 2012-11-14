@@ -10,7 +10,7 @@
 
 @implementation DDImageView
 
-- (void)selfInit
+- (void)initSelf
 {
     if (!activityIndicatorView_)
     {
@@ -24,7 +24,7 @@
 {
     if ((self = [super initWithCoder:aDecoder]))
     {
-        [self selfInit];
+        [self initSelf];
         self.frame = self.frame;
     }
     return self;
@@ -34,7 +34,7 @@
 {
     if ((self = [super initWithFrame:frame]))
     {
-        [self selfInit];
+        [self initSelf];
         self.frame = self.frame;
     }
     return self;

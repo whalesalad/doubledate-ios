@@ -30,7 +30,7 @@
 
 @implementation DDTextField
 
-- (void)selfInit
+- (void)initSelf
 {
     //set font
     DD_F_TEXT(self);
@@ -75,7 +75,7 @@
 {
     if ((self = [super initWithFrame:frame]))
     {
-        [self selfInit];
+        [self initSelf];
     }
     return self;
 }
@@ -84,7 +84,7 @@
 {
     if ((self = [super initWithCoder:aDecoder]))
     {
-        [self selfInit];
+        [self initSelf];
     }
     return self;
 }

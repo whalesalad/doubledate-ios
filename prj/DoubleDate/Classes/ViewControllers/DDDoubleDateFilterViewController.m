@@ -76,7 +76,7 @@
         button.frame = CGRectMake(0, 0, self.viewDistanceContainer.frame.size.width, self.viewDistanceContainer.frame.size.height);
         [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]] forState:UIControlStateNormal];
         [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]] forState:UIControlStateHighlighted];
-        DD_F_BUTTON(button);
+        DD_F_BUTTON_LARGE(button);
         [button setTitle:NSLocalizedString(@"WITHIN 50 MILES OF ME", nil) forState:UIControlStateNormal];
         [self.viewDistanceContainer addSubview:button];
     }

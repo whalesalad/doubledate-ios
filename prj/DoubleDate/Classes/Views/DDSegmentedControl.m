@@ -119,18 +119,18 @@
         DDBarButtonItem *barButtonItem = nil;
         if (style == DDSegmentedControlStyleSmall)
         {
-            if (item == [items objectAtIndex:0])
+            if (item == [items objectAtIndex:0] && item != [items lastObject])
                 barButtonItem = [DDBarButtonItem leftBarButtonItemWithTitle:itemTitle target:nil action:nil];
-            else if (item == [items lastObject])
+            else if (item == [items lastObject] && item != [items objectAtIndex:0])
                 barButtonItem = [DDBarButtonItem rightBarButtonItemWithTitle:itemTitle target:nil action:nil];
             else
                 barButtonItem = [DDBarButtonItem middleBarButtonItemWithTitle:itemTitle target:nil action:nil];
         }
         else if (style == DDSegmentedControlStyleLarge)
         {
-            if (item == [items objectAtIndex:0])
+            if (item == [items objectAtIndex:0] && item != [items lastObject])
                 barButtonItem = [DDBarButtonItem leftLargeBarButtonItemWithTitle:itemTitle target:nil action:nil size:itemWidth];
-            else if (item == [items lastObject])
+            else if (item == [items lastObject] && item != [items objectAtIndex:0])
                 barButtonItem = [DDBarButtonItem rightLargeBarButtonItemWithTitle:itemTitle target:nil action:nil size:itemWidth];
             else
                 barButtonItem = [DDBarButtonItem middleLargeBarButtonItemWithTitle:itemTitle target:nil action:nil size:itemWidth];
