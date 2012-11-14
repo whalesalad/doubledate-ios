@@ -9,6 +9,7 @@
 #import "DDTableViewController.h"
 #import "DDUser.h"
 #import "DDDoubleDate.h"
+#import "DDDoubleDateFilter.h"
 
 typedef enum
 {
@@ -25,5 +26,7 @@ typedef enum
 }
 
 @property(nonatomic, retain) DDUser *user;
+
+@property(nonatomic, retain) DDDoubleDateFilter *searchFilter;
 
 @end

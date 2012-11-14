@@ -28,7 +28,7 @@ typedef enum
     DDDoubleDatesViewControllerFilterAttending,
 } DDDoubleDatesViewControllerFilter;
 
-@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, DDDoubleDateFilterViewControllerDelegate>
 
 @property(nonatomic, readonly) UISearchBar *searchBar;
 
@@ -44,6 +44,7 @@ typedef enum
 @implementation DDDoubleDatesViewController
 
 @synthesize user;
+@synthesize searchFilter;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -115,6 +116,7 @@ typedef enum
     [mineDoubleDates_ release];
     [searchTerm_ release];
     [user release];
+    [searchFilter release];
     [super dealloc];
 }
 
@@ -123,11 +125,16 @@ typedef enum
 
 - (void)plusTouched:(id)sender
 {
-//    DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
-//    viewController.user = self.user;
-//    viewController.doubleDatesViewController = self;
-//    [self.navigationController pushViewController:viewController animated:YES];
-    DDDoubleDateFilterViewController *viewController = [[[DDDoubleDateFilterViewController alloc] init] autorelease];
+    DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
+    viewController.user = self.user;
+    viewController.doubleDatesViewController = self;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)filterTouched:(id)sender
+{
+    DDDoubleDateFilterViewController *viewController = [[[DDDoubleDateFilterViewController alloc] initWithFilter:self.searchFilter] autorelease];
+    viewController.delegate = self;
     [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
 }
 
@@ -282,7 +289,9 @@ typedef enum
             self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
     }
     else
-        self.navigationItem.rightBarButtonItem = nil;
+    {
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
+    }
 }
 
 - (void)updateSearchBar
@@ -502,10 +511,24 @@ typedef enum
     mineDoubleDates_ = nil;
     
     //request doubledates
-    [self.apiController getDoubleDatesWithFilter:nil];
+    [self.apiController getDoubleDatesWithFilter:self.searchFilter];
     
     //request doubledates
     [self.apiController getMyDoubleDates];
+}
+
+#pragma mark -
+#pragma mark DDDoubleDateFilterViewControllerDelegate
+
+- (void)doubleDateFilterViewControllerDidCancel
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)doubleDateFilterViewControllerDidAppliedFilter:(DDDoubleDateFilter*)filter
+{
+    self.searchFilter = filter;
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 @end
