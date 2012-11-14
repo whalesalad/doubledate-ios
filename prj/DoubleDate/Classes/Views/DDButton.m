@@ -8,7 +8,7 @@
 
 #import "DDButton.h"
 
-@implementation DDButton
+@implementation DDButtonDeprecated
 
 - (void)initSelf
 {

@@ -33,7 +33,7 @@
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlLike;
 @property(nonatomic, retain) IBOutlet UISegmentedControl *segmentedControlSingle;
 
-@property(nonatomic, retain) IBOutlet DDButton *buttonLocation;
+@property(nonatomic, retain) IBOutlet DDButtonDeprecated *buttonLocation;
 
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPhoto;
 

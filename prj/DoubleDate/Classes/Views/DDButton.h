@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DDButton : UIButton
+@interface DDButtonDeprecated : UIButton
 {
     UITextField *textField_;
     NSString *placeholder_;

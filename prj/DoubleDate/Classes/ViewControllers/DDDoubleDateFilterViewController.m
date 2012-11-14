@@ -7,6 +7,7 @@
 //
 
 #import "DDDoubleDateFilterViewController.h"
+#import "DDTools.h"
 
 @interface DDDoubleDateFilterViewController ()
 
@@ -18,6 +19,8 @@
 @synthesize viewSortContainer;
 @synthesize labelWhen;
 @synthesize viewWhenContainer;
+@synthesize labelDistance;
+@synthesize viewDistanceContainer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +42,9 @@
     self.labelWhen.backgroundColor = [UIColor clearColor];
     DD_F_HEADER_MAIN(self.labelWhen);
     self.viewWhenContainer.backgroundColor = [UIColor clearColor];
+    self.labelDistance.backgroundColor = [UIColor clearColor];
+    DD_F_HEADER_MAIN(self.labelDistance);
+    self.viewDistanceContainer.backgroundColor = [UIColor clearColor];
     
     //add sort segmented control
     {
@@ -63,6 +69,17 @@
         sortSegmentedControl.frame = CGRectMake(0, 0, self.viewWhenContainer.frame.size.width, self.viewWhenContainer.frame.size.height);
         [self.viewWhenContainer addSubview:sortSegmentedControl];
     }
+    
+    //add button
+    {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, self.viewDistanceContainer.frame.size.width, self.viewDistanceContainer.frame.size.height);
+        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]] forState:UIControlStateNormal];
+        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]] forState:UIControlStateHighlighted];
+        DD_F_BUTTON(button);
+        [button setTitle:NSLocalizedString(@"WITHIN 50 MILES OF ME", nil) forState:UIControlStateNormal];
+        [self.viewDistanceContainer addSubview:button];
+    }
 }
 
 - (void)viewDidUnload
@@ -72,6 +89,8 @@
     [viewSortContainer release], viewSortContainer = nil;
     [labelWhen release], labelWhen = nil;
     [viewWhenContainer release], viewWhenContainer = nil;
+    [labelDistance release], labelDistance = nil;
+    [viewDistanceContainer release], viewDistanceContainer = nil;
 }
 
 - (void)dealloc
@@ -80,6 +99,8 @@
     [viewSortContainer release];
     [labelWhen release];
     [viewWhenContainer release];
+    [labelDistance release];
+    [viewDistanceContainer release];
     [super dealloc];
 }
 
