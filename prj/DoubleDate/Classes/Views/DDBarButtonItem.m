@@ -81,6 +81,7 @@
         width = size;
     button.frame = CGRectMake(0, 0, width, normalImage.size.height);
     [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
     [button setImage:titleImage forState:UIControlStateNormal];
     [button setContentEdgeInsets:contentEdgeInsets];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
