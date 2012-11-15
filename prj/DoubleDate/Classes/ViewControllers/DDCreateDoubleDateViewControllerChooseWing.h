@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
 
 @class DDShortUser;
 
@@ -16,9 +16,8 @@
 
 @end
 
-@interface DDCreateDoubleDateViewControllerChooseWing : DDViewController
+@interface DDCreateDoubleDateViewControllerChooseWing : DDTableViewController
 {
-    UITableView *tableView_;
     NSArray *wings_;
 }
 

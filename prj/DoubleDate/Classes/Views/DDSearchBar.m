@@ -21,17 +21,38 @@
     return nil;
 }
 
+- (UIButton*)button
+{
+    for (UIButton *button in [self subviews])
+    {
+        if ([button isKindOfClass:[UIButton class]])
+            return button;
+    }
+    return nil;
+}
+
+- (void)customizeTextField
+{
+    //customize field
+    DD_F_TEXT([self textField]);
+}
+
+- (void)customizeButton
+{
+    //customize field
+    DD_F_BUTTON([self button]);
+    
+    //set cancel button
+    [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateNormal];
+    [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateHighlighted];
+    
+    //change button frame
+    if (self.showsCancelButton)
+        [[self button] setFrame:CGRectMake(255, 7, 55, 30)];
+}
+
 - (void)initSelf
 {
-    //set text color
-    [[self textField] setTextColor:[UIColor grayColor]];
-    
-    //set text font
-    DD_F_TEXT([self textField]);
-    
-    //always enable search button
-    [self textField].enablesReturnKeyAutomatically = NO;
-    
     //set background image
     [self setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-background"]]];
     
@@ -43,6 +64,12 @@
     
     //set search icon
     [self setImage:[UIImage imageNamed:@"search-clear-button.png"] forSearchBarIcon:UISearchBarIconClear state:UIControlStateNormal];
+    
+    //customize elements
+    [self customizeTextField];
+    
+    //customize button
+    [self customizeButton];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -52,6 +79,18 @@
         [self initSelf];
     }
     return self;
+}
+
+- (void)setShowsCancelButton:(BOOL)showsCancelButton
+{
+    [super setShowsCancelButton:showsCancelButton];
+    [self customizeButton];
+}
+
+- (void)setShowsCancelButton:(BOOL)showsCancelButton animated:(BOOL)animated
+{
+    [super setShowsCancelButton:showsCancelButton animated:animated];
+    [self customizeButton];
 }
 
 - (void)dealloc

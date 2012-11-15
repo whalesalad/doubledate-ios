@@ -9,14 +9,22 @@
 #import <UIKit/UIKit.h>
 
 #import "UIViewController+Extensions.h"
+#import "DDAPIController.h"
 
 @class DDAPIController;
+@class DDSearchBar;
 
-@interface DDTableViewController : UITableViewController
+@interface DDTableViewController : UITableViewController<UISearchBarDelegate, DDAPIControllerDelegate>
 {
     NSMutableArray *buffer_;
     DDAPIController *apiController_;
     MBProgressHUD *hud_;
+    NSString *searchTerm_;
 }
+
+@property(nonatomic, readonly) UISearchBar *searchBar;
+@property(nonatomic, readonly) NSString *searchTerm;
+
+- (void)setupSearchBar;
 
 @end

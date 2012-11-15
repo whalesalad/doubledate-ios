@@ -10,26 +10,48 @@
 
 @implementation DDTableViewController (Refresh)
 
-- (UIRefreshControl*)sharedRefreshControl
+- (void)setupRefreshControl
 {
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
     {
-        if ([self isKindOfClass:[UITableViewController class]])
+        if (!self.refreshControl)
         {
-            if (!self.refreshControl)
-            {
-                self.refreshControl = [[[UIRefreshControl alloc] init] autorelease];
-                [self.refreshControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-            }
-            return self.refreshControl;
+            self.refreshControl = [[[UIRefreshControl alloc] init] autorelease];
+            [self.refreshControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         }
     }
+}
+
+- (void)unsetupRefreshControl
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
+        self.refreshControl = nil;
+}
+
+- (UIRefreshControl*)sharedRefreshControl
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6)
+        return self.refreshControl;
     return nil;
+}
+
+- (BOOL)isRefreshControlEnabled
+{
+    return [self sharedRefreshControl] != nil;
+}
+
+- (void)setIsRefreshControlEnabled:(BOOL)v
+{
+    if (v)
+        [self setupRefreshControl];
+    else
+        [self unsetupRefreshControl];
 }
 
 - (void)refreshControlValueChanged:(UIRefreshControl*)sender
 {
-    [self startRefreshWithText:NSLocalizedString(@"Loading...", nil)];
+    if (sender == [self sharedRefreshControl])
+        [self startRefreshWithText:NSLocalizedString(@"Loading...", nil)];
 }
 
 - (void)startRefreshWithText:(NSString*)text

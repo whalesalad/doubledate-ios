@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #import "UIViewController+Extensions.h"
+#import "DDAPIController.h"
 
-@class DDAPIController;
-
-@interface DDViewController : UIViewController
+@interface DDViewController : UIViewController<DDAPIControllerDelegate>
 {
     NSMutableArray *buffer_;
     DDAPIController *apiController_;

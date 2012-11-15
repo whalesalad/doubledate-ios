@@ -28,9 +28,7 @@ typedef enum
     DDDoubleDatesViewControllerFilterAttending,
 } DDDoubleDatesViewControllerFilter;
 
-@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, DDDoubleDateFilterViewControllerDelegate>
-
-@property(nonatomic, readonly) UISearchBar *searchBar;
+@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate>
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section;
 - (void)segmentedControlTouched:(id)sender;
@@ -81,9 +79,6 @@ typedef enum
     
     //update search bar
     [self updateSearchBar];
-    
-    //move header
-    self.tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -114,7 +109,6 @@ typedef enum
 {
     [allDoubleDates_ release];
     [mineDoubleDates_ release];
-    [searchTerm_ release];
     [user release];
     [searchFilter release];
     [super dealloc];
@@ -153,14 +147,14 @@ typedef enum
     for (DDDoubleDate *dd in doubleDates)
     {
         //check search condition
-        BOOL existInSearch = [searchTerm_ length] == 0;
-        if (searchTerm_)
+        BOOL existInSearch = [self.searchTerm length] == 0;
+        if (self.searchTerm)
         {
-            if (dd.title && [dd.title rangeOfString:searchTerm_ options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if (dd.title && [dd.title rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
-            if (dd.details && [dd.details rangeOfString:searchTerm_ options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if (dd.details && [dd.details rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
-            if (dd.location.name && [dd.location.name rangeOfString:searchTerm_ options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if (dd.location.name && [dd.location.name rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
         }
         
@@ -299,12 +293,11 @@ typedef enum
     //check current mode
     if (mode_ == DDDoubleDatesViewControllerModeAll)
     {
-        //set header as search bar
-        DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
-        searchBar.delegate = self;
-        searchBar.placeholder = NSLocalizedString(@"Search DoubleDates…", nil);
-        searchBar.text = searchTerm_;
-        self.tableView.tableHeaderView = searchBar;
+        //create search bar
+        [self setupSearchBar];
+        
+        //set placeholder
+        [[self searchBar] setPlaceholder:NSLocalizedString(@"Search DoubleDates…", nil)];
     }
     else
     {
@@ -312,11 +305,6 @@ typedef enum
         v.backgroundColor = [UIColor clearColor];
         self.tableView.tableHeaderView = v;
     }
-}
-
-- (UISearchBar*)searchBar
-{
-    return (UISearchBar*)self.tableView.tableHeaderView;
 }
 
 #pragma mark -
@@ -489,17 +477,6 @@ typedef enum
 }
 
 #pragma mark -
-#pragma mark UISearchBarDelegate
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [searchTerm_ release];
-    searchTerm_ = [[searchBar text] retain];
-    [self.tableView reloadData];
-    [searchBar resignFirstResponder];
-}
-
-#pragma mark -
 #pragma mark Refreshing
 
 - (void)onRefresh
@@ -519,7 +496,7 @@ typedef enum
 
 #pragma mark -
 #pragma mark DDDoubleDateFilterViewControllerDelegate
-
+    
 - (void)doubleDateFilterViewControllerDidCancel
 {
     [self.navigationController dismissModalViewControllerAnimated:YES];

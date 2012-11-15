@@ -553,7 +553,7 @@
     //check pressed cell
     if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
     {
-        DDCreateDoubleDateViewControllerChooseWing *wingsViewController = [[[DDCreateDoubleDateViewControllerChooseWing alloc] init] autorelease];
+        DDCreateDoubleDateViewControllerChooseWing *wingsViewController = [[[DDCreateDoubleDateViewControllerChooseWing alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         wingsViewController.delegate = self;
         wingsViewController.wing = self.wing;
         [self.navigationController pushViewController:wingsViewController animated:YES];

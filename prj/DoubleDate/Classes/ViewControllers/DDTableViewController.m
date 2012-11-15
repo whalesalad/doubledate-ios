@@ -14,16 +14,20 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DDTools.h"
 #import "UIViewController+Extensions.h"
+#import "DDTableViewController+Refresh.h"
+#import "DDSearchBar.h"
 
 DECLARE_HUD_WITH_PROPERTY(DDTableViewController, hud_)
 DECLARE_API_CONTROLLER_WITH_PROPERTY(DDTableViewController, apiController_)
 DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 
-@interface DDTableViewController (hidden) <DDAPIControllerDelegate>
+@interface DDTableViewController (hidden)
 
 @end
 
 @implementation DDTableViewController
+
+@synthesize searchTerm = searchTerm_;
 
 - (void)initSelf
 {
@@ -66,6 +70,15 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     
     //customize left button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"BACK", nil) target:self action:@selector(backTouched:)];
+    
+    //add search bar
+    [self setupSearchBar];
+    
+    //add refresh control
+    [self setIsRefreshControlEnabled:YES];
+    
+    //move header
+    self.tableView.contentOffset = CGPointMake(0, self.searchBar.frame.size.height);
 }
 
 - (void)backTouched:(id)sender
@@ -73,13 +86,69 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)setupSearchBar
+{
+    //set header as search bar
+    self.tableView.tableHeaderView = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    self.searchBar.delegate = self;
+}
+
+- (UISearchBar*)searchBar
+{
+    if ([self.tableView.tableHeaderView isKindOfClass:[UISearchBar class]])
+        return (UISearchBar*)self.tableView.tableHeaderView;
+    return nil;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     apiController_.delegate = nil;
     [apiController_ release];
+    [searchTerm_ release];
     [self hideHud:YES];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)aSearchBar
+{
+    [searchTerm_ release];
+    searchTerm_ = [aSearchBar.text retain];
+    [self.tableView reloadData];
+    [aSearchBar setShowsCancelButton:YES animated:YES];
+    [self setIsRefreshControlEnabled:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
+{
+    [aSearchBar setShowsCancelButton:NO animated:YES];
+    [self setIsRefreshControlEnabled:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)aSearchBar
+{
+    [self.tableView reloadData];
+    [aSearchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)aSearchBar
+{
+    [searchTerm_ release];
+    searchTerm_ = nil;
+    [self.tableView reloadData];
+    [aSearchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [searchTerm_ release];
+    searchTerm_ = [searchText retain];
+    [self.tableView reloadData];
 }
 
 @end

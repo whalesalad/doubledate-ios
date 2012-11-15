@@ -59,13 +59,7 @@
     self.navigationItem.title = NSLocalizedString(@"Location", nil);
     
     //set header as search bar
-    DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
-    searchBar.delegate = self;
-    searchBar.placeholder = NSLocalizedString(@"All locations", nil);
-    self.tableView.tableHeaderView = searchBar;
-    
-    //move header
-    self.tableView.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Location…", nil)];
 }
 
 - (void)viewDidUnload
@@ -192,6 +186,9 @@
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
+    if ([self tableView:aTableView numberOfRowsInSection:section] == 0)
+        return nil;
+    
     if ([self optionForSection:section] == DDLocationSearchOptionsCities)
     {
         return [self viewForHeaderWithMainText:NSLocalizedString(@"CITIES", nil) detailedText:nil];
@@ -200,6 +197,7 @@
     {
         return [self viewForHeaderWithMainText:NSLocalizedString(@"VENUES", nil) detailedText:NSLocalizedString(@"POWERED BY FOURSQUARE", nil)];
     }
+    
     return nil;
 }
 
@@ -271,15 +269,6 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-#pragma mark -
-#pragma mark UISearchBarDelegate
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [self.tableView reloadData];
-    [searchBar resignFirstResponder];
 }
 
 #pragma mark -

@@ -15,10 +15,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface DDCreateDoubleDateViewControllerChooseWing ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
-
-@property(nonatomic, readonly) UISearchBar *searchBar;
-@property(nonatomic, readonly) UITableView *tableView;
+@interface DDCreateDoubleDateViewControllerChooseWing ()
 
 @end
 
@@ -59,29 +56,13 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Wing", nil);
     
-    //add table view
-    tableView_ = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped];
-    tableView_.dataSource = self;
-    tableView_.delegate = self;
-    tableView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.view addSubview:tableView_];
-    tableView_.backgroundColor = [UIColor clearColor];
-    tableView_.backgroundView = nil;
-    
-    //set header as search bar
-    DDSearchBar *searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
-    searchBar.delegate = self;
-    searchBar.placeholder = NSLocalizedString(@"All wings", nil);
-    tableView_.tableHeaderView = searchBar;
-    
-    //move header
-    tableView_.contentOffset = CGPointMake(0, searchBar.frame.size.height);
+    //set placeholder
+    [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wing…", nil)];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    [tableView_ release], tableView_ = nil;
 }
 
 - (NSArray*)filteredWings
@@ -89,28 +70,18 @@
     NSMutableArray *ret = [NSMutableArray array];
     for (DDShortUser *user in wings_)
     {
-        BOOL existInSearch = [self.searchBar.text length] == 0;
-        if (self.searchBar.text)
+        BOOL existInSearch = [self.searchTerm length] == 0;
+        if (self.searchTerm)
         {
-            if (user.name && [user.name rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if (user.name && [user.name rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
-            if (user.fullName && [user.fullName rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if (user.fullName && [user.fullName rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
         }
         if (existInSearch)
             [ret addObject:user];
     }
     return ret;
-}
-
-- (UISearchBar*)searchBar
-{
-    return (UISearchBar*)tableView_.tableHeaderView;
-}
-
-- (UITableView*)tableView
-{
-    return tableView_;
 }
 
 - (BOOL)isUserSelected:(DDShortUser *)user
@@ -120,7 +91,6 @@
 
 - (void)dealloc
 {
-    [tableView_ release];
     [wing release];
     [super dealloc];
 }
@@ -238,7 +208,7 @@
     wings_ = [friends retain];
     
     //reload the table
-    [tableView_ reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)getFriendsDidFailedWithError:(NSError *)error
@@ -248,15 +218,6 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-#pragma mark -
-#pragma mark UISearchBarDelegate
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [tableView_ reloadData];
-    [searchBar resignFirstResponder];
 }
 
 @end

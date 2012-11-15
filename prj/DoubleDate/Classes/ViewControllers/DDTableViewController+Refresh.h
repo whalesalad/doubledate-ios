@@ -10,6 +10,8 @@
 
 @interface DDTableViewController (Refresh)
 
+@property(nonatomic, assign) BOOL isRefreshControlEnabled;
+
 - (void)startRefreshWithText:(NSString*)text;
 - (void)onRefresh;
 - (void)finishRefresh;
