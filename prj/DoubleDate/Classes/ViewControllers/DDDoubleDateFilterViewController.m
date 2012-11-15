@@ -50,9 +50,10 @@
 
         //fill data
         distances_ = [[NSMutableArray alloc] init];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 1 MILE OF ME", nil) forKey:@"1mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 2 MILES OF ME", nil) forKey:@"2mi"]];
         [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 5 MILES OF ME", nil) forKey:@"5mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 10 MILES OF ME", nil) forKey:@"10mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 50 MILES OF ME", nil) forKey:@"50mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 100 MILES OF ME", nil) forKey:@"100mi"]];
         
         //fill data
         minAges_ = [[NSMutableArray alloc] init];
@@ -76,10 +77,10 @@
     self.navigationItem.title = NSLocalizedString(@"Filter & Sort", nil);
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Apply", nil) target:self action:@selector(applyTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"APPLY", nil) target:self action:@selector(applyTouched:)];
     
     //set left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"CANCEL", nil) target:self action:@selector(cancelTouched:)];
     
 #define ADD_PICKER_FIELD_TO_BUTTON(_FIELD_, _ARRAY_, _DEF_)\
     {\

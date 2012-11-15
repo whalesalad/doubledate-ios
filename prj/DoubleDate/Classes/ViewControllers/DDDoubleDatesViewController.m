@@ -290,7 +290,7 @@ typedef enum
     }
     else
     {
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"FILTER", nil) target:self action:@selector(filterTouched:)];
     }
 }
 
