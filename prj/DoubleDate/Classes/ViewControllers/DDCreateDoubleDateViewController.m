@@ -71,7 +71,7 @@
     self.navigationItem.title = NSLocalizedString(@"New DoubleDate", nil);
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Post", nil) target:self action:@selector(postTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"POST", nil) target:self action:@selector(postTouched:)];
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];

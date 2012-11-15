@@ -60,7 +60,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
     
     //customize left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"BACK", nil) target:self action:@selector(backTouched:)];
 }
 
 - (void)backTouched:(id)sender
