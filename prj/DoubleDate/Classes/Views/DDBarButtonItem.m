@@ -67,7 +67,7 @@
     return disabledImage_;
 }
 
-+ (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage disabledImage:(UIImage*)disabledImage target:(id)target action:(SEL)action contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets titleImage:(UIImage*)titleImage size:(CGFloat)size largeButtonFont:(BOOL)largeButtonFont
++ (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage disabledImage:(UIImage*)disabledImage target:(id)target action:(SEL)action contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets titleImage:(UIImage*)titleImage size:(CGFloat)size largeButtonFont:(BOOL)largeButtonFont padding:(NSInteger)padding
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     if (largeButtonFont)
@@ -79,6 +79,7 @@
         width = normalImage.size.height;
     if (size != 0)
         width = size;
+    width += 2 * padding;
     button.frame = CGRectMake(0, 0, width, normalImage.size.height);
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
@@ -104,7 +105,7 @@
 
 + (id)barButtonItemWithTitle:(NSString*)title normalImage:(UIImage*)normalImage highlightedImage:(UIImage*)highlightedImage disabledImage:(UIImage*)disabledImage target:(id)target action:(SEL)action contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets
 {
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:contentEdgeInsets titleImage:nil size:0 largeButtonFont:NO];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:contentEdgeInsets titleImage:nil size:0 largeButtonFont:NO padding:0];
 }
 
 + (id)barButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
@@ -120,7 +121,7 @@
     UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
     UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn-highlight.png"]];
     UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
-    return [self barButtonItemWithTitle:nil normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:image size:0 largeButtonFont:NO];
+    return [self barButtonItemWithTitle:nil normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:image size:0 largeButtonFont:NO padding:0];
 }
 
 + (id)largeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
@@ -145,7 +146,7 @@
     UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn.png"]];
     UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn-highlight.png"]];
     UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn-disabled.png"]];
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:0 largeButtonFont:NO padding:4];
 }
 
 + (id)leftLargeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action size:(CGFloat)size
@@ -154,7 +155,7 @@
     UIImage *normalImage = [[UIImage imageNamed:@"large-segment-left.png"] resizableImageWithCapInsets:imageInsets];
     UIImage *highlightedImage = [[UIImage imageNamed:@"large-segment-left-selected.png"] resizableImageWithCapInsets:imageInsets];
     UIImage *disabledImage = [[UIImage imageNamed:@"large-segment-left.png"] resizableImageWithCapInsets:imageInsets];
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES padding:0];
 }
 
 + (id)middleBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
@@ -162,7 +163,7 @@
     UIImage *normalImage = [UIImage imageNamed:@"dd-segmented-center-btn.png"];
     UIImage *highlightedImage = [UIImage imageNamed:@"dd-segmented-center-btn-highlight.png"];
     UIImage *disabledImage = [UIImage imageNamed:@"dd-segmented-center-btn-disabled.png"];
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:0 largeButtonFont:NO padding:4];
 }
 
 + (id)middleLargeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action size:(CGFloat)size
@@ -170,7 +171,7 @@
     UIImage *normalImage = [UIImage imageNamed:@"large-segment-center.png"];
     UIImage *highlightedImage = [UIImage imageNamed:@"large-segment-center-selected.png"];
     UIImage *disabledImage = [UIImage imageNamed:@"large-segment-center.png"];
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES padding:0];
 }
 
 + (id)rightBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
@@ -178,7 +179,7 @@
     UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn.png"]];
     UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn-highlight.png"]];
     UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn-disabled.png"]];
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:0 largeButtonFont:NO padding:4];
 }
 
 + (id)rightLargeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action size:(CGFloat)size
@@ -187,7 +188,7 @@
     UIImage *normalImage = [[UIImage imageNamed:@"large-segment-right.png"] resizableImageWithCapInsets:imageInsets];
     UIImage *highlightedImage = [[UIImage imageNamed:@"large-segment-right-selected.png"] resizableImageWithCapInsets:imageInsets];
     UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-segment-right.png"]];
-    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES];
+    return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES padding:0];
 }
 
 - (void)dealloc
