@@ -19,6 +19,7 @@
 #import "DDUser.h"
 #import "DDDoubleDateFilter.h"
 #import "DDTableViewController+Refresh.h"
+#import "DDDoubleDateViewController.h"
 
 typedef enum
 {
@@ -309,6 +310,17 @@ typedef enum
 
 #pragma mark -
 #pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //get double date
+    DDDoubleDate *doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
+
+    //opem view controller
+    DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
+    viewController.doubleDate = doubleDate;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {

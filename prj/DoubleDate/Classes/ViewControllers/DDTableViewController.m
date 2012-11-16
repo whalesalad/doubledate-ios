@@ -53,6 +53,15 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     return self;
 }
 
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    if ((self = [super initWithStyle:style]))
+    {
+        [self initSelf];
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
