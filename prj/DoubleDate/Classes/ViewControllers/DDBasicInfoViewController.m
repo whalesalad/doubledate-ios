@@ -346,6 +346,9 @@
             
             //unset old location
             self.userLocation = placemark;
+            
+            //pop view controller
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }

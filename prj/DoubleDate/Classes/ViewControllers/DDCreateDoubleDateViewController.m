@@ -425,7 +425,11 @@
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
+    //set location
     [self setLocation:[placemarks objectAtIndex:0]];
+    
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)locationPickerViewControllerDidCancel
@@ -529,7 +533,11 @@
 
 - (void)createDoubleDateViewControllerChooseWingUpdatedWing:(id)sender
 {
+    //set wing
     self.wing = [(DDCreateDoubleDateViewControllerChooseWing*)sender wing];
+    
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
