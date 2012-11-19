@@ -112,12 +112,7 @@
     //customize image view
     self.imageViewPhoto.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewPhoto.clipsToBounds = YES;
-    UIImage *maskingImage = [UIImage imageNamed:@"photo-mask.png"];
-    CALayer *maskingLayer = [CALayer layer];
-    maskingLayer.frame = CGRectMake(0, 0, maskingImage.size.width, maskingImage.size.height);
-    [maskingLayer setContents:(id)[maskingImage CGImage]];
-    [self.imageViewPhoto.layer setMask:maskingLayer];
-    self.imageViewPhoto.layer.masksToBounds = YES;
+    [self.imageViewPhoto applyMask:[UIImage imageNamed:@"photo-mask.png"]];
     
     //set delegates
     textFieldName.returnKeyType = UIReturnKeyDone;

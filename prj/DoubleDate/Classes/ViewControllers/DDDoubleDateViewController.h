@@ -9,6 +9,7 @@
 #import "DDViewController.h"
 
 @class DDDoubleDate;
+@class DDImageView;
 
 @interface DDDoubleDateViewController : DDViewController
 {
@@ -27,5 +28,10 @@
 @property(nonatomic, retain) IBOutlet UIImageView *containerBottomImageView;
 
 @property(nonatomic, retain) IBOutlet UITextView *textView;
+
+@property(nonatomic, retain) IBOutlet UIView *containerPhotos;
+
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUserLeft;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUserRight;
 
 @end

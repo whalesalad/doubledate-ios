@@ -17,4 +17,6 @@
 
 - (void)reloadFromUrl:(NSURL*)url;
 
+- (void)applyMask:(UIImage*)mask;
+
 @end

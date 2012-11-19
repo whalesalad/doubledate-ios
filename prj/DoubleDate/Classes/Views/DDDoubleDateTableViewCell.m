@@ -52,12 +52,7 @@
             imageViewUser_ = [[DDImageView alloc] initWithImage:nil];
             imageViewUser_.frame = CGRectMake(0, 0, 38, 38);
             imageViewUser_.center = CGPointMake(21, imageViewPhotosBackground_.frame.size.height/2);
-            UIImage *maskingImage = [UIImage imageNamed:@"doublephoto-left-image-mask.png"];
-            CALayer *maskingLayer = [CALayer layer];
-            maskingLayer.frame = CGRectMake(0, 0, maskingImage.size.width, maskingImage.size.height);
-            [maskingLayer setContents:(id)[maskingImage CGImage]];
-            [imageViewUser_.layer setMask:maskingLayer];
-            imageViewUser_.layer.masksToBounds = YES;
+            [imageViewUser_ applyMask:[UIImage imageNamed:@"doublephoto-left-image-mask.png"]];
             [imageViewPhotosBackground_ addSubview:imageViewUser_];
             
             //add gloss
@@ -70,12 +65,7 @@
             imageViewWing_ = [[DDImageView alloc] initWithImage:nil];
             imageViewWing_.frame = CGRectMake(0, 0, 40, 38);
             imageViewWing_.center = CGPointMake(61, imageViewPhotosBackground_.frame.size.height/2);
-            UIImage *maskingImage = [UIImage imageNamed:@"doublephoto-right-image-mask.png"];
-            CALayer *maskingLayer = [CALayer layer];
-            maskingLayer.frame = CGRectMake(0, 0, maskingImage.size.width, maskingImage.size.height);
-            [maskingLayer setContents:(id)[maskingImage CGImage]];
-            [imageViewWing_.layer setMask:maskingLayer];
-            imageViewWing_.layer.masksToBounds = YES;
+            [imageViewWing_ applyMask:[UIImage imageNamed:@"doublephoto-right-image-mask.png"]];
             [imageViewPhotosBackground_ addSubview:imageViewWing_];
             
             //add gloss

@@ -10,6 +10,9 @@
 #import "DDDoubleDate.h"
 #import "DDLocationTableViewCell.h"
 #import "DDCreateDoubleDateViewController.h"
+#import "DDImageView.h"
+#import "DDImage.h"
+#import "DDShortUser.h"
 
 @interface DDDoubleDateViewController ()
 
@@ -30,6 +33,11 @@
 @synthesize containerBottomImageView;
 
 @synthesize textView;
+
+@synthesize containerPhotos;
+
+@synthesize imageViewUserLeft;
+@synthesize imageViewUserRight;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -69,11 +77,20 @@
         CGFloat dh = newSizeOfTextView.height - self.textView.frame.size.height;
         self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height+dh);
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height+dh);
+        self.containerPhotos.frame = CGRectMake(self.containerPhotos.frame.origin.x, self.containerPhotos.frame.origin.y+dh, self.containerPhotos.frame.size.width, self.containerPhotos.frame.size.height);
     }
     
     //add images
     self.containerTopImageView.image = [[UIImage imageNamed:@"dd-indented-text-background-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)];
     self.containerBottomImageView.image = [UIImage imageNamed:@"dd-indented-text-background-bottom.png"];
+    
+    //load photos
+    [self.imageViewUserLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.downloadUrl]];
+    self.imageViewUserLeft.contentMode = UIViewContentModeScaleAspectFill;
+    [self.imageViewUserLeft applyMask:[UIImage imageNamed:@"dd-user-photo-mask.png"]];
+    [self.imageViewUserRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.downloadUrl]];
+    [self.imageViewUserRight applyMask:[UIImage imageNamed:@"dd-user-photo-mask.png"]];
+    self.imageViewUserRight.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)viewDidUnload
@@ -86,6 +103,9 @@
     [containerTopImageView release], containerTopImageView = nil;
     [containerBottomImageView release], containerBottomImageView = nil;
     [textView release], textView = nil;
+    [containerPhotos release], containerPhotos = nil;
+    [imageViewUserLeft release], imageViewUserLeft = nil;
+    [imageViewUserRight release], imageViewUserRight = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,6 +124,9 @@
     [containerTopImageView release];
     [containerBottomImageView release];
     [textView release];
+    [containerPhotos release];
+    [imageViewUserLeft release];
+    [imageViewUserRight release];
     [super dealloc];
 }
 

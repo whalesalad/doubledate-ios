@@ -7,6 +7,7 @@
 //
 
 #import "DDImageView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDImageView
 
@@ -68,6 +69,15 @@
         connection_ = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         [connection_ start];
     }
+}
+
+- (void)applyMask:(UIImage*)mask
+{
+    CALayer *maskingLayer = [CALayer layer];
+    maskingLayer.frame = CGRectMake(0, 0, mask.size.width, mask.size.height);
+    [maskingLayer setContents:(id)[mask CGImage]];
+    [self.layer setMask:maskingLayer];
+    self.layer.masksToBounds = YES;
 }
 
 - (void)setFrame:(CGRect)v
