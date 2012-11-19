@@ -22,4 +22,10 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationDetailed;
 @property(nonatomic, retain) IBOutlet UILabel *labelDayTime;
 
+@property(nonatomic, retain) IBOutlet UIView *containerTextView;
+@property(nonatomic, retain) IBOutlet UIImageView *containerTopImageView;
+@property(nonatomic, retain) IBOutlet UIImageView *containerBottomImageView;
+
+@property(nonatomic, retain) IBOutlet UITextView *textView;
+
 @end

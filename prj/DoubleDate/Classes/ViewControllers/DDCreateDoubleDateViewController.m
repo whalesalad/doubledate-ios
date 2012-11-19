@@ -551,8 +551,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([[[self textViewDetails] textView] isFirstResponder])
-        [[[self textViewDetails] textView] resignFirstResponder];
+    if (scrollView == self.tableView)
+    {
+        if ([[[self textViewDetails] textView] isFirstResponder])
+            [[[self textViewDetails] textView] resignFirstResponder];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
