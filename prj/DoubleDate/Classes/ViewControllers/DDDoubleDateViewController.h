@@ -34,4 +34,10 @@
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewUserLeft;
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewUserRight;
 
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewUserLeftHighlighted;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewUserRightHighlighted;
+
+- (IBAction)leftUserTouched:(id)sender;
+- (IBAction)rightUserTouched:(id)sender;
+
 @end

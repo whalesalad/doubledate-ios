@@ -39,6 +39,9 @@
 @synthesize imageViewUserLeft;
 @synthesize imageViewUserRight;
 
+@synthesize imageViewUserLeftHighlighted;
+@synthesize imageViewUserRightHighlighted;
+
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -106,6 +109,8 @@
     [containerPhotos release], containerPhotos = nil;
     [imageViewUserLeft release], imageViewUserLeft = nil;
     [imageViewUserRight release], imageViewUserRight = nil;
+    [imageViewUserLeftHighlighted release], imageViewUserLeftHighlighted = nil;
+    [imageViewUserRightHighlighted release],  imageViewUserRightHighlighted = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,7 +132,24 @@
     [containerPhotos release];
     [imageViewUserLeft release];
     [imageViewUserRight release];
+    [imageViewUserLeftHighlighted release];
+    [imageViewUserRightHighlighted release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark IB
+
+- (IBAction)leftUserTouched:(id)sender
+{
+    self.imageViewUserRightHighlighted.hidden = YES;
+    self.imageViewUserLeftHighlighted.hidden = !self.imageViewUserLeftHighlighted.hidden;
+}
+
+- (IBAction)rightUserTouched:(id)sender
+{
+    self.imageViewUserLeftHighlighted.hidden = YES;
+    self.imageViewUserRightHighlighted.hidden = !self.imageViewUserRightHighlighted.hidden;
 }
 
 @end
