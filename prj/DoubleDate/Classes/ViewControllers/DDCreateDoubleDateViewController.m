@@ -140,6 +140,21 @@
     return NSLocalizedString(@"Anytime", nil);
 }
 
++ (NSString*)titleForDDDay:(NSString*)day ddTime:(NSString*)time
+{
+    if (day && time)
+    {
+        return [NSString stringWithFormat:@"%@, %@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:day], [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:time]];
+    }
+    else if (day)
+        return [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:day]];
+    else if (time)
+        return [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:time]];
+    else
+        return [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:nil]];
+    return nil;
+}
+
 - (void)setWing:(DDShortUser *)v
 {
     //update value
@@ -346,16 +361,7 @@
     cell.rightText = NSLocalizedString(@"Anytime", nil);
     
     //set text
-    if (self.day && self.time)
-    {
-        cell.rightText = [NSString stringWithFormat:@"%@, %@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day], [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
-    }
-    else if (self.day)
-        cell.rightText = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.day]];
-    else if (self.time)
-        cell.rightText = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:self.time]];
-    else
-        cell.rightText = [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:nil]];
+    cell.rightText = [DDCreateDoubleDateViewController titleForDDDay:self.day ddTime:self.time];
 }
 
 - (void)updateTitleCell:(DDTextFieldTableViewCell*)cell

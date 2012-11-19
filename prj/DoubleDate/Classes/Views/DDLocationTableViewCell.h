@@ -16,4 +16,7 @@
 
 @property(nonatomic, retain) DDPlacemark *location;
 
++ (NSString*)mainTitleForLocation:(DDPlacemark*)location;
++ (NSString*)detailedTitleForLocation:(DDPlacemark*)location;
+
 @end

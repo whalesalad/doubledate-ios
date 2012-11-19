@@ -14,6 +14,23 @@
 
 @synthesize location;
 
++ (NSString*)mainTitleForLocation:(DDPlacemark*)location
+{
+    if (location.name)
+        return location.name;
+    return @"";
+}
+
++ (NSString*)detailedTitleForLocation:(DDPlacemark*)location
+{
+    NSMutableString *text = [NSMutableString stringWithString:@""];
+    if ([location address])
+        [text appendFormat:@"%@ ", location.address];
+    if (location.locationName)
+        [text appendString:location.locationName];
+    return text;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
@@ -32,20 +49,10 @@
     }
     
     //set text
-    self.textLabel.text = [location name];
+    self.textLabel.text = [DDLocationTableViewCell mainTitleForLocation:location];
     
     //check for venue
-    if ([location.type isEqualToString:DDPlacemarkTypeVenue])
-    {
-        NSMutableString *text = [NSMutableString stringWithString:@""];
-        if ([location address])
-            [text appendFormat:@"%@ ", location.address];
-        if (location.locationName)
-            [text appendString:location.locationName];
-        self.detailTextLabel.text = text;
-    }
-    else
-        self.detailTextLabel.text = nil;
+    self.detailTextLabel.text = [DDLocationTableViewCell detailedTitleForLocation:location];
 }
 
 - (void)dealloc

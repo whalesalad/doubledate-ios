@@ -8,6 +8,8 @@
 
 #import "DDDoubleDateViewController.h"
 #import "DDDoubleDate.h"
+#import "DDLocationTableViewCell.h"
+#import "DDCreateDoubleDateViewController.h"
 
 @interface DDDoubleDateViewController ()
 
@@ -18,6 +20,10 @@
 @synthesize doubleDate;
 
 @synthesize scrollView;
+
+@synthesize labelLocationMain;
+@synthesize labelLocationDetailed;
+@synthesize labelDayTime;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -34,11 +40,24 @@
     
     //set navigation item
     self.navigationItem.title = [self.doubleDate title];
+    
+    //customize text
+    DD_F_HEADER_MAIN(self.labelLocationMain);
+    DD_F_HEADER_DETAILED(self.labelLocationDetailed);
+    DD_F_HEADER_MAIN(self.labelDayTime);
+    
+    //fill data
+    self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
+    self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
+    self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
 }
 
 - (void)viewDidUnload
 {
     [scrollView release], scrollView = nil;
+    [labelLocationMain release], labelLocationMain = nil;
+    [labelLocationDetailed release], labelLocationDetailed = nil;
+    [labelDayTime release], labelDayTime = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +69,9 @@
 {
     [doubleDate release];
     [scrollView release];
+    [labelLocationMain release];
+    [labelLocationDetailed release];
+    [labelDayTime release];
     [super dealloc];
 }
 

@@ -24,5 +24,6 @@
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 + (NSString*)titleForDDDoubleDateProperty:(NSString*)property;
++ (NSString*)titleForDDDay:(NSString*)day ddTime:(NSString*)time;
 
 @end

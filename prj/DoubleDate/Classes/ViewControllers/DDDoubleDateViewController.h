@@ -18,4 +18,8 @@
 
 @property(nonatomic, retain) IBOutlet UIScrollView *scrollView;
 
+@property(nonatomic, retain) IBOutlet UILabel *labelLocationMain;
+@property(nonatomic, retain) IBOutlet UILabel *labelLocationDetailed;
+@property(nonatomic, retain) IBOutlet UILabel *labelDayTime;
+
 @end
