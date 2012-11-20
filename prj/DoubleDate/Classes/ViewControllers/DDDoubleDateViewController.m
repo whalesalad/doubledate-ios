@@ -13,12 +13,22 @@
 #import "DDImageView.h"
 #import "DDImage.h"
 #import "DDShortUser.h"
+#import "DDUserBubbleViewController.h"
+#import "WEPopoverController.h"
 
-@interface DDDoubleDateViewController ()
+@interface DDDoubleDateViewController ()<WEPopoverControllerDelegate>
+
+- (void)dismissUserPopover;
+- (void)presentLeftUserPopover;
+- (void)presentRightUserPopover;
+
+@property(nonatomic, retain) WEPopoverController *popover;
 
 @end
 
 @implementation DDDoubleDateViewController
+
+@synthesize popover;
 
 @synthesize doubleDate;
 
@@ -134,6 +144,7 @@
     [imageViewUserRight release];
     [imageViewUserLeftHighlighted release];
     [imageViewUserRightHighlighted release];
+    [popover release];
     [super dealloc];
 }
 
@@ -142,14 +153,98 @@
 
 - (IBAction)leftUserTouched:(id)sender
 {
+    //hide selection
     self.imageViewUserRightHighlighted.hidden = YES;
+
+    //show selection
     self.imageViewUserLeftHighlighted.hidden = !self.imageViewUserLeftHighlighted.hidden;
+    
+    //dismiss old
+    [self dismissUserPopover];
+    
+    //present user
+    if (!self.imageViewUserLeftHighlighted.hidden)
+        [self presentLeftUserPopover];
+    else
+        [self dismissUserPopover];
 }
 
 - (IBAction)rightUserTouched:(id)sender
 {
+    //hide selection
     self.imageViewUserLeftHighlighted.hidden = YES;
+    
+    //show selection
     self.imageViewUserRightHighlighted.hidden = !self.imageViewUserRightHighlighted.hidden;
+    
+    //dismiss old
+    [self dismissUserPopover];
+    
+    //present user
+    if (!self.imageViewUserRightHighlighted.hidden)
+        [self presentRightUserPopover];
+    else
+        [self dismissUserPopover];
+}
+
+#pragma mark -
+#pragma mark other
+
+- (void)dismissUserPopover
+{
+    [self.popover dismissPopoverAnimated:YES];
+}
+
+- (void)presentPopoverWithUser:(DDShortUser*)user inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
+{
+    //create new
+    self.popover = [[[WEPopoverController alloc] initWithContentViewController:[[[DDUserBubbleViewController alloc] init] autorelease]] autorelease];
+    
+    //apply container view properties
+    self.popover.containerViewProperties = [self.popover defaultContainerViewProperties];
+    self.popover.containerViewProperties.arrowMargin = arrowOffset;
+    
+    //set popover size
+    CGSize popoverSize = CGSizeMake(300, 100);
+    
+    //set content size
+    self.popover.popoverContentSize = popoverSize;
+    
+    //set delegate
+    self.popover.delegate = self;
+    
+    //present popover
+    [self.popover presentPopoverFromRect:CGRectMake(0, 0, popoverSize.width, popoverSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+}
+
+- (void)presentLeftUserPopover
+{
+    //present popover
+    [self presentPopoverWithUser:self.doubleDate.user inView:self.imageViewUserLeft arrowOffset:228];
+}
+
+- (void)presentRightUserPopover
+{
+    //present popover
+    [self presentPopoverWithUser:self.doubleDate.user inView:self.imageViewUserRight arrowOffset:64];
+}
+
+#pragma mark -
+#pragma mark WEPopoverControllerDelegate
+
+- (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
+{
+    //hide selection
+    self.imageViewUserLeftHighlighted.hidden = YES;
+    self.imageViewUserRightHighlighted.hidden = YES;
+    
+    //release popover
+    self.popover = nil;
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
+{
+    return YES;
 }
 
 @end
