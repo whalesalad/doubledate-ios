@@ -18,6 +18,7 @@
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate>
 
+- (void)loadDateForUser:(DDShortUser*)shortUser;
 - (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
@@ -195,17 +196,19 @@
     [self.popover dismissPopoverAnimated:YES];
 }
 
-- (void)presentPopoverWithUser:(DDShortUser*)user inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
+- (void)presentPopoverWithUser:(DDUser*)user inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
 {
     //create new
-    self.popover = [[[WEPopoverController alloc] initWithContentViewController:[[[DDUserBubbleViewController alloc] init] autorelease]] autorelease];
+    DDUserBubbleViewController *viewController = [[[DDUserBubbleViewController alloc] init] autorelease];
+    viewController.user = user;
+    self.popover = [[[WEPopoverController alloc] initWithContentViewController:viewController] autorelease];
     
     //apply container view properties
     self.popover.containerViewProperties = [self.popover defaultContainerViewProperties];
     self.popover.containerViewProperties.arrowMargin = arrowOffset;
     
     //set popover size
-    CGSize popoverSize = CGSizeMake(300, 100);
+    CGSize popoverSize = CGSizeMake(viewController.view.bounds.size.width, viewController.view.bounds.size.height);
     
     //set content size
     self.popover.popoverContentSize = popoverSize;
@@ -217,16 +220,33 @@
     [self.popover presentPopoverFromRect:CGRectMake(0, 0, popoverSize.width, popoverSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
+- (void)loadDateForUser:(DDShortUser*)shortUser
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading...", nil) animated:YES];
+    
+    //request user
+    DDUser *user = [[[DDUser alloc] init] autorelease];
+    user.userId = [NSString stringWithFormat:@"%d", [shortUser.identifier intValue]];
+    [self.apiController getUser:user];
+}
+
 - (void)presentLeftUserPopover
 {
-    //present popover
-    [self presentPopoverWithUser:self.doubleDate.user inView:self.imageViewUserLeft arrowOffset:228];
+    //self that left user requested
+    leftUserRequested_ = YES;
+    
+    //load data
+    [self loadDateForUser:self.doubleDate.user];
 }
 
 - (void)presentRightUserPopover
 {
-    //present popover
-    [self presentPopoverWithUser:self.doubleDate.user inView:self.imageViewUserRight arrowOffset:64];
+    //self that left user requested
+    leftUserRequested_ = NO;
+    
+    //load data
+    [self loadDateForUser:self.doubleDate.wing];
 }
 
 #pragma mark -
@@ -245,6 +265,35 @@
 - (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
 {
     return YES;
+}
+
+#pragma mark -
+#pragma comment DDAPIControllerDelegate
+
+- (void)getUserDidSucceed:(DDUser*)user
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //present needed view controller
+    if (leftUserRequested_)
+        [self presentPopoverWithUser:user inView:self.imageViewUserLeft arrowOffset:228];
+    else
+        [self presentPopoverWithUser:user inView:self.imageViewUserRight arrowOffset:64];
+
+}
+
+- (void)getUserDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //hide selection
+    self.imageViewUserLeftHighlighted.hidden = YES;
+    self.imageViewUserRightHighlighted.hidden = YES;
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

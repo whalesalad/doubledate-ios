@@ -24,6 +24,7 @@
 typedef enum
 {
     DDAPIControllerMethodTypeGetMe,
+    DDAPIControllerMethodTypeGetUser,
     DDAPIControllerMethodTypeUpdateMe,
     DDAPIControllerMethodTypeUpdatePhotoForMe,
     DDAPIControllerMethodTypeCreateUser,
@@ -127,6 +128,27 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeGetMe;
     userData.succeedSel = @selector(getMeDidSucceed:);
     userData.failedSel = @selector(getMeDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
+- (DDRequestId)getUser:(DDUser*)user
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"users/%d", [user.userId intValue]]];
+    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetUser;
+    userData.succeedSel = @selector(getUserDidSucceed:);
+    userData.failedSel = @selector(getUserDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -597,7 +619,8 @@ typedef enum
             userData.method == DDAPIControllerMethodTypeUpdateMe ||
             userData.method == DDAPIControllerMethodTypeCreateUser ||
             userData.method == DDAPIControllerMethodTypeRequestFBUser ||
-            userData.method == DDAPIControllerMethodTypeGetFriend)
+            userData.method == DDAPIControllerMethodTypeGetFriend ||
+            userData.method == DDAPIControllerMethodTypeGetUser)
         {
             //create user object
             DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];

@@ -32,6 +32,9 @@ typedef int DDRequestId;
 - (void)getMeDidSucceed:(DDUser*)me;
 - (void)getMeDidFailedWithError:(NSError*)error;
 
+- (void)getUserDidSucceed:(DDUser*)user;
+- (void)getUserDidFailedWithError:(NSError*)error;
+
 - (void)updateMeSucceed:(DDUser*)user;
 - (void)updateMeDidFailedWithError:(NSError*)error;
 
@@ -99,6 +102,8 @@ typedef int DDRequestId;
 - (BOOL)cancelRequest:(DDRequestId)requestId;
 
 - (DDRequestId)getMe;
+
+- (DDRequestId)getUser:(DDUser*)user;
 
 - (DDRequestId)updateMe:(DDUser*)user;
 
