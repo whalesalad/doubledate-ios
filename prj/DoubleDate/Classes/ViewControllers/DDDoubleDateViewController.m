@@ -336,9 +336,13 @@
 
 - (CGRect)displayAreaForPopoverFromView:(UIView*)view
 {
-    //check left view
+    //init data
     UIView *parentView = self.view;
-    CGFloat scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
+    CGFloat scrollViewOffset = 0;
+    if (scrollView.contentOffset.y > 0)
+        scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
+    
+    //check left view
     if (view == self.imageViewUserLeft)
     {
         CGFloat leftAlignment = view.frame.origin.x;
@@ -368,10 +372,9 @@
     //present needed view controller
 #pragma warning left/right arrow offsets
     if (leftUserRequested_)
-        [self presentPopoverWithUser:user inView:self.imageViewUserLeft arrowOffset:234];
+        [self presentPopoverWithUser:user inView:self.imageViewUserLeft arrowOffset:230];
     else
-        [self presentPopoverWithUser:user inView:self.imageViewUserRight arrowOffset:88];
-
+        [self presentPopoverWithUser:user inView:self.imageViewUserRight arrowOffset:72];
 }
 
 - (void)getUserDidFailedWithError:(NSError*)error

@@ -102,8 +102,8 @@
         totalInterestsHeight = labelBackground.frame.origin.y + labelBackground.frame.size.height + outVerPadding;
     }
     CGFloat newInterestsHeight = totalInterestsHeight;
-    //maximum 4 rows + 5 paddings
-    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*4+outVerPadding*5);
+    //maximum 6 rows + 7 paddings
+    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*6+outVerPadding*7);
     self.viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
 }
 
@@ -141,12 +141,12 @@
     CGSize initialSize = self.view.frame.size;
     
     //unset background color
-//    self.view.backgroundColor = [UIColor clearColor];
-//    self.scrollView.backgroundColor = [UIColor clearColor];
-//    self.labelTitle.backgroundColor = [UIColor clearColor];
-//    self.labelLocation.backgroundColor = [UIColor clearColor];
-//    self.textViewInfo.backgroundColor = [UIColor clearColor];
-//    self.viewInterests.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor clearColor];
+    self.scrollView.backgroundColor = [UIColor clearColor];
+    self.labelTitle.backgroundColor = [UIColor clearColor];
+    self.labelLocation.backgroundColor = [UIColor clearColor];
+    self.textViewInfo.backgroundColor = [UIColor clearColor];
+    self.viewInterests.backgroundColor = [UIColor clearColor];
     
     //fill data
     self.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
