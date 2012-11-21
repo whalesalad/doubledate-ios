@@ -10,13 +10,16 @@
 
 @interface DDUserBubbleViewController : UIViewController
 {
+    CGFloat heightOffset_;
 }
+
+@property(nonatomic, readonly) CGFloat heightOffset;
 
 @property(nonatomic, retain) DDUser *user;
 
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UITextView *textViewInfo;
+@property(nonatomic, retain) IBOutlet UIView *viewInterests;
 
 @end

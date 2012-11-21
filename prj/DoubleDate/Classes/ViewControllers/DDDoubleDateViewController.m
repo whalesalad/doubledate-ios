@@ -217,7 +217,15 @@
     self.popover.delegate = self;
     
     //present popover
-    [self.popover presentPopoverFromRect:CGRectMake(0, 0, popoverSize.width, popoverSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    
+    //calculate new height
+    CGFloat newPopoverHeight = popoverSize.height + viewController.heightOffset;
+    newPopoverHeight = MIN(MAX(newPopoverHeight, 70), 328);
+    self.popover.popoverContentSize = CGSizeMake(popoverSize.width, newPopoverHeight);
+    
+    //update geometry
+    [self.popover repositionPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown];
 }
 
 - (void)loadDateForUser:(DDShortUser*)shortUser
