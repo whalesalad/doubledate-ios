@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.SystemVersion">12C3006</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">1930</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -56,7 +56,7 @@
 							<object class="IBUILabel" id="197616112">
 								<reference key="NSNextResponder" ref="653570552"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrameSize">{260, 34}</string>
+								<string key="NSFrame">{{10, 0}, {240, 30}}</string>
 								<reference key="NSSuperview" ref="653570552"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="200371260"/>
@@ -76,11 +76,11 @@
 								<int key="IBUIBaselineAdjustment">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
-									<double key="pointSize">28</double>
+									<double key="pointSize">16</double>
 								</object>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">28</double>
+									<double key="NSSize">16</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
@@ -88,7 +88,7 @@
 							<object class="IBUILabel" id="387199637">
 								<reference key="NSNextResponder" ref="653570552"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrame">{{12, 34}, {248, 21}}</string>
+								<string key="NSFrame">{{20, 29}, {230, 21}}</string>
 								<reference key="NSSuperview" ref="653570552"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="744034842"/>
@@ -123,7 +123,7 @@
 							<object class="IBUIImageView" id="200371260">
 								<reference key="NSNextResponder" ref="653570552"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 39}, {8, 12}}</string>
+								<string key="NSFrame">{{10, 34}, {8, 12}}</string>
 								<reference key="NSSuperview" ref="653570552"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="387199637"/>
@@ -138,7 +138,7 @@
 							<object class="IBUITextView" id="744034842">
 								<reference key="NSNextResponder" ref="653570552"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrame">{{0, 55}, {260, 300}}</string>
+								<string key="NSFrame">{{0, 54}, {260, 300}}</string>
 								<reference key="NSSuperview" ref="653570552"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="29390548"/>
@@ -169,7 +169,7 @@
 							<object class="IBUIView" id="29390548">
 								<reference key="NSNextResponder" ref="653570552"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrame">{{0, 353}, {260, 45}}</string>
+								<string key="NSFrame">{{10, 353}, {240, 45}}</string>
 								<reference key="NSSuperview" ref="653570552"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -301,11 +301,11 @@
 						<reference key="object" ref="653570552"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="29390548"/>
-							<reference ref="744034842"/>
-							<reference ref="200371260"/>
-							<reference ref="387199637"/>
 							<reference ref="197616112"/>
 							<reference ref="635194775"/>
+							<reference ref="200371260"/>
+							<reference ref="387199637"/>
+							<reference ref="744034842"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -415,6 +415,6 @@
 			<string key="NS.key.0">upper_userinfo_location_icon.png</string>
 			<string key="NS.object.0">{8, 12}</string>
 		</object>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>
 </archive>

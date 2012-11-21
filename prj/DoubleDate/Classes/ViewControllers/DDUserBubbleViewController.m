@@ -80,6 +80,8 @@
         label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2-1);
         [labelBackground addSubview:label];
         
+        DD_F_BUBBLE_INTEREST_TEXT(label);
+        
         //add image view
         [self.viewInterests addSubview:labelBackground];
         
@@ -260,7 +262,7 @@
 
 - (UIFont*)fontForTitle
 {
-    return [UIFont boldSystemFontOfSize:28];
+    return [UIFont boldSystemFontOfSize:16];
 }
 
 - (UIFont*)fontForLocation

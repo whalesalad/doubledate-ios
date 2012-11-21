@@ -15,6 +15,7 @@
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSString *facebookId;
 @property(nonatomic, retain) NSString *fullName;
+@property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *name;
 @property(nonatomic, retain) NSNumber *age;
 @property(nonatomic, retain) NSString *location;

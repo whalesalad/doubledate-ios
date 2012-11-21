@@ -39,6 +39,8 @@
 
 #define DD_F_BUBBLE_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.4]]
 
+#define DD_F_GRADIENT_AVEBLK(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:15 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.3]]
+
 - (void)setFontOfName:(NSString*)fontName fontSize:(CGFloat)fontSize textColor:(UIColor*)textColor shadowOffset:(CGSize)shadowOffset shadowColor:(UIColor*)shadowColor;
 
 @end

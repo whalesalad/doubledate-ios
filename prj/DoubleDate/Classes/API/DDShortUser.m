@@ -14,6 +14,7 @@
 @synthesize identifier;
 @synthesize facebookId;
 @synthesize fullName;
+@synthesize firstName;
 @synthesize name;
 @synthesize age;
 @synthesize location;
@@ -27,6 +28,7 @@
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
         self.fullName = [DDAPIObject stringForObject:[dictionary objectForKey:@"full_name"]];
+        self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
         self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
         self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
         self.location = [DDAPIObject stringForObject:[dictionary objectForKey:@"location"]];
@@ -46,6 +48,8 @@
         [dictionary setObject:self.facebookId forKey:@"facebook_id"];
     if (self.fullName)
         [dictionary setObject:self.fullName forKey:@"full_name"];
+    if (self.firstName)
+        [dictionary setObject:self.firstName forKey:@"first_name"];
     if (self.name)
         [dictionary setObject:self.name forKey:@"name"];
     if (self.age)
@@ -63,6 +67,7 @@
     [identifier release];
     [facebookId release];
     [fullName release];
+    [firstName release];
     [name release];
     [age release];
     [location release];

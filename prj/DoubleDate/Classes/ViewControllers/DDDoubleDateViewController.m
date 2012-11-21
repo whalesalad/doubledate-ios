@@ -92,8 +92,12 @@
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
     self.textView.text = [self.doubleDate details];
-    self.labelUserLeft.text = [self.doubleDate user].fullName;
-    self.labelUserRight.text = [self.doubleDate wing].fullName;
+
+    self.labelUserLeft.text = [[self.doubleDate user].firstName uppercaseString];
+    self.labelUserRight.text = [[self.doubleDate wing].firstName uppercaseString];
+    
+    DD_F_GRADIENT_AVEBLK(self.labelUserLeft);
+    DD_F_GRADIENT_AVEBLK(self.labelUserRight);
     
     //check if we should expand text view and scroll view
     CGSize newSizeOfTextView = self.textView.contentSize;
@@ -231,8 +235,8 @@
     self.popover.containerViewProperties = [self.popover defaultContainerViewProperties];
     self.popover.containerViewProperties.arrowMargin = arrowOffset;
 #pragma warning popover paddings
-//    self.popover.containerViewProperties.leftContentMargin = 10;
-//    self.popover.containerViewProperties.rightContentMargin = 10;
+    self.popover.containerViewProperties.leftContentMargin = 0;
+    self.popover.containerViewProperties.rightContentMargin = 0;
 //    self.popover.containerViewProperties.topContentMargin = 10;
 //    self.popover.containerViewProperties.bottomContentMargin = 10;
 //    self.popover.containerViewProperties.leftBgMargin = 10;
