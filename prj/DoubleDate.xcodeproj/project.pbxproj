@@ -255,6 +255,8 @@
 		968BE2B6161038B20029F61F /* wing-tab-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE298161038B20029F61F /* wing-tab-bar@2x.png */; };
 		968BE2B7161038B20029F61F /* woman-tab-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE299161038B20029F61F /* woman-tab-bar.png */; };
 		968BE2B8161038B20029F61F /* woman-tab-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE29A161038B20029F61F /* woman-tab-bar@2x.png */; };
+		96928B6B165CE4A800012D1E /* dd-popup-darkness.png in Resources */ = {isa = PBXBuildFile; fileRef = 96928B69165CE4A800012D1E /* dd-popup-darkness.png */; };
+		96928B6C165CE4A800012D1E /* dd-popup-darkness@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */; };
 		969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353D416392E08007376AA /* DDDoubleDatesViewController.m */; };
 		969353DD16393951007376AA /* DDCreateDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */; };
 		969353E01639397B007376AA /* DDCreateDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */; };
@@ -672,6 +674,8 @@
 		968BE298161038B20029F61F /* wing-tab-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-tab-bar@2x.png"; sourceTree = "<group>"; };
 		968BE299161038B20029F61F /* woman-tab-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman-tab-bar.png"; sourceTree = "<group>"; };
 		968BE29A161038B20029F61F /* woman-tab-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman-tab-bar@2x.png"; sourceTree = "<group>"; };
+		96928B69165CE4A800012D1E /* dd-popup-darkness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-popup-darkness.png"; sourceTree = "<group>"; };
+		96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-popup-darkness@2x.png"; sourceTree = "<group>"; };
 		969353D316392E08007376AA /* DDDoubleDatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDatesViewController.h; sourceTree = "<group>"; };
 		969353D416392E08007376AA /* DDDoubleDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDatesViewController.m; sourceTree = "<group>"; };
 		969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewController.h; sourceTree = "<group>"; };
@@ -921,6 +925,8 @@
 		9614E583165693800052ADD1 /* view doubledate */ = {
 			isa = PBXGroup;
 			children = (
+				96928B69165CE4A800012D1E /* dd-popup-darkness.png */,
+				96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */,
 				9614E584165693800052ADD1 /* dd-and-icon.png */,
 				9614E585165693800052ADD1 /* dd-and-icon@2x.png */,
 				9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */,
@@ -1811,6 +1817,8 @@
 				96B37CA6165B76CD006CD141 /* popoverBg@2x.png in Resources */,
 				96B37CA7165B76CD006CD141 /* popoverBgSimple.png in Resources */,
 				96B37CAE165B783C006CD141 /* DDUserBubbleViewController.xib in Resources */,
+				96928B6B165CE4A800012D1E /* dd-popup-darkness.png in Resources */,
+				96928B6C165CE4A800012D1E /* dd-popup-darkness@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

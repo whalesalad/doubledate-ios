@@ -28,10 +28,14 @@
 
 @synthesize user;
 
+@synthesize scrollView;
+
 @synthesize labelTitle;
 @synthesize labelLocation;
 @synthesize textViewInfo;
 @synthesize viewInterests;
+
+@synthesize imageViewTopBackground;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,12 +50,17 @@
 {
     [super viewDidLoad];
     
+    //self initial size
+    CGSize initialSize = self.view.frame.size;
+    
     //unset background color
+    self.view.backgroundColor = [UIColor clearColor];
+    self.scrollView.backgroundColor = [UIColor clearColor];
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelLocation.backgroundColor = [UIColor clearColor];
     self.textViewInfo.backgroundColor = [UIColor clearColor];
     self.viewInterests.backgroundColor = [UIColor clearColor];
-    
+        
     //fill data
     self.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
     self.labelTitle.text = [self.labelTitle.text uppercaseString];
@@ -71,8 +80,11 @@
     //add gender image
     UIImage *genderImage = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderMale]?@"dd-user-gender-indicator-male.png":@"dd-user-gender-indicator-female.png"];
     UIImageView *genderImageView = [[[UIImageView alloc] initWithImage:genderImage] autorelease];
-    genderImageView.frame = CGRectMake(self.labelTitle.frame.origin.x + self.labelTitle.frame.size.width + 4, (labelTitleHeight-genderImage.size.height)/2+2, genderImage.size.width, genderImage.size.height);
+    genderImageView.frame = CGRectMake(self.labelTitle.frame.origin.x + self.labelTitle.frame.size.width + 4, (labelTitleHeight-genderImage.size.height)/2, genderImage.size.width, genderImage.size.height);
     [self.labelTitle.superview addSubview:genderImageView];
+    
+    //apply top gradient
+    self.imageViewTopBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-user-bubble-top-gradient.png"]];
     
     //save difference in height
     CGRect oldBioFrame = self.textViewInfo.frame;
@@ -88,7 +100,7 @@
     //add interesets
     CGFloat outHorPadding = 4;
     CGFloat outVerPadding = 6;
-    CGFloat curX = outHorPadding;
+    CGFloat curX = 0;
     CGFloat curY = outVerPadding;
     CGFloat totalInterestsHeight = 0;
     CGRect oldInterestsFrame = self.viewInterests.frame;
@@ -125,7 +137,7 @@
         {
             //update current frame
             curY = labelBackground.frame.origin.y + labelBackground.frame.size.height + outVerPadding;
-            curX = outHorPadding;
+            curX = 0;
             labelBackground.frame = CGRectMake(curX, curY, labelBackground.frame.size.width, labelBackground.frame.size.height);
 
             //set up new frame
@@ -136,21 +148,37 @@
         totalInterestsHeight = labelBackground.frame.origin.y + labelBackground.frame.size.height + outVerPadding;
     }
     CGFloat newInterestsHeight = totalInterestsHeight;
-    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 94);
+    //maximum 4 rows + 5 paddings
+    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*4+outVerPadding*5);
     self.viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
     CGFloat dhInterests = self.viewInterests.frame.size.height - oldInterestsFrame.size.height;
     
     //save height offset
     heightOffset_ = dhBio + dhInterests;
+    
+    //make scrollabel
+    if (heightOffset_ > 0)
+    {
+        //set content size
+        [(UIScrollView*)self.scrollView setContentSize:CGSizeMake([(UIScrollView*)self.scrollView contentSize].width, self.view.frame.size.height + heightOffset_)];
+
+        //reset frame to initial
+        self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, initialSize.width, initialSize.height);
+        
+        //unset offset
+        heightOffset_ = 0;
+    }
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+    [scrollView release], scrollView = nil;
     [labelTitle release], labelTitle = nil;
     [labelLocation release], labelLocation = nil;
     [textViewInfo release], textViewInfo = nil;
     [viewInterests release], viewInterests = nil;
+    [imageViewTopBackground release], imageViewTopBackground = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -161,10 +189,12 @@
 - (void)dealloc
 {
     [user release];
+    [scrollView release];
     [labelTitle release];
     [labelLocation release];
     [textViewInfo release];
     [viewInterests release];
+    [imageViewTopBackground release];
     [super dealloc];
 }
 
@@ -173,7 +203,7 @@
 
 - (UIFont*)fontForTitle
 {
-    return [UIFont boldSystemFontOfSize:14];
+    return [UIFont boldSystemFontOfSize:28];
 }
 
 - (UIFont*)fontForLocation

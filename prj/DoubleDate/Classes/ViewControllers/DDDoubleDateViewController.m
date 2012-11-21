@@ -22,6 +22,7 @@
 - (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
+- (void)setFadeViewVisibile:(BOOL)visible;
 
 @property(nonatomic, retain) WEPopoverController *popover;
 
@@ -52,6 +53,8 @@
 
 @synthesize imageViewUserLeftHighlighted;
 @synthesize imageViewUserRightHighlighted;
+
+@synthesize imageViewFade;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -122,6 +125,7 @@
     [imageViewUserRight release], imageViewUserRight = nil;
     [imageViewUserLeftHighlighted release], imageViewUserLeftHighlighted = nil;
     [imageViewUserRightHighlighted release],  imageViewUserRightHighlighted = nil;
+    [imageViewFade release], imageViewFade = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -145,6 +149,7 @@
     [imageViewUserRight release];
     [imageViewUserLeftHighlighted release];
     [imageViewUserRightHighlighted release];
+    [imageViewFade release];
     [popover release];
     [super dealloc];
 }
@@ -198,6 +203,9 @@
 
 - (void)presentPopoverWithUser:(DDUser*)user inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
 {
+    //show fading
+    [self setFadeViewVisibile:YES];
+    
     //create new
     DDUserBubbleViewController *viewController = [[[DDUserBubbleViewController alloc] init] autorelease];
     viewController.user = user;
@@ -206,6 +214,15 @@
     //apply container view properties
     self.popover.containerViewProperties = [self.popover defaultContainerViewProperties];
     self.popover.containerViewProperties.arrowMargin = arrowOffset;
+#pragma warning popover paddings
+//    self.popover.containerViewProperties.leftContentMargin = 10;
+//    self.popover.containerViewProperties.rightContentMargin = 10;
+//    self.popover.containerViewProperties.topContentMargin = 10;
+//    self.popover.containerViewProperties.bottomContentMargin = 10;
+//    self.popover.containerViewProperties.leftBgMargin = 10;
+//    self.popover.containerViewProperties.rightBgMargin = 10;
+//    self.popover.containerViewProperties.topBgMargin = 10;
+//    self.popover.containerViewProperties.bottomBgMargin = 10;
     
     //set popover size
     CGSize popoverSize = CGSizeMake(viewController.view.bounds.size.width, viewController.view.bounds.size.height);
@@ -220,6 +237,7 @@
     [self.popover presentPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
     //calculate new height
+#pragma warning popover size
     CGFloat newPopoverHeight = popoverSize.height + viewController.heightOffset;
     newPopoverHeight = MIN(MAX(newPopoverHeight, 70), 328);
     self.popover.popoverContentSize = CGSizeMake(popoverSize.width, newPopoverHeight);
@@ -257,6 +275,13 @@
     [self loadDateForUser:self.doubleDate.wing];
 }
 
+- (void)setFadeViewVisibile:(BOOL)visible
+{
+    [UIView animateWithDuration:0.3f animations:^{
+        self.imageViewFade.alpha = visible?1:0;
+    }];
+}
+
 #pragma mark -
 #pragma mark WEPopoverControllerDelegate
 
@@ -272,6 +297,7 @@
 
 - (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
 {
+    [self setFadeViewVisibile:NO];
     return YES;
 }
 
@@ -284,10 +310,11 @@
     [self hideHud:YES];
     
     //present needed view controller
+#pragma warning left/right arrow offsets
     if (leftUserRequested_)
-        [self presentPopoverWithUser:user inView:self.imageViewUserLeft arrowOffset:228];
+        [self presentPopoverWithUser:user inView:self.imageViewUserLeft arrowOffset:234];
     else
-        [self presentPopoverWithUser:user inView:self.imageViewUserRight arrowOffset:64];
+        [self presentPopoverWithUser:user inView:self.imageViewUserRight arrowOffset:88];
 
 }
 

@@ -38,6 +38,8 @@
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewUserLeftHighlighted;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewUserRightHighlighted;
 
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewFade;
+
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;
 
