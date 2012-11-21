@@ -15,6 +15,7 @@
 #import "DDShortUser.h"
 #import "DDUserBubbleViewController.h"
 #import "WEPopoverController.h"
+#import "DDShortUser.h"
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate>
 
@@ -56,6 +57,9 @@
 
 @synthesize imageViewFade;
 
+@synthesize labelUserLeft;
+@synthesize labelUserRight;
+
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -86,6 +90,8 @@
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
     self.textView.text = [self.doubleDate details];
+    self.labelUserLeft.text = [self.doubleDate user].fullName;
+    self.labelUserRight.text = [self.doubleDate wing].fullName;
     
     //check if we should expand text view and scroll view
     CGSize newSizeOfTextView = self.textView.contentSize;
@@ -126,6 +132,8 @@
     [imageViewUserLeftHighlighted release], imageViewUserLeftHighlighted = nil;
     [imageViewUserRightHighlighted release],  imageViewUserRightHighlighted = nil;
     [imageViewFade release], imageViewFade = nil;
+    [labelUserLeft release], labelUserLeft = nil;
+    [labelUserRight release], labelUserRight = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -150,6 +158,8 @@
     [imageViewUserLeftHighlighted release];
     [imageViewUserRightHighlighted release];
     [imageViewFade release];
+    [labelUserLeft release];
+    [labelUserRight release];
     [popover release];
     [super dealloc];
 }

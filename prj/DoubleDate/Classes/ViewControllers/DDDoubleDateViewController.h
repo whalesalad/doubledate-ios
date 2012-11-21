@@ -40,6 +40,9 @@
 
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewFade;
 
+@property(nonatomic, retain) IBOutlet UILabel *labelUserLeft;
+@property(nonatomic, retain) IBOutlet UILabel *labelUserRight;
+
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;
 
