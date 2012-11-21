@@ -1951,7 +1951,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/SBJson/Classes\"",
 				);
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1972,7 +1972,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/SBJson/Classes\"",
 				);
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
