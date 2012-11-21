@@ -54,6 +54,7 @@
     
     //fill data
     self.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
+    self.labelTitle.text = [self.labelTitle.text uppercaseString];
     self.labelLocation.text = self.user.location.name;
     self.textViewInfo.text = self.user.bio;
     
@@ -85,8 +86,8 @@
     self.viewInterests.frame = CGRectMake(self.viewInterests.frame.origin.x, self.viewInterests.frame.origin.y+dhBio, self.viewInterests.frame.size.width, self.viewInterests.frame.size.height);
     
     //add interesets
-    CGFloat outHorPadding = 8;
-    CGFloat outVerPadding = 4;
+    CGFloat outHorPadding = 4;
+    CGFloat outVerPadding = 6;
     CGFloat curX = outHorPadding;
     CGFloat curY = outVerPadding;
     CGFloat totalInterestsHeight = 0;
@@ -98,8 +99,9 @@
         
         //create label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        label.font = [self fontForInterests];
-        label.text = interest.name;
+        //label.font = [self fontForInterests];
+        DD_F_BUBBLE_INTEREST_TEXT(label);
+        label.text = [interest.name uppercaseString];
         label.backgroundColor = [UIColor clearColor];
         [label sizeToFit];
         
@@ -181,7 +183,7 @@
 
 - (UIFont*)fontForBio
 {
-    return [UIFont systemFontOfSize:12];
+    return [UIFont systemFontOfSize:15];
 }
 
 - (UIFont*)fontForInterests

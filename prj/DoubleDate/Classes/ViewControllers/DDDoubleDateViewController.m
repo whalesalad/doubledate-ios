@@ -73,9 +73,9 @@
     self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     //customize text
-    DD_F_HEADER_MAIN(self.labelLocationMain);
-    DD_F_HEADER_DETAILED(self.labelLocationDetailed);
-    DD_F_HEADER_MAIN(self.labelDayTime);
+    DD_F_WHT_HELV_13_BOLD_BLK_SHAD(self.labelLocationMain);
+    DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(self.labelLocationDetailed);
+    DD_F_WHT_HELV_13_BOLD_BLK_SHAD(self.labelDayTime);
     DD_F_TEXT(self.textView);
     
     //fill data

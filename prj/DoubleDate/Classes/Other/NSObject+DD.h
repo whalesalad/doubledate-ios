@@ -33,6 +33,12 @@
 
 //#define DD_F_ICON_TABLE_CELL_LABEL(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor blackColor]]
 
+#define DD_F_WHT_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]
+
+#define DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:13 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]
+
+#define DD_F_BUBBLE_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.4]]
+
 - (void)setFontOfName:(NSString*)fontName fontSize:(CGFloat)fontSize textColor:(UIColor*)textColor shadowOffset:(CGSize)shadowOffset shadowColor:(UIColor*)shadowColor;
 
 @end
