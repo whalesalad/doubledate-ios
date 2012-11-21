@@ -46,56 +46,11 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)reinitInterests
 {
-    [super viewDidLoad];
-    
-    //self initial size
-    CGSize initialSize = self.view.frame.size;
-    
-    //unset background color
-    self.view.backgroundColor = [UIColor clearColor];
-    self.scrollView.backgroundColor = [UIColor clearColor];
-    self.labelTitle.backgroundColor = [UIColor clearColor];
-    self.labelLocation.backgroundColor = [UIColor clearColor];
-    self.textViewInfo.backgroundColor = [UIColor clearColor];
-    self.viewInterests.backgroundColor = [UIColor clearColor];
-        
-    //fill data
-    self.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
-    self.labelTitle.text = [self.labelTitle.text uppercaseString];
-    self.labelLocation.text = self.user.location.name;
-    self.textViewInfo.text = self.user.bio;
-    
-    //apply fonts
-    self.labelTitle.font = [self fontForTitle];
-    self.labelLocation.font = [self fontForLocation];
-    self.textViewInfo.font = [self fontForBio];
-    
-    //customize geometry
-    CGFloat labelTitleHeight = self.labelTitle.frame.size.height;
-    [self.labelTitle sizeToFit];
-    self.labelTitle.frame = CGRectMake(self.labelTitle.frame.origin.x, self.labelTitle.frame.origin.y, self.labelTitle.frame.size.width, labelTitleHeight);
-    
-    //add gender image
-    UIImage *genderImage = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderMale]?@"dd-user-gender-indicator-male.png":@"dd-user-gender-indicator-female.png"];
-    UIImageView *genderImageView = [[[UIImageView alloc] initWithImage:genderImage] autorelease];
-    genderImageView.frame = CGRectMake(self.labelTitle.frame.origin.x + self.labelTitle.frame.size.width + 4, (labelTitleHeight-genderImage.size.height)/2, genderImage.size.width, genderImage.size.height);
-    [self.labelTitle.superview addSubview:genderImageView];
-    
-    //apply top gradient
-    self.imageViewTopBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-user-bubble-top-gradient.png"]];
-    
-    //save difference in height
-    CGRect oldBioFrame = self.textViewInfo.frame;
-    [self.textViewInfo sizeToFit];
-    CGFloat newBioHeight = self.textViewInfo.frame.size.height;
-    newBioHeight = MIN(MAX(newBioHeight, 20), 180);
-    self.textViewInfo.frame = CGRectMake(oldBioFrame.origin.x, oldBioFrame.origin.y, oldBioFrame.size.width, newBioHeight);
-    CGFloat dhBio = self.textViewInfo.frame.size.height - oldBioFrame.size.height;
-    
-    //offset interests
-    self.viewInterests.frame = CGRectMake(self.viewInterests.frame.origin.x, self.viewInterests.frame.origin.y+dhBio, self.viewInterests.frame.size.width, self.viewInterests.frame.size.height);
+    //remove all interests
+    while ([[self.viewInterests subviews] count])
+        [[[self.viewInterests subviews] lastObject] removeFromSuperview];
     
     //add interesets
     CGFloat outHorPadding = 4;
@@ -111,8 +66,7 @@
         
         //create label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        //label.font = [self fontForInterests];
-        DD_F_BUBBLE_INTEREST_TEXT(label);
+        label.font = [self fontForInterests];
         label.text = [interest.name uppercaseString];
         label.backgroundColor = [UIColor clearColor];
         [label sizeToFit];
@@ -139,7 +93,7 @@
             curY = labelBackground.frame.origin.y + labelBackground.frame.size.height + outVerPadding;
             curX = 0;
             labelBackground.frame = CGRectMake(curX, curY, labelBackground.frame.size.width, labelBackground.frame.size.height);
-
+            
             //set up new frame
             curX = labelBackground.frame.origin.x + labelBackground.frame.size.width + outHorPadding;
         }
@@ -151,6 +105,80 @@
     //maximum 4 rows + 5 paddings
     newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*4+outVerPadding*5);
     self.viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
+}
+
+- (void)reinitTitle
+{
+    //remove all subviews
+    while ([[self.labelTitle subviews] count])
+        [[[self.labelTitle subviews] lastObject] removeFromSuperview];
+    
+    //customize geometry
+    CGFloat labelTitleHeight = self.labelTitle.frame.size.height;
+    [self.labelTitle sizeToFit];
+    self.labelTitle.frame = CGRectMake(self.labelTitle.frame.origin.x, self.labelTitle.frame.origin.y, self.labelTitle.frame.size.width, labelTitleHeight);
+    
+    //show out of the bounds
+    self.labelTitle.clipsToBounds = NO;
+    
+    //add gender image
+    UIImage *genderImage = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderMale]?@"dd-user-gender-indicator-male.png":@"dd-user-gender-indicator-female.png"];
+    UIImageView *genderImageView = [[[UIImageView alloc] initWithImage:genderImage] autorelease];
+    genderImageView.center = CGPointMake(self.labelTitle.frame.size.width+genderImage.size.width/2, self.labelTitle.frame.size.height/2);
+    genderImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self.labelTitle addSubview:genderImageView];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //check if user exist
+    if (!self.user)
+        return;
+    
+    //self initial size
+    CGSize initialSize = self.view.frame.size;
+    
+    //unset background color
+//    self.view.backgroundColor = [UIColor clearColor];
+//    self.scrollView.backgroundColor = [UIColor clearColor];
+//    self.labelTitle.backgroundColor = [UIColor clearColor];
+//    self.labelLocation.backgroundColor = [UIColor clearColor];
+//    self.textViewInfo.backgroundColor = [UIColor clearColor];
+//    self.viewInterests.backgroundColor = [UIColor clearColor];
+    
+    //fill data
+    self.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
+    self.labelTitle.text = [self.labelTitle.text uppercaseString];
+    self.labelLocation.text = self.user.location.name;
+    self.textViewInfo.text = self.user.bio;
+    
+    //apply fonts
+    self.labelTitle.font = [self fontForTitle];
+    self.labelLocation.font = [self fontForLocation];
+    self.textViewInfo.font = [self fontForBio];
+    
+    //customize title
+    [self reinitTitle];
+    
+    //apply top gradient
+    self.imageViewTopBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-user-bubble-top-gradient.png"]];
+    
+    //save difference in height
+    CGRect oldBioFrame = self.textViewInfo.frame;
+    [self.textViewInfo sizeToFit];
+    CGFloat newBioHeight = self.textViewInfo.frame.size.height;
+    newBioHeight = MIN(MAX(newBioHeight, 20), 180);
+    self.textViewInfo.frame = CGRectMake(oldBioFrame.origin.x, oldBioFrame.origin.y, oldBioFrame.size.width, newBioHeight);
+    CGFloat dhBio = self.textViewInfo.frame.size.height - oldBioFrame.size.height;
+    
+    //offset interests
+    self.viewInterests.frame = CGRectMake(self.viewInterests.frame.origin.x, self.viewInterests.frame.origin.y+dhBio, self.viewInterests.frame.size.width, self.viewInterests.frame.size.height);
+    
+    //update interests
+    CGRect oldInterestsFrame = self.viewInterests.frame;
+    [self reinitInterests];
     CGFloat dhInterests = self.viewInterests.frame.size.height - oldInterestsFrame.size.height;
     
     //save height offset
@@ -167,6 +195,35 @@
         
         //unset offset
         heightOffset_ = 0;
+    }
+}
+
+- (void)adjustScrollableArea
+{
+    //change frame accoring to text view
+    {
+        CGFloat dh = self.textViewInfo.contentSize.height - self.textViewInfo.frame.size.height;
+        self.textViewInfo.frame = CGRectMake(self.textViewInfo.frame.origin.x, self.textViewInfo.frame.origin.y, self.textViewInfo.frame.size.width, self.textViewInfo.frame.size.height+dh);
+        self.viewInterests.frame = CGRectMake(self.viewInterests.frame.origin.x, self.viewInterests.frame.origin.y+dh, self.viewInterests.frame.size.width, self.viewInterests.frame.size.height);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.scrollView.contentSize.height+dh);
+    }
+    
+    //change frame accoring to interests
+    {
+        CGRect oldInterestsFrame = self.viewInterests.frame;
+        [self reinitInterests];
+        CGFloat dh = self.viewInterests.frame.size.height - oldInterestsFrame.size.height;
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.scrollView.contentSize.height+dh);
+    }
+    
+    //change frame of title
+    {
+        [self reinitTitle];
+    }
+    
+    //change scroll size
+    {
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.viewInterests.frame.origin.y+self.viewInterests.frame.size.height);
     }
 }
 

@@ -893,9 +893,9 @@
 				<string key="20.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="28.CustomClassName">DDImageView</string>
+				<string key="28.CustomClassName">DDWEImageView</string>
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="29.CustomClassName">DDImageView</string>
+				<string key="29.CustomClassName">DDWEImageView</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -944,9 +944,9 @@
 						<string key="containerTextView">UIView</string>
 						<string key="containerTopImageView">UIImageView</string>
 						<string key="imageViewFade">UIImageView</string>
-						<string key="imageViewUserLeft">DDImageView</string>
+						<string key="imageViewUserLeft">DDWEImageView</string>
 						<string key="imageViewUserLeftHighlighted">UIImageView</string>
-						<string key="imageViewUserRight">DDImageView</string>
+						<string key="imageViewUserRight">DDWEImageView</string>
 						<string key="imageViewUserRightHighlighted">UIImageView</string>
 						<string key="labelDayTime">UILabel</string>
 						<string key="labelLocationDetailed">UILabel</string>
@@ -979,7 +979,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewUserLeft">
 							<string key="name">imageViewUserLeft</string>
-							<string key="candidateClassName">DDImageView</string>
+							<string key="candidateClassName">DDWEImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewUserLeftHighlighted">
 							<string key="name">imageViewUserLeftHighlighted</string>
@@ -987,7 +987,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewUserRight">
 							<string key="name">imageViewUserRight</string>
-							<string key="candidateClassName">DDImageView</string>
+							<string key="candidateClassName">DDWEImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewUserRightHighlighted">
 							<string key="name">imageViewUserRightHighlighted</string>
@@ -1025,14 +1025,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/DDDoubleDateViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">DDImageView</string>
-					<string key="superclassName">UIImageView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/DDImageView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

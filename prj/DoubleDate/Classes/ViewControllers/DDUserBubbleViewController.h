@@ -26,4 +26,6 @@
 
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewTopBackground;
 
+- (void)adjustScrollableArea;
+
 @end

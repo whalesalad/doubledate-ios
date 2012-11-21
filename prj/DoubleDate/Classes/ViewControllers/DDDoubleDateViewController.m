@@ -16,14 +16,16 @@
 #import "DDUserBubbleViewController.h"
 #import "WEPopoverController.h"
 #import "DDShortUser.h"
+#import "DDWEImageView.h"
 
-@interface DDDoubleDateViewController ()<WEPopoverControllerDelegate>
+@interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
 - (void)loadDateForUser:(DDShortUser*)shortUser;
 - (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
 - (void)setFadeViewVisibile:(BOOL)visible;
+- (CGSize)bubbleSizeFromXib;
 
 @property(nonatomic, retain) WEPopoverController *popover;
 
@@ -114,6 +116,10 @@
     [self.imageViewUserRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.downloadUrl]];
     [self.imageViewUserRight applyMask:[UIImage imageNamed:@"dd-user-photo-mask.png"]];
     self.imageViewUserRight.contentMode = UIViewContentModeScaleAspectFill;
+    
+    //set popover delegates
+    self.imageViewUserLeft.popoverDelegate = self;
+    self.imageViewUserRight.popoverDelegate = self;
 }
 
 - (void)viewDidUnload
@@ -247,13 +253,15 @@
     [self.popover presentPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
     
     //calculate new height
-#pragma warning popover size
     CGFloat newPopoverHeight = popoverSize.height + viewController.heightOffset;
-    newPopoverHeight = MIN(MAX(newPopoverHeight, 70), 328);
+    newPopoverHeight = MIN(MAX(newPopoverHeight, 70), FLT_MAX);
     self.popover.popoverContentSize = CGSizeMake(popoverSize.width, newPopoverHeight);
     
     //update geometry
     [self.popover repositionPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown];
+    
+    //adjust popover size
+    [viewController adjustScrollableArea];
 }
 
 - (void)loadDateForUser:(DDShortUser*)shortUser
@@ -292,6 +300,18 @@
     }];
 }
 
+- (CGSize)bubbleSizeFromXib
+{
+    static CGSize _bubbleSize;
+    static BOOL _bubbleSizeInitialized = NO;
+    if (!_bubbleSizeInitialized)
+    {
+        _bubbleSizeInitialized = YES;
+        _bubbleSize = [[[DDUserBubbleViewController alloc] init] autorelease].view.frame.size;
+    }
+    return _bubbleSize;
+}
+
 #pragma mark -
 #pragma mark WEPopoverControllerDelegate
 
@@ -309,6 +329,32 @@
 {
     [self setFadeViewVisibile:NO];
     return YES;
+}
+
+#pragma mark -
+#pragma mark DDWEImageViewDelegate
+
+- (CGRect)displayAreaForPopoverFromView:(UIView*)view
+{
+    //check left view
+    UIView *parentView = self.view;
+    CGFloat scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
+    if (view == self.imageViewUserLeft)
+    {
+        CGFloat leftAlignment = view.frame.origin.x;
+        CGFloat topAlignment = 0-scrollViewOffset;
+        CGRect rect = CGRectMake(leftAlignment, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
+		return [parentView convertRect:rect toView:view];
+    }
+    //right view
+    else
+    {
+        CGFloat rightAlignment = view.frame.origin.x + view.frame.size.width;
+        CGFloat topAlignment = 0-scrollViewOffset;
+        CGRect rect = CGRectMake(rightAlignment-[self bubbleSizeFromXib].width, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
+        return [parentView convertRect:rect toView:view];
+    }
+    return CGRectZero;
 }
 
 #pragma mark -
