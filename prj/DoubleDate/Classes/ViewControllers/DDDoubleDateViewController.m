@@ -17,10 +17,11 @@
 #import "WEPopoverController.h"
 #import "DDShortUser.h"
 #import "DDWEImageView.h"
+#import "DDUser.h"
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
-- (void)loadDateForUser:(DDShortUser*)shortUser;
+- (void)loadDataForUser:(DDShortUser*)shortUser;
 - (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
@@ -29,11 +30,17 @@
 
 @property(nonatomic, retain) WEPopoverController *popover;
 
+@property(nonatomic, retain) DDUser *user;
+@property(nonatomic, retain) DDUser *wing;
+
 @end
 
 @implementation DDDoubleDateViewController
 
 @synthesize popover;
+
+@synthesize user;
+@synthesize wing;
 
 @synthesize doubleDate;
 
@@ -124,6 +131,20 @@
     //set popover delegates
     self.imageViewUserLeft.popoverDelegate = self;
     self.imageViewUserRight.popoverDelegate = self;
+    
+    //request information
+    if (!self.user && self.doubleDate.user)
+    {
+        DDUser *requestUser = [[[DDUser alloc] init] autorelease];
+        requestUser.userId = self.doubleDate.user.identifier;
+        [self.apiController getUser:requestUser];
+    }
+    if (!self.wing && self.doubleDate.wing)
+    {
+        DDUser *requestUser = [[[DDUser alloc] init] autorelease];
+        requestUser.userId = self.doubleDate.wing.identifier;
+        [self.apiController getUser:requestUser];
+    }
 }
 
 - (void)viewDidUnload
@@ -221,14 +242,14 @@
     [self.popover dismissPopoverAnimated:YES];
 }
 
-- (void)presentPopoverWithUser:(DDUser*)user inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
+- (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
 {
     //show fading
     [self setFadeViewVisibile:YES];
     
     //create new
     DDUserBubbleViewController *viewController = [[[DDUserBubbleViewController alloc] init] autorelease];
-    viewController.user = user;
+    viewController.user = u;
     self.popover = [[[WEPopoverController alloc] initWithContentViewController:viewController] autorelease];
     
     //apply container view properties
@@ -268,33 +289,33 @@
     [viewController adjustScrollableArea];
 }
 
-- (void)loadDateForUser:(DDShortUser*)shortUser
+- (void)loadDataForUser:(DDShortUser*)shortUser
 {
     //show hud
     [self showHudWithText:NSLocalizedString(@"Loading...", nil) animated:YES];
     
     //request user
-    DDUser *user = [[[DDUser alloc] init] autorelease];
-    user.userId = [NSString stringWithFormat:@"%d", [shortUser.identifier intValue]];
-    [self.apiController getUser:user];
+    DDUser *requestUser = [[[DDUser alloc] init] autorelease];
+    requestUser.userId = [NSString stringWithFormat:@"%d", [shortUser.identifier intValue]];
+    [self.apiController getUser:requestUser];
 }
 
 - (void)presentLeftUserPopover
 {
-    //self that left user requested
-    leftUserRequested_ = YES;
-    
     //load data
-    [self loadDateForUser:self.doubleDate.user];
+    if (self.user)
+        [self getUserDidSucceed:self.user];
+    else
+        [self loadDataForUser:self.doubleDate.user];
 }
 
 - (void)presentRightUserPopover
 {
-    //self that left user requested
-    leftUserRequested_ = NO;
-    
     //load data
-    [self loadDateForUser:self.doubleDate.wing];
+    if (self.wing)
+        [self getUserDidSucceed:self.wing];
+    else
+        [self loadDataForUser:self.doubleDate.wing];
 }
 
 - (void)setFadeViewVisibile:(BOOL)visible
@@ -368,17 +389,35 @@
 #pragma mark -
 #pragma comment DDAPIControllerDelegate
 
-- (void)getUserDidSucceed:(DDUser*)user
+- (void)getUserDidSucceed:(DDUser*)u
 {
+    //if hud exist then we load info about user
+    BOOL needPresentPopover = [self isHudExist];
+    
     //hide hud
     [self hideHud:YES];
     
+    //save user
+    if ([u.userId intValue] == [self.doubleDate.user.identifier intValue])
+    {
+        needPresentPopover = needPresentPopover || (self.user != nil);
+        self.user = u;
+    }
+    else if ([u.userId intValue] == [self.doubleDate.wing.identifier intValue])
+    {
+        needPresentPopover = needPresentPopover || (self.wing != nil);
+        self.wing = u;
+    }
+    
     //present needed view controller
+    if (needPresentPopover)
+    {
 #pragma warning left/right arrow offsets
-    if (leftUserRequested_)
-        [self presentPopoverWithUser:user inView:self.imageViewUserLeft arrowOffset:230];
-    else
-        [self presentPopoverWithUser:user inView:self.imageViewUserRight arrowOffset:72];
+        if ([u.userId intValue] == [self.doubleDate.user.identifier intValue])
+            [self presentPopoverWithUser:u inView:self.imageViewUserLeft arrowOffset:212];
+        else
+            [self presentPopoverWithUser:u inView:self.imageViewUserRight arrowOffset:52];
+    }
 }
 
 - (void)getUserDidFailedWithError:(NSError*)error

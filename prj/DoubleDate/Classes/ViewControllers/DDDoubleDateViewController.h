@@ -10,10 +10,10 @@
 
 @class DDDoubleDate;
 @class DDWEImageView;
+@class DDUser;
 
 @interface DDDoubleDateViewController : DDViewController
 {
-    BOOL leftUserRequested_;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
