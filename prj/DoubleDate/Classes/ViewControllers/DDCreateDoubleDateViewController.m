@@ -23,7 +23,9 @@
 #import "DDTextField.h"
 #import "DDTextViewTableViewCell.h"
 
-@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate>
+#define kTagCancelActionSheet 1
+
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
@@ -72,6 +74,9 @@
     
     //set right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"POST", nil) target:self action:@selector(postTouched:)];
+    
+    //set left button
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(backTouched:)];
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -252,6 +257,13 @@
     
     //request friends
     [self.apiController createDoubleDate:doubleDate];
+}
+
+- (void)backTouched:(id)sender
+{
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Yes, Stop Making Date", nil), nil] autorelease];
+    sheet.tag = kTagCancelActionSheet;
+    [sheet showInView:self.tabBarController.view];
 }
 
 - (void)updateNavigationBar
@@ -652,6 +664,15 @@
         [self updateDetailsCell:(DDTextViewTableViewCell*)cell];
     
     return cell;
+}
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag == kTagCancelActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
