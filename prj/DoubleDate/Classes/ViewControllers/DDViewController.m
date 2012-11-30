@@ -25,10 +25,14 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
 
 @implementation DDViewController
 
+@synthesize backButtonTitle;
+
 - (void)initSelf
 {
     apiController_ = [[DDAPIController alloc] init];
     apiController_.delegate = self;
+    
+    self.backButtonTitle = NSLocalizedString(@"BACK", nil);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -60,7 +64,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
     
     //customize left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"BACK", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
 }
 
 - (void)backTouched:(id)sender
@@ -73,6 +77,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     apiController_.delegate = nil;
     [apiController_ release];
+    [backButtonTitle release];
     [self hideHud:YES];
     [super dealloc];
 }

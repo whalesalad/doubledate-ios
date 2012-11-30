@@ -18,4 +18,6 @@
     MBProgressHUD *hud_;
 }
 
+@property(nonatomic, retain) NSString *backButtonTitle;
+
 @end

@@ -98,7 +98,7 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Location", nil);
+    self.navigationItem.title = NSLocalizedString(@"Wings", nil);
     
     //update segmented controler
     [self updateSegmentedControl];
@@ -580,6 +580,7 @@
     //add view controller
     DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
     meViewController.user = friend;
+    meViewController.backButtonTitle = NSLocalizedString(@"WINGS", nil);
     [self.navigationController pushViewController:meViewController animated:YES];
 }
 

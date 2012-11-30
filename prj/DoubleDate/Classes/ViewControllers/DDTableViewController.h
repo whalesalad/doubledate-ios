@@ -25,6 +25,8 @@
 @property(nonatomic, readonly) UISearchBar *searchBar;
 @property(nonatomic, readonly) NSString *searchTerm;
 
+@property(nonatomic, retain) NSString *backButtonTitle;
+
 - (void)setupSearchBar;
 
 @end

@@ -28,11 +28,14 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 @implementation DDTableViewController
 
 @synthesize searchTerm = searchTerm_;
+@synthesize backButtonTitle;
 
 - (void)initSelf
 {
     apiController_ = [[DDAPIController alloc] init];
     apiController_.delegate = self;
+    
+    self.backButtonTitle = NSLocalizedString(@"BACK", nil);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -78,7 +81,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
     
     //customize left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"BACK", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
     
     //add search bar
     [self setupSearchBar];
@@ -115,6 +118,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     apiController_.delegate = nil;
     [apiController_ release];
     [searchTerm_ release];
+    [backButtonTitle release];
     [self hideHud:YES];
     [super dealloc];
 }
