@@ -258,7 +258,7 @@
 										<string key="NSFrame">{{38, 6}, {100, 100}}</string>
 										<reference key="NSSuperview" ref="734777390"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="710714078"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -273,21 +273,6 @@
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIUserInteractionEnabled">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-									</object>
-									<object class="IBUIImageView" id="710714078">
-										<reference key="NSNextResponder" ref="734777390"/>
-										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{148, 43}, {25, 26}}</string>
-										<reference key="NSSuperview" ref="734777390"/>
-										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="371870181"/>
-										<string key="NSReuseIdentifierKey">_NS:9</string>
-										<bool key="IBUIUserInteractionEnabled">NO</bool>
-										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<object class="NSCustomResource" key="IBUIImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">dd-and-icon.png</string>
-										</object>
 									</object>
 									<object class="IBUIImageView" id="601820008">
 										<reference key="NSNextResponder" ref="734777390"/>
@@ -474,7 +459,6 @@
 						<string key="NSFrame">{{0, 317}, {320, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -800,7 +784,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="637775242"/>
 							<reference ref="736196144"/>
-							<reference ref="710714078"/>
 							<reference ref="601820008"/>
 							<reference ref="278938202"/>
 							<reference ref="851366513"/>
@@ -820,11 +803,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">29</int>
 						<reference key="object" ref="736196144"/>
-						<reference key="parent" ref="734777390"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">30</int>
-						<reference key="object" ref="710714078"/>
 						<reference key="parent" ref="734777390"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -897,7 +875,6 @@
 				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="29.CustomClassName">DDWEImageView</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1058,7 +1035,6 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="dd-and-icon.png">{25, 26}</string>
 			<string key="dd-location-icon.png">{28, 29}</string>
 			<string key="dd-popup-darkness.png">{320, 568}</string>
 			<string key="dd-time-icon.png">{28, 29}</string>

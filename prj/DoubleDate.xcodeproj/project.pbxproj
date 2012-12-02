@@ -164,8 +164,6 @@
 		9614E4F21654D1AE0052ADD1 /* search-cancel-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E4F01654D1AE0052ADD1 /* search-cancel-button@2x.png */; };
 		9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */; };
 		9614E5821656901B0052ADD1 /* DDDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9614E5801656901B0052ADD1 /* DDDoubleDateViewController.xib */; };
-		9614E59C165693800052ADD1 /* dd-and-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E584165693800052ADD1 /* dd-and-icon.png */; };
-		9614E59D165693800052ADD1 /* dd-and-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E585165693800052ADD1 /* dd-and-icon@2x.png */; };
 		9614E59E165693800052ADD1 /* dd-indented-text-background-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */; };
 		9614E59F165693800052ADD1 /* dd-indented-text-background-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E587165693800052ADD1 /* dd-indented-text-background-bottom@2x.png */; };
 		9614E5A0165693800052ADD1 /* dd-indented-text-background-top.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E588165693800052ADD1 /* dd-indented-text-background-top.png */; };
@@ -568,8 +566,6 @@
 		9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateViewController.h; sourceTree = "<group>"; };
 		9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateViewController.m; sourceTree = "<group>"; };
 		9614E5801656901B0052ADD1 /* DDDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateViewController.xib; sourceTree = "<group>"; };
-		9614E584165693800052ADD1 /* dd-and-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-and-icon.png"; sourceTree = "<group>"; };
-		9614E585165693800052ADD1 /* dd-and-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-and-icon@2x.png"; sourceTree = "<group>"; };
 		9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-indented-text-background-bottom.png"; sourceTree = "<group>"; };
 		9614E587165693800052ADD1 /* dd-indented-text-background-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-indented-text-background-bottom@2x.png"; sourceTree = "<group>"; };
 		9614E588165693800052ADD1 /* dd-indented-text-background-top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-indented-text-background-top.png"; sourceTree = "<group>"; };
@@ -930,8 +926,6 @@
 			children = (
 				96928B69165CE4A800012D1E /* dd-popup-darkness.png */,
 				96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */,
-				9614E584165693800052ADD1 /* dd-and-icon.png */,
-				9614E585165693800052ADD1 /* dd-and-icon@2x.png */,
 				9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */,
 				9614E587165693800052ADD1 /* dd-indented-text-background-bottom@2x.png */,
 				9614E588165693800052ADD1 /* dd-indented-text-background-top.png */,
@@ -1782,8 +1776,6 @@
 				9614E4F11654D1AE0052ADD1 /* search-cancel-button.png in Resources */,
 				9614E4F21654D1AE0052ADD1 /* search-cancel-button@2x.png in Resources */,
 				9614E5821656901B0052ADD1 /* DDDoubleDateViewController.xib in Resources */,
-				9614E59C165693800052ADD1 /* dd-and-icon.png in Resources */,
-				9614E59D165693800052ADD1 /* dd-and-icon@2x.png in Resources */,
 				9614E59E165693800052ADD1 /* dd-indented-text-background-bottom.png in Resources */,
 				9614E59F165693800052ADD1 /* dd-indented-text-background-bottom@2x.png in Resources */,
 				9614E5A0165693800052ADD1 /* dd-indented-text-background-top.png in Resources */,
