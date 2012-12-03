@@ -45,9 +45,9 @@ typedef enum
 @synthesize user;
 @synthesize searchFilter;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self)
     {
         mode_ = DDDoubleDatesViewControllerModeAll;
