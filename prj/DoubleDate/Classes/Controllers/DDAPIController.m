@@ -42,7 +42,8 @@ typedef enum
     DDAPIControllerMethodTypeCreateDoubleDate,
     DDAPIControllerMethodTypeGetDoubleDates,
     DDAPIControllerMethodTypeGetMyDoubleDates,
-    DDAPIControllerMethodTypeRequestDeleteDoubleDate
+    DDAPIControllerMethodTypeRequestDeleteDoubleDate,
+    DDAPIControllerMethodTypeGetEngagements,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -119,7 +120,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -138,7 +139,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"users/%d", [user.userId intValue]]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Authorization", nil];
     NSArray *objects = [NSArray arrayWithObjects:@"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
@@ -162,7 +163,7 @@ typedef enum
     
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPUT;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
@@ -184,7 +185,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     RKParams *params = [RKParams params];
     RKParamsAttachment *attachement = [params setData:UIImagePNGRepresentation(photo) MIMEType:@"image/png" forParam:@"image"];
@@ -212,7 +213,7 @@ typedef enum
         
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"users"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
@@ -237,7 +238,7 @@ typedef enum
     
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"users/build"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
@@ -295,7 +296,7 @@ typedef enum
             break;
     }
     requestPath = [requestPath stringByAppendingFormat:@"?%@", params];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
     NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
@@ -316,7 +317,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"interests"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     
     //create user data
@@ -334,7 +335,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/friends"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -353,7 +354,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/friendships/pending"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -372,7 +373,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friendships/%d", [friendship.identifier intValue]]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPUT;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -391,7 +392,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friendships/%d", [friendship.identifier intValue]]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodDELETE;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -410,7 +411,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [user.identifier intValue]]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodDELETE;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -429,7 +430,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [user.identifier intValue]]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -448,7 +449,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/facebook"]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -467,7 +468,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/invite"]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
     NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
@@ -519,7 +520,7 @@ typedef enum
     
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
@@ -543,7 +544,7 @@ typedef enum
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities"];
     if ([[filter queryString] length])
         requestPath = [NSString stringWithFormat:@"%@?%@", requestPath, [filter queryString]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -562,7 +563,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"activities/mine"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -581,7 +582,7 @@ typedef enum
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d", [doubleDate.identifier intValue]]];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodDELETE;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
@@ -590,6 +591,25 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeRequestDeleteDoubleDate;
     userData.succeedSel = @selector(requestDeleteDoubleDateSucceed);
     userData.failedSel = @selector(requestDeleteDoubleDateDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
+- (DDRequestId)getEngagementsForDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements", [doubleDate.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetEngagements;
+    userData.succeedSel = @selector(getEngagementsForDoubleDateSucceed:);
+    userData.failedSel = @selector(getEngagementsForDoubleDateDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -767,6 +787,12 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:doubleDates withObject:nil];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetEngagements)
+        {
+            //extract data
+            NSMutableArray *engagements = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
         }
     }
     else

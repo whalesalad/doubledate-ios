@@ -87,7 +87,7 @@ static DDAuthenticationController *_sharedInstance = nil;
     
     //create request
     NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"authenticate"];
-    RKRequest *request = [[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
     NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];

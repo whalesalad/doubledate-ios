@@ -89,6 +89,9 @@ typedef int DDRequestId;
 - (void)requestDeleteDoubleDateSucceed;
 - (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error;
 
+- (void)getEngagementsForDoubleDateSucceed:(NSArray*)engagements;
+- (void)getEngagementsForDoubleDateDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -143,5 +146,7 @@ typedef int DDRequestId;
 - (DDRequestId)getMyDoubleDates;
 
 - (DDRequestId)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
+
+- (DDRequestId)getEngagementsForDoubleDate:(DDDoubleDate*)doubleDate;
 
 @end

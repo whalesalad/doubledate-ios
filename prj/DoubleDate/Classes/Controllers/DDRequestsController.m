@@ -43,6 +43,7 @@
 {
     request.delegate = nil;
     [request cancel];
+    [[request retain] autorelease];
     [requests_ removeObject:request];
 }
 
