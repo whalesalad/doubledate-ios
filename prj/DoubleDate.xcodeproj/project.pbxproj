@@ -135,6 +135,22 @@
 		70E67233162778E1004D14CA /* button-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6722F162778E1004D14CA /* button-blue@2x.png */; };
 		70E67234162778E1004D14CA /* button-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67230162778E1004D14CA /* button-grey.png */; };
 		70E67235162778E1004D14CA /* button-grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67231162778E1004D14CA /* button-grey@2x.png */; };
+		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
+		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
+		70FFEE63166EB15F00F1804E /* button-icon-cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE57166EB15F00F1804E /* button-icon-cancel.png */; };
+		70FFEE64166EB15F00F1804E /* button-icon-cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE58166EB15F00F1804E /* button-icon-cancel@2x.png */; };
+		70FFEE65166EB15F00F1804E /* button-icon-send.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE59166EB15F00F1804E /* button-icon-send.png */; };
+		70FFEE66166EB15F00F1804E /* button-icon-send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE5A166EB15F00F1804E /* button-icon-send@2x.png */; };
+		70FFEE67166EB15F00F1804E /* coverflow-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE5B166EB15F00F1804E /* coverflow-bg.png */; };
+		70FFEE68166EB15F00F1804E /* coverflow-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE5C166EB15F00F1804E /* coverflow-bg@2x.png */; };
+		70FFEE69166EB15F00F1804E /* lower-button-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE5D166EB15F00F1804E /* lower-button-bar-bg.png */; };
+		70FFEE6A166EB15F00F1804E /* lower-button-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE5E166EB15F00F1804E /* lower-button-bar-bg@2x.png */; };
+		70FFEE6B166EB15F00F1804E /* lower-button-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE5F166EB15F00F1804E /* lower-button-blue.png */; };
+		70FFEE6C166EB15F00F1804E /* lower-button-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE60166EB15F00F1804E /* lower-button-blue@2x.png */; };
+		70FFEE6D166EB15F00F1804E /* lower-button-pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE61166EB15F00F1804E /* lower-button-pink.png */; };
+		70FFEE6E166EB15F00F1804E /* lower-button-pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE62166EB15F00F1804E /* lower-button-pink@2x.png */; };
+		70FFEE75166EB54400F1804E /* dd-tableview-cell-single.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE73166EB54400F1804E /* dd-tableview-cell-single.png */; };
+		70FFEE76166EB54400F1804E /* dd-tableview-cell-single@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE74166EB54400F1804E /* dd-tableview-cell-single@2x.png */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
 		960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CE15F7371C00BA9EB0 /* Foundation.framework */; };
 		960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02D015F7371C00BA9EB0 /* CoreGraphics.framework */; };
@@ -528,6 +544,23 @@
 		70E6722F162778E1004D14CA /* button-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-blue@2x.png"; sourceTree = "<group>"; };
 		70E67230162778E1004D14CA /* button-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-grey.png"; sourceTree = "<group>"; };
 		70E67231162778E1004D14CA /* button-grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-grey@2x.png"; sourceTree = "<group>"; };
+		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
+		70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSendEngagementViewController.m; sourceTree = "<group>"; };
+		70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDSendEngagementViewController.xib; sourceTree = "<group>"; };
+		70FFEE57166EB15F00F1804E /* button-icon-cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-icon-cancel.png"; sourceTree = "<group>"; };
+		70FFEE58166EB15F00F1804E /* button-icon-cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-icon-cancel@2x.png"; sourceTree = "<group>"; };
+		70FFEE59166EB15F00F1804E /* button-icon-send.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-icon-send.png"; sourceTree = "<group>"; };
+		70FFEE5A166EB15F00F1804E /* button-icon-send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-icon-send@2x.png"; sourceTree = "<group>"; };
+		70FFEE5B166EB15F00F1804E /* coverflow-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coverflow-bg.png"; sourceTree = "<group>"; };
+		70FFEE5C166EB15F00F1804E /* coverflow-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coverflow-bg@2x.png"; sourceTree = "<group>"; };
+		70FFEE5D166EB15F00F1804E /* lower-button-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-bar-bg.png"; sourceTree = "<group>"; };
+		70FFEE5E166EB15F00F1804E /* lower-button-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-bar-bg@2x.png"; sourceTree = "<group>"; };
+		70FFEE5F166EB15F00F1804E /* lower-button-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-blue.png"; sourceTree = "<group>"; };
+		70FFEE60166EB15F00F1804E /* lower-button-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-blue@2x.png"; sourceTree = "<group>"; };
+		70FFEE61166EB15F00F1804E /* lower-button-pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-pink.png"; sourceTree = "<group>"; };
+		70FFEE62166EB15F00F1804E /* lower-button-pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-pink@2x.png"; sourceTree = "<group>"; };
+		70FFEE73166EB54400F1804E /* dd-tableview-cell-single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tableview-cell-single.png"; sourceTree = "<group>"; };
+		70FFEE74166EB54400F1804E /* dd-tableview-cell-single@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tableview-cell-single@2x.png"; sourceTree = "<group>"; };
 		960A02C815F7371C00BA9EB0 /* DoubleDate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DoubleDate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		960A02CC15F7371C00BA9EB0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		960A02CE15F7371C00BA9EB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -824,6 +857,25 @@
 				70E67231162778E1004D14CA /* button-grey@2x.png */,
 			);
 			path = "facebook friends";
+			sourceTree = "<group>";
+		};
+		70FFEE56166EB15F00F1804E /* send message */ = {
+			isa = PBXGroup;
+			children = (
+				70FFEE57166EB15F00F1804E /* button-icon-cancel.png */,
+				70FFEE58166EB15F00F1804E /* button-icon-cancel@2x.png */,
+				70FFEE59166EB15F00F1804E /* button-icon-send.png */,
+				70FFEE5A166EB15F00F1804E /* button-icon-send@2x.png */,
+				70FFEE5B166EB15F00F1804E /* coverflow-bg.png */,
+				70FFEE5C166EB15F00F1804E /* coverflow-bg@2x.png */,
+				70FFEE5D166EB15F00F1804E /* lower-button-bar-bg.png */,
+				70FFEE5E166EB15F00F1804E /* lower-button-bar-bg@2x.png */,
+				70FFEE5F166EB15F00F1804E /* lower-button-blue.png */,
+				70FFEE60166EB15F00F1804E /* lower-button-blue@2x.png */,
+				70FFEE61166EB15F00F1804E /* lower-button-pink.png */,
+				70FFEE62166EB15F00F1804E /* lower-button-pink@2x.png */,
+			);
+			path = "send message";
 			sourceTree = "<group>";
 		};
 		960A02BD15F7371C00BA9EB0 = {
@@ -1197,6 +1249,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */,
+				70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */,
 				96B37CA8165B77E8006CD141 /* DDUserBubbleViewController.h */,
 				96B37CA9165B77E8006CD141 /* DDUserBubbleViewController.m */,
 				9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */,
@@ -1248,6 +1302,7 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				70FFEE56166EB15F00F1804E /* send message */,
 				9614E583165693800052ADD1 /* view doubledate */,
 				960FB5561641530E003563FD /* list of doubledates */,
 				969353BA16392DD6007376AA /* create doubledate */,
@@ -1274,6 +1329,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */,
 				96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */,
 				9614E5801656901B0052ADD1 /* DDDoubleDateViewController.xib */,
 				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
@@ -1343,6 +1399,8 @@
 		96EE8450161493B300AE6EC1 /* general */ = {
 			isa = PBXGroup;
 			children = (
+				70FFEE73166EB54400F1804E /* dd-tableview-cell-single.png */,
+				70FFEE74166EB54400F1804E /* dd-tableview-cell-single@2x.png */,
 				9614E4EF1654D1AE0052ADD1 /* search-cancel-button.png */,
 				9614E4F01654D1AE0052ADD1 /* search-cancel-button@2x.png */,
 				70C9A13716530AF10046F98F /* dd-button-add-icon.png */,
@@ -1816,6 +1874,21 @@
 				96B37CAE165B783C006CD141 /* DDUserBubbleViewController.xib in Resources */,
 				96928B6B165CE4A800012D1E /* dd-popup-darkness.png in Resources */,
 				96928B6C165CE4A800012D1E /* dd-popup-darkness@2x.png in Resources */,
+				70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */,
+				70FFEE63166EB15F00F1804E /* button-icon-cancel.png in Resources */,
+				70FFEE64166EB15F00F1804E /* button-icon-cancel@2x.png in Resources */,
+				70FFEE65166EB15F00F1804E /* button-icon-send.png in Resources */,
+				70FFEE66166EB15F00F1804E /* button-icon-send@2x.png in Resources */,
+				70FFEE67166EB15F00F1804E /* coverflow-bg.png in Resources */,
+				70FFEE68166EB15F00F1804E /* coverflow-bg@2x.png in Resources */,
+				70FFEE69166EB15F00F1804E /* lower-button-bar-bg.png in Resources */,
+				70FFEE6A166EB15F00F1804E /* lower-button-bar-bg@2x.png in Resources */,
+				70FFEE6B166EB15F00F1804E /* lower-button-blue.png in Resources */,
+				70FFEE6C166EB15F00F1804E /* lower-button-blue@2x.png in Resources */,
+				70FFEE6D166EB15F00F1804E /* lower-button-pink.png in Resources */,
+				70FFEE6E166EB15F00F1804E /* lower-button-pink@2x.png in Resources */,
+				70FFEE75166EB54400F1804E /* dd-tableview-cell-single.png in Resources */,
+				70FFEE76166EB54400F1804E /* dd-tableview-cell-single@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1890,6 +1963,7 @@
 				96B37C98165B76CD006CD141 /* WETouchableView.m in Sources */,
 				96B37CAB165B77E8006CD141 /* DDUserBubbleViewController.m in Sources */,
 				96928B7C165D140100012D1E /* DDWEImageView.m in Sources */,
+				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,7 +56,7 @@
             backgroundImageName = @"dd-tableview-cell-bottom.png";
             break;
         case DDTableViewCellStyleGroupedSolid:
-            backgroundImageName = @"dd-tableview-cell-center.png";
+            backgroundImageName = @"dd-tableview-cell-single.png";
             break;
         default:
             break;

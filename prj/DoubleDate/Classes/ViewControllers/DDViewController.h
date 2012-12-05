@@ -16,8 +16,10 @@
     NSMutableArray *buffer_;
     DDAPIController *apiController_;
     MBProgressHUD *hud_;
+    BOOL movedWithKeyboard_;
 }
 
 @property(nonatomic, retain) NSString *backButtonTitle;
+@property(nonatomic, assign) BOOL moveWithKeyboard;
 
 @end

@@ -20,12 +20,14 @@
     DDAPIController *apiController_;
     MBProgressHUD *hud_;
     NSString *searchTerm_;
+    BOOL movedWithKeyboard_;
 }
 
 @property(nonatomic, readonly) UISearchBar *searchBar;
 @property(nonatomic, readonly) NSString *searchTerm;
 
 @property(nonatomic, retain) NSString *backButtonTitle;
+@property(nonatomic, assign) BOOL moveWithKeyboard;
 
 - (void)setupSearchBar;
 

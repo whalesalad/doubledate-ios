@@ -29,6 +29,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 
 @synthesize searchTerm = searchTerm_;
 @synthesize backButtonTitle;
+@synthesize moveWithKeyboard;
 
 - (void)initSelf
 {
@@ -36,6 +37,9 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     apiController_.delegate = self;
     
     self.backButtonTitle = NSLocalizedString(@"BACK", nil);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -162,6 +166,42 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [searchTerm_ release];
     searchTerm_ = [searchText retain];
     [self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark UIKeyboard
+
+- (void)keyboardWillShowNotification:(NSNotification*)notification
+{
+    //check if we need to move together with keyboard
+    if (self.moveWithKeyboard)
+    {
+        //save moved flag
+        movedWithKeyboard_ = YES;
+        
+        //apply change
+        CGSize keyBoardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+        [UIView beginAnimations:@"KeyboardWillShow" context:nil];
+        [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+        self.view.center = CGPointMake(self.view.center.x, self.view.center.y - (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
+        [UIView commitAnimations];
+    }
+    else
+        movedWithKeyboard_ = NO;
+}
+
+- (void)keyboardWillHideNotification:(NSNotification*)notification
+{
+    //cehck if we need to hide
+    if (movedWithKeyboard_)
+    {
+        //apply change
+        CGSize keyBoardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        [UIView beginAnimations:@"KeyboardWillHide" context:nil];
+        [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+        self.view.center = CGPointMake(self.view.center.x, self.view.center.y + (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
+        [UIView commitAnimations];
+    }
 }
 
 @end

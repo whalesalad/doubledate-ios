@@ -18,6 +18,7 @@
 #import "DDShortUser.h"
 #import "DDWEImageView.h"
 #import "DDUser.h"
+#import "DDSendEngagementViewController.h"
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
@@ -145,6 +146,14 @@
         requestUser.userId = self.doubleDate.wing.identifier;
         [self.apiController getUser:requestUser];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    DDSendEngagementViewController *vc = [[[DDSendEngagementViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewDidUnload
