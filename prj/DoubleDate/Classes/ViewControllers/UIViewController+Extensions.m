@@ -219,4 +219,31 @@
     return view;
 }
 
+- (UIView*)viewForNavigationBarWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText
+{
+    //set general view
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    view.backgroundColor = [UIColor clearColor];
+    
+    //add label
+    UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    DD_F_NAVIGATION_HEADER_MAIN(labelMain);
+    labelMain.text = mainText;
+    labelMain.backgroundColor = [UIColor clearColor];
+    labelMain.textAlignment = UITextAlignmentCenter;
+    labelMain.frame = CGRectMake(0, 2, 320, 24);
+    [view addSubview:labelMain];
+    
+    //add detailed
+    UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    DD_F_NAVIGATION_HEADER_DETAILED(labelDetailed);
+    labelDetailed.text = detailedText;
+    labelDetailed.backgroundColor = [UIColor clearColor];
+    labelDetailed.textAlignment = UITextAlignmentCenter;
+    labelDetailed.frame = CGRectMake(0, 26, 320, 16);
+    [view addSubview:labelDetailed];
+    
+    return view;
+}
+
 @end

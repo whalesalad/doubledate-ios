@@ -13,6 +13,9 @@
 #define DD_F_HEADER_MAIN(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:14 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
 #define DD_F_HEADER_DETAILED(_X_) [_X_ setFontOfName:@"Avenir" fontSize:11 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
 
+#define DD_F_NAVIGATION_HEADER_MAIN(_X_) [_X_ setFontOfName:[UIFont boldSystemFontOfSize:20].fontName fontSize:20 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
+#define DD_F_NAVIGATION_HEADER_DETAILED(_X_) [_X_ setFontOfName:[UIFont systemFontOfSize:13].fontName fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
+
 #define DD_F_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:14 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor grayColor]]
 #define DD_F_PLACEHOLDER(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:14 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 

@@ -7,10 +7,13 @@
 //
 
 #import "DDSendEngagementViewController.h"
+#import "DDLocationTableViewCell.h"
+#import "DDDoubleDate.h"
 #import "DDTableViewCell.h"
 #import "DDTextViewTableViewCell.h"
 #import "DDTools.h"
 #import "DDButton.h"
+#import "DDShortUser.h"
 
 @interface DDSendEngagementViewController ()
 
@@ -43,6 +46,9 @@
     
     //hide back button
     self.navigationItem.leftBarButtonItem = nil;
+    
+    //set navigation title
+    self.navigationItem.titleView = [self viewForNavigationBarWithMainText:[NSString stringWithFormat:NSLocalizedString(@"DoubleDate %@ & %@", nil), doubleDate.user.firstName, doubleDate.wing.firstName] detailedText:[DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location]];
     
     //add gesture recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];

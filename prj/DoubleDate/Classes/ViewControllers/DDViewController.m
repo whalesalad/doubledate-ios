@@ -102,7 +102,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
         CGSize keyBoardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
         [UIView beginAnimations:@"KeyboardWillShow" context:nil];
         [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
-        self.view.center = CGPointMake(self.view.center.x, self.view.center.y - (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
+        self.navigationController.view.center = CGPointMake(self.navigationController.view.center.x, self.navigationController.view.center.y - (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
         [UIView commitAnimations];
     }
     else
@@ -118,7 +118,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
         CGSize keyBoardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
         [UIView beginAnimations:@"KeyboardWillHide" context:nil];
         [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
-        self.view.center = CGPointMake(self.view.center.x, self.view.center.y + (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
+        self.navigationController.view.center = CGPointMake(self.navigationController.view.center.x, self.navigationController.view.center.y + (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
         [UIView commitAnimations];
     }
 }
