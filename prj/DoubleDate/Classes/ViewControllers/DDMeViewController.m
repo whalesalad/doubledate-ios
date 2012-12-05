@@ -149,19 +149,6 @@
     [tagsViewInterests customize];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [labelTitle release], labelTitle = nil;
-    [imageViewPoster release], imageViewPoster = nil;
-    [imageViewOverlay release], imageViewOverlay = nil;
-//    [imageViewMale release], imageViewMale = nil;
-//    [imageViewFemale release], imageViewFemale = nil;
-    [textViewBio release], textViewBio = nil;
-    [tagsViewInterests release], tagsViewInterests = nil;
-    [imageViewLocation release], imageViewLocation = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

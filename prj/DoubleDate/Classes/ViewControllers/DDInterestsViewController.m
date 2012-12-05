@@ -73,12 +73,6 @@
     [tokenFieldViewInterests.tokenField setPromptText:NSLocalizedString(@"Interests:", nil)];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [tokenFieldViewInterests release], tokenFieldViewInterests = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

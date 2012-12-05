@@ -60,11 +60,6 @@
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wing…", nil)];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (NSArray*)filteredWings
 {
     NSMutableArray *ret = [NSMutableArray array];

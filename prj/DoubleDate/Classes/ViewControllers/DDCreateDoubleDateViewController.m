@@ -101,12 +101,6 @@
     [self updateNavigationBar];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [tableView release], tableView = nil;
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -229,17 +229,6 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [scrollView release], scrollView = nil;
-    [labelTitle release], labelTitle = nil;
-    [labelLocation release], labelLocation = nil;
-    [textViewInfo release], textViewInfo = nil;
-    [viewInterests release], viewInterests = nil;
-    [imageViewTopBackground release], imageViewTopBackground = nil;
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

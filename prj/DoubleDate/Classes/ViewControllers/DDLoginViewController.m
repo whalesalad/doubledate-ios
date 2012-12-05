@@ -46,13 +46,6 @@
     [textFieldEmail becomeFirstResponder];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [textFieldEmail release], textFieldEmail = nil;
-    [textFieldPassword release], textFieldPassword = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

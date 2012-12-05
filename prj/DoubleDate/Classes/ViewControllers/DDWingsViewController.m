@@ -107,12 +107,6 @@
     [self updateNavigationButtons];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [tableView release], tableView = nil;
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

@@ -62,11 +62,6 @@
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Location…", nil)];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (void)setDdLocation:(DDPlacemark *)v
 {
     if (v != ddLocation)

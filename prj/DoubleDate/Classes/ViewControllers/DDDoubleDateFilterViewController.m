@@ -241,24 +241,6 @@
     [self updateNavigationButton];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [textFieldDistance_ release], textFieldDistance_ = nil;
-    [textFieldMinAge_ release], textFieldMinAge_ = nil;
-    [textFieldMaxAge_ release], textFieldMaxAge_ = nil;
-    [labelSort release], labelSort = nil;
-    [viewSortContainer release], viewSortContainer = nil;
-    [labelWhen release], labelWhen = nil;
-    [viewWhenContainer release], viewWhenContainer = nil;
-    [labelDistance release], labelDistance = nil;
-    [viewDistanceContainer release], viewDistanceContainer = nil;
-    [labelMinAge release], labelMinAge = nil;
-    [viewMinAgeContainer release], viewMinAgeContainer = nil;
-    [labelMaxAge release], labelMaxAge = nil;
-    [viewMaxAgeContainer release], viewMaxAgeContainer = nil;
-}
-
 - (void)dealloc
 {
     [filter_ release];

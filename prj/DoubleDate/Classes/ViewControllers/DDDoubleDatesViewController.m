@@ -96,11 +96,6 @@ typedef enum
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

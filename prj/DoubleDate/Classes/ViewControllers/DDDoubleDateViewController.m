@@ -154,26 +154,6 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    [scrollView release], scrollView = nil;
-    [labelLocationMain release], labelLocationMain = nil;
-    [labelLocationDetailed release], labelLocationDetailed = nil;
-    [labelDayTime release], labelDayTime = nil;
-    [containerTextView release], containerTextView = nil;
-    [containerTopImageView release], containerTopImageView = nil;
-    [containerBottomImageView release], containerBottomImageView = nil;
-    [textView release], textView = nil;
-    [containerPhotos release], containerPhotos = nil;
-    [imageViewUserLeft release], imageViewUserLeft = nil;
-    [imageViewUserRight release], imageViewUserRight = nil;
-    [imageViewUserLeftHighlighted release], imageViewUserLeftHighlighted = nil;
-    [imageViewUserRightHighlighted release],  imageViewUserRightHighlighted = nil;
-    [imageViewFade release], imageViewFade = nil;
-    [labelUserLeft release], labelUserLeft = nil;
-    [labelUserRight release], labelUserRight = nil;
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -47,12 +47,6 @@
     tableView_.backgroundView = nil;
 }
 
-- (void)viewDidUnload
-{
-    [tableView_ release], tableView_ = nil;
-    [super viewDidUnload];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

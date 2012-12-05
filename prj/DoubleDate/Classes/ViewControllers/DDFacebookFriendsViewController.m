@@ -92,12 +92,6 @@
     [self updateNavifationBar];
 }
 
-- (void)viewDidUnload
-{
-    [tableView release], tableView = nil;
-    [super viewDidUnload];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);

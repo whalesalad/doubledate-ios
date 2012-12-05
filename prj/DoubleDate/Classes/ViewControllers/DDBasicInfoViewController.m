@@ -156,19 +156,6 @@
     [locationController_ forceSearchPlacemarks];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    [textFieldName release], textFieldName = nil;
-    [textFieldSurname release], textFieldSurname = nil;
-    [textFieldBirth release], textFieldBirth = nil;
-    [segmentedControlMale release], segmentedControlMale = nil;
-    [segmentedControlLike release], segmentedControlLike = nil;
-    [segmentedControlSingle release], segmentedControlSingle = nil;
-    [buttonLocation release], buttonLocation = nil;
-    [imageViewPhoto release], imageViewPhoto = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
