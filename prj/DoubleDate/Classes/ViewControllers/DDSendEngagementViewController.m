@@ -14,14 +14,22 @@
 #import "DDTools.h"
 #import "DDButton.h"
 #import "DDShortUser.h"
+#import "DDEngagement.h"
+#import "DDTextView.h"
 
-@interface DDSendEngagementViewController ()
+@interface DDSendEngagementViewController () <DDSelectWingViewDelegate>
+
+- (void)updateSendButton;
 
 @end
 
 @implementation DDSendEngagementViewController
 
 @synthesize doubleDate;
+
+@synthesize tableView;
+
+@synthesize selectWingView;
 
 @synthesize buttonCancel;
 @synthesize buttonSend;
@@ -53,6 +61,13 @@
     //add gesture recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     [self.view addGestureRecognizer:tapRecognizer];
+    
+    //start loading
+    [self.selectWingView start];
+    self.selectWingView.delegate = self;
+    
+    //update send button
+    [self updateSendButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,17 +75,45 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc
+{
+    [doubleDate release];
+    [tableView release];
+    [selectWingView release];
+    [buttonCancel release];
+    [buttonSend release];
+    [super dealloc];
+}
+
 #pragma mark -
 #pragma mark other
 
 - (IBAction)cancelTouched:(id)sender
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (IBAction)sendTouched:(id)sender
 {
-    
+    //check for wing
+    if (self.selectWingView.wing)
+    {
+        //show loading
+        [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
+        
+        //request api
+        DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
+        engagement.wingId = self.selectWingView.wing.identifier;
+        engagement.activityId = self.doubleDate.identifier;
+        engagement.message = [[(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] textView] text];
+        [self.apiController createEngagement:engagement];
+    }
+}
+
+- (void)updateSendButton
+{
+    self.buttonSend.enabled = self.selectWingView.wing != nil;
 }
 
 #pragma mark -
@@ -96,30 +139,30 @@
 #pragma mark -
 #pragma mark UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-    return [self tableView:tableView viewForHeaderInSection:section].frame.size.height;
+    return [self tableView:aTableView viewForHeaderInSection:section].frame.size.height;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
     return [self viewForHeaderWithMainText:NSLocalizedString(@"ADD A NOTE", nil) detailedText:NSLocalizedString(@"250 CHARACTERS REMAINING", nil)];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
 {
     return 16;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return (tableView.frame.size.height - 44 - 16);
+    return (aTableView.frame.size.height - 44 - 16);
 }
 
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
     return 1;
 }
@@ -146,6 +189,42 @@
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
     
     return cell;
+}
+
+#pragma mark -
+#pragma mark DDSelectWingViewDelegate
+
+- (void)selectWingViewDidSelectWing:(id)sender
+{
+    [self updateSendButton];
+}
+
+#pragma mark -
+#pragma mark DDAPIControllerDelegate
+
+- (void)createEngagementSucceed:(DDEngagement*)engagement
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show succeed message
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! You've created engagement.", nil)];
+    
+    //show completed hud
+    [self showCompletedHudWithText:message];
+    
+    //go back
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (void)createEngagementDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

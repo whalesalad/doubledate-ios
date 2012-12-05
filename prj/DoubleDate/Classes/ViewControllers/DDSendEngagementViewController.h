@@ -7,12 +7,17 @@
 //
 
 #import "DDViewController.h"
+#import "DDSelectWingView.h"
 
 @class DDDoubleDate;
 
 @interface DDSendEngagementViewController : DDViewController
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
+
+@property(nonatomic, retain) IBOutlet UITableView *tableView;
+
+@property(nonatomic, retain) IBOutlet DDSelectWingView *selectWingView;
 
 @property(nonatomic, retain) IBOutlet UIButton *buttonCancel;
 @property(nonatomic, retain) IBOutlet UIButton *buttonSend;

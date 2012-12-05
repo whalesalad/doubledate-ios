@@ -20,6 +20,7 @@
 #import "DDShortUser.h"
 #import "DDDoubleDate.h"
 #import "DDDoubleDateFilter.h"
+#import "DDEngagement.h"
 
 typedef enum
 {
@@ -44,6 +45,7 @@ typedef enum
     DDAPIControllerMethodTypeGetMyDoubleDates,
     DDAPIControllerMethodTypeRequestDeleteDoubleDate,
     DDAPIControllerMethodTypeGetEngagements,
+    DDAPIControllerMethodTypeCreateEngagement,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -616,6 +618,31 @@ typedef enum
     return [self startRequest:request];
 }
 
+- (DDRequestId)createEngagement:(DDEngagement*)engagement
+{
+    //create user dictionary
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[engagement dictionaryRepresentation] forKey:@"engagement"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagement", [engagement.activityId intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPOST;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeCreateEngagement;
+    userData.succeedSel = @selector(createEngagementSucceed:);
+    userData.failedSel = @selector(createEngagementDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -763,7 +790,7 @@ typedef enum
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateDoubleDate)
         {
-            //create photo object
+            //create object
             DDDoubleDate *doubleDate = [DDDoubleDate objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //inform delegate
@@ -791,8 +818,17 @@ typedef enum
         else if (userData.method == DDAPIControllerMethodTypeGetEngagements)
         {
             //extract data
-            NSMutableArray *engagements = [NSMutableArray array];
-            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+//            NSMutableArray *engagements = [NSMutableArray array];
+//            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeCreateEngagement)
+        {
+            //create object
+            DDEngagement *engagement = [DDEngagement objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:engagement withObject:nil];
         }
     }
     else

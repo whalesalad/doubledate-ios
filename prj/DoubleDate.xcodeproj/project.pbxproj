@@ -219,6 +219,8 @@
 		964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */; };
 		964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0115F8AFE90077AAF1 /* DDAPIController.m */; };
 		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
+		965989FC166F970300490CCE /* DDSelectWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FB166F970300490CCE /* DDSelectWingView.m */; };
+		965989FF166FAFB700490CCE /* DDEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FE166FAFB700490CCE /* DDEngagement.m */; };
 		965FCA671608AE8A00984566 /* DDTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FCA661608AE8A00984566 /* DDTagsView.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
@@ -645,6 +647,10 @@
 		964A6F0115F8AFE90077AAF1 /* DDAPIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAPIController.m; sourceTree = "<group>"; };
 		964A6F0315F8B1250077AAF1 /* DDRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRequestsController.h; sourceTree = "<group>"; };
 		964A6F0415F8B1250077AAF1 /* DDRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRequestsController.m; sourceTree = "<group>"; };
+		965989FA166F970300490CCE /* DDSelectWingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSelectWingView.h; sourceTree = "<group>"; };
+		965989FB166F970300490CCE /* DDSelectWingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectWingView.m; sourceTree = "<group>"; };
+		965989FD166FAFB700490CCE /* DDEngagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagement.h; sourceTree = "<group>"; };
+		965989FE166FAFB700490CCE /* DDEngagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagement.m; sourceTree = "<group>"; };
 		965FCA651608AE8A00984566 /* DDTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTagsView.h; sourceTree = "<group>"; };
 		965FCA661608AE8A00984566 /* DDTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTagsView.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
@@ -1057,6 +1063,8 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				965989FD166FAFB700490CCE /* DDEngagement.h */,
+				965989FE166FAFB700490CCE /* DDEngagement.m */,
 				96C6D65716523F4100DAC219 /* DDDoubleDateFilter.h */,
 				96C6D65816523F4100DAC219 /* DDDoubleDateFilter.m */,
 				7099E8AD163BF1D100594BAA /* DDDoubleDate.h */,
@@ -1188,6 +1196,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				965989FA166F970300490CCE /* DDSelectWingView.h */,
+				965989FB166F970300490CCE /* DDSelectWingView.m */,
 				96928B7A165D140100012D1E /* DDWEImageView.h */,
 				96928B7B165D140100012D1E /* DDWEImageView.m */,
 				9683B730165145D40043350E /* DDDoubleDateTableViewCell.h */,
@@ -1964,6 +1974,8 @@
 				96B37CAB165B77E8006CD141 /* DDUserBubbleViewController.m in Sources */,
 				96928B7C165D140100012D1E /* DDWEImageView.m in Sources */,
 				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
+				965989FC166F970300490CCE /* DDSelectWingView.m in Sources */,
+				965989FF166FAFB700490CCE /* DDEngagement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

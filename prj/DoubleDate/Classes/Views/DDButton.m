@@ -282,6 +282,7 @@
     [self setBackgroundImage:[DDTools resizableImageFromImage:background] forState:UIControlStateNormal];
     [self setTitle:title forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
     [self.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:16]];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if (icon)
