@@ -14,4 +14,10 @@
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
 
+@property(nonatomic, retain) IBOutlet UIButton *buttonCancel;
+@property(nonatomic, retain) IBOutlet UIButton *buttonSend;
+
+- (IBAction)cancelTouched:(id)sender;
+- (IBAction)sendTouched:(id)sender;
+
 @end

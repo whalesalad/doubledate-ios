@@ -36,3 +36,9 @@
 @property(nonatomic, assign) BOOL toggled;
 
 @end
+
+@interface UIButton (DD)
+
+- (void)applyBottomBarDesignWithTitle:(NSString*)title icon:(UIImage*)icon background:(UIImage*)background;
+
+@end

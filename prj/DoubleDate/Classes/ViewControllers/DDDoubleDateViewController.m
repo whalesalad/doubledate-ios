@@ -19,6 +19,7 @@
 #import "DDWEImageView.h"
 #import "DDUser.h"
 #import "DDSendEngagementViewController.h"
+#import "DDButton.h"
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
@@ -70,6 +71,8 @@
 @synthesize labelUserLeft;
 @synthesize labelUserRight;
 
+@synthesize buttonInterested;
+
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -94,6 +97,9 @@
     DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(self.labelLocationDetailed);
     DD_F_WHT_HELV_13_BOLD_BLK_SHAD(self.labelDayTime);
     DD_F_TEXT(self.textView);
+    
+    //customize button
+    [self.buttonInterested applyBottomBarDesignWithTitle:self.buttonInterested.titleLabel.text icon:nil background:[UIImage imageNamed:@"lower-button-blue.png"]];
     
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
@@ -146,14 +152,6 @@
         requestUser.userId = self.doubleDate.wing.identifier;
         [self.apiController getUser:requestUser];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    DDSendEngagementViewController *vc = [[[DDSendEngagementViewController alloc] init] autorelease];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewDidUnload
@@ -241,6 +239,12 @@
         [self presentRightUserPopover];
     else
         [self dismissUserPopover];
+}
+
+- (IBAction)interestedTouched:(id)sender
+{
+    DDSendEngagementViewController *vc = [[[DDSendEngagementViewController alloc] init] autorelease];
+    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease] animated:YES];
 }
 
 #pragma mark -

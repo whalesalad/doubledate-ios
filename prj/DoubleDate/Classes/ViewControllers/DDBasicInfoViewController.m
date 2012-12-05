@@ -365,12 +365,12 @@
     self.imageViewPhoto.image = image;
     
     //dismiss modal view controller
-    [self dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-	[self dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

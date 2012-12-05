@@ -9,6 +9,8 @@
 #import "DDSendEngagementViewController.h"
 #import "DDTableViewCell.h"
 #import "DDTextViewTableViewCell.h"
+#import "DDTools.h"
+#import "DDButton.h"
 
 @interface DDSendEngagementViewController ()
 
@@ -17,6 +19,9 @@
 @implementation DDSendEngagementViewController
 
 @synthesize doubleDate;
+
+@synthesize buttonCancel;
+@synthesize buttonSend;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +37,13 @@
 {
     [super viewDidLoad];
     
+    //customize button
+    [self.buttonCancel applyBottomBarDesignWithTitle:self.buttonCancel.titleLabel.text icon:[UIImage imageNamed:@"button-icon-cancel.png"] background:[UIImage imageNamed:@"lower-button-pink.png"]];
+    [self.buttonSend applyBottomBarDesignWithTitle:self.buttonSend.titleLabel.text icon:[UIImage imageNamed:@"button-icon-send.png"] background:[UIImage imageNamed:@"lower-button-blue.png"]];
+    
+    //hide back button
+    self.navigationItem.leftBarButtonItem = nil;
+    
     //add gesture recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     [self.view addGestureRecognizer:tapRecognizer];
@@ -45,7 +57,15 @@
 #pragma mark -
 #pragma mark other
 
+- (IBAction)cancelTouched:(id)sender
+{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
 
+- (IBAction)sendTouched:(id)sender
+{
+    
+}
 
 #pragma mark -
 #pragma mark touch

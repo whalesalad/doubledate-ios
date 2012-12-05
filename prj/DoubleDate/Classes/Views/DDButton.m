@@ -7,6 +7,7 @@
 //
 
 #import "DDButton.h"
+#import "DDTools.h"
 
 @implementation DDButtonDeprecated
 
@@ -270,6 +271,26 @@
     [normalImage_ release];
     [highlightedImage_ release];
     [super dealloc];
+}
+
+@end
+
+@implementation UIButton (DD)
+
+- (void)applyBottomBarDesignWithTitle:(NSString*)title icon:(UIImage*)icon background:(UIImage*)background
+{
+    [self setBackgroundImage:[DDTools resizableImageFromImage:background] forState:UIControlStateNormal];
+    [self setTitle:title forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:16]];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    if (icon)
+    {
+        UIImageView *iconImageView = [[[UIImageView alloc] initWithImage:icon] autorelease];
+        iconImageView.center = CGPointMake(self.frame.size.width/2 - self.titleLabel.frame.size.width/2-2, self.frame.size.height/2);
+        [self addSubview:iconImageView];
+        self.titleEdgeInsets = UIEdgeInsetsMake(2, iconImageView.frame.size.width+6, 0, 0);
+    }
 }
 
 @end
