@@ -125,7 +125,8 @@ typedef enum
 {
     DDDoubleDateFilterViewController *viewController = [[[DDDoubleDateFilterViewController alloc] initWithFilter:self.searchFilter] autorelease];
     viewController.delegate = self;
-    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES];
+    [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
+    }];
 }
 
 - (void)editTouched:(id)sender
@@ -506,13 +507,15 @@ typedef enum
     
 - (void)doubleDateFilterViewControllerDidCancel
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)doubleDateFilterViewControllerDidAppliedFilter:(DDDoubleDateFilter*)filter
 {
     self.searchFilter = filter;
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 @end

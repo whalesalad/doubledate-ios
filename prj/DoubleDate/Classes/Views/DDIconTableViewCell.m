@@ -25,7 +25,7 @@
         leftLabel_ = [[UITextField alloc] initWithFrame:CGRectZero];
         leftLabel_.userInteractionEnabled = NO;
         leftLabel_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        leftLabel_.textAlignment = UITextAlignmentRight;
+        leftLabel_.textAlignment = NSTextAlignmentRight;
         leftLabel_.backgroundColor = [UIColor clearColor];
         DD_F_ICON_BUTTON_DETAILS(leftLabel_);
         leftLabel_.contentMode = UIViewContentModeBottom;
@@ -35,7 +35,7 @@
         rightLabelText_ = [[UITextField alloc] initWithFrame:CGRectZero];
         rightLabelText_.userInteractionEnabled = NO;
         rightLabelText_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        rightLabelText_.textAlignment = UITextAlignmentLeft;
+        rightLabelText_.textAlignment = NSTextAlignmentLeft;
         rightLabelText_.backgroundColor = [UIColor clearColor];
         DD_F_ICON_BUTTON_TEXT(rightLabelText_);
         rightLabelText_.hidden = YES;
@@ -45,7 +45,7 @@
         rightLabelPlaceholder_ = [[UITextField alloc] initWithFrame:CGRectZero];
         rightLabelPlaceholder_.userInteractionEnabled = NO;
         rightLabelPlaceholder_.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        rightLabelPlaceholder_.textAlignment = UITextAlignmentLeft;
+        rightLabelPlaceholder_.textAlignment = NSTextAlignmentLeft;
         rightLabelPlaceholder_.backgroundColor = [UIColor clearColor];
         DD_F_ICON_BUTTON_PLACEHOLDER(rightLabelPlaceholder_);
         rightLabelPlaceholder_.hidden = NO;

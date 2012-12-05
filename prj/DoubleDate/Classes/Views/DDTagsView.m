@@ -102,7 +102,7 @@
             UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, [correctedLines indexOfObject:lineToAdd] * (lineSize.height + self.gap) + offset - self.gap/2, self.frame.size.width, lineSize.height + self.gap)] autorelease];
             label.backgroundColor = [UIColor clearColor];
             label.text = lineToAdd;
-            label.textAlignment = UITextAlignmentCenter;
+            label.textAlignment = NSTextAlignmentCenter;
             label.font = self.font;
             label.textColor = self.textColor;
             [self addSubview:label];

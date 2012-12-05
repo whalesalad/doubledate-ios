@@ -117,8 +117,8 @@
 
 - (void)loginWithEmail
 {
-    //login with email and address
-    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:[[[DDLoginViewController alloc] init] autorelease]] autorelease] animated:YES];
+    [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:[[[DDLoginViewController alloc] init] autorelease]] autorelease] animated:YES completion:^{
+    }];
 }
 
 - (void)registerWithUser:(DDUser*)user
@@ -127,7 +127,8 @@
     DDBasicInfoViewController *viewController = [[[DDBasicInfoViewController alloc] init] autorelease];
     viewController.user = user;
     UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
-    [self.navigationController presentModalViewController:navigationController animated:YES];
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+    }];
 }
 
 #pragma mark -
@@ -244,7 +245,8 @@
 - (void)startWithUser:(DDUser*)user animated:(BOOL)animated
 {
     //dismiss all modal view controllers
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
     
     //check user
     if (user)

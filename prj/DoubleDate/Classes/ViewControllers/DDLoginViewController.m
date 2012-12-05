@@ -124,7 +124,8 @@
 
 - (void)cancelTouched:(id)sender
 {
-    [self.presentingViewController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 @end

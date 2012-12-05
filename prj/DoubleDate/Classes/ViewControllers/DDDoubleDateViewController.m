@@ -225,7 +225,8 @@
 {
     DDSendEngagementViewController *vc = [[[DDSendEngagementViewController alloc] init] autorelease];
     vc.doubleDate = self.doubleDate;
-    [self.navigationController presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease] animated:YES];
+    [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease] animated:YES completion:^{
+    }];
 }
 
 #pragma mark -

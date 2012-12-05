@@ -331,7 +331,8 @@
         MFMessageComposeViewController *messageComposer = [[[MFMessageComposeViewController alloc] init] autorelease];
         messageComposer.messageComposeDelegate = self;
         messageComposer.body = [NSString stringWithFormat:@"Become my wing on DoubleDate! %@%@", [DDTools serverUrlPath], user.invitePath];
-        [self.navigationController presentModalViewController:messageComposer animated:YES];
+        [self.navigationController presentViewController:messageComposer animated:YES completion:^{
+        }];
     }
     else
     {
@@ -674,7 +675,8 @@
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 @end

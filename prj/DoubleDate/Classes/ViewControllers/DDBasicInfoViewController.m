@@ -214,7 +214,9 @@
     UIImagePickerController *imagePickerController = [[[UIImagePickerController alloc] init] autorelease];
     imagePickerController.delegate = self;
     imagePickerController.allowsEditing = YES;
-    [self.navigationController presentModalViewController:imagePickerController animated:YES];
+    [self.navigationController presentViewController:imagePickerController animated:YES completion:^{
+        
+    }];
 }
 
 - (IBAction)freeAreaTouched:(id)sender
@@ -276,7 +278,8 @@
 
 - (void)cancelTouched:(id)sender
 {
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)birthdayChanged:(UIDatePicker*)sender
@@ -357,7 +360,8 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-	[self.navigationController dismissModalViewControllerAnimated:YES];
+	[self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 #pragma mark -
