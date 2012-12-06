@@ -10,6 +10,7 @@
 #import "DDAPIController.h"
 #import "DDShortUser.h"
 #import "DDPhotoView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDSelectWingViewContainer : NSObject
 
@@ -37,6 +38,7 @@
 - (CGPoint)positionForViewIndex:(NSInteger)index;
 - (CGSize)sizeForViewIndex:(NSInteger)index;
 - (void)applyUIForView:(UIView*)view ofViewIndex:(NSInteger)index;
+- (void)animateLayerOfView:(UIView*)view fromScale:(CGFloat)from toScale:(CGFloat)scale duration:(CGFloat)duration;
 - (DDSelectWingViewContainer*)containerForViewIndex:(NSInteger)index;
 
 - (void)applyChange:(NSInteger)direction;
@@ -127,6 +129,7 @@
 
 - (CGSize)sizeForViewIndex:(NSInteger)index
 {
+    return CGSizeMake(122, 122);
     switch (index) {
         case 0:
             return CGSizeMake(122, 122);
@@ -153,13 +156,6 @@
             break;
     }
     return CGPointMake(self.frame.size.width/2, self.frame.size.height/2-1);
-}
-
-- (void)applyUIForView:(UIView *)view ofViewIndex:(NSInteger)index
-{
-    CGSize newSize = [self sizeForViewIndex:index];
-    CGPoint newCenter = [self positionForViewIndex:index];
-    view.frame = CGRectMake(newCenter.x - newSize.width/2, newCenter.y - newSize.height/2, newSize.width, newSize.height);
 }
 
 - (DDSelectWingViewContainer*)containerForViewIndex:(NSInteger)index
@@ -211,6 +207,27 @@
     return [containers_ objectAtIndex:index];
 }
 
+- (void)applyUIForView:(UIView *)view ofViewIndex:(NSInteger)index
+{
+    CGSize newSize = [self sizeForViewIndex:index];
+    CGPoint newCenter = [self positionForViewIndex:index];
+    view.frame = CGRectMake(newCenter.x - newSize.width/2, newCenter.y - newSize.height/2, newSize.width, newSize.height);
+}
+
+- (void)animateLayerOfView:(UIView*)view fromScale:(CGFloat)from toScale:(CGFloat)to duration:(CGFloat)duration
+{
+    if (view)
+    {
+        CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        [scale setFromValue:[NSNumber numberWithFloat:from]];
+        [scale setToValue:[NSNumber numberWithFloat:to]];
+        [scale setDuration:duration];
+        [scale setRemovedOnCompletion:NO];
+        [scale setFillMode:kCAFillModeForwards];
+        [view.layer addAnimation:scale forKey:@"scale"];
+    }
+}
+
 - (void)applyChange:(NSInteger)direction
 {
     //get containers
@@ -220,28 +237,88 @@
     DDSelectWingViewContainer *right = [self rightContainerForContainer:main];
     DDSelectWingViewContainer *rightRight = [self rightContainerForContainer:right];
     
-    //check direction
+    //set animation duration
+    CGFloat duration = 0.25f;
+    
+    //views to animate
+    UIView *from1to05 = nil;
+    UIView *from05to1 = nil;
+    UIView *from05to0 = nil;
+    UIView *from0To05 = nil;
+    UIView *init1 = nil;
+    UIView *init05l = nil;
+    UIView *init05r = nil;
     if (direction == 1)
     {
-        [self applyUIForView:main.photoView ofViewIndex:-1];
-        [self applyUIForView:right.photoView ofViewIndex:0];
-        [self bringSubviewToFront:right.photoView];
-        [self applyUIForView:rightRight.photoView ofViewIndex:1];
-        [self applyUIForView:left.photoView ofViewIndex:-2];
+        from1to05 = main.photoView;
+        from05to1 = right.photoView;
+        from05to0 = left.photoView;
+        from0To05 = rightRight.photoView;
     }
     else if (direction == -1)
     {
-        [self applyUIForView:main.photoView ofViewIndex:1];
-        [self applyUIForView:left.photoView ofViewIndex:0];
-        [self bringSubviewToFront:left.photoView];
-        [self applyUIForView:leftLeft.photoView ofViewIndex:-1];
-        [self applyUIForView:right.photoView ofViewIndex:2];
+        from1to05 = main.photoView;
+        from05to1 = left.photoView;
+        from05to0 = right.photoView;
+        from0To05 = leftLeft.photoView;
     }
-    else
-        [self bringSubviewToFront:main.photoView];
+    else if (direction == 0)
+    {
+        init1 = main.photoView;
+        init05l = left.photoView;
+        init05r = right.photoView;
+    }
     
-    //inform delegate about change
-    [self.delegate selectWingViewDidSelectWing:self];
+    //apply animation
+    [self animateLayerOfView:from1to05 fromScale:1 toScale:0.5f duration:duration];
+    [self animateLayerOfView:from05to1 fromScale:0.5f toScale:1 duration:duration];
+    [self animateLayerOfView:from05to0 fromScale:0.5f toScale:0 duration:duration];
+    [self animateLayerOfView:from0To05 fromScale:0 toScale:0.5f duration:duration];
+    [self animateLayerOfView:init1 fromScale:1 toScale:1 duration:0];
+    [self animateLayerOfView:init05l fromScale:0.5f toScale:0.5f duration:0];
+    [self animateLayerOfView:init05r fromScale:0.5f toScale:0.5f duration:0];
+    
+    //check views in containers
+    for (DDSelectWingViewContainer *container in containers_)
+    {
+        if (container.photoView != from1to05 &&
+            container.photoView != from05to1 &&
+            container.photoView != from05to0 &&
+            container.photoView != from0To05 &&
+            container.photoView != init1 &&
+            container.photoView != init05l &&
+            container.photoView != init05r)
+            [self animateLayerOfView:container.photoView fromScale:0 toScale:0 duration:0];
+    }
+    
+    //apply animation
+    [UIView animateWithDuration:duration animations:^{
+        
+        //check direction
+        if (direction == 1)
+        {
+            [self applyUIForView:main.photoView ofViewIndex:-1];
+            [self applyUIForView:right.photoView ofViewIndex:0];
+            [self bringSubviewToFront:right.photoView];
+            [self applyUIForView:rightRight.photoView ofViewIndex:1];
+            [self applyUIForView:left.photoView ofViewIndex:-2];
+        }
+        else if (direction == -1)
+        {
+            [self applyUIForView:main.photoView ofViewIndex:1];
+            [self applyUIForView:left.photoView ofViewIndex:0];
+            [self bringSubviewToFront:left.photoView];
+            [self applyUIForView:leftLeft.photoView ofViewIndex:-1];
+            [self applyUIForView:right.photoView ofViewIndex:2];
+        }
+        else
+            [self bringSubviewToFront:main.photoView];
+        
+    } completion:^(BOOL finished) {
+        
+        //inform delegate about change
+        [self.delegate selectWingViewDidSelectWing:self];
+    }];
 }
 
 - (void)start
@@ -255,9 +332,7 @@
 
 - (DDShortUser*)wing
 {
-    DDShortUser *ret = [(DDSelectWingViewContainer*)[self containerForViewIndex:0] shortUser];
-    NSLog(@"%@", [ret firstName]);
-    return ret;
+    return [(DDSelectWingViewContainer*)[self containerForViewIndex:0] shortUser];
 }
 
 - (void)recreateFromWings:(NSArray*)wings
