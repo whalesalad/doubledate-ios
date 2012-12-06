@@ -20,6 +20,7 @@
 #import "DDUser.h"
 #import "DDSendEngagementViewController.h"
 #import "DDButton.h"
+#import "DDPhotoView.h"
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
@@ -60,18 +61,12 @@
 
 @synthesize containerPhotos;
 
-@synthesize imageViewUserLeft;
-@synthesize imageViewUserRight;
-
-@synthesize imageViewUserLeftHighlighted;
-@synthesize imageViewUserRightHighlighted;
-
 @synthesize imageViewFade;
 
-@synthesize labelUserLeft;
-@synthesize labelUserRight;
-
 @synthesize buttonInterested;
+
+@synthesize photoViewLeft;
+@synthesize photoViewRight;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -106,13 +101,13 @@
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
     self.textView.text = [self.doubleDate details];
-
-    self.labelUserLeft.text = [[self.doubleDate user].firstName uppercaseString];
-    self.labelUserRight.text = [[self.doubleDate wing].firstName uppercaseString];
     
-    DD_F_GRADIENT_AVEBLK(self.labelUserLeft);
-    DD_F_GRADIENT_AVEBLK(self.labelUserRight);
-    
+    //customize photo views
+    self.photoViewLeft.text = [[self.doubleDate user].firstName uppercaseString];
+    [self.photoViewLeft applyImage:self.doubleDate.user.photo];
+    self.photoViewRight.text = [[self.doubleDate wing].firstName uppercaseString];
+    [self.photoViewRight applyImage:self.doubleDate.wing.photo];
+        
     //check if we should expand text view and scroll view
     CGSize newSizeOfTextView = self.textView.contentSize;
     if (newSizeOfTextView.height > self.textView.frame.size.height)
@@ -126,18 +121,6 @@
     //add images
     self.containerTopImageView.image = [[UIImage imageNamed:@"dd-indented-text-background-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)];
     self.containerBottomImageView.image = [UIImage imageNamed:@"dd-indented-text-background-bottom.png"];
-    
-    //load photos
-    [self.imageViewUserLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.downloadUrl]];
-    self.imageViewUserLeft.contentMode = UIViewContentModeScaleAspectFill;
-    [self.imageViewUserLeft applyMask:[UIImage imageNamed:@"dd-user-photo-mask.png"]];
-    [self.imageViewUserRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.downloadUrl]];
-    [self.imageViewUserRight applyMask:[UIImage imageNamed:@"dd-user-photo-mask.png"]];
-    self.imageViewUserRight.contentMode = UIViewContentModeScaleAspectFill;
-    
-    //set popover delegates
-    self.imageViewUserLeft.popoverDelegate = self;
-    self.imageViewUserRight.popoverDelegate = self;
     
     //request information
     if (!self.user && self.doubleDate.user)
@@ -171,13 +154,9 @@
     [containerBottomImageView release];
     [textView release];
     [containerPhotos release];
-    [imageViewUserLeft release];
-    [imageViewUserRight release];
-    [imageViewUserLeftHighlighted release];
-    [imageViewUserRightHighlighted release];
     [imageViewFade release];
-    [labelUserLeft release];
-    [labelUserRight release];
+    [photoViewLeft release];
+    [photoViewRight release];
     [popover release];
     [super dealloc];
 }
@@ -185,40 +164,30 @@
 #pragma mark -
 #pragma mark IB
 
-- (IBAction)leftUserTouched:(id)sender
+- (IBAction)leftUserTouched:(DDPhotoView*)sender
 {
-    //hide selection
-    self.imageViewUserRightHighlighted.hidden = YES;
-
-    //show selection
-    self.imageViewUserLeftHighlighted.hidden = !self.imageViewUserLeftHighlighted.hidden;
+    //apply selection
+    sender.highlighted = !sender.highlighted;
     
     //dismiss old
     [self dismissUserPopover];
     
     //present user
-    if (!self.imageViewUserLeftHighlighted.hidden)
+    if (sender.highlighted)
         [self presentLeftUserPopover];
-    else
-        [self dismissUserPopover];
 }
 
-- (IBAction)rightUserTouched:(id)sender
+- (IBAction)rightUserTouched:(DDPhotoView*)sender
 {
-    //hide selection
-    self.imageViewUserLeftHighlighted.hidden = YES;
-    
-    //show selection
-    self.imageViewUserRightHighlighted.hidden = !self.imageViewUserRightHighlighted.hidden;
+    //apply selection
+    sender.highlighted = !sender.highlighted;
     
     //dismiss old
     [self dismissUserPopover];
     
     //present user
-    if (!self.imageViewUserRightHighlighted.hidden)
+    if (sender.highlighted)
         [self presentRightUserPopover];
-    else
-        [self dismissUserPopover];
 }
 
 - (IBAction)interestedTouched:(id)sender
@@ -338,8 +307,8 @@
 - (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
 {
     //hide selection
-    self.imageViewUserLeftHighlighted.hidden = YES;
-    self.imageViewUserRightHighlighted.hidden = YES;
+    self.photoViewLeft.highlighted = NO;
+    self.photoViewRight.highlighted = NO;
     
     //release popover
     self.popover = nil;
@@ -363,7 +332,7 @@
         scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
     
     //check left view
-    if (view == self.imageViewUserLeft)
+    if (view == self.photoViewLeft)
     {
         CGFloat leftAlignment = view.frame.origin.x;
         CGFloat topAlignment = 0-scrollViewOffset;
@@ -409,9 +378,9 @@
     {
 #pragma warning left/right arrow offsets
         if ([u.userId intValue] == [self.doubleDate.user.identifier intValue])
-            [self presentPopoverWithUser:u inView:self.imageViewUserLeft arrowOffset:212];
+            [self presentPopoverWithUser:u inView:self.photoViewLeft arrowOffset:212];
         else
-            [self presentPopoverWithUser:u inView:self.imageViewUserRight arrowOffset:52];
+            [self presentPopoverWithUser:u inView:self.photoViewRight arrowOffset:52];
     }
 }
 
@@ -421,8 +390,8 @@
     [self hideHud:YES];
     
     //hide selection
-    self.imageViewUserLeftHighlighted.hidden = YES;
-    self.imageViewUserRightHighlighted.hidden = YES;
+    self.photoViewLeft.highlighted = NO;
+    self.photoViewRight.highlighted = NO;
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

@@ -11,6 +11,7 @@
 @class DDDoubleDate;
 @class DDWEImageView;
 @class DDUser;
+@class DDPhotoView;
 
 @interface DDDoubleDateViewController : DDViewController
 {
@@ -32,18 +33,12 @@
 
 @property(nonatomic, retain) IBOutlet UIView *containerPhotos;
 
-@property(nonatomic, retain) IBOutlet DDWEImageView *imageViewUserLeft;
-@property(nonatomic, retain) IBOutlet DDWEImageView *imageViewUserRight;
-
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewUserLeftHighlighted;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewUserRightHighlighted;
-
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewFade;
 
-@property(nonatomic, retain) IBOutlet UILabel *labelUserLeft;
-@property(nonatomic, retain) IBOutlet UILabel *labelUserRight;
-
 @property(nonatomic, retain) IBOutlet UIButton *buttonInterested;
+
+@property(nonatomic, retain) IBOutlet DDPhotoView *photoViewLeft;
+@property(nonatomic, retain) IBOutlet DDPhotoView *photoViewRight;
 
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;

@@ -205,6 +205,7 @@
 		962B410016256397004E0656 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B40FF16256397004E0656 /* FacebookSDK.framework */; };
 		962B410416256413004E0656 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410216256413004E0656 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		962B410516256413004E0656 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410316256413004E0656 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963672FF167094C800D3D8D3 /* DDPhotoView.m */; };
 		963D816C1615C78C00BFCD42 /* me-photo-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 963D816A1615C78C00BFCD42 /* me-photo-overlay.png */; };
 		963D816D1615C78C00BFCD42 /* me-photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 963D816B1615C78C00BFCD42 /* me-photo-overlay@2x.png */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
@@ -626,6 +627,8 @@
 		962B40FF16256397004E0656 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		962B410216256413004E0656 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		962B410316256413004E0656 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		963672FE167094C800D3D8D3 /* DDPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPhotoView.h; sourceTree = "<group>"; };
+		963672FF167094C800D3D8D3 /* DDPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPhotoView.m; sourceTree = "<group>"; };
 		963D816A1615C78C00BFCD42 /* me-photo-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me-photo-overlay.png"; sourceTree = "<group>"; };
 		963D816B1615C78C00BFCD42 /* me-photo-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me-photo-overlay@2x.png"; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
@@ -1196,6 +1199,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				963672FE167094C800D3D8D3 /* DDPhotoView.h */,
+				963672FF167094C800D3D8D3 /* DDPhotoView.m */,
 				965989FA166F970300490CCE /* DDSelectWingView.h */,
 				965989FB166F970300490CCE /* DDSelectWingView.m */,
 				96928B7A165D140100012D1E /* DDWEImageView.h */,
@@ -1976,6 +1981,7 @@
 				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
 				965989FC166F970300490CCE /* DDSelectWingView.m in Sources */,
 				965989FF166FAFB700490CCE /* DDEngagement.m in Sources */,
+				96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
