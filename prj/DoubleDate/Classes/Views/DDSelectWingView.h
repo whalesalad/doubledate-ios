@@ -10,6 +10,7 @@
 
 @class DDAPIController;
 @class DDShortUser;
+@class DDPhotoView;
 
 @protocol DDSelectWingViewDelegate <NSObject>
 
@@ -23,7 +24,7 @@
     DDAPIController *apiController_;
     NSArray *wings_;
     NSInteger curWingIndex_;
-    UILabel *label_;
+    DDPhotoView *photoView_;
 }
 
 @property(nonatomic, assign) id<DDSelectWingViewDelegate> delegate;

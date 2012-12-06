@@ -9,6 +9,7 @@
 #import "DDSelectWingView.h"
 #import "DDAPIController.h"
 #import "DDShortUser.h"
+#import "DDPhotoView.h"
 
 @interface DDSelectWingView (API) <DDAPIControllerDelegate>
 
@@ -33,12 +34,10 @@
     loading_.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:loading_];
     
-    //add label
-    label_ = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    label_.backgroundColor = [UIColor clearColor];
-    label_.textAlignment = NSTextAlignmentCenter;
-    label_.textColor = [UIColor whiteColor];
-    [self addSubview:label_];
+    //add photo view
+    photoView_ = [[DDPhotoView alloc] initWithFrame:CGRectMake(0, 0, 122, 122)];
+    photoView_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    [self addSubview:photoView_];
     
     //add gesture recognizers
     UISwipeGestureRecognizer *gestureRecognizerRight = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)] autorelease];
@@ -72,7 +71,7 @@
     apiController_.delegate = nil;
     [apiController_ release];
     [loading_ release];
-    [label_ release];
+    [photoView_ release];
     [wings_ release];
     [super dealloc];
 }
@@ -108,7 +107,8 @@
 - (void)applyChange
 {
     //change label
-    [label_ setText:self.wing.firstName];
+    [photoView_ setText:self.wing.firstName];
+    [photoView_ applyImage:self.wing.photo];
     
     //inform delegate
     [self.delegate selectWingViewDidSelectWing:self];
