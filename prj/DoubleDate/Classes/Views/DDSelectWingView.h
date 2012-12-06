@@ -22,9 +22,7 @@
 {
     UIActivityIndicatorView *loading_;
     DDAPIController *apiController_;
-    NSArray *wings_;
-    NSInteger curWingIndex_;
-    DDPhotoView *photoView_;
+    NSMutableArray *containers_;
 }
 
 @property(nonatomic, assign) id<DDSelectWingViewDelegate> delegate;
