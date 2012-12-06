@@ -37,6 +37,8 @@
 
 @property(nonatomic, retain) IBOutlet UIButton *buttonInterested;
 
+@property(nonatomic, retain) IBOutlet UIView *bottomView;
+
 @property(nonatomic, retain) IBOutlet DDPhotoView *photoViewLeft;
 @property(nonatomic, retain) IBOutlet DDPhotoView *photoViewRight;
 

@@ -21,6 +21,7 @@
 #import "DDSendEngagementViewController.h"
 #import "DDButton.h"
 #import "DDPhotoView.h"
+#import "DDAuthenticationController.h"
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
@@ -65,6 +66,8 @@
 
 @synthesize buttonInterested;
 
+@synthesize bottomView;
+
 @synthesize photoViewLeft;
 @synthesize photoViewRight;
 
@@ -95,6 +98,14 @@
     
     //customize button
     [self.buttonInterested applyBottomBarDesignWithTitle:self.buttonInterested.titleLabel.text icon:nil background:[UIImage imageNamed:@"lower-button-blue.png"]];
+    
+    //check doubledate
+    if ([[[self.doubleDate user] identifier] intValue] == [[DDAuthenticationController userId] intValue] ||
+        [[[self.doubleDate wing] identifier] intValue] == [[DDAuthenticationController userId] intValue])
+    {
+        self.bottomView.hidden = YES;
+        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height + self.bottomView.frame.size.height);
+    }
     
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
@@ -155,6 +166,7 @@
     [textView release];
     [containerPhotos release];
     [imageViewFade release];
+    [bottomView release];
     [photoViewLeft release];
     [photoViewRight release];
     [popover release];
