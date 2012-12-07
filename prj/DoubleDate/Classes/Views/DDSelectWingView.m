@@ -60,6 +60,18 @@
     apiController_ = [[DDAPIController alloc] init];
     apiController_.delegate = self;
     
+    //add bottom image
+    UIImageView *bottomImageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-indented-text-background-bottom.png"]] autorelease];
+    bottomImageView.frame = CGRectMake(0, self.frame.size.height-bottomImageView.frame.size.height, self.frame.size.width, bottomImageView.frame.size.height);
+    bottomImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self addSubview:bottomImageView];
+    
+    //add top image
+    UIImageView *topImageView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dd-indented-text-background-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)]] autorelease];
+    topImageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height-bottomImageView.frame.size.height);
+    topImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addSubview:topImageView];
+    
     //add loading
     loading_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     loading_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
