@@ -114,7 +114,7 @@
     [self addSubview:label_];
     
     //add button
-    button_ = [UIButton buttonWithType:UIButtonTypeCustom];
+    button_ = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     button_.backgroundColor = [UIColor clearColor];
     [self addSubview:button_];
 #define ADD_HANDLING(_E_) [button_ addTarget:self action:@selector(_E_) forControlEvents:_E_]
