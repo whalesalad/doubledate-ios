@@ -72,6 +72,16 @@
     topImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:topImageView];
     
+    //add label
+#warning customize pick your wing title
+    UILabel *labelTitle = [[[UILabel alloc] initWithFrame:CGRectMake(0, 4, self.frame.size.width, 18)] autorelease];
+    labelTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    labelTitle.textAlignment = NSTextAlignmentCenter;
+    DD_F_HEADER_MAIN(labelTitle);
+    labelTitle.text = NSLocalizedString(@"Pick Your Wing", nil);
+    labelTitle.backgroundColor = [UIColor clearColor];
+    [self addSubview:labelTitle];
+    
     //add loading
     loading_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     loading_.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
@@ -146,20 +156,22 @@
 
 - (CGPoint)positionForViewIndex:(NSInteger)index
 {
+#warning customize photos offset
+    CGFloat photosOffset = 2;
     switch (index) {
         case -1:
-            return CGPointMake(self.frame.size.width/2-100, self.frame.size.height/2);
+            return CGPointMake(self.frame.size.width/2-100, self.frame.size.height/2+photosOffset);
             break;
         case 0:
-            return CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+            return CGPointMake(self.frame.size.width/2, self.frame.size.height/2+photosOffset);
             break;
         case 1:
-            return CGPointMake(self.frame.size.width/2+100, self.frame.size.height/2);
+            return CGPointMake(self.frame.size.width/2+100, self.frame.size.height/2+photosOffset);
             break;
         default:
             break;
     }
-    return CGPointMake(self.frame.size.width/2, self.frame.size.height/2-1);
+    return CGPointMake(self.frame.size.width/2, self.frame.size.height/2-1+photosOffset);
 }
 
 - (DDSelectWingViewContainer*)containerForViewIndex:(NSInteger)index
