@@ -30,6 +30,9 @@
 
 @implementation DDPhotoView
 
+@synthesize label=label_;
+@synthesize highlightImageView=highlightImageView_;
+
 - (CGFloat)scale
 {
     return self.frame.size.width / 122;

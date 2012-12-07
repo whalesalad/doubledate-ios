@@ -21,6 +21,9 @@
     NSMutableArray *internal_;
 }
 
+@property(nonatomic, readonly) UILabel *label;
+@property(nonatomic, readonly) UIImageView *highlightImageView;
+
 @property(nonatomic, retain) NSString *text;
 
 - (void)applyImage:(DDImage*)image;

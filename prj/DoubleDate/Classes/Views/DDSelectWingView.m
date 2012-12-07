@@ -37,8 +37,8 @@
 
 - (CGPoint)positionForViewIndex:(NSInteger)index;
 - (CGSize)sizeForViewIndex:(NSInteger)index;
-- (void)applyUIForView:(UIView*)view ofViewIndex:(NSInteger)index;
-- (void)animateLayerOfView:(UIView*)view fromScale:(CGFloat)from toScale:(CGFloat)scale duration:(CGFloat)duration;
+- (void)applyUIForView:(DDPhotoView*)view ofViewIndex:(NSInteger)index;
+- (void)animateLayerOfView:(DDPhotoView*)view fromScale:(CGFloat)from toScale:(CGFloat)scale duration:(CGFloat)duration;
 - (DDSelectWingViewContainer*)containerForViewIndex:(NSInteger)index;
 
 - (void)applyChange:(NSInteger)direction;
@@ -130,14 +130,6 @@
 - (CGSize)sizeForViewIndex:(NSInteger)index
 {
     return CGSizeMake(122, 122);
-    switch (index) {
-        case 0:
-            return CGSizeMake(122, 122);
-            break;
-        default:
-            break;
-    }
-    return CGSizeMake(61, 61);
 }
 
 - (CGPoint)positionForViewIndex:(NSInteger)index
@@ -207,14 +199,16 @@
     return [containers_ objectAtIndex:index];
 }
 
-- (void)applyUIForView:(UIView *)view ofViewIndex:(NSInteger)index
+- (void)applyUIForView:(DDPhotoView *)view ofViewIndex:(NSInteger)index
 {
     CGSize newSize = [self sizeForViewIndex:index];
     CGPoint newCenter = [self positionForViewIndex:index];
     view.frame = CGRectMake(newCenter.x - newSize.width/2, newCenter.y - newSize.height/2, newSize.width, newSize.height);
+    view.label.alpha = index==0?1:0;
+    view.highlightImageView.alpha = index==0?1:0;
 }
 
-- (void)animateLayerOfView:(UIView*)view fromScale:(CGFloat)from toScale:(CGFloat)to duration:(CGFloat)duration
+- (void)animateLayerOfView:(DDPhotoView*)view fromScale:(CGFloat)from toScale:(CGFloat)to duration:(CGFloat)duration
 {
     if (view)
     {
@@ -241,13 +235,13 @@
     CGFloat duration = 0.25f;
     
     //views to animate
-    UIView *from1to05 = nil;
-    UIView *from05to1 = nil;
-    UIView *from05to0 = nil;
-    UIView *from0To05 = nil;
-    UIView *init1 = nil;
-    UIView *init05l = nil;
-    UIView *init05r = nil;
+    DDPhotoView *from1to05 = nil;
+    DDPhotoView *from05to1 = nil;
+    DDPhotoView *from05to0 = nil;
+    DDPhotoView *from0To05 = nil;
+    DDPhotoView *init1 = nil;
+    DDPhotoView *init05l = nil;
+    DDPhotoView *init05r = nil;
     if (direction == 1)
     {
         from1to05 = main.photoView;
@@ -351,6 +345,7 @@
         //create new photo view
         NSInteger index = i - [wings count] / 2;
         DDPhotoView *photoView = [[[DDPhotoView alloc] init] autorelease];
+        photoView.highlighted = YES;
         [self applyUIForView:photoView ofViewIndex:index];
         [self addSubview:photoView];
         
