@@ -19,11 +19,13 @@ extern NSString *DDEngagementStatusAccepted;
 {
 }
 
+@property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSNumber *userId;
 @property(nonatomic, retain) NSNumber *wingId;
 @property(nonatomic, retain) NSString *message;
 @property(nonatomic, retain) NSNumber *activityId;
 @property(nonatomic, retain) NSString *status;
+@property(nonatomic, retain) NSNumber *messagesCount;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
 

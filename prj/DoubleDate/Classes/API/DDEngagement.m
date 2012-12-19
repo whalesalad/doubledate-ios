@@ -16,11 +16,13 @@ NSString *DDEngagementStatusAccepted = @"accepted";
 
 @implementation DDEngagement
 
+@synthesize identifier;
 @synthesize userId;
 @synthesize wingId;
 @synthesize message;
 @synthesize activityId;
 @synthesize status;
+@synthesize messagesCount;
 @synthesize user;
 @synthesize wing;
 
@@ -28,11 +30,13 @@ NSString *DDEngagementStatusAccepted = @"accepted";
 {
     if ((self = [super initWithDictionary:dictionary]))
     {
+        self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
         self.activityId = [DDAPIObject numberForObject:[dictionary objectForKey:@"activity_id"]];
         self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
+        self.messagesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"messages_count"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
     }
@@ -42,6 +46,8 @@ NSString *DDEngagementStatusAccepted = @"accepted";
 - (NSDictionary*)dictionaryRepresentation
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+    if (self.identifier)
+        [dictionary setObject:self.identifier forKey:@"id"];
     if (self.userId)
         [dictionary setObject:self.userId forKey:@"user_id"];
     if (self.wingId)
@@ -52,6 +58,8 @@ NSString *DDEngagementStatusAccepted = @"accepted";
         [dictionary setObject:self.activityId forKey:@"activity_id"];
     if (self.status)
         [dictionary setObject:self.status forKey:@"status"];
+    if (self.messagesCount)
+        [dictionary setObject:self.messagesCount forKey:@"messages_count"];
     return dictionary;
 }
 
@@ -65,11 +73,13 @@ NSString *DDEngagementStatusAccepted = @"accepted";
 
 - (void)dealloc
 {
+    [identifier release];
     [userId release];
     [wingId release];
     [message release];
     [activityId release];
     [status release];
+    [messagesCount release];
     [user release];
     [wing release];
     [super dealloc];

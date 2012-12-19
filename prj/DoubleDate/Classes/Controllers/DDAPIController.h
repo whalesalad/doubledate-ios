@@ -96,6 +96,9 @@ typedef int DDRequestId;
 - (void)createEngagementSucceed:(DDEngagement*)engagement;
 - (void)createEngagementDidFailedWithError:(NSError*)error;
 
+- (void)getMessagesForEngagementSucceed:(NSArray*)messages;
+- (void)getMessagesForEngagementDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -154,5 +157,7 @@ typedef int DDRequestId;
 - (DDRequestId)getEngagementsForDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (DDRequestId)createEngagement:(DDEngagement*)engagement;
+
+- (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement;
 
 @end

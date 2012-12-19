@@ -46,6 +46,7 @@ typedef enum
     DDAPIControllerMethodTypeRequestDeleteDoubleDate,
     DDAPIControllerMethodTypeGetEngagements,
     DDAPIControllerMethodTypeCreateEngagement,
+    DDAPIControllerMethodTypeGetMessages,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -643,6 +644,25 @@ typedef enum
     return [self startRequest:request];
 }
 
+- (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/messages", [engagement.activityId intValue], [engagement.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetMessages;
+    userData.succeedSel = @selector(getMessagesForEngagementSucceed:);
+    userData.failedSel = @selector(getMessagesForEngagementDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -817,9 +837,6 @@ typedef enum
         }
         else if (userData.method == DDAPIControllerMethodTypeGetEngagements)
         {
-            //extract data
-//            NSMutableArray *engagements = [NSMutableArray array];
-//            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateEngagement)
         {
@@ -829,6 +846,9 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:engagement withObject:nil];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetMessages)
+        {
         }
     }
     else
