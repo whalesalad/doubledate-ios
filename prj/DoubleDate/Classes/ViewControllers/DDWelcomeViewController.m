@@ -245,7 +245,7 @@
 - (void)startWithUser:(DDUser*)user animated:(BOOL)animated
 {
     //dismiss all modal view controllers
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
     
     //check user

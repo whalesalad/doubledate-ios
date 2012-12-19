@@ -278,7 +278,7 @@
 
 - (void)cancelTouched:(id)sender
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }
 
@@ -355,7 +355,8 @@
     self.imageViewPhoto.image = image;
     
     //dismiss modal view controller
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

@@ -507,14 +507,15 @@ typedef enum
     
 - (void)doubleDateFilterViewControllerDidCancel
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    self.searchFilter = nil;
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }
 
 - (void)doubleDateFilterViewControllerDidAppliedFilter:(DDDoubleDateFilter*)filter
 {
     self.searchFilter = filter;
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }
 

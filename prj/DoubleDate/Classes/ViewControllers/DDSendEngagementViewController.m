@@ -90,7 +90,7 @@
 
 - (IBAction)cancelTouched:(id)sender
 {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }
 
@@ -214,7 +214,7 @@
     [self showCompletedHudWithText:message];
     
     //go back
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }
 
