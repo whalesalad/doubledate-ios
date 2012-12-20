@@ -23,6 +23,7 @@
     UIActivityIndicatorView *loading_;
     DDAPIController *apiController_;
     NSMutableArray *containers_;
+    UIImageView *imageViewBorder_;
 }
 
 @property(nonatomic, assign) id<DDSelectWingViewDelegate> delegate;

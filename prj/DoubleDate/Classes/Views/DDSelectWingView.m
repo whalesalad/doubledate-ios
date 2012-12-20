@@ -125,6 +125,7 @@
     [apiController_ release];
     [loading_ release];
     [containers_ release];
+    [imageViewBorder_ release];
     [super dealloc];
 }
 
@@ -229,7 +230,6 @@
     CGPoint newCenter = [self positionForViewIndex:index];
     view.frame = CGRectMake(newCenter.x - newSize.width/2, newCenter.y - newSize.height/2, newSize.width, newSize.height);
     view.label.alpha = index==0?1:0;
-    view.highlightImageView.alpha = index==0?1:0;
 }
 
 - (void)animateLayerOfView:(DDPhotoView*)view fromScale:(CGFloat)from toScale:(CGFloat)to duration:(CGFloat)duration
@@ -256,7 +256,7 @@
     DDSelectWingViewContainer *rightRight = [self rightContainerForContainer:right];
     
     //set animation duration
-    CGFloat duration = 0.25f;
+    CGFloat duration = 0.0001f;
     
     //views to animate
     DDPhotoView *from1to05 = nil;
@@ -363,13 +363,17 @@
         [containers_ removeObject:container];
     }
     
+    //remove old
+    [imageViewBorder_ removeFromSuperview];
+    [imageViewBorder_ release];
+    imageViewBorder_ = nil;
+    
     //add new
     for (int i = 0; i < [wings count]; i++)
     {
         //create new photo view
         NSInteger index = i - [wings count] / 2;
         DDPhotoView *photoView = [[[DDPhotoView alloc] init] autorelease];
-        photoView.highlighted = YES;
         [self applyUIForView:photoView ofViewIndex:index];
         [self addSubview:photoView];
         
@@ -385,6 +389,13 @@
         container.photoView = photoView;
         container.shortUser = shortUser;
         [containers_ addObject:container];
+    }
+    
+    if ([wings count])
+    {
+        imageViewBorder_ = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-user-photo-highlighted-outline.png"]];
+        imageViewBorder_.center = [self positionForViewIndex:0];
+        [self addSubview:imageViewBorder_];
     }
 }
 
