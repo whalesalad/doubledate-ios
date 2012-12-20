@@ -625,7 +625,7 @@ typedef enum
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[engagement dictionaryRepresentation] forKey:@"engagement"];
     
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagement", [engagement.activityId intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements", [engagement.activityId intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
