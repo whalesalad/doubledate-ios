@@ -703,7 +703,7 @@ typedef enum
             NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             for (NSDictionary *dic in responseData)
             {
-                //create placemark
+                //create object
                 DDPlacemark *placemark = [DDPlacemark objectWithDictionary:dic];
                 if (placemark)
                     [placemarks addObject:placemark];
@@ -720,7 +720,7 @@ typedef enum
             NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             for (NSDictionary *dic in responseData)
             {
-                //create placemark
+                //create object
                 DDInterest *interest = [DDInterest objectWithDictionary:dic];
                 if (interest)
                     [interests addObject:interest];
@@ -746,7 +746,7 @@ typedef enum
             NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             for (NSDictionary *dic in responseData)
             {
-                //create placemark
+                //create object
                 DDShortUser *user = [DDShortUser objectWithDictionary:dic];
                 if (user)
                     [users addObject:user];
@@ -763,7 +763,7 @@ typedef enum
             NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             for (NSDictionary *dic in responseData)
             {
-                //create placemark
+                //create object
                 DDFriendship *friendship = [DDFriendship objectWithDictionary:dic];
                 if (friendship)
                     [friendshipInvitations addObject:friendship];
@@ -798,7 +798,7 @@ typedef enum
             NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             for (NSDictionary *dic in responseData)
             {
-                //create placemark
+                //create object
                 DDShortUser *facebookUser = [DDShortUser objectWithDictionary:dic];
                 if (facebookUser)
                     [facebookFriends addObject:facebookUser];
@@ -825,7 +825,7 @@ typedef enum
             NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             for (NSDictionary *dic in responseData)
             {
-                //create placemark
+                //create object
                 DDDoubleDate *doubleDate = [DDDoubleDate objectWithDictionary:dic];
                 if (doubleDate)
                     [doubleDates addObject:doubleDate];
@@ -837,6 +837,20 @@ typedef enum
         }
         else if (userData.method == DDAPIControllerMethodTypeGetEngagements)
         {
+            //extract data
+            NSMutableArray *engagements = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create object
+                DDEngagement *engagement = [DDEngagement objectWithDictionary:dic];
+                if (engagement)
+                    [engagements addObject:engagement];
+            }
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:nil];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateEngagement)
         {
