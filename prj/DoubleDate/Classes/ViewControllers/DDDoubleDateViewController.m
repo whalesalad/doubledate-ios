@@ -23,6 +23,13 @@
 #import "DDPhotoView.h"
 #import "DDAuthenticationController.h"
 
+typedef enum
+{
+    DDDoubleDateViewControllerModeFlagNone = 0,
+    DDDoubleDateViewControllerModeFlagBottom = 1<<0,
+    DDDoubleDateViewControllerModeFlagTop = 1<<1
+} DDDoubleDateViewControllerMode;
+
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
 
 - (void)loadDataForUser:(DDShortUser*)shortUser;
@@ -31,6 +38,7 @@
 - (void)presentRightUserPopover;
 - (void)setFadeViewVisibile:(BOOL)visible;
 - (CGSize)bubbleSizeFromXib;
+- (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
 
 @property(nonatomic, retain) WEPopoverController *popover;
 
@@ -50,6 +58,7 @@
 
 @synthesize scrollView;
 
+@synthesize containerHeader;
 @synthesize labelLocationMain;
 @synthesize labelLocationDetailed;
 @synthesize labelDayTime;
@@ -67,6 +76,8 @@
 @synthesize buttonInterested;
 
 @synthesize bottomView;
+@synthesize centerView;
+@synthesize topView;
 
 @synthesize photoViewLeft;
 @synthesize photoViewRight;
@@ -99,14 +110,6 @@
     //customize button
     [self.buttonInterested applyBottomBarDesignWithTitle:self.buttonInterested.titleLabel.text icon:nil background:[UIImage imageNamed:@"lower-button-blue.png"]];
     
-    //check doubledate
-    if ([[[self.doubleDate user] identifier] intValue] == [[DDAuthenticationController userId] intValue] ||
-        [[[self.doubleDate wing] identifier] intValue] == [[DDAuthenticationController userId] intValue])
-    {
-        self.bottomView.hidden = YES;
-        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height + self.bottomView.frame.size.height);
-    }
-    
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
@@ -118,16 +121,6 @@
     [self.photoViewLeft applyImage:self.doubleDate.user.photo];
     self.photoViewRight.text = [[self.doubleDate wing].firstName uppercaseString];
     [self.photoViewRight applyImage:self.doubleDate.wing.photo];
-        
-    //check if we should expand text view and scroll view
-    CGSize newSizeOfTextView = self.textView.contentSize;
-    if (newSizeOfTextView.height > self.textView.frame.size.height)
-    {
-        CGFloat dh = newSizeOfTextView.height - self.textView.frame.size.height;
-        self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height+dh);
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height+dh);
-        self.containerPhotos.frame = CGRectMake(self.containerPhotos.frame.origin.x, self.containerPhotos.frame.origin.y+dh, self.containerPhotos.frame.size.width, self.containerPhotos.frame.size.height);
-    }
     
     //add images
     self.containerTopImageView.image = [[UIImage imageNamed:@"dd-indented-text-background-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)];
@@ -148,6 +141,25 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //check doubledate
+    if ([[[self.doubleDate user] identifier] intValue] == [[DDAuthenticationController userId] intValue] ||
+        [[[self.doubleDate wing] identifier] intValue] == [[DDAuthenticationController userId] intValue])
+        [self switchToMode:DDDoubleDateViewControllerModeFlagNone];
+    else
+        [self switchToMode:DDDoubleDateViewControllerModeFlagBottom];
+    
+    [self performSelector:@selector(xx) withObject:nil afterDelay:5];
+}
+
+- (void)xx
+{
+    [self switchToMode:DDDoubleDateViewControllerModeFlagNone];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -157,6 +169,7 @@
 {
     [doubleDate release];
     [scrollView release];
+    [containerHeader release];
     [labelLocationMain release];
     [labelLocationDetailed release];
     [labelDayTime release];
@@ -167,6 +180,8 @@
     [containerPhotos release];
     [imageViewFade release];
     [bottomView release];
+    [centerView release];
+    [topView release];
     [photoViewLeft release];
     [photoViewRight release];
     [popover release];
@@ -212,6 +227,53 @@
 
 #pragma mark -
 #pragma mark other
+
+- (void)switchToMode:(DDDoubleDateViewControllerMode)mode
+{
+    //reset all
+    if (initialValueInitialized)
+    {
+        self.textView.contentOffset = initialTextViewContentOffset;
+        self.scrollView.contentSize = initialScrollViewContentSize;
+        self.containerTextView.frame = initialContainerTextViewFrame;
+        self.containerPhotos.center = initialContainerPhotosCenter;
+    }
+    else
+    {
+        initialValueInitialized = YES;
+        initialTextViewContentOffset = self.textView.contentOffset;
+        initialScrollViewContentSize = self.scrollView.contentSize;
+        initialContainerTextViewFrame = self.containerTextView.frame;
+        initialContainerPhotosCenter = self.containerPhotos.center;
+    }
+    
+    //save visibility
+    BOOL topVisible = (mode & DDDoubleDateViewControllerModeFlagTop);
+    BOOL bottomVisible = (mode & DDDoubleDateViewControllerModeFlagBottom);
+    
+    //change visibility
+    self.topView.hidden = !topVisible;
+    self.bottomView.hidden = !bottomVisible;
+    
+    //change frame
+    CGFloat yt = topVisible?self.topView.frame.origin.y+self.topView.frame.size.height:self.topView.frame.origin.y;
+    CGFloat yb = bottomVisible?self.bottomView.frame.origin.y:self.bottomView.frame.origin.y+self.bottomView.frame.size.height;
+    CGFloat height = yb - yt;
+    self.centerView.frame = CGRectMake(self.centerView.frame.origin.x, yt, self.centerView.frame.size.width, height);
+    
+    //change frame
+    CGFloat dh = self.textView.frame.size.height - self.textView.contentSize.height;
+    if (dh > 0)
+    {
+        self.textView.contentOffset = CGPointMake(0, -dh/2);
+    }
+    else
+    {
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerHeader.frame.origin.y+self.containerHeader.frame.size.height+self.containerPhotos.frame.size.height+self.textView.contentSize.height+30);
+        self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height-dh);
+        self.containerPhotos.center = CGPointMake(self.containerPhotos.center.x, self.containerPhotos.center.y-dh);
+    }
+}
 
 - (void)dismissUserPopover
 {

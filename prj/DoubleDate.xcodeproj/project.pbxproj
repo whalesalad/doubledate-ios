@@ -181,7 +181,6 @@
 		9614E4F11654D1AE0052ADD1 /* search-cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E4EF1654D1AE0052ADD1 /* search-cancel-button.png */; };
 		9614E4F21654D1AE0052ADD1 /* search-cancel-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E4F01654D1AE0052ADD1 /* search-cancel-button@2x.png */; };
 		9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */; };
-		9614E5821656901B0052ADD1 /* DDDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9614E5801656901B0052ADD1 /* DDDoubleDateViewController.xib */; };
 		9614E59E165693800052ADD1 /* dd-indented-text-background-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */; };
 		9614E59F165693800052ADD1 /* dd-indented-text-background-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E587165693800052ADD1 /* dd-indented-text-background-bottom@2x.png */; };
 		9614E5A0165693800052ADD1 /* dd-indented-text-background-top.png in Resources */ = {isa = PBXBuildFile; fileRef = 9614E588165693800052ADD1 /* dd-indented-text-background-top.png */; };
@@ -315,6 +314,7 @@
 		96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65B16524BAF00DAC219 /* DDTableViewController.m */; };
 		96C6D69B16527D7000DAC219 /* DDTableViewController+Refresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */; };
 		96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */; };
+		96D585461684607800CFB9A3 /* DDDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
 		96E78E14164D027100897C4F /* DDTextFieldTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E13164D027100897C4F /* DDTextFieldTableViewCell.m */; };
 		96E78E32164D0F9200897C4F /* DDTextViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E78E31164D0F9200897C4F /* DDTextViewTableViewCell.m */; };
@@ -606,7 +606,6 @@
 		9614E4F01654D1AE0052ADD1 /* search-cancel-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-cancel-button@2x.png"; sourceTree = "<group>"; };
 		9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateViewController.h; sourceTree = "<group>"; };
 		9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateViewController.m; sourceTree = "<group>"; };
-		9614E5801656901B0052ADD1 /* DDDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateViewController.xib; sourceTree = "<group>"; };
 		9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-indented-text-background-bottom.png"; sourceTree = "<group>"; };
 		9614E587165693800052ADD1 /* dd-indented-text-background-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-indented-text-background-bottom@2x.png"; sourceTree = "<group>"; };
 		9614E588165693800052ADD1 /* dd-indented-text-background-top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-indented-text-background-top.png"; sourceTree = "<group>"; };
@@ -777,6 +776,7 @@
 		96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDTableViewController+Refresh.m"; sourceTree = "<group>"; };
 		96C6D6C8165296FD00DAC219 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
 		96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
+		96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateViewController.xib; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
 		96E78E12164D027000897C4F /* DDTextFieldTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextFieldTableViewCell.h; sourceTree = "<group>"; };
@@ -1354,7 +1354,7 @@
 			children = (
 				70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */,
 				96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */,
-				9614E5801656901B0052ADD1 /* DDDoubleDateViewController.xib */,
+				96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */,
 				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
 				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
@@ -1856,7 +1856,6 @@
 				70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */,
 				9614E4F11654D1AE0052ADD1 /* search-cancel-button.png in Resources */,
 				9614E4F21654D1AE0052ADD1 /* search-cancel-button@2x.png in Resources */,
-				9614E5821656901B0052ADD1 /* DDDoubleDateViewController.xib in Resources */,
 				9614E59E165693800052ADD1 /* dd-indented-text-background-bottom.png in Resources */,
 				9614E59F165693800052ADD1 /* dd-indented-text-background-bottom@2x.png in Resources */,
 				9614E5A0165693800052ADD1 /* dd-indented-text-background-top.png in Resources */,
@@ -1913,6 +1912,7 @@
 				70FFEE75166EB54400F1804E /* dd-tableview-cell-single.png in Resources */,
 				70FFEE76166EB54400F1804E /* dd-tableview-cell-single@2x.png in Resources */,
 				4C855AAD167EE36200DB39D5 /* Default-568h@2x.png in Resources */,
+				96D585461684607800CFB9A3 /* DDDoubleDateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,12 +15,18 @@
 
 @interface DDDoubleDateViewController : DDViewController
 {
+    BOOL initialValueInitialized;
+    CGPoint initialTextViewContentOffset;
+    CGSize initialScrollViewContentSize;
+    CGRect initialContainerTextViewFrame;
+    CGPoint initialContainerPhotosCenter;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
 
 @property(nonatomic, retain) IBOutlet UIScrollView *scrollView;
 
+@property(nonatomic, retain) IBOutlet UIView *containerHeader;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationMain;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationDetailed;
 @property(nonatomic, retain) IBOutlet UILabel *labelDayTime;
@@ -38,6 +44,8 @@
 @property(nonatomic, retain) IBOutlet UIButton *buttonInterested;
 
 @property(nonatomic, retain) IBOutlet UIView *bottomView;
+@property(nonatomic, retain) IBOutlet UIView *centerView;
+@property(nonatomic, retain) IBOutlet UIView *topView;
 
 @property(nonatomic, retain) IBOutlet DDPhotoView *photoViewLeft;
 @property(nonatomic, retain) IBOutlet DDPhotoView *photoViewRight;
