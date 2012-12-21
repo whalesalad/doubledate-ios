@@ -16,7 +16,6 @@
 		4CA80EDE16521236004A4BE9 /* app-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA80EDD16521236004A4BE9 /* app-icon@2x.png */; };
 		7025E53F168274B100FE3FBE /* DDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7025E53E168274B100FE3FBE /* DDMessage.m */; };
 		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
-		702846AB1623639200693673 /* DDWingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702846AA1623639200693673 /* DDWingsViewController.xib */; };
 		702846B516236E5800693673 /* approve-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AD16236E5800693673 /* approve-invite.png */; };
 		702846B616236E5800693673 /* approve-invite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AE16236E5800693673 /* approve-invite@2x.png */; };
 		702846B716236E5800693673 /* deny-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AF16236E5800693673 /* deny-invite.png */; };
@@ -433,7 +432,6 @@
 		7025E53E168274B100FE3FBE /* DDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMessage.m; sourceTree = "<group>"; };
 		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
 		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
-		702846AA1623639200693673 /* DDWingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingsViewController.xib; sourceTree = "<group>"; };
 		702846AD16236E5800693673 /* approve-invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approve-invite.png"; sourceTree = "<group>"; };
 		702846AE16236E5800693673 /* approve-invite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "approve-invite@2x.png"; sourceTree = "<group>"; };
 		702846AF16236E5800693673 /* deny-invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deny-invite.png"; sourceTree = "<group>"; };
@@ -1414,7 +1412,6 @@
 				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
 				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
-				702846AA1623639200693673 /* DDWingsViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
 				96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */,
 				96892CAA15FF15E70054C108 /* DDMeViewController.xib */,
@@ -1779,7 +1776,6 @@
 				96EE844F161493AA00AE6EC1 /* photo-shadow-overlay@2x.png in Resources */,
 				963D816C1615C78C00BFCD42 /* me-photo-overlay.png in Resources */,
 				963D816D1615C78C00BFCD42 /* me-photo-overlay@2x.png in Resources */,
-				702846AB1623639200693673 /* DDWingsViewController.xib in Resources */,
 				702846B516236E5800693673 /* approve-invite.png in Resources */,
 				702846B616236E5800693673 /* approve-invite@2x.png in Resources */,
 				702846B716236E5800693673 /* deny-invite.png in Resources */,

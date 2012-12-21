@@ -262,7 +262,7 @@
         meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Me", nil) image:imageMe tag:0] autorelease];
         
         //set wingman view controller
-        DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] init] autorelease];
+        DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
         wingsViewController.user = user;
         wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Wings", nil) image:[UIImage imageNamed:@"wing-tab-bar.png"] tag:1] autorelease];
         

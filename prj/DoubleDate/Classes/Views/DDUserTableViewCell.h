@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DDTableViewCell.h"
 
 @class DDFriendship;
 @class DDShortUser;
-@class DDImageView;
+@class DDPhotoView;
 
 typedef enum
 {
@@ -19,18 +19,16 @@ typedef enum
     DDUserTableViewCellTypeFacebook
 } DDUserTableViewCellType;
 
-@interface DDUserTableViewCell : UITableViewCell
+@interface DDUserTableViewCell : DDTableViewCell
 {
     UILabel *labelMain_;
     UILabel *labelDetails_;
-    DDImageView *imageView_;
-    UIImageView *overlayImageView_;
+    DDPhotoView *imageView_;
+    UIImageView *imageViewGender_;
 }
 
 @property(nonatomic, assign) DDUserTableViewCellType type;
 
 @property(nonatomic, retain) DDShortUser *shortUser;
-
-+ (CGFloat)height;
 
 @end

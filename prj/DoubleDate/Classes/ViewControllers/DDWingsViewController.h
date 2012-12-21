@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
 
 @class DDUser;
 @class DDShortUser;
@@ -16,7 +16,7 @@
 - (void)wingsViewController:(DDWingsViewController*)viewController didSelectUser:(DDShortUser*)user;
 @end
 
-@interface DDWingsViewController : DDViewController
+@interface DDWingsViewController : DDTableViewController
 {
     NSMutableArray *friends_;
     NSMutableArray *pendingInvitations_;
@@ -25,8 +25,6 @@
 @property(nonatomic, assign) id<DDWingsViewControllerDelegate> delegate;
 
 @property(nonatomic, assign) BOOL isSelectingMode;
-
-@property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @property(nonatomic, retain) DDUser *user;
 

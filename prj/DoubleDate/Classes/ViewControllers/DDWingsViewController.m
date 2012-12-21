@@ -19,6 +19,7 @@
 #import "DDUserTableViewCell.h"
 #import "DDBarButtonItem.h"
 #import "DDSegmentedControl.h"
+#import "DDTableViewController+Refresh.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -66,7 +67,6 @@
 
 @interface DDWingsViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate>
 
-- (void)refresh:(BOOL)animated;
 - (void)onDataRefreshed;
 - (BOOL)isWingsMode;
 - (BOOL)isInvitationsMode;
@@ -79,7 +79,6 @@
 
 @implementation DDWingsViewController
 
-@synthesize tableView;
 @synthesize user;
 @synthesize delegate;
 @synthesize isSelectingMode;
@@ -100,6 +99,9 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Wings", nil);
     
+    //remove search bar
+    self.tableView.tableHeaderView = nil;
+    
     //update segmented controler
     [self updateSegmentedControl];
     
@@ -113,7 +115,7 @@
     
     //check if we need to make a request
     if (!friends_ && !pendingInvitations_)
-        [self refresh:YES];
+        [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -123,7 +125,6 @@
 
 - (void)dealloc
 {
-    [tableView release];
     [user release];
     [friends_ release];
     [pendingInvitations_ release];
@@ -146,11 +147,14 @@
     if ([pendingInvitations_ count])
     {
         //add segmented control
-        NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"Wings", nil), NSLocalizedString(@"Incoming", nil), nil];
-        UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items] autorelease];
-        segmentedControl.selectedSegmentIndex = 0;
-        [segmentedControl addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventValueChanged];
-        self.navigationItem.titleView = segmentedControl;
+        if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
+        {
+            NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"Wings", nil), NSLocalizedString(@"Incoming", nil), nil];
+            UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items] autorelease];
+            segmentedControl.selectedSegmentIndex = 0;
+            [segmentedControl addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventValueChanged];
+            self.navigationItem.titleView = segmentedControl;
+        }
     }
     else
     {
@@ -191,31 +195,13 @@
     return [[self segmentedControl] selectedSegmentIndex] == 1;
 }
 
-- (void)refresh:(BOOL)animated
-{
-    //unset old values
-    [friends_ release];
-    friends_ = nil;
-    [pendingInvitations_ release];
-    pendingInvitations_ = nil;
-    
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:animated];
-    
-    //request friends
-    [self.apiController getFriends];
-    
-    //request friendship invitations
-    [self.apiController getFriendshipInvitations];
-}
-
 - (void)onDataRefreshed
 {
     //check both data received
     if (friends_ && pendingInvitations_)
     {
-        //hide hud
-        [self hideHud:YES];
+        //hide loading
+        [self finishRefresh];
     
         //update segmented control
         [self updateSegmentedControl];
@@ -423,9 +409,6 @@
     if (!tableViewCell)
         tableViewCell = [[[DDWingsViewControllerTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
     
-    //set selection style
-    tableViewCell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    
     //unset friend
     DDShortUser *friend = nil;
     DDFriendship *friendship = nil;
@@ -438,9 +421,8 @@
         
         if (!self.isSelectingMode)
         {
-            
-            UIImage *normalArrow = [UIImage imageNamed:@"disclosure-arrow.png"];
-            UIImage *selectedArrow = [UIImage imageNamed:@"disclosure-arrow-inverted.png"];
+            UIImage *normalArrow = [UIImage imageNamed:@"grey-detail-arrow.png"];
+            UIImage *selectedArrow = [UIImage imageNamed:@"grey-detail-arrow.png"];
             
             UIButton *accessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
             accessoryView.frame = CGRectMake(0.0f, 0.0f, normalArrow.size.width, normalArrow.size.height);
@@ -534,9 +516,6 @@
 
 - (void)requestApproveFriendshipDidFailedWithError:(NSError*)error
 {
-    //reload data
-    [self refresh:YES];
-    
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
@@ -548,7 +527,7 @@
 - (void)requestDenyFriendshipDidFailedWithError:(NSError*)error
 {
     //reload data
-    [self refresh:YES];
+    [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -561,7 +540,7 @@
 - (void)requestDeleteFriendDidFailedWithError:(NSError*)error
 {
     //reload data
-    [self refresh:YES];
+    [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -677,6 +656,24 @@
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
+}
+
+#pragma mark -
+#pragma mark -
+
+- (void)onRefresh
+{
+    //unset old values
+    [friends_ release];
+    friends_ = nil;
+    [pendingInvitations_ release];
+    pendingInvitations_ = nil;
+    
+    //request friends
+    [self.apiController getFriends];
+    
+    //request friendship invitations
+    [self.apiController getFriendshipInvitations];
 }
 
 @end

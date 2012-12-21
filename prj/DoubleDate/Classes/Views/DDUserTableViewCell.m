@@ -9,6 +9,9 @@
 #import "DDUserTableViewCell.h"
 #import "DDShortUser.h"
 #import "DDImageView.h"
+#import "DDPhotoView.h"
+#import "DDTools.h"
+#import "DDUser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDUserTableViewCell
@@ -31,7 +34,7 @@
     {
         labelMain_ = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         labelMain_.font = [UIFont boldSystemFontOfSize:16];
-        labelMain_.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+        labelMain_.textColor = [UIColor whiteColor];
         labelMain_.highlightedTextColor = [self inverseColor:labelMain_.textColor];
         labelMain_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:labelMain_];
@@ -39,20 +42,19 @@
         labelDetails_ = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         labelDetails_.font = [UIFont systemFontOfSize:14];
         labelDetails_.textColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.5f alpha:1];
-        labelDetails_.highlightedTextColor = [UIColor whiteColor];
+        labelDetails_.highlightedTextColor = [UIColor greenColor];
         labelDetails_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:labelDetails_];
         
-        imageView_ = [[[DDImageView alloc] initWithFrame:CGRectZero] autorelease];
-        imageView_.contentMode = UIViewContentModeScaleAspectFill;
-        imageView_.layer.cornerRadius = 19;
-        imageView_.layer.masksToBounds = YES;
-        imageView_.backgroundColor = [UIColor clearColor];
+        imageViewGender_ = [[[UIImageView alloc] init] autorelease];
+        [self.contentView addSubview:imageViewGender_];
+        
+        imageView_ = [[[DDPhotoView alloc] initWithFrame:CGRectZero] autorelease];
         [self.contentView addSubview:imageView_];
         
-        overlayImageView_ = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"user-photo-overlay.png"]] autorelease];
-        overlayImageView_.backgroundColor = [UIColor clearColor];
-        [self.contentView addSubview:overlayImageView_];
+        self.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"incoming-message-row-bg.png"]]] autorelease];
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -61,24 +63,29 @@
 {
     [super layoutSubviews];
     
-    [imageView_ setFrame:CGRectMake(11, 6, 38, 38)];
-    [overlayImageView_ setFrame:CGRectMake(10, 5, 41, 41)];
+    [imageView_ setFrame:CGRectMake(10, 10, 60, 60)];
+    
+    [labelMain_ sizeToFit];
     
     if (self.type == DDUserTableViewCellTypeWings)
     {
-        [labelMain_ setFrame:CGRectMake(60, 6, 225, 22)];
-        [labelDetails_ setFrame:CGRectMake(60, 28, 225, 15)];
+        [labelMain_ setFrame:CGRectMake(70, 10, MIN(190, labelMain_.frame.size.width), 32)];
+        [labelDetails_ setFrame:CGRectMake(70, 42, 210, 18)];
     }
     else if (self.type == DDUserTableViewCellTypeInvitations)
     {
-        [labelMain_ setFrame:CGRectMake(60, 6, 195, 22)];
-        [labelDetails_ setFrame:CGRectMake(60, 28, 195, 15)];
+        [labelMain_ setFrame:CGRectMake(70, 10, MIN(150, labelMain_.frame.size.width), 32)];
+        [labelDetails_ setFrame:CGRectMake(70, 42, 170, 18)];
     }
     else if (self.type == DDUserTableViewCellTypeFacebook)
     {
+        assert(0);
         [labelMain_ setFrame:CGRectMake(60, 6, 205, 22)];
         [labelDetails_ setFrame:CGRectMake(60, 28, 205, 15)];
     }
+    
+    imageViewGender_.frame = CGRectMake(0, 0, imageViewGender_.image.size.width, imageViewGender_.image.size.height);
+    imageViewGender_.center = CGPointMake(labelMain_.frame.origin.x+labelMain_.frame.size.width+5+imageViewGender_.image.size.width/2, labelMain_.center.y);
 }
 
 - (void)setShortUser:(DDShortUser *)v
@@ -97,7 +104,6 @@
             [labelMain_ setHidden:NO];
             [labelDetails_ setHidden:NO];
             [imageView_ setHidden:NO];
-            [overlayImageView_ setHidden:NO];
             
             //set text
             NSString *mainText = nil;
@@ -120,9 +126,10 @@
             [labelDetails_ setText:detailedText];
             
             //set photo
-            imageView_.image = nil;
-            if (shortUser.photo.downloadUrl)
-                [imageView_ reloadFromUrl:[NSURL URLWithString:shortUser.photo.downloadUrl]];
+            [imageView_ applyImage:shortUser.photo];
+            
+            //set gender
+            imageViewGender_.image = [UIImage imageNamed:[shortUser.gender isEqualToString:DDUserGenderFemale]?@"female-indicator-small.png":@"male-indicator-small.png"];
         }
         else
         {
@@ -130,14 +137,13 @@
             [labelMain_ setHidden:YES];
             [labelDetails_ setHidden:YES];
             [imageView_ setHidden:YES];
-            [overlayImageView_ setHidden:YES];
         }
     }
 }
 
 + (CGFloat)height
 {
-    return 50;
+    return 80;
 }
 
 - (void)dealloc
