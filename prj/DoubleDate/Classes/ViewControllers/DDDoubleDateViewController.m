@@ -22,12 +22,13 @@
 #import "DDButton.h"
 #import "DDPhotoView.h"
 #import "DDAuthenticationController.h"
+#import "DDTools.h"
 
 typedef enum
 {
-    DDDoubleDateViewControllerModeFlagNone = 0,
-    DDDoubleDateViewControllerModeFlagBottom = 1<<0,
-    DDDoubleDateViewControllerModeFlagTop = 1<<1
+    DDDoubleDateViewControllerModeFlagNone = 1<<0,
+    DDDoubleDateViewControllerModeFlagBottom = 1<<1,
+    DDDoubleDateViewControllerModeFlagTop = 1<<2
 } DDDoubleDateViewControllerMode;
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
@@ -75,12 +76,18 @@ typedef enum
 
 @synthesize buttonInterested;
 
+@synthesize buttonInfo;
+@synthesize buttonIncoming;
+
 @synthesize bottomView;
 @synthesize centerView;
 @synthesize topView;
 
 @synthesize photoViewLeft;
 @synthesize photoViewRight;
+
+@synthesize viewInfo;
+@synthesize viewIncoming;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -139,6 +146,17 @@ typedef enum
         requestUser.userId = self.doubleDate.wing.identifier;
         [self.apiController getUser:requestUser];
     }
+    
+    //customize buttons
+    DD_F_BUTTON_LARGE(self.buttonInfo);
+    DD_F_BUTTON_LARGE(self.buttonIncoming);
+    [self.buttonInfo setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
+    [self.buttonInfo setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+    [self.buttonIncoming setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
+    [self.buttonIncoming setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+    
+    //highligh first button
+    [self tabTouched:self.buttonInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,16 +166,9 @@ typedef enum
     //check doubledate
     if ([[[self.doubleDate user] identifier] intValue] == [[DDAuthenticationController userId] intValue] ||
         [[[self.doubleDate wing] identifier] intValue] == [[DDAuthenticationController userId] intValue])
-        [self switchToMode:DDDoubleDateViewControllerModeFlagNone];
+        [self switchToMode:DDDoubleDateViewControllerModeFlagTop];
     else
-        [self switchToMode:DDDoubleDateViewControllerModeFlagBottom];
-    
-    [self performSelector:@selector(xx) withObject:nil afterDelay:5];
-}
-
-- (void)xx
-{
-    [self switchToMode:DDDoubleDateViewControllerModeFlagNone];
+        [self switchToMode:DDDoubleDateViewControllerModeFlagBottom | DDDoubleDateViewControllerModeFlagTop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -179,12 +190,17 @@ typedef enum
     [textView release];
     [containerPhotos release];
     [imageViewFade release];
+    [buttonInterested release];
+    [buttonInfo release];
+    [buttonIncoming release];
     [bottomView release];
     [centerView release];
     [topView release];
     [photoViewLeft release];
     [photoViewRight release];
     [popover release];
+    [viewInfo release];
+    [viewIncoming release];
     [super dealloc];
 }
 
@@ -225,26 +241,46 @@ typedef enum
     }];
 }
 
+- (IBAction)tabTouched:(id)sender
+{
+    //highlight pressed
+    [(DDToggleButton*)sender setToggled:YES];
+    
+    //unhighlight other
+    if (self.buttonInfo == sender)
+        [self.buttonIncoming setToggled:NO];
+    else if (self.buttonIncoming == sender)
+        [self.buttonInfo setToggled:NO];
+    
+    //update visibility
+    self.viewInfo.hidden = self.scrollView.hidden = self.buttonIncoming.toggled;
+    self.viewIncoming.hidden = !self.viewInfo.hidden;
+}
+
 #pragma mark -
 #pragma mark other
 
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode
 {
+    //check last mode
+    if (lastMode_ == mode)
+        return;
+    
     //reset all
-    if (initialValueInitialized)
+    if (initialValueInitialized_)
     {
-        self.textView.contentOffset = initialTextViewContentOffset;
-        self.scrollView.contentSize = initialScrollViewContentSize;
-        self.containerTextView.frame = initialContainerTextViewFrame;
-        self.containerPhotos.center = initialContainerPhotosCenter;
+        self.textView.contentOffset = initialTextViewContentOffset_;
+        self.scrollView.contentSize = initialScrollViewContentSize_;
+        self.containerTextView.frame = initialContainerTextViewFrame_;
+        self.containerPhotos.center = initialContainerPhotosCenter_;
     }
     else
     {
-        initialValueInitialized = YES;
-        initialTextViewContentOffset = self.textView.contentOffset;
-        initialScrollViewContentSize = self.scrollView.contentSize;
-        initialContainerTextViewFrame = self.containerTextView.frame;
-        initialContainerPhotosCenter = self.containerPhotos.center;
+        initialValueInitialized_ = YES;
+        initialTextViewContentOffset_ = self.textView.contentOffset;
+        initialScrollViewContentSize_ = self.scrollView.contentSize;
+        initialContainerTextViewFrame_ = self.containerTextView.frame;
+        initialContainerPhotosCenter_ = self.containerPhotos.center;
     }
     
     //save visibility
@@ -256,7 +292,7 @@ typedef enum
     self.bottomView.hidden = !bottomVisible;
     
     //change frame
-    CGFloat yt = topVisible?self.topView.frame.origin.y+self.topView.frame.size.height:self.topView.frame.origin.y;
+    CGFloat yt = 0;
     CGFloat yb = bottomVisible?self.bottomView.frame.origin.y:self.bottomView.frame.origin.y+self.bottomView.frame.size.height;
     CGFloat height = yb - yt;
     self.centerView.frame = CGRectMake(self.centerView.frame.origin.x, yt, self.centerView.frame.size.width, height);

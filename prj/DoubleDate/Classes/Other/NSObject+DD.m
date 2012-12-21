@@ -20,6 +20,10 @@
         [(id)self setShadowColor:shadowColor];
     if ([self respondsToSelector:@selector(setShadowOffset:)])
         [(id)self setShadowOffset:shadowOffset];
+    if ([self isKindOfClass:[UIButton class]])
+    {
+        [[(UIButton*)self titleLabel] setFontOfName:fontName fontSize:fontSize textColor:textColor shadowOffset:shadowOffset shadowColor:shadowColor];
+    }
 }
 
 @end

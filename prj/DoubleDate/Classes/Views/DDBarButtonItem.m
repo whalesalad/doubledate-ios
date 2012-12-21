@@ -71,9 +71,9 @@
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     if (largeButtonFont)
-        DD_F_BUTTON_LARGE(button.titleLabel);
+        DD_F_BUTTON_LARGE(button);
     else
-        DD_F_BUTTON(button.titleLabel);
+        DD_F_BUTTON(button);
     CGFloat width = [title sizeWithFont:button.titleLabel.font].width + normalImage.size.width;
     if (width < normalImage.size.height)
         width = normalImage.size.height;
