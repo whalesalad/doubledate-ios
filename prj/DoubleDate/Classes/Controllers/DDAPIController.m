@@ -432,7 +432,7 @@ typedef enum
 - (DDRequestId)getFriend:(DDShortUser*)user
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [user.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"users/%d", [user.identifier intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
