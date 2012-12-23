@@ -28,6 +28,7 @@
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
 		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
 		704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */; };
+		704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */; };
 		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		7088936F164C49C8000D3A00 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889333164C49C8000D3A00 /* 37x-Checkmark.png */; };
@@ -447,6 +448,8 @@
 		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementsViewController.h; sourceTree = "<group>"; };
 		704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagementsViewController.m; sourceTree = "<group>"; };
+		704A624B1687BF1C00B86F57 /* DDEngagementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementTableViewCell.h; sourceTree = "<group>"; };
+		704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagementTableViewCell.m; sourceTree = "<group>"; };
 		7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewControllerChooseDate.h; sourceTree = "<group>"; };
 		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
@@ -1261,6 +1264,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				704A624B1687BF1C00B86F57 /* DDEngagementTableViewCell.h */,
+				704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */,
 				963672FE167094C800D3D8D3 /* DDPhotoView.h */,
 				963672FF167094C800D3D8D3 /* DDPhotoView.m */,
 				965989FA166F970300490CCE /* DDSelectWingView.h */,
@@ -2062,6 +2067,7 @@
 				96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */,
 				7025E53F168274B100FE3FBE /* DDMessage.m in Sources */,
 				704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */,
+				704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

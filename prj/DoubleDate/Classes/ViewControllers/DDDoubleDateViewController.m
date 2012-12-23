@@ -165,7 +165,9 @@ typedef enum
     
     //add second tab
     self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-    self.tableViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.tableViewController.view.frame = CGRectMake(0, 0, self.viewIncoming.frame.size.width, self.viewIncoming.frame.size.height);
+    [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
+    [self.tableViewController viewDidLoad];
     [self.viewIncoming addSubview:self.tableViewController.view];
 }
 
@@ -263,9 +265,27 @@ typedef enum
     else if (self.buttonIncoming == sender)
         [self.buttonInfo setToggled:NO];
     
+    //save incoming hidden flag
+    BOOL viewIncomingHidden = self.viewIncoming.hidden;
+    
     //update visibility
     self.viewInfo.hidden = self.scrollView.hidden = self.buttonIncoming.toggled;
     self.viewIncoming.hidden = !self.viewInfo.hidden;
+    
+    //check for change
+    if (self.viewIncoming.hidden != viewIncomingHidden)
+    {
+        if (self.viewIncoming.hidden)
+        {
+            [self.tableViewController viewWillDisappear:NO];
+            [self.tableViewController viewDidDisappear:NO];
+        }
+        else
+        {
+            [self.tableViewController viewWillAppear:NO];
+            [self.tableViewController viewDidAppear:NO];
+        }
+    }
 }
 
 #pragma mark -

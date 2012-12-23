@@ -62,24 +62,24 @@
 {
     [super layoutSubviews];
     
-    [imageView_ setFrame:CGRectMake(10, 10, 60, 60)];
+    [imageView_ setFrame:CGRectMake(5, 5, 70, 70)];
     
     [labelMain_ sizeToFit];
     
     if (self.type == DDUserTableViewCellTypeWings)
     {
-        [labelMain_ setFrame:CGRectMake(70, 10, MIN(190, labelMain_.frame.size.width), 32)];
-        [labelDetails_ setFrame:CGRectMake(70, 42, 210, 18)];
+        [labelMain_ setFrame:CGRectMake(80, 10, MIN(180, labelMain_.frame.size.width), 32)];
+        [labelDetails_ setFrame:CGRectMake(80, 42, 200, 18)];
     }
     else if (self.type == DDUserTableViewCellTypeInvitations)
     {
-        [labelMain_ setFrame:CGRectMake(70, 10, MIN(150, labelMain_.frame.size.width), 32)];
-        [labelDetails_ setFrame:CGRectMake(70, 42, 170, 18)];
+        [labelMain_ setFrame:CGRectMake(80, 10, MIN(140, labelMain_.frame.size.width), 32)];
+        [labelDetails_ setFrame:CGRectMake(80, 42, 160, 18)];
     }
     else if (self.type == DDUserTableViewCellTypeFacebook)
     {
-        [labelMain_ setFrame:CGRectMake(70, 10, MIN(170, labelMain_.frame.size.width), 32)];
-        [labelDetails_ setFrame:CGRectMake(70, 42, 190, 18)];
+        [labelMain_ setFrame:CGRectMake(80, 10, MIN(160, labelMain_.frame.size.width), 32)];
+        [labelDetails_ setFrame:CGRectMake(80, 42, 180, 18)];
     }
     
     imageViewGender_.frame = CGRectMake(0, 0, imageViewGender_.image.size.width, imageViewGender_.image.size.height);

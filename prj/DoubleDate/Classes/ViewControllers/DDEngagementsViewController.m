@@ -9,6 +9,7 @@
 #import "DDEngagementsViewController.h"
 #import "DDDoubleDate.h"
 #import "DDTableViewController+Refresh.h"
+#import "DDEngagementTableViewCell.h"
 
 @interface DDEngagementsViewController ()
 
@@ -30,6 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //remove search bar
+    self.tableView.tableHeaderView = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -71,7 +75,7 @@
 
 - (void)getEngagementsForDoubleDateSucceed:(NSArray*)engagements
 {
-    //save friends
+    //save engagements
     [engagements_ release];
     engagements_ = [[NSMutableArray alloc] initWithArray:engagements];
     
@@ -84,15 +88,57 @@
 
 - (void)getEngagementsForDoubleDateDidFailedWithError:(NSError*)error
 {
-    //finish refresh
-    [self finishRefresh];
-    
-    //save friends
+    //unset engagements
     [engagements_ release];
     engagements_ = [[NSMutableArray alloc] init];
     
+    //finish refresh
+    [self finishRefresh];
+        
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DDEngagementTableViewCell height];
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    return [engagements_ count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //set identifier
+    NSString *cellIdentifier = [[DDEngagementTableViewCell class] description];
+    
+    //create cell if needed
+    DDEngagementTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell)
+        cell = [[[DDEngagementTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    
+    //set accessory view
+    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey-detail-arrow.png"]] autorelease];
+    
+    //save data
+    [cell setEngagement:[engagements_ objectAtIndex:indexPath.row]];
+    
+    //update layouts
+    [cell setNeedsLayout];
+    
+    return cell;
 }
 
 @end
