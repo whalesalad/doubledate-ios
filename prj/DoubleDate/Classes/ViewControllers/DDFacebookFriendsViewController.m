@@ -14,6 +14,7 @@
 #import "DDTools.h"
 #import "MBProgressHUD.h"
 #import "DDBarButtonItem.h"
+#import "DDTableViewController+Refresh.h"
 
 #define kTagInviteErrorAlert 5234
 
@@ -42,8 +43,6 @@
 @end
 
 @implementation DDFacebookFriendsViewController
-
-@synthesize tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,13 +75,10 @@
     [super viewDidAppear:animated];
     
     //check if we need to make a request
-    if (!friendsRequired_)
+    if (!friends_)
     {
-        //save that interests already requested
-        friendsRequired_ = YES;
-        
-        //show hud
-        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        //show loading
+        [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
         
         //search for placemarks
         [self.apiController getFacebookFriends];
@@ -100,7 +96,6 @@
 - (void)dealloc
 {
     [friendsToInvite_ release];
-    [tableView release];
     [friends_ release];
     [super dealloc];
 }
@@ -110,28 +105,24 @@
 
 - (NSArray*)friendsForTableView:(UITableView*)aTableView
 {
-    //check all data
-    if (aTableView == self.tableView)
-        return [NSArray arrayWithArray:friends_];
-    else if (aTableView == self.searchDisplayController.searchResultsTableView)
+    //check for disabled search
+    if ([self.searchTerm length] == 0)
+        return friends_;
+    
+    //result
+    NSMutableArray *friends = [NSMutableArray array];
+    
+    //save search term
+    NSString *searchTerm = self.searchTerm;
+    
+    //check each item
+    for (DDShortUser *friend in friends_)
     {
-        //result
-        NSMutableArray *friends = [NSMutableArray array];
-        
-        //save search term
-        NSString *searchTerm = self.searchDisplayController.searchBar.text;
-        
-        //check each item
-        for (DDShortUser *friend in friends_)
-        {
-            if ([friend.name rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
-                [friends addObject:friend];
-        }
-        
-        return friends;
+        if ([friend.name rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+            [friends addObject:friend];
     }
     
-    return nil;
+    return friends;
 }
 
 - (NSArray*)sectionsForTableView:(UITableView*)aTableView
@@ -298,9 +289,6 @@
     if (!tableViewCell)
         tableViewCell = [[[DDUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
     
-    //set selection style
-    tableViewCell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    
     //set type
     tableViewCell.type = DDUserTableViewCellTypeFacebook;
     
@@ -334,8 +322,8 @@
     [friends_ release];
     friends_ = [[NSMutableArray alloc] initWithArray:[self sortedFriends:friends]];
     
-    //hide hud
-    [self hideHud:YES];
+    //finish refresh
+    [self finishRefresh];
     
     //reload data
     [self.tableView reloadData];
@@ -343,8 +331,8 @@
 
 - (void)getFacebookFriendsDidFailedWithError:(NSError*)error
 {
-    //hide hud
-    [self hideHud:YES];
+    //finish refresh
+    [self finishRefresh];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -410,6 +398,15 @@
         else
             [self addTouched:nil];
     }
+}
+
+#pragma mark -
+#pragma mark Refresh
+
+- (void)onRefresh
+{
+    //request friends
+    [self.apiController getFacebookFriends];
 }
 
 @end

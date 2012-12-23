@@ -42,7 +42,6 @@
         labelDetails_ = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         labelDetails_.font = [UIFont systemFontOfSize:14];
         labelDetails_.textColor = [UIColor colorWithRed:0.5f green:0.5f blue:0.5f alpha:1];
-        labelDetails_.highlightedTextColor = [UIColor greenColor];
         labelDetails_.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:labelDetails_];
         
@@ -79,9 +78,8 @@
     }
     else if (self.type == DDUserTableViewCellTypeFacebook)
     {
-        assert(0);
-        [labelMain_ setFrame:CGRectMake(60, 6, 205, 22)];
-        [labelDetails_ setFrame:CGRectMake(60, 28, 205, 15)];
+        [labelMain_ setFrame:CGRectMake(70, 10, MIN(170, labelMain_.frame.size.width), 32)];
+        [labelDetails_ setFrame:CGRectMake(70, 42, 190, 18)];
     }
     
     imageViewGender_.frame = CGRectMake(0, 0, imageViewGender_.image.size.width, imageViewGender_.image.size.height);

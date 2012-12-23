@@ -6,15 +6,12 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
 
-@interface DDFacebookFriendsViewController : DDViewController
+@interface DDFacebookFriendsViewController : DDTableViewController
 {
     NSArray *friends_;
-    BOOL friendsRequired_;
     NSMutableArray *friendsToInvite_;
 }
-
-@property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
