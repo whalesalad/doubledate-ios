@@ -23,6 +23,7 @@
 #import "DDPhotoView.h"
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
+#import "DDEngagementsViewController.h"
 
 typedef enum
 {
@@ -46,6 +47,8 @@ typedef enum
 @property(nonatomic, retain) DDUser *user;
 @property(nonatomic, retain) DDUser *wing;
 
+@property(nonatomic, retain) DDTableViewController *tableViewController;
+
 @end
 
 @implementation DDDoubleDateViewController
@@ -54,6 +57,8 @@ typedef enum
 
 @synthesize user;
 @synthesize wing;
+
+@synthesize tableViewController;
 
 @synthesize doubleDate;
 
@@ -157,6 +162,11 @@ typedef enum
     
     //highligh first button
     [self tabTouched:self.buttonInfo];
+    
+    //add second tab
+    self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+    self.tableViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.viewIncoming addSubview:self.tableViewController.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -201,6 +211,7 @@ typedef enum
     [popover release];
     [viewInfo release];
     [viewIncoming release];
+    [tableViewController release];
     [super dealloc];
 }
 

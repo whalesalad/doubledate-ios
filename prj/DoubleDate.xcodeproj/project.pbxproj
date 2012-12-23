@@ -27,6 +27,7 @@
 		702846BF16236F8300693673 /* DDFriendship.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846BE16236F8300693673 /* DDFriendship.m */; };
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
 		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
+		704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */; };
 		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		7088936F164C49C8000D3A00 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889333164C49C8000D3A00 /* 37x-Checkmark.png */; };
@@ -129,7 +130,6 @@
 		70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */; };
 		70E6720B162748BE004D14CA /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67209162748BE004D14CA /* dd-app.png */; };
 		70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6720A162748BE004D14CA /* dd-app@2x.png */; };
-		70E67217162753F1004D14CA /* DDFacebookFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
 		70E67221162760DC004D14CA /* DDUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E67220162760DC004D14CA /* DDUserTableViewCell.m */; };
 		70E67232162778E1004D14CA /* button-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6722E162778E1004D14CA /* button-blue.png */; };
@@ -445,6 +445,8 @@
 		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
 		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
 		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementsViewController.h; sourceTree = "<group>"; };
+		704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagementsViewController.m; sourceTree = "<group>"; };
 		7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewControllerChooseDate.h; sourceTree = "<group>"; };
 		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
@@ -557,7 +559,6 @@
 		70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateFilterViewController.xib; sourceTree = "<group>"; };
 		70E67209162748BE004D14CA /* dd-app.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app.png"; sourceTree = "<group>"; };
 		70E6720A162748BE004D14CA /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
-		70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDFacebookFriendsViewController.xib; sourceTree = "<group>"; };
 		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		70E6721F162760DC004D14CA /* DDUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserTableViewCell.h; sourceTree = "<group>"; };
@@ -1325,6 +1326,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */,
+				704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */,
 				70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */,
 				70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */,
 				96B37CA8165B77E8006CD141 /* DDUserBubbleViewController.h */,
@@ -1411,7 +1414,6 @@
 				96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */,
 				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
-				70E67216162753F1004D14CA /* DDFacebookFriendsViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
 				96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */,
 				96892CAA15FF15E70054C108 /* DDMeViewController.xib */,
@@ -1786,7 +1788,6 @@
 				702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */,
 				70E6720B162748BE004D14CA /* dd-app.png in Resources */,
 				70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */,
-				70E67217162753F1004D14CA /* DDFacebookFriendsViewController.xib in Resources */,
 				70E67232162778E1004D14CA /* button-blue.png in Resources */,
 				70E67233162778E1004D14CA /* button-blue@2x.png in Resources */,
 				70E67234162778E1004D14CA /* button-grey.png in Resources */,
@@ -2060,6 +2061,7 @@
 				965989FF166FAFB700490CCE /* DDEngagement.m in Sources */,
 				96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */,
 				7025E53F168274B100FE3FBE /* DDMessage.m in Sources */,
+				704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
