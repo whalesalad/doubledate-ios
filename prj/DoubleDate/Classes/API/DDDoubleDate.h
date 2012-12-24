@@ -15,6 +15,14 @@ extern NSString *DDDoubleDateDayPrefWeekday;
 extern NSString *DDDoubleDateDayPrefWeekend;
 extern NSString *DDDoubleDateTimePrefDaytime;
 extern NSString *DDDoubleDateTimePrefNighttime;
+extern NSString *DDDoubleDateStatusActive;
+extern NSString *DDDoubleDateStatusEngaged;
+extern NSString *DDDoubleDateStatusExpired;
+extern NSString *DDDoubleDateRelationshipOpen;
+extern NSString *DDDoubleDateRelationshipOwner;
+extern NSString *DDDoubleDateRelationshipWing;
+extern NSString *DDDoubleDateRelationshipInterested;
+extern NSString *DDDoubleDateRelationshipAccepted;
 
 @interface DDDoubleDate : DDAPIObject
 {
@@ -22,6 +30,7 @@ extern NSString *DDDoubleDateTimePrefNighttime;
 
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSString *status;
+@property(nonatomic, retain) NSString *relationship;
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *details;
 @property(nonatomic, retain) NSString *dayPref;

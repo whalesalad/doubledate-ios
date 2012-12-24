@@ -14,11 +14,20 @@ NSString *DDDoubleDateDayPrefWeekday = @"weekday";
 NSString *DDDoubleDateDayPrefWeekend = @"weekend";
 NSString *DDDoubleDateTimePrefDaytime = @"day";
 NSString *DDDoubleDateTimePrefNighttime = @"night";
+NSString *DDDoubleDateStatusActive = @"active";
+NSString *DDDoubleDateStatusEngaged = @"engaged";
+NSString *DDDoubleDateStatusExpired = @"expired";
+NSString *DDDoubleDateRelationshipOpen = @"open";
+NSString *DDDoubleDateRelationshipOwner = @"owner";
+NSString *DDDoubleDateRelationshipWing = @"wing";
+NSString *DDDoubleDateRelationshipInterested = @"interested";
+NSString *DDDoubleDateRelationshipAccepted = @"accepted";
 
 @implementation DDDoubleDate
 
 @synthesize identifier;
 @synthesize status;
+@synthesize relationship;
 @synthesize title;
 @synthesize details;
 @synthesize dayPref;
@@ -34,6 +43,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
     {
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
+        self.relationship = [DDAPIObject stringForObject:[dictionary objectForKey:@"relationship"]];
         self.title = [DDAPIObject stringForObject:[dictionary objectForKey:@"title"]];
         self.details = [DDAPIObject stringForObject:[dictionary objectForKey:@"details"]];
         self.dayPref = [DDAPIObject stringForObject:[dictionary objectForKey:@"day_pref"]];
@@ -53,6 +63,8 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
         [dictionary setObject:self.identifier forKey:@"id"];
     if (self.status)
         [dictionary setObject:self.status forKey:@"status"];
+    if (self.relationship)
+        [dictionary setObject:self.relationship forKey:@"relationship"];
     if (self.title)
         [dictionary setObject:self.title forKey:@"title"];
     if (self.details)
@@ -85,6 +97,7 @@ NSString *DDDoubleDateTimePrefNighttime = @"night";
 {
     [identifier release];
     [status release];
+    [relationship release];
     [title release];
     [details release];
     [dayPref release];

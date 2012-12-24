@@ -26,7 +26,8 @@ typedef enum
     DDDoubleDatesViewControllerFilterNone,
     DDDoubleDatesViewControllerFilterCreated,
     DDDoubleDatesViewControllerFilterWing,
-    DDDoubleDatesViewControllerFilterAttending,
+    DDDoubleDatesViewControllerFilterInterested,
+    DDDoubleDatesViewControllerFilterAccepted,
 } DDDoubleDatesViewControllerFilter;
 
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate>
@@ -159,12 +160,17 @@ typedef enum
         BOOL existInFilter = filter == DDDoubleDatesViewControllerFilterNone;
         switch (filter) {
             case DDDoubleDatesViewControllerFilterCreated:
-                existInFilter = [self.user.userId intValue] == [dd.user.identifier intValue];
+                existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipOwner];
                 break;
             case DDDoubleDatesViewControllerFilterWing:
-                existInFilter = [self.user.userId intValue] == [dd.wing.identifier intValue];
+                existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipWing];
                 break;
-                
+            case DDDoubleDatesViewControllerFilterInterested:
+                existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipInterested];
+                break;
+            case DDDoubleDatesViewControllerFilterAccepted:
+                existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipAccepted];
+                break;
             default:
                 break;
         }
@@ -190,7 +196,10 @@ typedef enum
                 return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterWing];
                 break;
             case 2:
-                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterAttending];
+                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterInterested];
+                break;
+            case 3:
+                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterAccepted];
                 break;
             default:
                 break;
@@ -345,7 +354,10 @@ typedef enum
                     return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M A WING", nil) detailedText:nil];
                     break;
                 case 2:
-                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M ATTENDING", nil) detailedText:nil];
+                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M INTERESTED", nil) detailedText:nil];
+                    break;
+                case 3:
+                    return [self viewForHeaderWithMainText:NSLocalizedString(@"ACCEPTED", nil) detailedText:nil];
                     break;
                 default:
                     break;
@@ -391,7 +403,7 @@ typedef enum
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (mode_ == DDDoubleDatesViewControllerModeMine)
-        return 3;
+        return 4;
     return 1;
 }
 
