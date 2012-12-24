@@ -11,6 +11,7 @@
 @class DDAPIController;
 @class DDShortUser;
 @class DDPhotoView;
+@class DDDoubleDate;
 
 @protocol DDSelectWingViewDelegate <NSObject>
 
@@ -27,6 +28,8 @@
 }
 
 @property(nonatomic, assign) id<DDSelectWingViewDelegate> delegate;
+
+@property(nonatomic, retain) DDDoubleDate *doubleDate;
 
 @property(nonatomic, readonly) DDShortUser *wing;
 

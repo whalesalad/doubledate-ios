@@ -62,9 +62,11 @@
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     [self.view addGestureRecognizer:tapRecognizer];
     
-    //start loading
-    [self.selectWingView start];
+    //set selecting view
+    self.selectWingView.doubleDate = self.doubleDate;
     self.selectWingView.delegate = self;
+    [self.selectWingView start];
+    
     
     //update send button
     [self updateSendButton];

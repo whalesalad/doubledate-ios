@@ -10,6 +10,7 @@
 #import "DDAPIController.h"
 #import "DDShortUser.h"
 #import "DDPhotoView.h"
+#import "DDDoubleDate.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDSelectWingViewContainer : NSObject
@@ -53,6 +54,7 @@
 @implementation DDSelectWingView
 
 @synthesize delegate;
+@synthesize doubleDate;
 
 - (void)initSelf
 {
@@ -121,6 +123,7 @@
 
 - (void)dealloc
 {
+    [doubleDate release];
     apiController_.delegate = nil;
     [apiController_ release];
     [loading_ release];
@@ -248,12 +251,52 @@
 
 - (void)applyChange:(NSInteger)direction
 {
+    //check for no data
+    if ([containers_ count] <= 1)
+        return;
+    
     //get containers
     DDSelectWingViewContainer *main = [self containerForViewIndex:0];
     DDSelectWingViewContainer *left = [self leftContainerForContainer:main];
     DDSelectWingViewContainer *leftLeft = [self leftContainerForContainer:left];
     DDSelectWingViewContainer *right = [self rightContainerForContainer:main];
     DDSelectWingViewContainer *rightRight = [self rightContainerForContainer:right];
+    
+    //check for correct order
+    if (direction == -1)
+    {
+        if (left == main)
+            left = nil;
+        if (leftLeft == main ||
+            leftLeft == left)
+            leftLeft = nil;
+        if (right == main ||
+            right == left ||
+            right == leftLeft)
+            right = nil;
+        if (rightRight == main ||
+            rightRight == left ||
+            rightRight == leftLeft ||
+            rightRight == right)
+            rightRight = nil;
+    }
+    else
+    {
+        if (right == main)
+            right = nil;
+        if (rightRight == main ||
+            rightRight == right)
+            rightRight = nil;
+        if (left == main ||
+            left == right ||
+            left == rightRight)
+            left = nil;
+        if (leftLeft == main ||
+            leftLeft == right ||
+            leftLeft == rightRight ||
+            leftLeft == left)
+            leftLeft = nil;
+    }
     
     //set animation duration
     CGFloat duration = 0.0001f;
@@ -399,6 +442,19 @@
     }
 }
 
+- (NSArray*)filteredWings:(NSArray*)wings
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDShortUser *w in wings)
+    {
+        if ([[w identifier] intValue] == [self.doubleDate.user.identifier intValue] ||
+            [[w identifier] intValue] == [self.doubleDate.wing.identifier intValue])
+            continue;
+        [ret addObject:w];
+    }
+    return ret;
+}
+
 #pragma mark -
 #pragma mark DDAPIControllerDelegate
 
@@ -408,7 +464,7 @@
     [loading_ stopAnimating];
     
     //recreate photo views
-    [self recreateFromWings:friends];
+    [self recreateFromWings:[self filteredWings:friends]];
     
     //apply change
     [self applyChange:0];
