@@ -239,8 +239,8 @@
 		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
 		965989FC166F970300490CCE /* DDSelectWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FB166F970300490CCE /* DDSelectWingView.m */; };
 		965989FF166FAFB700490CCE /* DDEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FE166FAFB700490CCE /* DDEngagement.m */; };
-		965AF0301688A6F400A014D1 /* DDDoubleDateBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDDoubleDateBubbleViewController.m */; };
-		965AF0331688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965AF0321688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib */; };
+		965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */; };
+		965AF0331688A71B00A014D1 /* DDUserBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */; };
 		965AF0361688A74E00A014D1 /* DDDoubleDateBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */; };
 		965FCA671608AE8A00984566 /* DDTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FCA661608AE8A00984566 /* DDTagsView.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
@@ -304,8 +304,6 @@
 		969A77A71613109A0070FF6F /* location-spinner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A31613109A0070FF6F /* location-spinner2.png */; };
 		969A77A81613109A0070FF6F /* location-spinner2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A41613109A0070FF6F /* location-spinner2@2x.png */; };
 		96AF0738163AAAF300C1940F /* DDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AF0737163AAAF300C1940F /* DDButton.m */; };
-		96B37CAB165B77E8006CD141 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B37CA9165B77E8006CD141 /* DDUserBubbleViewController.m */; };
-		96B37CAE165B783C006CD141 /* DDUserBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */; };
 		96B3A499164AA03F00048385 /* DDLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B3A498164AA03F00048385 /* DDLocationTableViewCell.m */; };
 		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
 		96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E19160719DF00CFDA1C /* DDImageView.m */; };
@@ -675,9 +673,9 @@
 		965989FB166F970300490CCE /* DDSelectWingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectWingView.m; sourceTree = "<group>"; };
 		965989FD166FAFB700490CCE /* DDEngagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagement.h; sourceTree = "<group>"; };
 		965989FE166FAFB700490CCE /* DDEngagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagement.m; sourceTree = "<group>"; };
-		965AF02D1688A6F400A014D1 /* DDDoubleDateBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateBubbleViewController.h; sourceTree = "<group>"; };
-		965AF02E1688A6F400A014D1 /* DDDoubleDateBubbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateBubbleViewController.m; sourceTree = "<group>"; };
-		965AF0321688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateBubbleViewController.xib; sourceTree = "<group>"; };
+		965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserBubbleViewController.h; sourceTree = "<group>"; };
+		965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserBubbleViewController.m; sourceTree = "<group>"; };
+		965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserBubbleViewController.xib; sourceTree = "<group>"; };
 		965AF0341688A74E00A014D1 /* DDDoubleDateBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateBubble.h; sourceTree = "<group>"; };
 		965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateBubble.m; sourceTree = "<group>"; };
 		965FCA651608AE8A00984566 /* DDTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTagsView.h; sourceTree = "<group>"; };
@@ -755,9 +753,6 @@
 		969A77A41613109A0070FF6F /* location-spinner2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner2@2x.png"; sourceTree = "<group>"; };
 		96AF0736163AAAF300C1940F /* DDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDButton.h; sourceTree = "<group>"; };
 		96AF0737163AAAF300C1940F /* DDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDButton.m; sourceTree = "<group>"; };
-		96B37CA8165B77E8006CD141 /* DDUserBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserBubbleViewController.h; sourceTree = "<group>"; };
-		96B37CA9165B77E8006CD141 /* DDUserBubbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserBubbleViewController.m; sourceTree = "<group>"; };
-		96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserBubbleViewController.xib; sourceTree = "<group>"; };
 		96B3A497164AA03F00048385 /* DDLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationTableViewCell.h; sourceTree = "<group>"; };
 		96B3A498164AA03F00048385 /* DDLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationTableViewCell.m; sourceTree = "<group>"; };
 		96B59E141607185900CFDA1C /* DDImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImage.h; sourceTree = "<group>"; };
@@ -1246,14 +1241,12 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				965AF02D1688A6F400A014D1 /* DDDoubleDateBubbleViewController.h */,
-				965AF02E1688A6F400A014D1 /* DDDoubleDateBubbleViewController.m */,
+				965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */,
+				965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */,
 				704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */,
 				704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */,
 				70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */,
 				70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */,
-				96B37CA8165B77E8006CD141 /* DDUserBubbleViewController.h */,
-				96B37CA9165B77E8006CD141 /* DDUserBubbleViewController.m */,
 				9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */,
 				9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */,
 				70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */,
@@ -1331,9 +1324,8 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				965AF0321688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib */,
+				965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */,
 				70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */,
-				96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */,
 				96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */,
 				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
@@ -1853,7 +1845,6 @@
 				9614E5B1165693800052ADD1 /* dd-user-photo-mask@2x.png in Resources */,
 				9614E5B2165693800052ADD1 /* dd-user-photo-overlay.png in Resources */,
 				9614E5B3165693800052ADD1 /* dd-user-photo-overlay@2x.png in Resources */,
-				96B37CAE165B783C006CD141 /* DDUserBubbleViewController.xib in Resources */,
 				96928B6B165CE4A800012D1E /* dd-popup-darkness.png in Resources */,
 				96928B6C165CE4A800012D1E /* dd-popup-darkness@2x.png in Resources */,
 				70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */,
@@ -1889,7 +1880,7 @@
 				963AE152168494C600ED24DB /* right-subnav-segment-normal@2x.png in Resources */,
 				963AE153168494C600ED24DB /* right-subnav-segment-selected.png in Resources */,
 				963AE154168494C600ED24DB /* right-subnav-segment-selected@2x.png in Resources */,
-				965AF0331688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib in Resources */,
+				965AF0331688A71B00A014D1 /* DDUserBubbleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1958,7 +1949,6 @@
 				96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */,
 				70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */,
 				9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */,
-				96B37CAB165B77E8006CD141 /* DDUserBubbleViewController.m in Sources */,
 				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
 				965989FC166F970300490CCE /* DDSelectWingView.m in Sources */,
 				965989FF166FAFB700490CCE /* DDEngagement.m in Sources */,
@@ -1966,7 +1956,7 @@
 				7025E53F168274B100FE3FBE /* DDMessage.m in Sources */,
 				704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */,
 				704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */,
-				965AF0301688A6F400A014D1 /* DDDoubleDateBubbleViewController.m in Sources */,
+				965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */,
 				965AF0361688A74E00A014D1 /* DDDoubleDateBubble.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

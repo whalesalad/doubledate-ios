@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class DDUser;
-@class DDDoubleDateBubbleViewController;
+@class DDUserBubbleViewController;
 
 @interface DDDoubleDateBubble : UIView
 {
-    DDDoubleDateBubbleViewController *viewController_;
+    DDUserBubbleViewController *viewController_;
     CGFloat initialHeight_;
 }
 

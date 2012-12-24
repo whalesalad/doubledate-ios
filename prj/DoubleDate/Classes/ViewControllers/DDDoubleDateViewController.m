@@ -13,7 +13,6 @@
 #import "DDImageView.h"
 #import "DDImage.h"
 #import "DDShortUser.h"
-#import "DDUserBubbleViewController.h"
 #import "DDShortUser.h"
 #import "DDUser.h"
 #import "DDSendEngagementViewController.h"
@@ -37,7 +36,6 @@ typedef enum
 - (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
-- (CGSize)bubbleSizeFromXib;
 - (void)switchToNeededMode;
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
 
@@ -458,18 +456,6 @@ typedef enum
         [self getUserDidSucceed:self.wing];
     else
         [self loadDataForUser:self.doubleDate.wing];
-}
-
-- (CGSize)bubbleSizeFromXib
-{
-    static CGSize _bubbleSize;
-    static BOOL _bubbleSizeInitialized = NO;
-    if (!_bubbleSizeInitialized)
-    {
-        _bubbleSizeInitialized = YES;
-        _bubbleSize = [[[DDUserBubbleViewController alloc] init] autorelease].view.frame.size;
-    }
-    return _bubbleSize;
 }
 
 #pragma mark -

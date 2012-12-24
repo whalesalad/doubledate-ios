@@ -7,7 +7,7 @@
 //
 
 #import "DDDoubleDateBubble.h"
-#import "DDDoubleDateBubbleViewController.h"
+#import "DDUserBubbleViewController.h"
 #import "DDUser.h"
 #import "DDPlacemark.h"
 #import "DDPhotoView.h"
@@ -26,7 +26,7 @@
     if (self)
     {
         //load view controller
-        viewController_ = [[DDDoubleDateBubbleViewController alloc] init];
+        viewController_ = [[DDUserBubbleViewController alloc] init];
         initialHeight_ = viewController_.view.frame.size.height;
         viewController_.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         viewController_.view.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
