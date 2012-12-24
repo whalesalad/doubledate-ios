@@ -45,8 +45,8 @@
 
 @property(nonatomic, retain) IBOutlet UIButton *buttonInterested;
 
-@property(nonatomic, retain) IBOutlet DDToggleButton *buttonInfo;
-@property(nonatomic, retain) IBOutlet DDToggleButton *buttonIncoming;
+@property(nonatomic, retain) IBOutlet DDToggleButton *buttonSubNavLeft;
+@property(nonatomic, retain) IBOutlet DDToggleButton *buttonSubNavRight;
 
 @property(nonatomic, retain) IBOutlet UIView *bottomView;
 @property(nonatomic, retain) IBOutlet UIView *centerView;
@@ -56,7 +56,7 @@
 @property(nonatomic, retain) IBOutlet DDPhotoView *photoViewRight;
 
 @property(nonatomic, retain) IBOutlet UIView *viewInfo;
-@property(nonatomic, retain) IBOutlet UIView *viewIncoming;
+@property(nonatomic, retain) IBOutlet UIView *viewSubNavRight;
 
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;

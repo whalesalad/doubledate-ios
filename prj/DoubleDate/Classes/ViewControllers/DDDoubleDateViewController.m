@@ -27,9 +27,9 @@
 
 typedef enum
 {
-    DDDoubleDateViewControllerModeFlagNone = 1<<0,
-    DDDoubleDateViewControllerModeFlagBottom = 1<<1,
-    DDDoubleDateViewControllerModeFlagTop = 1<<2
+    DDDoubleDateViewControllerModeNone = 1<<0,
+    DDDoubleDateViewControllerModeIncoming = 1<<1,
+    DDDoubleDateViewControllerModeChat = 1<<2
 } DDDoubleDateViewControllerMode;
 
 @interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
@@ -40,6 +40,7 @@ typedef enum
 - (void)presentRightUserPopover;
 - (void)setFadeViewVisibile:(BOOL)visible;
 - (CGSize)bubbleSizeFromXib;
+- (void)switchToNeededMode;
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
 
 @property(nonatomic, retain) WEPopoverController *popover;
@@ -81,8 +82,8 @@ typedef enum
 
 @synthesize buttonInterested;
 
-@synthesize buttonInfo;
-@synthesize buttonIncoming;
+@synthesize buttonSubNavLeft;
+@synthesize buttonSubNavRight;
 
 @synthesize bottomView;
 @synthesize centerView;
@@ -92,7 +93,7 @@ typedef enum
 @synthesize photoViewRight;
 
 @synthesize viewInfo;
-@synthesize viewIncoming;
+@synthesize viewSubNavRight;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -153,34 +154,23 @@ typedef enum
     }
     
     //customize buttons
-    DD_F_BUTTON_LARGE(self.buttonInfo);
-    DD_F_BUTTON_LARGE(self.buttonIncoming);
-    [self.buttonInfo setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
-    [self.buttonInfo setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
-    [self.buttonIncoming setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
-    [self.buttonIncoming setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+    DD_F_BUTTON_LARGE(self.buttonSubNavLeft);
+    DD_F_BUTTON_LARGE(self.buttonSubNavRight);
+    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
+    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
+    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
     
     //highligh first button
-    [self tabTouched:self.buttonInfo];
-    
-    //add second tab
-    self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-    self.tableViewController.view.frame = CGRectMake(0, 0, self.viewIncoming.frame.size.width, self.viewIncoming.frame.size.height);
-    [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
-    [self.tableViewController viewDidLoad];
-    [self.viewIncoming addSubview:self.tableViewController.view];
+    [self tabTouched:self.buttonSubNavLeft];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    //check doubledate
-    if ([[[self.doubleDate user] identifier] intValue] == [[DDAuthenticationController userId] intValue] ||
-        [[[self.doubleDate wing] identifier] intValue] == [[DDAuthenticationController userId] intValue])
-        [self switchToMode:DDDoubleDateViewControllerModeFlagTop];
-    else
-        [self switchToMode:DDDoubleDateViewControllerModeFlagBottom | DDDoubleDateViewControllerModeFlagTop];
+    //switch to needed mode
+    [self switchToNeededMode];
 }
 
 - (void)didReceiveMemoryWarning
@@ -203,8 +193,8 @@ typedef enum
     [containerPhotos release];
     [imageViewFade release];
     [buttonInterested release];
-    [buttonInfo release];
-    [buttonIncoming release];
+    [buttonSubNavLeft release];
+    [buttonSubNavRight release];
     [bottomView release];
     [centerView release];
     [topView release];
@@ -212,7 +202,7 @@ typedef enum
     [photoViewRight release];
     [popover release];
     [viewInfo release];
-    [viewIncoming release];
+    [viewSubNavRight release];
     [tableViewController release];
     [super dealloc];
 }
@@ -260,22 +250,22 @@ typedef enum
     [(DDToggleButton*)sender setToggled:YES];
     
     //unhighlight other
-    if (self.buttonInfo == sender)
-        [self.buttonIncoming setToggled:NO];
-    else if (self.buttonIncoming == sender)
-        [self.buttonInfo setToggled:NO];
+    if (self.buttonSubNavLeft == sender)
+        [self.buttonSubNavRight setToggled:NO];
+    else if (self.buttonSubNavRight == sender)
+        [self.buttonSubNavLeft setToggled:NO];
     
     //save incoming hidden flag
-    BOOL viewIncomingHidden = self.viewIncoming.hidden;
+    BOOL viewSubNavRightHidden = self.viewSubNavRight.hidden;
     
     //update visibility
-    self.viewInfo.hidden = self.scrollView.hidden = self.buttonIncoming.toggled;
-    self.viewIncoming.hidden = !self.viewInfo.hidden;
+    self.viewInfo.hidden = self.scrollView.hidden = self.buttonSubNavRight.toggled;
+    self.viewSubNavRight.hidden = !self.viewInfo.hidden;
     
     //check for change
-    if (self.viewIncoming.hidden != viewIncomingHidden)
+    if (self.viewSubNavRight.hidden != viewSubNavRightHidden)
     {
-        if (self.viewIncoming.hidden)
+        if (self.viewSubNavRight.hidden)
         {
             [self.tableViewController viewWillDisappear:NO];
             [self.tableViewController viewDidDisappear:NO];
@@ -290,6 +280,33 @@ typedef enum
 
 #pragma mark -
 #pragma mark other
+
+- (void)switchToNeededMode
+{
+    //shown flag
+    DDDoubleDateViewControllerMode mode = DDDoubleDateViewControllerModeNone;
+    
+    //check the user and the wing
+    if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
+        [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
+    {
+        //check activity status
+        if ([self.doubleDate.status isEqualToString:DDDoubleDateStatusEngaged])
+            mode = DDDoubleDateViewControllerModeChat;
+        else
+            mode = DDDoubleDateViewControllerModeIncoming;
+    }
+    else
+    {
+        //check interested and accepted
+        if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipAccepted] ||
+            [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipInterested])
+            mode = DDDoubleDateViewControllerModeChat;
+    }
+    
+    //switch to needed mode
+    [self switchToMode:mode];
+}
 
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode
 {
@@ -315,8 +332,8 @@ typedef enum
     }
     
     //save visibility
-    BOOL topVisible = (mode & DDDoubleDateViewControllerModeFlagTop);
-    BOOL bottomVisible = (mode & DDDoubleDateViewControllerModeFlagBottom);
+    BOOL topVisible = (mode != DDDoubleDateViewControllerModeNone);
+    BOOL bottomVisible = (mode == DDDoubleDateViewControllerModeNone);
     
     //change visibility
     self.topView.hidden = !topVisible;
@@ -329,6 +346,9 @@ typedef enum
     self.centerView.frame = CGRectMake(self.centerView.frame.origin.x, yt, self.centerView.frame.size.width, height);
     
     //change frame
+    self.viewInfo.frame = CGRectMake(self.viewInfo.frame.origin.x, topVisible?self.topView.frame.size.height:0, self.viewInfo.frame.size.width, self.view.frame.size.height-(topVisible?self.topView.frame.size.height:0));
+    
+    //change frame
     CGFloat dh = self.textView.frame.size.height - self.textView.contentSize.height;
     if (dh > 0)
     {
@@ -339,6 +359,30 @@ typedef enum
         self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerHeader.frame.origin.y+self.containerHeader.frame.size.height+self.containerPhotos.frame.size.height+self.textView.contentSize.height+30);
         self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height-dh);
         self.containerPhotos.center = CGPointMake(self.containerPhotos.center.x, self.containerPhotos.center.y-dh);
+    }
+    
+    //remove all subviews
+    while ([[self.viewSubNavRight subviews] count])
+        [[[self.viewSubNavRight subviews] lastObject] removeFromSuperview];
+    self.tableViewController = nil;
+    
+    //create needed view controller
+    if (mode == DDDoubleDateViewControllerModeIncoming)
+    {
+        //set title
+        [self.buttonSubNavRight setTitle:NSLocalizedString(@"Incoming", nil) forState:UIControlStateNormal];
+        
+        //add second tab
+        self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+        self.tableViewController.view.frame = CGRectMake(0, 0, self.viewSubNavRight.frame.size.width, self.viewSubNavRight.frame.size.height);
+        [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
+        [self.tableViewController viewDidLoad];
+        [self.viewSubNavRight addSubview:self.tableViewController.view];
+    }
+    else if (mode == DDDoubleDateViewControllerModeChat)
+    {
+        //set title
+        [self.buttonSubNavRight setTitle:NSLocalizedString(@"Chat", nil) forState:UIControlStateNormal];
     }
 }
 
