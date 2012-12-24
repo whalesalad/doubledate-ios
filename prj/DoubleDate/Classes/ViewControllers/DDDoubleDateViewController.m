@@ -397,6 +397,7 @@ typedef enum
     //add bubble
     DDDoubleDateBubble *bubble = [[[DDDoubleDateBubble alloc] initWithFrame:CGRectMake(20, 40, 280, 300)] autorelease];
     bubble.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2);
+    bubble.user = u;
     [mainView addSubview:bubble];
 }
 

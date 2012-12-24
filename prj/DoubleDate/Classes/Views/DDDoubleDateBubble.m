@@ -9,6 +9,7 @@
 #import "DDDoubleDateBubble.h"
 #import "DDDoubleDateBubbleViewController.h"
 #import "DDUser.h"
+#import "DDPlacemark.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDDoubleDateBubble
@@ -53,6 +54,22 @@
 
 - (void)updateUI
 {
+    //gender offset
+    CGFloat genderOffset = viewController_.imageViewGender.center.x-viewController_.labelTitle.frame.origin.x-viewController_.labelTitle.frame.size.width;
+    
+    //fill data
+    viewController_.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
+    viewController_.labelTitle.text = [viewController_.labelTitle.text uppercaseString];
+    CGSize newSize = [viewController_.labelTitle sizeThatFits:viewController_.labelTitle.frame.size];
+    [viewController_.labelTitle setFrame:CGRectMake(viewController_.labelTitle.frame.origin.x, viewController_.labelTitle.frame.origin.y, newSize.width, viewController_.labelTitle.frame.size.height)];
+    viewController_.labelLocation.text = self.user.location.name;
+    viewController_.textView.text = self.user.bio;
+    
+    //apply gender
+    viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"dd-user-gender-indicator-female.png":@"dd-user-gender-indicator-male.png"];
+    CGPoint centerGender = viewController_.imageViewGender.center;
+    viewController_.imageViewGender.frame = CGRectMake(0, 0, viewController_.imageViewGender.image.size.width, viewController_.imageViewGender.image.size.height);
+    viewController_.imageViewGender.center = CGPointMake(viewController_.labelTitle.frame.origin.x+viewController_.labelTitle.frame.size.width+genderOffset, centerGender.y);
 }
 
 - (void)dealloc
