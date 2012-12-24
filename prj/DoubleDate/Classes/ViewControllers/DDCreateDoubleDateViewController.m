@@ -76,7 +76,7 @@
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"POST", nil) target:self action:@selector(postTouched:)];
     
     //set left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"CANCEL", nil) target:self action:@selector(backTouched:)];
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -255,7 +255,7 @@
 
 - (void)backTouched:(id)sender
 {
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Yes, Stop Making Date", nil), nil] autorelease];
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Oops, Continue", nil) destructiveButtonTitle:NSLocalizedString(@"Yes, Cancel New Date", nil) otherButtonTitles:nil, nil] autorelease];
     sheet.tag = kTagCancelActionSheet;
     [sheet showInView:self.tabBarController.view];
 }

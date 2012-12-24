@@ -370,7 +370,7 @@ typedef enum
     if (mode == DDDoubleDateViewControllerModeIncoming)
     {
         //set title
-        [self.buttonSubNavRight setTitle:NSLocalizedString(@"Incoming", nil) forState:UIControlStateNormal];
+        [self.buttonSubNavRight setTitle:NSLocalizedString(@"INCOMING", nil) forState:UIControlStateNormal];
         
         //add second tab
         self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
@@ -382,7 +382,7 @@ typedef enum
     else if (mode == DDDoubleDateViewControllerModeChat)
     {
         //set title
-        [self.buttonSubNavRight setTitle:NSLocalizedString(@"Chat", nil) forState:UIControlStateNormal];
+        [self.buttonSubNavRight setTitle:NSLocalizedString(@"CHAT", nil) forState:UIControlStateNormal];
     }
 }
 
