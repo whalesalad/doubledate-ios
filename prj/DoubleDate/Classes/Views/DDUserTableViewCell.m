@@ -115,7 +115,7 @@
             NSMutableString *detailedText = [NSMutableString string];
             if (shortUser.age)
             {
-                [detailedText appendFormat:@"%dM", [shortUser.age intValue]];
+                [detailedText appendFormat:@"%d%@", [shortUser.age intValue], [shortUser.gender isEqualToString:DDUserGenderFemale]?@"F":@"M"];
                 if (shortUser.location)
                     [detailedText appendString:@", "];
             }
