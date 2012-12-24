@@ -258,44 +258,54 @@
     //get containers
     DDSelectWingViewContainer *main = [self containerForViewIndex:0];
     DDSelectWingViewContainer *left = [self leftContainerForContainer:main];
-    DDSelectWingViewContainer *leftLeft = [self leftContainerForContainer:left];
     DDSelectWingViewContainer *right = [self rightContainerForContainer:main];
+    DDSelectWingViewContainer *leftLeft = [self leftContainerForContainer:left];
     DDSelectWingViewContainer *rightRight = [self rightContainerForContainer:right];
     
     //check for correct order
-    if (direction == -1)
+    if ([containers_ count] <= 2)
     {
-        if (left == main)
-            left = nil;
-        if (leftLeft == main ||
-            leftLeft == left)
-            leftLeft = nil;
-        if (right == main ||
-            right == left ||
-            right == leftLeft)
-            right = nil;
-        if (rightRight == main ||
-            rightRight == left ||
-            rightRight == leftLeft ||
-            rightRight == right)
-            rightRight = nil;
+        if (direction == -1)
+        {
+            if (left == main)
+                left = nil;
+            if (right == main ||
+                right == left)
+                right = nil;
+            if (leftLeft == main ||
+                leftLeft == left ||
+                leftLeft == right)
+                leftLeft = nil;
+            if (rightRight == main ||
+                rightRight == left ||
+                rightRight == leftLeft ||
+                rightRight == right)
+                rightRight = nil;
+        }
+        else if (direction == 1)
+        {
+            if (right == main)
+                right = nil;
+            if (left == main ||
+                left == right)
+                left = nil;
+            if (rightRight == main ||
+                rightRight == right ||
+                rightRight == left)
+                rightRight = nil;
+            if (leftLeft == main ||
+                leftLeft == right ||
+                leftLeft == rightRight ||
+                leftLeft == left)
+                leftLeft = nil;
+        }
     }
-    else
+    else if ([containers_ count] <= 3)
     {
-        if (right == main)
+        if (direction == -1)
             right = nil;
-        if (rightRight == main ||
-            rightRight == right)
-            rightRight = nil;
-        if (left == main ||
-            left == right ||
-            left == rightRight)
+        else if (direction == 1)
             left = nil;
-        if (leftLeft == main ||
-            leftLeft == right ||
-            leftLeft == rightRight ||
-            leftLeft == left)
-            leftLeft = nil;
     }
     
     //set animation duration
