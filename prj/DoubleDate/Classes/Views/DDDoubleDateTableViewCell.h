@@ -10,6 +10,7 @@
 
 @class DDImageView;
 @class DDDoubleDate;
+@class DDPlacemark;
 
 @interface DDDoubleDateTableViewCell : UITableViewCell
 {
@@ -27,5 +28,7 @@
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
 
 + (CGFloat)height;
+
++ (NSString*)detailedTitleForLocation:(DDPlacemark*)location;
 
 @end

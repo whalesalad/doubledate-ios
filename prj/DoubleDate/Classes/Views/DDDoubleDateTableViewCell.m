@@ -24,6 +24,13 @@
     return 60;
 }
 
++ (NSString*)detailedTitleForLocation:(DDPlacemark*)location
+{
+    if ([location.type isEqualToString:DDPlacemarkTypeVenue])
+        return [NSString stringWithFormat:@"%@ • %@", location.venue, location.locationName];
+    return location.name;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
@@ -138,7 +145,7 @@
     labelTitle_.text = [v title];
     
     //apply location
-    labelLocation_.text = [[v location] name];
+    labelLocation_.text = [DDDoubleDateTableViewCell detailedTitleForLocation:v.location];
     [labelLocation_ sizeToFit];
     if (labelLocation_.frame.size.width > 130)
         labelLocation_.frame = CGRectMake(0, 0, 130, labelLocation_.frame.size.height);
