@@ -24,6 +24,8 @@ NSString *DDEngagementStatusAccepted = @"accepted";
 @synthesize activityId;
 @synthesize status;
 @synthesize messagesCount;
+@synthesize createdAt;
+@synthesize createdAtAgo;
 @synthesize user;
 @synthesize wing;
 
@@ -39,6 +41,8 @@ NSString *DDEngagementStatusAccepted = @"accepted";
         self.activityId = [DDAPIObject numberForObject:[dictionary objectForKey:@"activity_id"]];
         self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
         self.messagesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"messages_count"]];
+        self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
+        self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
     }
@@ -64,6 +68,10 @@ NSString *DDEngagementStatusAccepted = @"accepted";
         [dictionary setObject:self.status forKey:@"status"];
     if (self.messagesCount)
         [dictionary setObject:self.messagesCount forKey:@"messages_count"];
+    if (self.createdAt)
+        [dictionary setObject:self.createdAt forKey:@"created_at"];
+    if (self.createdAtAgo)
+        [dictionary setObject:self.createdAtAgo forKey:@"created_at_ago"];
     return dictionary;
 }
 
@@ -85,6 +93,8 @@ NSString *DDEngagementStatusAccepted = @"accepted";
     [activityId release];
     [status release];
     [messagesCount release];
+    [createdAt release];
+    [createdAtAgo release];
     [user release];
     [wing release];
     [super dealloc];

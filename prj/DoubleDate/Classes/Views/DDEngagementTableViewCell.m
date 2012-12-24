@@ -91,7 +91,7 @@
         if (engagement)
         {
             //apply text
-            labelTime_.text = [NSString stringWithFormat:NSLocalizedString(@"%d hours ago", nil), 3];
+            labelTime_.text = engagement.createdAtAgo;
             labelUser_.text = [engagement.user.firstName uppercaseString];
             labelWing_.text = [engagement.wing.firstName uppercaseString];
             
