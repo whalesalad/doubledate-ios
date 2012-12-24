@@ -241,7 +241,7 @@
 		965989FF166FAFB700490CCE /* DDEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FE166FAFB700490CCE /* DDEngagement.m */; };
 		965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */; };
 		965AF0331688A71B00A014D1 /* DDUserBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */; };
-		965AF0361688A74E00A014D1 /* DDDoubleDateBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */; };
+		965AF0361688A74E00A014D1 /* DDuserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF0351688A74E00A014D1 /* DDuserBubble.m */; };
 		965FCA671608AE8A00984566 /* DDTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FCA661608AE8A00984566 /* DDTagsView.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
@@ -676,8 +676,8 @@
 		965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserBubbleViewController.h; sourceTree = "<group>"; };
 		965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserBubbleViewController.m; sourceTree = "<group>"; };
 		965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserBubbleViewController.xib; sourceTree = "<group>"; };
-		965AF0341688A74E00A014D1 /* DDDoubleDateBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateBubble.h; sourceTree = "<group>"; };
-		965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateBubble.m; sourceTree = "<group>"; };
+		965AF0341688A74E00A014D1 /* DDuserBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDuserBubble.h; sourceTree = "<group>"; };
+		965AF0351688A74E00A014D1 /* DDuserBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDuserBubble.m; sourceTree = "<group>"; };
 		965FCA651608AE8A00984566 /* DDTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTagsView.h; sourceTree = "<group>"; };
 		965FCA661608AE8A00984566 /* DDTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTagsView.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
@@ -1174,8 +1174,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				965AF0341688A74E00A014D1 /* DDDoubleDateBubble.h */,
-				965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */,
+				965AF0341688A74E00A014D1 /* DDuserBubble.h */,
+				965AF0351688A74E00A014D1 /* DDuserBubble.m */,
 				704A624B1687BF1C00B86F57 /* DDEngagementTableViewCell.h */,
 				704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */,
 				963672FE167094C800D3D8D3 /* DDPhotoView.h */,
@@ -1957,7 +1957,7 @@
 				704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */,
 				704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */,
 				965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */,
-				965AF0361688A74E00A014D1 /* DDDoubleDateBubble.m in Sources */,
+				965AF0361688A74E00A014D1 /* DDuserBubble.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  DDDoubleDateBubble.h
+//  DDUserBubble.h
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 12/24/12.
@@ -11,7 +11,7 @@
 @class DDUser;
 @class DDUserBubbleViewController;
 
-@interface DDDoubleDateBubble : UIView
+@interface DDUserBubble : UIView
 {
     DDUserBubbleViewController *viewController_;
     CGFloat initialHeight_;

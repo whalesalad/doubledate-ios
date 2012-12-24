@@ -1,12 +1,12 @@
 //
-//  DDDoubleDateBubble.m
+//  DDUserBubble.m
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 12/24/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDDoubleDateBubble.h"
+#import "DDUserBubble.h"
 #import "DDUserBubbleViewController.h"
 #import "DDUser.h"
 #import "DDPlacemark.h"
@@ -15,7 +15,7 @@
 #import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation DDDoubleDateBubble
+@implementation DDUserBubble
 
 @synthesize height;
 @synthesize user;

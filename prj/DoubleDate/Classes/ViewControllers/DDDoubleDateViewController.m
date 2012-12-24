@@ -21,7 +21,7 @@
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
 #import "DDEngagementsViewController.h"
-#import "DDDoubleDateBubble.h"
+#import "DDUserBubble.h"
 
 typedef enum
 {
@@ -416,7 +416,7 @@ typedef enum
     
     //add bubble
     CGRect bubbleRect = CGRectMake(20, 40, 280, 0);
-    DDDoubleDateBubble *bubble = [[[DDDoubleDateBubble alloc] initWithFrame:bubbleRect] autorelease];
+    DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
     bubble.userInteractionEnabled = NO;
     bubble.user = u;
     bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
