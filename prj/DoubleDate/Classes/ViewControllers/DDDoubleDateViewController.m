@@ -37,7 +37,6 @@ typedef enum
 - (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
-- (void)setFadeViewVisibile:(BOOL)visible;
 - (CGSize)bubbleSizeFromXib;
 - (void)switchToNeededMode;
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
@@ -47,6 +46,8 @@ typedef enum
 
 @property(nonatomic, retain) DDTableViewController *tableViewController;
 
+@property(nonatomic, retain) UIView *popover;
+
 @end
 
 @implementation DDDoubleDateViewController
@@ -55,6 +56,8 @@ typedef enum
 @synthesize wing;
 
 @synthesize tableViewController;
+
+@synthesize popover;
 
 @synthesize doubleDate;
 
@@ -198,6 +201,7 @@ typedef enum
     [viewInfo release];
     [viewSubNavRight release];
     [tableViewController release];
+    [popover release];
     [super dealloc];
 }
 
@@ -382,23 +386,49 @@ typedef enum
 
 - (void)dismissUserPopover
 {
+    if (self.popover)
+    {
+        [UIView animateWithDuration:0.3f animations:^{
+            self.popover.alpha = 0;
+        } completion:^(BOOL finished) {
+            [self.popover removeFromSuperview];
+            self.popover = nil;
+            self.photoViewLeft.highlighted = NO;
+            self.photoViewRight.highlighted = NO;
+        }];
+    }
 }
 
-- (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
+- (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView
 {
-    //show fading
-    [self setFadeViewVisibile:YES];
+    //remove old
+    [self.popover removeFromSuperview];
     
     //add view
-    UIView *mainView = [[[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    mainView.backgroundColor = [UIColor blackColor];
-    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:mainView];
+    self.popover = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-popup-darkness.png"]] autorelease];
+    self.popover.userInteractionEnabled = YES;
+    self.popover.alpha = 0;
+    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:self.popover];
+    
+    //add button
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, self.popover.frame.size.width, self.popover.frame.size.height);
+    [button addTarget:self action:@selector(dismissUserPopover) forControlEvents:UIControlEventTouchUpInside];
+    [self.popover addSubview:button];
     
     //add bubble
-    DDDoubleDateBubble *bubble = [[[DDDoubleDateBubble alloc] initWithFrame:CGRectMake(20, 40, 280, 300)] autorelease];
-    bubble.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2);
+    CGRect bubbleRect = CGRectMake(20, 40, 280, 0);
+    DDDoubleDateBubble *bubble = [[[DDDoubleDateBubble alloc] initWithFrame:bubbleRect] autorelease];
+    bubble.userInteractionEnabled = NO;
     bubble.user = u;
-    [mainView addSubview:bubble];
+    bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
+    bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
+    [self.popover addSubview:bubble];
+    
+    //animate appearing
+    [UIView animateWithDuration:0.3f animations:^{
+        self.popover.alpha = 1;
+    }];
 }
 
 - (void)loadDataForUser:(DDShortUser*)shortUser
@@ -430,13 +460,6 @@ typedef enum
         [self loadDataForUser:self.doubleDate.wing];
 }
 
-- (void)setFadeViewVisibile:(BOOL)visible
-{
-    [UIView animateWithDuration:0.3f animations:^{
-        self.imageViewFade.alpha = visible?1:0;
-    }];
-}
-
 - (CGSize)bubbleSizeFromXib
 {
     static CGSize _bubbleSize;
@@ -448,55 +471,6 @@ typedef enum
     }
     return _bubbleSize;
 }
-
-//#pragma mark -
-//#pragma mark WEPopoverControllerDelegate
-//
-//- (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
-//{
-//    //hide selection
-//    self.photoViewLeft.highlighted = NO;
-//    self.photoViewRight.highlighted = NO;
-//    
-//    //release popover
-//    self.popover = nil;
-//}
-//
-//- (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
-//{
-//    [self setFadeViewVisibile:NO];
-//    return YES;
-//}
-//
-//#pragma mark -
-//#pragma mark DDWEImageViewDelegate
-//
-//- (CGRect)displayAreaForPopoverFromView:(UIView*)view
-//{
-//    //init data
-//    UIView *parentView = self.view;
-//    CGFloat scrollViewOffset = 0;
-//    if (scrollView.contentOffset.y > 0)
-//        scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
-//    
-//    //check left view
-//    if (view == self.photoViewLeft)
-//    {
-//        CGFloat leftAlignment = view.frame.origin.x;
-//        CGFloat topAlignment = 0-scrollViewOffset;
-//        CGRect rect = CGRectMake(leftAlignment, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
-//		return [parentView convertRect:rect toView:view];
-//    }
-//    //right view
-//    else
-//    {
-//        CGFloat rightAlignment = view.frame.origin.x + view.frame.size.width;
-//        CGFloat topAlignment = 0-scrollViewOffset;
-//        CGRect rect = CGRectMake(rightAlignment-[self bubbleSizeFromXib].width, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
-//        return [parentView convertRect:rect toView:view];
-//    }
-//    return CGRectZero;
-//}
 
 #pragma mark -
 #pragma comment DDAPIControllerDelegate
@@ -526,9 +500,9 @@ typedef enum
     {
 #pragma warning left/right arrow offsets
         if ([u.userId intValue] == [self.doubleDate.user.identifier intValue])
-            [self presentPopoverWithUser:u inView:self.photoViewLeft arrowOffset:212];
+            [self presentPopoverWithUser:u inView:self.photoViewLeft];
         else
-            [self presentPopoverWithUser:u inView:self.photoViewRight arrowOffset:52];
+            [self presentPopoverWithUser:u inView:self.photoViewRight];
     }
 }
 

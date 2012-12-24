@@ -7,6 +7,7 @@
 //
 
 #import "DDDoubleDateBubbleViewController.h"
+#import "DDPhotoView.h"
 
 @interface DDDoubleDateBubbleViewController ()
 
@@ -34,6 +35,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //unset all backgrounds
+    self.labelTitle.backgroundColor = [UIColor clearColor];
+    self.labelLocation.backgroundColor = [UIColor clearColor];
+    self.imageViewGender.backgroundColor = [UIColor clearColor];
+    self.imageViewGradient.backgroundColor = [UIColor clearColor];
+    self.photoView.backgroundColor = [UIColor clearColor];
+    self.textView.backgroundColor = [UIColor clearColor];
+    self.viewInterests.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning
