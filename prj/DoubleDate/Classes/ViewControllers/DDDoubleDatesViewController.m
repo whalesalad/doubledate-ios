@@ -26,8 +26,7 @@ typedef enum
     DDDoubleDatesViewControllerFilterNone,
     DDDoubleDatesViewControllerFilterCreated,
     DDDoubleDatesViewControllerFilterWing,
-    DDDoubleDatesViewControllerFilterInterested,
-    DDDoubleDatesViewControllerFilterAccepted,
+    DDDoubleDatesViewControllerFilterAttending,
 } DDDoubleDatesViewControllerFilter;
 
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate>
@@ -165,11 +164,8 @@ typedef enum
             case DDDoubleDatesViewControllerFilterWing:
                 existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipWing];
                 break;
-            case DDDoubleDatesViewControllerFilterInterested:
-                existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipInterested];
-                break;
-            case DDDoubleDatesViewControllerFilterAccepted:
-                existInFilter = [dd.relationship isEqualToString:DDDoubleDateRelationshipAccepted];
+            case DDDoubleDatesViewControllerFilterAttending:
+                existInFilter = ![dd.relationship isEqualToString:DDDoubleDateRelationshipOwner] && ![dd.relationship isEqualToString:DDDoubleDateRelationshipWing];
                 break;
             default:
                 break;
@@ -196,10 +192,7 @@ typedef enum
                 return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterWing];
                 break;
             case 2:
-                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterInterested];
-                break;
-            case 3:
-                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterAccepted];
+                return [self filteredDoubleDates:mineDoubleDates_ filter:DDDoubleDatesViewControllerFilterAttending];
                 break;
             default:
                 break;
@@ -321,7 +314,7 @@ typedef enum
     //get double date
     DDDoubleDate *doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
 
-    //opem view controller
+    //open view controller
     DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
     viewController.doubleDate = doubleDate;
     [self.navigationController pushViewController:viewController animated:YES];
@@ -354,10 +347,7 @@ typedef enum
                     return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M A WING", nil) detailedText:nil];
                     break;
                 case 2:
-                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M INTERESTED", nil) detailedText:nil];
-                    break;
-                case 3:
-                    return [self viewForHeaderWithMainText:NSLocalizedString(@"ACCEPTED", nil) detailedText:nil];
+                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'M ATTENDING", nil) detailedText:nil];
                     break;
                 default:
                     break;
@@ -403,7 +393,7 @@ typedef enum
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (mode_ == DDDoubleDatesViewControllerModeMine)
-        return 4;
+        return 3;
     return 1;
 }
 
