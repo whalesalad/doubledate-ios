@@ -239,6 +239,9 @@
 		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
 		965989FC166F970300490CCE /* DDSelectWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FB166F970300490CCE /* DDSelectWingView.m */; };
 		965989FF166FAFB700490CCE /* DDEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FE166FAFB700490CCE /* DDEngagement.m */; };
+		965AF0301688A6F400A014D1 /* DDDoubleDateBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDDoubleDateBubbleViewController.m */; };
+		965AF0331688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965AF0321688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib */; };
+		965AF0361688A74E00A014D1 /* DDDoubleDateBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */; };
 		965FCA671608AE8A00984566 /* DDTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FCA661608AE8A00984566 /* DDTagsView.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
@@ -291,7 +294,6 @@
 		968BE2B8161038B20029F61F /* woman-tab-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 968BE29A161038B20029F61F /* woman-tab-bar@2x.png */; };
 		96928B6B165CE4A800012D1E /* dd-popup-darkness.png in Resources */ = {isa = PBXBuildFile; fileRef = 96928B69165CE4A800012D1E /* dd-popup-darkness.png */; };
 		96928B6C165CE4A800012D1E /* dd-popup-darkness@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */; };
-		96928B7C165D140100012D1E /* DDWEImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96928B7B165D140100012D1E /* DDWEImageView.m */; };
 		969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353D416392E08007376AA /* DDDoubleDatesViewController.m */; };
 		969353DD16393951007376AA /* DDCreateDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */; };
 		969353E01639397B007376AA /* DDCreateDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */; };
@@ -302,25 +304,6 @@
 		969A77A71613109A0070FF6F /* location-spinner2.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A31613109A0070FF6F /* location-spinner2.png */; };
 		969A77A81613109A0070FF6F /* location-spinner2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 969A77A41613109A0070FF6F /* location-spinner2@2x.png */; };
 		96AF0738163AAAF300C1940F /* DDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AF0737163AAAF300C1940F /* DDButton.m */; };
-		96B37C95165B76CD006CD141 /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B37C7D165B76CD006CD141 /* UIBarButtonItem+WEPopover.m */; };
-		96B37C96165B76CD006CD141 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B37C7F165B76CD006CD141 /* WEPopoverContainerView.m */; };
-		96B37C97165B76CD006CD141 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B37C81165B76CD006CD141 /* WEPopoverController.m */; };
-		96B37C98165B76CD006CD141 /* WETouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B37C84165B76CD006CD141 /* WETouchableView.m */; };
-		96B37C99165B76CD006CD141 /* popoverArrowDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C86165B76CD006CD141 /* popoverArrowDown.png */; };
-		96B37C9A165B76CD006CD141 /* popoverArrowDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C87165B76CD006CD141 /* popoverArrowDown@2x.png */; };
-		96B37C9B165B76CD006CD141 /* popoverArrowDownSimple.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C88165B76CD006CD141 /* popoverArrowDownSimple.png */; };
-		96B37C9C165B76CD006CD141 /* popoverArrowLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C89165B76CD006CD141 /* popoverArrowLeft.png */; };
-		96B37C9D165B76CD006CD141 /* popoverArrowLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C8A165B76CD006CD141 /* popoverArrowLeft@2x.png */; };
-		96B37C9E165B76CD006CD141 /* popoverArrowLeftSimple.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C8B165B76CD006CD141 /* popoverArrowLeftSimple.png */; };
-		96B37C9F165B76CD006CD141 /* popoverArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C8C165B76CD006CD141 /* popoverArrowRight.png */; };
-		96B37CA0165B76CD006CD141 /* popoverArrowRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C8D165B76CD006CD141 /* popoverArrowRight@2x.png */; };
-		96B37CA1165B76CD006CD141 /* popoverArrowRightSimple.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C8E165B76CD006CD141 /* popoverArrowRightSimple.png */; };
-		96B37CA2165B76CD006CD141 /* popoverArrowUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C8F165B76CD006CD141 /* popoverArrowUp.png */; };
-		96B37CA3165B76CD006CD141 /* popoverArrowUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C90165B76CD006CD141 /* popoverArrowUp@2x.png */; };
-		96B37CA4165B76CD006CD141 /* popoverArrowUpSimple.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C91165B76CD006CD141 /* popoverArrowUpSimple.png */; };
-		96B37CA5165B76CD006CD141 /* popoverBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C92165B76CD006CD141 /* popoverBg.png */; };
-		96B37CA6165B76CD006CD141 /* popoverBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C93165B76CD006CD141 /* popoverBg@2x.png */; };
-		96B37CA7165B76CD006CD141 /* popoverBgSimple.png in Resources */ = {isa = PBXBuildFile; fileRef = 96B37C94165B76CD006CD141 /* popoverBgSimple.png */; };
 		96B37CAB165B77E8006CD141 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B37CA9165B77E8006CD141 /* DDUserBubbleViewController.m */; };
 		96B37CAE165B783C006CD141 /* DDUserBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */; };
 		96B3A499164AA03F00048385 /* DDLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B3A498164AA03F00048385 /* DDLocationTableViewCell.m */; };
@@ -692,6 +675,11 @@
 		965989FB166F970300490CCE /* DDSelectWingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectWingView.m; sourceTree = "<group>"; };
 		965989FD166FAFB700490CCE /* DDEngagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagement.h; sourceTree = "<group>"; };
 		965989FE166FAFB700490CCE /* DDEngagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagement.m; sourceTree = "<group>"; };
+		965AF02D1688A6F400A014D1 /* DDDoubleDateBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateBubbleViewController.h; sourceTree = "<group>"; };
+		965AF02E1688A6F400A014D1 /* DDDoubleDateBubbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateBubbleViewController.m; sourceTree = "<group>"; };
+		965AF0321688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateBubbleViewController.xib; sourceTree = "<group>"; };
+		965AF0341688A74E00A014D1 /* DDDoubleDateBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateBubble.h; sourceTree = "<group>"; };
+		965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateBubble.m; sourceTree = "<group>"; };
 		965FCA651608AE8A00984566 /* DDTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTagsView.h; sourceTree = "<group>"; };
 		965FCA661608AE8A00984566 /* DDTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTagsView.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
@@ -753,8 +741,6 @@
 		968BE29A161038B20029F61F /* woman-tab-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman-tab-bar@2x.png"; sourceTree = "<group>"; };
 		96928B69165CE4A800012D1E /* dd-popup-darkness.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-popup-darkness.png"; sourceTree = "<group>"; };
 		96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-popup-darkness@2x.png"; sourceTree = "<group>"; };
-		96928B7A165D140100012D1E /* DDWEImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWEImageView.h; sourceTree = "<group>"; };
-		96928B7B165D140100012D1E /* DDWEImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWEImageView.m; sourceTree = "<group>"; };
 		969353D316392E08007376AA /* DDDoubleDatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDatesViewController.h; sourceTree = "<group>"; };
 		969353D416392E08007376AA /* DDDoubleDatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDatesViewController.m; sourceTree = "<group>"; };
 		969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewController.h; sourceTree = "<group>"; };
@@ -769,30 +755,6 @@
 		969A77A41613109A0070FF6F /* location-spinner2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-spinner2@2x.png"; sourceTree = "<group>"; };
 		96AF0736163AAAF300C1940F /* DDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDButton.h; sourceTree = "<group>"; };
 		96AF0737163AAAF300C1940F /* DDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDButton.m; sourceTree = "<group>"; };
-		96B37C7C165B76CD006CD141 /* UIBarButtonItem+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WEPopover.h"; sourceTree = "<group>"; };
-		96B37C7D165B76CD006CD141 /* UIBarButtonItem+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WEPopover.m"; sourceTree = "<group>"; };
-		96B37C7E165B76CD006CD141 /* WEPopoverContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverContainerView.h; sourceTree = "<group>"; };
-		96B37C7F165B76CD006CD141 /* WEPopoverContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverContainerView.m; sourceTree = "<group>"; };
-		96B37C80165B76CD006CD141 /* WEPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverController.h; sourceTree = "<group>"; };
-		96B37C81165B76CD006CD141 /* WEPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WEPopoverController.m; sourceTree = "<group>"; };
-		96B37C82165B76CD006CD141 /* WEPopoverParentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WEPopoverParentView.h; sourceTree = "<group>"; };
-		96B37C83165B76CD006CD141 /* WETouchableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WETouchableView.h; sourceTree = "<group>"; };
-		96B37C84165B76CD006CD141 /* WETouchableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WETouchableView.m; sourceTree = "<group>"; };
-		96B37C86165B76CD006CD141 /* popoverArrowDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowDown.png; sourceTree = "<group>"; };
-		96B37C87165B76CD006CD141 /* popoverArrowDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popoverArrowDown@2x.png"; sourceTree = "<group>"; };
-		96B37C88165B76CD006CD141 /* popoverArrowDownSimple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowDownSimple.png; sourceTree = "<group>"; };
-		96B37C89165B76CD006CD141 /* popoverArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowLeft.png; sourceTree = "<group>"; };
-		96B37C8A165B76CD006CD141 /* popoverArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popoverArrowLeft@2x.png"; sourceTree = "<group>"; };
-		96B37C8B165B76CD006CD141 /* popoverArrowLeftSimple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowLeftSimple.png; sourceTree = "<group>"; };
-		96B37C8C165B76CD006CD141 /* popoverArrowRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowRight.png; sourceTree = "<group>"; };
-		96B37C8D165B76CD006CD141 /* popoverArrowRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popoverArrowRight@2x.png"; sourceTree = "<group>"; };
-		96B37C8E165B76CD006CD141 /* popoverArrowRightSimple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowRightSimple.png; sourceTree = "<group>"; };
-		96B37C8F165B76CD006CD141 /* popoverArrowUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowUp.png; sourceTree = "<group>"; };
-		96B37C90165B76CD006CD141 /* popoverArrowUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popoverArrowUp@2x.png"; sourceTree = "<group>"; };
-		96B37C91165B76CD006CD141 /* popoverArrowUpSimple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverArrowUpSimple.png; sourceTree = "<group>"; };
-		96B37C92165B76CD006CD141 /* popoverBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverBg.png; sourceTree = "<group>"; };
-		96B37C93165B76CD006CD141 /* popoverBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popoverBg@2x.png"; sourceTree = "<group>"; };
-		96B37C94165B76CD006CD141 /* popoverBgSimple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = popoverBgSimple.png; sourceTree = "<group>"; };
 		96B37CA8165B77E8006CD141 /* DDUserBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserBubbleViewController.h; sourceTree = "<group>"; };
 		96B37CA9165B77E8006CD141 /* DDUserBubbleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserBubbleViewController.m; sourceTree = "<group>"; };
 		96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserBubbleViewController.xib; sourceTree = "<group>"; };
@@ -1214,64 +1176,17 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		96B37C7A165B76CD006CD141 /* WEPopover */ = {
-			isa = PBXGroup;
-			children = (
-				96B37C7B165B76CD006CD141 /* Classes */,
-				96B37C85165B76CD006CD141 /* Resources */,
-			);
-			path = WEPopover;
-			sourceTree = "<group>";
-		};
-		96B37C7B165B76CD006CD141 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				96B37C7C165B76CD006CD141 /* UIBarButtonItem+WEPopover.h */,
-				96B37C7D165B76CD006CD141 /* UIBarButtonItem+WEPopover.m */,
-				96B37C7E165B76CD006CD141 /* WEPopoverContainerView.h */,
-				96B37C7F165B76CD006CD141 /* WEPopoverContainerView.m */,
-				96B37C80165B76CD006CD141 /* WEPopoverController.h */,
-				96B37C81165B76CD006CD141 /* WEPopoverController.m */,
-				96B37C82165B76CD006CD141 /* WEPopoverParentView.h */,
-				96B37C83165B76CD006CD141 /* WETouchableView.h */,
-				96B37C84165B76CD006CD141 /* WETouchableView.m */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		96B37C85165B76CD006CD141 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				96B37C86165B76CD006CD141 /* popoverArrowDown.png */,
-				96B37C87165B76CD006CD141 /* popoverArrowDown@2x.png */,
-				96B37C88165B76CD006CD141 /* popoverArrowDownSimple.png */,
-				96B37C89165B76CD006CD141 /* popoverArrowLeft.png */,
-				96B37C8A165B76CD006CD141 /* popoverArrowLeft@2x.png */,
-				96B37C8B165B76CD006CD141 /* popoverArrowLeftSimple.png */,
-				96B37C8C165B76CD006CD141 /* popoverArrowRight.png */,
-				96B37C8D165B76CD006CD141 /* popoverArrowRight@2x.png */,
-				96B37C8E165B76CD006CD141 /* popoverArrowRightSimple.png */,
-				96B37C8F165B76CD006CD141 /* popoverArrowUp.png */,
-				96B37C90165B76CD006CD141 /* popoverArrowUp@2x.png */,
-				96B37C91165B76CD006CD141 /* popoverArrowUpSimple.png */,
-				96B37C92165B76CD006CD141 /* popoverBg.png */,
-				96B37C93165B76CD006CD141 /* popoverBg@2x.png */,
-				96B37C94165B76CD006CD141 /* popoverBgSimple.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				965AF0341688A74E00A014D1 /* DDDoubleDateBubble.h */,
+				965AF0351688A74E00A014D1 /* DDDoubleDateBubble.m */,
 				704A624B1687BF1C00B86F57 /* DDEngagementTableViewCell.h */,
 				704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */,
 				963672FE167094C800D3D8D3 /* DDPhotoView.h */,
 				963672FF167094C800D3D8D3 /* DDPhotoView.m */,
 				965989FA166F970300490CCE /* DDSelectWingView.h */,
 				965989FB166F970300490CCE /* DDSelectWingView.m */,
-				96928B7A165D140100012D1E /* DDWEImageView.h */,
-				96928B7B165D140100012D1E /* DDWEImageView.m */,
 				9683B730165145D40043350E /* DDDoubleDateTableViewCell.h */,
 				9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */,
 				96E78E30164D0F9200897C4F /* DDTextViewTableViewCell.h */,
@@ -1331,6 +1246,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				965AF02D1688A6F400A014D1 /* DDDoubleDateBubbleViewController.h */,
+				965AF02E1688A6F400A014D1 /* DDDoubleDateBubbleViewController.m */,
 				704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */,
 				704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */,
 				70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */,
@@ -1414,6 +1331,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				965AF0321688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib */,
 				70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */,
 				96B37CAD165B783C006CD141 /* DDUserBubbleViewController.xib */,
 				96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */,
@@ -1434,7 +1352,6 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				96B37C7A165B76CD006CD141 /* WEPopover */,
 				70803B131610FF3400BFDE8B /* TITokenField */,
 				960C844615FDF60200EAF708 /* JSTokenField */,
 				964A6EE215F893DC0077AAF1 /* SBJson */,
@@ -1936,21 +1853,6 @@
 				9614E5B1165693800052ADD1 /* dd-user-photo-mask@2x.png in Resources */,
 				9614E5B2165693800052ADD1 /* dd-user-photo-overlay.png in Resources */,
 				9614E5B3165693800052ADD1 /* dd-user-photo-overlay@2x.png in Resources */,
-				96B37C99165B76CD006CD141 /* popoverArrowDown.png in Resources */,
-				96B37C9A165B76CD006CD141 /* popoverArrowDown@2x.png in Resources */,
-				96B37C9B165B76CD006CD141 /* popoverArrowDownSimple.png in Resources */,
-				96B37C9C165B76CD006CD141 /* popoverArrowLeft.png in Resources */,
-				96B37C9D165B76CD006CD141 /* popoverArrowLeft@2x.png in Resources */,
-				96B37C9E165B76CD006CD141 /* popoverArrowLeftSimple.png in Resources */,
-				96B37C9F165B76CD006CD141 /* popoverArrowRight.png in Resources */,
-				96B37CA0165B76CD006CD141 /* popoverArrowRight@2x.png in Resources */,
-				96B37CA1165B76CD006CD141 /* popoverArrowRightSimple.png in Resources */,
-				96B37CA2165B76CD006CD141 /* popoverArrowUp.png in Resources */,
-				96B37CA3165B76CD006CD141 /* popoverArrowUp@2x.png in Resources */,
-				96B37CA4165B76CD006CD141 /* popoverArrowUpSimple.png in Resources */,
-				96B37CA5165B76CD006CD141 /* popoverBg.png in Resources */,
-				96B37CA6165B76CD006CD141 /* popoverBg@2x.png in Resources */,
-				96B37CA7165B76CD006CD141 /* popoverBgSimple.png in Resources */,
 				96B37CAE165B783C006CD141 /* DDUserBubbleViewController.xib in Resources */,
 				96928B6B165CE4A800012D1E /* dd-popup-darkness.png in Resources */,
 				96928B6C165CE4A800012D1E /* dd-popup-darkness@2x.png in Resources */,
@@ -1987,6 +1889,7 @@
 				963AE152168494C600ED24DB /* right-subnav-segment-normal@2x.png in Resources */,
 				963AE153168494C600ED24DB /* right-subnav-segment-selected.png in Resources */,
 				963AE154168494C600ED24DB /* right-subnav-segment-selected@2x.png in Resources */,
+				965AF0331688A71B00A014D1 /* DDDoubleDateBubbleViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2055,12 +1958,7 @@
 				96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */,
 				70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */,
 				9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */,
-				96B37C95165B76CD006CD141 /* UIBarButtonItem+WEPopover.m in Sources */,
-				96B37C96165B76CD006CD141 /* WEPopoverContainerView.m in Sources */,
-				96B37C97165B76CD006CD141 /* WEPopoverController.m in Sources */,
-				96B37C98165B76CD006CD141 /* WETouchableView.m in Sources */,
 				96B37CAB165B77E8006CD141 /* DDUserBubbleViewController.m in Sources */,
-				96928B7C165D140100012D1E /* DDWEImageView.m in Sources */,
 				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
 				965989FC166F970300490CCE /* DDSelectWingView.m in Sources */,
 				965989FF166FAFB700490CCE /* DDEngagement.m in Sources */,
@@ -2068,6 +1966,8 @@
 				7025E53F168274B100FE3FBE /* DDMessage.m in Sources */,
 				704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */,
 				704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */,
+				965AF0301688A6F400A014D1 /* DDDoubleDateBubbleViewController.m in Sources */,
+				965AF0361688A74E00A014D1 /* DDDoubleDateBubble.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

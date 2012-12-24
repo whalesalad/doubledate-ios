@@ -14,9 +14,7 @@
 #import "DDImage.h"
 #import "DDShortUser.h"
 #import "DDUserBubbleViewController.h"
-#import "WEPopoverController.h"
 #import "DDShortUser.h"
-#import "DDWEImageView.h"
 #import "DDUser.h"
 #import "DDSendEngagementViewController.h"
 #import "DDButton.h"
@@ -24,6 +22,7 @@
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
 #import "DDEngagementsViewController.h"
+#import "DDDoubleDateBubble.h"
 
 typedef enum
 {
@@ -32,7 +31,7 @@ typedef enum
     DDDoubleDateViewControllerModeChat = 1<<2
 } DDDoubleDateViewControllerMode;
 
-@interface DDDoubleDateViewController ()<WEPopoverControllerDelegate, DDWEImageViewDelegate>
+@interface DDDoubleDateViewController ()
 
 - (void)loadDataForUser:(DDShortUser*)shortUser;
 - (void)dismissUserPopover;
@@ -43,8 +42,6 @@ typedef enum
 - (void)switchToNeededMode;
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
 
-@property(nonatomic, retain) WEPopoverController *popover;
-
 @property(nonatomic, retain) DDUser *user;
 @property(nonatomic, retain) DDUser *wing;
 
@@ -53,8 +50,6 @@ typedef enum
 @end
 
 @implementation DDDoubleDateViewController
-
-@synthesize popover;
 
 @synthesize user;
 @synthesize wing;
@@ -200,7 +195,6 @@ typedef enum
     [topView release];
     [photoViewLeft release];
     [photoViewRight release];
-    [popover release];
     [viewInfo release];
     [viewSubNavRight release];
     [tableViewController release];
@@ -388,7 +382,6 @@ typedef enum
 
 - (void)dismissUserPopover
 {
-    [self.popover dismissPopoverAnimated:YES];
 }
 
 - (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView arrowOffset:(CGFloat)arrowOffset
@@ -396,46 +389,15 @@ typedef enum
     //show fading
     [self setFadeViewVisibile:YES];
     
-    //create new
-    DDUserBubbleViewController *viewController = [[[DDUserBubbleViewController alloc] init] autorelease];
-    viewController.user = u;
-    self.popover = [[[WEPopoverController alloc] initWithContentViewController:viewController] autorelease];
+    //add view
+    UIView *mainView = [[[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    mainView.backgroundColor = [UIColor blackColor];
+    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:mainView];
     
-    //apply container view properties
-    self.popover.containerViewProperties = [self.popover defaultContainerViewProperties];
-    self.popover.containerViewProperties.arrowMargin = arrowOffset;
-#pragma warning popover paddings
-    self.popover.containerViewProperties.leftContentMargin = 0;
-    self.popover.containerViewProperties.rightContentMargin = 0;
-//    self.popover.containerViewProperties.topContentMargin = 10;
-//    self.popover.containerViewProperties.bottomContentMargin = 10;
-//    self.popover.containerViewProperties.leftBgMargin = 10;
-//    self.popover.containerViewProperties.rightBgMargin = 10;
-//    self.popover.containerViewProperties.topBgMargin = 10;
-//    self.popover.containerViewProperties.bottomBgMargin = 10;
-    
-    //set popover size
-    CGSize popoverSize = CGSizeMake(viewController.view.bounds.size.width, viewController.view.bounds.size.height);
-    
-    //set content size
-    self.popover.popoverContentSize = popoverSize;
-    
-    //set delegate
-    self.popover.delegate = self;
-    
-    //present popover
-    [self.popover presentPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
-    
-    //calculate new height
-    CGFloat newPopoverHeight = popoverSize.height + viewController.heightOffset;
-    newPopoverHeight = MIN(MAX(newPopoverHeight, 70), FLT_MAX);
-    self.popover.popoverContentSize = CGSizeMake(popoverSize.width, newPopoverHeight);
-    
-    //update geometry
-    [self.popover repositionPopoverFromRect:CGRectMake(0, 0, self.popover.popoverContentSize.width, self.popover.popoverContentSize.height) inView:popoverView permittedArrowDirections:UIPopoverArrowDirectionDown];
-    
-    //adjust popover size
-    [viewController adjustScrollableArea];
+    //add bubble
+    DDDoubleDateBubble *bubble = [[[DDDoubleDateBubble alloc] initWithFrame:CGRectMake(20, 40, 280, 300)] autorelease];
+    bubble.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2);
+    [mainView addSubview:bubble];
 }
 
 - (void)loadDataForUser:(DDShortUser*)shortUser
@@ -486,54 +448,54 @@ typedef enum
     return _bubbleSize;
 }
 
-#pragma mark -
-#pragma mark WEPopoverControllerDelegate
-
-- (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
-{
-    //hide selection
-    self.photoViewLeft.highlighted = NO;
-    self.photoViewRight.highlighted = NO;
-    
-    //release popover
-    self.popover = nil;
-}
-
-- (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
-{
-    [self setFadeViewVisibile:NO];
-    return YES;
-}
-
-#pragma mark -
-#pragma mark DDWEImageViewDelegate
-
-- (CGRect)displayAreaForPopoverFromView:(UIView*)view
-{
-    //init data
-    UIView *parentView = self.view;
-    CGFloat scrollViewOffset = 0;
-    if (scrollView.contentOffset.y > 0)
-        scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
-    
-    //check left view
-    if (view == self.photoViewLeft)
-    {
-        CGFloat leftAlignment = view.frame.origin.x;
-        CGFloat topAlignment = 0-scrollViewOffset;
-        CGRect rect = CGRectMake(leftAlignment, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
-		return [parentView convertRect:rect toView:view];
-    }
-    //right view
-    else
-    {
-        CGFloat rightAlignment = view.frame.origin.x + view.frame.size.width;
-        CGFloat topAlignment = 0-scrollViewOffset;
-        CGRect rect = CGRectMake(rightAlignment-[self bubbleSizeFromXib].width, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
-        return [parentView convertRect:rect toView:view];
-    }
-    return CGRectZero;
-}
+//#pragma mark -
+//#pragma mark WEPopoverControllerDelegate
+//
+//- (void)popoverControllerDidDismissPopover:(WEPopoverController *)popoverController
+//{
+//    //hide selection
+//    self.photoViewLeft.highlighted = NO;
+//    self.photoViewRight.highlighted = NO;
+//    
+//    //release popover
+//    self.popover = nil;
+//}
+//
+//- (BOOL)popoverControllerShouldDismissPopover:(WEPopoverController *)popoverController
+//{
+//    [self setFadeViewVisibile:NO];
+//    return YES;
+//}
+//
+//#pragma mark -
+//#pragma mark DDWEImageViewDelegate
+//
+//- (CGRect)displayAreaForPopoverFromView:(UIView*)view
+//{
+//    //init data
+//    UIView *parentView = self.view;
+//    CGFloat scrollViewOffset = 0;
+//    if (scrollView.contentOffset.y > 0)
+//        scrollViewOffset = self.scrollView.contentOffset.y + self.scrollView.frame.size.height - self.scrollView.contentSize.height;
+//    
+//    //check left view
+//    if (view == self.photoViewLeft)
+//    {
+//        CGFloat leftAlignment = view.frame.origin.x;
+//        CGFloat topAlignment = 0-scrollViewOffset;
+//        CGRect rect = CGRectMake(leftAlignment, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
+//		return [parentView convertRect:rect toView:view];
+//    }
+//    //right view
+//    else
+//    {
+//        CGFloat rightAlignment = view.frame.origin.x + view.frame.size.width;
+//        CGFloat topAlignment = 0-scrollViewOffset;
+//        CGRect rect = CGRectMake(rightAlignment-[self bubbleSizeFromXib].width, topAlignment, [self bubbleSizeFromXib].width, [self bubbleSizeFromXib].height);
+//        return [parentView convertRect:rect toView:view];
+//    }
+//    return CGRectZero;
+//}
 
 #pragma mark -
 #pragma comment DDAPIControllerDelegate
