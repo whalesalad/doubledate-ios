@@ -92,8 +92,7 @@
 
 - (IBAction)cancelTouched:(id)sender
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-    }];
+    [self.delegate sendEngagementViewControllerDidCancel];
 }
 
 - (IBAction)sendTouched:(id)sender
@@ -209,15 +208,8 @@
     //hide hud
     [self hideHud:YES];
     
-    //show succeed message
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! You've created engagement.", nil)];
-    
-    //show completed hud
-    [self showCompletedHudWithText:message];
-    
-    //go back
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-    }];
+    //incorm delegate
+    [self.delegate sendEngagementViewControllerDidSendMessage];
 }
 
 - (void)createEngagementDidFailedWithError:(NSError*)error

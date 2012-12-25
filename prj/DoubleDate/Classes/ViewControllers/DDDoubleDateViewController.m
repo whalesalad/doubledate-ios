@@ -30,7 +30,7 @@ typedef enum
     DDDoubleDateViewControllerModeChat = 1<<2
 } DDDoubleDateViewControllerMode;
 
-@interface DDDoubleDateViewController ()
+@interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate>
 
 - (void)loadDataForUser:(DDShortUser*)shortUser;
 - (void)dismissUserPopover;
@@ -236,6 +236,7 @@ typedef enum
 {
     DDSendEngagementViewController *vc = [[[DDSendEngagementViewController alloc] init] autorelease];
     vc.doubleDate = self.doubleDate;
+    vc.delegate = self;
     [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease] animated:YES completion:^{
     }];
 }
@@ -296,7 +297,8 @@ typedef enum
     {
         //check interested and accepted
         if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipAccepted] ||
-            [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipInterested])
+            [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipInterested] ||
+            alreadyCreatedEngagement_)
             mode = DDDoubleDateViewControllerModeChat;
     }
     
@@ -503,6 +505,32 @@ typedef enum
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark DDSendEngagementViewControllerDelegate
+
+- (void)sendEngagementViewControllerDidCancel
+{
+    //dismiss
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (void)sendEngagementViewControllerDidSendMessage
+{
+    //save created flag
+    alreadyCreatedEngagement_ = YES;
+    
+    //show succeed message
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! You've created engagement.", nil)];
+    
+    //show completed hud
+    [self showCompletedHudWithText:message];
+    
+    //dismiss
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 @end

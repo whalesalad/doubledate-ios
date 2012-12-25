@@ -11,7 +11,16 @@
 
 @class DDDoubleDate;
 
+@protocol DDSendEngagementViewControllerDelegate <NSObject>
+
+- (void)sendEngagementViewControllerDidCancel;
+- (void)sendEngagementViewControllerDidSendMessage;
+
+@end
+
 @interface DDSendEngagementViewController : DDViewController
+
+@property(nonatomic, assign) id<DDSendEngagementViewControllerDelegate> delegate;
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
 

@@ -22,6 +22,7 @@
     CGRect initialContainerTextViewFrame_;
     CGPoint initialContainerPhotosCenter_;
     int lastMode_;
+    BOOL alreadyCreatedEngagement_;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
