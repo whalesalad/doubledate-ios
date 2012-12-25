@@ -21,6 +21,7 @@
 #import "DDDoubleDate.h"
 #import "DDDoubleDateFilter.h"
 #import "DDEngagement.h"
+#import "DDObjectsController.h"
 
 typedef enum
 {
@@ -43,6 +44,7 @@ typedef enum
     DDAPIControllerMethodTypeCreateDoubleDate,
     DDAPIControllerMethodTypeGetDoubleDates,
     DDAPIControllerMethodTypeGetMyDoubleDates,
+    DDAPIControllerMethodTypeGetDoubleDate,
     DDAPIControllerMethodTypeRequestDeleteDoubleDate,
     DDAPIControllerMethodTypeGetEngagements,
     DDAPIControllerMethodTypeCreateEngagement,
@@ -581,6 +583,25 @@ typedef enum
     return [self startRequest:request];
 }
 
+- (DDRequestId)getDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d", [doubleDate.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetDoubleDate;
+    userData.succeedSel = @selector(getDoubleDateSucceed:);
+    userData.failedSel = @selector(getDoubleDateDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate
 {
     //create request
@@ -692,6 +713,9 @@ typedef enum
             //create user object
             DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
+            //notify objects controller
+            [DDObjectsController updateObject:user];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:user withObject:nil];
@@ -708,6 +732,9 @@ typedef enum
                 if (placemark)
                     [placemarks addObject:placemark];
             }
+            
+            //notify objects controller
+            [DDObjectsController updateObjects:placemarks];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -726,6 +753,9 @@ typedef enum
                     [interests addObject:interest];
             }
             
+            //notify objects controller
+            [DDObjectsController updateObjects:interests];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:interests withObject:nil];
@@ -734,6 +764,9 @@ typedef enum
         {
             //create photo object
             DDImage *photo = [DDImage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:photo];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -752,6 +785,9 @@ typedef enum
                     [users addObject:user];
             }
             
+            //notify objects controller
+            [DDObjectsController updateObjects:users];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:users withObject:nil];
@@ -769,6 +805,9 @@ typedef enum
                     [friendshipInvitations addObject:friendship];
             }
             
+            //notify objects controller
+            [DDObjectsController updateObjects:friendshipInvitations];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:friendshipInvitations withObject:nil];
@@ -776,7 +815,10 @@ typedef enum
         else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendship)
         {
             //create friendship object
-            DDFriendship *friendship = [DDImage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            DDFriendship *friendship = [DDFriendship objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:friendship];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -804,14 +846,21 @@ typedef enum
                     [facebookFriends addObject:facebookUser];
             }
             
+            //notify objects controller
+            [DDObjectsController updateObjects:facebookFriends];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:facebookFriends withObject:nil];
         }
-        else if (userData.method == DDAPIControllerMethodTypeCreateDoubleDate)
+        else if (userData.method == DDAPIControllerMethodTypeCreateDoubleDate ||
+                 userData.method == DDAPIControllerMethodTypeGetDoubleDate)
         {
             //create object
             DDDoubleDate *doubleDate = [DDDoubleDate objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:doubleDate];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -831,6 +880,9 @@ typedef enum
                     [doubleDates addObject:doubleDate];
             }
             
+            //notify objects controller
+            [DDObjectsController updateObjects:doubleDates];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:doubleDates withObject:nil];
@@ -848,6 +900,9 @@ typedef enum
                     [engagements addObject:engagement];
             }
             
+            //notify objects controller
+            [DDObjectsController updateObjects:engagements];
+            
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:nil];
@@ -856,6 +911,9 @@ typedef enum
         {
             //create object
             DDEngagement *engagement = [DDEngagement objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:engagement];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

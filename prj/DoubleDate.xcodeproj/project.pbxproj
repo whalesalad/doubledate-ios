@@ -327,6 +327,7 @@
 		96E7F1E315F788A900200E1F /* DDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1E215F788A900200E1F /* DDViewController.m */; };
 		96E7F1E515F78D0200200E1F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7F1E415F78D0200200E1F /* libsqlite3.dylib */; };
 		96E7F20515F7A06000200E1F /* DDFacebookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F20415F7A06000200E1F /* DDFacebookController.m */; };
+		96EA06AE1689D36F009F09BC /* DDObjectsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06AD1689D36F009F09BC /* DDObjectsController.m */; };
 		96EE8448161493AA00AE6EC1 /* name-birthday-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 96EE8440161493AA00AE6EC1 /* name-birthday-bg.png */; };
 		96EE8449161493AA00AE6EC1 /* name-birthday-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96EE8441161493AA00AE6EC1 /* name-birthday-bg@2x.png */; };
 		96EE844A161493AA00AE6EC1 /* nophoto-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 96EE8442161493AA00AE6EC1 /* nophoto-bg.png */; };
@@ -796,6 +797,8 @@
 		96E7F1E415F78D0200200E1F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		96E7F20315F7A06000200E1F /* DDFacebookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookController.h; sourceTree = "<group>"; };
 		96E7F20415F7A06000200E1F /* DDFacebookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookController.m; sourceTree = "<group>"; };
+		96EA06AC1689D36F009F09BC /* DDObjectsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDObjectsController.h; sourceTree = "<group>"; };
+		96EA06AD1689D36F009F09BC /* DDObjectsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDObjectsController.m; sourceTree = "<group>"; };
 		96EE8440161493AA00AE6EC1 /* name-birthday-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "name-birthday-bg.png"; sourceTree = "<group>"; };
 		96EE8441161493AA00AE6EC1 /* name-birthday-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "name-birthday-bg@2x.png"; sourceTree = "<group>"; };
 		96EE8442161493AA00AE6EC1 /* nophoto-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nophoto-bg.png"; sourceTree = "<group>"; };
@@ -1386,6 +1389,8 @@
 		96E7F20215F7A05F00200E1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96EA06AC1689D36F009F09BC /* DDObjectsController.h */,
+				96EA06AD1689D36F009F09BC /* DDObjectsController.m */,
 				708AB15C160904CA009817FC /* DDLocationController.h */,
 				708AB15D160904CA009817FC /* DDLocationController.m */,
 				964A6F0315F8B1250077AAF1 /* DDRequestsController.h */,
@@ -1974,6 +1979,7 @@
 				704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */,
 				965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */,
 				965AF0361688A74E00A014D1 /* DDuserBubble.m in Sources */,
+				96EA06AE1689D36F009F09BC /* DDObjectsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

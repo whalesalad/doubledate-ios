@@ -157,7 +157,7 @@ typedef enum
     [self.buttonSubNavLeft setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.buttonSubNavRight setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     
-    //highligh first button
+    //highlight first button
     [self tabTouched:self.buttonSubNavLeft];
 }
 
@@ -531,6 +531,9 @@ typedef enum
     //dismiss
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
+    
+    //update doubledate in background
+    [self.apiController getDoubleDate:self.doubleDate];
 }
 
 @end

@@ -87,6 +87,9 @@ typedef int DDRequestId;
 - (void)getDoubleMyDatesSucceed:(NSArray*)doubleDates;
 - (void)getDoubleMyDatesDidFailedWithError:(NSError*)error;
 
+- (void)getDoubleDateSucceed:(DDDoubleDate*)doubleDate;
+- (void)getDoubleDateDidFailedWithError:(NSError*)error;
+
 - (void)requestDeleteDoubleDateSucceed;
 - (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error;
 
@@ -151,6 +154,8 @@ typedef int DDRequestId;
 - (DDRequestId)getDoubleDatesWithFilter:(DDDoubleDateFilter*)filter;
 
 - (DDRequestId)getMyDoubleDates;
+
+- (DDRequestId)getDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (DDRequestId)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
 

@@ -20,6 +20,7 @@
 #import "DDDoubleDateFilter.h"
 #import "DDTableViewController+Refresh.h"
 #import "DDDoubleDateViewController.h"
+#import "DDObjectsController.h"
 
 typedef enum
 {
@@ -51,6 +52,7 @@ typedef enum
     if (self)
     {
         mode_ = DDDoubleDatesViewControllerModeAll;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectUpdatedNotification:) name:DDObjectsControllerDidUpdateObjectNotification object:nil];
     }
     return self;
 }
@@ -303,6 +305,27 @@ typedef enum
         UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, FLT_MIN)] autorelease];
         v.backgroundColor = [UIColor clearColor];
         self.tableView.tableHeaderView = v;
+    }
+}
+
+- (void)replaceObject:(DDDoubleDate*)object inArray:(NSMutableArray*)array
+{
+    NSInteger index = NSNotFound;
+    for (DDDoubleDate *o in array)
+    {
+        if ([[object identifier] intValue] == [[o identifier] intValue])
+            index = [array indexOfObject:o];
+    }
+    if (index != NSNotFound)
+        [array replaceObjectAtIndex:index withObject:object];
+}
+
+- (void)objectUpdatedNotification:(NSNotification*)notification
+{
+    if ([[notification object] isKindOfClass:[DDDoubleDate class]])
+    {
+        [self replaceObject:[notification object] inArray:allDoubleDates_];
+        [self replaceObject:[notification object] inArray:mineDoubleDates_];
     }
 }
 
