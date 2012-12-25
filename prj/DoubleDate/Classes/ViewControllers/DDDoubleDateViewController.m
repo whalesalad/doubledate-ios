@@ -111,9 +111,6 @@ typedef enum
     self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     
     //customize text
-    DD_F_WHT_HELV_13_BOLD_BLK_SHAD(self.labelLocationMain);
-    DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(self.labelLocationDetailed);
-    DD_F_WHT_HELV_13_BOLD_BLK_SHAD(self.labelDayTime);
     DD_F_TEXT(self.textView);
     
     //customize button
@@ -150,12 +147,15 @@ typedef enum
     }
     
     //customize buttons
-    DD_F_BUTTON_LARGE(self.buttonSubNavLeft);
-    DD_F_BUTTON_LARGE(self.buttonSubNavRight);
+    DD_F_SUBNAV_TEXT(self.buttonSubNavLeft);
+    DD_F_SUBNAV_TEXT(self.buttonSubNavRight);
     [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
     [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
     [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
     [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+    
+    [self.buttonSubNavLeft setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.buttonSubNavRight setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     //highligh first button
     [self tabTouched:self.buttonSubNavLeft];

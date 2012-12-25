@@ -74,7 +74,9 @@
         
         //create label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        label.font = [UIFont systemFontOfSize:12];
+        
+        label.lineBreakMode = NSLineBreakByWordWrapping;
+        DD_F_BUBBLE_INTEREST_TEXT(label);
         label.text = [interest.name uppercaseString];
         label.backgroundColor = [UIColor clearColor];
         [label sizeToFit];
@@ -85,11 +87,9 @@
         labelBackground.image = [DDTools resizableImageFromImage:labelBackgroundImage];
         
         //add label
-        label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2-1);
+        label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2);
         [labelBackground addSubview:label];
-        
-        DD_F_BUBBLE_INTEREST_TEXT(label);
-        
+                
         //add image view
         [viewController_.viewInterests addSubview:labelBackground];
         
@@ -114,7 +114,7 @@
     CGFloat newInterestsHeight = totalInterestsHeight;
     
     //maximum 6 rows + 7 paddings
-    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*6+outVerPadding*7);
+    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*6+outVerPadding*7) + 4;
     viewController_.viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
 }
 
@@ -132,7 +132,7 @@
     viewController_.textView.text = self.user.bio;
     
     //apply gender
-    viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"dd-user-gender-indicator-female.png":@"dd-user-gender-indicator-male.png"];
+    viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"dd-user-gender-indicator-bubble-female.png":@"dd-user-gender-indicator-bubble-male.png"];
     CGPoint centerGender = viewController_.imageViewGender.center;
     viewController_.imageViewGender.frame = CGRectMake(0, 0, viewController_.imageViewGender.image.size.width, viewController_.imageViewGender.image.size.height);
     viewController_.imageViewGender.center = CGPointMake(viewController_.labelTitle.frame.origin.x+viewController_.labelTitle.frame.size.width+genderOffset, centerGender.y);

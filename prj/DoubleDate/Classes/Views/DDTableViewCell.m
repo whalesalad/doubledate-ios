@@ -28,6 +28,8 @@
         self.backgroundColor = [UIColor clearColor];
         DD_F_TABLE_CELL_MAIN(self.textLabel);
         DD_F_TABLE_CELL_DETAILED(self.detailTextLabel);
+        self.textLabel.shadowColor = [UIColor blackColor];
+        self.detailTextLabel.shadowColor = [UIColor blackColor];
     }
     return self;
 }

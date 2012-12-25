@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C43070616896D2E00916A0F /* dd-user-gender-indicator-bubble-female.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C43070216896D2E00916A0F /* dd-user-gender-indicator-bubble-female.png */; };
+		4C43070716896D2E00916A0F /* dd-user-gender-indicator-bubble-male.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C43070316896D2E00916A0F /* dd-user-gender-indicator-bubble-male.png */; };
+		4C43070816896D2E00916A0F /* dd-user-gender-indicator-bubble-female@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C43070416896D2E00916A0F /* dd-user-gender-indicator-bubble-female@2x.png */; };
+		4C43070916896D2E00916A0F /* dd-user-gender-indicator-bubble-male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C43070516896D2E00916A0F /* dd-user-gender-indicator-bubble-male@2x.png */; };
 		4C448AC31647703C00F1437C /* dd-tablecell-location-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C448AC11647703C00F1437C /* dd-tablecell-location-icon.png */; };
 		4C448AC41647703C00F1437C /* dd-tablecell-location-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C448AC21647703C00F1437C /* dd-tablecell-location-icon@2x.png */; };
 		4C855AAD167EE36200DB39D5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */; };
@@ -403,6 +407,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C43070216896D2E00916A0F /* dd-user-gender-indicator-bubble-female.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-gender-indicator-bubble-female.png"; sourceTree = "<group>"; };
+		4C43070316896D2E00916A0F /* dd-user-gender-indicator-bubble-male.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-gender-indicator-bubble-male.png"; sourceTree = "<group>"; };
+		4C43070416896D2E00916A0F /* dd-user-gender-indicator-bubble-female@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-gender-indicator-bubble-female@2x.png"; sourceTree = "<group>"; };
+		4C43070516896D2E00916A0F /* dd-user-gender-indicator-bubble-male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-gender-indicator-bubble-male@2x.png"; sourceTree = "<group>"; };
 		4C448AC11647703C00F1437C /* dd-tablecell-location-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tablecell-location-icon.png"; sourceTree = "<group>"; };
 		4C448AC21647703C00F1437C /* dd-tablecell-location-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tablecell-location-icon@2x.png"; sourceTree = "<group>"; };
 		4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -982,6 +990,10 @@
 		9614E583165693800052ADD1 /* view doubledate */ = {
 			isa = PBXGroup;
 			children = (
+				4C43070216896D2E00916A0F /* dd-user-gender-indicator-bubble-female.png */,
+				4C43070316896D2E00916A0F /* dd-user-gender-indicator-bubble-male.png */,
+				4C43070416896D2E00916A0F /* dd-user-gender-indicator-bubble-female@2x.png */,
+				4C43070516896D2E00916A0F /* dd-user-gender-indicator-bubble-male@2x.png */,
 				96928B69165CE4A800012D1E /* dd-popup-darkness.png */,
 				96928B6A165CE4A800012D1E /* dd-popup-darkness@2x.png */,
 				9614E586165693800052ADD1 /* dd-indented-text-background-bottom.png */,
@@ -1881,6 +1893,10 @@
 				963AE153168494C600ED24DB /* right-subnav-segment-selected.png in Resources */,
 				963AE154168494C600ED24DB /* right-subnav-segment-selected@2x.png in Resources */,
 				965AF0331688A71B00A014D1 /* DDUserBubbleViewController.xib in Resources */,
+				4C43070616896D2E00916A0F /* dd-user-gender-indicator-bubble-female.png in Resources */,
+				4C43070716896D2E00916A0F /* dd-user-gender-indicator-bubble-male.png in Resources */,
+				4C43070816896D2E00916A0F /* dd-user-gender-indicator-bubble-female@2x.png in Resources */,
+				4C43070916896D2E00916A0F /* dd-user-gender-indicator-bubble-male@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
