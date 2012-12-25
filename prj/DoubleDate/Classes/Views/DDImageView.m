@@ -43,32 +43,21 @@
 
 - (void)reloadFromUrl:(NSURL*)url
 {
-    //unset previous image
+    //show loading
+    [activityIndicatorView_ startAnimating];
+    
+    //unset image
     self.image = nil;
     
-    //remove connection
-    [connection_ cancel];
-    [connection_ release];
-    connection_ = nil;
-    
-    //remove data
-    [data_ release];
-    data_ = nil;
-    
-    //start connection
-    if (url)
-    {
-        //create data
-        data_ = [[NSMutableData alloc] init];
+    //load from url
+    [self setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
         
-        //show loading
-        [activityIndicatorView_ startAnimating];
+        //stop animating
+        [activityIndicatorView_ stopAnimating];
         
-        //start request
-        NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url] autorelease];
-        connection_ = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-        [connection_ start];
-    }
+        //apply new image
+        self.image = image;
+    }];
 }
 
 - (void)applyMask:(UIImage*)mask
@@ -86,42 +75,18 @@
     [activityIndicatorView_ setCenter:CGPointMake(self.frame.size.width/2, self.frame.size.height/2)];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    if (data)
-        [data_ appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    //stop loading
-    [activityIndicatorView_ stopAnimating];
-    
-    //updte image
-    if (data_)
-        self.image = [UIImage imageWithData:data_];
-        
-    //release connection
-    [connection_ release];
-    connection_ = nil;
-}
-
 - (void)setImage:(UIImage *)i
 {
     //set image
     [super setImage:i];
 
     //remove connection
-    [connection_ cancel];
-    [connection_ release];
-    connection_ = nil;
+    [self cancelCurrentImageLoad];
 }
 
 - (void)dealloc
 {
-    [connection_ release];
     [activityIndicatorView_ release];
-    [data_ release];
     [super dealloc];
 }
 
