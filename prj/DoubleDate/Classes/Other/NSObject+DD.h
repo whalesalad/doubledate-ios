@@ -16,11 +16,12 @@
 #define DD_F_NAVIGATION_HEADER_MAIN(_X_) [_X_ setFontOfName:[UIFont boldSystemFontOfSize:20].fontName fontSize:20 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
 #define DD_F_NAVIGATION_HEADER_DETAILED(_X_) [_X_ setFontOfName:[UIFont systemFontOfSize:13].fontName fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
 
-#define DD_F_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:14 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor grayColor]]
-#define DD_F_PLACEHOLDER(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:14 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
+#define DD_F_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:16 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
+#define DD_F_BOLD_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:16 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
+#define DD_F_PLACEHOLDER(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:16 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 
 //#define DD_F_BUTTON(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:14 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor grayColor]]
-#define DD_F_BUTTON(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
+#define DD_F_BUTTON(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
 #define DD_F_BUTTON_LARGE(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:15 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
 
 #define DD_F_TABLE_CELL_MAIN(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:16 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor blackColor]]

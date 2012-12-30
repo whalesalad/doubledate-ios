@@ -75,12 +75,11 @@
     [self addSubview:topImageView];
     
     //add label
-#warning customize pick your wing title
     UILabel *labelTitle = [[[UILabel alloc] initWithFrame:CGRectMake(0, 4, self.frame.size.width, 18)] autorelease];
     labelTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     labelTitle.textAlignment = NSTextAlignmentCenter;
-    DD_F_HEADER_MAIN(labelTitle);
-    labelTitle.text = NSLocalizedString(@"Pick Your Wing", nil);
+    DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(labelTitle);
+    labelTitle.text = [NSLocalizedString(@"Pick Your Wing", nil) uppercaseString];
     labelTitle.backgroundColor = [UIColor clearColor];
     [self addSubview:labelTitle];
     
