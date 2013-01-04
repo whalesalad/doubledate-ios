@@ -149,7 +149,7 @@
         //add segmented control
         if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
         {
-            NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"Wings", nil), NSLocalizedString(@"Incoming", nil), nil];
+            NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"WINGS", nil), NSLocalizedString(@"INCOMING", nil), nil];
             UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items] autorelease];
             segmentedControl.selectedSegmentIndex = 0;
             [segmentedControl addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventValueChanged];
