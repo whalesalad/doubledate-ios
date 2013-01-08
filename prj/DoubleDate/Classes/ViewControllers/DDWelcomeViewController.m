@@ -22,10 +22,11 @@
 #import "DDMeViewController.h"
 #import "DDWingsViewController.h"
 #import "DDDoubleDatesViewController.h"
+#import "DDTabBarBackgroundView.h"
 
 #define kTagEmailActionSheet 1
 
-@interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate>
+@interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate, UITabBarControllerDelegate>
 
 - (void)joinWithEmail;
 - (void)loginWithEmail;
@@ -252,32 +253,57 @@
     if (user)
     {
         //set me view controller
-        UIImage *imageMe = nil;
+        UIImage *imageMeNormal = nil;
+        UIImage *imageMeSelected = nil;
         if ([user.gender isEqualToString:DDUserGenderMale])
-            imageMe = [UIImage imageNamed:@"profile-male-tab-bar.png"];
+        {
+            imageMeNormal = [UIImage imageNamed:@"icon-male.png"];
+            imageMeSelected = [UIImage imageNamed:@"icon-male-selected.png"];
+        }
         else if ([user.gender isEqualToString:DDUserGenderFemale])
-            imageMe = [UIImage imageNamed:@"woman-tab-bar"];
+        {
+            imageMeNormal = [UIImage imageNamed:@"icon-female.png"];
+            imageMeSelected = [UIImage imageNamed:@"icon-female-selected.png"];
+        }
         DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
         meViewController.user = user;
-        meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Me", nil) image:imageMe tag:0] autorelease];
+        meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Me", nil) image:nil tag:0] autorelease];
+        [meViewController.tabBarItem setFinishedSelectedImage:imageMeNormal withFinishedUnselectedImage:imageMeSelected];
         
         //set wingman view controller
         DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
         wingsViewController.user = user;
-        wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Wings", nil) image:[UIImage imageNamed:@"wing-tab-bar.png"] tag:1] autorelease];
+        wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Wings", nil) image:nil tag:1] autorelease];
+        [wingsViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"icon-wings.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"icon-wings-selected.png"]];
         
         //set doubledates view controller
         DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         doubledatesViewController.user = user;
-        doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DoubleDates", nil) image:[UIImage imageNamed:@"doubledates-tab-bar.png"] tag:2] autorelease];
+        doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"DoubleDates", nil) image:nil tag:2] autorelease];
+        [doubledatesViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"icon-dates.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"icon-dates-selected.png"]];
+        
+        //set browse
+        DDViewController *browseViewController = [[[DDViewController alloc] init] autorelease];
+        browseViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Browse", nil) image:nil tag:2] autorelease];
+        [browseViewController.tabBarItem setFinishedSelectedImage:[UIImage imageNamed:@"icon-browse.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"icon-browse-selected.png"]];
         
         //create tab bar controller
         UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+        tabBarController.delegate = self;
+        [tabBarController.tabBar setBackgroundImage:[DDTools clearImageOfSize:CGSizeMake(1, 1)]];
+        [tabBarController.tabBar setSelectionIndicatorImage:[DDTools clearImageOfSize:CGSizeMake(1, 1)]];
         NSMutableArray *viewControllers = [NSMutableArray array];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:wingsViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:doubledatesViewController] autorelease]];
+        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
         tabBarController.viewControllers = viewControllers;
+        
+        //add view under tab bar and select me
+        DDTabBarBackgroundView *viewUnder = [[[DDTabBarBackgroundView alloc] initWithFrame:tabBarController.tabBar.frame] autorelease];
+        viewUnder.numberOfTabs = 4;
+        viewUnder.selectedTab = 0;
+        [tabBarController.tabBar.superview insertSubview:viewUnder belowSubview:tabBarController.tabBar];
         
         //go to next view controller
         [self.navigationController pushViewController:tabBarController animated:animated];
@@ -287,6 +313,18 @@
 - (void)startWithUser:(DDUser *)user
 {
     [self startWithUser:user animated:NO];
+}
+
+#pragma mark -
+#pragma mark UITabBarControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    for (DDTabBarBackgroundView *viewUnderTabBar in [tabBarController.tabBar.superview subviews])
+    {
+        if ([viewUnderTabBar isKindOfClass:[DDTabBarBackgroundView class]])
+            viewUnderTabBar.selectedTab = [tabBarController.viewControllers indexOfObject:viewController];
+    }
 }
 
 @end
