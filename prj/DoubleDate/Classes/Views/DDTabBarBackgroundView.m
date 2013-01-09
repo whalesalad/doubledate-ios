@@ -36,6 +36,8 @@
                 case 0:
                     if (self.selectedTab == i)
                         imageName = @"tab-bg-me-selected.png";
+                    else if (self.selectedTab == i+1)
+                        imageName = @"tab-bg-me-right-is-selected.png";
                     else
                         imageName = @"tab-bg-me.png";
                     break;
@@ -98,12 +100,16 @@
         //update tabs
         [self updateTabs];
         
-#warning customize shadow and border
-        self.layer.shadowColor = [UIColor redColor].CGColor;
-        self.layer.shadowOffset = CGSizeMake(-10, -10);
-        self.layer.shadowOpacity = 1;
-        self.layer.borderColor = [UIColor greenColor].CGColor;
-        self.layer.borderWidth = 2;
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, -2);
+        self.layer.shadowOpacity = 0.5f;
+        
+        // add only a top black border
+        CALayer *topBorder = [CALayer layer];
+        topBorder.frame = CGRectMake(0.0f, -1.0f, self.frame.size.width, 1.0f);
+        topBorder.backgroundColor = [UIColor blackColor].CGColor;
+        [self.layer addSublayer:topBorder];
+
     }
     return self;
 }
@@ -122,7 +128,7 @@
 
 - (void)applyIcon:(UIImage*)icon forImageView:(UIImageView*)imageView
 {
-#warning icon offset
+    // icon offset, it looks good right now.
     CGPoint iconOffset = CGPointMake(0, -1);
     imageView.image = icon;
     imageView.frame = CGRectMake(0, 0, icon.size.width, icon.size.height);
