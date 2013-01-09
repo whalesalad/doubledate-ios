@@ -33,7 +33,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
     apiController_ = [[DDAPIController alloc] init];
     apiController_.delegate = self;
     
-    self.backButtonTitle = NSLocalizedString(@"BACK", nil);
+    self.backButtonTitle = NSLocalizedString(@"Back", nil);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
