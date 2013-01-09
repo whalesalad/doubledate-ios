@@ -87,8 +87,8 @@
     imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x+labelTitle.frame.size.width+4, labelTitle.center.y-imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
     
     //set poster
-    if (user.photo.downloadUrl)
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
+    if (user.photo.mediumUrl)
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.mediumUrl]];
     
     //set biography
     textViewBio.text = user.bio;

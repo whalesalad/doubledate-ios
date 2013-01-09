@@ -296,12 +296,12 @@
     if (wing)
     {
         //load image
-        if ([[wing photo] downloadUrl])
+        if ([[wing photo] thumbUrl])
         {
             DDImageView *imageView = cell.iconImageView;
             imageView.layer.cornerRadius = 17;
             imageView.layer.masksToBounds = YES;
-            [imageView reloadFromUrl:[NSURL URLWithString:[[wing photo] downloadUrl]]];
+            [imageView reloadFromUrl:[NSURL URLWithString:[[wing photo] thumbUrl]]];
         }
         
         //set location text

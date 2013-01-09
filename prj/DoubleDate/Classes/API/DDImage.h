@@ -12,7 +12,10 @@
 {
 }
 
-@property(nonatomic, retain) NSString *downloadUrl;
+@property(nonatomic, retain) NSString *thumbUrl;
+@property(nonatomic, retain) NSString *smallUrl;
+@property(nonatomic, retain) NSString *mediumUrl;
+@property(nonatomic, retain) NSString *largeUrl;
 @property(nonatomic, retain) UIImage *uploadImage;
 
 @end

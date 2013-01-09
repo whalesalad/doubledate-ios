@@ -105,8 +105,8 @@
         self.userLocation = user.location;
         
         //save photo
-        if (user.photo.downloadUrl)
-            [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
+        if (user.photo.mediumUrl)
+            [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:user.photo.mediumUrl]];
     }
     
     //customize image view

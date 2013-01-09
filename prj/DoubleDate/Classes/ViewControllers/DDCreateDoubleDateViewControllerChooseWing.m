@@ -157,7 +157,7 @@
     cell.textLabel.text = [user fullName];
 
     //check for photo
-    if ([user.photo downloadUrl])
+    if ([user.photo thumbUrl])
     {
         //apply wing photo
         DDImageView *imageView = [[[DDImageView alloc] initWithFrame:CGRectMake(0, 0, 38, 38)] autorelease];
@@ -173,7 +173,7 @@
         [imageView addSubview:overlay];
         
         //reload image
-        [imageView reloadFromUrl:[NSURL URLWithString:[user.photo downloadUrl]]];
+        [imageView reloadFromUrl:[NSURL URLWithString:[user.photo thumbUrl]]];
     }
     else
         [cell attachImageView:nil];

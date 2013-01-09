@@ -10,14 +10,20 @@
 
 @implementation DDImage
 
-@synthesize downloadUrl;
+@synthesize thumbUrl;
+@synthesize smallUrl;
+@synthesize mediumUrl;
+@synthesize largeUrl;
 @synthesize uploadImage;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if ((self = [super initWithDictionary:dictionary]))
     {
-            self.downloadUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"thumb"]];
+        self.thumbUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"thumb"]];
+        self.smallUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"small"]];
+        self.mediumUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"medium"]];
+        self.largeUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"large"]];
     }
     return self;
 }
@@ -25,8 +31,14 @@
 - (NSDictionary*)dictionaryRepresentation
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    if (self.downloadUrl)
-        [dictionary setObject:self.downloadUrl forKey:@"thumb"];
+    if (self.thumbUrl)
+        [dictionary setObject:self.thumbUrl forKey:@"thumb"];
+    if (self.smallUrl)
+        [dictionary setObject:self.smallUrl forKey:@"small"];
+    if (self.mediumUrl)
+        [dictionary setObject:self.mediumUrl forKey:@"medium"];
+    if (self.largeUrl)
+        [dictionary setObject:self.largeUrl forKey:@"large"];
     return dictionary;
 }
 
@@ -39,7 +51,10 @@
 
 - (void)dealloc
 {
-    [downloadUrl release];
+    [thumbUrl release];
+    [smallUrl release];
+    [mediumUrl release];
+    [largeUrl release];
     [uploadImage release];
     [super dealloc];
 }

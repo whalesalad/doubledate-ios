@@ -131,8 +131,8 @@
 
 - (void)applyImage:(DDImage*)image
 {
-    if (image && [image downloadUrl] && [NSURL URLWithString:[image downloadUrl]])
-        [imageView_ reloadFromUrl:[NSURL URLWithString:[image downloadUrl]]];
+    if (image && [image thumbUrl] && [NSURL URLWithString:[image thumbUrl]])
+        [imageView_ reloadFromUrl:[NSURL URLWithString:[image thumbUrl]]];
     else
         imageView_.image = nil;
 }
