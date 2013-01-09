@@ -77,10 +77,10 @@
     self.navigationItem.title = NSLocalizedString(@"Filter & Sort", nil);
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"APPLY", nil) target:self action:@selector(applyTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Apply", nil) target:self action:@selector(applyTouched:)];
     
     //set left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"CANCEL", nil) target:self action:@selector(cancelTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     
 #define ADD_PICKER_FIELD_TO_BUTTON(_FIELD_, _ARRAY_, _DEF_)\
     {\

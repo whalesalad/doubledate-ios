@@ -86,8 +86,6 @@
     [button setImage:titleImage forState:UIControlStateNormal];
     [button setContentEdgeInsets:contentEdgeInsets];
 
-    button.titleEdgeInsets = UIEdgeInsetsMake(1, 0, -1, 0);
-    
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     DDBarButtonItem *barButtonItem = [[[DDBarButtonItem alloc] initWithCustomView:button] autorelease];
     [barButtonItem setButton:button];

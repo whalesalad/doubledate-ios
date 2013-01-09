@@ -149,7 +149,7 @@
         //add segmented control
         if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
         {
-            NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"WINGS", nil), NSLocalizedString(@"INCOMING", nil), nil];
+            NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"Wings", nil), NSLocalizedString(@"Incoming", nil), nil];
             UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items] autorelease];
             segmentedControl.selectedSegmentIndex = 0;
             [segmentedControl addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventValueChanged];
@@ -173,7 +173,7 @@
     else if (self.isSelectingMode)
     {
         //add back button
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"CANCEL", nil) target:self action:@selector(cancelTouched:)];
+        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     }
     else
     {
@@ -181,7 +181,7 @@
         self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
         
         //add right button
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
     }
 }
 
@@ -239,9 +239,9 @@
     
     //set right button
     if (self.tableView.editing)
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"DONE", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(editTouched:)];
     else
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
 }
 
 - (void)tabChanged:(UISegmentedControl*)sender
