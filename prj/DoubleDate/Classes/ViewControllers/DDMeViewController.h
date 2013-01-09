@@ -16,15 +16,19 @@
 
 @property(nonatomic, retain) DDUser *user;
 
+@property(nonatomic, retain) IBOutlet UIScrollView *scrollView;
+
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPoster;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewOverlay;
-//@property(nonatomic, retain) IBOutlet UIImageView *imageViewMale;
-//@property(nonatomic, retain) IBOutlet UIImageView *imageViewFemale;
-@property(nonatomic, retain) IBOutlet UILabel *labelAge;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UITextView *textViewBio;
-@property(nonatomic, retain) IBOutlet DDTagsView *tagsViewInterests;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewLocation;
+@property(nonatomic, retain) IBOutlet UIView *viewInterests;
+@property(nonatomic, retain) IBOutlet UILabel *labelInterests;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
+@property(nonatomic, retain) IBOutlet UILabel *labelCoinsTitle;
+@property(nonatomic, retain) IBOutlet UILabel *labelCoinsValue;
+@property(nonatomic, retain) IBOutlet UILabel *labelKarmaTitle;
+@property(nonatomic, retain) IBOutlet UILabel *labelKarmaValue;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewBioBackground;
 
 @end

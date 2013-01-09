@@ -17,6 +17,8 @@
 #import "DDAuthenticationController.h"
 #import "DDBarButtonItem.h"
 #import "DDWingsViewController.h"
+#import "DDTools.h"
+#import "UIView+Interests.h"
 
 @interface DDMeViewController ()
 
@@ -25,16 +27,19 @@
 @implementation DDMeViewController
 
 @synthesize user;
+@synthesize scrollView;
 @synthesize labelTitle;
 @synthesize imageViewPoster;
-@synthesize imageViewOverlay;
-//@synthesize imageViewMale;
-//@synthesize imageViewFemale;
-@synthesize labelAge;
 @synthesize labelLocation;
 @synthesize textViewBio;
-@synthesize tagsViewInterests;
-@synthesize imageViewLocation;
+@synthesize viewInterests;
+@synthesize labelInterests;
+@synthesize imageViewGender;
+@synthesize labelCoinsTitle;
+@synthesize labelCoinsValue;
+@synthesize labelKarmaTitle;
+@synthesize labelKarmaValue;
+@synthesize imageViewBioBackground;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +53,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //apply mask
+    [self.imageViewPoster applyMask:[UIImage imageNamed:@"bg-me-photo-mask.png"]];
     
     //we can edit only yourself
     if ([[DDAuthenticationController userId] isEqualToString:[user.userId stringValue]])
@@ -67,86 +75,80 @@
         self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     }
     
-    //customize poster
-    self.imageViewPoster.layer.borderWidth = 2;
-    self.imageViewPoster.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.imageViewPoster.layer.cornerRadius = 42.5f;
-    self.imageViewPoster.layer.masksToBounds = YES;
-    
-    //customize interests view
-    self.tagsViewInterests.bubbleEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.tagsViewInterests.gap = 4;
-    
     //set title
-    labelTitle.text = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
+    labelTitle.text = [NSString stringWithFormat:@"%@ %@, %d", [user.firstName capitalizedString], [user.lastName capitalizedString], [user.age intValue]];
+    labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
     
-    labelTitle.layer.shadowOpacity = 0.8;
-    labelTitle.layer.shadowRadius = 1.0;
-    labelTitle.layer.shadowColor = [UIColor blackColor].CGColor;
-    labelTitle.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+    //set gender
+    if ([[user gender] isEqualToString:DDUserGenderFemale])
+        imageViewGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
+    else
+        imageViewGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
+    imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x+labelTitle.frame.size.width+4, labelTitle.center.y-imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
     
     //set poster
     if (user.photo.downloadUrl)
         [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.downloadUrl]];
-    else
-        imageViewOverlay.hidden = YES;
-    
-    //apply gender
-//    imageViewFemale.hidden = ![user.gender isEqualToString:DDUserGenderFemale];
-//    imageViewMale.hidden = ![user.gender isEqualToString:DDUserGenderMale];
     
     //set biography
     textViewBio.text = user.bio;
     
-    textViewBio.layer.shadowOpacity = 1.0;
-    textViewBio.layer.shadowRadius = 0.0;
-    textViewBio.layer.shadowColor = [UIColor whiteColor].CGColor;
-    textViewBio.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-    
-    // Set age/gender text
-    NSMutableString *ageText = [NSMutableString string];
-    
-    if (user.age) {
-        [ageText appendFormat:@"%d", [user.age intValue]];
-        if ([user.gender isEqualToString:DDUserGenderFemale]) {
-            [ageText appendString:@"F"];
-        } else if ([user.gender isEqualToString:DDUserGenderMale]) {
-            [ageText appendString:@"M"];
-        }
-    }
-    
-    [labelAge setText:ageText];
-    
-    labelAge.layer.shadowOpacity = 0.8;
-    labelAge.layer.shadowRadius = 1.0;
-    labelAge.layer.shadowColor = [UIColor blackColor].CGColor;
-    labelAge.layer.shadowOffset = CGSizeMake(0.0, 1.0);
+    //customize label interests
+    DD_F_SUBNAV_TEXT(labelInterests);
     
     //set location
     labelLocation.text = [[user location] name];
     
-    labelLocation.layer.shadowOpacity = 0.8;
-    labelLocation.layer.shadowRadius = 1.0;
-    labelLocation.layer.shadowColor = [UIColor blackColor].CGColor;
-    labelLocation.layer.shadowOffset = CGSizeMake(0.0, 1.0);
-    
-    //hide or show
-    imageViewLocation.hidden = ![labelLocation.text length] > 0;
-    
-    //set interests
-    NSMutableArray *tags = [NSMutableArray array];
-    for (DDInterest *interest in [user interests])
-        [tags addObject:interest.name];
-    tagsViewInterests.tags = tags;
-    
     //watch for text view change
+    CGSize textViewBioSize = textViewBio.frame.size;
     [textViewBio sizeToFit];
+    CGFloat dh = textViewBio.frame.size.height - textViewBioSize.height;
+    
+    //stick bio background image
+    imageViewBioBackground.frame = CGRectMake(imageViewBioBackground.frame.origin.x, textViewBio.frame.origin.y+textViewBio.frame.size.height-imageViewBioBackground.frame.size.height, imageViewBioBackground.frame.size.width, imageViewBioBackground.frame.size.height);
+    
+    //change position
+    self.labelInterests.frame = CGRectMake(labelInterests.frame.origin.x, labelInterests.frame.origin.y+dh, labelInterests.frame.size.width, labelInterests.frame.size.height);
+    self.labelInterests.hidden = [self.user.interests count] == 0;
+    self.viewInterests.frame = CGRectMake(viewInterests.frame.origin.x, viewInterests.frame.origin.y+dh, viewInterests.frame.size.width, viewInterests.frame.size.height);
+    
+    //make background clear
+    labelTitle.backgroundColor = [UIColor clearColor];
+    imageViewPoster.backgroundColor = [UIColor clearColor];
+    labelLocation.backgroundColor = [UIColor clearColor];
+    textViewBio.backgroundColor = [UIColor clearColor];
+    viewInterests.backgroundColor = [UIColor clearColor];
+    labelInterests.backgroundColor = [UIColor clearColor];
+    imageViewGender.backgroundColor = [UIColor clearColor];
+    labelCoinsTitle.backgroundColor = [UIColor clearColor];
+    labelCoinsValue.backgroundColor = [UIColor clearColor];
+    labelKarmaTitle.backgroundColor = [UIColor clearColor];
+    labelKarmaValue.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [tagsViewInterests customize];
+    [self reinitInterests];
+}
+
+- (void)reinitInterests
+{
+    //save old frame
+    CGRect oldInterestsFrame = viewInterests.frame;
+    
+    //apply interests
+    CGFloat newInterestsHeight = [viewInterests applyInterests:self.user.interests withBubbleImage:[UIImage imageNamed:@"bg-me-interest.png"] custmomizationHandler:^(UILabel *bubbleLabel) {
+        DD_F_BUBBLE_INTEREST_TEXT(bubbleLabel);
+        bubbleLabel.textColor = [UIColor whiteColor];
+        bubbleLabel.backgroundColor = [UIColor clearColor];
+    }];
+    
+    //change frame
+    viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
+    
+    //apply needed content size
+    self.scrollView.contentSize = CGSizeMake(320, viewInterests.frame.origin.y+viewInterests.frame.size.height);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -157,14 +159,19 @@
 - (void)dealloc
 {
     [user release];
+    [scrollView release];
     [labelTitle release];
     [imageViewPoster release];
-    [imageViewOverlay release];
-//    [imageViewMale release];
-//    [imageViewFemale release];
+    [labelLocation release];
     [textViewBio release];
-    [tagsViewInterests release];
-    [imageViewLocation release];
+    [viewInterests release];
+    [labelInterests release];
+    [imageViewGender release];
+    [labelCoinsTitle release];
+    [labelCoinsValue release];
+    [labelKarmaTitle release];
+    [labelKarmaValue release];
+    [imageViewBioBackground release];
     [super dealloc];
 }
 

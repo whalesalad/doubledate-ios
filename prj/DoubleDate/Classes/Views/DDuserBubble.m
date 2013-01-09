@@ -13,6 +13,7 @@
 #import "DDPhotoView.h"
 #import "DDInterest.h"
 #import "DDTools.h"
+#import "UIView+Interests.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDUserBubble
@@ -56,65 +57,15 @@
 
 - (void)reinitInterests
 {
-    //remove all interests
-    while ([[viewController_.viewInterests subviews] count])
-        [[[viewController_.viewInterests subviews] lastObject] removeFromSuperview];
-    
-    //add interesets
-    CGFloat outHorPadding = 4;
-    CGFloat outVerPadding = 6;
-    CGFloat curX = outHorPadding;
-    CGFloat curY = outVerPadding;
-    CGFloat totalInterestsHeight = 0;
     CGRect oldInterestsFrame = viewController_.viewInterests.frame;
-    for (DDInterest *interest in self.user.interests)
-    {
-        //edge padding inside the bubble
-        CGFloat inEdgePadding = 6;
-        
-        //create label
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-        
-        label.lineBreakMode = NSLineBreakByWordWrapping;
-        DD_F_BUBBLE_INTEREST_TEXT(label);
-        label.text = [interest.name uppercaseString];
-        label.backgroundColor = [UIColor clearColor];
-        [label sizeToFit];
-        
-        //create background image
-        UIImage *labelBackgroundImage = [UIImage imageNamed:@"dd-user-bubble-interest-item.png"];
-        UIImageView *labelBackground = [[[UIImageView alloc] initWithFrame:CGRectMake(curX, curY, label.frame.size.width+2*inEdgePadding, labelBackgroundImage.size.height)] autorelease];
-        labelBackground.image = [DDTools resizableImageFromImage:labelBackgroundImage];
-        
-        //add label
-        label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2);
-        [labelBackground addSubview:label];
-                
-        //add image view
-        [viewController_.viewInterests addSubview:labelBackground];
-        
-        //move horizontally
-        curX = labelBackground.frame.origin.x + labelBackground.frame.size.width + outHorPadding;
-        
-        //check if out of the bounds
-        if (curX > viewController_.viewInterests.frame.size.width)
-        {
-            //update current frame
-            curY = labelBackground.frame.origin.y + labelBackground.frame.size.height + outVerPadding;
-            curX = outHorPadding;
-            labelBackground.frame = CGRectMake(curX, curY, labelBackground.frame.size.width, labelBackground.frame.size.height);
-            
-            //set up new frame
-            curX = labelBackground.frame.origin.x + labelBackground.frame.size.width + outHorPadding;
-        }
-        
-        //save total height
-        totalInterestsHeight = labelBackground.frame.origin.y + labelBackground.frame.size.height + outVerPadding;
-    }
-    CGFloat newInterestsHeight = totalInterestsHeight;
-    
-    //maximum 6 rows + 7 paddings
-    newInterestsHeight = MIN(MAX(newInterestsHeight, 0), 27*6+outVerPadding*7) + 4;
+    CGFloat newInterestsHeight = [viewController_.viewInterests applyInterests:self.user.interests
+                                                               withBubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item.png"]
+                                                         custmomizationHandler:^(UILabel *bubbleLabel)
+                                  {
+                                      bubbleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                                      DD_F_BUBBLE_INTEREST_TEXT(bubbleLabel);
+                                      bubbleLabel.backgroundColor = [UIColor clearColor];
+                                  }];
     viewController_.viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
 }
 
