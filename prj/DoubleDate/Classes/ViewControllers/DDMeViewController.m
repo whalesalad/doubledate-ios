@@ -18,6 +18,7 @@
 #import "DDWingsViewController.h"
 #import "DDTools.h"
 #import "UIView+Interests.h"
+#import "DDWingTableViewCell.h"
 
 @interface DDMeViewController ()
 
@@ -75,7 +76,7 @@
     }
     
     //set title
-    labelTitle.text = [NSString stringWithFormat:@"%@ %@, %d", [user.firstName capitalizedString], [user.lastName capitalizedString], [user.age intValue]];
+    labelTitle.text = [DDWingTableViewCell titleForUser:user];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
     
     //set gender

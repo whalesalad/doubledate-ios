@@ -9,7 +9,7 @@
 #import "DDFacebookFriendsViewController.h"
 #import "DDAPIController.h"
 #import "DDShortUser.h"
-#import "DDUserTableViewCell.h"
+#import "DDWingTableViewCell.h"
 #import "DDMeViewController.h"
 #import "DDTools.h"
 #import "MBProgressHUD.h"
@@ -230,13 +230,13 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [DDUserTableViewCell height];
+    return [DDWingTableViewCell height];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //add user to invite
-    DDUserTableViewCell *tableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+    DDWingTableViewCell *tableViewCell = (DDWingTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
     
     //update state
     if ([friendsToInvite_ containsObject:tableViewCell.shortUser])
@@ -282,15 +282,14 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set identifier
-    NSString *cellIdentifier = [[DDUserTableViewCell class] description];
+    NSString *cellIdentifier = NSStringFromClass([DDWingTableViewCell class]);
     
     //create cell if needed
-    DDUserTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    DDWingTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!tableViewCell)
-        tableViewCell = [[[DDUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-    
-    //set type
-    tableViewCell.type = DDUserTableViewCellTypeFacebook;
+    {
+        tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+    }
     
     //save friend
     DDShortUser *friend = [[self friendsForTableView:aTableView forSection:indexPath.section] objectAtIndex:indexPath.row];

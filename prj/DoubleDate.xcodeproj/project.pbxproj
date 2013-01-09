@@ -125,6 +125,22 @@
 		708C0A131651A26000A40FD9 /* large-segment-right-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09FB1651A26000A40FD9 /* large-segment-right-selected@2x.png */; };
 		708C0A141651A26000A40FD9 /* large-segment-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09FC1651A26000A40FD9 /* large-segment-right.png */; };
 		708C0A151651A26000A40FD9 /* large-segment-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09FD1651A26000A40FD9 /* large-segment-right@2x.png */; };
+		70927FAA169E097C00052C9F /* DDWingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */; };
+		70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FAC169E099D00052C9F /* DDWingTableViewCell.m */; };
+		70927FB5169E0E5900052C9F /* double-arrows.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FAF169E0E5900052C9F /* double-arrows.png */; };
+		70927FB6169E0E5900052C9F /* double-arrows@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FB0169E0E5900052C9F /* double-arrows@2x.png */; };
+		70927FB7169E0E5900052C9F /* double-list-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FB1169E0E5900052C9F /* double-list-overlay.png */; };
+		70927FB8169E0E5900052C9F /* double-list-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FB2169E0E5900052C9F /* double-list-overlay@2x.png */; };
+		70927FB9169E0E5900052C9F /* single-list-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FB3169E0E5900052C9F /* single-list-overlay.png */; };
+		70927FBA169E0E5900052C9F /* single-list-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FB4169E0E5900052C9F /* single-list-overlay@2x.png */; };
+		70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */; };
+		70927FBF169E171000052C9F /* DDInvitationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */; };
+		70927FC7169E174A00052C9F /* accept-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FC1169E174A00052C9F /* accept-button.png */; };
+		70927FC8169E174A00052C9F /* accept-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FC2169E174A00052C9F /* accept-button@2x.png */; };
+		70927FC9169E174A00052C9F /* deny-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FC3169E174A00052C9F /* deny-button.png */; };
+		70927FCA169E174A00052C9F /* deny-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FC4169E174A00052C9F /* deny-button@2x.png */; };
+		70927FCB169E174A00052C9F /* single-list-approve-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FC5169E174A00052C9F /* single-list-approve-overlay.png */; };
+		70927FCC169E174A00052C9F /* single-list-approve-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70927FC6169E174A00052C9F /* single-list-approve-overlay@2x.png */; };
 		7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AB163BE2B800594BAA /* DDTextView.m */; };
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
@@ -138,7 +154,6 @@
 		70E6720B162748BE004D14CA /* dd-app.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67209162748BE004D14CA /* dd-app.png */; };
 		70E6720C162748BE004D14CA /* dd-app@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6720A162748BE004D14CA /* dd-app@2x.png */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
-		70E67221162760DC004D14CA /* DDUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E67220162760DC004D14CA /* DDUserTableViewCell.m */; };
 		70E67232162778E1004D14CA /* button-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6722E162778E1004D14CA /* button-blue.png */; };
 		70E67233162778E1004D14CA /* button-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E6722F162778E1004D14CA /* button-blue@2x.png */; };
 		70E67234162778E1004D14CA /* button-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E67230162778E1004D14CA /* button-grey.png */; };
@@ -590,6 +605,24 @@
 		708C09FB1651A26000A40FD9 /* large-segment-right-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-segment-right-selected@2x.png"; sourceTree = "<group>"; };
 		708C09FC1651A26000A40FD9 /* large-segment-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-segment-right.png"; sourceTree = "<group>"; };
 		708C09FD1651A26000A40FD9 /* large-segment-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-segment-right@2x.png"; sourceTree = "<group>"; };
+		70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingTableViewCell.xib; sourceTree = "<group>"; };
+		70927FAB169E099D00052C9F /* DDWingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingTableViewCell.h; sourceTree = "<group>"; };
+		70927FAC169E099D00052C9F /* DDWingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingTableViewCell.m; sourceTree = "<group>"; };
+		70927FAF169E0E5900052C9F /* double-arrows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "double-arrows.png"; sourceTree = "<group>"; };
+		70927FB0169E0E5900052C9F /* double-arrows@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "double-arrows@2x.png"; sourceTree = "<group>"; };
+		70927FB1169E0E5900052C9F /* double-list-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "double-list-overlay.png"; sourceTree = "<group>"; };
+		70927FB2169E0E5900052C9F /* double-list-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "double-list-overlay@2x.png"; sourceTree = "<group>"; };
+		70927FB3169E0E5900052C9F /* single-list-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "single-list-overlay.png"; sourceTree = "<group>"; };
+		70927FB4169E0E5900052C9F /* single-list-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "single-list-overlay@2x.png"; sourceTree = "<group>"; };
+		70927FBB169E16C800052C9F /* DDInvitationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInvitationTableViewCell.h; sourceTree = "<group>"; };
+		70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInvitationTableViewCell.m; sourceTree = "<group>"; };
+		70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInvitationTableViewCell.xib; sourceTree = "<group>"; };
+		70927FC1169E174A00052C9F /* accept-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept-button.png"; sourceTree = "<group>"; };
+		70927FC2169E174A00052C9F /* accept-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "accept-button@2x.png"; sourceTree = "<group>"; };
+		70927FC3169E174A00052C9F /* deny-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deny-button.png"; sourceTree = "<group>"; };
+		70927FC4169E174A00052C9F /* deny-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "deny-button@2x.png"; sourceTree = "<group>"; };
+		70927FC5169E174A00052C9F /* single-list-approve-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "single-list-approve-overlay.png"; sourceTree = "<group>"; };
+		70927FC6169E174A00052C9F /* single-list-approve-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "single-list-approve-overlay@2x.png"; sourceTree = "<group>"; };
 		7099E8AA163BE2B800594BAA /* DDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextView.h; sourceTree = "<group>"; };
 		7099E8AB163BE2B800594BAA /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 		7099E8AD163BF1D100594BAA /* DDDoubleDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDate.h; sourceTree = "<group>"; };
@@ -608,8 +641,6 @@
 		70E6720A162748BE004D14CA /* dd-app@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-app@2x.png"; sourceTree = "<group>"; };
 		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
-		70E6721F162760DC004D14CA /* DDUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserTableViewCell.h; sourceTree = "<group>"; };
-		70E67220162760DC004D14CA /* DDUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserTableViewCell.m; sourceTree = "<group>"; };
 		70E6722E162778E1004D14CA /* button-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-blue.png"; sourceTree = "<group>"; };
 		70E6722F162778E1004D14CA /* button-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-blue@2x.png"; sourceTree = "<group>"; };
 		70E67230162778E1004D14CA /* button-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-grey.png"; sourceTree = "<group>"; };
@@ -979,6 +1010,32 @@
 				70803B151610FF3400BFDE8B /* TITokenField.m */,
 			);
 			path = TITokenField;
+			sourceTree = "<group>";
+		};
+		70927FAE169E0E5900052C9F /* wing-and-list-overlays */ = {
+			isa = PBXGroup;
+			children = (
+				70927FAF169E0E5900052C9F /* double-arrows.png */,
+				70927FB0169E0E5900052C9F /* double-arrows@2x.png */,
+				70927FB1169E0E5900052C9F /* double-list-overlay.png */,
+				70927FB2169E0E5900052C9F /* double-list-overlay@2x.png */,
+				70927FB3169E0E5900052C9F /* single-list-overlay.png */,
+				70927FB4169E0E5900052C9F /* single-list-overlay@2x.png */,
+			);
+			path = "wing-and-list-overlays";
+			sourceTree = "<group>";
+		};
+		70927FC0169E174A00052C9F /* wing-approve-deny */ = {
+			isa = PBXGroup;
+			children = (
+				70927FC1169E174A00052C9F /* accept-button.png */,
+				70927FC2169E174A00052C9F /* accept-button@2x.png */,
+				70927FC3169E174A00052C9F /* deny-button.png */,
+				70927FC4169E174A00052C9F /* deny-button@2x.png */,
+				70927FC5169E174A00052C9F /* single-list-approve-overlay.png */,
+				70927FC6169E174A00052C9F /* single-list-approve-overlay@2x.png */,
+			);
+			path = "wing-approve-deny";
 			sourceTree = "<group>";
 		};
 		70E6720D16275399004D14CA /* facebook friends */ = {
@@ -1354,6 +1411,10 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70927FBB169E16C800052C9F /* DDInvitationTableViewCell.h */,
+				70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */,
+				70927FAB169E099D00052C9F /* DDWingTableViewCell.h */,
+				70927FAC169E099D00052C9F /* DDWingTableViewCell.m */,
 				9683129E169DB354007C14ED /* UIView+Interests.h */,
 				9683129F169DB354007C14ED /* UIView+Interests.m */,
 				96B1F99A169C7F21009FD842 /* DDTabBarBackgroundView.h */,
@@ -1390,8 +1451,6 @@
 				7099E8AB163BE2B800594BAA /* DDTextView.m */,
 				96AF0736163AAAF300C1940F /* DDButton.h */,
 				96AF0737163AAAF300C1940F /* DDButton.m */,
-				70E6721F162760DC004D14CA /* DDUserTableViewCell.h */,
-				70E67220162760DC004D14CA /* DDUserTableViewCell.m */,
 				96B59E18160719DF00CFDA1C /* DDImageView.h */,
 				96B59E19160719DF00CFDA1C /* DDImageView.m */,
 			);
@@ -1478,6 +1537,8 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				70927FC0169E174A00052C9F /* wing-approve-deny */,
+				70927FAE169E0E5900052C9F /* wing-and-list-overlays */,
 				96831279169DA7D0007C14ED /* me */,
 				96B1F959169C7508009FD842 /* tab-controller */,
 				963AE134168494C600ED24DB /* incoming user list */,
@@ -1507,6 +1568,8 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */,
+				70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */,
 				965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */,
 				70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */,
 				96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */,
@@ -2140,6 +2203,20 @@
 				9683129B169DA7D0007C14ED /* icon-infobar-coin@2x.png in Resources */,
 				9683129C169DA7D0007C14ED /* icon-infobar-karma.png in Resources */,
 				9683129D169DA7D0007C14ED /* icon-infobar-karma@2x.png in Resources */,
+				70927FAA169E097C00052C9F /* DDWingTableViewCell.xib in Resources */,
+				70927FB5169E0E5900052C9F /* double-arrows.png in Resources */,
+				70927FB6169E0E5900052C9F /* double-arrows@2x.png in Resources */,
+				70927FB7169E0E5900052C9F /* double-list-overlay.png in Resources */,
+				70927FB8169E0E5900052C9F /* double-list-overlay@2x.png in Resources */,
+				70927FB9169E0E5900052C9F /* single-list-overlay.png in Resources */,
+				70927FBA169E0E5900052C9F /* single-list-overlay@2x.png in Resources */,
+				70927FBF169E171000052C9F /* DDInvitationTableViewCell.xib in Resources */,
+				70927FC7169E174A00052C9F /* accept-button.png in Resources */,
+				70927FC8169E174A00052C9F /* accept-button@2x.png in Resources */,
+				70927FC9169E174A00052C9F /* deny-button.png in Resources */,
+				70927FCA169E174A00052C9F /* deny-button@2x.png in Resources */,
+				70927FCB169E174A00052C9F /* single-list-approve-overlay.png in Resources */,
+				70927FCC169E174A00052C9F /* single-list-approve-overlay@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2182,7 +2259,6 @@
 				702846BF16236F8300693673 /* DDFriendship.m in Sources */,
 				702846C616238AB900693673 /* DDShortUser.m in Sources */,
 				70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */,
-				70E67221162760DC004D14CA /* DDUserTableViewCell.m in Sources */,
 				969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */,
 				969353DD16393951007376AA /* DDCreateDoubleDateViewController.m in Sources */,
 				96AF0738163AAAF300C1940F /* DDButton.m in Sources */,
@@ -2229,6 +2305,8 @@
 				96EA06CE1689D9DB009F09BC /* UIImageView+WebCache.m in Sources */,
 				96B1F99C169C7F21009FD842 /* DDTabBarBackgroundView.m in Sources */,
 				968312A0169DB354007C14ED /* UIView+Interests.m in Sources */,
+				70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */,
+				70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

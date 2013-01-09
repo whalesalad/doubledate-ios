@@ -16,10 +16,12 @@
 #import <MessageUI/MessageUI.h>
 #import "DDTools.h"
 #import "DDFacebookFriendsViewController.h"
-#import "DDUserTableViewCell.h"
+#import "DDWingTableViewCell.h"
 #import "DDBarButtonItem.h"
 #import "DDSegmentedControl.h"
 #import "DDTableViewController+Refresh.h"
+#import "DDWingTableViewCell.h"
+#import "DDInvitationTableViewCell.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -41,24 +43,6 @@
 - (void)dealloc
 {
     [shortUser release];
-    [friendship release];
-    [super dealloc];
-}
-
-@end
-
-@interface DDWingsViewControllerTableViewCell : DDUserTableViewCell
-
-@property(nonatomic, retain) DDFriendship *friendship;
-
-@end
-
-@implementation DDWingsViewControllerTableViewCell
-
-@synthesize friendship;
-
-- (void)dealloc
-{
     [friendship release];
     [super dealloc];
 }
@@ -261,11 +245,11 @@
 
 - (void)inviteTouched:(UIButton*)sender
 {
-    DDWingsViewControllerTableViewCell *cell = (DDWingsViewControllerTableViewCell*)sender.superview.superview;
-    if ([cell isKindOfClass:[DDWingsViewControllerTableViewCell class]])
+    DDInvitationTableViewCell *cell = (DDInvitationTableViewCell*)sender.superview;
+    if ([cell isKindOfClass:[DDInvitationTableViewCell class]])
     {
         //save friendship
-        DDFriendship *friendship = [cell.friendship retain];
+        DDFriendship *friendship = (DDFriendship*)[cell.userData retain];
         
         //move friend from friendship
         [friends_ addObject:friendship.user];
@@ -294,13 +278,13 @@
 
 - (void)denyTouched:(UIButton*)sender
 {
-    DDWingsViewControllerTableViewCell *cell = (DDWingsViewControllerTableViewCell*)sender.superview.superview;
-    if ([cell isKindOfClass:[DDWingsViewControllerTableViewCell class]])
+    DDInvitationTableViewCell *cell = (DDInvitationTableViewCell*)sender.superview;
+    if ([cell isKindOfClass:[DDInvitationTableViewCell class]])
     {
         DDWingsViewControllerAlertView *alertView = [[[DDWingsViewControllerAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Are you sure you want to ignore this invitation?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Yes, Ignore", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil] autorelease];
         alertView.tag = kTagConfirmDeleteFriendshipAlert;
         alertView.shortUser = cell.shortUser;
-        alertView.friendship = cell.friendship;
+        alertView.friendship = (DDFriendship*)cell.userData;
         [alertView show];
     }
 }
@@ -338,7 +322,11 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [DDWingsViewControllerTableViewCell height];
+    if ([self isWingsMode])
+        return [DDWingTableViewCell height];
+    else if ([self isInvitationsMode])
+        return [DDInvitationTableViewCell height];
+    return 0;
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -350,7 +338,7 @@
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //get cell
-        DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+        DDWingTableViewCell *wingsTableViewCell = (DDWingTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
         
         //request information about user
         [self.apiController getFriend:wingsTableViewCell.shortUser];
@@ -360,7 +348,7 @@
     }
 
     //inform delegate about selecting
-    [self.delegate wingsViewController:self didSelectUser:[(DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] shortUser]];
+    [self.delegate wingsViewController:self didSelectUser:[(DDWingTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] shortUser]];
 }
 
 #pragma mark -
@@ -375,8 +363,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         //get cell
-        DDUserTableViewCell *wingsTableViewCell = (DDUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
-        if ([wingsTableViewCell isKindOfClass:[DDUserTableViewCell class]])
+        DDWingTableViewCell *wingsTableViewCell = (DDWingTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+        if ([wingsTableViewCell isKindOfClass:[DDWingTableViewCell class]])
         {
             //generate message
             NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you would like to remove %@ from your wings?", nil) , wingsTableViewCell.shortUser.fullName];
@@ -402,58 +390,49 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set identifier
-    NSString *cellIdentifier = [[DDWingsViewControllerTableViewCell class] description];
+    NSString *cellIdentifier = nil;
+    if ([self isWingsMode])
+        cellIdentifier = NSStringFromClass([DDWingTableViewCell class]);
+    else if ([self isInvitationsMode])
+        cellIdentifier = NSStringFromClass([DDInvitationTableViewCell class]);
+    assert(cellIdentifier);
     
     //create cell if needed
-    DDWingsViewControllerTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    DDWingTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!tableViewCell)
-        tableViewCell = [[[DDWingsViewControllerTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    {
+        tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+    }
     
     //unset friend
     DDShortUser *friend = nil;
     DDFriendship *friendship = nil;
-        
+    
     //check for wings
     if ([self isWingsMode])
     {
-        tableViewCell.type = DDUserTableViewCellTypeWings;
         friend = [friends_ objectAtIndex:indexPath.row];
-        
-        if (!self.isSelectingMode)
-        {
-            UIImage *normalArrow = [UIImage imageNamed:@"grey-detail-arrow.png"];
-            UIImage *selectedArrow = [UIImage imageNamed:@"grey-detail-arrow.png"];
-            
-            UIButton *accessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
-            accessoryView.frame = CGRectMake(0.0f, 0.0f, normalArrow.size.width, normalArrow.size.height);
-            accessoryView.userInteractionEnabled = NO;
-            [accessoryView setImage:normalArrow forState:UIControlStateNormal];
-            [accessoryView setImage:selectedArrow forState:UIControlStateHighlighted];
-            tableViewCell.accessoryView = accessoryView;
-        }
+        assert(!self.isSelectingMode);
     }
     else if ([self isInvitationsMode])
     {
-        tableViewCell.type = DDUserTableViewCellTypeInvitations;
         friendship = [pendingInvitations_ objectAtIndex:indexPath.row];
         friend = friendship.user;
-        UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 70, 44)] autorelease];
-        UIButton *buttonInvite = [UIButton buttonWithType:UIButtonTypeCustom];
-        [buttonInvite setImage:[UIImage imageNamed:@"approve-invite.png"] forState:UIControlStateNormal];
-        buttonInvite.frame = CGRectMake(7, 9, 25, 25);
-        [view addSubview:buttonInvite];
-        [buttonInvite addTarget:self action:@selector(inviteTouched:) forControlEvents:UIControlEventTouchUpInside];
-        UIButton *buttonRemove = [UIButton buttonWithType:UIButtonTypeCustom];
-        [buttonRemove setImage:[UIImage imageNamed:@"deny-invite.png"] forState:UIControlStateNormal];
-        buttonRemove.frame = CGRectMake(37, 9, 25, 25);
-        [view addSubview:buttonRemove];
-        [buttonRemove addTarget:self action:@selector(denyTouched:) forControlEvents:UIControlEventTouchUpInside];
-        tableViewCell.accessoryView = view;
+    }
+    
+    //add handlers
+    if ([tableViewCell isKindOfClass:[DDInvitationTableViewCell class]])
+    {
+        DDInvitationTableViewCell *invitationTableViewCell = (DDInvitationTableViewCell*)tableViewCell;
+        [invitationTableViewCell.buttonAccept removeTarget:self action:@selector(inviteTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [invitationTableViewCell.buttonAccept addTarget:self action:@selector(inviteTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [invitationTableViewCell.buttonDeny removeTarget:self action:@selector(denyTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [invitationTableViewCell.buttonDeny addTarget:self action:@selector(denyTouched:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     //save data
     [tableViewCell setShortUser:friend];
-    [tableViewCell setFriendship:friendship];
+    [tableViewCell setUserData:friendship];
     
     //update layouts
     [tableViewCell setNeedsLayout];
