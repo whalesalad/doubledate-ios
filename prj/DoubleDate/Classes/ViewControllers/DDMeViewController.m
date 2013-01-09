@@ -12,7 +12,6 @@
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DDPlacemark.h"
-#import "DDTagsView.h"
 #import "DDInterest.h"
 #import "DDAuthenticationController.h"
 #import "DDBarButtonItem.h"

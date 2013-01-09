@@ -246,7 +246,6 @@
 		965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */; };
 		965AF0331688A71B00A014D1 /* DDUserBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */; };
 		965AF0361688A74E00A014D1 /* DDuserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF0351688A74E00A014D1 /* DDuserBubble.m */; };
-		965FCA671608AE8A00984566 /* DDTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965FCA661608AE8A00984566 /* DDTagsView.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		9683128C169DA7D0007C14ED /* bg-me-bio.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683127A169DA7D0007C14ED /* bg-me-bio.png */; };
 		9683128D169DA7D0007C14ED /* bg-me-bio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683127B169DA7D0007C14ED /* bg-me-bio@2x.png */; };
@@ -740,8 +739,6 @@
 		965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserBubbleViewController.xib; sourceTree = "<group>"; };
 		965AF0341688A74E00A014D1 /* DDuserBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDuserBubble.h; sourceTree = "<group>"; };
 		965AF0351688A74E00A014D1 /* DDuserBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDuserBubble.m; sourceTree = "<group>"; };
-		965FCA651608AE8A00984566 /* DDTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTagsView.h; sourceTree = "<group>"; };
-		965FCA661608AE8A00984566 /* DDTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTagsView.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
 		96701CEF16490E6000E4436A /* DDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControl.m; sourceTree = "<group>"; };
 		9683127A169DA7D0007C14ED /* bg-me-bio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-me-bio.png"; sourceTree = "<group>"; };
@@ -1395,8 +1392,6 @@
 				96AF0737163AAAF300C1940F /* DDButton.m */,
 				70E6721F162760DC004D14CA /* DDUserTableViewCell.h */,
 				70E67220162760DC004D14CA /* DDUserTableViewCell.m */,
-				965FCA651608AE8A00984566 /* DDTagsView.h */,
-				965FCA661608AE8A00984566 /* DDTagsView.m */,
 				96B59E18160719DF00CFDA1C /* DDImageView.h */,
 				96B59E19160719DF00CFDA1C /* DDImageView.m */,
 			);
@@ -2179,7 +2174,6 @@
 				96892D4B15FF61770054C108 /* DDLocationPickerViewController.m in Sources */,
 				96B59E161607185A00CFDA1C /* DDImage.m in Sources */,
 				96B59E1A160719DF00CFDA1C /* DDImageView.m in Sources */,
-				965FCA671608AE8A00984566 /* DDTagsView.m in Sources */,
 				708AB15B1608FC50009817FC /* DDInterest.m in Sources */,
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
 				96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */,
