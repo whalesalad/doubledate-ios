@@ -61,7 +61,7 @@
     if ([[DDAuthenticationController userId] isEqualToString:[user.userId stringValue]])
     {
         //set title
-        self.navigationItem.title = NSLocalizedString(@"My Profile", nil);
+        self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
         
         //add right button
         self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
@@ -77,8 +77,8 @@
     
 #warning customize needed labels here
     //customize labels
-    DD_F_SUBNAV_TEXT(labelInterests);
-    DD_F_NAVIGATION_HEADER_MAIN(labelTitle);
+//    DD_F_SUBNAV_TEXT(labelInterests);
+//    DD_F_NAVIGATION_HEADER_MAIN(labelTitle);
     
     //set title
     labelTitle.text = [NSString stringWithFormat:@"%@ %@, %d", [user.firstName capitalizedString], [user.lastName capitalizedString], [user.age intValue]];
