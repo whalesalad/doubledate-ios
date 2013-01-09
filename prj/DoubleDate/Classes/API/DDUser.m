@@ -47,6 +47,9 @@ NSString *DDUserInterestBoth = @"both";
 @synthesize inviteSlug;
 @synthesize invitePath;
 
+@synthesize totalCoins;
+@synthesize totalKarma;
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if ((self = [super initWithDictionary:dictionary]))
@@ -78,6 +81,8 @@ NSString *DDUserInterestBoth = @"both";
         self.uuid = [DDAPIObject stringForObject:[dictionary objectForKey:@"uuid"]];
         self.inviteSlug = [DDAPIObject stringForObject:[dictionary objectForKey:@"invite_slug"]];
         self.invitePath = [DDAPIObject stringForObject:[dictionary objectForKey:@"invite_path"]];
+        self.totalCoins = [DDAPIObject numberForObject:[dictionary objectForKey:@"total_coins"]];
+        self.totalKarma = [DDAPIObject numberForObject:[dictionary objectForKey:@"total_karma"]];
     }
     return self;
 }
@@ -130,6 +135,10 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:self.inviteSlug forKey:@"invite_slug"];
     if (self.invitePath)
         [dictionary setObject:self.invitePath forKey:@"invite_path"];
+    if (self.totalCoins)
+        [dictionary setObject:self.totalCoins forKey:@"total_coins"];
+    if (self.totalKarma)
+        [dictionary setObject:self.totalKarma forKey:@"total_karma"];
     return dictionary;
 }
 
@@ -163,6 +172,8 @@ NSString *DDUserInterestBoth = @"both";
     [uuid release];
     [inviteSlug release];
     [invitePath release];
+    [totalCoins release];
+    [totalKarma release];
     [super dealloc];
 }
 

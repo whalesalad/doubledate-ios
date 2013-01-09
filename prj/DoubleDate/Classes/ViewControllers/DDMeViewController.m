@@ -99,6 +99,10 @@
     //set location
     labelLocation.text = [[user location] name];
     
+    //set karma and coins
+    self.labelCoinsValue.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
+    self.labelKarmaValue.text = [NSString stringWithFormat:@"%d", [[user totalKarma] intValue]];
+    
     //watch for text view change
     CGSize textViewBioSize = textViewBio.frame.size;
     [textViewBio sizeToFit];

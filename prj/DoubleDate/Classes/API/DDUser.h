@@ -49,4 +49,7 @@ extern NSString *DDUserInterestBoth;
 @property(nonatomic, retain) NSString *inviteSlug;
 @property(nonatomic, retain) NSString *invitePath;
 
+@property(nonatomic, retain) NSNumber *totalCoins;
+@property(nonatomic, retain) NSNumber *totalKarma;
+
 @end
