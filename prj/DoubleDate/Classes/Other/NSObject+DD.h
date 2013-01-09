@@ -41,6 +41,8 @@
 
 #define DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:13 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]
 
+// Bubble, Interests
+#define DD_F_ME_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:12 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]]
 #define DD_F_BUBBLE_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.4]]
 
 #define DD_F_GRADIENT_AVEBLK(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:15 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.3]]

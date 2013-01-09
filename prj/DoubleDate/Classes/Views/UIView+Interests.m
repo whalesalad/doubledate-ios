@@ -43,13 +43,15 @@
     for (DDInterest *interest in interests)
     {
         //edge padding inside the bubble
-        CGFloat inEdgePadding = 6;
+        CGFloat inEdgePadding = 7;
         
         //create label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         
         //apply label text
-        label.text = [interest.name uppercaseString];
+        //temporarily disabling uppercasing..
+        //label.text = [interest.name uppercaseString];
+        label.text = interest.name;
         if (custmomizationHandler)
             custmomizationHandler(label);
         [label sizeToFit];
@@ -59,7 +61,7 @@
         labelBackground.image = [DDTools resizableImageFromImage:bubbleImage];
         
         //add label
-        label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2);
+        label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2 - 1);
         [labelBackground addSubview:label];
         
         //add image view

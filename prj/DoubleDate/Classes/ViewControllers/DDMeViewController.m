@@ -64,7 +64,7 @@
         self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
         
         //add right button
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"EDIT", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
         
         //remove left button
         self.navigationItem.leftBarButtonItem = nil;
@@ -74,11 +74,6 @@
         //set title
         self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     }
-    
-#warning customize needed labels here
-    //customize labels
-//    DD_F_SUBNAV_TEXT(labelInterests);
-//    DD_F_NAVIGATION_HEADER_MAIN(labelTitle);
     
     //set title
     labelTitle.text = [NSString stringWithFormat:@"%@ %@, %d", [user.firstName capitalizedString], [user.lastName capitalizedString], [user.age intValue]];
@@ -147,7 +142,7 @@
     
     //apply interests
     CGFloat newInterestsHeight = [viewInterests applyInterests:self.user.interests withBubbleImage:[UIImage imageNamed:@"bg-me-interest.png"] custmomizationHandler:^(UILabel *bubbleLabel) {
-        DD_F_BUBBLE_INTEREST_TEXT(bubbleLabel);
+        DD_F_ME_INTEREST_TEXT(bubbleLabel);
         bubbleLabel.textColor = [UIColor whiteColor];
         bubbleLabel.backgroundColor = [UIColor clearColor];
     }];
