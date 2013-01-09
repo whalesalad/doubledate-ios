@@ -16,4 +16,6 @@
 @property(nonatomic, assign) NSInteger numberOfTabs;
 @property(nonatomic, assign) NSInteger selectedTab;
 
+- (void)setFinishedSelectedImage:(UIImage *)selectedImage withFinishedUnselectedImage:(UIImage *)unselectedImage forTab:(NSInteger)tab;
+
 @end

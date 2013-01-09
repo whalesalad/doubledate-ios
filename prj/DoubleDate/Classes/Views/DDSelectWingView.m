@@ -159,7 +159,6 @@
 
 - (CGPoint)positionForViewIndex:(NSInteger)index
 {
-#warning customize photos offset
     CGFloat photosOffset = 2;
     switch (index) {
         case -1:
