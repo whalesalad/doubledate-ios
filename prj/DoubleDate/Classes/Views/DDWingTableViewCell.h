@@ -22,6 +22,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
+@property(nonatomic, retain) IBOutlet UIView *viewEffects;
 
 + (NSString*)titleForShortUser:(DDShortUser*)user;
 + (NSString*)titleForUser:(DDUser*)user;

@@ -21,6 +21,7 @@
 @synthesize labelTitle;
 @synthesize labelLocation;
 @synthesize imageViewGender;
+@synthesize viewEffects;
 
 + (CGFloat)height
 {
@@ -40,11 +41,11 @@
 {
     [super awakeFromNib];
 #warning customize here
-    imageViewPoster.layer.borderColor = [UIColor redColor].CGColor;
-    imageViewPoster.layer.borderWidth = 2;
-    imageViewPoster.layer.shadowColor = [UIColor greenColor].CGColor;
-    imageViewPoster.layer.shadowOffset = CGSizeMake(0, 2);
-    imageViewPoster.layer.shadowOpacity = 1;
+    viewEffects.layer.borderColor = [UIColor redColor].CGColor;
+    viewEffects.layer.borderWidth = 2;
+    viewEffects.layer.shadowColor = [UIColor greenColor].CGColor;
+    viewEffects.layer.shadowOffset = CGSizeMake(0, 2);
+    viewEffects.layer.shadowOpacity = 1;
     
     //unset background
     labelLocation.backgroundColor = [UIColor clearColor];
@@ -93,6 +94,7 @@
     [labelTitle release];
     [labelLocation release];
     [imageViewGender release];
+    [viewEffects release];
     [super dealloc];
 }
 
