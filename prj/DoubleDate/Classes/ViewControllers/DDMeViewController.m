@@ -75,6 +75,11 @@
         self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
     }
     
+#warning customize needed labels here
+    //customize labels
+    DD_F_SUBNAV_TEXT(labelInterests);
+    DD_F_NAVIGATION_HEADER_MAIN(labelTitle);
+    
     //set title
     labelTitle.text = [NSString stringWithFormat:@"%@ %@, %d", [user.firstName capitalizedString], [user.lastName capitalizedString], [user.age intValue]];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
@@ -93,9 +98,6 @@
     //set biography
     textViewBio.text = user.bio;
     
-    //customize label interests
-    DD_F_SUBNAV_TEXT(labelInterests);
-    
     //set location
     labelLocation.text = [[user location] name];
     
@@ -105,7 +107,8 @@
     
     //watch for text view change
     CGSize textViewBioSize = textViewBio.frame.size;
-    [textViewBio sizeToFit];
+    CGSize newTextViewBioSize = [textViewBio sizeThatFits:textViewBio.bounds.size];
+    textViewBio.frame = CGRectMake(textViewBio.frame.origin.x, textViewBio.frame.origin.y, newTextViewBioSize.width, MAX(newTextViewBioSize.height, 80));
     CGFloat dh = textViewBio.frame.size.height - textViewBioSize.height;
     
     //stick bio background image
@@ -115,6 +118,7 @@
     self.labelInterests.frame = CGRectMake(labelInterests.frame.origin.x, labelInterests.frame.origin.y+dh, labelInterests.frame.size.width, labelInterests.frame.size.height);
     self.labelInterests.hidden = [self.user.interests count] == 0;
     self.viewInterests.frame = CGRectMake(viewInterests.frame.origin.x, viewInterests.frame.origin.y+dh, viewInterests.frame.size.width, viewInterests.frame.size.height);
+    self.viewInterests.hidden = self.labelInterests.hidden;
     
     //make background clear
     labelTitle.backgroundColor = [UIColor clearColor];
