@@ -45,6 +45,10 @@
     imageViewPoster.layer.shadowColor = [UIColor greenColor].CGColor;
     imageViewPoster.layer.shadowOffset = CGSizeMake(0, 2);
     imageViewPoster.layer.shadowOpacity = 1;
+    
+    //unset background
+    labelLocation.backgroundColor = [UIColor clearColor];
+    labelTitle.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setShortUser:(DDShortUser *)v
