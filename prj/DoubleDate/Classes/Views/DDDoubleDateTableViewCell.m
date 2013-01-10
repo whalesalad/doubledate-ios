@@ -27,7 +27,7 @@
 
 + (CGFloat)height
 {
-    return 100;
+    return 106;
 }
 
 + (NSString*)detailedTitleForLocation:(DDPlacemark*)location
@@ -50,7 +50,7 @@
 {
     [super awakeFromNib];
     
-#warning customize here
+    #warning customize here
     viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     viewEffects.layer.borderWidth = 1;
     
