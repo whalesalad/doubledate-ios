@@ -24,6 +24,7 @@
 @synthesize viewEffects;
 @synthesize labelTitle;
 @synthesize labelLocation;
+@synthesize viewImagesContainer;
 
 + (CGFloat)height
 {
@@ -98,6 +99,7 @@
     [viewEffects release];
     [labelTitle release];
     [labelLocation release];
+    [viewImagesContainer release];
     [super dealloc];
 }
 

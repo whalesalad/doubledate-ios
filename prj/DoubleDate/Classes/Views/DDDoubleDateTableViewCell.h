@@ -23,6 +23,7 @@
 @property(nonatomic, retain) IBOutlet UIView *viewEffects;
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
+@property(nonatomic, retain) IBOutlet UIView *viewImagesContainer;
 
 + (NSString*)detailedTitleForLocation:(DDPlacemark*)location;
 
