@@ -76,7 +76,7 @@
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Go!", nil) target:self action:@selector(postTouched:)];
     
     //set left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"CANCEL", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(backTouched:)];
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
