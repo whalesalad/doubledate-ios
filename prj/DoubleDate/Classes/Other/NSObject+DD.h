@@ -13,8 +13,9 @@
 #define DD_F_HEADER_MAIN(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:14 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 #define DD_F_HEADER_DETAILED(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:11 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 
-#define DD_F_NAVIGATION_HEADER_MAIN(_X_) [_X_ setFontOfName:[UIFont boldSystemFontOfSize:20].fontName fontSize:20 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
-#define DD_F_NAVIGATION_HEADER_DETAILED(_X_) [_X_ setFontOfName:[UIFont systemFontOfSize:13].fontName fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor whiteColor]]
+#define DD_F_NAVIGATION_HEADER_MAIN(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:18 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
+
+#define DD_F_NAVIGATION_HEADER_DETAILED(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
 
 #define DD_F_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:16 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 #define DD_F_BOLD_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:16 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
@@ -42,8 +43,7 @@
 #define DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:13 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]
 
 // Bubble, Interests
-#define DD_F_ME_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:12 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]]
-#define DD_F_BUBBLE_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.4]]
+#define DD_F_INTEREST_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:12 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.4]]
 
 #define DD_F_GRADIENT_AVEBLK(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:15 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.3]]
 

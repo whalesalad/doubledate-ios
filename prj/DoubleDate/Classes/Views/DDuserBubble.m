@@ -63,7 +63,7 @@
                                                          custmomizationHandler:^(UILabel *bubbleLabel)
                                   {
                                       bubbleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-                                      DD_F_BUBBLE_INTEREST_TEXT(bubbleLabel);
+                                      DD_F_INTEREST_TEXT(bubbleLabel);
                                       bubbleLabel.backgroundColor = [UIColor clearColor];
                                   }];
     viewController_.viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);

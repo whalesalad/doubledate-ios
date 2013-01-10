@@ -49,7 +49,7 @@
     [super viewDidLoad];
     
     //customize button
-    [self.buttonCancel applyBottomBarDesignWithTitle:self.buttonCancel.titleLabel.text icon:[UIImage imageNamed:@"button-icon-cancel.png"] background:[UIImage imageNamed:@"lower-button-pink.png"]];
+    [self.buttonCancel applyBottomBarDesignWithTitle:self.buttonCancel.titleLabel.text icon:[UIImage imageNamed:@"button-icon-cancel.png"] background:[UIImage imageNamed:@"lower-button-gray.png"]];
     [self.buttonSend applyBottomBarDesignWithTitle:self.buttonSend.titleLabel.text icon:[UIImage imageNamed:@"button-icon-send.png"] background:[UIImage imageNamed:@"lower-button-blue.png"]];
     
     //hide back button

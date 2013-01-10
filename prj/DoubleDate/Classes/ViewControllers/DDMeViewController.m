@@ -142,7 +142,7 @@
     
     //apply interests
     CGFloat newInterestsHeight = [viewInterests applyInterests:self.user.interests withBubbleImage:[UIImage imageNamed:@"bg-me-interest.png"] custmomizationHandler:^(UILabel *bubbleLabel) {
-        DD_F_ME_INTEREST_TEXT(bubbleLabel);
+        DD_F_INTEREST_TEXT(bubbleLabel);
         bubbleLabel.textColor = [UIColor whiteColor];
         bubbleLabel.backgroundColor = [UIColor clearColor];
     }];

@@ -533,7 +533,7 @@
     //add view controller
     DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
     meViewController.user = friend;
-    meViewController.backButtonTitle = NSLocalizedString(@"WINGS", nil);
+    meViewController.backButtonTitle = NSLocalizedString(@"Wings", nil);
     [self.navigationController pushViewController:meViewController animated:YES];
 }
 

@@ -73,7 +73,7 @@
     self.navigationItem.title = NSLocalizedString(@"New DoubleDate", nil);
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"POST", nil) target:self action:@selector(postTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Go!", nil) target:self action:@selector(postTouched:)];
     
     //set left button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"CANCEL", nil) target:self action:@selector(backTouched:)];
