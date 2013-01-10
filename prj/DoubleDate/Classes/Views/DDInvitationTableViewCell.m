@@ -8,6 +8,7 @@
 
 #import "DDInvitationTableViewCell.h"
 #import "DDTools.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDInvitationTableViewCell
 
@@ -17,10 +18,19 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-#warning customize here
+
     [self.buttonAccept setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"accept-button.png"]] forState:UIControlStateNormal];
     [self.buttonDeny setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"deny-button.png"]] forState:UIControlStateNormal];
-    DD_F_NAVIGATION_HEADER_MAIN(self.buttonDeny);
+
+    [self applyShadowToButton:self.buttonAccept];
+    [self applyShadowToButton:self.buttonDeny];
+}
+
+- (void)applyShadowToButton:(UIButton *)button {
+    button.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    button.titleLabel.layer.shadowOffset = CGSizeMake(0, -1);
+    button.titleLabel.layer.shadowRadius = 0;
+    button.titleLabel.layer.shadowOpacity = 0.2f;
 }
 
 - (void)dealloc

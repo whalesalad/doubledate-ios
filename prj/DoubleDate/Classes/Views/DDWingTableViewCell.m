@@ -40,12 +40,17 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-#warning customize here
-    viewEffects.layer.borderColor = [UIColor redColor].CGColor;
-    viewEffects.layer.borderWidth = 2;
-    viewEffects.layer.shadowColor = [UIColor greenColor].CGColor;
-    viewEffects.layer.shadowOffset = CGSizeMake(0, 2);
-    viewEffects.layer.shadowOpacity = 1;
+    
+    viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
+    viewEffects.layer.borderWidth = 1;
+
+    viewEffects.layer.shadowColor = [UIColor blackColor].CGColor;
+    viewEffects.layer.shadowOffset = CGSizeMake(0, 1);
+    viewEffects.layer.shadowRadius = 1;
+    viewEffects.layer.shadowOpacity = 0.9f;
+    
+    imageViewPoster.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
+    imageViewPoster.layer.borderWidth = 1;
     
     //unset background
     labelLocation.backgroundColor = [UIColor clearColor];
