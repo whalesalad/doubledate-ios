@@ -12,22 +12,17 @@
 @class DDDoubleDate;
 @class DDPlacemark;
 
-@interface DDDoubleDateTableViewCell : UITableViewCell
+@interface DDDoubleDateTableViewCell : DDTableViewCell
 {
-    UIImageView *imageViewBackgroundNormal_;
-    UIImageView *imageViewBackgroundSelected_;
-    UIImageView *imageViewPhotosBackground_;
-    UIImageView *imageViewLocation_;
-    DDImageView *imageViewUser_;
-    DDImageView *imageViewWing_;
-    UILabel *labelTitle_;
-    UILabel *labelLocation_;
-    UILabel *labelDistance_;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
 
-+ (CGFloat)height;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUser;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewWing;
+@property(nonatomic, retain) IBOutlet UIView *viewEffects;
+@property(nonatomic, retain) IBOutlet UILabel *labelTitle;
+@property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 
 + (NSString*)detailedTitleForLocation:(DDPlacemark*)location;
 

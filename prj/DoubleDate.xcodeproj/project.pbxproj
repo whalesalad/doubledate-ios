@@ -408,6 +408,7 @@
 		96EE845A16149B8600AE6EC1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96EE845916149B8600AE6EC1 /* QuartzCore.framework */; };
 		96F1EB661612F63F00A9ED12 /* location-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F1EB5E1612F63F00A9ED12 /* location-marker.png */; };
 		96F1EB671612F63F00A9ED12 /* location-marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F1EB5F1612F63F00A9ED12 /* location-marker@2x.png */; };
+		96F293D4169EFF1200711F14 /* DDDoubleDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -961,6 +962,7 @@
 		96EE845916149B8600AE6EC1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		96F1EB5E1612F63F00A9ED12 /* location-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-marker.png"; sourceTree = "<group>"; };
 		96F1EB5F1612F63F00A9ED12 /* location-marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-marker@2x.png"; sourceTree = "<group>"; };
+		96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1574,6 +1576,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */,
 				70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */,
 				70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */,
 				965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */,
@@ -2225,6 +2228,7 @@
 				70927FCC169E174A00052C9F /* single-list-approve-overlay@2x.png in Resources */,
 				4CC634AF169E692200B898A1 /* lower-button-gray.png in Resources */,
 				4CC634B0169E692200B898A1 /* lower-button-gray@2x.png in Resources */,
+				96F293D4169EFF1200711F14 /* DDDoubleDateTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

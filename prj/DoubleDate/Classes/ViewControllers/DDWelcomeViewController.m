@@ -267,7 +267,7 @@
         browseViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:2] autorelease];
         
         //set doubledates view controller
-        DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
+        DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
         doubledatesViewController.user = user;
         doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:3] autorelease];
         
