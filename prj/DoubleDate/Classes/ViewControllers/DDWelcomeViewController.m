@@ -263,11 +263,14 @@
         wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:1] autorelease];
         
         //set browse view controller
-        DDViewController *browseViewController = [[[DDViewController alloc] init] autorelease];
+        DDDoubleDatesViewController *browseViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
+        browseViewController.mode = DDDoubleDatesViewControllerModeAll;
+        browseViewController.user = user;
         browseViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:2] autorelease];
         
         //set doubledates view controller
         DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
+        doubledatesViewController.mode = DDDoubleDatesViewControllerModeMine;
         doubledatesViewController.user = user;
         doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:3] autorelease];
         
