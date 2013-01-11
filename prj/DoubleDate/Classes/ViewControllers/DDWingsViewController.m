@@ -54,6 +54,8 @@
 - (void)onDataRefreshed;
 - (void)inviteBySms;
 - (void)inviteByFacebook;
+- (NSArray*)pendingInvitations;
+- (NSArray*)wings;
 
 @end
 
@@ -110,6 +112,52 @@
 
 #pragma mark -
 #pragma mark other
+
+- (BOOL)isUserExistInSearch:(DDShortUser*)shortUser
+{
+    BOOL existInSearch = [self.searchTerm length] == 0;
+    if (self.searchTerm)
+    {
+        if (shortUser.name && [shortUser.name rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+            existInSearch = YES;
+        if (shortUser.fullName && [shortUser.fullName rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+            existInSearch = YES;
+        if (shortUser.firstName && [shortUser.firstName rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+            existInSearch = YES;
+    }
+    return existInSearch;
+}
+
+- (BOOL)isFriendshipExistInSearch:(DDFriendship*)friendship
+{
+    if ([[friendship.user identifier] intValue] != [[self.user userId] intValue])
+        return [self isUserExistInSearch:friendship.user];
+    if ([[friendship.friendUser identifier] intValue] != [[self.user userId] intValue])
+        return [self isUserExistInSearch:friendship.friendUser];
+    return NO;
+}
+
+- (NSArray*)pendingInvitations
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDFriendship *friendship in pendingInvitations_)
+    {
+        if ([self isFriendshipExistInSearch:friendship])
+            [ret addObject:friendship];
+    }
+    return ret;
+}
+
+- (NSArray*)wings
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDShortUser *shortUser in friends_)
+    {
+        if ([self isUserExistInSearch:shortUser])
+            [ret addObject:shortUser];
+    }
+    return ret;
+}
 
 - (void)onDataRefreshed
 {
@@ -296,9 +344,9 @@
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
-        return [pendingInvitations_ count];
+        return [[self pendingInvitations] count];
     else if (section == 1)
-        return [friends_ count];        
+        return [[self wings] count];
     return 0;
 }
 
@@ -326,11 +374,11 @@
     //check for wings
     if (indexPath.section == 1)
     {
-        friend = [friends_ objectAtIndex:indexPath.row];
+        friend = [[self wings] objectAtIndex:indexPath.row];
     }
     else if (indexPath.section == 0)
     {
-        friendship = [pendingInvitations_ objectAtIndex:indexPath.row];
+        friendship = [[self pendingInvitations] objectAtIndex:indexPath.row];
         friend = friendship.user;
     }
     
