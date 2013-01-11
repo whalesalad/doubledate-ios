@@ -52,10 +52,6 @@
 @interface DDWingsViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate>
 
 - (void)onDataRefreshed;
-- (BOOL)isWingsMode;
-- (BOOL)isInvitationsMode;
-- (void)updateSegmentedControl;
-- (void)updateNavigationButtons;
 - (void)inviteBySms;
 - (void)inviteByFacebook;
 
@@ -83,14 +79,11 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Wings", nil);
     
-    //remove search bar
-    self.tableView.tableHeaderView = nil;
+    //add left button
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
     
-    //update segmented controler
-    [self updateSegmentedControl];
-    
-    //update navigation buttons
-    [self updateNavigationButtons];
+    //add right button
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -118,67 +111,6 @@
 #pragma mark -
 #pragma mark other
 
-- (UISegmentedControl*)segmentedControl
-{
-    if ([self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
-        return (UISegmentedControl*)self.navigationItem.titleView;
-    return nil;
-}
-
-- (void)updateSegmentedControl
-{
-    //check for exist invitation
-    if ([pendingInvitations_ count])
-    {
-        //add segmented control
-        if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
-        {
-            NSArray *items = [NSArray arrayWithObjects:NSLocalizedString(@"Wings", nil), NSLocalizedString(@"Incoming", nil), nil];
-            UISegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items] autorelease];
-            segmentedControl.selectedSegmentIndex = 0;
-            [segmentedControl addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventValueChanged];
-            self.navigationItem.titleView = segmentedControl;
-        }
-    }
-    else
-    {
-        self.navigationItem.titleView = nil;
-        self.navigationItem.title = NSLocalizedString(@"Wings", nil);
-    }
-}
-
-- (void)updateNavigationButtons
-{
-    if ([self segmentedControl] && [[self segmentedControl] selectedSegmentIndex] == 1)
-    {
-        self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-    else if (self.isSelectingMode)
-    {
-        //add back button
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
-    }
-    else
-    {
-        //add left button
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
-        
-        //add right button
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
-    }
-}
-
-- (BOOL)isWingsMode
-{
-    return [[self segmentedControl] selectedSegmentIndex] == 0;
-}
-
-- (BOOL)isInvitationsMode
-{
-    return [[self segmentedControl] selectedSegmentIndex] == 1;
-}
-
 - (void)onDataRefreshed
 {
     //check both data received
@@ -186,12 +118,6 @@
     {
         //hide loading
         [self finishRefresh];
-    
-        //update segmented control
-        [self updateSegmentedControl];
-        
-        //update navgation buttons
-        [self updateNavigationButtons];
         
         //reload the table
         [self.tableView reloadData];
@@ -218,8 +144,7 @@
 - (void)editTouched:(id)sender
 {
     //update editing mode
-    if ([self isWingsMode])
-        self.tableView.editing = !self.tableView.editing;
+    self.tableView.editing = !self.tableView.editing;
     
     //set right button
     if (self.tableView.editing)
@@ -236,9 +161,6 @@
     //reload the table
     [self.tableView reloadData];
     
-    //update navigation buttons
-    [self updateNavigationButtons];
-    
     //update title
     self.navigationItem.title = [sender titleForSegmentAtIndex:sender.selectedSegmentIndex];
 }
@@ -254,16 +176,6 @@
         //move friend from friendship
         [friends_ addObject:friendship.user];
         [pendingInvitations_ removeObject:friendship];
-
-        //check if no ivites anymore
-        if ([pendingInvitations_ count] == 0)
-        {
-            //update segmented control
-            [self updateSegmentedControl];
-            
-            //update navigation buttons
-            [self updateNavigationButtons];
-        }
         
         //reload the table
         [self.tableView reloadData];
@@ -322,11 +234,9 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self isWingsMode])
-        return [DDWingTableViewCell height];
-    else if ([self isInvitationsMode])
+    if (indexPath.section == 0)
         return [DDInvitationTableViewCell height];
-    return 0;
+    return [DDWingTableViewCell height];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -356,7 +266,7 @@
 
 - (BOOL)tableView:(UITableView *)aTableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self isWingsMode];
+    return (indexPath.section == 1);
 }
 
 - (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -378,12 +288,17 @@
     }
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self isWingsMode])
-        return [friends_ count];
-    else if ([self isInvitationsMode])
+    if (section == 0)
         return [pendingInvitations_ count];
+    else if (section == 1)
+        return [friends_ count];        
     return 0;
 }
 
@@ -391,9 +306,9 @@
 {
     //set identifier
     NSString *cellIdentifier = nil;
-    if ([self isWingsMode])
+    if (indexPath.section == 1)
         cellIdentifier = NSStringFromClass([DDWingTableViewCell class]);
-    else if ([self isInvitationsMode])
+    else if (indexPath.section == 0)
         cellIdentifier = NSStringFromClass([DDInvitationTableViewCell class]);
     assert(cellIdentifier);
     
@@ -409,12 +324,11 @@
     DDFriendship *friendship = nil;
     
     //check for wings
-    if ([self isWingsMode])
+    if (indexPath.section == 1)
     {
         friend = [friends_ objectAtIndex:indexPath.row];
-        assert(!self.isSelectingMode);
     }
-    else if ([self isInvitationsMode])
+    else if (indexPath.section == 0)
     {
         friendship = [pendingInvitations_ objectAtIndex:indexPath.row];
         friend = friendship.user;
@@ -561,16 +475,6 @@
             
             //remove silent
             [pendingInvitations_ removeObject:fiendship];
-            
-            //check if no ivites anymore
-            if ([pendingInvitations_ count] == 0)
-            {
-                //update segmented control
-                [self updateSegmentedControl];
-                
-                //update navigation buttons
-                [self updateNavigationButtons];
-            }
             
             //reload the table
             [self.tableView reloadData];
