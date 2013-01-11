@@ -18,9 +18,6 @@
 
 @interface DDLocationChooserViewController ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
-@property(nonatomic, readonly) UISearchBar *searchBar;
-@property(nonatomic, readonly) UITableView *tableView;
-
 @end
 
 @implementation DDLocationChooserViewController
@@ -60,6 +57,13 @@
     
     //set header as search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Location…", nil)];
+    
+    //disable cancel button
+    self.showsCancelButton = NO;
+    
+    //customize keyboard
+    self.searchBar.textField.enablesReturnKeyAutomatically = NO;
+    self.searchBar.textField.returnKeyType = UIReturnKeyDone;
 }
 
 - (void)setDdLocation:(DDPlacemark *)v
@@ -121,15 +125,12 @@
             if (loc.address && [loc.address rangeOfString:self.searchBar.text options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
         }
+        //anyways location exist in search because we reloading each time we change a search term
+        existInSearch = YES;
         if (isVenue == venueRequired && existInSearch)
             [ret addObject:loc];
     }
     return ret;
-}
-
-- (UISearchBar*)searchBar
-{
-    return (UISearchBar*)self.tableView.tableHeaderView;
 }
 
 - (void)dealloc
@@ -246,15 +247,19 @@
 
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString *)query
 {
-    //hide refresh UI
-    [self finishRefresh];
-    
-    //save placemarks
-    [placemarks_ release];
-    placemarks_ = [placemarks retain];
-    
-    //reload the table
-    [self.tableView reloadData];
+    //check the same query as search term
+    if (self.searchTerm == query)
+    {
+        //hide refresh UI
+        [self finishRefresh];
+        
+        //save placemarks
+        [placemarks_ release];
+        placemarks_ = [placemarks retain];
+        
+        //reload the table
+        [self.tableView reloadData];
+    }
 }
 
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error
@@ -268,6 +273,16 @@
 
 #pragma mark -
 #pragma mark Refreshing
+
+- (void)onChangedSearchTerm
+{
+    //clear the list
+    [placemarks_ release];
+    placemarks_ = nil;
+    
+    //refresh
+    [self onRefresh];
+}
 
 - (void)onRefresh
 {
@@ -284,7 +299,10 @@
         latitude = self.clLocation.coordinate.latitude;
         longitude = self.clLocation.coordinate.longitude;
     }
-    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude options:self.options];
+    NSString *query = self.searchTerm;
+    if (query == nil)
+        query = self.searchBar.text;
+    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude query:query options:self.options];
 }
 
 @end
