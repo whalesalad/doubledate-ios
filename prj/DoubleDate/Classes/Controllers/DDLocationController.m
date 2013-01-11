@@ -91,7 +91,7 @@
 #pragma mark -
 #pragma mark DDAPIControllerDelegate
 
-- (void)searchPlacemarksSucceed:(NSArray*)placemarks
+- (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString *)query
 {
     [self.delegate locationManagerDidFoundPlacemarks:placemarks];
 }

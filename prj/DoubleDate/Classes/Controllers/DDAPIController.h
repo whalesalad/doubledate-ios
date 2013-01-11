@@ -48,7 +48,7 @@ typedef int DDRequestId;
 - (void)requestFacebookUserSucceed:(DDUser*)user;
 - (void)requestFacebookDidFailedWithError:(NSError*)error;
 
-- (void)searchPlacemarksSucceed:(NSArray*)placemarks;
+- (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString*)query;
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error;
 
 - (void)requestAvailableInterestsSucceed:(NSArray*)interests;

@@ -244,7 +244,7 @@
 #pragma mark -
 #pragma mark DDAPIControllerDelegate
 
-- (void)searchPlacemarksSucceed:(NSArray*)placemarks
+- (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString *)query
 {
     //hide refresh UI
     [self finishRefresh];

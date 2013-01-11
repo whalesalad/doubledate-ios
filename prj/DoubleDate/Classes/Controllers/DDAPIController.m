@@ -56,10 +56,22 @@ typedef enum
 @property(nonatomic, assign) DDAPIControllerMethodType method;
 @property(nonatomic, assign) SEL succeedSel;
 @property(nonatomic, assign) SEL failedSel;
+@property(nonatomic, retain) NSObject *userData;
 
 @end
 
 @implementation DDAPIControllerUserData
+
+@synthesize method;
+@synthesize succeedSel;
+@synthesize failedSel;
+@synthesize userData;
+
+- (void)dealloc
+{
+    [userData release];
+    [super dealloc];
+}
 
 @end
 
@@ -310,8 +322,9 @@ typedef enum
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
     userData.method = DDAPIControllerMethodTypeSearchPlacemarks;
-    userData.succeedSel = @selector(searchPlacemarksSucceed:);
+    userData.succeedSel = @selector(searchPlacemarksSucceed:forQuery:);
     userData.failedSel = @selector(searchPlacemarksDidFailedWithError:);
+    userData.userData = query;
     request.userData = userData;
     
     //send request
@@ -718,7 +731,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:user withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:user withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeSearchPlacemarks)
         {
@@ -738,7 +751,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:placemarks withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:placemarks withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestAvailableInterests)
         {
@@ -758,7 +771,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:interests withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:interests withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeUpdatePhotoForMe)
         {
@@ -770,7 +783,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:photo withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:photo withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeGetFriends)
         {
@@ -790,7 +803,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:users withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:users withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeGetFriendshipInvitations)
         {
@@ -810,7 +823,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:friendshipInvitations withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:friendshipInvitations withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendship)
         {
@@ -822,7 +835,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:friendship withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:friendship withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendship ||
                  userData.method == DDAPIControllerMethodTypeRequestDeleteFriend ||
@@ -831,7 +844,7 @@ typedef enum
         {
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:nil withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:nil withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeGetFacebookFriends)
         {
@@ -851,7 +864,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:facebookFriends withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:facebookFriends withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateDoubleDate ||
                  userData.method == DDAPIControllerMethodTypeGetDoubleDate)
@@ -864,7 +877,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:doubleDate withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:doubleDate withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeGetDoubleDates ||
                  userData.method == DDAPIControllerMethodTypeGetMyDoubleDates)
@@ -885,7 +898,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:doubleDates withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:doubleDates withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeGetEngagements)
         {
@@ -905,7 +918,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateEngagement)
         {
@@ -917,7 +930,7 @@ typedef enum
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:engagement withObject:nil];
+                [self.delegate performSelector:userData.succeedSel withObject:engagement withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeGetMessages)
         {
@@ -951,7 +964,7 @@ typedef enum
     
     //check method
     if (userData.failedSel && [self.delegate respondsToSelector:userData.failedSel])
-        [self.delegate performSelector:userData.failedSel withObject:error withObject:nil];
+        [self.delegate performSelector:userData.failedSel withObject:error withObject:userData.userData];
     
     //clear request
     [self clearRequest:request];
