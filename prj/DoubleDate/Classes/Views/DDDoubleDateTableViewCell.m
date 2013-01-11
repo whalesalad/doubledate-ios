@@ -28,7 +28,7 @@
 
 + (CGFloat)height
 {
-    return 106;
+    return 108;
 }
 
 + (NSString*)detailedTitleForLocation:(DDPlacemark*)location
@@ -58,13 +58,10 @@
     viewEffects.layer.shadowColor = [UIColor blackColor].CGColor;
     viewEffects.layer.shadowOffset = CGSizeMake(0, 1);
     viewEffects.layer.shadowRadius = 1;
-    viewEffects.layer.shadowOpacity = 0.9f;
+    viewEffects.layer.shadowOpacity = 0.7f;
     
-    imageViewUser.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
-    imageViewUser.layer.borderWidth = 1;
-    
-    imageViewWing.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
-    imageViewWing.layer.borderWidth = 1;
+    viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
+    viewImagesContainer.layer.borderWidth = 1;
     
     //unset background
     labelLocation.backgroundColor = [UIColor clearColor];

@@ -9,6 +9,7 @@
 #import "UIViewController+Extensions.h"
 #import "MBProgressHUD.h"
 #import "DDAPIController.h"
+#import "DDTools.h"
 
 @implementation UIViewController (HUD)
 
@@ -190,16 +191,18 @@
 - (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText
 {
     //set general view
-    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)] autorelease];
-    view.backgroundColor = [UIColor clearColor];
+    UIImage *backgroundImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"tableview-header-bg.png"]];
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, backgroundImage.size.height)] autorelease];
+//    view.backgroundColor = [UIColor clearColor];
+    view.backgroundColor = [UIColor colorWithPatternImage:backgroundImage];
     
     //add label
     UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     DD_F_HEADER_MAIN(labelMain);
-    labelMain.textColor = [UIColor grayColor];
+    labelMain.textColor = [UIColor whiteColor];
     labelMain.text = mainText;
     [labelMain sizeToFit];
-    labelMain.frame = CGRectMake(22, 18, labelMain.frame.size.width, labelMain.frame.size.height);
+    labelMain.frame = CGRectMake(18, 1, labelMain.frame.size.width, labelMain.frame.size.height);
     labelMain.backgroundColor = [UIColor clearColor];
     [view addSubview:labelMain];
     
