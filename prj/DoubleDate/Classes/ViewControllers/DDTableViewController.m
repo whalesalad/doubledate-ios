@@ -27,6 +27,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 
 @implementation DDTableViewController
 
+@synthesize showsCancelButton;
 @synthesize searchTerm = searchTerm_;
 @synthesize backButtonTitle;
 @synthesize moveWithKeyboard;
@@ -37,6 +38,8 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     apiController_.delegate = self;
     
     self.backButtonTitle = NSLocalizedString(@"Back", nil);
+    
+    self.showsCancelButton = YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHideNotification:) name:UIKeyboardWillHideNotification object:nil];
@@ -109,10 +112,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     self.searchBar.delegate = self;
 }
 
-- (UISearchBar*)searchBar
+- (DDSearchBar*)searchBar
 {
-    if ([self.tableView.tableHeaderView isKindOfClass:[UISearchBar class]])
-        return (UISearchBar*)self.tableView.tableHeaderView;
+    if ([self.tableView.tableHeaderView isKindOfClass:[DDSearchBar class]])
+        return (DDSearchBar*)self.tableView.tableHeaderView;
     return nil;
 }
 
@@ -135,7 +138,8 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [searchTerm_ release];
     searchTerm_ = [aSearchBar.text retain];
     [self.tableView reloadData];
-    [aSearchBar setShowsCancelButton:YES animated:YES];
+    if (self.showsCancelButton)
+        [aSearchBar setShowsCancelButton:YES animated:YES];
     [self setIsRefreshControlEnabled:NO];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }

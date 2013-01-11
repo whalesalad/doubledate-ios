@@ -23,7 +23,9 @@
     BOOL movedWithKeyboard_;
 }
 
-@property(nonatomic, readonly) UISearchBar *searchBar;
+@property(nonatomic, assign) BOOL showsCancelButton;
+
+@property(nonatomic, readonly) DDSearchBar *searchBar;
 @property(nonatomic, readonly) NSString *searchTerm;
 
 @property(nonatomic, retain) NSString *backButtonTitle;
