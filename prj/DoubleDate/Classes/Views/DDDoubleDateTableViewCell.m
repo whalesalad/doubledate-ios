@@ -51,14 +51,14 @@
 {
     [super awakeFromNib];
     
-    #warning customize here
     viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     viewEffects.layer.borderWidth = 1;
-    
+
     viewEffects.layer.shadowColor = [UIColor blackColor].CGColor;
     viewEffects.layer.shadowOffset = CGSizeMake(0, 1);
     viewEffects.layer.shadowRadius = 1;
-    viewEffects.layer.shadowOpacity = 0.7f;
+    viewEffects.layer.shadowOpacity = 0.4f;
+    viewEffects.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewEffects.bounds] CGPath];
     
     viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     viewImagesContainer.layer.borderWidth = 1;

@@ -63,9 +63,9 @@ typedef enum
     
     //set needed title
     if (mode_ == DDDoubleDatesViewControllerModeAll)
-        self.navigationItem.title = NSLocalizedString(@"Dates", nil);
+        self.navigationItem.title = NSLocalizedString(@"DoubleDates", nil);
     else if (mode_ == DDDoubleDatesViewControllerModeMine)
-        self.navigationItem.title = NSLocalizedString(@"My Dates", nil);
+        self.navigationItem.title = NSLocalizedString(@"My DoubleDates", nil);
     
     //add left button
     if (mode_ == DDDoubleDatesViewControllerModeMine)

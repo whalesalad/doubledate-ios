@@ -25,7 +25,7 @@
 
 + (CGFloat)height
 {
-    return 200;
+    return 198;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -47,7 +47,8 @@
     viewEffects.layer.shadowColor = [UIColor blackColor].CGColor;
     viewEffects.layer.shadowOffset = CGSizeMake(0, 1);
     viewEffects.layer.shadowRadius = 1;
-    viewEffects.layer.shadowOpacity = 0.9f;
+    viewEffects.layer.shadowOpacity = 0.4f;
+    viewEffects.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewEffects.bounds] CGPath];
     
     imageViewPoster.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     imageViewPoster.layer.borderWidth = 1;
