@@ -192,6 +192,10 @@
 		960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844E15FDF60200EAF708 /* tokenNormal@2x.png */; };
 		960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C846315FDFD9400EAF708 /* DDInterestsViewController.m */; };
 		960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */; };
+		960F9FF416A00E0F00258CA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF216A00E0F00258CA7 /* CoreData.framework */; };
+		960F9FF516A00E0F00258CA7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF316A00E0F00258CA7 /* SystemConfiguration.framework */; };
+		960F9FF716A00E3F00258CA7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */; };
+		960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF816A00E6300258CA7 /* Social.framework */; };
 		960FB54C16413964003563FD /* DDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 960FB54B16413964003563FD /* DDTableViewCell.m */; };
 		960FB5651641530E003563FD /* dd-tablecell-detail-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB5591641530E003563FD /* dd-tablecell-detail-arrow.png */; };
 		960FB5661641530E003563FD /* dd-tablecell-detail-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960FB55A1641530E003563FD /* dd-tablecell-detail-arrow@2x.png */; };
@@ -692,6 +696,10 @@
 		960C846215FDFD9400EAF708 /* DDInterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterestsViewController.h; sourceTree = "<group>"; };
 		960C846315FDFD9400EAF708 /* DDInterestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterestsViewController.m; sourceTree = "<group>"; };
 		960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInterestsViewController.xib; sourceTree = "<group>"; };
+		960F9FF216A00E0F00258CA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		960F9FF316A00E0F00258CA7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		960F9FF816A00E6300258CA7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		960FB54A16413964003563FD /* DDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTableViewCell.h; sourceTree = "<group>"; };
 		960FB54B16413964003563FD /* DDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTableViewCell.m; sourceTree = "<group>"; };
 		960FB5591641530E003563FD /* dd-tablecell-detail-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-tablecell-detail-arrow.png"; sourceTree = "<group>"; };
@@ -974,6 +982,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */,
+				960F9FF716A00E3F00258CA7 /* MobileCoreServices.framework in Frameworks */,
+				960F9FF416A00E0F00258CA7 /* CoreData.framework in Frameworks */,
+				960F9FF516A00E0F00258CA7 /* SystemConfiguration.framework in Frameworks */,
 				96EA06D01689DB19009F09BC /* ImageIO.framework in Frameworks */,
 				962B410416256413004E0656 /* Accounts.framework in Frameworks */,
 				962B410516256413004E0656 /* AdSupport.framework in Frameworks */,
@@ -1103,6 +1115,10 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				960F9FF816A00E6300258CA7 /* Social.framework */,
+				960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */,
+				960F9FF216A00E0F00258CA7 /* CoreData.framework */,
+				960F9FF316A00E0F00258CA7 /* SystemConfiguration.framework */,
 				96EA06CF1689DB19009F09BC /* ImageIO.framework */,
 				962B410216256413004E0656 /* Accounts.framework */,
 				962B410316256413004E0656 /* AdSupport.framework */,
@@ -2355,6 +2371,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2375,6 +2395,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
