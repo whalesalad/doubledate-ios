@@ -294,8 +294,8 @@ typedef enum
     NSString *params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
     
     //add query if needed
-    if (query)
-        params = [NSString stringWithFormat:@"%@&query=%@", params, query];
+    if ([query length])
+        params = [NSString stringWithFormat:@"%@&query=%@", params, [query stringByAddingURLEncoding]];
     
     //create request
     NSString *requestPath = nil;
