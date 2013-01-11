@@ -54,6 +54,11 @@
         [self startRefreshWithText:NSLocalizedString(@"Loading...", nil)];
 }
 
+- (void)onChangedSearchTerm
+{
+    
+}
+
 - (void)startRefreshWithText:(NSString*)text
 {
     //check if refresh control exist

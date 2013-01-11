@@ -12,6 +12,7 @@
 
 @property(nonatomic, assign) BOOL isRefreshControlEnabled;
 
+- (void)onChangedSearchTerm;
 - (void)startRefreshWithText:(NSString*)text;
 - (void)onRefresh;
 - (void)finishRefresh;

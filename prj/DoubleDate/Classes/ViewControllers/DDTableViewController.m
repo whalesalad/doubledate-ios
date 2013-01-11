@@ -165,6 +165,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 {
     [searchTerm_ release];
     searchTerm_ = [searchText retain];
+    [self onChangedSearchTerm];
     [self.tableView reloadData];
 }
 
