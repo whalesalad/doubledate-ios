@@ -12,4 +12,7 @@
 {
 }
 
+- (UITextField*)textField;
+- (UIButton*)button;
+
 @end
