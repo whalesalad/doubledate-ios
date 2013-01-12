@@ -11,7 +11,6 @@
 
 @class DDUser;
 @class DDImage;
-@class DDFriendship;
 @class DDShortUser;
 @class DDDoubleDate;
 @class DDDoubleDateFilter;
@@ -57,14 +56,11 @@ typedef int DDRequestId;
 - (void)getFriendsSucceed:(NSArray*)friends;
 - (void)getFriendsDidFailedWithError:(NSError*)error;
 
-- (void)getFriendshipInvitationsSucceed:(NSArray*)invitations;
-- (void)getFriendshipInvitationsDidFailedWithError:(NSError*)error;
+- (void)requestApproveFriendshipForFriendSucceed:(DDShortUser*)friend;
+- (void)requestApproveFriendshipForFriendDidFailedWithError:(NSError*)error;
 
-- (void)requestApproveFriendshipSucceed:(DDFriendship*)friendship;
-- (void)requestApproveFriendshipDidFailedWithError:(NSError*)error;
-
-- (void)requestDenyFriendshipSucceed;
-- (void)requestDenyFriendshipDidFailedWithError:(NSError*)error;
+- (void)requestDenyFriendshipForFriendSucceed;
+- (void)requestDenyFriendshipForFriendDidFailedWithError:(NSError*)error;
 
 - (void)requestDeleteFriendSucceed;
 - (void)requestDeleteFriendDidFailedWithError:(NSError*)error;
@@ -135,11 +131,9 @@ typedef int DDRequestId;
 
 - (DDRequestId)getFriends;
 
-- (DDRequestId)getFriendshipInvitations;
+- (DDRequestId)requestApproveFriendshipForFriend:(DDShortUser*)friendship;
 
-- (DDRequestId)requestApproveFriendship:(DDFriendship*)friendship;
-
-- (DDRequestId)requestDenyFriendship:(DDFriendship*)friendship;
+- (DDRequestId)requestDenyFriendshipForFriend:(DDShortUser*)friendship;
 
 - (DDRequestId)requestDeleteFriend:(DDShortUser*)user;
 

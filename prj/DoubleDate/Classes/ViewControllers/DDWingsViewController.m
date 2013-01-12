@@ -9,7 +9,6 @@
 #import "DDWingsViewController.h"
 #import "DDAPIController.h"
 #import "DDUser.h"
-#import "DDFriendship.h"
 #import "DDImageView.h"
 #import "DDMeViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -22,6 +21,7 @@
 #import "DDTableViewController+Refresh.h"
 #import "DDWingTableViewCell.h"
 #import "DDInvitationTableViewCell.h"
+#import "DDShortUser.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -32,18 +32,15 @@
 
 @interface DDWingsViewControllerAlertView : UIAlertView
 @property(nonatomic, retain) DDShortUser *shortUser;
-@property(nonatomic, retain) DDFriendship *friendship;
 @end
 
 @implementation DDWingsViewControllerAlertView
 
 @synthesize shortUser;
-@synthesize friendship;
 
 - (void)dealloc
 {
     [shortUser release];
-    [friendship release];
     [super dealloc];
 }
 
@@ -93,7 +90,7 @@
     [super viewDidAppear:animated];
     
     //check if we need to make a request
-    if (!friends_ && !pendingInvitations_)
+    if (!friends_)
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
@@ -106,7 +103,6 @@
 {
     [user release];
     [friends_ release];
-    [pendingInvitations_ release];
     [super dealloc];
 }
 
@@ -128,22 +124,13 @@
     return existInSearch;
 }
 
-- (BOOL)isFriendshipExistInSearch:(DDFriendship*)friendship
-{
-    if ([[friendship.user identifier] intValue] != [[self.user userId] intValue])
-        return [self isUserExistInSearch:friendship.user];
-    if ([[friendship.friendUser identifier] intValue] != [[self.user userId] intValue])
-        return [self isUserExistInSearch:friendship.friendUser];
-    return NO;
-}
-
 - (NSArray*)pendingInvitations
 {
     NSMutableArray *ret = [NSMutableArray array];
-    for (DDFriendship *friendship in pendingInvitations_)
+    for (DDShortUser *shortUser in friends_)
     {
-        if ([self isFriendshipExistInSearch:friendship])
-            [ret addObject:friendship];
+        if (![shortUser.approved boolValue] && [self isUserExistInSearch:shortUser])
+            [ret addObject:shortUser];
     }
     return ret;
 }
@@ -153,7 +140,7 @@
     NSMutableArray *ret = [NSMutableArray array];
     for (DDShortUser *shortUser in friends_)
     {
-        if ([self isUserExistInSearch:shortUser])
+        if ([shortUser.approved boolValue] && [self isUserExistInSearch:shortUser])
             [ret addObject:shortUser];
     }
     return ret;
@@ -162,7 +149,7 @@
 - (void)onDataRefreshed
 {
     //check both data received
-    if (![self.apiController isRequestExist:friendsRequest_] && ![self.apiController isRequestExist:pendingInvitationsRequest_])
+    if (![self.apiController isRequestExist:friendsRequest_])
     {
         //hide loading
         [self finishRefresh];
@@ -219,20 +206,16 @@
     if ([cell isKindOfClass:[DDInvitationTableViewCell class]])
     {
         //save friendship
-        DDFriendship *friendship = (DDFriendship*)[cell.userData retain];
+        DDShortUser *friend = cell.shortUser;
         
         //move friend from friendship
-        [friends_ addObject:friendship.user];
-        [pendingInvitations_ removeObject:friendship];
+        friend.approved = [NSNumber numberWithBool:YES];
         
         //reload the table
         [self.tableView reloadData];
         
         //update invite
-        [self.apiController requestApproveFriendship:friendship];
-        
-        //release friendship
-        [friendship release];
+        [self.apiController requestApproveFriendshipForFriend:friend];
     }
 }
 
@@ -244,7 +227,6 @@
         DDWingsViewControllerAlertView *alertView = [[[DDWingsViewControllerAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Are you sure you want to ignore this invitation?", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Yes, Ignore", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil] autorelease];
         alertView.tag = kTagConfirmDeleteFriendshipAlert;
         alertView.shortUser = cell.shortUser;
-        alertView.friendship = (DDFriendship*)cell.userData;
         [alertView show];
     }
 }
@@ -369,7 +351,6 @@
     
     //unset friend
     DDShortUser *friend = nil;
-    DDFriendship *friendship = nil;
     
     //check for wings
     if (indexPath.section == 1)
@@ -378,8 +359,7 @@
     }
     else if (indexPath.section == 0)
     {
-        friendship = [[self pendingInvitations] objectAtIndex:indexPath.row];
-        friend = friendship.user;
+        friend = [[self pendingInvitations] objectAtIndex:indexPath.row];
     }
     
     //add handlers
@@ -394,7 +374,6 @@
     
     //save data
     [tableViewCell setShortUser:friend];
-    [tableViewCell setUserData:friendship];
     
     //update layouts
     [tableViewCell setNeedsLayout];
@@ -428,44 +407,24 @@
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
-- (void)getFriendshipInvitationsSucceed:(NSArray*)invitations
+- (void)requestApproveFriendshipForFriendSucceed:(DDShortUser*)friend
 {
-    //save invitations
-    [pendingInvitations_ release];
-    pendingInvitations_ = [[NSMutableArray arrayWithArray:invitations] retain];
-    
-    //inform about reloaded data
-    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
-- (void)getFriendshipInvitationsDidFailedWithError:(NSError*)error
+- (void)requestApproveFriendshipForFriendDidFailedWithError:(NSError*)error
 {
-    //save friendship invitations
-    [pendingInvitations_ release];
-    pendingInvitations_ = [[NSMutableArray alloc] init];
-    
-    //inform about reloaded data
-    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
+    //reload data
+    [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
-- (void)requestApproveFriendshipSucceed:(DDFriendship*)friendship
+- (void)requestDenyFriendshipForFriendSucceed
 {
 }
 
-- (void)requestApproveFriendshipDidFailedWithError:(NSError*)error
-{
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-- (void)requestDenyFriendshipSucceed
-{
-}
-
-- (void)requestDenyFriendshipDidFailedWithError:(NSError*)error
+- (void)requestDenyFriendshipForFriendDidFailedWithError:(NSError*)error
 {
     //reload data
     [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
@@ -519,19 +478,16 @@
         if (buttonIndex == 0)
         {
             //save friendship
-            DDFriendship *fiendship = [wingsAlertView.friendship retain];
+            DDShortUser *friend = wingsAlertView.shortUser;
             
             //remove silent
-            [pendingInvitations_ removeObject:fiendship];
+            [friends_ removeObject:friend];
             
             //reload the table
             [self.tableView reloadData];
             
             //send request
-            [self.apiController requestDenyFriendship:fiendship];
-            
-            //release friendship
-            [fiendship release];
+            [self.apiController requestDenyFriendshipForFriend:friend];
         }
     }
     else if ([alertView isKindOfClass:[DDWingsViewControllerAlertView class]] && alertView.tag == kTagConfirmDeleteFriendAlert)
@@ -596,9 +552,6 @@
 {
     //request friends
     friendsRequest_ = [self.apiController getFriends];
-    
-    //request friendship invitations
-    pendingInvitationsRequest_ = [self.apiController getFriendshipInvitations];
 }
 
 @end

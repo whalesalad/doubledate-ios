@@ -19,6 +19,7 @@
 @synthesize age;
 @synthesize location;
 @synthesize photo;
+@synthesize approved;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -33,6 +34,7 @@
         self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
         self.location = [DDAPIObject stringForObject:[dictionary objectForKey:@"location"]];
         self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
+        self.approved = [DDAPIObject numberForObject:[dictionary objectForKey:@"approved"]];
     }
     return self;
 }
@@ -58,6 +60,8 @@
         [dictionary setObject:self.location forKey:@"location"];
     if (self.photo)
         [dictionary setObject:[self.photo dictionaryRepresentation] forKey:@"photo"];
+    if (self.approved)
+        [dictionary setObject:self.approved forKey:@"approved"];
     return dictionary;
 }
 
@@ -72,6 +76,7 @@
     [age release];
     [location release];
     [photo release];
+    [approved release];
     [super dealloc];
 }
 

@@ -20,5 +20,6 @@
 @property(nonatomic, retain) NSNumber *age;
 @property(nonatomic, retain) NSString *location;
 @property(nonatomic, retain) DDImage *photo;
+@property(nonatomic, retain) NSNumber *approved;
 
 @end

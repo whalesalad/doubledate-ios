@@ -16,7 +16,6 @@
 #import "DDPlacemark.h"
 #import "DDInterest.h"
 #import "DDImage.h"
-#import "DDFriendship.h"
 #import "DDShortUser.h"
 #import "DDDoubleDate.h"
 #import "DDDoubleDateFilter.h"
@@ -34,9 +33,8 @@ typedef enum
     DDAPIControllerMethodTypeSearchPlacemarks,
     DDAPIControllerMethodTypeRequestAvailableInterests,
     DDAPIControllerMethodTypeGetFriends,
-    DDAPIControllerMethodTypeGetFriendshipInvitations,
-    DDAPIControllerMethodTypeRequestApproveFriendship,
-    DDAPIControllerMethodTypeRequestDenyFriendship,
+    DDAPIControllerMethodTypeRequestApproveFriendshipForFriend,
+    DDAPIControllerMethodTypeRequestDenyFriendshipForFriend,
     DDAPIControllerMethodTypeRequestDeleteFriend,
     DDAPIControllerMethodTypeGetFriend,
     DDAPIControllerMethodTypeGetFacebookFriends,
@@ -368,57 +366,38 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)getFriendshipInvitations
+- (DDRequestId)requestApproveFriendshipForFriend:(DDShortUser*)friend
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/friendships/pending"];
-    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
-    request.method = RKRequestMethodGET;
-    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
-    
-    //create user data
-    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
-    userData.method = DDAPIControllerMethodTypeGetFriendshipInvitations;
-    userData.succeedSel = @selector(getFriendshipInvitationsSucceed:);
-    userData.failedSel = @selector(getFriendshipInvitationsDidFailedWithError:);
-    request.userData = userData;
-    
-    //send request
-    return [self startRequest:request];
-}
-
-- (DDRequestId)requestApproveFriendship:(DDFriendship*)friendship
-{
-    //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friendships/%d", [friendship.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [friend.identifier intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPUT;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
-    userData.method = DDAPIControllerMethodTypeRequestApproveFriendship;
-    userData.succeedSel = @selector(requestApproveFriendshipSucceed:);
-    userData.failedSel = @selector(requestApproveFriendshipDidFailedWithError:);
+    userData.method = DDAPIControllerMethodTypeRequestApproveFriendshipForFriend;
+    userData.succeedSel = @selector(requestApproveFriendshipForFriendSucceed:);
+    userData.failedSel = @selector(requestApproveFriendshipForFriendDidFailedWithError:);
     request.userData = userData;
     
     //send request
     return [self startRequest:request];
 }
 
-- (DDRequestId)requestDenyFriendship:(DDFriendship*)friendship
+- (DDRequestId)requestDenyFriendshipForFriend:(DDShortUser*)friend
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friendships/%d", [friendship.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/%d", [friend.identifier intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodDELETE;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
     
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
-    userData.method = DDAPIControllerMethodTypeRequestDenyFriendship;
-    userData.succeedSel = @selector(requestDenyFriendshipSucceed);
-    userData.failedSel = @selector(requestDenyFriendshipDidFailedWithError:);
+    userData.method = DDAPIControllerMethodTypeRequestDenyFriendshipForFriend;
+    userData.succeedSel = @selector(requestDenyFriendshipForFriendSucceed);
+    userData.failedSel = @selector(requestDenyFriendshipForFriendDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -805,39 +784,20 @@ typedef enum
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:users withObject:userData.userData];
         }
-        else if (userData.method == DDAPIControllerMethodTypeGetFriendshipInvitations)
-        {
-            //extract data
-            NSMutableArray *friendshipInvitations = [NSMutableArray array];
-            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
-            for (NSDictionary *dic in responseData)
-            {
-                //create object
-                DDFriendship *friendship = [DDFriendship objectWithDictionary:dic];
-                if (friendship)
-                    [friendshipInvitations addObject:friendship];
-            }
-            
-            //notify objects controller
-            [DDObjectsController updateObjects:friendshipInvitations];
-            
-            //inform delegate
-            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:friendshipInvitations withObject:userData.userData];
-        }
-        else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendship)
+        
+        else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendshipForFriend)
         {
             //create friendship object
-            DDFriendship *friendship = [DDFriendship objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            DDShortUser *friend = [DDShortUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:friendship];
+            [DDObjectsController updateObject:friend];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
-                [self.delegate performSelector:userData.succeedSel withObject:friendship withObject:userData.userData];
+                [self.delegate performSelector:userData.succeedSel withObject:friend withObject:userData.userData];
         }
-        else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendship ||
+        else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendshipForFriend ||
                  userData.method == DDAPIControllerMethodTypeRequestDeleteFriend ||
                  userData.method == DDAPIControllerMethodTypeRequestInvitations ||
                  userData.method == DDAPIControllerMethodTypeRequestDeleteDoubleDate)

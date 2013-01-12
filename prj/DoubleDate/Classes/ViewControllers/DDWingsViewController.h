@@ -20,8 +20,6 @@
 {
     DDRequestId friendsRequest_;
     NSMutableArray *friends_;
-    DDRequestId pendingInvitationsRequest_;
-    NSMutableArray *pendingInvitations_;
 }
 
 @property(nonatomic, assign) id<DDWingsViewControllerDelegate> delegate;
