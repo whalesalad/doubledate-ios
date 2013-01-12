@@ -41,6 +41,7 @@
 @interface DDFacebookFriendsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 - (void)updateNavifationBar;
+- (NSString*)nameOfUser:(DDShortUser*)shortUser;
 
 @end
 
@@ -130,7 +131,7 @@
     for (DDShortUser *friend in [self friendsForTableView:aTableView])
     {
         //get first symbol
-        NSString *firstSymbol = [[[friend name] substringWithRange:NSMakeRange(0, 1)] capitalizedString];
+        NSString *firstSymbol = [[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString];
 
         //add if not exist
         if (![ret containsObject:firstSymbol])
@@ -152,7 +153,7 @@
     for (DDShortUser *friend in [self friendsForTableView:aTableView])
     {
         //add if name started from needed symbol
-        if ([[[[friend name] substringWithRange:NSMakeRange(0, 1)] capitalizedString] isEqualToString:firstSymbol])
+        if ([[[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString] isEqualToString:firstSymbol])
             [ret addObject:friend];
     }
     
@@ -209,6 +210,13 @@
     self.navigationItem.rightBarButtonItem.enabled = [friendsToInvite_ count] > 0;
 }
 
+- (NSString*)nameOfUser:(DDShortUser*)shortUser
+{
+    if ([shortUser name])
+        return [shortUser name];
+    return [shortUser fullName];
+}
+
 - (NSArray*)sortedFriends:(NSArray*)friends
 {
     NSMutableArray *friendsToRemove = [NSMutableArray arrayWithArray:friends];
@@ -219,7 +227,7 @@
         DDShortUser *lowest = [friendsToRemove objectAtIndex:0];
         for (DDShortUser *u in friendsToRemove)
         {
-            if ([[lowest name] compare:[u name] options:NSCaseInsensitiveSearch] == NSOrderedDescending)
+            if ([[self nameOfUser:lowest] compare:[self nameOfUser:u] options:NSCaseInsensitiveSearch] == NSOrderedDescending)
                 lowest = u;
         }
         [ret addObject:lowest];
