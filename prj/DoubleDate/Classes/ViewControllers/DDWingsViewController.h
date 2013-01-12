@@ -18,7 +18,9 @@
 
 @interface DDWingsViewController : DDTableViewController
 {
+    DDRequestId friendsRequest_;
     NSMutableArray *friends_;
+    DDRequestId pendingInvitationsRequest_;
     NSMutableArray *pendingInvitations_;
 }
 

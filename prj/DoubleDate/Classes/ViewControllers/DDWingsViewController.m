@@ -162,7 +162,7 @@
 - (void)onDataRefreshed
 {
     //check both data received
-    if (friends_ && pendingInvitations_)
+    if (![self.apiController isRequestExist:friendsRequest_] && ![self.apiController isRequestExist:pendingInvitationsRequest_])
     {
         //hide loading
         [self finishRefresh];
@@ -412,7 +412,7 @@
     friends_ = [[NSMutableArray arrayWithArray:friends] retain];
     
     //inform about reloaded data
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)getFriendsDidFailedWithError:(NSError*)error
@@ -422,7 +422,7 @@
     friends_ = [[NSMutableArray alloc] init];
     
     //inform about reloaded data
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -435,7 +435,7 @@
     pendingInvitations_ = [[NSMutableArray arrayWithArray:invitations] retain];
     
     //inform about reloaded data
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)getFriendshipInvitationsDidFailedWithError:(NSError*)error
@@ -445,7 +445,7 @@
     pendingInvitations_ = [[NSMutableArray alloc] init];
     
     //inform about reloaded data
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -594,17 +594,11 @@
 
 - (void)onRefresh
 {
-    //unset old values
-    [friends_ release];
-    friends_ = nil;
-    [pendingInvitations_ release];
-    pendingInvitations_ = nil;
-    
     //request friends
-    [self.apiController getFriends];
+    friendsRequest_ = [self.apiController getFriends];
     
     //request friendship invitations
-    [self.apiController getFriendshipInvitations];
+    pendingInvitationsRequest_ = [self.apiController getFriendshipInvitations];
 }
 
 @end
