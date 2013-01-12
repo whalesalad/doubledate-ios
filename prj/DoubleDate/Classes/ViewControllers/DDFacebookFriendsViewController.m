@@ -9,12 +9,14 @@
 #import "DDFacebookFriendsViewController.h"
 #import "DDAPIController.h"
 #import "DDShortUser.h"
-#import "DDWingTableViewCell.h"
 #import "DDMeViewController.h"
 #import "DDTools.h"
 #import "MBProgressHUD.h"
 #import "DDBarButtonItem.h"
 #import "DDTableViewController+Refresh.h"
+#import "DDShortUserTableViewCell.h"
+#import "DDWingTableViewCell.h"
+#import "UIImageView+WebCache.h"
 
 #define kTagInviteErrorAlert 5234
 
@@ -63,11 +65,8 @@
 {
     [super viewWillAppear:animated];
     
-    //add left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
-    
-    //add right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Add", nil) target:self action:@selector(addTouched:)];
+    //update navigation bar
+    [self updateNavifationBar];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,9 +82,6 @@
         //search for placemarks
         [self.apiController getFacebookFriends];
     }
-    
-    //update navigation bar
-    [self updateNavifationBar];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -193,16 +189,24 @@
 - (void)updateNavifationBar
 {
     //set title
+    self.navigationItem.title = NSLocalizedString(@"Facebook Friends", nil);
+    
+    //add left button
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
+            
+    //set title
     if ([friendsToInvite_ count])
     {
-        self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Invite %d Friend", nil), [friendsToInvite_ count]];
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        //add right button
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Invite %d User%@", nil), [friendsToInvite_ count], [friendsToInvite_ count]>1?@"s":@""] target:self action:@selector(addTouched:)];
     }
     else
     {
-        self.navigationItem.title = NSLocalizedString(@"Facebook Friends", nil);
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Invite", nil)] target:self action:@selector(addTouched:)];
     }
+    
+    //apply right button style
+    self.navigationItem.rightBarButtonItem.enabled = [friendsToInvite_ count] > 0;
 }
 
 - (NSArray*)sortedFriends:(NSArray*)friends
@@ -228,15 +232,28 @@
 #pragma mark -
 #pragma mark UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-    return [DDWingTableViewCell height];
+    return [[self tableView:aTableView viewForHeaderInSection:section] frame].size.height;
+}
+
+- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
+{
+    if ([self tableView:aTableView numberOfRowsInSection:section] == 0)
+        return nil;
+    
+    return [self viewForHeaderWithMainText:[self tableView:aTableView titleForHeaderInSection:section] detailedText:nil];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DDShortUserTableViewCell height];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //add user to invite
-    DDWingTableViewCell *tableViewCell = (DDWingTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
+    DDShortUserTableViewCell *tableViewCell = (DDShortUserTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath];
     
     //update state
     if ([friendsToInvite_ containsObject:tableViewCell.shortUser])
@@ -254,15 +271,15 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
-{
-    return [self sectionsForTableView:aTableView];
-}
-
-- (NSInteger)tableView:(UITableView *)aTableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-{
-    return [[self sectionsForTableView:aTableView] indexOfObject:title];
-}
+//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
+//{
+//    return [self sectionsForTableView:aTableView];
+//}
+//
+//- (NSInteger)tableView:(UITableView *)aTableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+//{
+//    return [[self sectionsForTableView:aTableView] indexOfObject:title];
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
@@ -282,10 +299,10 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set identifier
-    NSString *cellIdentifier = NSStringFromClass([DDWingTableViewCell class]);
+    NSString *cellIdentifier = NSStringFromClass([DDShortUserTableViewCell class]);
     
     //create cell if needed
-    DDWingTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    DDShortUserTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!tableViewCell)
     {
         tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
@@ -297,6 +314,12 @@
     //save data
     [tableViewCell setShortUser:friend];
     
+    //apply parameters
+    tableViewCell.textLabel.text = [DDWingTableViewCell titleForShortUser:friend];
+    
+    //apply new image
+    [tableViewCell.imageView setImageWithURL:[NSURL URLWithString:friend.photo.thumbUrl] placeholderImage:nil];
+    
     //update layouts
     [tableViewCell setNeedsLayout];
     
@@ -304,10 +327,7 @@
     BOOL invited = [friendsToInvite_ containsObject:tableViewCell.shortUser];
     
     //apply checkmark style
-    if (invited)
-        tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
-    else
-        tableViewCell.accessoryType = UITableViewCellAccessoryNone;
+    tableViewCell.imageViewCheckmark.hidden = !invited;
     
     return tableViewCell;
 }

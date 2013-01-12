@@ -192,6 +192,14 @@
 		960C845415FDF60200EAF708 /* tokenNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C844E15FDF60200EAF708 /* tokenNormal@2x.png */; };
 		960C846415FDFD9400EAF708 /* DDInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C846315FDFD9400EAF708 /* DDInterestsViewController.m */; };
 		960C846615FDFD9900EAF708 /* DDInterestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */; };
+		960C9A7716A15436006B6CDC /* dark-tableview-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A7116A15436006B6CDC /* dark-tableview-bg.png */; };
+		960C9A7816A15436006B6CDC /* dark-tableview-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A7216A15436006B6CDC /* dark-tableview-bg@2x.png */; };
+		960C9A7916A15436006B6CDC /* dark-tableview-checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A7316A15436006B6CDC /* dark-tableview-checkmark.png */; };
+		960C9A7A16A15436006B6CDC /* dark-tableview-checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A7416A15436006B6CDC /* dark-tableview-checkmark@2x.png */; };
+		960C9A7B16A15436006B6CDC /* dark-tableview-header.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A7516A15436006B6CDC /* dark-tableview-header.png */; };
+		960C9A7C16A15436006B6CDC /* dark-tableview-header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A7616A15436006B6CDC /* dark-tableview-header@2x.png */; };
+		960C9A7F16A1578B006B6CDC /* DDShortUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C9A7E16A1578B006B6CDC /* DDShortUserTableViewCell.m */; };
+		960C9A8116A15804006B6CDC /* DDShortUserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C9A8016A15804006B6CDC /* DDShortUserTableViewCell.xib */; };
 		960F9FF416A00E0F00258CA7 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF216A00E0F00258CA7 /* CoreData.framework */; };
 		960F9FF516A00E0F00258CA7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF316A00E0F00258CA7 /* SystemConfiguration.framework */; };
 		960F9FF716A00E3F00258CA7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */; };
@@ -696,6 +704,15 @@
 		960C846215FDFD9400EAF708 /* DDInterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInterestsViewController.h; sourceTree = "<group>"; };
 		960C846315FDFD9400EAF708 /* DDInterestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterestsViewController.m; sourceTree = "<group>"; };
 		960C846515FDFD9900EAF708 /* DDInterestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInterestsViewController.xib; sourceTree = "<group>"; };
+		960C9A7116A15436006B6CDC /* dark-tableview-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-tableview-bg.png"; sourceTree = "<group>"; };
+		960C9A7216A15436006B6CDC /* dark-tableview-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-tableview-bg@2x.png"; sourceTree = "<group>"; };
+		960C9A7316A15436006B6CDC /* dark-tableview-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-tableview-checkmark.png"; sourceTree = "<group>"; };
+		960C9A7416A15436006B6CDC /* dark-tableview-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-tableview-checkmark@2x.png"; sourceTree = "<group>"; };
+		960C9A7516A15436006B6CDC /* dark-tableview-header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-tableview-header.png"; sourceTree = "<group>"; };
+		960C9A7616A15436006B6CDC /* dark-tableview-header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark-tableview-header@2x.png"; sourceTree = "<group>"; };
+		960C9A7D16A1578B006B6CDC /* DDShortUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUserTableViewCell.h; sourceTree = "<group>"; };
+		960C9A7E16A1578B006B6CDC /* DDShortUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUserTableViewCell.m; sourceTree = "<group>"; };
+		960C9A8016A15804006B6CDC /* DDShortUserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDShortUserTableViewCell.xib; sourceTree = "<group>"; };
 		960F9FF216A00E0F00258CA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		960F9FF316A00E0F00258CA7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -1174,6 +1191,19 @@
 			path = JSTokenField;
 			sourceTree = "<group>";
 		};
+		960C9A7016A15436006B6CDC /* dark-tableview */ = {
+			isa = PBXGroup;
+			children = (
+				960C9A7116A15436006B6CDC /* dark-tableview-bg.png */,
+				960C9A7216A15436006B6CDC /* dark-tableview-bg@2x.png */,
+				960C9A7316A15436006B6CDC /* dark-tableview-checkmark.png */,
+				960C9A7416A15436006B6CDC /* dark-tableview-checkmark@2x.png */,
+				960C9A7516A15436006B6CDC /* dark-tableview-header.png */,
+				960C9A7616A15436006B6CDC /* dark-tableview-header@2x.png */,
+			);
+			path = "dark-tableview";
+			sourceTree = "<group>";
+		};
 		960FB5561641530E003563FD /* list of doubledates */ = {
 			isa = PBXGroup;
 			children = (
@@ -1439,6 +1469,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				960C9A7D16A1578B006B6CDC /* DDShortUserTableViewCell.h */,
+				960C9A7E16A1578B006B6CDC /* DDShortUserTableViewCell.m */,
 				70927FBB169E16C800052C9F /* DDInvitationTableViewCell.h */,
 				70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */,
 				70927FAB169E099D00052C9F /* DDWingTableViewCell.h */,
@@ -1565,6 +1597,7 @@
 		96E7F1B015F738CA00200E1F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				960C9A7016A15436006B6CDC /* dark-tableview */,
 				70927FC0169E174A00052C9F /* wing-approve-deny */,
 				70927FAE169E0E5900052C9F /* wing-and-list-overlays */,
 				96831279169DA7D0007C14ED /* me */,
@@ -1596,6 +1629,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				960C9A8016A15804006B6CDC /* DDShortUserTableViewCell.xib */,
 				96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */,
 				70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */,
 				70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */,
@@ -2253,6 +2287,13 @@
 				96F293D4169EFF1200711F14 /* DDDoubleDateTableViewCell.xib in Resources */,
 				4C8D9168169F913700E59BF9 /* tableview-header-bg.png in Resources */,
 				4C8D9169169F913700E59BF9 /* tableview-header-bg@2x.png in Resources */,
+				960C9A7716A15436006B6CDC /* dark-tableview-bg.png in Resources */,
+				960C9A7816A15436006B6CDC /* dark-tableview-bg@2x.png in Resources */,
+				960C9A7916A15436006B6CDC /* dark-tableview-checkmark.png in Resources */,
+				960C9A7A16A15436006B6CDC /* dark-tableview-checkmark@2x.png in Resources */,
+				960C9A7B16A15436006B6CDC /* dark-tableview-header.png in Resources */,
+				960C9A7C16A15436006B6CDC /* dark-tableview-header@2x.png in Resources */,
+				960C9A8116A15804006B6CDC /* DDShortUserTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2343,6 +2384,7 @@
 				968312A0169DB354007C14ED /* UIView+Interests.m in Sources */,
 				70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */,
 				70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */,
+				960C9A7F16A1578B006B6CDC /* DDShortUserTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
