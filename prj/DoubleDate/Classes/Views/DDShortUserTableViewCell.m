@@ -20,13 +20,14 @@
 
 @synthesize labelTitle;
 @synthesize labelLocation;
+@synthesize imageViewWrapper;
 @synthesize imageViewPoster;
 @synthesize imageViewGender;
 @synthesize imageViewCheckmark;
 
 + (CGFloat)height
 {
-    return 44;
+    return 50;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -48,9 +49,27 @@
     //hide checkmark
     imageViewCheckmark.hidden = YES;
     
-    //set rounded corners
-    imageViewPoster.layer.cornerRadius = 2;
+    imageViewWrapper.layer.borderColor = [UIColor blackColor].CGColor;
+    imageViewWrapper.layer.borderWidth = 1;
+    imageViewWrapper.layer.cornerRadius = 2;
+    
+    imageViewWrapper.layer.shadowColor = [UIColor blackColor].CGColor;
+    imageViewWrapper.layer.shadowOffset = CGSizeMake(0, 1);
+    imageViewWrapper.layer.shadowRadius = 1;
+    imageViewWrapper.layer.shadowOpacity = 0.5f;
+    // imageViewWrapper.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewEffects.bounds] CGPath];
+    
+    // set rounded corners
+    // tighter radius on inner layer = no tiny pixel artifacts on corner
+    imageViewPoster.layer.cornerRadius = 3;
     imageViewPoster.layer.masksToBounds = YES;
+    
+    // Add an inner white border on the top only
+    CALayer *topBorder = [CALayer layer];
+    topBorder.frame = CGRectMake(0, 1, imageViewPoster.frame.size.width, 1.0f);
+    topBorder.backgroundColor = [UIColor whiteColor].CGColor;
+    topBorder.opacity = 0.2f;
+    [imageViewPoster.layer addSublayer:topBorder];
     
     //unset background
     labelLocation.backgroundColor = [UIColor clearColor];
@@ -68,8 +87,12 @@
     
     //update ui
     imageViewPoster.image = nil;
-    if (v.photo.thumbUrl && [NSURL URLWithString:v.photo.thumbUrl])
+    if (v.photo.thumbUrl && [NSURL URLWithString:v.photo.thumbUrl]) {
         [imageViewPoster reloadFromUrl:[NSURL URLWithString:v.photo.thumbUrl]];
+        [[imageViewPoster layer] setMagnificationFilter:kCAFilterNearest];
+        imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    
     labelTitle.text = [DDWingTableViewCell titleForShortUser:v];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
     labelLocation.text = v.location;

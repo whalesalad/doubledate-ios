@@ -190,7 +190,7 @@
 - (void)updateNavifationBar
 {
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Facebook Friends", nil);
+    self.navigationItem.title = NSLocalizedString(@"Friends", nil);
     
     //add left button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
