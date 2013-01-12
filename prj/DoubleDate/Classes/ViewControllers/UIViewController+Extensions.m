@@ -191,9 +191,8 @@
 - (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText
 {
     //set general view
-    UIImage *backgroundImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"tableview-header-bg.png"]];
+    UIImage *backgroundImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dark-tableview-header.png"]];
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, backgroundImage.size.height)] autorelease];
-//    view.backgroundColor = [UIColor clearColor];
     view.backgroundColor = [UIColor colorWithPatternImage:backgroundImage];
     
     //add label
