@@ -85,11 +85,18 @@ typedef enum
 @synthesize centerView;
 @synthesize topView;
 
-@synthesize photoViewLeft;
-@synthesize photoViewRight;
+@synthesize imageViewLeft;
+@synthesize imageViewRight;
 
 @synthesize viewInfo;
 @synthesize viewSubNavRight;
+
+@synthesize labelTitle;
+@synthesize labelLeftUser;
+@synthesize labelRightUser;
+
+@synthesize imageViewLeftUserGender;
+@synthesize imageViewRightUserGender;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -123,14 +130,34 @@ typedef enum
     self.textView.text = [self.doubleDate details];
     
     //customize photo views
-    self.photoViewLeft.text = [[self.doubleDate user].firstName uppercaseString];
-    [self.photoViewLeft applyImage:self.doubleDate.user.photo];
-    self.photoViewRight.text = [[self.doubleDate wing].firstName uppercaseString];
-    [self.photoViewRight applyImage:self.doubleDate.wing.photo];
+    if (self.doubleDate.user.photo.smallUrl)
+        [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.smallUrl]];
+    if (self.doubleDate.wing.photo.smallUrl)
+        [self.imageViewRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.smallUrl]];
+    
+    //set name
+    self.labelLeftUser.text = [self.doubleDate.user.firstName uppercaseString];
+    [self.labelLeftUser sizeToFit];
+    self.labelLeftUser.center = CGPointMake(80-8, self.labelLeftUser.center.y);
+    self.labelRightUser.text = [self.doubleDate.wing.firstName uppercaseString];
+    [self.labelRightUser sizeToFit];
+    self.labelRightUser.center = CGPointMake(240-8, self.labelRightUser.center.y);
+    
+    //set gender
+    if ([[self.doubleDate.user gender] isEqualToString:DDUserGenderFemale])
+        self.imageViewLeftUserGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
+    else
+        self.imageViewLeftUserGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
+    imageViewLeftUserGender.frame = CGRectMake(labelLeftUser.frame.origin.x+labelLeftUser.frame.size.width+4, labelLeftUser.center.y-imageViewLeftUserGender.image.size.height/2, imageViewLeftUserGender.image.size.width, imageViewLeftUserGender.image.size.height);
+    if ([[self.doubleDate.wing gender] isEqualToString:DDUserGenderFemale])
+        self.imageViewRightUserGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
+    else
+        self.imageViewRightUserGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
+    imageViewRightUserGender.frame = CGRectMake(labelRightUser.frame.origin.x+labelRightUser.frame.size.width+4, labelLeftUser.center.y-imageViewRightUserGender.image.size.height/2, imageViewRightUserGender.image.size.width, imageViewRightUserGender.image.size.height);
     
     //add images
-    self.containerTopImageView.image = [[UIImage imageNamed:@"dd-indented-text-background-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)];
-    self.containerBottomImageView.image = [UIImage imageNamed:@"dd-indented-text-background-bottom.png"];
+    self.containerTopImageView.image = [[UIImage imageNamed:@"details-bg-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)];
+    self.containerBottomImageView.image = [UIImage imageNamed:@"details-bg-bottom.png"];
     
     //request information
     if (!self.user && self.doubleDate.user)
@@ -194,12 +221,17 @@ typedef enum
     [bottomView release];
     [centerView release];
     [topView release];
-    [photoViewLeft release];
-    [photoViewRight release];
+    [imageViewLeft release];
+    [imageViewRight release];
     [viewInfo release];
     [viewSubNavRight release];
     [tableViewController release];
     [popover release];
+    [labelTitle release];
+    [labelLeftUser release];
+    [labelRightUser release];
+    [imageViewLeftUserGender release];
+    [imageViewRightUserGender release];
     [super dealloc];
 }
 
@@ -208,28 +240,20 @@ typedef enum
 
 - (IBAction)leftUserTouched:(DDPhotoView*)sender
 {
-    //apply selection
-    sender.highlighted = !sender.highlighted;
-    
     //dismiss old
     [self dismissUserPopover];
     
     //present user
-    if (sender.highlighted)
-        [self presentLeftUserPopover];
+    [self presentLeftUserPopover];
 }
 
 - (IBAction)rightUserTouched:(DDPhotoView*)sender
 {
-    //apply selection
-    sender.highlighted = !sender.highlighted;
-    
     //dismiss old
     [self dismissUserPopover];
     
     //present user
-    if (sender.highlighted)
-        [self presentRightUserPopover];
+    [self presentRightUserPopover];
 }
 
 - (IBAction)interestedTouched:(id)sender
@@ -318,7 +342,7 @@ typedef enum
         self.textView.contentOffset = initialTextViewContentOffset_;
         self.scrollView.contentSize = initialScrollViewContentSize_;
         self.containerTextView.frame = initialContainerTextViewFrame_;
-        self.containerPhotos.center = initialContainerPhotosCenter_;
+        self.containerHeader.center = initialContainerHeaderCenter_;
     }
     else
     {
@@ -326,7 +350,7 @@ typedef enum
         initialTextViewContentOffset_ = self.textView.contentOffset;
         initialScrollViewContentSize_ = self.scrollView.contentSize;
         initialContainerTextViewFrame_ = self.containerTextView.frame;
-        initialContainerPhotosCenter_ = self.containerPhotos.center;
+        initialContainerHeaderCenter_ = self.containerHeader.center;
     }
     
     //save visibility
@@ -341,7 +365,7 @@ typedef enum
     CGFloat yt = 0;
     CGFloat yb = bottomVisible?self.bottomView.frame.origin.y:self.bottomView.frame.origin.y+self.bottomView.frame.size.height;
     CGFloat height = yb - yt;
-    self.centerView.frame = CGRectMake(self.centerView.frame.origin.x, yt, self.centerView.frame.size.width, height);
+    self.centerView.frame = CGRectMake(self.centerView.frame.origin.x, yt, self.centerView.frame.size.width, height+10);
     
     //change frame
     self.viewInfo.frame = CGRectMake(self.viewInfo.frame.origin.x, topVisible?self.topView.frame.size.height:0, self.viewInfo.frame.size.width, self.view.frame.size.height-(topVisible?self.topView.frame.size.height:0));
@@ -351,12 +375,13 @@ typedef enum
     if (dh > 0)
     {
         self.textView.contentOffset = CGPointMake(0, -dh/2);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.frame.size.height+46);
     }
     else
     {
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerHeader.frame.origin.y+self.containerHeader.frame.size.height+self.containerPhotos.frame.size.height+self.textView.contentSize.height+30);
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.contentSize.height+36);
         self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height-dh);
-        self.containerPhotos.center = CGPointMake(self.containerPhotos.center.x, self.containerPhotos.center.y-dh);
+        self.containerHeader.center = CGPointMake(self.containerHeader.center.x, self.containerHeader.center.y-dh);
     }
     
     //remove all subviews
@@ -393,8 +418,6 @@ typedef enum
         } completion:^(BOOL finished) {
             [self.popover removeFromSuperview];
             self.popover = nil;
-            self.photoViewLeft.highlighted = NO;
-            self.photoViewRight.highlighted = NO;
         }];
     }
 }
@@ -488,9 +511,9 @@ typedef enum
     {
 #pragma warning left/right arrow offsets
         if ([u.userId intValue] == [self.doubleDate.user.identifier intValue])
-            [self presentPopoverWithUser:u inView:self.photoViewLeft];
+            [self presentPopoverWithUser:u inView:self.imageViewLeft];
         else
-            [self presentPopoverWithUser:u inView:self.photoViewRight];
+            [self presentPopoverWithUser:u inView:self.imageViewRight];
     }
 }
 
@@ -498,10 +521,6 @@ typedef enum
 {
     //hide hud
     [self hideHud:YES];
-    
-    //hide selection
-    self.photoViewLeft.highlighted = NO;
-    self.photoViewRight.highlighted = NO;
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

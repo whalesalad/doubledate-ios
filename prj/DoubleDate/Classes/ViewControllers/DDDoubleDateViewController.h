@@ -11,7 +11,7 @@
 @class DDDoubleDate;
 @class DDWEImageView;
 @class DDUser;
-@class DDPhotoView;
+@class DDImageView;
 @class DDToggleButton;
 
 @interface DDDoubleDateViewController : DDViewController
@@ -20,7 +20,7 @@
     CGPoint initialTextViewContentOffset_;
     CGSize initialScrollViewContentSize_;
     CGRect initialContainerTextViewFrame_;
-    CGPoint initialContainerPhotosCenter_;
+    CGPoint initialContainerHeaderCenter_;
     int lastMode_;
     BOOL alreadyCreatedEngagement_;
 }
@@ -53,11 +53,18 @@
 @property(nonatomic, retain) IBOutlet UIView *centerView;
 @property(nonatomic, retain) IBOutlet UIView *topView;
 
-@property(nonatomic, retain) IBOutlet DDPhotoView *photoViewLeft;
-@property(nonatomic, retain) IBOutlet DDPhotoView *photoViewRight;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewLeft;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewRight;
 
 @property(nonatomic, retain) IBOutlet UIView *viewInfo;
 @property(nonatomic, retain) IBOutlet UIView *viewSubNavRight;
+
+@property(nonatomic, retain) IBOutlet UILabel *labelTitle;
+@property(nonatomic, retain) IBOutlet UILabel *labelLeftUser;
+@property(nonatomic, retain) IBOutlet UILabel *labelRightUser;
+
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewLeftUserGender;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewRightUserGender;
 
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;
