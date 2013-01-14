@@ -59,7 +59,8 @@
 {
     CGRect oldInterestsFrame = viewController_.viewInterests.frame;
     CGFloat newInterestsHeight = [viewController_.viewInterests applyInterests:self.user.interests
-                                                               withBubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item.png"]
+                                                                   bubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item.png"]
+                                                            matchedBubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item-matched.png"]
                                                          custmomizationHandler:^(UILabel *bubbleLabel)
                                   {
                                       bubbleLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -105,7 +106,7 @@
     
     //make rounded corners
     viewController_.view.layer.masksToBounds = YES;
-    viewController_.view.layer.cornerRadius = 5;    
+    viewController_.view.layer.cornerRadius = 5;
 }
 
 - (void)dealloc

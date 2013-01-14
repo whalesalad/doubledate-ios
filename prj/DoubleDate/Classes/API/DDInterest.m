@@ -13,6 +13,7 @@
 @synthesize identifier;
 @synthesize name;
 @synthesize facebookId;
+@synthesize matched;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -21,6 +22,7 @@
             self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
             self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
             self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
+            self.matched = [DDAPIObject numberForObject:[dictionary objectForKey:@"matched"]];
     }
     return self;
 }
@@ -34,6 +36,8 @@
         [dictionary setObject:self.name forKey:@"name"];
     if (self.facebookId)
         [dictionary setObject:self.facebookId forKey:@"facebook_id"];
+    if (self.matched)
+        [dictionary setObject:self.matched forKey:@"matched"];
     return dictionary;
 }
 
@@ -42,6 +46,7 @@
     [identifier release];
     [name release];
     [facebookId release];
+    [matched release];
     [super dealloc];
 }
 

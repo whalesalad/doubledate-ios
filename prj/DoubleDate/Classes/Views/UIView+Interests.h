@@ -10,6 +10,6 @@
 
 @interface UIView (Interests)
 
-- (CGFloat)applyInterests:(NSArray*)interests withBubbleImage:(UIImage*)bubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler;
+- (CGFloat)applyInterests:(NSArray*)interests bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler;
 
 @end

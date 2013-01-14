@@ -18,7 +18,7 @@
 
 @implementation UIView (Interests)
 
-- (CGFloat)applyInterests:(NSArray*)interests withBubbleImage:(UIImage*)bubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler
+- (CGFloat)applyInterests:(NSArray*)interests bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler
 {
     //remove all interests
     NSMutableArray *viewsToRemove = [NSMutableArray array];
@@ -57,8 +57,9 @@
         [label sizeToFit];
         
         //create background image
-        UIImageView *labelBackground = [[[UIImageView alloc] initWithFrame:CGRectMake(curX, curY, label.frame.size.width+2*inEdgePadding, bubbleImage.size.height)] autorelease];
-        labelBackground.image = [DDTools resizableImageFromImage:bubbleImage];
+        UIImage *labelBackgroundImage = [[interest matched] boolValue]?matchedBubbleImage:bubbleImage;
+        UIImageView *labelBackground = [[[UIImageView alloc] initWithFrame:CGRectMake(curX, curY, label.frame.size.width+2*inEdgePadding, labelBackgroundImage.size.height)] autorelease];
+        labelBackground.image = [DDTools resizableImageFromImage:labelBackgroundImage];
         
         //add label
         label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2 - 1);
