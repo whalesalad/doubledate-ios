@@ -8,20 +8,22 @@
 
 #import "DDTableViewCell.h"
 
+@class DDImageView;
 @class DDEngagement;
-@class DDPhotoView;
 
 @interface DDEngagementTableViewCell : DDTableViewCell
 {
-    UILabel *labelTime_;
-    UILabel *labelUser_;
-    UILabel *labelWing_;
-    UIImageView *imageViewGenderUser_;
-    UIImageView *imageViewGenderWing_;
-    DDPhotoView *photoUser_;
-    DDPhotoView *photoWing_;
 }
 
 @property(nonatomic, retain) DDEngagement *engagement;
+
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUser;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewWing;
+@property(nonatomic, retain) IBOutlet UIView *viewEffects;
+@property(nonatomic, retain) IBOutlet UILabel *labelTitle;
+@property(nonatomic, retain) IBOutlet UILabel *labelDetailed;
+@property(nonatomic, retain) IBOutlet UIView *viewImagesContainer;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
+@property(nonatomic, retain) IBOutlet UILabel *labelBadgeNumber;
 
 @end

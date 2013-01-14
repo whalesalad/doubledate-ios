@@ -127,10 +127,7 @@
     //create cell if needed
     DDEngagementTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell)
-        cell = [[[DDEngagementTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-    
-    //set accessory view
-    cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"grey-detail-arrow.png"]] autorelease];
+        cell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
     
     //save data
     [cell setEngagement:[engagements_ objectAtIndex:indexPath.row]];
