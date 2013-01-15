@@ -46,9 +46,11 @@
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewLeftUserGender;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewRightUserGender;
 
+@property(nonatomic, retain) IBOutlet UIView *leftView;
+@property(nonatomic, retain) IBOutlet UIView *rightView;
+
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;
 - (IBAction)interestedTouched:(id)sender;
-- (IBAction)tabTouched:(id)sender;
 
 @end

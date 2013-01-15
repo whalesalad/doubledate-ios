@@ -22,6 +22,7 @@
 #import "DDTools.h"
 #import "DDEngagementsViewController.h"
 #import "DDUserBubble.h"
+#import "DDSegmentedControl.h"
 
 typedef enum
 {
@@ -83,6 +84,9 @@ typedef enum
 
 @synthesize imageViewLeftUserGender;
 @synthesize imageViewRightUserGender;
+
+@synthesize leftView;
+@synthesize rightView;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -161,20 +165,6 @@ typedef enum
         requestUser.userId = self.doubleDate.wing.identifier;
         [self.apiController getUser:requestUser];
     }
-    
-//    //customize buttons
-//    DD_F_SUBNAV_TEXT(self.buttonSubNavLeft);
-//    DD_F_SUBNAV_TEXT(self.buttonSubNavRight);
-//    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
-//    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
-//    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
-//    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
-//    
-//    [self.buttonSubNavLeft setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    [self.buttonSubNavRight setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    
-//    //highlight first button
-//    [self tabTouched:self.buttonSubNavLeft];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -212,6 +202,8 @@ typedef enum
     [labelRightUser release];
     [imageViewLeftUserGender release];
     [imageViewRightUserGender release];
+    [leftView release];
+    [rightView release];
     [super dealloc];
 }
 
@@ -245,42 +237,24 @@ typedef enum
     }];
 }
 
-- (IBAction)tabTouched:(id)sender
-{
-//    //highlight pressed
-//    [(DDToggleButton*)sender setToggled:YES];
-//    
-//    //unhighlight other
-//    if (self.buttonSubNavLeft == sender)
-//        [self.buttonSubNavRight setToggled:NO];
-//    else if (self.buttonSubNavRight == sender)
-//        [self.buttonSubNavLeft setToggled:NO];
-//    
-//    //save incoming hidden flag
-//    BOOL viewSubNavRightHidden = self.viewSubNavRight.hidden;
-//    
-//    //update visibility
-//    self.viewInfo.hidden = self.scrollView.hidden = self.buttonSubNavRight.toggled;
-//    self.viewSubNavRight.hidden = !self.viewInfo.hidden;
-//    
-//    //check for change
-//    if (self.viewSubNavRight.hidden != viewSubNavRightHidden)
-//    {
-//        if (self.viewSubNavRight.hidden)
-//        {
-//            [self.tableViewController viewWillDisappear:NO];
-//            [self.tableViewController viewDidDisappear:NO];
-//        }
-//        else
-//        {
-//            [self.tableViewController viewWillAppear:NO];
-//            [self.tableViewController viewDidAppear:NO];
-//        }
-//    }
-}
-
 #pragma mark -
 #pragma mark other
+
+- (void)segmentedControlTouched:(UISegmentedControl*)sender
+{
+    self.leftView.hidden = sender.selectedSegmentIndex == 1;
+    self.rightView.hidden = sender.selectedSegmentIndex != 1;
+    if (self.rightView.hidden)
+    {
+        [self.tableViewController viewWillDisappear:NO];
+        [self.tableViewController viewDidDisappear:NO];
+    }
+    else
+    {
+        [self.tableViewController viewWillAppear:NO];
+        [self.tableViewController viewDidAppear:NO];
+    }
+}
 
 - (void)switchToNeededMode
 {
@@ -316,6 +290,9 @@ typedef enum
     if (lastMode_ == mode)
         return;
     
+    //save last mode
+    lastMode_ = mode;
+    
     //save visibility
     BOOL bottomVisible = (mode == DDDoubleDateViewControllerModeNone);
     
@@ -341,46 +318,46 @@ typedef enum
     //set bottom view frame
     self.scrollBottomView.frame = CGRectMake(self.scrollBottomView.frame.origin.x, self.scrollCenterView.frame.origin.y+scrollCenterView.frame.size.height, self.scrollBottomView.frame.size.width, self.scrollBottomView.frame.size.height);
     
-//    //change frame
-//    self.viewInfo.frame = CGRectMake(self.viewInfo.frame.origin.x, topVisible?self.topView.frame.size.height:0, self.viewInfo.frame.size.width, self.view.frame.size.height-(topVisible?self.topView.frame.size.height:0));
-//    
-//    //change frame
-//    CGFloat dh = self.textView.frame.size.height - self.textView.contentSize.height;
-//    if (dh > 0)
-//    {
-//        self.textView.contentOffset = CGPointMake(0, -dh/2);
-//        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.frame.size.height+46);
-//    }
-//    else
-//    {
-//        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.contentSize.height+36);
-//        self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height-dh);
-//        self.containerHeader.center = CGPointMake(self.containerHeader.center.x, self.containerHeader.center.y-dh);
-//    }
+    //remove all subviews of right view
+    while ([[self.rightView subviews] count])
+            [[[self.rightView subviews] lastObject] removeFromSuperview];
+    self.tableViewController = nil;
     
-//    //remove all subviews
-//    while ([[self.viewSubNavRight subviews] count])
-//        [[[self.viewSubNavRight subviews] lastObject] removeFromSuperview];
-//    self.tableViewController = nil;
-//    
-//    //create needed view controller
-//    if (mode == DDDoubleDateViewControllerModeIncoming)
-//    {
-//        //set title
-//        [self.buttonSubNavRight setTitle:NSLocalizedString(@"INCOMING", nil) forState:UIControlStateNormal];
-//        
-//        //add second tab
-//        self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-//        self.tableViewController.view.frame = CGRectMake(0, 0, self.viewSubNavRight.frame.size.width, self.viewSubNavRight.frame.size.height);
-//        [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
-//        [self.tableViewController viewDidLoad];
-//        [self.viewSubNavRight addSubview:self.tableViewController.view];
-//    }
-//    else if (mode == DDDoubleDateViewControllerModeChat)
-//    {
-//        //set title
-//        [self.buttonSubNavRight setTitle:NSLocalizedString(@"CHAT", nil) forState:UIControlStateNormal];
-//    }
+    //create needed view controller
+    if (mode == DDDoubleDateViewControllerModeNone)
+    {
+        //unset title view
+        self.navigationItem.titleView = nil;
+    }
+    if (mode == DDDoubleDateViewControllerModeIncoming)
+    {
+        //add segmeneted control
+        NSMutableArray *items = [NSMutableArray array];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Details", nil) width:0]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Incoming", nil) width:0]];
+        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleSmall] autorelease];
+        segmentedControl.selectedSegmentIndex = self.rightView.hidden?0:1;
+        self.navigationItem.titleView = segmentedControl;
+        [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
+        
+        //add second tab
+        self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+        self.tableViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+        [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
+        [self.tableViewController viewDidLoad];
+        [self.rightView addSubview:self.tableViewController.view];
+    }
+    else if (mode == DDDoubleDateViewControllerModeChat)
+    {
+        //add segmeneted control
+        NSMutableArray *items = [NSMutableArray array];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Details", nil) width:0]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Chat", nil) width:0]];
+        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleSmall] autorelease];
+        segmentedControl.selectedSegmentIndex = self.rightView.hidden?0:1;
+        self.navigationItem.titleView = segmentedControl;
+        [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
+    }
 }
 
 - (void)dismissUserPopover
