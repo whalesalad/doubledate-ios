@@ -88,6 +88,9 @@ typedef enum
 @synthesize leftView;
 @synthesize rightView;
 
+@synthesize labelButtonInterestedDetailed;
+@synthesize labelButtonInterestedMain;
+
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -110,11 +113,9 @@ typedef enum
     //customize text
     DD_F_TEXT(self.textView);
     
-    //customize button
-#warning customize send message button
-    {
-        [self.buttonInterested applyBottomBarDesignWithTitle:[NSString stringWithFormat:@"%@ + %@", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]] icon:[UIImage imageNamed:@"send-message-icon.png"] background:[UIImage imageNamed:@"lower-button-blue.png"]];
-    }
+    //customize intereseted button
+    self.labelButtonInterestedMain.text = [NSString stringWithFormat:@"%@ + %@", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]];
+    [self.buttonInterested setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-lower-button.png"]] forState:UIControlStateNormal];
     
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
@@ -204,6 +205,8 @@ typedef enum
     [imageViewRightUserGender release];
     [leftView release];
     [rightView release];
+    [labelButtonInterestedDetailed release];
+    [labelButtonInterestedMain release];
     [super dealloc];
 }
 
