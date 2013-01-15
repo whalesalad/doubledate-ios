@@ -112,7 +112,8 @@ typedef enum
     [super viewDidLoad];
     
     //set navigation item
-    self.navigationItem.title = [self.doubleDate title];
+    self.navigationItem.title = NSLocalizedString(@"Details", nil);
+    self.labelTitle.text = [self.doubleDate title];
     
     //apply autoresizing mask
     self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
