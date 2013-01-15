@@ -13,6 +13,7 @@
 #import "DDUser.h"
 #import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIImage+Resize.h"
 
 @implementation DDShortUserTableViewCell
 
@@ -88,9 +89,15 @@
     //update ui
     imageViewPoster.image = nil;
     if (v.photo.thumbUrl && [NSURL URLWithString:v.photo.thumbUrl]) {
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:v.photo.thumbUrl]];
-        [[imageViewPoster layer] setMagnificationFilter:kCAFilterNearest];
         imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
+        [[imageViewPoster layer] setMagnificationFilter:kCAFilterNearest];
+        [imageViewPoster setImageWithURL:[NSURL URLWithString:v.photo.thumbUrl] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            if (!error && image)
+            {
+                CGSize newImageSize = CGSizeMake(imageViewPoster.frame.size.width * [[UIScreen mainScreen] scale], imageViewPoster.frame.size.width * image.size.height / image.size.width * [[UIScreen mainScreen] scale]);
+                imageViewPoster.image = [image resizedImage:newImageSize interpolationQuality:kCGInterpolationHigh];
+            }
+        }];
     }
     
     labelTitle.text = [DDWingTableViewCell titleForShortUser:v];
