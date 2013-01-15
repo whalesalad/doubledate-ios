@@ -60,38 +60,24 @@ typedef enum
 @synthesize doubleDate;
 
 @synthesize scrollView;
-
-@synthesize containerHeader;
-@synthesize labelLocationMain;
-@synthesize labelLocationDetailed;
-@synthesize labelDayTime;
-
-@synthesize containerTextView;
-@synthesize containerTopImageView;
-@synthesize containerBottomImageView;
-
-@synthesize textView;
-
-@synthesize containerPhotos;
-
-@synthesize imageViewFade;
-
-@synthesize buttonInterested;
-
-@synthesize buttonSubNavLeft;
-@synthesize buttonSubNavRight;
-
 @synthesize bottomView;
-@synthesize centerView;
-@synthesize topView;
 
 @synthesize imageViewLeft;
 @synthesize imageViewRight;
 
-@synthesize viewInfo;
-@synthesize viewSubNavRight;
+@synthesize buttonInterested;
+
+@synthesize scrollTopView;
+@synthesize scrollCenterView;
+@synthesize scrollBottomView;
+
+@synthesize labelLocationMain;
+@synthesize labelLocationDetailed;
+@synthesize labelDayTime;
 
 @synthesize labelTitle;
+@synthesize textView;
+
 @synthesize labelLeftUser;
 @synthesize labelRightUser;
 
@@ -113,30 +99,35 @@ typedef enum
     
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
-    self.labelTitle.text = [self.doubleDate title];
     
-    //apply autoresizing mask
-    self.textView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    //set title label
+    self.labelTitle.text = [self.doubleDate title];
     
     //customize text
     DD_F_TEXT(self.textView);
     
     //customize button
-    [self.buttonInterested applyBottomBarDesignWithTitle:self.buttonInterested.titleLabel.text icon:nil background:[UIImage imageNamed:@"lower-button-blue.png"]];
+#warning customize send message button
+    {
+        [self.buttonInterested applyBottomBarDesignWithTitle:[NSString stringWithFormat:@"%@ + %@", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]] icon:[UIImage imageNamed:@"send-message-icon.png"] background:[UIImage imageNamed:@"lower-button-blue.png"]];
+    }
     
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
-    self.textView.text = [self.doubleDate details];
     
+    //set text
+    self.textView.text = [self.doubleDate details];
+
     //customize photo views
     if (self.doubleDate.user.photo.smallUrl)
         [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.smallUrl]];
     if (self.doubleDate.wing.photo.smallUrl)
         [self.imageViewRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.smallUrl]];
-    
+
     //set name
+#warning customize position of user's labels
     self.labelLeftUser.text = [self.doubleDate.user.firstName uppercaseString];
     [self.labelLeftUser sizeToFit];
     self.labelLeftUser.center = CGPointMake(80-8, self.labelLeftUser.center.y);
@@ -145,6 +136,7 @@ typedef enum
     self.labelRightUser.center = CGPointMake(240-8, self.labelRightUser.center.y);
     
     //set gender
+#warning customize position of user's gender
     if ([[self.doubleDate.user gender] isEqualToString:DDUserGenderFemale])
         self.imageViewLeftUserGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
     else
@@ -155,10 +147,6 @@ typedef enum
     else
         self.imageViewRightUserGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
     imageViewRightUserGender.frame = CGRectMake(labelRightUser.frame.origin.x+labelRightUser.frame.size.width+4, labelLeftUser.center.y-imageViewRightUserGender.image.size.height/2, imageViewRightUserGender.image.size.width, imageViewRightUserGender.image.size.height);
-    
-    //add images
-    self.containerTopImageView.image = [[UIImage imageNamed:@"details-bg-top.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(14, 0, 1, 0)];
-    self.containerBottomImageView.image = [UIImage imageNamed:@"details-bg-bottom.png"];
     
     //request information
     if (!self.user && self.doubleDate.user)
@@ -174,19 +162,19 @@ typedef enum
         [self.apiController getUser:requestUser];
     }
     
-    //customize buttons
-    DD_F_SUBNAV_TEXT(self.buttonSubNavLeft);
-    DD_F_SUBNAV_TEXT(self.buttonSubNavRight);
-    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
-    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
-    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
-    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
-    
-    [self.buttonSubNavLeft setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.buttonSubNavRight setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    //highlight first button
-    [self tabTouched:self.buttonSubNavLeft];
+//    //customize buttons
+//    DD_F_SUBNAV_TEXT(self.buttonSubNavLeft);
+//    DD_F_SUBNAV_TEXT(self.buttonSubNavRight);
+//    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-normal.png"]] forState:UIControlStateNormal];
+//    [self.buttonSubNavLeft setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"left-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+//    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-normal.png"]] forState:UIControlStateNormal];
+//    [self.buttonSubNavRight setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"right-subnav-segment-selected.png"]] forState:UIControlStateHighlighted];
+//    
+//    [self.buttonSubNavLeft setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [self.buttonSubNavRight setTitleShadowColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    
+//    //highlight first button
+//    [self tabTouched:self.buttonSubNavLeft];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -205,30 +193,21 @@ typedef enum
 - (void)dealloc
 {
     [doubleDate release];
+    [tableViewController release];
+    [popover release];
     [scrollView release];
-    [containerHeader release];
+    [bottomView release];
+    [imageViewLeft release];
+    [imageViewRight release];
+    [buttonInterested release];
+    [scrollTopView release];
+    [scrollCenterView release];
+    [scrollBottomView release];
     [labelLocationMain release];
     [labelLocationDetailed release];
     [labelDayTime release];
-    [containerTextView release];
-    [containerTopImageView release];
-    [containerBottomImageView release];
-    [textView release];
-    [containerPhotos release];
-    [imageViewFade release];
-    [buttonInterested release];
-    [buttonSubNavLeft release];
-    [buttonSubNavRight release];
-    [bottomView release];
-    [centerView release];
-    [topView release];
-    [imageViewLeft release];
-    [imageViewRight release];
-    [viewInfo release];
-    [viewSubNavRight release];
-    [tableViewController release];
-    [popover release];
     [labelTitle release];
+    [textView release];
     [labelLeftUser release];
     [labelRightUser release];
     [imageViewLeftUserGender release];
@@ -268,36 +247,36 @@ typedef enum
 
 - (IBAction)tabTouched:(id)sender
 {
-    //highlight pressed
-    [(DDToggleButton*)sender setToggled:YES];
-    
-    //unhighlight other
-    if (self.buttonSubNavLeft == sender)
-        [self.buttonSubNavRight setToggled:NO];
-    else if (self.buttonSubNavRight == sender)
-        [self.buttonSubNavLeft setToggled:NO];
-    
-    //save incoming hidden flag
-    BOOL viewSubNavRightHidden = self.viewSubNavRight.hidden;
-    
-    //update visibility
-    self.viewInfo.hidden = self.scrollView.hidden = self.buttonSubNavRight.toggled;
-    self.viewSubNavRight.hidden = !self.viewInfo.hidden;
-    
-    //check for change
-    if (self.viewSubNavRight.hidden != viewSubNavRightHidden)
-    {
-        if (self.viewSubNavRight.hidden)
-        {
-            [self.tableViewController viewWillDisappear:NO];
-            [self.tableViewController viewDidDisappear:NO];
-        }
-        else
-        {
-            [self.tableViewController viewWillAppear:NO];
-            [self.tableViewController viewDidAppear:NO];
-        }
-    }
+//    //highlight pressed
+//    [(DDToggleButton*)sender setToggled:YES];
+//    
+//    //unhighlight other
+//    if (self.buttonSubNavLeft == sender)
+//        [self.buttonSubNavRight setToggled:NO];
+//    else if (self.buttonSubNavRight == sender)
+//        [self.buttonSubNavLeft setToggled:NO];
+//    
+//    //save incoming hidden flag
+//    BOOL viewSubNavRightHidden = self.viewSubNavRight.hidden;
+//    
+//    //update visibility
+//    self.viewInfo.hidden = self.scrollView.hidden = self.buttonSubNavRight.toggled;
+//    self.viewSubNavRight.hidden = !self.viewInfo.hidden;
+//    
+//    //check for change
+//    if (self.viewSubNavRight.hidden != viewSubNavRightHidden)
+//    {
+//        if (self.viewSubNavRight.hidden)
+//        {
+//            [self.tableViewController viewWillDisappear:NO];
+//            [self.tableViewController viewDidDisappear:NO];
+//        }
+//        else
+//        {
+//            [self.tableViewController viewWillAppear:NO];
+//            [self.tableViewController viewDidAppear:NO];
+//        }
+//    }
 }
 
 #pragma mark -
@@ -337,77 +316,71 @@ typedef enum
     if (lastMode_ == mode)
         return;
     
-    //reset all
-    if (initialValueInitialized_)
-    {
-        self.textView.contentOffset = initialTextViewContentOffset_;
-        self.scrollView.contentSize = initialScrollViewContentSize_;
-        self.containerTextView.frame = initialContainerTextViewFrame_;
-        self.containerHeader.center = initialContainerHeaderCenter_;
-    }
-    else
-    {
-        initialValueInitialized_ = YES;
-        initialTextViewContentOffset_ = self.textView.contentOffset;
-        initialScrollViewContentSize_ = self.scrollView.contentSize;
-        initialContainerTextViewFrame_ = self.containerTextView.frame;
-        initialContainerHeaderCenter_ = self.containerHeader.center;
-    }
-    
     //save visibility
-    BOOL topVisible = (mode != DDDoubleDateViewControllerModeNone);
     BOOL bottomVisible = (mode == DDDoubleDateViewControllerModeNone);
     
     //change visibility
-    self.topView.hidden = !topVisible;
     self.bottomView.hidden = !bottomVisible;
     
     //change frame
-    CGFloat yt = 0;
     CGFloat yb = bottomVisible?self.bottomView.frame.origin.y:self.bottomView.frame.origin.y+self.bottomView.frame.size.height;
-    CGFloat height = yb - yt;
-    self.centerView.frame = CGRectMake(self.centerView.frame.origin.x, yt, self.centerView.frame.size.width, height+10);
+    self.scrollView.frame = CGRectMake(0, 0, 320, yb);
     
-    //change frame
-    self.viewInfo.frame = CGRectMake(self.viewInfo.frame.origin.x, topVisible?self.topView.frame.size.height:0, self.viewInfo.frame.size.width, self.view.frame.size.height-(topVisible?self.topView.frame.size.height:0));
+    //this is a difference from xib
+#warning customization of text view from xib
+    CGFloat diffBetweenTextViewAndCenterView = 142 - 86;
+    CGFloat neededHeightOfTextField = [self.textView sizeThatFits:self.textView.contentSize].height;
+    CGFloat neededHeightOfCenterView = MAX(neededHeightOfTextField + diffBetweenTextViewAndCenterView, 142);
+
+    //change center view frame
+    self.scrollCenterView.frame = CGRectMake(0, self.scrollTopView.frame.origin.y+self.scrollTopView.frame.size.height, 320, neededHeightOfCenterView);
     
-    //change frame
-    CGFloat dh = self.textView.frame.size.height - self.textView.contentSize.height;
-    if (dh > 0)
-    {
-        self.textView.contentOffset = CGPointMake(0, -dh/2);
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.frame.size.height+46);
-    }
-    else
-    {
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.contentSize.height+36);
-        self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height-dh);
-        self.containerHeader.center = CGPointMake(self.containerHeader.center.x, self.containerHeader.center.y-dh);
-    }
+    //change content size
+    self.scrollView.contentSize = CGSizeMake(320, self.scrollTopView.frame.size.height + self.scrollCenterView.frame.size.height + self.scrollBottomView.frame.size.height);
     
-    //remove all subviews
-    while ([[self.viewSubNavRight subviews] count])
-        [[[self.viewSubNavRight subviews] lastObject] removeFromSuperview];
-    self.tableViewController = nil;
+    //set bottom view frame
+    self.scrollBottomView.frame = CGRectMake(self.scrollBottomView.frame.origin.x, self.scrollCenterView.frame.origin.y+scrollCenterView.frame.size.height, self.scrollBottomView.frame.size.width, self.scrollBottomView.frame.size.height);
     
-    //create needed view controller
-    if (mode == DDDoubleDateViewControllerModeIncoming)
-    {
-        //set title
-        [self.buttonSubNavRight setTitle:NSLocalizedString(@"INCOMING", nil) forState:UIControlStateNormal];
-        
-        //add second tab
-        self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-        self.tableViewController.view.frame = CGRectMake(0, 0, self.viewSubNavRight.frame.size.width, self.viewSubNavRight.frame.size.height);
-        [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
-        [self.tableViewController viewDidLoad];
-        [self.viewSubNavRight addSubview:self.tableViewController.view];
-    }
-    else if (mode == DDDoubleDateViewControllerModeChat)
-    {
-        //set title
-        [self.buttonSubNavRight setTitle:NSLocalizedString(@"CHAT", nil) forState:UIControlStateNormal];
-    }
+//    //change frame
+//    self.viewInfo.frame = CGRectMake(self.viewInfo.frame.origin.x, topVisible?self.topView.frame.size.height:0, self.viewInfo.frame.size.width, self.view.frame.size.height-(topVisible?self.topView.frame.size.height:0));
+//    
+//    //change frame
+//    CGFloat dh = self.textView.frame.size.height - self.textView.contentSize.height;
+//    if (dh > 0)
+//    {
+//        self.textView.contentOffset = CGPointMake(0, -dh/2);
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.frame.size.height+46);
+//    }
+//    else
+//    {
+//        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.containerPhotos.frame.origin.y+self.containerPhotos.frame.size.height+self.containerHeader.frame.size.height+self.textView.contentSize.height+36);
+//        self.containerTextView.frame = CGRectMake(self.containerTextView.frame.origin.x, self.containerTextView.frame.origin.y, self.containerTextView.frame.size.width, self.containerTextView.frame.size.height-dh);
+//        self.containerHeader.center = CGPointMake(self.containerHeader.center.x, self.containerHeader.center.y-dh);
+//    }
+    
+//    //remove all subviews
+//    while ([[self.viewSubNavRight subviews] count])
+//        [[[self.viewSubNavRight subviews] lastObject] removeFromSuperview];
+//    self.tableViewController = nil;
+//    
+//    //create needed view controller
+//    if (mode == DDDoubleDateViewControllerModeIncoming)
+//    {
+//        //set title
+//        [self.buttonSubNavRight setTitle:NSLocalizedString(@"INCOMING", nil) forState:UIControlStateNormal];
+//        
+//        //add second tab
+//        self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+//        self.tableViewController.view.frame = CGRectMake(0, 0, self.viewSubNavRight.frame.size.width, self.viewSubNavRight.frame.size.height);
+//        [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
+//        [self.tableViewController viewDidLoad];
+//        [self.viewSubNavRight addSubview:self.tableViewController.view];
+//    }
+//    else if (mode == DDDoubleDateViewControllerModeChat)
+//    {
+//        //set title
+//        [self.buttonSubNavRight setTitle:NSLocalizedString(@"CHAT", nil) forState:UIControlStateNormal];
+//    }
 }
 
 - (void)dismissUserPopover
