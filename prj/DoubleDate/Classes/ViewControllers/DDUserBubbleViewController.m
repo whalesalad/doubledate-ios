@@ -46,6 +46,7 @@
     self.textView.backgroundColor = [UIColor clearColor];
     self.viewInterests.backgroundColor = [UIColor clearColor];
     self.labelKarma.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor clearColor];
 //    self.viewTop.backgroundColor = [UIColor clearColor];
 //    self.viewBottom.backgroundColor = [UIColor clearColor];
 }

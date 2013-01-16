@@ -79,7 +79,6 @@
     
     //fill data
     viewController_.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
-    viewController_.labelTitle.text = [viewController_.labelTitle.text uppercaseString];
     CGSize newSize = [viewController_.labelTitle sizeThatFits:viewController_.labelTitle.frame.size];
     [viewController_.labelTitle setFrame:CGRectMake(viewController_.labelTitle.frame.origin.x, viewController_.labelTitle.frame.origin.y, newSize.width, viewController_.labelTitle.frame.size.height)];
     viewController_.labelLocation.text = self.user.location.name;
@@ -87,7 +86,7 @@
     viewController_.labelKarma.text = [NSString stringWithFormat:@"%d", [self.user.totalKarma intValue]];
     
     //apply gender
-    viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"dd-user-gender-indicator-bubble-female.png":@"dd-user-gender-indicator-bubble-male.png"];
+    viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"icon-gender-female.png":@"icon-gender-male.png"];
     CGPoint centerGender = viewController_.imageViewGender.center;
     viewController_.imageViewGender.frame = CGRectMake(0, 0, viewController_.imageViewGender.image.size.width, viewController_.imageViewGender.image.size.height);
     viewController_.imageViewGender.center = CGPointMake(viewController_.labelTitle.frame.origin.x+viewController_.labelTitle.frame.size.width+genderOffset, centerGender.y);
