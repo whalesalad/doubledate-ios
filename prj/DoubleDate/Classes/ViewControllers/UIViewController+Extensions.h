@@ -84,6 +84,7 @@
 - (UIViewController*)viewControllerForClass:(Class)vcClass;
 
 - (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
+- (UIView*)oldStyleViewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
 - (UIView*)viewForNavigationBarWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
 
 @end

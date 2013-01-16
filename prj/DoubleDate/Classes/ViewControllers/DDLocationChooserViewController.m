@@ -187,11 +187,11 @@
     
     if ([self optionForSection:section] == DDLocationSearchOptionsCities)
     {
-        return [self viewForHeaderWithMainText:NSLocalizedString(@"CITIES", nil) detailedText:nil];
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"CITIES", nil) detailedText:nil];
     }
     else if ([self optionForSection:section] == DDLocationSearchOptionsVenues)
     {
-        return [self viewForHeaderWithMainText:NSLocalizedString(@"VENUES", nil) detailedText:NSLocalizedString(@"POWERED BY FOURSQUARE", nil)];
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"VENUES", nil) detailedText:NSLocalizedString(@"POWERED BY FOURSQUARE", nil)];
     }
     
     return nil;

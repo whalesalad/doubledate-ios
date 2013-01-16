@@ -128,7 +128,7 @@
 {
     if (section == 1)
     {
-        return [self viewForHeaderWithMainText:NSLocalizedString(@"CONTROL FREAK? GET SPECIFIC.", nil) detailedText:nil];
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"CONTROL FREAK? GET SPECIFIC.", nil) detailedText:nil];
     }
     return nil;
 }
