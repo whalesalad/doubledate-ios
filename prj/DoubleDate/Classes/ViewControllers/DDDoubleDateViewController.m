@@ -395,12 +395,12 @@ typedef enum
     [self.popover addSubview:button];
     
     //add bubble
-    CGRect bubbleRect = CGRectMake(20, 40, 280, 0);
+    CGRect bubbleRect = CGRectMake(25, 40, 270, 0);
     DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
     bubble.userInteractionEnabled = NO;
     bubble.user = u;
     bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-    bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
+    bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2-20);
     [self.popover addSubview:bubble];
     
     //animate appearing

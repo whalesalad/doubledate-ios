@@ -7,7 +7,6 @@
 //
 
 #import "DDUserBubbleViewController.h"
-#import "DDPhotoView.h"
 
 @interface DDUserBubbleViewController ()
 
@@ -18,10 +17,14 @@
 @synthesize labelTitle;
 @synthesize labelLocation;
 @synthesize imageViewGender;
-@synthesize imageViewGradient;
 @synthesize photoView;
 @synthesize textView;
 @synthesize viewInterests;
+@synthesize labelKarma;
+@synthesize viewMain;
+@synthesize labelIceBreakers;
+@synthesize viewTop;
+@synthesize viewBottom;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,10 +43,11 @@
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelLocation.backgroundColor = [UIColor clearColor];
     self.imageViewGender.backgroundColor = [UIColor clearColor];
-    self.imageViewGradient.backgroundColor = [UIColor clearColor];
-    self.photoView.backgroundColor = [UIColor clearColor];
     self.textView.backgroundColor = [UIColor clearColor];
     self.viewInterests.backgroundColor = [UIColor clearColor];
+    self.labelKarma.backgroundColor = [UIColor clearColor];
+//    self.viewTop.backgroundColor = [UIColor clearColor];
+//    self.viewBottom.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,10 +60,14 @@
     [labelTitle release];
     [labelLocation release];
     [imageViewGender release];
-    [imageViewGradient release];
     [photoView release];
     [textView release];
     [viewInterests release];
+    [labelKarma release];
+    [viewMain release];
+    [labelIceBreakers release];
+    [viewTop release];
+    [viewBottom release];
     [super dealloc];
 }
 
