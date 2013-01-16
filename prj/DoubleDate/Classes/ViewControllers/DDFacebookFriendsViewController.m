@@ -18,6 +18,8 @@
 #import "DDWingTableViewCell.h"
 #import "UIImageView+WebCache.h"
 
+#define kFriendsOnDoubleDateTitle NSLocalizedString(@"Friends on DoubleDate", nil)
+
 #define kTagInviteErrorAlert 5234
 
 @interface DDFacebookFriendsViewControllerTableViewCell : UITableViewCell
@@ -115,7 +117,7 @@
     //check each item
     for (DDShortUser *friend in friends_)
     {
-        if ([friend.name rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+        if ([[self nameOfUser:friend] rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
             [friends addObject:friend];
     }
     
@@ -127,9 +129,23 @@
     //init result
     NSMutableArray *ret = [NSMutableArray array];
     
+    //add friends on doubledate title
+    for (DDShortUser *friend in [self friendsForTableView:aTableView])
+    {
+        if (friend.identifier)
+        {
+            [ret addObject:kFriendsOnDoubleDateTitle];
+            break;
+        }
+    }
+    
     //check each friend
     for (DDShortUser *friend in [self friendsForTableView:aTableView])
     {
+        //check friend on doubledate
+        if (friend.identifier)
+            continue;
+        
         //get first symbol
         NSString *firstSymbol = [[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString];
 
@@ -152,9 +168,18 @@
     //check each friend
     for (DDShortUser *friend in [self friendsForTableView:aTableView])
     {
-        //add if name started from needed symbol
-        if ([[[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString] isEqualToString:firstSymbol])
-            [ret addObject:friend];
+        //check friend on dd
+        if (friend.identifier)
+        {
+            if ([firstSymbol isEqualToString:kFriendsOnDoubleDateTitle])
+                [ret addObject:friend];
+        }
+        else
+        {
+            //add if name started from needed symbol
+            if ([[[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString] isEqualToString:firstSymbol])
+                [ret addObject:friend];
+        }
     }
     
     return ret;
@@ -321,15 +346,6 @@
     
     //save data
     [tableViewCell setShortUser:friend];
-    
-    //apply parameters
-    tableViewCell.textLabel.text = [DDWingTableViewCell titleForShortUser:friend];
-    
-    //apply new image
-    [tableViewCell.imageView setImageWithURL:[NSURL URLWithString:friend.photo.thumbUrl] placeholderImage:nil];
-    
-    //update layouts
-    [tableViewCell setNeedsLayout];
     
     //check if user is already invited
     BOOL invited = [friendsToInvite_ containsObject:tableViewCell.shortUser];
