@@ -405,6 +405,11 @@ typedef enum
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUserPopover)] autorelease];
     [sv addGestureRecognizer:tapRecognizer];
     
+    //add gesture recognizer for close
+    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUserPopover)] autorelease];
+    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    [sv addGestureRecognizer:swipeRecognizer];
+    
     //add page control
     UIPageControl *pageControl = [[[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 80, 36)] autorelease];
 #warning page control position
