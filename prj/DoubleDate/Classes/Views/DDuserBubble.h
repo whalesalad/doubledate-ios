@@ -19,6 +19,8 @@
 
 @property(nonatomic, readonly) CGFloat height;
 
-@property(nonatomic, retain) DDUser *user;
+@property(nonatomic, retain) NSArray *users;
+
+@property(nonatomic, assign) NSInteger currentUserIndex;
 
 @end

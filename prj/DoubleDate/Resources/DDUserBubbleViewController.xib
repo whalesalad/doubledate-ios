@@ -270,6 +270,7 @@
 						<reference key="NSNextKeyView" ref="271424327"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="197011152"/>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 					<object class="IBUIView" id="663670022">
@@ -283,7 +284,6 @@
 								<string key="NSFrame">{{116, 4}, {38, 36}}</string>
 								<reference key="NSSuperview" ref="663670022"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -301,6 +301,7 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAxIDAAA</bytes>
 						</object>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
@@ -393,6 +394,14 @@
 						<reference key="destination" ref="663670022"/>
 					</object>
 					<int key="connectionID">33</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">pageControl</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="876043529"/>
+					</object>
+					<int key="connectionID">35</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -523,7 +532,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">34</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -543,6 +552,7 @@
 						<string key="labelIceBreakers">UIView</string>
 						<string key="labelLocation">UILabel</string>
 						<string key="labelTitle">UILabel</string>
+						<string key="pageControl">UIPageControl</string>
 						<string key="photoView">DDImageView</string>
 						<string key="textView">UITextView</string>
 						<string key="viewBottom">UIView</string>
@@ -565,6 +575,10 @@
 						<object class="IBToOneOutletInfo" key="labelTitle">
 							<string key="name">labelTitle</string>
 							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="pageControl">
+							<string key="name">pageControl</string>
+							<string key="candidateClassName">UIPageControl</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="photoView">
 							<string key="name">photoView</string>

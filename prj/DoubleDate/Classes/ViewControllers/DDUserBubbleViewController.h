@@ -21,5 +21,6 @@
 @property(nonatomic, retain) IBOutlet UIView *viewMain;
 @property(nonatomic, retain) IBOutlet UIView *labelIceBreakers;
 @property(nonatomic, retain) IBOutlet UIView *viewBottom;
+@property(nonatomic, retain) IBOutlet UIPageControl *pageControl;
 
 @end

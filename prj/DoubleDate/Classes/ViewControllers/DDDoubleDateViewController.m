@@ -379,6 +379,9 @@ typedef enum
 
 - (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView
 {
+    //check user
+    assert(self.user == u || self.wing == u);
+    
     //remove old
     [self.popover removeFromSuperview];
     
@@ -397,8 +400,19 @@ typedef enum
     //add bubble
     CGRect bubbleRect = CGRectMake(25, 40, 270, 0);
     DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
-    bubble.userInteractionEnabled = NO;
-    bubble.user = u;
+    NSMutableArray *users = [NSMutableArray array];
+    if (self.user && self.wing)
+    {
+        [bubble setCurrentUserIndex:(self.user==u)?0:1];
+        [users addObject:self.user];
+        [users addObject:self.wing];
+    }
+    else
+    {
+        [bubble setCurrentUserIndex:0];
+        [users addObject:u];
+    }
+    bubble.users = users;
     bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
     bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
     [self.popover addSubview:bubble];

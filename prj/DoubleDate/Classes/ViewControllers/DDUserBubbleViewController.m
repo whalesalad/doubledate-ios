@@ -23,6 +23,7 @@
 @synthesize viewMain;
 @synthesize labelIceBreakers;
 @synthesize viewBottom;
+@synthesize pageControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +63,7 @@
     [viewMain release];
     [labelIceBreakers release];
     [viewBottom release];
+    [pageControl release];
     [super dealloc];
 }
 
