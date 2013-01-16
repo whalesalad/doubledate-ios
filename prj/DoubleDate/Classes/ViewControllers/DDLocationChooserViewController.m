@@ -235,7 +235,7 @@
     
     //update selected ui
     if ([self isLocationSelected:cell.location])
-        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark.png"]] autorelease];
+        cell.accessoryView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dark-tableview-checkmark.png"]] autorelease];
     else
         cell.accessoryView = nil;
     
