@@ -303,7 +303,8 @@ typedef enum
     self.bottomView.hidden = !bottomVisible;
     
     //change frame
-    CGFloat yb = bottomVisible?self.bottomView.frame.origin.y:self.bottomView.frame.origin.y+self.bottomView.frame.size.height;
+    CGFloat yb = bottomVisible ? self.bottomView.frame.origin.y + 4 : self.bottomView.frame.origin.y + self.bottomView.frame.size.height - 8;
+
     self.scrollView.frame = CGRectMake(0, 0, 320, yb);
     
     //this is a difference from xib
