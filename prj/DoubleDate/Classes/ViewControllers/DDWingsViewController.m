@@ -83,6 +83,8 @@
     
     //add right button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
+    
+    [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wings", nil)];
 }
 
 - (void)viewDidAppear:(BOOL)animated

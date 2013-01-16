@@ -623,7 +623,6 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{112, 34}, {152, 21}}</string>
 										<reference key="NSSuperview" ref="591897486"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
@@ -1194,8 +1193,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="dd-location-icon.png">{16, 16}</string>
-			<string key="dd-time-icon.png">{16, 16}</string>
+			<string key="dd-location-icon.png">{28, 29}</string>
+			<string key="dd-time-icon.png">{28, 29}</string>
 			<string key="details-bg-bottom.png">{320, 108}</string>
 			<string key="details-bg-top.png">{320, 34}</string>
 			<string key="icon-gender-male.png">{15, 15}</string>
