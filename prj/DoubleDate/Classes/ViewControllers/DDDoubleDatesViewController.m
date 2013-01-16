@@ -267,9 +267,7 @@ typedef enum
     }
     else
     {
-        UIView *v = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, FLT_MIN)] autorelease];
-        v.backgroundColor = [UIColor clearColor];
-        self.tableView.tableHeaderView = v;
+        self.tableView.tableHeaderView = nil;
     }
 }
 
@@ -312,12 +310,12 @@ typedef enum
     UIView *headerView = [self tableView:aTableView viewForHeaderInSection:section];
     if (headerView)
         return headerView.frame.size.height;
-    return FLT_MIN;
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
 {
-    return FLT_MIN;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
