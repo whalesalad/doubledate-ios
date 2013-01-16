@@ -48,6 +48,10 @@
 
 - (void)swipe:(UISwipeGestureRecognizer*)sender
 {
+    //swipe only if more than 1 user
+    if ([self.users count] <= 1)
+        return;
+    
     //update frame
     CGPoint center = self.center;
     
