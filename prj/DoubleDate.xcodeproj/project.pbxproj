@@ -308,9 +308,6 @@
 		9683129D169DA7D0007C14ED /* icon-infobar-karma@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683128B169DA7D0007C14ED /* icon-infobar-karma@2x.png */; };
 		968312A0169DB354007C14ED /* UIView+Interests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683129F169DB354007C14ED /* UIView+Interests.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
-		968704B016A59BA200BE7B90 /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 968704AB16A59BA100BE7B90 /* UIImage+Alpha.m */; };
-		968704B116A59BA200BE7B90 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 968704AD16A59BA200BE7B90 /* UIImage+Resize.m */; };
-		968704B216A59BA200BE7B90 /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 968704AF16A59BA200BE7B90 /* UIImage+RoundedCorner.m */; };
 		96892CA915FF15DD0054C108 /* DDMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892CA815FF15DD0054C108 /* DDMeViewController.m */; };
 		96892CAB15FF15E70054C108 /* DDMeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96892CAA15FF15E70054C108 /* DDMeViewController.xib */; };
 		96892CB315FF1F740054C108 /* DDCompleteRegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892CB215FF1F740054C108 /* DDCompleteRegistrationViewController.m */; };
@@ -848,12 +845,6 @@
 		9683129F169DB354007C14ED /* UIView+Interests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Interests.m"; sourceTree = "<group>"; };
 		9683B730165145D40043350E /* DDDoubleDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateTableViewCell.h; sourceTree = "<group>"; };
 		9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateTableViewCell.m; sourceTree = "<group>"; };
-		968704AA16A59BA100BE7B90 /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
-		968704AB16A59BA100BE7B90 /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
-		968704AC16A59BA100BE7B90 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
-		968704AD16A59BA200BE7B90 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
-		968704AE16A59BA200BE7B90 /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
-		968704AF16A59BA200BE7B90 /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		96892CA715FF15DD0054C108 /* DDMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMeViewController.h; sourceTree = "<group>"; };
 		96892CA815FF15DD0054C108 /* DDMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMeViewController.m; sourceTree = "<group>"; };
 		96892CAA15FF15E70054C108 /* DDMeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDMeViewController.xib; sourceTree = "<group>"; };
@@ -1423,19 +1414,6 @@
 			path = me;
 			sourceTree = "<group>";
 		};
-		968704A916A59BA100BE7B90 /* UIImage-categories */ = {
-			isa = PBXGroup;
-			children = (
-				968704AA16A59BA100BE7B90 /* UIImage+Alpha.h */,
-				968704AB16A59BA100BE7B90 /* UIImage+Alpha.m */,
-				968704AC16A59BA100BE7B90 /* UIImage+Resize.h */,
-				968704AD16A59BA200BE7B90 /* UIImage+Resize.m */,
-				968704AE16A59BA200BE7B90 /* UIImage+RoundedCorner.h */,
-				968704AF16A59BA200BE7B90 /* UIImage+RoundedCorner.m */,
-			);
-			path = "UIImage-categories";
-			sourceTree = "<group>";
-		};
 		968BE28C161038B20029F61F /* welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1706,7 +1684,6 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				968704A916A59BA100BE7B90 /* UIImage-categories */,
 				96EA06AF1689D9DB009F09BC /* SDWebImage */,
 				70803B131610FF3400BFDE8B /* TITokenField */,
 				960C844615FDF60200EAF708 /* JSTokenField */,
@@ -2447,9 +2424,6 @@
 				70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */,
 				70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */,
 				960C9A7F16A1578B006B6CDC /* DDShortUserTableViewCell.m in Sources */,
-				968704B016A59BA200BE7B90 /* UIImage+Alpha.m in Sources */,
-				968704B116A59BA200BE7B90 /* UIImage+Resize.m in Sources */,
-				968704B216A59BA200BE7B90 /* UIImage+RoundedCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

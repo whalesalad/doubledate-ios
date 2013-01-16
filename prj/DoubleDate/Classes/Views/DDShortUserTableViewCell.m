@@ -13,7 +13,6 @@
 #import "DDUser.h"
 #import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
-#import "UIImage+Resize.h"
 
 @implementation DDShortUserTableViewCell
 
@@ -75,6 +74,10 @@
     //unset background
     labelLocation.backgroundColor = [UIColor clearColor];
     labelTitle.backgroundColor = [UIColor clearColor];
+    
+    //customize poster
+    [[imageViewPoster layer] setMagnificationFilter:kCAFilterNearest];
+    imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 - (void)setShortUser:(DDShortUser *)v
@@ -88,21 +91,14 @@
     
     //update ui
     imageViewPoster.image = nil;
-    if (v.photo.thumbUrl && [NSURL URLWithString:v.photo.thumbUrl]) {
-        imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
-        [[imageViewPoster layer] setMagnificationFilter:kCAFilterNearest];
-        [imageViewPoster setImageWithURL:[NSURL URLWithString:v.photo.thumbUrl] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            if (!error && image)
-            {
-                CGSize newImageSize = CGSizeMake(imageViewPoster.frame.size.width * [[UIScreen mainScreen] scale], imageViewPoster.frame.size.width * image.size.height / image.size.width * [[UIScreen mainScreen] scale]);
-                imageViewPoster.image = [image resizedImage:newImageSize interpolationQuality:kCGInterpolationHigh];
-            }
-        }];
-    }
-    
+    if (v.photo.thumbUrl && [NSURL URLWithString:v.photo.thumbUrl])
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:v.photo.thumbUrl]];
+
     labelTitle.text = [DDWingTableViewCell titleForShortUser:v];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
+    
     labelLocation.text = v.location;
+    
     if ([[v gender] isEqualToString:DDUserGenderFemale])
         imageViewGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
     else
