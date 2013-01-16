@@ -138,6 +138,7 @@
 {
     //update page control
     viewController_.pageControl.numberOfPages = [self.users count];
+    viewController_.pageControl.hidden = [self.users count] <= 1;
     
     //gender offset
     CGFloat genderOffset = viewController_.imageViewGender.center.x-viewController_.labelTitle.frame.origin.x-viewController_.labelTitle.frame.size.width;
