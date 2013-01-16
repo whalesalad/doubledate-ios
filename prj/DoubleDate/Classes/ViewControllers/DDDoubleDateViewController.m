@@ -400,7 +400,7 @@ typedef enum
     bubble.userInteractionEnabled = NO;
     bubble.user = u;
     bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-    bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2-20);
+    bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
     [self.popover addSubview:bubble];
     
     //animate appearing
