@@ -18,10 +18,8 @@
 @property(nonatomic, retain) IBOutlet DDImageView *photoView;
 @property(nonatomic, retain) IBOutlet UITextView *textView;
 @property(nonatomic, retain) IBOutlet UIView *viewInterests;
-@property(nonatomic, retain) IBOutlet UILabel *labelKarma;
 @property(nonatomic, retain) IBOutlet UIView *viewMain;
 @property(nonatomic, retain) IBOutlet UIView *labelIceBreakers;
-@property(nonatomic, retain) IBOutlet UIView *viewTop;
 @property(nonatomic, retain) IBOutlet UIView *viewBottom;
 
 @end

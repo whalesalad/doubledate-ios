@@ -40,7 +40,7 @@
 
 - (CGFloat)height
 {
-    return viewController_.viewInterests.frame.origin.y + viewController_.viewInterests.frame.size.height + viewController_.view.layer.cornerRadius;
+    return viewController_.viewInterests.frame.origin.y + viewController_.viewInterests.frame.size.height + viewController_.view.layer.cornerRadius + 4;
 }
 
 - (void)setUser:(DDUser *)v
@@ -84,7 +84,6 @@
     [viewController_.labelTitle setFrame:CGRectMake(viewController_.labelTitle.frame.origin.x, viewController_.labelTitle.frame.origin.y, newSize.width, viewController_.labelTitle.frame.size.height)];
     viewController_.labelLocation.text = self.user.location.name;
     viewController_.textView.text = self.user.bio;
-    viewController_.labelKarma.text = [NSString stringWithFormat:@"%d", [self.user.totalKarma intValue]];
     
     //apply gender
     viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"dd-user-gender-indicator-bubble-female.png":@"dd-user-gender-indicator-bubble-male.png"];

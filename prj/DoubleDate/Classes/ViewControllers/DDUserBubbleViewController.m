@@ -20,10 +20,8 @@
 @synthesize photoView;
 @synthesize textView;
 @synthesize viewInterests;
-@synthesize labelKarma;
 @synthesize viewMain;
 @synthesize labelIceBreakers;
-@synthesize viewTop;
 @synthesize viewBottom;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,9 +43,7 @@
     self.imageViewGender.backgroundColor = [UIColor clearColor];
     self.textView.backgroundColor = [UIColor clearColor];
     self.viewInterests.backgroundColor = [UIColor clearColor];
-    self.labelKarma.backgroundColor = [UIColor clearColor];
-//    self.viewTop.backgroundColor = [UIColor clearColor];
-//    self.viewBottom.backgroundColor = [UIColor clearColor];
+    self.viewBottom.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,10 +59,8 @@
     [photoView release];
     [textView release];
     [viewInterests release];
-    [labelKarma release];
     [viewMain release];
     [labelIceBreakers release];
-    [viewTop release];
     [viewBottom release];
     [super dealloc];
 }
