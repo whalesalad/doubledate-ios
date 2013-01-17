@@ -132,7 +132,6 @@ typedef enum
         [self.imageViewRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.smallUrl]];
 
     //set name
-#warning customize position of user's labels
     self.labelLeftUser.text = [self.doubleDate.user.firstName uppercaseString];
     [self.labelLeftUser sizeToFit];
     self.labelLeftUser.center = CGPointMake(80-8, self.labelLeftUser.center.y);
@@ -141,7 +140,6 @@ typedef enum
     self.labelRightUser.center = CGPointMake(240-8, self.labelRightUser.center.y);
     
     //set gender
-#warning customize position of user's gender
     if ([[self.doubleDate.user gender] isEqualToString:DDUserGenderFemale])
         self.imageViewLeftUserGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
     else
@@ -308,7 +306,7 @@ typedef enum
     self.scrollView.frame = CGRectMake(0, 0, 320, yb);
     
     //this is a difference from xib
-#warning customization of text view from xib
+    //XXX customization of text view from xib
     CGFloat diffBetweenTextViewAndCenterView = 142 - 86;
     CGFloat neededHeightOfTextField = [self.textView sizeThatFits:self.textView.contentSize].height;
     CGFloat neededHeightOfCenterView = MAX(neededHeightOfTextField + diffBetweenTextViewAndCenterView, 142);
@@ -412,7 +410,7 @@ typedef enum
     
     //add page control
     UIPageControl *pageControl = [[[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 80, 36)] autorelease];
-#warning page control position
+    // XXX Controlling page position
     pageControl.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height-32);
     pageControl.backgroundColor = [UIColor clearColor];
     pageControl.numberOfPages = (bothUsers?2:1);
