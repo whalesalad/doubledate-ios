@@ -23,10 +23,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    
-    UITabBarController *t = [[[UITabBarController alloc] init] autorelease];
-    t.viewControllers = [NSArray arrayWithObject:[[[UINavigationController alloc] initWithRootViewController:[[[DDChatViewController alloc] init] autorelease]] autorelease]];
-    self.viewController = t;
+//    UITabBarController *t = [[[UITabBarController alloc] init] autorelease];
+//    t.viewControllers = [NSArray arrayWithObject:[[[UINavigationController alloc] initWithRootViewController:[[[DDChatViewController alloc] init] autorelease]] autorelease]];
+//    self.viewController = t;
+    self.viewController = [[[UINavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
