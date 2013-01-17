@@ -8,6 +8,7 @@
 
 #import "DDAppDelegate.h"
 #import "DDWelcomeViewController.h"
+#import "DDChatViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation DDAppDelegate
@@ -23,8 +24,9 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-    self.viewController = [[[UINavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
-    
+    UITabBarController *t = [[[UITabBarController alloc] init] autorelease];
+    t.viewControllers = [NSArray arrayWithObject:[[[UINavigationController alloc] initWithRootViewController:[[[DDChatViewController alloc] init] autorelease]] autorelease]];
+    self.viewController = t;
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     

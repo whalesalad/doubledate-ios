@@ -23,6 +23,7 @@
 #import "DDEngagementsViewController.h"
 #import "DDUserBubble.h"
 #import "DDSegmentedControl.h"
+#import "DDChatViewController.h"
 
 typedef enum
 {
@@ -43,7 +44,7 @@ typedef enum
 @property(nonatomic, retain) DDUser *user;
 @property(nonatomic, retain) DDUser *wing;
 
-@property(nonatomic, retain) DDTableViewController *tableViewController;
+@property(nonatomic, retain) UIViewController *rightViewController;
 
 @property(nonatomic, retain) UIView *popover;
 
@@ -54,7 +55,7 @@ typedef enum
 @synthesize user;
 @synthesize wing;
 
-@synthesize tableViewController;
+@synthesize rightViewController;
 
 @synthesize popover;
 
@@ -182,7 +183,7 @@ typedef enum
 - (void)dealloc
 {
     [doubleDate release];
-    [tableViewController release];
+    [rightViewController release];
     [popover release];
     [scrollView release];
     [bottomView release];
@@ -247,13 +248,13 @@ typedef enum
     self.rightView.hidden = sender.selectedSegmentIndex != 1;
     if (self.rightView.hidden)
     {
-        [self.tableViewController viewWillDisappear:NO];
-        [self.tableViewController viewDidDisappear:NO];
+        [self.rightViewController viewWillDisappear:NO];
+        [self.rightViewController viewDidDisappear:NO];
     }
     else
     {
-        [self.tableViewController viewWillAppear:NO];
-        [self.tableViewController viewDidAppear:NO];
+        [self.rightViewController viewWillAppear:NO];
+        [self.rightViewController viewDidAppear:NO];
     }
 }
 
@@ -323,7 +324,7 @@ typedef enum
     //remove all subviews of right view
     while ([[self.rightView subviews] count])
             [[[self.rightView subviews] lastObject] removeFromSuperview];
-    self.tableViewController = nil;
+    self.rightViewController = nil;
     
     //create needed view controller
     if (mode == DDDoubleDateViewControllerModeNone)
@@ -343,11 +344,11 @@ typedef enum
         [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
         
         //add second tab
-        self.tableViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-        self.tableViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
-        [(DDEngagementsViewController*)self.tableViewController setDoubleDate:self.doubleDate];
-        [self.tableViewController viewDidLoad];
-        [self.rightView addSubview:self.tableViewController.view];
+        self.rightViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+        self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+        [(DDEngagementsViewController*)self.rightViewController setDoubleDate:self.doubleDate];
+        [self.rightViewController viewDidLoad];
+        [self.rightView addSubview:self.rightViewController.view];
     }
     else if (mode == DDDoubleDateViewControllerModeChat)
     {
@@ -359,6 +360,12 @@ typedef enum
         segmentedControl.selectedSegmentIndex = self.rightView.hidden?0:1;
         self.navigationItem.titleView = segmentedControl;
         [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
+        
+        //add second tab
+        self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
+        self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+        [self.rightViewController viewDidLoad];
+        [self.rightView addSubview:self.rightViewController.view];
     }
 }
 
