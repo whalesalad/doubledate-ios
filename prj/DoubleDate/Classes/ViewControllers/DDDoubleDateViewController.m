@@ -365,6 +365,7 @@ typedef enum
         self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
         self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
         [self.rightViewController viewDidLoad];
+        [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
         [self.rightView addSubview:self.rightViewController.view];
     }
 }

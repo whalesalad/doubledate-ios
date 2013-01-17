@@ -12,6 +12,8 @@
 {
 }
 
+@property(nonatomic, assign) UIViewController *weakParentViewController;
+
 @property(nonatomic, retain) IBOutlet UIView *mainView;
 @property(nonatomic, retain) IBOutlet UIView *topBarView;
 @property(nonatomic, retain) IBOutlet UIView *bottomBarView;
