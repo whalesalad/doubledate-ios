@@ -404,6 +404,7 @@ typedef enum
     sv.contentSize = CGSizeMake(self.popover.bounds.size.width*(bothUsers?2:1), self.popover.bounds.size.height);
     sv.pagingEnabled = bothUsers;
     sv.delegate = self;
+    sv.showsHorizontalScrollIndicator = NO;
     [self.popover addSubview:sv];
     
     //add tap recognizer
