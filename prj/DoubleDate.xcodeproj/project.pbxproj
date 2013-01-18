@@ -273,6 +273,12 @@
 		965DADA816A7EE30005F8B25 /* participants-gradient-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 965DAD9A16A7EE30005F8B25 /* participants-gradient-overlay@2x.png */; };
 		965DADAC16A7EE84005F8B25 /* DDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965DADAA16A7EE84005F8B25 /* DDChatViewController.m */; };
 		965DADAF16A7EEAC005F8B25 /* DDChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965DADAE16A7EEAB005F8B25 /* DDChatViewController.xib */; };
+		965F8A0E16A9417900A8C576 /* DDChatTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 965F8A0D16A9417900A8C576 /* DDChatTableViewCell.m */; };
+		965F8A1016A9420700A8C576 /* DDChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A0F16A9420700A8C576 /* DDChatTableViewCell.xib */; };
+		965F8A1516A9482D00A8C576 /* message-bubble-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1116A9482D00A8C576 /* message-bubble-blue.png */; };
+		965F8A1616A9482D00A8C576 /* message-bubble-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1216A9482D00A8C576 /* message-bubble-blue@2x.png */; };
+		965F8A1716A9482D00A8C576 /* upper-blue-notification-count.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1316A9482D00A8C576 /* upper-blue-notification-count.png */; };
+		965F8A1816A9482D00A8C576 /* upper-blue-notification-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1416A9482D00A8C576 /* upper-blue-notification-count@2x.png */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		9683128C169DA7D0007C14ED /* bg-me-bio.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683127A169DA7D0007C14ED /* bg-me-bio.png */; };
 		9683128D169DA7D0007C14ED /* bg-me-bio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683127B169DA7D0007C14ED /* bg-me-bio@2x.png */; };
@@ -828,6 +834,13 @@
 		965DADA916A7EE84005F8B25 /* DDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChatViewController.h; sourceTree = "<group>"; };
 		965DADAA16A7EE84005F8B25 /* DDChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDChatViewController.m; sourceTree = "<group>"; };
 		965DADAE16A7EEAB005F8B25 /* DDChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDChatViewController.xib; sourceTree = "<group>"; };
+		965F8A0C16A9417900A8C576 /* DDChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChatTableViewCell.h; sourceTree = "<group>"; };
+		965F8A0D16A9417900A8C576 /* DDChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDChatTableViewCell.m; sourceTree = "<group>"; };
+		965F8A0F16A9420700A8C576 /* DDChatTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDChatTableViewCell.xib; sourceTree = "<group>"; };
+		965F8A1116A9482D00A8C576 /* message-bubble-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-blue.png"; sourceTree = "<group>"; };
+		965F8A1216A9482D00A8C576 /* message-bubble-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-blue@2x.png"; sourceTree = "<group>"; };
+		965F8A1316A9482D00A8C576 /* upper-blue-notification-count.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-blue-notification-count.png"; sourceTree = "<group>"; };
+		965F8A1416A9482D00A8C576 /* upper-blue-notification-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-blue-notification-count@2x.png"; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
 		96701CEF16490E6000E4436A /* DDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControl.m; sourceTree = "<group>"; };
 		9683127A169DA7D0007C14ED /* bg-me-bio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-me-bio.png"; sourceTree = "<group>"; };
@@ -1414,6 +1427,10 @@
 		965DAD8C16A7EE30005F8B25 /* chat-view */ = {
 			isa = PBXGroup;
 			children = (
+				965F8A1116A9482D00A8C576 /* message-bubble-blue.png */,
+				965F8A1216A9482D00A8C576 /* message-bubble-blue@2x.png */,
+				965F8A1316A9482D00A8C576 /* upper-blue-notification-count.png */,
+				965F8A1416A9482D00A8C576 /* upper-blue-notification-count@2x.png */,
 				965DAD8D16A7EE30005F8B25 /* bg-chatbar.png */,
 				965DAD8E16A7EE30005F8B25 /* bg-chatbar@2x.png */,
 				965DAD8F16A7EE30005F8B25 /* bg-textfield.png */,
@@ -1541,6 +1558,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				965F8A0C16A9417900A8C576 /* DDChatTableViewCell.h */,
+				965F8A0D16A9417900A8C576 /* DDChatTableViewCell.m */,
 				960C9A7D16A1578B006B6CDC /* DDShortUserTableViewCell.h */,
 				960C9A7E16A1578B006B6CDC /* DDShortUserTableViewCell.m */,
 				70927FBB169E16C800052C9F /* DDInvitationTableViewCell.h */,
@@ -1706,6 +1725,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				965F8A0F16A9420700A8C576 /* DDChatTableViewCell.xib */,
 				965DADAE16A7EEAB005F8B25 /* DDChatViewController.xib */,
 				963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */,
 				960C9A8016A15804006B6CDC /* DDShortUserTableViewCell.xib */,
@@ -2430,6 +2450,11 @@
 				965DADA716A7EE30005F8B25 /* participants-gradient-overlay.png in Resources */,
 				965DADA816A7EE30005F8B25 /* participants-gradient-overlay@2x.png in Resources */,
 				965DADAF16A7EEAC005F8B25 /* DDChatViewController.xib in Resources */,
+				965F8A1016A9420700A8C576 /* DDChatTableViewCell.xib in Resources */,
+				965F8A1516A9482D00A8C576 /* message-bubble-blue.png in Resources */,
+				965F8A1616A9482D00A8C576 /* message-bubble-blue@2x.png in Resources */,
+				965F8A1716A9482D00A8C576 /* upper-blue-notification-count.png in Resources */,
+				965F8A1816A9482D00A8C576 /* upper-blue-notification-count@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2521,6 +2546,7 @@
 				70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */,
 				960C9A7F16A1578B006B6CDC /* DDShortUserTableViewCell.m in Sources */,
 				965DADAC16A7EE84005F8B25 /* DDChatViewController.m in Sources */,
+				965F8A0E16A9417900A8C576 /* DDChatTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
