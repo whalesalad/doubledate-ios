@@ -7,9 +7,10 @@
 //
 
 #import "DDChatViewController.h"
+#import "DDChatTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface DDChatViewController ()<UITextViewDelegate>
+@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end
 
@@ -80,6 +81,14 @@
     [super dealloc];
 }
 
+- (NSString*)textForInt:(NSInteger)v
+{
+    NSMutableString *x = [NSMutableString stringWithFormat:@""];
+    for (int i = 0; i < v * 100; i++)
+        [x appendFormat:@"%d", v];
+    return x;
+}
+
 #pragma mark -
 #pragma mark IB
 
@@ -114,6 +123,37 @@
     //change frame
     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x - sizeChange.width, self.tableView.frame.origin.y - sizeChange.height, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height + sizeChange.height);
     self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x - sizeChange.width, self.bottomBarView.frame.origin.y - sizeChange.height, bottomBarView.frame.size.width + sizeChange.width, bottomBarView.frame.size.height + sizeChange.height);
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DDChatTableViewCell heightForText:[self textForInt:indexPath.row]];
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //set identifier
+    NSString *cellIdentifier = NSStringFromClass([DDChatTableViewCell class]);
+    
+    //create cell if needed
+    DDChatTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!tableViewCell)
+    {
+        tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+    }
+    tableViewCell.text = [self textForInt:indexPath.row];
+    return tableViewCell;
 }
 
 @end
