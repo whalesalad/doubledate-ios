@@ -176,6 +176,8 @@
     //make rounded corners
     viewController_.viewMain.layer.masksToBounds = YES;
     viewController_.viewMain.layer.cornerRadius = 5;
+    viewController_.viewEffects.layer.masksToBounds = NO;
+    viewController_.viewEffects.layer.cornerRadius = 5;
 }
 
 - (void)dealloc

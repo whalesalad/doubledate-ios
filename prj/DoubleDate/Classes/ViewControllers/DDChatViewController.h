@@ -10,6 +10,7 @@
 
 @interface DDChatViewController : DDViewController
 {
+    BOOL keyboardExist_;
 }
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;

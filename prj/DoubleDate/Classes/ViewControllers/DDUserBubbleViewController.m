@@ -25,6 +25,7 @@
 @synthesize labelIceBreakers;
 @synthesize viewBottom;
 @synthesize pageControl;
+@synthesize viewEffects;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,11 +49,15 @@
     self.viewBottom.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor clearColor];
 
-#warning can we add another layer on top of the bubble for a border and other effects?
+#warning customize layer under bubble
+    self.viewEffects.layer.shadowColor = [UIColor redColor].CGColor;
+    self.viewEffects.layer.shadowOpacity = 1.0f;
+    self.viewEffects.layer.shadowOffset = CGSizeMake(0, 8);
+    [self.viewEffects.layer setShouldRasterize:YES];
 //    self.view.layer.borderColor = [UIColor blackColor].CGColor;
 //    self.view.layer.borderWidth = 1;
 //    
-//    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+//    self.view.layer.
 //    self.view.layer.shadowOffset = CGSizeMake(0, 1);
 //    self.view.layer.shadowRadius = 1;
 //    self.view.layer.shadowOpacity = 0.4f;
@@ -81,6 +86,7 @@
     [labelIceBreakers release];
     [viewBottom release];
     [pageControl release];
+    [viewEffects release];
     [super dealloc];
 }
 

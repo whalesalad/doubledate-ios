@@ -10,7 +10,7 @@
 #import "DDChatTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
 @end
 
@@ -31,7 +31,9 @@
     if (self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name: UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name: UIKeyboardDidShowNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name: UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name: UIKeyboardDidHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewTextDidChangeNotification:) name:UITextViewTextDidChangeNotification object:nil];
     }
     return self;
@@ -40,11 +42,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //don't show layer under the status bar
     self.view.layer.masksToBounds = YES;
+}
+
+#pragma mark -
+#pragma mark Keyboard
+
+- (void)keyboardDidShow:(NSNotification*)notification
+{
+    //save keyboard
+    keyboardExist_ = YES;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    //scroll table view to bottom
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    //animate
     [UIView beginAnimations:@"DDChatViewControllerKeyboardAnimation" context:nil];
     [UIView setAnimationCurve:[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
     [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
@@ -54,8 +71,15 @@
     [UIView commitAnimations];
 }
 
+- (void)keyboardDidHide:(NSNotification*)notification
+{
+    //save keyboard
+    keyboardExist_ = NO;
+}
+
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    //animate
     [UIView beginAnimations:@"DDChatViewControllerKeyboardAnimation" context:nil];
     [UIView setAnimationCurve:[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
     [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
@@ -121,7 +145,7 @@
     CGSize sizeChange = CGSizeMake(sizeAfter.width - sizeBefore.width, sizeAfter.height - sizeBefore.height);
     
     //change frame
-    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x - sizeChange.width, self.tableView.frame.origin.y - sizeChange.height, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height + sizeChange.height);
+    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x - sizeChange.width, self.tableView.frame.origin.y - sizeChange.height, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height);
     self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x - sizeChange.width, self.bottomBarView.frame.origin.y - sizeChange.height, bottomBarView.frame.size.width + sizeChange.width, bottomBarView.frame.size.height + sizeChange.height);
 }
 
@@ -131,6 +155,17 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [DDChatTableViewCell heightForText:[self textForInt:indexPath.row]];
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat heightOfVisibleTableView = self.mainView.frame.origin.y + self.mainView.frame.size.height - self.bottomBarView.frame.size.height;
+    CGFloat offsetFromBottom = self.tableView.contentSize.height - self.tableView.contentOffset.y - self.tableView.frame.size.height;
+    if (keyboardExist_ && offsetFromBottom > heightOfVisibleTableView)
+        [self.textViewInput resignFirstResponder];
 }
 
 #pragma mark -

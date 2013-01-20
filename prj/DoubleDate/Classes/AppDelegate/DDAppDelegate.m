@@ -24,10 +24,10 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 //    DDChatViewController *vc = [[[DDChatViewController alloc] init] autorelease];
-//    vc.weakParentViewController = self;
 //    UITabBarController *t = [[[UITabBarController alloc] init] autorelease];
 //    t.viewControllers = [NSArray arrayWithObject:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease]];
 //    self.viewController = t;
+//    vc.weakParentViewController = vc;
     self.viewController = [[[UINavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
