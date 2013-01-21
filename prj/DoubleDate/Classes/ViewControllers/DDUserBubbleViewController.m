@@ -53,6 +53,7 @@
     self.viewEffects.layer.shadowColor = [UIColor blackColor].CGColor;
     self.viewEffects.layer.shadowOpacity = 1.0f;
     self.viewEffects.layer.shadowOffset = CGSizeMake(0, 2);
+    self.viewEffects.layer.shadowRadius = 20;
     
     self.viewEffects.layer.borderWidth = 1;
     self.viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
