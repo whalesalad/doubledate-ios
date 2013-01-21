@@ -267,17 +267,13 @@ typedef enum
     if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
         [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
     {
-        //check activity status
-        if ([self.doubleDate.status isEqualToString:DDDoubleDateStatusEngaged])
-            mode = DDDoubleDateViewControllerModeChat;
-        else
-            mode = DDDoubleDateViewControllerModeIncoming;
+        //show incoming
+        mode = DDDoubleDateViewControllerModeIncoming;
     }
     else
     {
         //check interested and accepted
-        if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipAccepted] ||
-            [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipInterested] ||
+        if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipEngaged] ||
             alreadyCreatedEngagement_)
             mode = DDDoubleDateViewControllerModeChat;
     }
