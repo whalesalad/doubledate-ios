@@ -8,6 +8,8 @@
 
 #import "DDTableViewCell.h"
 
+@class DDMessage;
+
 @interface DDChatTableViewCell : DDTableViewCell
 
 @property(nonatomic, retain) IBOutlet UITextView *textView;
@@ -15,7 +17,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelTime;
 @property(nonatomic, retain) IBOutlet UILabel *labelName;
 
-@property(nonatomic, retain) NSString *text;
+@property(nonatomic, retain) DDMessage *message;
 
 + (CGFloat)heightForText:(NSString*)text;
 

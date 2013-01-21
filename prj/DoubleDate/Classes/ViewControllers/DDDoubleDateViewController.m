@@ -13,7 +13,7 @@
 #import "DDImageView.h"
 #import "DDImage.h"
 #import "DDShortUser.h"
-#import "DDShortUser.h"
+#import "DDEngagement.h"
 #import "DDUser.h"
 #import "DDSendEngagementViewController.h"
 #import "DDButton.h"
@@ -357,9 +357,15 @@ typedef enum
         self.navigationItem.titleView = segmentedControl;
         [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
         
+        //create engagement object
+        DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
+        engagement.activityId = self.doubleDate.identifier;
+        engagement.identifier = self.doubleDate.myEngagementId;
+        
         //add second tab
         self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
         self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+        [(DDChatViewController*)self.rightViewController setEngagement:engagement];
         [self.rightViewController viewDidLoad];
         [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
         [self.rightView addSubview:self.rightViewController.view];

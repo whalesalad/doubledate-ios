@@ -8,12 +8,17 @@
 
 #import "DDViewController.h"
 
+@class DDEngagement;
+
 @interface DDChatViewController : DDViewController
 {
     BOOL keyboardExist_;
+    NSMutableArray *messages_;
 }
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;
+
+@property(nonatomic, retain) DDEngagement *engagement;
 
 @property(nonatomic, retain) IBOutlet UIView *mainView;
 @property(nonatomic, retain) IBOutlet UIView *topBarView;

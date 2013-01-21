@@ -20,6 +20,7 @@
 #import "DDDoubleDate.h"
 #import "DDDoubleDateFilter.h"
 #import "DDEngagement.h"
+#import "DDMessage.h"
 #import "DDObjectsController.h"
 
 typedef enum
@@ -47,6 +48,7 @@ typedef enum
     DDAPIControllerMethodTypeGetEngagements,
     DDAPIControllerMethodTypeCreateEngagement,
     DDAPIControllerMethodTypeGetMessages,
+    DDAPIControllerMethodTypeCreateMessage,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -676,6 +678,25 @@ typedef enum
     return [self startRequest:request];
 }
 
+- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/messages", [engagement.activityId intValue], [engagement.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPOST;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeCreateMessage;
+    userData.succeedSel = @selector(createMessageSucceed:);
+    userData.failedSel = @selector(createMessageDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -894,6 +915,35 @@ typedef enum
         }
         else if (userData.method == DDAPIControllerMethodTypeGetMessages)
         {
+            //extract data
+            NSMutableArray *messages = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create object
+                DDMessage *message = [DDMessage objectWithDictionary:dic];
+                if (message)
+                    [messages addObject:message];
+            }
+            
+            //notify objects controller
+            [DDObjectsController updateObjects:messages];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:messages withObject:userData.userData];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeCreateMessage)
+        {
+            //create object
+            DDMessage *message = [DDMessage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:message];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:message withObject:userData.userData];
         }
     }
     else

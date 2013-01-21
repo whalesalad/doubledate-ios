@@ -8,6 +8,8 @@
 
 #import "DDChatViewController.h"
 #import "DDChatTableViewCell.h"
+#import "DDEngagement.h"
+#import "DDMessage.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
@@ -17,6 +19,8 @@
 @implementation DDChatViewController
 
 @synthesize parentViewController;
+
+@synthesize engagement;
 
 @synthesize mainView;
 @synthesize topBarView;
@@ -47,6 +51,15 @@
     self.view.layer.masksToBounds = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //check if we need to make a request
+    if (!messages_)
+        [self.apiController getMessagesForEngagement:self.engagement];
+}
+
 #pragma mark -
 #pragma mark Keyboard
 
@@ -59,7 +72,10 @@
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     //scroll table view to bottom
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if ([messages_ count] > 0)
+    {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[messages_ count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
     
     //animate
     [UIView beginAnimations:@"DDChatViewControllerKeyboardAnimation" context:nil];
@@ -96,6 +112,8 @@
 
 - (void)dealloc
 {
+    [messages_ release];
+    [engagement release];
     [mainView release];
     [topBarView release];
     [bottomBarView release];
@@ -105,20 +123,23 @@
     [super dealloc];
 }
 
-- (NSString*)textForInt:(NSInteger)v
-{
-    NSMutableString *x = [NSMutableString stringWithFormat:@""];
-    for (int i = 0; i < v * 100; i++)
-        [x appendFormat:@"%d", v];
-    return x;
-}
-
 #pragma mark -
 #pragma mark IB
 
 - (IBAction)sendTouched:(id)sender
 {
+    //send message
+    if ([self.textViewInput.text length])
+    {
+        DDMessage *message = [[[DDMessage alloc] init] autorelease];
+        message.message = self.textViewInput.text;
+        [self.apiController createMessage:message forEngagement:self.engagement];
+    }
+    
+    //unset text
     self.textViewInput.text = nil;
+    
+    //hide keyboard
     [self.textViewInput resignFirstResponder];
 }
 
@@ -154,7 +175,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [DDChatTableViewCell heightForText:[self textForInt:indexPath.row]];
+    return [DDChatTableViewCell heightForText:[(DDMessage*)[messages_ objectAtIndex:indexPath.row] message]];
 }
 
 #pragma mark -
@@ -173,7 +194,7 @@
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return [messages_ count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -187,8 +208,42 @@
     {
         tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
     }
-    tableViewCell.text = [self textForInt:indexPath.row];
+    tableViewCell.message = (DDMessage*)[messages_ objectAtIndex:indexPath.row];
     return tableViewCell;
+}
+
+#pragma mark -
+#pragma mark API
+
+- (void)getMessagesForEngagementSucceed:(NSArray*)messages
+{
+    //reload messages
+    [messages_ release];
+    messages_ = [[NSMutableArray alloc] initWithArray:messages];
+    
+    //reload the table
+    [self.tableView reloadData];
+}
+
+- (void)getMessagesForEngagementDidFailedWithError:(NSError*)error
+{
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)createMessageSucceed:(DDMessage*)message
+{
+    //reload messages
+    [messages_ addObject:message];
+    
+    //reload the table
+    [self.tableView reloadData];
+}
+
+- (void)createMessageDidFailedWithError:(NSError*)error
+{
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

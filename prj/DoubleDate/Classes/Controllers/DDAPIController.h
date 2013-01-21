@@ -15,6 +15,7 @@
 @class DDDoubleDate;
 @class DDDoubleDateFilter;
 @class DDEngagement;
+@class DDMessage;
 
 typedef enum
 {
@@ -98,6 +99,9 @@ typedef int DDRequestId;
 - (void)getMessagesForEngagementSucceed:(NSArray*)messages;
 - (void)getMessagesForEngagementDidFailedWithError:(NSError*)error;
 
+- (void)createMessageSucceed:(DDMessage*)message;
+- (void)createMessageDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -158,5 +162,7 @@ typedef int DDRequestId;
 - (DDRequestId)createEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement;
+
+- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement;
 
 @end

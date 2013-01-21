@@ -13,6 +13,7 @@
 }
 
 @property(nonatomic, retain) NSString *createdAt;
+@property(nonatomic, retain) NSString *createdAtAgo;
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSString *message;
 @property(nonatomic, retain) NSNumber *userId;
