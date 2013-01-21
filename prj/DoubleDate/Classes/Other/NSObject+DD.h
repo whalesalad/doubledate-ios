@@ -10,7 +10,7 @@
 
 @interface NSObject (DD)
 
-#define DD_F_HEADER_MAIN(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:14 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
+#define DD_F_HEADER_MAIN(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:14 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor blackColor]]
 #define DD_F_HEADER_DETAILED(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:11 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 
 #define DD_F_NAVIGATION_HEADER_MAIN(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:18 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
