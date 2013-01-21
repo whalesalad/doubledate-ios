@@ -48,24 +48,17 @@
     self.viewInterests.backgroundColor = [UIColor clearColor];
     self.viewBottom.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor clearColor];
-
-#warning customize layer under bubble
-    self.viewEffects.layer.shadowColor = [UIColor redColor].CGColor;
-    self.viewEffects.layer.shadowOpacity = 1.0f;
-    self.viewEffects.layer.shadowOffset = CGSizeMake(0, 8);
-    [self.viewEffects.layer setShouldRasterize:YES];
-//    self.view.layer.borderColor = [UIColor blackColor].CGColor;
-//    self.view.layer.borderWidth = 1;
-//    
-//    self.view.layer.
-//    self.view.layer.shadowOffset = CGSizeMake(0, 1);
-//    self.view.layer.shadowRadius = 1;
-//    self.view.layer.shadowOpacity = 0.4f;
-//    self.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewEffects.bounds] CGPath];
     
-//    viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
-//    viewImagesContainer.layer.borderWidth = 1;
-
+    // shadow and border for bubble
+    self.viewEffects.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.viewEffects.layer.shadowOpacity = 1.0f;
+    self.viewEffects.layer.shadowOffset = CGSizeMake(0, 2);
+    
+    self.viewEffects.layer.borderWidth = 1;
+    self.viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
+    
+    // viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
+    // viewImagesContainer.layer.borderWidth = 1;
     
 }
 

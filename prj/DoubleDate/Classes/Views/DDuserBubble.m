@@ -176,8 +176,13 @@
     //make rounded corners
     viewController_.viewMain.layer.masksToBounds = YES;
     viewController_.viewMain.layer.cornerRadius = 5;
+    
+    [viewController_.viewEffects setFrame:CGRectMake(-1, -1, self.frame.size.width+2, self.height+2)];
+
+    viewController_.viewEffects.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewController_.viewEffects.bounds] CGPath];
+    
     viewController_.viewEffects.layer.masksToBounds = NO;
-    viewController_.viewEffects.layer.cornerRadius = 5;
+    viewController_.viewEffects.layer.cornerRadius = 6;
 }
 
 - (void)dealloc
