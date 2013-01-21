@@ -245,6 +245,8 @@
     doubleDate.user.identifier = self.user.userId;
     doubleDate.location = [[[DDPlacemark alloc] init] autorelease];
     doubleDate.location.identifier = self.location.identifier;
+    doubleDate.dayPref = self.day;
+    doubleDate.timePref = self.time;
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
