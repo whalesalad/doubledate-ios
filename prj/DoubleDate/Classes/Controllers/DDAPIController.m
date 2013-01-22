@@ -46,6 +46,7 @@ typedef enum
     DDAPIControllerMethodTypeGetDoubleDate,
     DDAPIControllerMethodTypeRequestDeleteDoubleDate,
     DDAPIControllerMethodTypeGetEngagements,
+    DDAPIControllerMethodTypeGetEngagement,
     DDAPIControllerMethodTypeCreateEngagement,
     DDAPIControllerMethodTypeGetMessages,
     DDAPIControllerMethodTypeCreateMessage,
@@ -634,6 +635,25 @@ typedef enum
     return [self startRequest:request];
 }
 
+- (DDRequestId)getEngagementForDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagement", [doubleDate.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetEngagement;
+    userData.succeedSel = @selector(getEngagementForDoubleDateSucceed:);
+    userData.failedSel = @selector(getEngagementForDoubleDateDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)createEngagement:(DDEngagement*)engagement
 {
     //create user dictionary
@@ -901,7 +921,8 @@ typedef enum
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:userData.userData];
         }
-        else if (userData.method == DDAPIControllerMethodTypeCreateEngagement)
+        else if (userData.method == DDAPIControllerMethodTypeCreateEngagement ||
+                 userData.method == DDAPIControllerMethodTypeGetEngagement)
         {
             //create object
             DDEngagement *engagement = [DDEngagement objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];

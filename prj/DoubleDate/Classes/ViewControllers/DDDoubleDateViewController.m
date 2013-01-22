@@ -40,6 +40,7 @@ typedef enum
 - (void)presentRightUserPopover;
 - (void)switchToNeededMode;
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
+- (void)updateEngagementsTab;
 
 @property(nonatomic, retain) DDUser *user;
 @property(nonatomic, retain) DDUser *wing;
@@ -165,6 +166,13 @@ typedef enum
         requestUser.userId = self.doubleDate.wing.identifier;
         [self.apiController getUser:requestUser];
     }
+    
+    //request information
+    if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
+        [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
+        [self.apiController getEngagementsForDoubleDate:self.doubleDate];
+    else if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipEngaged])
+        [self.apiController getEngagementForDoubleDate:self.doubleDate];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -182,6 +190,7 @@ typedef enum
 
 - (void)dealloc
 {
+    [engagements_ release];
     [doubleDate release];
     [rightViewController release];
     [popover release];
@@ -244,6 +253,53 @@ typedef enum
 
 - (void)segmentedControlTouched:(UISegmentedControl*)sender
 {
+    //check for incoming messages
+    if (sender.selectedSegmentIndex == 1)
+    {
+        if (lastMode_ == DDDoubleDateViewControllerModeIncoming)
+        {
+            //check if we need to create a tab
+            if (![self.rightViewController isKindOfClass:[DDEngagementsViewController class]])
+            {
+                //remove previous
+                [self.rightViewController.view removeFromSuperview];
+                self.rightViewController = nil;
+                
+                //create view controller
+                self.rightViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+                self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+                [(DDEngagementsViewController*)self.rightViewController setDoubleDate:self.doubleDate];
+                [self.rightViewController viewDidLoad];
+                [self.rightView addSubview:self.rightViewController.view];
+            }
+        }
+        else if (lastMode_ == DDDoubleDateViewControllerModeChat)
+        {
+            //check if we need to create a tab
+            if (![self.rightViewController isKindOfClass:[DDChatViewController class]])
+            {
+                //remove previous
+                [self.rightViewController.view removeFromSuperview];
+                self.rightViewController = nil;
+                
+                //create engagement object
+                assert([engagements_ count] == 1);
+                DDEngagement *engagement = [engagements_ lastObject];
+#warning this is temporary fix
+                engagement.activityId = self.doubleDate.identifier;
+                
+                //add second tab
+                self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
+                self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+                [(DDChatViewController*)self.rightViewController setEngagement:engagement];
+                [self.rightViewController viewDidLoad];
+                [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
+                [self.rightView addSubview:self.rightViewController.view];
+            }
+        }
+    }
+    
+    //update visibility
     self.leftView.hidden = sender.selectedSegmentIndex == 1;
     self.rightView.hidden = sender.selectedSegmentIndex != 1;
     if (self.rightView.hidden)
@@ -338,13 +394,6 @@ typedef enum
         segmentedControl.selectedSegmentIndex = self.rightView.hidden?0:1;
         self.navigationItem.titleView = segmentedControl;
         [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
-        
-        //add second tab
-        self.rightViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-        self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
-        [(DDEngagementsViewController*)self.rightViewController setDoubleDate:self.doubleDate];
-        [self.rightViewController viewDidLoad];
-        [self.rightView addSubview:self.rightViewController.view];
     }
     else if (mode == DDDoubleDateViewControllerModeChat)
     {
@@ -356,19 +405,17 @@ typedef enum
         segmentedControl.selectedSegmentIndex = self.rightView.hidden?0:1;
         self.navigationItem.titleView = segmentedControl;
         [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
-        
-        //create engagement object
-        DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
-        engagement.activityId = self.doubleDate.identifier;
-        engagement.identifier = self.doubleDate.myEngagementId;
-        
-        //add second tab
-        self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
-        self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
-        [(DDChatViewController*)self.rightViewController setEngagement:engagement];
-        [self.rightViewController viewDidLoad];
-        [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
-        [self.rightView addSubview:self.rightViewController.view];
+    }
+    
+    //update engagements tab
+    [self updateEngagementsTab];
+}
+
+- (void)updateEngagementsTab
+{
+    if ([self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
+    {
+        [(UISegmentedControl*)self.navigationItem.titleView setEnabled:[engagements_ count]>0 forSegmentAtIndex:1];
     }
 }
 
@@ -573,6 +620,32 @@ typedef enum
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getEngagementsForDoubleDateSucceed:(NSArray *)engagements
+{
+    //save engagmgents
+    [engagements_ release];
+    engagements_ = [engagements retain];
+    
+    //update segmented control
+    [self updateEngagementsTab];
+}
+
+- (void)getEngagementsForDoubleDateDidFailedWithError:(NSError *)error
+{
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getEngagementForDoubleDateSucceed:(DDEngagement *)engagement
+{
+    [self getEngagementsForDoubleDateSucceed:[NSArray arrayWithObject:engagement]];
+}
+
+- (void)getEngagementForDoubleDateDidFailedWithError:(NSError *)error
+{
+    [self getEngagementsForDoubleDateDidFailedWithError:error];
 }
 
 #pragma mark -
