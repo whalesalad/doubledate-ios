@@ -15,6 +15,8 @@
     NSMutableArray *engagements_;
 }
 
+@property(nonatomic, assign) UIViewController *weakParentViewController;
+
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
 
 @end

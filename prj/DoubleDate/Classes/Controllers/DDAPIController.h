@@ -99,6 +99,9 @@ typedef int DDRequestId;
 - (void)createEngagementSucceed:(DDEngagement*)engagement;
 - (void)createEngagementDidFailedWithError:(NSError*)error;
 
+- (void)unlockEngagementSucceed:(DDEngagement*)engagement;
+- (void)unlockEngagementDidFailedWithError:(NSError*)error;
+
 - (void)getMessagesForEngagementSucceed:(NSArray*)messages;
 - (void)getMessagesForEngagementDidFailedWithError:(NSError*)error;
 
@@ -165,6 +168,8 @@ typedef int DDRequestId;
 - (DDRequestId)getEngagementForDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (DDRequestId)createEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
+
+- (DDRequestId)unlockEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
 

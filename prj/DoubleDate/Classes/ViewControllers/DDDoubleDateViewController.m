@@ -24,6 +24,7 @@
 #import "DDUserBubble.h"
 #import "DDSegmentedControl.h"
 #import "DDChatViewController.h"
+#import "DDObjectsController.h"
 
 typedef enum
 {
@@ -98,6 +99,7 @@ typedef enum
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectUpdatedNotification:) name:DDObjectsControllerDidUpdateObjectNotification object:nil];
     }
     return self;
 }
@@ -270,6 +272,7 @@ typedef enum
                 self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
                 [(DDEngagementsViewController*)self.rightViewController setDoubleDate:self.doubleDate];
                 [self.rightViewController viewDidLoad];
+                [(DDEngagementsViewController*)self.rightViewController setWeakParentViewController:self];
                 [self.rightView addSubview:self.rightViewController.view];
             }
         }
@@ -578,6 +581,20 @@ typedef enum
         [self loadDataForUser:self.doubleDate.wing];
 }
 
+- (void)replaceObject:(DDEngagement*)object inArray:(NSMutableArray*)array
+{
+    NSInteger index = NSNotFound;
+    for (DDEngagement *o in array)
+    {
+        if (object == o)
+            continue;
+        if ([[object identifier] intValue] == [[o identifier] intValue])
+            index = [array indexOfObject:o];
+    }
+    if (index != NSNotFound)
+        [array replaceObjectAtIndex:index withObject:object];
+}
+
 #pragma mark -
 #pragma comment DDAPIControllerDelegate
 
@@ -625,7 +642,7 @@ typedef enum
 {
     //save engagmgents
     [engagements_ release];
-    engagements_ = [engagements retain];
+    engagements_ = [[NSMutableArray alloc] initWithArray:engagements];
     
     //update segmented control
     [self updateEngagementsTab];
@@ -661,7 +678,7 @@ typedef enum
 {
     //save engagement
     [engagements_ release];
-    engagements_ = [[NSArray alloc] initWithObjects:engagement, nil];
+    engagements_ = [[NSMutableArray alloc] initWithObjects:engagement, nil];
     
     //show succeed message
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! You've created engagement.", nil)];
@@ -675,6 +692,17 @@ typedef enum
     
     //update doubledate in background
     [self.apiController getDoubleDate:self.doubleDate];
+}
+
+#pragma mark -
+#pragma mark DDObjectsControllerDelegate
+
+- (void)objectUpdatedNotification:(NSNotification*)notification
+{
+    if ([[notification object] isKindOfClass:[DDEngagement class]])
+    {
+        [self replaceObject:[notification object] inArray:engagements_];
+    }
 }
 
 @end

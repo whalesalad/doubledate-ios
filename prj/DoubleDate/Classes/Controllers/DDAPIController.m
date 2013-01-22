@@ -48,6 +48,7 @@ typedef enum
     DDAPIControllerMethodTypeGetEngagements,
     DDAPIControllerMethodTypeGetEngagement,
     DDAPIControllerMethodTypeCreateEngagement,
+    DDAPIControllerMethodTypeUnlockEngagement,
     DDAPIControllerMethodTypeGetMessages,
     DDAPIControllerMethodTypeCreateMessage,
 } DDAPIControllerMethodType;
@@ -679,6 +680,25 @@ typedef enum
     return [self startRequest:request];
 }
 
+- (DDRequestId)unlockEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/unlock", [doubleDate.identifier intValue], [engagement.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPOST;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeUnlockEngagement;
+    userData.succeedSel = @selector(unlockEngagementSucceed:);
+    userData.failedSel = @selector(unlockEngagementDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate
 {
     //create request
@@ -928,7 +948,8 @@ typedef enum
                 [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateEngagement ||
-                 userData.method == DDAPIControllerMethodTypeGetEngagement)
+                 userData.method == DDAPIControllerMethodTypeGetEngagement ||
+                 userData.method == DDAPIControllerMethodTypeUnlockEngagement)
         {
             //create object
             DDEngagement *engagement = [DDEngagement objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];

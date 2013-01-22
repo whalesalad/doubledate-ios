@@ -276,6 +276,8 @@ typedef enum
     NSInteger index = NSNotFound;
     for (DDDoubleDate *o in array)
     {
+        if (object == o)
+            continue;
         if ([[object identifier] intValue] == [[o identifier] intValue])
             index = [array indexOfObject:o];
     }
