@@ -11,6 +11,7 @@
 @implementation DDMessage
 
 @synthesize createdAt;
+@synthesize createdAtAgo;
 @synthesize identifier;
 @synthesize message;
 @synthesize userId;
@@ -21,6 +22,7 @@
     if ((self = [super initWithDictionary:dictionary]))
     {
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
+        self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
@@ -34,6 +36,8 @@
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     if (self.createdAt)
         [dictionary setObject:self.createdAt forKey:@"created_at"];
+    if (self.createdAtAgo)
+        [dictionary setObject:self.createdAtAgo forKey:@"created_at_ago"];
     if (self.identifier)
         [dictionary setObject:self.identifier forKey:@"id"];
     if (self.message)
@@ -48,6 +52,7 @@
 - (void)dealloc
 {
     [createdAt release];
+    [createdAtAgo release];
     [identifier release];
     [message release];
     [userId release];

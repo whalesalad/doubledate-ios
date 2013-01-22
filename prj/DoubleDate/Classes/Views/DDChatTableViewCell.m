@@ -8,6 +8,7 @@
 
 #import "DDChatTableViewCell.h"
 #import "DDTools.h"
+#import "DDMessage.h"
 
 @implementation DDChatTableViewCell
 
@@ -15,6 +16,8 @@
 @synthesize imageViewBubble;
 @synthesize labelTime;
 @synthesize labelName;
+
+@synthesize message;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -44,36 +47,39 @@
     return cell.frame.size.height - cell.textView.frame.size.height + cell.textView.contentSize.height;
 }
 
-- (void)setText:(NSString *)text
+- (void)setMessage:(DDMessage *)v
 {
-    self.textView.text = text;
-    
-    if (rand() % 2 == 0)
-        self.labelTime.text = @"1 minues ago";
-    else
-        self.labelTime.text = @"now";
-    
-    CGFloat oldLabelTimeX = self.labelTime.frame.origin.x;
-    CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
-    self.labelTime.frame = CGRectMake(self.labelTime.frame.origin.x - newLabelTimeSize.width + self.labelTime.frame.size.width, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
-    
-    if (rand() % 2 == 0)
-        self.labelName.text = @"Gennadii";
-    else
-        self.labelName.text = @"Some very long name";
-    
-    CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
-    CGFloat labelTimeOffset = oldLabelTimeX - self.labelTime.frame.origin.x;
-    self.labelName.frame = CGRectMake(self.labelName.frame.origin.x - newLabelNameSize.width + self.labelName.frame.size.width - labelTimeOffset, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
-}
-
-- (NSString*)text
-{
-    return self.textView.text;
+    //check the same value
+    if (v != message)
+    {
+        //save value
+        [message release];
+        message = [v retain];
+        
+        //set message
+        self.textView.text = v.message;
+        
+        //set time
+        self.labelTime.text = v.createdAtAgo;
+        
+        //update frame
+        CGFloat oldLabelTimeX = self.labelTime.frame.origin.x;
+        CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
+        self.labelTime.frame = CGRectMake(self.labelTime.frame.origin.x - newLabelTimeSize.width + self.labelTime.frame.size.width, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
+        
+        //set name
+        self.labelName.text = v.firstName;
+        
+        //update frame
+        CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
+        CGFloat labelTimeOffset = oldLabelTimeX - self.labelTime.frame.origin.x;
+        self.labelName.frame = CGRectMake(self.labelName.frame.origin.x - newLabelNameSize.width + self.labelName.frame.size.width - labelTimeOffset, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
+    }
 }
 
 - (void)dealloc
 {
+    [message release];
     [textView release];
     [imageViewBubble release];
     [labelTime release];

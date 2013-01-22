@@ -14,25 +14,21 @@ NSString *DDDoubleDateDayPrefWeekday = @"weekday";
 NSString *DDDoubleDateDayPrefWeekend = @"weekend";
 NSString *DDDoubleDateTimePrefDaytime = @"day";
 NSString *DDDoubleDateTimePrefNighttime = @"night";
-NSString *DDDoubleDateStatusActive = @"active";
-NSString *DDDoubleDateStatusEngaged = @"engaged";
-NSString *DDDoubleDateStatusExpired = @"expired";
 NSString *DDDoubleDateRelationshipOpen = @"open";
 NSString *DDDoubleDateRelationshipOwner = @"owner";
 NSString *DDDoubleDateRelationshipWing = @"wing";
-NSString *DDDoubleDateRelationshipInterested = @"interested";
-NSString *DDDoubleDateRelationshipAccepted = @"accepted";
+NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 
 @implementation DDDoubleDate
 
 @synthesize identifier;
-@synthesize status;
 @synthesize relationship;
 @synthesize title;
 @synthesize details;
 @synthesize dayPref;
 @synthesize timePref;
 @synthesize updatedAt;
+@synthesize myEngagementId;
 @synthesize user;
 @synthesize wing;
 @synthesize location;
@@ -42,13 +38,13 @@ NSString *DDDoubleDateRelationshipAccepted = @"accepted";
     if ((self = [super initWithDictionary:dictionary]))
     {
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
-        self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
         self.relationship = [DDAPIObject stringForObject:[dictionary objectForKey:@"relationship"]];
         self.title = [DDAPIObject stringForObject:[dictionary objectForKey:@"title"]];
         self.details = [DDAPIObject stringForObject:[dictionary objectForKey:@"details"]];
         self.dayPref = [DDAPIObject stringForObject:[dictionary objectForKey:@"day_pref"]];
         self.timePref = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_pref"]];
         self.updatedAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at"]];
+        self.myEngagementId = [DDAPIObject numberForObject:[dictionary objectForKey:@"my_engagement_id"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
         self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
@@ -61,8 +57,6 @@ NSString *DDDoubleDateRelationshipAccepted = @"accepted";
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     if (self.identifier)
         [dictionary setObject:self.identifier forKey:@"id"];
-    if (self.status)
-        [dictionary setObject:self.status forKey:@"status"];
     if (self.relationship)
         [dictionary setObject:self.relationship forKey:@"relationship"];
     if (self.title)
@@ -75,6 +69,8 @@ NSString *DDDoubleDateRelationshipAccepted = @"accepted";
         [dictionary setObject:self.timePref forKey:@"time_pref"];
     if (self.updatedAt)
         [dictionary setObject:self.updatedAt forKey:@"updated_at"];
+    if (self.myEngagementId)
+        [dictionary setObject:self.myEngagementId forKey:@"my_engagement_id"];
     if (self.user.identifier)
         [dictionary setObject:self.user.identifier forKey:@"user_id"];
     if (self.wing.identifier)
@@ -96,13 +92,13 @@ NSString *DDDoubleDateRelationshipAccepted = @"accepted";
 - (void)dealloc
 {
     [identifier release];
-    [status release];
     [relationship release];
     [title release];
     [details release];
     [dayPref release];
     [timePref release];
     [updatedAt release];
+    [myEngagementId release];
     [user release];
     [wing release];
     [location release];

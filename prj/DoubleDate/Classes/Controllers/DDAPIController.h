@@ -15,6 +15,7 @@
 @class DDDoubleDate;
 @class DDDoubleDateFilter;
 @class DDEngagement;
+@class DDMessage;
 
 typedef enum
 {
@@ -92,11 +93,17 @@ typedef int DDRequestId;
 - (void)getEngagementsForDoubleDateSucceed:(NSArray*)engagements;
 - (void)getEngagementsForDoubleDateDidFailedWithError:(NSError*)error;
 
+- (void)getEngagementForDoubleDateSucceed:(DDEngagement*)engagement;
+- (void)getEngagementForDoubleDateDidFailedWithError:(NSError*)error;
+
 - (void)createEngagementSucceed:(DDEngagement*)engagement;
 - (void)createEngagementDidFailedWithError:(NSError*)error;
 
 - (void)getMessagesForEngagementSucceed:(NSArray*)messages;
 - (void)getMessagesForEngagementDidFailedWithError:(NSError*)error;
+
+- (void)createMessageSucceed:(DDMessage*)message;
+- (void)createMessageDidFailedWithError:(NSError*)error;
 
 @end
 
@@ -155,8 +162,12 @@ typedef int DDRequestId;
 
 - (DDRequestId)getEngagementsForDoubleDate:(DDDoubleDate*)doubleDate;
 
+- (DDRequestId)getEngagementForDoubleDate:(DDDoubleDate*)doubleDate;
+
 - (DDRequestId)createEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement;
+
+- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement;
 
 @end

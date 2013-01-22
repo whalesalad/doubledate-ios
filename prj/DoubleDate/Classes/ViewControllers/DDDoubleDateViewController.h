@@ -17,6 +17,7 @@
 {
     int lastMode_;
     BOOL alreadyCreatedEngagement_;
+    NSArray *engagements_;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
