@@ -10,8 +10,8 @@
 #import "SBJson.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define API_URL @"http://localhost:3000"
-//#define API_URL @"http://api-2.dbld8.com"
+//#define API_URL @"http://localhost:3000"
+#define API_URL @"http://api-2.dbld8.com"
 #define SERVER_URL @"http://dbld8.com"
 
 @implementation DDTools
