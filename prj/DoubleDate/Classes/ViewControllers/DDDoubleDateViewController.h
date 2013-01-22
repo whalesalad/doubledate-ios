@@ -16,7 +16,6 @@
 @interface DDDoubleDateViewController : DDViewController
 {
     int lastMode_;
-    BOOL alreadyCreatedEngagement_;
     NSArray *engagements_;
 }
 

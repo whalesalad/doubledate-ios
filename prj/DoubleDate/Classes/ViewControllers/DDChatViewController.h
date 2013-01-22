@@ -9,6 +9,7 @@
 #import "DDViewController.h"
 
 @class DDEngagement;
+@class DDDoubleDate;
 
 @interface DDChatViewController : DDViewController
 {
@@ -19,6 +20,7 @@
 @property(nonatomic, assign) UIViewController *weakParentViewController;
 
 @property(nonatomic, retain) DDEngagement *engagement;
+@property(nonatomic, retain) DDDoubleDate *doubleDate;
 
 @property(nonatomic, retain) IBOutlet UIView *mainView;
 @property(nonatomic, retain) IBOutlet UIView *topBarView;

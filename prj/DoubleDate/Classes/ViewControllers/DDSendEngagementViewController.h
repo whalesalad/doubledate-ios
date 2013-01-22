@@ -10,11 +10,12 @@
 #import "DDSelectWingView.h"
 
 @class DDDoubleDate;
+@class DDEngagement;
 
 @protocol DDSendEngagementViewControllerDelegate <NSObject>
 
 - (void)sendEngagementViewControllerDidCancel;
-- (void)sendEngagementViewControllerDidSendMessage;
+- (void)sendEngagementViewControllerDidCreatedEngagement:(DDEngagement*)engagement;
 
 @end
 

@@ -106,9 +106,8 @@
         //request api
         DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
         engagement.wingId = self.selectWingView.wing.identifier;
-        engagement.activityId = self.doubleDate.identifier;
         engagement.message = [[(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] textView] text];
-        [self.apiController createEngagement:engagement];
+        [self.apiController createEngagement:engagement forDoubleDate:self.doubleDate];
     }
 }
 
@@ -208,8 +207,8 @@
     //hide hud
     [self hideHud:YES];
     
-    //incorm delegate
-    [self.delegate sendEngagementViewControllerDidSendMessage];
+    //inform delegate
+    [self.delegate sendEngagementViewControllerDidCreatedEngagement:engagement];
 }
 
 - (void)createEngagementDidFailedWithError:(NSError*)error

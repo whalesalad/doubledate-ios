@@ -282,15 +282,14 @@ typedef enum
                 [self.rightViewController.view removeFromSuperview];
                 self.rightViewController = nil;
                 
-                //create engagement object
+                //create data
                 assert([engagements_ count] == 1);
                 DDEngagement *engagement = [engagements_ lastObject];
-#warning this is temporary fix
-                engagement.activityId = self.doubleDate.identifier;
                 
                 //add second tab
                 self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
                 self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+                [(DDChatViewController*)self.rightViewController setDoubleDate:self.doubleDate];
                 [(DDChatViewController*)self.rightViewController setEngagement:engagement];
                 [self.rightViewController viewDidLoad];
                 [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
@@ -330,7 +329,7 @@ typedef enum
     {
         //check interested and accepted
         if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipEngaged] ||
-            alreadyCreatedEngagement_)
+            [engagements_ count] > 0)
             mode = DDDoubleDateViewControllerModeChat;
     }
     
@@ -658,10 +657,11 @@ typedef enum
     }];
 }
 
-- (void)sendEngagementViewControllerDidSendMessage
+- (void)sendEngagementViewControllerDidCreatedEngagement:(DDEngagement*)engagement
 {
-    //save created flag
-    alreadyCreatedEngagement_ = YES;
+    //save engagement
+    [engagements_ release];
+    engagements_ = [[NSArray alloc] initWithObjects:engagement, nil];
     
     //show succeed message
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! You've created engagement.", nil)];

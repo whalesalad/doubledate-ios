@@ -8,6 +8,7 @@
 
 #import "DDChatViewController.h"
 #import "DDChatTableViewCell.h"
+#import "DDDoubleDate.h"
 #import "DDEngagement.h"
 #import "DDMessage.h"
 #import <QuartzCore/QuartzCore.h>
@@ -20,6 +21,7 @@
 
 @synthesize parentViewController;
 
+@synthesize doubleDate;
 @synthesize engagement;
 
 @synthesize mainView;
@@ -57,7 +59,7 @@
     
     //check if we need to make a request
     if (!messages_)
-        [self.apiController getMessagesForEngagement:self.engagement];
+        [self.apiController getMessagesForEngagement:self.engagement forDoubleDate:self.doubleDate];
 }
 
 #pragma mark -
@@ -113,6 +115,7 @@
 - (void)dealloc
 {
     [messages_ release];
+    [doubleDate release];
     [engagement release];
     [mainView release];
     [topBarView release];
@@ -133,7 +136,7 @@
     {
         DDMessage *message = [[[DDMessage alloc] init] autorelease];
         message.message = self.textViewInput.text;
-        [self.apiController createMessage:message forEngagement:self.engagement];
+        [self.apiController createMessage:message forEngagement:self.engagement forDoubleDate:self.doubleDate];
     }
     
     //unset text

@@ -9,10 +9,8 @@
 #import "DDEngagement.h"
 #import "DDShortUser.h"
 
-NSString *DDEngagementStatusSent = @"sent";
-NSString *DDEngagementStatusViewed = @"viewed";
-NSString *DDEngagementStatusIgnored = @"ignored";
-NSString *DDEngagementStatusAccepted = @"accepted";
+NSString *DDEngagementStatusLocked = @"locked";
+NSString *DDEngagementStatusUnlocked = @"unlocked";
 
 @implementation DDEngagement
 
@@ -20,8 +18,7 @@ NSString *DDEngagementStatusAccepted = @"accepted";
 @synthesize userId;
 @synthesize wingId;
 @synthesize message;
-@synthesize initialMessage;
-@synthesize activityId;
+@synthesize primaryMessage;
 @synthesize status;
 @synthesize messagesCount;
 @synthesize createdAt;
@@ -37,8 +34,7 @@ NSString *DDEngagementStatusAccepted = @"accepted";
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
-        self.initialMessage = [DDAPIObject stringForObject:[dictionary objectForKey:@"initial_message"]];
-        self.activityId = [DDAPIObject numberForObject:[dictionary objectForKey:@"activity_id"]];
+        self.primaryMessage = [DDAPIObject stringForObject:[dictionary objectForKey:@"primary_message"]];
         self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
         self.messagesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"messages_count"]];
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
@@ -60,10 +56,8 @@ NSString *DDEngagementStatusAccepted = @"accepted";
         [dictionary setObject:self.wingId forKey:@"wing_id"];
     if (self.message)
         [dictionary setObject:self.message forKey:@"message"];
-    if (self.initialMessage)
-        [dictionary setObject:self.initialMessage forKey:@"initial_message"];
-    if (self.activityId)
-        [dictionary setObject:self.activityId forKey:@"activity_id"];
+    if (self.primaryMessage)
+        [dictionary setObject:self.primaryMessage forKey:@"primary_message"];
     if (self.status)
         [dictionary setObject:self.status forKey:@"status"];
     if (self.messagesCount)
@@ -89,8 +83,7 @@ NSString *DDEngagementStatusAccepted = @"accepted";
     [userId release];
     [wingId release];
     [message release];
-    [initialMessage release];
-    [activityId release];
+    [primaryMessage release];
     [status release];
     [messagesCount release];
     [createdAt release];
