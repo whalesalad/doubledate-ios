@@ -10,11 +10,14 @@
 
 @class DDEngagement;
 @class DDDoubleDate;
+@class DDImageView;
 
 @interface DDChatViewController : DDViewController
 {
     BOOL keyboardExist_;
     NSMutableArray *messages_;
+    NSMutableArray *shortUsers_;
+    NSMutableArray *users_;
 }
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;
@@ -29,6 +32,21 @@
 @property(nonatomic, retain) IBOutlet UIButton *buttonSend;
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUser1;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUser2;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUser3;
+@property(nonatomic, retain) IBOutlet DDImageView *imageViewUser4;
+
+@property(nonatomic, retain) IBOutlet UILabel *labelUser1;
+@property(nonatomic, retain) IBOutlet UILabel *labelUser2;
+@property(nonatomic, retain) IBOutlet UILabel *labelUser3;
+@property(nonatomic, retain) IBOutlet UILabel *labelUser4;
+
 - (IBAction)sendTouched:(id)sender;
+
+- (IBAction)user1Touched:(id)sender;
+- (IBAction)user2Touched:(id)sender;
+- (IBAction)user3Touched:(id)sender;
+- (IBAction)user4Touched:(id)sender;
 
 @end

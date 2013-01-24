@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) UIViewController *viewController;
 
+@property (retain, nonatomic) UIView *userPopover;
+
 @end

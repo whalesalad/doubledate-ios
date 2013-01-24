@@ -11,13 +11,25 @@
 #import "DDDoubleDate.h"
 #import "DDEngagement.h"
 #import "DDMessage.h"
+#import "DDImageView.h"
+#import "DDShortUser.h"
+#import "DDUser.h"
+#import "DDuserBubble.h"
+#import "DDAppDelegate+UserBubble.h"
+#import <RestKit/RKISO8601DateFormatter.h>
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
+@property(nonatomic, retain) UIView *popover;
+
+- (void)presentPopoverWithUser:(DDShortUser*)user;
+
 @end
 
 @implementation DDChatViewController
+
+@synthesize popover;
 
 @synthesize parentViewController;
 
@@ -31,6 +43,16 @@
 @synthesize buttonSend;
 @synthesize tableView;
 
+@synthesize imageViewUser1;
+@synthesize imageViewUser2;
+@synthesize imageViewUser3;
+@synthesize imageViewUser4;
+
+@synthesize labelUser1;
+@synthesize labelUser2;
+@synthesize labelUser3;
+@synthesize labelUser4;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,6 +63,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name: UIKeyboardWillHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name: UIKeyboardDidHideNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewTextDidChangeNotification:) name:UITextViewTextDidChangeNotification object:nil];
+        shortUsers_ = [[NSMutableArray alloc] init];
+        users_ = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -51,6 +75,61 @@
     
     //don't show layer under the status bar
     self.view.layer.masksToBounds = YES;
+    
+    //set header
+    UILabel *labelHeader = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 32)] autorelease];
+    labelHeader.backgroundColor = [UIColor clearColor];
+    labelHeader.textAlignment = NSTextAlignmentCenter;
+    labelHeader.textColor = [UIColor grayColor];
+    NSDate *date = [[[[RKISO8601DateFormatter alloc] init] autorelease] dateFromString:[self.engagement createdAt]];
+    NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
+    labelHeader.text = [dateFormatterTo stringFromDate:date];
+    self.tableView.tableHeaderView = labelHeader;
+    
+    //unset backgrounds
+    self.mainView.backgroundColor = [UIColor clearColor];
+    self.topBarView.backgroundColor = [UIColor clearColor];
+    self.bottomBarView.backgroundColor = [UIColor clearColor];
+    self.textViewInput.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.labelUser1.backgroundColor = [UIColor clearColor];
+    self.labelUser2.backgroundColor = [UIColor clearColor];
+    self.labelUser3.backgroundColor = [UIColor clearColor];
+    self.labelUser4.backgroundColor = [UIColor clearColor];
+    
+    //add users
+    [shortUsers_ removeAllObjects];
+    [shortUsers_ addObject:self.doubleDate.user];
+    [shortUsers_ addObject:self.doubleDate.wing];
+    [shortUsers_ addObject:self.engagement.user];
+    [shortUsers_ addObject:self.engagement.wing];
+    
+    //apply photos
+    NSArray *tempImageViews = [NSArray arrayWithObjects:self.imageViewUser1, self.imageViewUser2, self.imageViewUser3, self.imageViewUser4, nil];
+    for (int i = 0; i < 4; i++)
+    {
+        DDImageView *imageView = [tempImageViews objectAtIndex:i];
+        NSString *url = [[(DDShortUser*)[shortUsers_ objectAtIndex:i] photo] smallUrl];
+        if (url)
+            [imageView reloadFromUrl:[NSURL URLWithString:url]];
+    }
+    
+    //apply labels
+    NSArray *tempLabels = [NSArray arrayWithObjects:self.labelUser1, self.labelUser2, self.labelUser3, self.labelUser4, nil];
+    for (int i = 0; i < 4; i++)
+    {
+        UILabel *label = [tempLabels objectAtIndex:i];
+        [label setText:[[(DDShortUser*)[shortUsers_ objectAtIndex:i] firstName] uppercaseString]];
+    }
+    
+    //load users
+    for (DDShortUser *shortUser in shortUsers_)
+    {
+        DDUser *requestUser = [[[DDUser alloc] init] autorelease];
+        requestUser.userId = shortUser.identifier;
+        [self.apiController getUser:requestUser];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -114,6 +193,9 @@
 
 - (void)dealloc
 {
+    [popover release];
+    [shortUsers_ release];
+    [users_ release];
     [messages_ release];
     [doubleDate release];
     [engagement release];
@@ -123,6 +205,14 @@
     [textViewInput release];
     [buttonSend release];
     [tableView release];
+    [imageViewUser1 release];
+    [imageViewUser2 release];
+    [imageViewUser3 release];
+    [imageViewUser4 release];
+    [labelUser1 release];
+    [labelUser2 release];
+    [labelUser3 release];
+    [labelUser4 release];
     [super dealloc];
 }
 
@@ -144,6 +234,59 @@
     
     //hide keyboard
     [self.textViewInput resignFirstResponder];
+}
+
+- (IBAction)user1Touched:(id)sender
+{
+    [self presentPopoverWithUser:[shortUsers_ objectAtIndex:0]];
+}
+
+- (IBAction)user2Touched:(id)sender
+{
+    [self presentPopoverWithUser:[shortUsers_ objectAtIndex:1]];
+}
+
+- (IBAction)user3Touched:(id)sender
+{
+    [self presentPopoverWithUser:[shortUsers_ objectAtIndex:2]];
+}
+
+- (IBAction)user4Touched:(id)sender
+{
+    [self presentPopoverWithUser:[shortUsers_ objectAtIndex:3]];
+}
+
+#pragma mark -
+#pragma mark other
+
+- (DDUser*)userForShortUser:(DDShortUser*)shortUser
+{
+    for (DDUser *u in users_)
+    {
+        if ([[u userId] intValue] == [[shortUser identifier] intValue])
+            return u;
+    }
+    return nil;
+}
+
+- (void)presentPopoverWithUser:(DDShortUser*)user
+{
+    //select needed user
+    DDUser *userToSelect = [self userForShortUser:user];
+    if (!userToSelect)
+        return;
+    
+    //save users
+    NSMutableArray *usersInBubble = [NSMutableArray array];
+    for (DDShortUser *shortUser in shortUsers_)
+    {
+        DDUser *u = [self userForShortUser:shortUser];
+        if (u)
+            [usersInBubble addObject:u];
+    }
+    
+    //present user bubble
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentUserBubbleForUser:userToSelect fromUsers:usersInBubble];
 }
 
 #pragma mark -
@@ -247,6 +390,16 @@
 {
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getUserDidSucceed:(DDUser*)u
+{
+    //add sliently
+    [users_ addObject:u];
+}
+
+- (void)getUserDidFailedWithError:(NSError*)error
+{
 }
 
 @end

@@ -13,10 +13,13 @@
 
 @implementation DDAppDelegate
 
+@synthesize userPopover;
+
 - (void)dealloc
 {
     [_window release];
     [_viewController release];
+    [userPopover release];
     [super dealloc];
 }
 

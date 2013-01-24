@@ -25,6 +25,7 @@
 #import "DDSegmentedControl.h"
 #import "DDChatViewController.h"
 #import "DDObjectsController.h"
+#import "DDAppDelegate+UserBubble.h"
 
 typedef enum
 {
@@ -36,7 +37,6 @@ typedef enum
 @interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
 
 - (void)loadDataForUser:(DDShortUser*)shortUser;
-- (void)dismissUserPopover;
 - (void)presentLeftUserPopover;
 - (void)presentRightUserPopover;
 - (void)switchToNeededMode;
@@ -225,18 +225,12 @@ typedef enum
 
 - (IBAction)leftUserTouched:(DDPhotoView*)sender
 {
-    //dismiss old
-    [self dismissUserPopover];
-    
     //present user
     [self presentLeftUserPopover];
 }
 
 - (IBAction)rightUserTouched:(DDPhotoView*)sender
 {
-    //dismiss old
-    [self dismissUserPopover];
-    
     //present user
     [self presentRightUserPopover];
 }
@@ -269,9 +263,9 @@ typedef enum
                 
                 //create view controller
                 self.rightViewController = [[[DDEngagementsViewController alloc] init] autorelease];
-                self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
                 [(DDEngagementsViewController*)self.rightViewController setDoubleDate:self.doubleDate];
-                [self.rightViewController viewDidLoad];
+//                [self.rightViewController viewDidLoad];
+                self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
                 [(DDEngagementsViewController*)self.rightViewController setWeakParentViewController:self];
                 [self.rightView addSubview:self.rightViewController.view];
             }
@@ -291,10 +285,10 @@ typedef enum
                 
                 //add second tab
                 self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
-                self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
                 [(DDChatViewController*)self.rightViewController setDoubleDate:self.doubleDate];
                 [(DDChatViewController*)self.rightViewController setEngagement:engagement];
-                [self.rightViewController viewDidLoad];
+                self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
+//                [self.rightViewController viewDidLoad];
                 [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
                 [self.rightView addSubview:self.rightViewController.view];
             }
@@ -417,20 +411,10 @@ typedef enum
 {
     if ([self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
     {
-//        [(UISegmentedControl*)self.navigationItem.titleView setEnabled:[engagements_ count]>0 forSegmentAtIndex:1];
-    }
-}
-
-- (void)dismissUserPopover
-{
-    if (self.popover)
-    {
-        [UIView animateWithDuration:0.3f animations:^{
-            self.popover.alpha = 0;
-        } completion:^(BOOL finished) {
-            [self.popover removeFromSuperview];
-            self.popover = nil;
-        }];
+        if (lastMode_ == DDDoubleDateViewControllerModeChat)
+            [(UISegmentedControl*)self.navigationItem.titleView setEnabled:[engagements_ count]>0 forSegmentAtIndex:1];
+        else
+            [(UISegmentedControl*)self.navigationItem.titleView setEnabled:YES forSegmentAtIndex:1];
     }
 }
 
@@ -439,117 +423,13 @@ typedef enum
     //check user
     assert(self.user == u || self.wing == u);
     
-    //remove old
-    [self.popover removeFromSuperview];
-    
-    //add view
-    self.popover = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-popup-darkness.png"]] autorelease];
-    self.popover.userInteractionEnabled = YES;
-    self.popover.alpha = 0;
-    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:self.popover];
-    
-    //flag of both users
-    BOOL bothUsers = self.user && self.wing;
-    
-    //add scroll view
-    UIScrollView *sv = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.popover.bounds.size.width, self.popover.bounds.size.height)] autorelease];
-    sv.contentSize = CGSizeMake(self.popover.bounds.size.width*(bothUsers?2:1), self.popover.bounds.size.height);
-    sv.pagingEnabled = bothUsers;
-    sv.delegate = self;
-    sv.showsHorizontalScrollIndicator = NO;
-    [self.popover addSubview:sv];
-    
-    //add tap recognizer
-    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUserPopover)] autorelease];
-    [sv addGestureRecognizer:tapRecognizer];
-    
-    //add gesture recognizer for close
-    UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUserPopover)] autorelease];
-    swipeRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
-    [sv addGestureRecognizer:swipeRecognizer];
-    
-    //add page control
-    UIPageControl *pageControl = [[[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 80, 36)] autorelease];
-    // XXX Controlling page position
-    pageControl.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height-32);
-    pageControl.backgroundColor = [UIColor clearColor];
-    pageControl.numberOfPages = (bothUsers?2:1);
-    [pageControl addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.popover addSubview:pageControl];
-    
-    //add bubbles
-    CGRect bubbleRect = CGRectMake(25, 40, 270, 0);
-    if (bothUsers)
-    {
-        //create bubble
-        {
-            DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
-            bubble.users = [NSArray arrayWithObject:self.user];
-            bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-            bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
-            [sv addSubview:bubble];
-        }
-        
-        //create bubble
-        {
-            DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
-            bubble.users = [NSArray arrayWithObject:self.wing];
-            bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-            bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2+[UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height/2);
-            [sv addSubview:bubble];
-        }
-        
-        //set needed current page
-        pageControl.currentPage = (u==self.user)?0:1;
-        
-        //check for needed page
-        if (pageControl.currentPage == 1)
-            sv.contentOffset = CGPointMake([UIScreen mainScreen].bounds.size.width, 0);
-    }
-    else
-    {
-        //create bubble
-        {
-            DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
-            bubble.users = [NSArray arrayWithObject:u];
-            bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-            bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height/2);
-            [sv addSubview:bubble];
-        }
-    }
-    
-    //animate appearing
-    [UIView animateWithDuration:0.3f animations:^{
-        self.popover.alpha = 1;
-    }];
-}
-
-- (void)pageChanged:(UIPageControl*)sender
-{
-    //get scroll view
-    UIScrollView *sv = nil;
-    for (UIScrollView *v in [sender.superview subviews])
-    {
-        if ([v isKindOfClass:[UIScrollView class]])
-            sv = v;
-    }
-    
-    //set content offset
-    [sv scrollRectToVisible:CGRectMake(sender.currentPage * sv.frame.size.width, 0, sv.frame.size.width, sv.frame.size.height) animated:YES];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)sender
-{
-    //get page view
-    UIPageControl *pc = nil;
-    for (UIPageControl *v in [sender.superview subviews])
-    {
-        if ([v isKindOfClass:[UIPageControl class]])
-            pc = v;
-    }
-    
-    //set current page
-    pc.currentPage = floor((sender.contentOffset.x - sender.frame.size.width) / 2 / sender.frame.size.width + 1);
+    //present user bubble
+    NSMutableArray *users = [NSMutableArray array];
+    if (self.user)
+        [users addObject:self.user];
+    if (self.wing)
+        [users addObject:self.wing];
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentUserBubbleForUser:u fromUsers:users];
 }
 
 - (void)loadDataForUser:(DDShortUser*)shortUser
