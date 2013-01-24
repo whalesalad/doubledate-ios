@@ -64,6 +64,23 @@
     
     //remove search bar
     self.tableView.tableHeaderView = nil;
+    
+    //add no incoming messages image view
+    UIImageView *imageViewNoData = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-incoming.png"]] autorelease];
+    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 40);
+    imageViewNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.viewNoData addSubview:imageViewNoData];
+    
+    //add no messages label
+#warning customize no messages label
+    UILabel *labelNoData = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
+    labelNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 40);
+    labelNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    labelNoData.numberOfLines = 2;
+    labelNoData.text = NSLocalizedString(@"Incoming messages for this\n date will appear here.", nil);
+    labelNoData.textAlignment = NSTextAlignmentCenter;
+    labelNoData.backgroundColor = [UIColor clearColor];
+    [self.viewNoData addSubview:labelNoData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -163,6 +180,9 @@
     
     //reload data
     [self.tableView reloadData];
+    
+    //update no messages
+    [self updateNoDataView];
 }
 
 - (void)getEngagementsForDoubleDateDidFailedWithError:(NSError*)error

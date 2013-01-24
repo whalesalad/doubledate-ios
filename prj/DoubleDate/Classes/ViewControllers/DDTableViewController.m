@@ -31,6 +31,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 @synthesize searchTerm = searchTerm_;
 @synthesize backButtonTitle;
 @synthesize moveWithKeyboard;
+@synthesize viewNoData = viewNoData_;
 
 - (void)initSelf
 {
@@ -84,6 +85,12 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setSeparatorColor:[UIColor clearColor]];
     
+    //add no messages
+    viewNoData_ = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)] autorelease];
+    viewNoData_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    viewNoData_.hidden = YES;
+    [self.tableView addSubview:viewNoData_];
+    
     //customize navigation bar
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
     
@@ -117,6 +124,15 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     if ([self.tableView.tableHeaderView isKindOfClass:[DDSearchBar class]])
         return (DDSearchBar*)self.tableView.tableHeaderView;
     return nil;
+}
+
+- (void)updateNoDataView
+{
+    NSInteger totalNumberOfRows = 0;
+    for (int i = 0; i < [self.tableView numberOfSections]; i++)
+        totalNumberOfRows += [self.tableView numberOfRowsInSection:i];
+    self.tableView.scrollEnabled = totalNumberOfRows > 0;
+    self.viewNoData.hidden = totalNumberOfRows > 0;
 }
 
 - (void)dealloc

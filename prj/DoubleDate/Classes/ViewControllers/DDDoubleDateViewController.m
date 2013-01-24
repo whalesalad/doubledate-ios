@@ -417,7 +417,7 @@ typedef enum
 {
     if ([self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
     {
-        [(UISegmentedControl*)self.navigationItem.titleView setEnabled:[engagements_ count]>0 forSegmentAtIndex:1];
+//        [(UISegmentedControl*)self.navigationItem.titleView setEnabled:[engagements_ count]>0 forSegmentAtIndex:1];
     }
 }
 

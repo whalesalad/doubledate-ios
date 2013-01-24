@@ -21,6 +21,7 @@
     MBProgressHUD *hud_;
     NSString *searchTerm_;
     BOOL movedWithKeyboard_;
+    UIView *viewNoData_;
 }
 
 @property(nonatomic, assign) BOOL showsCancelButton;
@@ -28,9 +29,13 @@
 @property(nonatomic, readonly) DDSearchBar *searchBar;
 @property(nonatomic, readonly) NSString *searchTerm;
 
+@property(nonatomic, readonly) UIView *viewNoData;
+
 @property(nonatomic, retain) NSString *backButtonTitle;
 @property(nonatomic, assign) BOOL moveWithKeyboard;
 
 - (void)setupSearchBar;
+
+- (void)updateNoDataView;
 
 @end
