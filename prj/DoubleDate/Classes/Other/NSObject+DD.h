@@ -21,7 +21,6 @@
 #define DD_F_BOLD_TEXT(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:16 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 #define DD_F_PLACEHOLDER(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:13 textColor:[UIColor lightGrayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]]
 
-//#define DD_F_BUTTON(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:14 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor grayColor]]
 #define DD_F_BUTTON(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:12 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
 #define DD_F_BUTTON_LARGE(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:15 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor colorWithRed:156/255 green:20/255 blue:71/255 alpha:0.5]]
 
@@ -37,6 +36,8 @@
 // Start Michael's Stuff
 
 //#define DD_F_ICON_TABLE_CELL_LABEL(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor blackColor]]
+
+#define DD_F_NO_DATA_LABEL(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:18 textColor:[UIColor colorWithRed:17/255 green:17/255 blue:17/55 alpha:1.0] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.05]]
 
 #define DD_F_WHT_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]
 

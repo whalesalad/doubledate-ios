@@ -74,12 +74,13 @@
     //add no messages label
 #warning customize no messages label
     UILabel *labelNoData = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
-    labelNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 40);
+    labelNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 70);
     labelNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     labelNoData.numberOfLines = 2;
-    labelNoData.text = NSLocalizedString(@"Incoming messages for this\n date will appear here.", nil);
+    labelNoData.text = NSLocalizedString(@"You haven't received any\nincoming messages yet.", nil);
     labelNoData.textAlignment = NSTextAlignmentCenter;
     labelNoData.backgroundColor = [UIColor clearColor];
+    DD_F_NO_DATA_LABEL(labelNoData);
     [self.viewNoData addSubview:labelNoData];
 }
 
