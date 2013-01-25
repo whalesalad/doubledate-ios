@@ -11,8 +11,18 @@
 
 @implementation DDTextView
 
+@synthesize backgroundImageView = backgroundImageView_;
+
 - (void)initSelf
 {
+    //add background image view
+    [backgroundImageView_ removeFromSuperview];
+    [backgroundImageView_ release];
+    backgroundImageView_ = [[UIImageView alloc] init];
+    backgroundImageView_.backgroundColor = [UIColor clearColor];
+    backgroundImageView_.userInteractionEnabled = NO;
+    [self addSubview:backgroundImageView_];
+    
     //add text view
     [textView_ removeFromSuperview];
     [textView_ release];
@@ -72,6 +82,7 @@
     [super layoutSubviews];
     textField_.frame = CGRectMake(8, 9, self.frame.size.width-10, self.frame.size.height-8);
     textView_.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    backgroundImageView_.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)setFont:(UIFont *)font
@@ -119,6 +130,7 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [backgroundImageView_ release];
     [textView_ release];
     [textField_ release];
     [placeholder_ release];

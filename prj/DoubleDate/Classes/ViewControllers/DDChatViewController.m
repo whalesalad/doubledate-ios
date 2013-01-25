@@ -17,6 +17,8 @@
 #import "DDuserBubble.h"
 #import "DDAppDelegate+UserBubble.h"
 #import <RestKit/RKISO8601DateFormatter.h>
+#import "DDTools.h"
+#import "DDTextView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
@@ -52,6 +54,8 @@
 @synthesize labelUser2;
 @synthesize labelUser3;
 @synthesize labelUser4;
+
+@synthesize imageViewChatBarBackground;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -102,16 +106,30 @@
     self.labelUser3.backgroundColor = [UIColor clearColor];
     self.labelUser4.backgroundColor = [UIColor clearColor];
     
-//    start michael
-    UIImageView *upperTableGradient = [[UIImageView alloc] initWithImage:
-                                       [UIImage imageNamed:@"chat-scrollview-upper-gradient"]];
+    //set background for text view
+    self.textViewInput.backgroundColor = [UIColor clearColor];
+    self.textViewInput.textView.backgroundColor = [UIColor clearColor];
+    self.textViewInput.backgroundImageView.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-textfield.png"]];
     
-    [upperTableGradient setFrame:self.tableView.frame];
+    //set placeholder
+    self.textViewInput.placeholder = NSLocalizedString(@"Reply...", nil);
     
-    self.tableView.backgroundView = upperTableGradient;
-    self.tableView.backgroundView.contentMode = UIViewContentModeTopLeft;
-    [upperTableGradient release];
-//    end michael
+    //set background for chat bar
+    self.imageViewChatBarBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-chatbar.png"]];
+    
+    //customize send button
+    [self.buttonSend setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"button-send.png"]] forState:UIControlStateNormal];
+    
+////    start michael
+//    UIImageView *upperTableGradient = [[UIImageView alloc] initWithImage:
+//                                       [UIImage imageNamed:@"chat-scrollview-upper-gradient"]];
+//    
+//    [upperTableGradient setFrame:self.tableView.frame];
+//    
+//    self.tableView.backgroundView = upperTableGradient;
+//    self.tableView.backgroundView.contentMode = UIViewContentModeTopLeft;
+//    [upperTableGradient release];
+////    end michael
     
     //add users
     [shortUsers_ removeAllObjects];
@@ -228,6 +246,7 @@
     [labelUser2 release];
     [labelUser3 release];
     [labelUser4 release];
+    [imageViewChatBarBackground release];
     [super dealloc];
 }
 
@@ -310,12 +329,12 @@
 - (void)textViewTextDidChangeNotification:(NSNotification *)notification
 {
     //check sender
-    if ([notification object] != self.textViewInput)
+    if ([notification object] != self.textViewInput.textView)
         return;
     
     //save needed values
     CGSize sizeBefore = self.textViewInput.frame.size;
-    CGSize sizeAfter = self.textViewInput.contentSize;
+    CGSize sizeAfter = self.textViewInput.textView.contentSize;
     
     //save maximal value
     CGFloat maximalHeight = self.bottomBarView.frame.origin.y + self.bottomBarView.frame.size.height - (self.topBarView.frame.origin.y + self.topBarView.frame.size.height) + self.mainView.frame.origin.y + 38;
@@ -344,10 +363,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat heightOfVisibleTableView = self.mainView.frame.origin.y + self.mainView.frame.size.height - self.bottomBarView.frame.size.height;
-    CGFloat offsetFromBottom = self.tableView.contentSize.height - self.tableView.contentOffset.y - self.tableView.frame.size.height;
-    if (keyboardExist_ && offsetFromBottom > heightOfVisibleTableView)
-        [self.textViewInput resignFirstResponder];
+    if (keyboardExist_ && scrollView.dragging)
+        [self.textViewInput.textView resignFirstResponder];
 }
 
 #pragma mark -
