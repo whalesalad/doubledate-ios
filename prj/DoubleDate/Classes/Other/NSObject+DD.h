@@ -39,6 +39,8 @@
 
 #define DD_F_NO_DATA_LABEL(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:18 textColor:[UIColor colorWithRed:17/255 green:17/255 blue:17/55 alpha:1.0] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor whiteColor] colorWithAlphaComponent:0.05]]
 
+#define DD_F_CHAT_TIMESTAMP_LABEL(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:14 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.7]]
+
 #define DD_F_WHT_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:13 textColor:[UIColor whiteColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]
 
 #define DD_F_GRAY_HELV_13_BOLD_BLK_SHAD(_X_) [_X_ setFontOfName:@"HelveticaNeue" fontSize:13 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.9]]

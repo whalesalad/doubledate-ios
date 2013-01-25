@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C2EBBFD16B2312900FBBAD7 /* message-bubble-pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBF916B2312900FBBAD7 /* message-bubble-pink.png */; };
+		4C2EBBFE16B2312900FBBAD7 /* message-bubble-pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBFA16B2312900FBBAD7 /* message-bubble-pink@2x.png */; };
+		4C2EBBFF16B2312900FBBAD7 /* message-bubble-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBFB16B2312900FBBAD7 /* message-bubble-gray.png */; };
+		4C2EBC0016B2312900FBBAD7 /* message-bubble-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBFC16B2312900FBBAD7 /* message-bubble-gray@2x.png */; };
 		4C66950716A745F100A00B64 /* search-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6694FD16A745F100A00B64 /* search-background.png */; };
 		4C66950816A745F100A00B64 /* search-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6694FE16A745F100A00B64 /* search-background@2x.png */; };
 		4C66950916A745F100A00B64 /* search-cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6694FF16A745F100A00B64 /* search-cancel-button.png */; };
@@ -527,6 +531,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C2EBBF916B2312900FBBAD7 /* message-bubble-pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-pink.png"; sourceTree = "<group>"; };
+		4C2EBBFA16B2312900FBBAD7 /* message-bubble-pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-pink@2x.png"; sourceTree = "<group>"; };
+		4C2EBBFB16B2312900FBBAD7 /* message-bubble-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-gray.png"; sourceTree = "<group>"; };
+		4C2EBBFC16B2312900FBBAD7 /* message-bubble-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-gray@2x.png"; sourceTree = "<group>"; };
 		4C6694FD16A745F100A00B64 /* search-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-background.png"; sourceTree = "<group>"; };
 		4C6694FE16A745F100A00B64 /* search-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-background@2x.png"; sourceTree = "<group>"; };
 		4C6694FF16A745F100A00B64 /* search-cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-cancel-button.png"; sourceTree = "<group>"; };
@@ -1430,6 +1438,10 @@
 		965DAD8C16A7EE30005F8B25 /* chat-view */ = {
 			isa = PBXGroup;
 			children = (
+				4C2EBBF916B2312900FBBAD7 /* message-bubble-pink.png */,
+				4C2EBBFA16B2312900FBBAD7 /* message-bubble-pink@2x.png */,
+				4C2EBBFB16B2312900FBBAD7 /* message-bubble-gray.png */,
+				4C2EBBFC16B2312900FBBAD7 /* message-bubble-gray@2x.png */,
 				7089028616B05767009E490A /* no-incoming.png */,
 				7089028716B05767009E490A /* no-incoming@2x.png */,
 				965F8A1116A9482D00A8C576 /* message-bubble-blue.png */,
@@ -2460,6 +2472,10 @@
 				965F8A1816A9482D00A8C576 /* upper-blue-notification-count@2x.png in Resources */,
 				7089028816B05767009E490A /* no-incoming.png in Resources */,
 				7089028916B05767009E490A /* no-incoming@2x.png in Resources */,
+				4C2EBBFD16B2312900FBBAD7 /* message-bubble-pink.png in Resources */,
+				4C2EBBFE16B2312900FBBAD7 /* message-bubble-pink@2x.png in Resources */,
+				4C2EBBFF16B2312900FBBAD7 /* message-bubble-gray.png in Resources */,
+				4C2EBC0016B2312900FBBAD7 /* message-bubble-gray@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

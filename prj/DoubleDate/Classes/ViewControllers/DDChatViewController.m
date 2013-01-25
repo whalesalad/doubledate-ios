@@ -80,7 +80,9 @@
     UILabel *labelHeader = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 32)] autorelease];
     labelHeader.backgroundColor = [UIColor clearColor];
     labelHeader.textAlignment = NSTextAlignmentCenter;
-    labelHeader.textColor = [UIColor grayColor];
+    
+    DD_F_CHAT_TIMESTAMP_LABEL(labelHeader);
+    
     NSDate *date = [[[[RKISO8601DateFormatter alloc] init] autorelease] dateFromString:[self.engagement createdAt]];
     NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
@@ -97,6 +99,17 @@
     self.labelUser2.backgroundColor = [UIColor clearColor];
     self.labelUser3.backgroundColor = [UIColor clearColor];
     self.labelUser4.backgroundColor = [UIColor clearColor];
+    
+//    start michael
+    UIImageView *upperTableGradient = [[UIImageView alloc] initWithImage:
+                                       [UIImage imageNamed:@"chat-scrollview-upper-gradient"]];
+    
+    [upperTableGradient setFrame:self.tableView.frame];
+    
+    self.tableView.backgroundView = upperTableGradient;
+    self.tableView.backgroundView.contentMode = UIViewContentModeTopLeft;
+    [upperTableGradient release];
+//    end michael
     
     //add users
     [shortUsers_ removeAllObjects];
