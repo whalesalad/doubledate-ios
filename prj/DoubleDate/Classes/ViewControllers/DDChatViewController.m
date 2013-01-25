@@ -73,6 +73,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"%@ & %@", nil), self.engagement.user.firstName, self.engagement.wing.firstName];
+    
     //don't show layer under the status bar
     self.view.layer.masksToBounds = YES;
     
