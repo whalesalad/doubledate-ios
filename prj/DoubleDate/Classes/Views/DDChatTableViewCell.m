@@ -9,6 +9,7 @@
 #import "DDChatTableViewCell.h"
 #import "DDTools.h"
 #import "DDMessage.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDChatTableViewCell
 
@@ -37,7 +38,15 @@
     self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(imageBubble.size.height/2-4, imageBubble.size.width/2, imageBubble.size.height/2+4, imageBubble.size.width/2)];
     
     //unset text view background
+    self.labelName.backgroundColor = [UIColor clearColor];
+    self.labelTime.backgroundColor = [UIColor clearColor];
     self.textView.backgroundColor = [UIColor clearColor];
+    
+    self.textView.layer.shadowColor = [[UIColor whiteColor] CGColor];
+    self.textView.layer.shadowOffset = CGSizeMake(0, 1);
+    self.textView.layer.shadowOpacity = 0.3f;
+    self.textView.layer.shadowRadius = 0;
+    
 }
 
 + (CGFloat)heightForText:(NSString*)text
@@ -60,7 +69,7 @@
         self.textView.text = v.message;
         
         //set time
-        self.labelTime.text = v.createdAtAgo;
+        self.labelTime.text = [NSString stringWithFormat:@"%@ ago", v.createdAtAgo];
         
         //update frame
         CGFloat oldLabelTimeX = self.labelTime.frame.origin.x;
