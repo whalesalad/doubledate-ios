@@ -13,9 +13,11 @@
     UITextView *textView_;
     UITextField *textField_;
     NSString *placeholder_;
+    UIImageView *backgroundImageView_;
 }
 
 @property(nonatomic, readonly) UITextView *textView;
+@property(nonatomic, readonly) UIImageView *backgroundImageView;
 
 @property(nonatomic, retain) UIFont *font;
 @property(nonatomic, retain) NSString *text;
