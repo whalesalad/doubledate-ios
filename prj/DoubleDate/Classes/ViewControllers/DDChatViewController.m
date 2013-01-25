@@ -56,6 +56,9 @@
 @synthesize labelUser4;
 
 @synthesize imageViewChatBarBackground;
+@synthesize imageViewTextFieldBackground;
+
+@synthesize labelTextFieldPlaceholder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -107,18 +110,17 @@
     self.labelUser4.backgroundColor = [UIColor clearColor];
     
     //set background for text view
-    self.textViewInput.backgroundColor = [UIColor clearColor];
-    self.textViewInput.textView.backgroundColor = [UIColor clearColor];
-    self.textViewInput.backgroundImageView.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-textfield.png"]];
+    imageViewTextFieldBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-textfield.png"]];
     
     //set placeholder
-    self.textViewInput.placeholder = NSLocalizedString(@"Reply...", nil);
+    self.labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
     
     //set background for chat bar
     self.imageViewChatBarBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-chatbar.png"]];
     
     //customize send button
     [self.buttonSend setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"button-send.png"]] forState:UIControlStateNormal];
+    
     
 ////    start michael
 //    UIImageView *upperTableGradient = [[UIImageView alloc] initWithImage:
@@ -247,6 +249,8 @@
     [labelUser3 release];
     [labelUser4 release];
     [imageViewChatBarBackground release];
+    [imageViewTextFieldBackground release];
+    [labelTextFieldPlaceholder release];
     [super dealloc];
 }
 
@@ -328,13 +332,18 @@
 
 - (void)textViewTextDidChangeNotification:(NSNotification *)notification
 {
-    //check sender
-    if ([notification object] != self.textViewInput.textView)
+    //check senderf
+    if ([notification object] != self.textViewInput)
         return;
+    
+    //show/hide placeholder
+    self.labelTextFieldPlaceholder.hidden = [self.textViewInput.text length] > 0;
+    
+    NSLog(@"%f", self.textViewInput.contentSize.height);
     
     //save needed values
     CGSize sizeBefore = self.textViewInput.frame.size;
-    CGSize sizeAfter = self.textViewInput.textView.contentSize;
+    CGSize sizeAfter = self.textViewInput.contentSize;
     
     //save maximal value
     CGFloat maximalHeight = self.bottomBarView.frame.origin.y + self.bottomBarView.frame.size.height - (self.topBarView.frame.origin.y + self.topBarView.frame.size.height) + self.mainView.frame.origin.y + 38;
@@ -364,7 +373,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (keyboardExist_ && scrollView.dragging)
-        [self.textViewInput.textView resignFirstResponder];
+        [self.textViewInput resignFirstResponder];
 }
 
 #pragma mark -

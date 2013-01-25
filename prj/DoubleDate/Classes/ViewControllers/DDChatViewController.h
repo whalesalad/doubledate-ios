@@ -29,7 +29,7 @@
 @property(nonatomic, retain) IBOutlet UIView *mainView;
 @property(nonatomic, retain) IBOutlet UIView *topBarView;
 @property(nonatomic, retain) IBOutlet UIView *bottomBarView;
-@property(nonatomic, retain) IBOutlet DDTextView *textViewInput;
+@property(nonatomic, retain) IBOutlet UITextView *textViewInput;
 @property(nonatomic, retain) IBOutlet UIButton *buttonSend;
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
@@ -44,6 +44,9 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelUser4;
 
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewChatBarBackground;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewTextFieldBackground;
+
+@property(nonatomic, retain) IBOutlet UILabel *labelTextFieldPlaceholder;
 
 - (IBAction)sendTouched:(id)sender;
 
