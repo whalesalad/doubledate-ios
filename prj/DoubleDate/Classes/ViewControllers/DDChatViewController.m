@@ -59,6 +59,7 @@
 @synthesize imageViewTextFieldBackground;
 
 @synthesize labelTextFieldPlaceholder;
+@synthesize labelWarning;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,6 +109,9 @@
     self.labelUser2.backgroundColor = [UIColor clearColor];
     self.labelUser3.backgroundColor = [UIColor clearColor];
     self.labelUser4.backgroundColor = [UIColor clearColor];
+    
+    //don't show text out of the box
+    self.textViewInput.layer.masksToBounds = YES;
     
     //set background for text view
     imageViewTextFieldBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-textfield.png"]];
@@ -165,6 +169,13 @@
         requestUser.userId = shortUser.identifier;
         [self.apiController getUser:requestUser];
     }
+    
+    //align text view in a right way
+    self.textViewInput.text = @"";
+    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:self.textViewInput];
+    
+    //set warning
+    self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"You have %d days to chat!", nil), 10];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -251,6 +262,7 @@
     [imageViewChatBarBackground release];
     [imageViewTextFieldBackground release];
     [labelTextFieldPlaceholder release];
+    [labelWarning release];
     [super dealloc];
 }
 
@@ -338,15 +350,13 @@
     
     //show/hide placeholder
     self.labelTextFieldPlaceholder.hidden = [self.textViewInput.text length] > 0;
-    
-    NSLog(@"%f", self.textViewInput.contentSize.height);
-    
+        
     //save needed values
     CGSize sizeBefore = self.textViewInput.frame.size;
     CGSize sizeAfter = self.textViewInput.contentSize;
     
     //save maximal value
-    CGFloat maximalHeight = self.bottomBarView.frame.origin.y + self.bottomBarView.frame.size.height - (self.topBarView.frame.origin.y + self.topBarView.frame.size.height) + self.mainView.frame.origin.y + 38;
+    CGFloat maximalHeight = self.bottomBarView.frame.origin.y + self.bottomBarView.frame.size.height - (self.topBarView.frame.origin.y + self.topBarView.frame.size.height) + self.mainView.frame.origin.y + 40;
     
     //check for maximal size
     sizeAfter = CGSizeMake(sizeAfter.width, MIN(sizeAfter.height, maximalHeight));
@@ -357,6 +367,9 @@
     //change frame
     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x - sizeChange.width, self.tableView.frame.origin.y - sizeChange.height, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height);
     self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x - sizeChange.width, self.bottomBarView.frame.origin.y - sizeChange.height, bottomBarView.frame.size.width + sizeChange.width, bottomBarView.frame.size.height + sizeChange.height);
+    
+    //apply frame to text view background
+    self.imageViewTextFieldBackground.frame = self.textViewInput.frame;
 }
 
 #pragma mark -
@@ -395,7 +408,16 @@
     {
         tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
     }
-    tableViewCell.message = (DDMessage*)[messages_ objectAtIndex:indexPath.row];
+    
+    //save message
+    DDMessage *message = (DDMessage*)[messages_ objectAtIndex:indexPath.row];
+    
+    //apply message
+    tableViewCell.message = message;
+
+    //apply style
+    tableViewCell.style = ([[message userId] intValue] == [self.doubleDate.wing.identifier intValue]) || ([[message userId] intValue] == [self.doubleDate.user.identifier intValue]);
+    
     return tableViewCell;
 }
 
@@ -425,6 +447,9 @@
     
     //reload the table
     [self.tableView reloadData];
+    
+    //scroll top top
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[messages_ count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)createMessageDidFailedWithError:(NSError*)error

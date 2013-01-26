@@ -10,7 +10,17 @@
 
 @class DDMessage;
 
+typedef enum
+{
+    DDChatTableViewCellStyleMe,
+    DDChatTableViewCellStyleMeNotMe
+} DDChatTableViewCellStyle;
+
 @interface DDChatTableViewCell : DDTableViewCell
+{
+    CGFloat rightPositionOfLastLabel_;
+    CGFloat labelsGap_;
+}
 
 @property(nonatomic, retain) IBOutlet UITextView *textView;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBubble;
@@ -18,6 +28,8 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelName;
 
 @property(nonatomic, retain) DDMessage *message;
+
+@property(nonatomic, assign) DDChatTableViewCellStyle style;
 
 + (CGFloat)heightForText:(NSString*)text;
 

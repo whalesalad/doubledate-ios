@@ -20,6 +20,8 @@
 
 @synthesize message;
 
+@synthesize style;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -33,10 +35,6 @@
 {
     [super awakeFromNib];
     
-    //set background view
-    UIImage *imageBubble = self.imageViewBubble.image;
-    self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(imageBubble.size.height/2-4, imageBubble.size.width/2, imageBubble.size.height/2+4, imageBubble.size.width/2)];
-    
     //unset text view background
     self.labelName.backgroundColor = [UIColor clearColor];
     self.labelTime.backgroundColor = [UIColor clearColor];
@@ -47,6 +45,9 @@
     self.textView.layer.shadowOpacity = 0.3f;
     self.textView.layer.shadowRadius = 0;
     
+    //save initial position
+    rightPositionOfLastLabel_ = self.labelTime.frame.origin.x + self.labelTime.frame.size.width;
+    labelsGap_ = self.labelTime.frame.origin.x - self.labelName.frame.origin.x - self.labelName.frame.size.width;
 }
 
 + (CGFloat)heightForText:(NSString*)text
@@ -54,6 +55,31 @@
     DDChatTableViewCell *cell = (DDChatTableViewCell*)[[[UINib nibWithNibName:@"DDChatTableViewCell" bundle:nil] instantiateWithOwner:nil options:nil] objectAtIndex:0];
     cell.textView.text = text;
     return cell.frame.size.height - cell.textView.frame.size.height + cell.textView.contentSize.height;
+}
+
+- (void)applyLabelsAlignment
+{
+    //check style
+    if (self.style == DDChatTableViewCellStyleMe)
+    {
+        //update frame
+        CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
+        self.labelTime.frame = CGRectMake(rightPositionOfLastLabel_ - newLabelTimeSize.width, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
+        
+        //update frame
+        CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
+        self.labelName.frame = CGRectMake(self.labelTime.frame.origin.x - labelsGap_ - newLabelNameSize.width, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
+    }
+    else
+    {
+        //update frame
+        CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
+        self.labelName.frame = CGRectMake(320 - rightPositionOfLastLabel_, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
+        
+        //update frame
+        CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
+        self.labelTime.frame = CGRectMake(320 - rightPositionOfLastLabel_ + newLabelNameSize.width + labelsGap_, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
+    }
 }
 
 - (void)setMessage:(DDMessage *)v
@@ -71,18 +97,36 @@
         //set time
         self.labelTime.text = [NSString stringWithFormat:@"%@ ago", v.createdAtAgo];
         
-        //update frame
-        CGFloat oldLabelTimeX = self.labelTime.frame.origin.x;
-        CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
-        self.labelTime.frame = CGRectMake(self.labelTime.frame.origin.x - newLabelTimeSize.width + self.labelTime.frame.size.width, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
-        
         //set name
         self.labelName.text = v.firstName;
         
-        //update frame
-        CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
-        CGFloat labelTimeOffset = oldLabelTimeX - self.labelTime.frame.origin.x;
-        self.labelName.frame = CGRectMake(self.labelName.frame.origin.x - newLabelNameSize.width + self.labelName.frame.size.width - labelTimeOffset, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
+        //apply labels alignment
+        [self applyLabelsAlignment];
+    }
+}
+
+- (void)setStyle:(DDChatTableViewCellStyle)v
+{
+    //set style
+    style = v;
+    
+    //update bubble
+    UIImage *imageBubble = [UIImage imageNamed:(v==DDChatTableViewCellStyleMe)?@"message-bubble-blue.png":@"message-bubble-gray.png"];
+    self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(imageBubble.size.height/2-4, imageBubble.size.width/2, imageBubble.size.height/2+4, imageBubble.size.width/2)];
+    
+    //apply needed alignment
+    [self applyLabelsAlignment];
+    
+#warning apply style of text labels here
+    if (v == DDChatTableViewCellStyleMe)
+    {
+        self.labelName.textColor = [UIColor blueColor];
+        self.labelTime.textColor = [UIColor blueColor];
+    }
+    else
+    {
+        self.labelName.textColor = [UIColor grayColor];
+        self.labelTime.textColor = [UIColor grayColor];
     }
 }
 

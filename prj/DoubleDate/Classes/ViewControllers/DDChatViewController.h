@@ -48,6 +48,8 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelTextFieldPlaceholder;
 
+@property(nonatomic, retain) IBOutlet UILabel *labelWarning;
+
 - (IBAction)sendTouched:(id)sender;
 
 - (IBAction)user1Touched:(id)sender;
