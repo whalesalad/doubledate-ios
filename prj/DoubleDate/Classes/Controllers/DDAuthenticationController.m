@@ -12,6 +12,7 @@
 #import "SBJson.h"
 #import "DDTools.h"
 #import "DDRequestsController.h"
+#import "DDAppDelegate.h"
 
 NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAuthenticationControllerAuthenticateDidSucceesNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
@@ -100,6 +101,28 @@ static DDAuthenticationController *_sharedInstance = nil;
     [controller_ startRequest:request];
 }
 
+- (void)heartbeat:(id)sender
+{
+    //save device token
+    NSString *deviceToken = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] deviceToken];
+    
+    //check device toke
+    if (deviceToken)
+    {
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me/device"];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodPUT;
+        request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:[NSDictionary dictionaryWithObject:deviceToken forKey:@"device_token"]];
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
+}
+
 - (id)init
 {
     if ((self = [super init]))
@@ -132,6 +155,12 @@ static DDAuthenticationController *_sharedInstance = nil;
         NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
         [[DDAuthenticationController sharedController] setUserId:[dictionary objectForKey:@"user_id"]];
         [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
+        
+        //start heartbeat
+        [self heartbeat:nil];
+        [timerHeartbeat_ invalidate];
+#warning device token interval
+        timerHeartbeat_ = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(heartbeat:) userInfo:nil repeats:YES];
         
         //set delegate
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];

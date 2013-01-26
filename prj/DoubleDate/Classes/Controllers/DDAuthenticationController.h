@@ -28,6 +28,7 @@ extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
 @interface DDAuthenticationController : NSObject
 {
     DDRequestsController *controller_;
+    NSTimer *timerHeartbeat_;
 }
 
 + (NSString*)token;

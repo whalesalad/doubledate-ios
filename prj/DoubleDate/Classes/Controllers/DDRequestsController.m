@@ -23,6 +23,15 @@
 @synthesize delegate;
 @synthesize requests=requests_;
 
+static DDRequestsController *_sharedDummyInstance = nil;
+
++ (DDRequestsController*)sharedDummyController
+{
+    if (!_sharedDummyInstance)
+        _sharedDummyInstance = [[DDRequestsController alloc] init];
+    return _sharedDummyInstance;
+}
+
 - (id)init
 {
     if ((self = [super init]))

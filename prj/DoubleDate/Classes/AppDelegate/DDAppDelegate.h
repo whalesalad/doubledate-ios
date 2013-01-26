@@ -16,4 +16,6 @@
 
 @property (retain, nonatomic) UIView *userPopover;
 
+@property (retain, nonatomic) NSString *deviceToken;
+
 @end
