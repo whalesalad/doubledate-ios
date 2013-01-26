@@ -12,8 +12,8 @@
 
 typedef enum
 {
-    DDChatTableViewCellStyleMe,
-    DDChatTableViewCellStyleMeNotMe
+    DDChatTableViewCellStyleMeNotMe,
+    DDChatTableViewCellStyleMe
 } DDChatTableViewCellStyle;
 
 @interface DDChatTableViewCell : DDTableViewCell

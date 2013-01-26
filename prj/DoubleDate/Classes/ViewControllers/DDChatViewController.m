@@ -125,18 +125,6 @@
     //customize send button
     [self.buttonSend setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"button-send.png"]] forState:UIControlStateNormal];
     
-    
-////    start michael
-//    UIImageView *upperTableGradient = [[UIImageView alloc] initWithImage:
-//                                       [UIImage imageNamed:@"chat-scrollview-upper-gradient"]];
-//    
-//    [upperTableGradient setFrame:self.tableView.frame];
-//    
-//    self.tableView.backgroundView = upperTableGradient;
-//    self.tableView.backgroundView.contentMode = UIViewContentModeTopLeft;
-//    [upperTableGradient release];
-////    end michael
-    
     //add users
     [shortUsers_ removeAllObjects];
     [shortUsers_ addObject:self.doubleDate.user];
@@ -365,7 +353,8 @@
     CGSize sizeChange = CGSizeMake(sizeAfter.width - sizeBefore.width, sizeAfter.height - sizeBefore.height);
     
     //change frame
-    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x - sizeChange.width, self.tableView.frame.origin.y - sizeChange.height, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height);
+    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height - sizeChange.height);
+    
     self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x - sizeChange.width, self.bottomBarView.frame.origin.y - sizeChange.height, bottomBarView.frame.size.width + sizeChange.width, bottomBarView.frame.size.height + sizeChange.height);
     
     //apply frame to text view background

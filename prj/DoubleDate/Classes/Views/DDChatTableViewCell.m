@@ -117,14 +117,17 @@
     //apply needed alignment
     [self applyLabelsAlignment];
     
-#warning apply style of text labels here
+    
+    UIColor *softBlueTextColor = [UIColor colorWithRed:153.0f/255.0f green:212.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+    
     if (v == DDChatTableViewCellStyleMe)
     {
-        self.labelName.textColor = [UIColor blueColor];
-        self.labelTime.textColor = [UIColor blueColor];
+        self.labelName.textColor = softBlueTextColor;
+        self.labelTime.textColor = softBlueTextColor;
     }
     else
     {
+        self.textView.textColor = [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
         self.labelName.textColor = [UIColor grayColor];
         self.labelTime.textColor = [UIColor grayColor];
     }
