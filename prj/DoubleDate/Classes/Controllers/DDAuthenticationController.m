@@ -13,6 +13,7 @@
 #import "DDTools.h"
 #import "DDRequestsController.h"
 #import "DDAppDelegate.h"
+#import "DDAppDelegate+APNS.h"
 
 NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAuthenticationControllerAuthenticateDidSucceesNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
@@ -156,11 +157,8 @@ static DDAuthenticationController *_sharedInstance = nil;
         [[DDAuthenticationController sharedController] setUserId:[dictionary objectForKey:@"user_id"]];
         [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
         
-        //start heartbeat
-        [self heartbeat:nil];
-        [timerHeartbeat_ invalidate];
-#warning device token interval
-        timerHeartbeat_ = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(heartbeat:) userInfo:nil repeats:YES];
+        //register for remote notifications
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] registerForRemoteNotifications];
         
         //set delegate
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];

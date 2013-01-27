@@ -9,6 +9,7 @@
 #import "DDAppDelegate.h"
 #import "DDWelcomeViewController.h"
 #import "DDChatViewController.h"
+#import "DDAppDelegate+APNS.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation DDAppDelegate
@@ -37,9 +38,6 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     
-    //request device toke
-    [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
-    
     return YES;
 }
 
@@ -58,6 +56,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[FBSession activeSession] handleDidBecomeActive];
+    [self sendMyDevice];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -67,23 +66,6 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
     return [[FBSession activeSession] handleOpenURL:url];
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)token
-{
-	self.deviceToken = [[[token description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-	NSLog(@"Error while receiving device token: %@", [error localizedDescription]);
-	self.deviceToken = nil;
-    
-#warning test
-    NSMutableString *t = [NSMutableString string];
-    for (int i = 0; i < 40; i++)
-        [t appendFormat:@"%d",(rand()%2?1:2)];
-    self.deviceToken = t;
 }
 
 @end
