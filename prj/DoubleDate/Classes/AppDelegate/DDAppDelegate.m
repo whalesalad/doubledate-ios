@@ -38,7 +38,7 @@
     [self.window makeKeyAndVisible];
     
     //request device toke
-    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeNone];
+    [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
     
     return YES;
 }
