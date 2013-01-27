@@ -112,7 +112,9 @@
     
     //update bubble
     UIImage *imageBubble = [UIImage imageNamed:(v==DDChatTableViewCellStyleMe)?@"message-bubble-blue.png":@"message-bubble-gray.png"];
-    self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(imageBubble.size.height/2-4, imageBubble.size.width/2, imageBubble.size.height/2+4, imageBubble.size.width/2)];
+//    self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(imageBubble.size.height/2-4, imageBubble.size.width/2, imageBubble.size.height/2+4, imageBubble.size.width/2)];
+
+    self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(14, imageBubble.size.width/2, 26, imageBubble.size.width/2)];
     
     //apply needed alignment
     [self applyLabelsAlignment];

@@ -116,6 +116,7 @@
     
     //don't show text out of the box
     self.textViewInput.layer.masksToBounds = YES;
+    self.textViewInput.contentInset = UIEdgeInsetsZero;
     
     //set background for text view
     imageViewTextFieldBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-textfield.png"]];
