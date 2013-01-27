@@ -62,6 +62,7 @@
 		704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */; };
 		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
+		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
 		7088936F164C49C8000D3A00 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889333164C49C8000D3A00 /* 37x-Checkmark.png */; };
 		70889370164C49C8000D3A00 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889334164C49C8000D3A00 /* 37x-Checkmark@2x.png */; };
 		70889371164C49C8000D3A00 /* back-btn-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889335164C49C8000D3A00 /* back-btn-highlight.png */; };
@@ -593,6 +594,8 @@
 		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
+		7086D9F016B54E3D003310D1 /* DDAppDelegate+APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+APNS.h"; sourceTree = "<group>"; };
+		7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+APNS.m"; sourceTree = "<group>"; };
 		70889333164C49C8000D3A00 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		70889334164C49C8000D3A00 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		70889335164C49C8000D3A00 /* back-btn-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-btn-highlight.png"; sourceTree = "<group>"; };
@@ -1641,6 +1644,8 @@
 		96E7F1AA15F738CA00200E1F /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				7086D9F016B54E3D003310D1 /* DDAppDelegate+APNS.h */,
+				7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */,
 				708957DC16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.h */,
 				708957DD16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m */,
 				96E7F1AB15F738CA00200E1F /* DDAppDelegate.h */,
@@ -2569,6 +2574,7 @@
 				965DADAC16A7EE84005F8B25 /* DDChatViewController.m in Sources */,
 				965F8A0E16A9417900A8C576 /* DDChatTableViewCell.m in Sources */,
 				708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */,
+				7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
