@@ -11,7 +11,7 @@
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
 #import <RestKit/RestKit.h>
-#import <SBJson/SBJson.h>
+#import <SBJson.h>
 
 @implementation DDAppDelegate (APNS)
 
