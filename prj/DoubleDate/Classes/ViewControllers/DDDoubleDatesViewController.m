@@ -184,8 +184,8 @@ typedef enum
     [sortedRet sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         assert([obj1 isKindOfClass:[DDDoubleDate class]]);
         assert([obj2 isKindOfClass:[DDDoubleDate class]]);
-        NSDate *date1 = [DDTools dateFromString:[(DDDoubleDate*)obj1 updatedAt]];
-        NSDate *date2 = [DDTools dateFromString:[(DDDoubleDate*)obj2 updatedAt]];
+        NSDate *date1 = [(DDDoubleDate*)obj1 updatedAt];
+        NSDate *date2 = [(DDDoubleDate*)obj2 updatedAt];
         return [date2 compare:date1];
     }];
     

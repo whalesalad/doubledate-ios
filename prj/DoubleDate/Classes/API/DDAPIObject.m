@@ -8,6 +8,7 @@
 
 #import "DDAPIObject.h"
 #import "SBJson.h"
+#import "DDTools.h"
 
 @implementation DDAPIObject
 
@@ -55,6 +56,15 @@
 {
     if ([object isKindOfClass:[NSNumber class]])
         return [[object copy] autorelease];
+    return nil;
+}
+
++ (NSDate*)dateForObject:(id)object
+{
+    if ([object isKindOfClass:[NSDate class]])
+        return [[object retain] autorelease];
+    else if ([object isKindOfClass:[NSString class]])
+        return [DDTools dateFromString:object];
     return nil;
 }
 

@@ -20,6 +20,7 @@
 + (NSDictionary*)dictionaryForObject:(id)object;
 + (NSArray*)arrayForObject:(id)object;
 + (NSNumber*)numberForObject:(id)object;
++ (NSDate*)dateForObject:(id)object;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 
