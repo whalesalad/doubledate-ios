@@ -194,7 +194,9 @@ typedef enum
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section
 {
-    if (mode_ == DDDoubleDatesViewControllerModeAll)
+    return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterNone];
+    
+    /*if (mode_ == DDDoubleDatesViewControllerModeAll)
         return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterNone];
     else if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
@@ -212,7 +214,7 @@ typedef enum
                 break;
         }
     }
-    return nil;
+    return nil;*/
 }
 
 - (void)onDataRefreshed
@@ -323,9 +325,9 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-    UIView *headerView = [self tableView:aTableView viewForHeaderInSection:section];
-    if (headerView)
-        return headerView.frame.size.height;
+//    UIView *headerView = [self tableView:aTableView viewForHeaderInSection:section];
+//    if (headerView)
+//        return headerView.frame.size.height;
     return 0;
 }
 
@@ -336,25 +338,25 @@ typedef enum
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
-    if ([self tableView:aTableView numberOfRowsInSection:section] > 0)
-    {
-        if (mode_ == DDDoubleDatesViewControllerModeMine)
-        {
-            switch (section) {
-                case 0:
-                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I've Created", nil) detailedText:nil];
-                    break;
-                case 1:
-                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm a Wing", nil) detailedText:nil];
-                    break;
-                case 2:
-                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm Attending", nil) detailedText:nil];
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+//    if ([self tableView:aTableView numberOfRowsInSection:section] > 0)
+//    {
+//        if (mode_ == DDDoubleDatesViewControllerModeMine)
+//        {
+//            switch (section) {
+//                case 0:
+//                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I've Created", nil) detailedText:nil];
+//                    break;
+//                case 1:
+//                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm a Wing", nil) detailedText:nil];
+//                    break;
+//                case 2:
+//                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm Attending", nil) detailedText:nil];
+//                    break;
+//                default:
+//                    break;
+//            }
+//        }
+//    }
     return nil;
 }
 
@@ -393,8 +395,8 @@ typedef enum
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (mode_ == DDDoubleDatesViewControllerModeMine)
-        return 3;
+//    if (mode_ == DDDoubleDatesViewControllerModeMine)
+//        return 3;
     return 1;
 }
 
