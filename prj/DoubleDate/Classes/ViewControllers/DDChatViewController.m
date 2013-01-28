@@ -264,6 +264,25 @@
 
 - (IBAction)sendTouched:(id)sender
 {
+    //check if you are the owner of doubledate
+    if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
+        [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
+    {
+        //check if we need to unlock the engagement
+        if ([engagement.status isEqualToString:DDEngagementStatusLocked])
+        {
+            //set format
+            NSString *format = NSLocalizedString(@"It costs %d coins to start the conversation with %@ and %@.", nil);
+            
+            //create alert view
+            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, kUnlockCost, [engagement.user.firstName capitalizedString], [engagement.wing.firstName capitalizedString]] delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Okay, Send!", nil), nil] autorelease];
+            alert.tag = kTagUnlockAlert;
+            [alert show];
+            
+            return;
+        }
+    }
+    
     //send message
     if ([self.textViewInput.text length])
     {
@@ -334,30 +353,6 @@
 
 #pragma mark -
 #pragma mark UITextViewDelegate
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    //check if you are the owner of doubledate
-    if ([[DDAuthenticationController userId] intValue] == [self.doubleDate.user.identifier intValue] ||
-        [[DDAuthenticationController userId] intValue] == [self.doubleDate.wing.identifier intValue])
-    {
-        //check if we need to unlock the engagement
-        if ([engagement.status isEqualToString:DDEngagementStatusLocked])
-        {
-            //set format
-            NSString *format = NSLocalizedString(@"It costs %d coins to start the conversation with %@ and %@.", nil);
-            
-            //create alert view
-            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, kUnlockCost, [engagement.user.firstName capitalizedString], [engagement.wing.firstName capitalizedString]] delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Okay, Send!", nil), nil] autorelease];
-            alert.tag = kTagUnlockAlert;
-            [alert show];
-            
-            return NO;
-        }
-    }
-    
-    return YES;
-}
 
 - (void)textViewTextDidChangeNotification:(NSNotification *)notification
 {
@@ -493,6 +488,9 @@
     
     //update obejct
     self.engagement = e;
+    
+    //replay send button
+    [self sendTouched:nil];
 }
 
 - (void)unlockEngagementDidFailedWithError:(NSError*)error
