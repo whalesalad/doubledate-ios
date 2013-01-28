@@ -42,6 +42,7 @@ typedef enum
 - (void)switchToNeededMode;
 - (void)switchToMode:(DDDoubleDateViewControllerMode)mode;
 - (void)updateEngagementsTab;
+- (void)updateUnreadViewWithNumber:(NSInteger)num;
 
 @property(nonatomic, retain) DDUser *user;
 @property(nonatomic, retain) DDUser *wing;
@@ -49,6 +50,8 @@ typedef enum
 @property(nonatomic, retain) UIViewController *rightViewController;
 
 @property(nonatomic, retain) UIView *popover;
+
+@property(nonatomic, retain) UIView *badgeView;
 
 @end
 
@@ -60,6 +63,8 @@ typedef enum
 @synthesize rightViewController;
 
 @synthesize popover;
+
+@synthesize badgeView;
 
 @synthesize doubleDate;
 
@@ -196,6 +201,7 @@ typedef enum
     [doubleDate release];
     [rightViewController release];
     [popover release];
+    [badgeView release];
     [scrollView release];
     [bottomView release];
     [imageViewLeft release];
@@ -261,10 +267,12 @@ typedef enum
                 [self.rightViewController.view removeFromSuperview];
                 self.rightViewController = nil;
                 
+                //unset unread messages count
+                self.doubleDate.unreadCount = [NSNumber numberWithInt:0];
+                
                 //create view controller
                 self.rightViewController = [[[DDEngagementsViewController alloc] init] autorelease];
                 [(DDEngagementsViewController*)self.rightViewController setDoubleDate:self.doubleDate];
-//                [self.rightViewController viewDidLoad];
                 self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
                 [(DDEngagementsViewController*)self.rightViewController setWeakParentViewController:self];
                 [self.rightView addSubview:self.rightViewController.view];
@@ -283,16 +291,21 @@ typedef enum
                 assert([engagements_ count] == 1);
                 DDEngagement *engagement = [engagements_ lastObject];
                 
+                //unset unread messages count
+                engagement.unreadCount = [NSNumber numberWithInt:0];
+                
                 //add second tab
                 self.rightViewController = [[[DDChatViewController alloc] init] autorelease];
                 [(DDChatViewController*)self.rightViewController setDoubleDate:self.doubleDate];
                 [(DDChatViewController*)self.rightViewController setEngagement:engagement];
                 self.rightViewController.view.frame = CGRectMake(0, 0, self.rightView.frame.size.width, self.rightView.frame.size.height);
-//                [self.rightViewController viewDidLoad];
                 [(DDChatViewController*)self.rightViewController setWeakParentViewController:self];
                 [self.rightView addSubview:self.rightViewController.view];
             }
         }
+        
+        //hide unread badge 
+        [self updateUnreadViewWithNumber:0];
     }
     
     //update visibility
@@ -409,12 +422,59 @@ typedef enum
 
 - (void)updateEngagementsTab
 {
+    //check title
     if ([self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
     {
+        //update mode
         if (lastMode_ == DDDoubleDateViewControllerModeChat)
             [(UISegmentedControl*)self.navigationItem.titleView setEnabled:[engagements_ count]>0 forSegmentAtIndex:1];
         else
             [(UISegmentedControl*)self.navigationItem.titleView setEnabled:YES forSegmentAtIndex:1];
+        
+        //update badge
+        if (lastMode_ == DDDoubleDateViewControllerModeIncoming)
+            [self updateUnreadViewWithNumber:[self.doubleDate.unreadCount intValue]];
+        else if (lastMode_ == DDDoubleDateViewControllerModeChat)
+        {
+            DDEngagement *engagement = [engagements_ lastObject];
+            [self updateUnreadViewWithNumber:[engagement.unreadCount intValue]];
+        }
+        else
+            [self updateUnreadViewWithNumber:0];
+    }
+}
+
+- (void)updateUnreadViewWithNumber:(NSInteger)num
+{
+    //unset previous one
+    [self.badgeView removeFromSuperview];
+    self.badgeView = nil;
+    
+    //check the number
+    if (num == 0)
+        return;
+    
+    //check title
+    if ([self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
+    {
+        //self segmented control
+        UISegmentedControl *segmentedControl = (UISegmentedControl*)self.navigationItem.titleView;
+        
+        //add badge
+        self.badgeView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-blue-notification-indicator.png"]] autorelease];
+        self.badgeView.center = CGPointMake(segmentedControl.frame.size.width-self.badgeView.frame.size.width/5, self.badgeView.frame.size.height/5);
+        [segmentedControl addSubview:self.badgeView];
+        
+        //add label
+#warning customize incoming messages unread badge
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        label.text = [NSString stringWithFormat:@"%d", num];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.font = [UIFont boldSystemFontOfSize:11];
+        [label sizeToFit];
+        label.center = CGPointMake(self.badgeView.frame.size.width/2, self.badgeView.frame.size.height/2);
+        [self.badgeView addSubview:label];
     }
 }
 
