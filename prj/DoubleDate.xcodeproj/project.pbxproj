@@ -121,6 +121,8 @@
 		708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 708957DD16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
+		708AEB6D16B718B90097E75C /* nav-blue-notification-indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 708AEB6B16B718B90097E75C /* nav-blue-notification-indicator.png */; };
+		708AEB6E16B718B90097E75C /* nav-blue-notification-indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708AEB6C16B718B90097E75C /* nav-blue-notification-indicator@2x.png */; };
 		708C09E51651922D00A40FD9 /* NSObject+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 708C09E41651922D00A40FD9 /* NSObject+DD.m */; };
 		708C09FE1651A26000A40FD9 /* large-button-down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09E61651A26000A40FD9 /* large-button-down-arrow.png */; };
 		708C09FF1651A26000A40FD9 /* large-button-down-arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708C09E71651A26000A40FD9 /* large-button-down-arrow@2x.png */; };
@@ -660,6 +662,8 @@
 		708AB15A1608FC50009817FC /* DDInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterest.m; sourceTree = "<group>"; };
 		708AB15C160904CA009817FC /* DDLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationController.h; sourceTree = "<group>"; };
 		708AB15D160904CA009817FC /* DDLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationController.m; sourceTree = "<group>"; };
+		708AEB6B16B718B90097E75C /* nav-blue-notification-indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-blue-notification-indicator.png"; sourceTree = "<group>"; };
+		708AEB6C16B718B90097E75C /* nav-blue-notification-indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-blue-notification-indicator@2x.png"; sourceTree = "<group>"; };
 		708C09E31651922D00A40FD9 /* NSObject+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DD.h"; sourceTree = "<group>"; };
 		708C09E41651922D00A40FD9 /* NSObject+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DD.m"; sourceTree = "<group>"; };
 		708C09E61651A26000A40FD9 /* large-button-down-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-button-down-arrow.png"; sourceTree = "<group>"; };
@@ -1871,6 +1875,8 @@
 		96EE8450161493B300AE6EC1 /* general */ = {
 			isa = PBXGroup;
 			children = (
+				708AEB6B16B718B90097E75C /* nav-blue-notification-indicator.png */,
+				708AEB6C16B718B90097E75C /* nav-blue-notification-indicator@2x.png */,
 				4C8D9166169F913700E59BF9 /* tableview-header-bg.png */,
 				4C8D9167169F913700E59BF9 /* tableview-header-bg@2x.png */,
 				70FFEE73166EB54400F1804E /* dd-tableview-cell-single.png */,
@@ -2499,6 +2505,8 @@
 				4C2EBBFE16B2312900FBBAD7 /* message-bubble-pink@2x.png in Resources */,
 				4C2EBBFF16B2312900FBBAD7 /* message-bubble-gray.png in Resources */,
 				4C2EBC0016B2312900FBBAD7 /* message-bubble-gray@2x.png in Resources */,
+				708AEB6D16B718B90097E75C /* nav-blue-notification-indicator.png in Resources */,
+				708AEB6E16B718B90097E75C /* nav-blue-notification-indicator@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
