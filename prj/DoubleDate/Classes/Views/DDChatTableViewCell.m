@@ -53,8 +53,9 @@
 + (CGFloat)heightForText:(NSString*)text
 {
     DDChatTableViewCell *cell = (DDChatTableViewCell*)[[[UINib nibWithNibName:@"DDChatTableViewCell" bundle:nil] instantiateWithOwner:nil options:nil] objectAtIndex:0];
+    CGFloat minHeight = cell.frame.size.height;
     cell.textView.text = text;
-    return cell.frame.size.height - cell.textView.frame.size.height + cell.textView.contentSize.height;
+    return MAX(cell.frame.size.height - cell.textView.frame.size.height + cell.textView.contentSize.height + cell.textView.contentInset.top + cell.textView.contentInset.bottom, minHeight);
 }
 
 - (void)applyLabelsAlignment
