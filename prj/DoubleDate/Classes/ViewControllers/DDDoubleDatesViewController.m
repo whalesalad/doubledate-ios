@@ -21,6 +21,7 @@
 #import "DDTableViewController+Refresh.h"
 #import "DDDoubleDateViewController.h"
 #import "DDObjectsController.h"
+#import "DDTools.h"
 
 typedef enum
 {
@@ -141,6 +142,8 @@ typedef enum
 - (NSArray*)filteredDoubleDates:(NSArray*)doubleDates filter:(DDDoubleDatesViewControllerFilter)filter
 {
     NSMutableArray *ret = [NSMutableArray array];
+    
+    //filter doubledates
     for (DDDoubleDate *dd in doubleDates)
     {
         //check search condition
@@ -175,7 +178,18 @@ typedef enum
         if (existInSearch && existInFilter)
             [ret addObject:dd];
     }
-    return ret;
+    
+    //arrange by updated at flag
+    NSMutableArray *sortedRet = [NSMutableArray arrayWithArray:ret];
+    [sortedRet sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        assert([obj1 isKindOfClass:[DDDoubleDate class]]);
+        assert([obj2 isKindOfClass:[DDDoubleDate class]]);
+        NSDate *date1 = [DDTools dateFromString:[(DDDoubleDate*)obj1 updatedAt]];
+        NSDate *date2 = [DDTools dateFromString:[(DDDoubleDate*)obj2 updatedAt]];
+        return [date2 compare:date1];
+    }];
+    
+    return sortedRet;
 }
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section

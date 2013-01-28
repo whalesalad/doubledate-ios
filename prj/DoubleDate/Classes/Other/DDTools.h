@@ -38,4 +38,6 @@ typedef enum
 
 + (BOOL)isiPhone5Device;
 
++ (NSDate*)dateFromString:(NSString*)string;
+
 @end

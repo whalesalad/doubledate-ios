@@ -9,6 +9,7 @@
 #import "DDTools.h"
 #import "SBJson.h"
 #import <QuartzCore/QuartzCore.h>
+#import <RestKit/RKISO8601DateFormatter.h>
 
 //#define API_URL @"http://localhost:3000"
 #define API_URL @"http://api-2.dbld8.com"
@@ -110,6 +111,11 @@
     if ([[UIScreen mainScreen] respondsToSelector: @selector(scale)] && [[UIScreen mainScreen] bounds].size.height * [UIScreen mainScreen].scale == 1136)
         return YES;
     return NO;
+}
+
++ (NSDate*)dateFromString:(NSString*)string
+{
+    return [[[[RKISO8601DateFormatter alloc] init] autorelease] dateFromString:string];
 }
 
 @end

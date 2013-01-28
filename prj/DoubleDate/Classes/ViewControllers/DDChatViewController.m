@@ -16,7 +16,6 @@
 #import "DDUser.h"
 #import "DDuserBubble.h"
 #import "DDAppDelegate+UserBubble.h"
-#import <RestKit/RKISO8601DateFormatter.h>
 #import "DDTools.h"
 #import "DDTextView.h"
 #import "DDAuthenticationController.h"
@@ -98,7 +97,7 @@
     
     DD_F_CHAT_TIMESTAMP_LABEL(labelHeader);
     
-    NSDate *date = [[[[RKISO8601DateFormatter alloc] init] autorelease] dateFromString:[self.engagement createdAt]];
+    NSDate *date = [DDTools dateFromString:[self.engagement createdAt]];
     NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
     [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
     labelHeader.text = [dateFormatterTo stringFromDate:date];
