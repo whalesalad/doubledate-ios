@@ -170,6 +170,9 @@
     self.textViewInput.delegate = self;
     self.textViewInput.maxNumberOfLines = [DDTools isiPhone5Device]?16:10;
     
+    self.textViewInput.textColor = [UIColor colorWithRed:34.0f/255.0f green:34.0f/255.0f blue:34.0f/255.0f alpha:1.0f];
+    self.textViewInput.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    
     //this is hack - simulate 2 lines string and roll back
     self.textViewInput.animateHeightChange = NO;
     self.textViewInput.text = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
@@ -411,7 +414,8 @@
     self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x - sizeChange.width, self.bottomBarView.frame.origin.y - sizeChange.height, bottomBarView.frame.size.width + sizeChange.width, bottomBarView.frame.size.height + sizeChange.height);
     
     //apply frame to text view background
-    self.imageViewTextFieldBackground.frame = self.textViewInput.frame;
+//    self.imageViewTextFieldBackground.frame = self.textViewInput.frame;
+    
 }
 
 #pragma mark -
