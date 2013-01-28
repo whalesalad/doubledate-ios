@@ -7,14 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
 
 extern NSString *DDObjectsControllerDidUpdateObjectNotification;
+extern NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey;
 
 @interface DDObjectsController : NSObject
 {
 }
 
-+ (void)updateObject:(NSObject*)object;
-+ (void)updateObjects:(NSArray*)objects;
++ (void)updateObject:(NSObject*)object withMethod:(RKRequestMethod)method;
++ (void)updateObjects:(NSArray*)objects withMethod:(RKRequestMethod)method;
 
 @end

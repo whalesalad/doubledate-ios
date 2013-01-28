@@ -773,7 +773,7 @@ typedef enum
             DDUser *user = [DDUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:user];
+            [DDObjectsController updateObject:user withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -793,7 +793,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:placemarks];
+            [DDObjectsController updateObjects:placemarks withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -813,7 +813,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:interests];
+            [DDObjectsController updateObjects:interests withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -825,7 +825,7 @@ typedef enum
             DDImage *photo = [DDImage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:photo];
+            [DDObjectsController updateObject:photo withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -845,7 +845,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:users];
+            [DDObjectsController updateObjects:users withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -858,7 +858,7 @@ typedef enum
             DDShortUser *friend = [DDShortUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:friend];
+            [DDObjectsController updateObject:friend withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -887,7 +887,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:facebookFriends];
+            [DDObjectsController updateObjects:facebookFriends withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -900,7 +900,7 @@ typedef enum
             DDDoubleDate *doubleDate = [DDDoubleDate objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:doubleDate];
+            [DDObjectsController updateObject:doubleDate withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -921,7 +921,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:doubleDates];
+            [DDObjectsController updateObjects:doubleDates withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -941,7 +941,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:engagements];
+            [DDObjectsController updateObjects:engagements withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -955,7 +955,7 @@ typedef enum
             DDEngagement *engagement = [DDEngagement objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:engagement];
+            [DDObjectsController updateObject:engagement withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -975,7 +975,7 @@ typedef enum
             }
             
             //notify objects controller
-            [DDObjectsController updateObjects:messages];
+            [DDObjectsController updateObjects:messages withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
@@ -987,7 +987,7 @@ typedef enum
             DDMessage *message = [DDMessage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
-            [DDObjectsController updateObject:message];
+            [DDObjectsController updateObject:message withMethod:request.method];
             
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

@@ -303,9 +303,26 @@ typedef enum
 
 - (void)objectUpdatedNotification:(NSNotification*)notification
 {
+    //save request method
+    RKRequestMethod method = [[[notification userInfo] objectForKey:DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey] intValue];
+    
+    //check object
     if ([[notification object] isKindOfClass:[DDDoubleDate class]])
     {
-        [self replaceObject:[notification object] inArray:doubleDates_];
+        //check method
+        if (method == RKRequestMethodGET)
+        {
+            //just update the object in the list
+            [self replaceObject:[notification object] inArray:doubleDates_];
+        }
+        else if (method == RKRequestMethodPOST)
+        {
+            //add object
+            [doubleDates_ addObject:[notification object]];
+            
+            //reload the table
+            [self.tableView reloadData];
+        }
     }
 }
 
