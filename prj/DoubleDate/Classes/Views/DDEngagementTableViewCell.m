@@ -79,6 +79,11 @@
             //apply genders
             [self.imageViewUser reloadFromUrl:[NSURL URLWithString:engagement.user.photo.smallUrl]];
             [self.imageViewWing reloadFromUrl:[NSURL URLWithString:engagement.wing.photo.smallUrl]];
+            
+            //apply unread count
+            self.imageViewBadge.hidden = [engagement.unreadCount intValue] == 0;
+            self.labelBadgeNumber.hidden = self.imageViewBadge.hidden;
+            self.labelBadgeNumber.text = [NSString stringWithFormat:@"%d", [engagement.unreadCount intValue]];
         }
         else
         {
@@ -86,6 +91,8 @@
             self.labelDetailed.text = nil;
             self.imageViewUser.image = nil;
             self.imageViewWing.image = nil;
+            self.imageViewBadge.hidden = YES;
+            self.labelBadgeNumber.hidden = self.imageViewBadge.hidden;
         }
     }
 }

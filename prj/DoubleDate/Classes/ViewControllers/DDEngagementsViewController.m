@@ -134,6 +134,9 @@
     //save engagement
     DDEngagement *engagement = [engagements_ objectAtIndex:indexPath.row];
     
+    //unset unread count
+    engagement.unreadCount = [NSNumber numberWithInt:0];
+    
     //add chat view controller
     DDChatViewController *chatViewController = [[[DDChatViewController alloc] init] autorelease];
     [chatViewController setDoubleDate:self.doubleDate];
