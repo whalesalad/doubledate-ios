@@ -24,6 +24,7 @@ extern NSString *DDEngagementStatusUnlocked;
 @property(nonatomic, retain) NSString *primaryMessage;
 @property(nonatomic, retain) NSString *status;
 @property(nonatomic, retain) NSNumber *messagesCount;
+@property(nonatomic, retain) NSNumber *unreadCount;
 @property(nonatomic, retain) NSString *createdAt;
 @property(nonatomic, retain) NSString *createdAtAgo;
 @property(nonatomic, retain) DDShortUser *user;

@@ -29,6 +29,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 @synthesize timePref;
 @synthesize updatedAt;
 @synthesize myEngagementId;
+@synthesize unreadCount;
 @synthesize user;
 @synthesize wing;
 @synthesize location;
@@ -45,6 +46,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         self.timePref = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_pref"]];
         self.updatedAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"updated_at"]];
         self.myEngagementId = [DDAPIObject numberForObject:[dictionary objectForKey:@"my_engagement_id"]];
+        self.unreadCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread_count"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
         self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
@@ -71,6 +73,8 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         [dictionary setObject:self.updatedAt forKey:@"updated_at"];
     if (self.myEngagementId)
         [dictionary setObject:self.myEngagementId forKey:@"my_engagement_id"];
+    if (self.unreadCount)
+        [dictionary setObject:self.unreadCount forKey:@"unread_count"];
     if (self.user.identifier)
         [dictionary setObject:self.user.identifier forKey:@"user_id"];
     if (self.wing.identifier)
@@ -99,6 +103,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     [timePref release];
     [updatedAt release];
     [myEngagementId release];
+    [unreadCount release];
     [user release];
     [wing release];
     [location release];

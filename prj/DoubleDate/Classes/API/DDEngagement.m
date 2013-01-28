@@ -20,6 +20,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
 @synthesize message;
 @synthesize primaryMessage;
 @synthesize status;
+@synthesize unreadCount;
 @synthesize messagesCount;
 @synthesize createdAt;
 @synthesize createdAtAgo;
@@ -36,6 +37,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
         self.primaryMessage = [DDAPIObject stringForObject:[dictionary objectForKey:@"primary_message"]];
         self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
+        self.unreadCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread_count"]];
         self.messagesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"messages_count"]];
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
         self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
@@ -60,6 +62,8 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
         [dictionary setObject:self.primaryMessage forKey:@"primary_message"];
     if (self.status)
         [dictionary setObject:self.status forKey:@"status"];
+    if (self.unreadCount)
+        [dictionary setObject:self.unreadCount forKey:@"unread_count"];
     if (self.messagesCount)
         [dictionary setObject:self.messagesCount forKey:@"messages_count"];
     if (self.createdAt)
@@ -85,6 +89,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     [message release];
     [primaryMessage release];
     [status release];
+    [unreadCount release];
     [messagesCount release];
     [createdAt release];
     [createdAtAgo release];
