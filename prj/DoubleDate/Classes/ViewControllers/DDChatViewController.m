@@ -172,8 +172,10 @@
     self.textViewInput.maxNumberOfLines = [DDTools isiPhone5Device]?16:10;
     
     //this is hack - simulate 2 lines string and roll back
+    self.textViewInput.animateHeightChange = NO;
     self.textViewInput.text = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     self.textViewInput.text = @"";
+    self.textViewInput.animateHeightChange = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
