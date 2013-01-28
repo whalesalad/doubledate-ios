@@ -36,4 +36,6 @@ typedef enum
 + (UIImage*)clearImage;
 + (UIImage*)clearImageOfSize:(CGSize)size;
 
++ (BOOL)isiPhone5Device;
+
 @end

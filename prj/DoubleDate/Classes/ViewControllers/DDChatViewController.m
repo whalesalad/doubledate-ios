@@ -20,12 +20,13 @@
 #import "DDTools.h"
 #import "DDTextView.h"
 #import "DDAuthenticationController.h"
+#import "HPGrowingTextView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
 #define kUnlockCost 50
 
-@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate>
 
 @property(nonatomic, retain) UIView *popover;
 
@@ -163,12 +164,16 @@
         [self.apiController getUser:requestUser];
     }
     
-    //align text view in a right way
-    self.textViewInput.text = @"";
-    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:self.textViewInput];
-    
     //set warning
     self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"You have %d days to chat!", nil), 10];
+    
+    //customize text view
+    self.textViewInput.delegate = self;
+    self.textViewInput.maxNumberOfLines = [DDTools isiPhone5Device]?16:10;
+    
+    //this is hack - simulate 2 lines string and roll back
+    self.textViewInput.text = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    self.textViewInput.text = @"";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -356,25 +361,48 @@
 
 - (void)textViewTextDidChangeNotification:(NSNotification *)notification
 {
-    //check senderf
-    if ([notification object] != self.textViewInput)
-        return;
-    
+    //    //check senderf
+    //    if ([notification object] != self.textViewInput)
+    //        return;
+    //
+    //    //show/hide placeholder
+    //    self.labelTextFieldPlaceholder.hidden = [self.textViewInput.text length] > 0;
+    //
+    //    //save needed values
+    //    CGSize sizeBefore = self.textViewInput.frame.size;
+    //    CGSize sizeAfter = self.textViewInput.contentSize;
+    //
+    //    //save maximal value
+    //    CGFloat maximalHeight = self.bottomBarView.frame.origin.y + self.bottomBarView.frame.size.height - (self.topBarView.frame.origin.y + self.topBarView.frame.size.height) + self.mainView.frame.origin.y + 40;
+    //
+    //    //check for maximal size
+    //    sizeAfter = CGSizeMake(sizeAfter.width, MIN(sizeAfter.height, maximalHeight));
+    //
+    //    //calculate frame change
+    //    CGSize sizeChange = CGSizeMake(sizeAfter.width - sizeBefore.width, sizeAfter.height - sizeBefore.height);
+    //
+    //    //change frame
+    //    self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height - sizeChange.height);
+    //
+    //    self.bottomBarView.frame = CGRectMake(self.bottomBarView.frame.origin.x - sizeChange.width, self.bottomBarView.frame.origin.y - sizeChange.height, bottomBarView.frame.size.width + sizeChange.width, bottomBarView.frame.size.height + sizeChange.height);
+    //
+    //    //apply frame to text view background
+    //    self.imageViewTextFieldBackground.frame = self.textViewInput.frame;
+}
+
+#pragma mark -
+#pragma mark HPGrowingTextViewDelegate
+
+- (void)growingTextViewDidChange:(HPGrowingTextView *)growingTextView
+{
     //show/hide placeholder
-    self.labelTextFieldPlaceholder.hidden = [self.textViewInput.text length] > 0;
-        
-    //save needed values
-    CGSize sizeBefore = self.textViewInput.frame.size;
-    CGSize sizeAfter = self.textViewInput.contentSize;
-    
-    //save maximal value
-    CGFloat maximalHeight = self.bottomBarView.frame.origin.y + self.bottomBarView.frame.size.height - (self.topBarView.frame.origin.y + self.topBarView.frame.size.height) + self.mainView.frame.origin.y + 40;
-    
-    //check for maximal size
-    sizeAfter = CGSizeMake(sizeAfter.width, MIN(sizeAfter.height, maximalHeight));
-    
-    //calculate frame change
-    CGSize sizeChange = CGSizeMake(sizeAfter.width - sizeBefore.width, sizeAfter.height - sizeBefore.height);
+    self.labelTextFieldPlaceholder.hidden = [growingTextView.text length] > 0;
+}
+
+- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
+{
+    //save size
+    CGSize sizeChange = CGSizeMake(0, height - growingTextView.frame.size.height);
     
     //change frame
     self.tableView.frame = CGRectMake(self.tableView.frame.origin.x, self.tableView.frame.origin.y, self.tableView.frame.size.width + sizeChange.width, self.tableView.frame.size.height - sizeChange.height);
@@ -427,7 +455,7 @@
     
     //apply message
     tableViewCell.message = message;
-
+    
     //apply style
     tableViewCell.style = ([[message userId] intValue] == [self.doubleDate.wing.identifier intValue]) || ([[message userId] intValue] == [self.doubleDate.user.identifier intValue]);
     

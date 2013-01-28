@@ -105,4 +105,11 @@
     return image;
 }
 
++ (BOOL)isiPhone5Device
+{
+    if ([[UIScreen mainScreen] respondsToSelector: @selector(scale)] && [[UIScreen mainScreen] bounds].size.height * [UIScreen mainScreen].scale == 1136)
+        return YES;
+    return NO;
+}
+
 @end

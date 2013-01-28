@@ -285,6 +285,8 @@
 		965F8A1616A9482D00A8C576 /* message-bubble-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1216A9482D00A8C576 /* message-bubble-blue@2x.png */; };
 		965F8A1716A9482D00A8C576 /* upper-blue-notification-count.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1316A9482D00A8C576 /* upper-blue-notification-count.png */; };
 		965F8A1816A9482D00A8C576 /* upper-blue-notification-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 965F8A1416A9482D00A8C576 /* upper-blue-notification-count@2x.png */; };
+		9662893016B68521002E0AD1 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662892D16B68521002E0AD1 /* HPGrowingTextView.m */; };
+		9662893116B68521002E0AD1 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662892F16B68521002E0AD1 /* HPTextViewInternal.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		9683128C169DA7D0007C14ED /* bg-me-bio.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683127A169DA7D0007C14ED /* bg-me-bio.png */; };
 		9683128D169DA7D0007C14ED /* bg-me-bio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9683127B169DA7D0007C14ED /* bg-me-bio@2x.png */; };
@@ -855,6 +857,10 @@
 		965F8A1216A9482D00A8C576 /* message-bubble-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-blue@2x.png"; sourceTree = "<group>"; };
 		965F8A1316A9482D00A8C576 /* upper-blue-notification-count.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-blue-notification-count.png"; sourceTree = "<group>"; };
 		965F8A1416A9482D00A8C576 /* upper-blue-notification-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-blue-notification-count@2x.png"; sourceTree = "<group>"; };
+		9662892C16B68521002E0AD1 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
+		9662892D16B68521002E0AD1 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
+		9662892E16B68521002E0AD1 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
+		9662892F16B68521002E0AD1 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
 		96701CEF16490E6000E4436A /* DDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControl.m; sourceTree = "<group>"; };
 		9683127A169DA7D0007C14ED /* bg-me-bio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-me-bio.png"; sourceTree = "<group>"; };
@@ -1469,6 +1475,17 @@
 			path = "chat-view";
 			sourceTree = "<group>";
 		};
+		9662892B16B68521002E0AD1 /* HPGrowingTextView */ = {
+			isa = PBXGroup;
+			children = (
+				9662892C16B68521002E0AD1 /* HPGrowingTextView.h */,
+				9662892D16B68521002E0AD1 /* HPGrowingTextView.m */,
+				9662892E16B68521002E0AD1 /* HPTextViewInternal.h */,
+				9662892F16B68521002E0AD1 /* HPTextViewInternal.m */,
+			);
+			path = HPGrowingTextView;
+			sourceTree = "<group>";
+		};
 		96831279169DA7D0007C14ED /* me */ = {
 			isa = PBXGroup;
 			children = (
@@ -1774,6 +1791,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				9662892B16B68521002E0AD1 /* HPGrowingTextView */,
 				96EA06AF1689D9DB009F09BC /* SDWebImage */,
 				70803B131610FF3400BFDE8B /* TITokenField */,
 				960C844615FDF60200EAF708 /* JSTokenField */,
@@ -2575,6 +2593,8 @@
 				965F8A0E16A9417900A8C576 /* DDChatTableViewCell.m in Sources */,
 				708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */,
 				7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */,
+				9662893016B68521002E0AD1 /* HPGrowingTextView.m in Sources */,
+				9662893116B68521002E0AD1 /* HPTextViewInternal.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

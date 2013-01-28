@@ -13,6 +13,8 @@
 @class DDImageView;
 @class DDTextView;
 
+@class HPGrowingTextView;
+
 @interface DDChatViewController : DDViewController
 {
     BOOL keyboardExist_;
@@ -29,7 +31,7 @@
 @property(nonatomic, retain) IBOutlet UIView *mainView;
 @property(nonatomic, retain) IBOutlet UIView *topBarView;
 @property(nonatomic, retain) IBOutlet UIView *bottomBarView;
-@property(nonatomic, retain) IBOutlet UITextView *textViewInput;
+@property(nonatomic, retain) IBOutlet HPGrowingTextView *textViewInput;
 @property(nonatomic, retain) IBOutlet UIButton *buttonSend;
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
