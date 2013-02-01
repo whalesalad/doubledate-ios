@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 
+@class DDAPIObject;
+
 extern NSString *DDObjectsControllerDidUpdateObjectNotification;
 extern NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey;
 
@@ -16,7 +18,9 @@ extern NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey;
 {
 }
 
-+ (void)updateObject:(NSObject*)object withMethod:(RKRequestMethod)method;
-+ (void)updateObjects:(NSArray*)objects withMethod:(RKRequestMethod)method;
++ (void)updateObject:(DDAPIObject*)object withMethod:(RKRequestMethod)method cachePath:(NSString*)cachePath;
++ (void)updateObjects:(NSArray*)objects withMethod:(RKRequestMethod)method cachePath:(NSString*)cachePath;
+
++ (NSArray*)cachedObjectsOfClass:(Class)objectsClass forPath:(NSString*)path;
 
 @end

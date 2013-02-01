@@ -20,6 +20,7 @@
 #import "DDTextView.h"
 #import "DDAuthenticationController.h"
 #import "HPGrowingTextView.h"
+#import "DDObjectsController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
@@ -178,15 +179,26 @@
     self.textViewInput.text = @"XXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     self.textViewInput.text = @"";
     self.textViewInput.animateHeightChange = YES;
+    
+    //add cached objects
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/messages", [doubleDate.identifier intValue], [engagement.identifier intValue]]];
+    [messages_ release];
+    messages_ = [[NSMutableArray alloc] initWithArray:[DDObjectsController cachedObjectsOfClass:[DDMessage class] forPath:requestPath]];
+    
+    //reload the table
+    [self.tableView reloadData];
+    
+    //request new messages anyways
+    [self.apiController getMessagesForEngagement:self.engagement forDoubleDate:self.doubleDate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    //check if we need to make a request
-    if (!messages_)
-        [self.apiController getMessagesForEngagement:self.engagement forDoubleDate:self.doubleDate];
+    //scroll to bottom
+    if ([messages_ count])
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[messages_ count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 #pragma mark -
