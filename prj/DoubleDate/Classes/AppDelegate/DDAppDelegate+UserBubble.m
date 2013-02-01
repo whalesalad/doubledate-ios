@@ -49,19 +49,29 @@
     [pageControl addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
     [self.userPopover addSubview:pageControl];
     
+    //bubbles storage
+    NSMutableArray *bubbles = [NSMutableArray array];
+    CGFloat maxBubbleHeight = FLT_MIN;
+    
     //add bubbles
     CGRect bubbleRect = CGRectMake(25, 40, 270, 0);
     for (int i = 0; i < [users count]; i++)
     {
         //create bubble
-        {
-            DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
-            bubble.users = [NSArray arrayWithObject:[users objectAtIndex:i]];
-            bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-            bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2+[UIScreen mainScreen].bounds.size.width*i, [UIScreen mainScreen].bounds.size.height/2);
-            [sv addSubview:bubble];
-        }
+        DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
+        bubble.users = [NSArray arrayWithObject:[users objectAtIndex:i]];
+        bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
+        bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2+[UIScreen mainScreen].bounds.size.width*i, [UIScreen mainScreen].bounds.size.height/2);
+        [sv addSubview:bubble];
+        [bubbles addObject:bubble];
+        
+        //save maximal height
+        maxBubbleHeight = MAX(maxBubbleHeight, bubble.height);
     }
+    
+    //move bubbles to top
+    for (DDUserBubble *bubble in bubbles)
+        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
     
     //set needed current page
     pageControl.currentPage = [users indexOfObject:user];
