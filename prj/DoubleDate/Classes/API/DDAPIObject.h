@@ -12,6 +12,8 @@
 {
 }
 
+@property(nonatomic, readonly) NSString *uniqueKey;
+
 + (id)objectWithDictionary:(NSDictionary*)dictionary;
 + (id)objectWithJsonString:(NSString*)string;
 + (id)objectWithJsonData:(NSData*)data;

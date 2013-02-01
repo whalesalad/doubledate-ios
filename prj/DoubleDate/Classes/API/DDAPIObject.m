@@ -12,6 +12,8 @@
 
 @implementation DDAPIObject
 
+@synthesize uniqueKey;
+
 + (id)objectWithDictionary:(NSDictionary*)dictionary
 {
     return [[[[self class] alloc] initWithDictionary:dictionary] autorelease];

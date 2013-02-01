@@ -151,6 +151,11 @@ NSString *DDUserInterestBoth = @"both";
     return ret;
 }
 
+- (NSString*)uniqueKey
+{
+    return [NSString stringWithFormat:@"%d", [[self userId] intValue]];
+}
+
 - (void)dealloc
 {
     [birthday release];

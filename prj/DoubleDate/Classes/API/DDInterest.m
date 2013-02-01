@@ -41,6 +41,11 @@
     return dictionary;
 }
 
+- (NSString*)uniqueKey
+{
+    return [NSString stringWithFormat:@"%d", [[self identifier] intValue]];
+}
+
 - (void)dealloc
 {
     [identifier release];
