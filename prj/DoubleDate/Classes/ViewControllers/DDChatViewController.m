@@ -478,6 +478,12 @@
     
     //reload the table
     [self.tableView reloadData];
+    
+    //scroll top top
+    if ([messages_ count] > 0)
+    {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[messages_ count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
 }
 
 - (void)getMessagesForEngagementDidFailedWithError:(NSError*)error
