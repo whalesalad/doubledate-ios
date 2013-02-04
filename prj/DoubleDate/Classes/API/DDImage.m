@@ -54,6 +54,11 @@
     return self.thumbUrl;
 }
 
+- (NSString*)uniqueKeyField
+{
+    return @"thumb";
+}
+
 - (void)dealloc
 {
     [thumbUrl release];

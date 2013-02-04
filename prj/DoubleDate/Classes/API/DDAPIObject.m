@@ -13,6 +13,7 @@
 @implementation DDAPIObject
 
 @synthesize uniqueKey;
+@synthesize uniqueKeyField;
 
 + (id)objectWithDictionary:(NSDictionary*)dictionary
 {

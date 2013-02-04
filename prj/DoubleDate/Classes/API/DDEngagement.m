@@ -86,6 +86,11 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     return [NSString stringWithFormat:@"%d", [[self identifier] intValue]];
 }
 
+- (NSString*)uniqueKeyField
+{
+    return @"id";
+}
+
 - (void)dealloc
 {
     [identifier release];

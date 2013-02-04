@@ -98,6 +98,11 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     return [NSString stringWithFormat:@"%d", [[self identifier] intValue]];
 }
 
+- (NSString*)uniqueKeyField
+{
+    return @"id";
+}
+
 - (void)dealloc
 {
     [identifier release];

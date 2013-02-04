@@ -13,6 +13,7 @@
 }
 
 @property(nonatomic, readonly) NSString *uniqueKey;
+@property(nonatomic, readonly) NSString *uniqueKeyField;
 
 + (id)objectWithDictionary:(NSDictionary*)dictionary;
 + (id)objectWithJsonString:(NSString*)string;
