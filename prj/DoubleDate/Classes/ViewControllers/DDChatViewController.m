@@ -180,16 +180,16 @@
     self.textViewInput.text = @"";
     self.textViewInput.animateHeightChange = YES;
     
-    //add cached objects
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/messages", [doubleDate.identifier intValue], [engagement.identifier intValue]]];
+    //request new messages anyways
+    DDRequestId requestId = [self.apiController getMessagesForEngagement:self.engagement forDoubleDate:self.doubleDate];
+    NSString *requestPath = [self.apiController pathForRequest:requestId];
+    
+    //load cache for path
     [messages_ release];
     messages_ = [[NSMutableArray alloc] initWithArray:[DDObjectsController cachedObjectsOfClass:[DDMessage class] forPath:requestPath]];
     
     //reload the table
     [self.tableView reloadData];
-    
-    //request new messages anyways
-    [self.apiController getMessagesForEngagement:self.engagement forDoubleDate:self.doubleDate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
