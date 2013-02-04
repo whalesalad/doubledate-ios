@@ -119,6 +119,7 @@ typedef int DDRequestId;
 
 - (BOOL)isRequestExist:(DDRequestId)requestId;
 - (BOOL)cancelRequest:(DDRequestId)requestId;
+- (NSString*)pathForRequest:(DDRequestId)requestId;
 
 - (DDRequestId)getMe;
 

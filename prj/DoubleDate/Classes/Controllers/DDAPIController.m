@@ -129,10 +129,23 @@ typedef enum
 {
     for (RKRequest *request in [controller_ requests])
     {
-        [request cancel];
-        return YES;
+        if ([request hash] == requestId)
+        {
+            [request cancel];
+            return YES;
+        }
     }
     return NO;
+}
+
+- (NSString*)pathForRequest:(DDRequestId)requestId
+{
+    for (RKRequest *request in [controller_ requests])
+    {
+        if ([request hash] == requestId)
+            return [[request URL] absoluteString];
+    }
+    return nil;
 }
 
 - (DDRequestId)getMe
