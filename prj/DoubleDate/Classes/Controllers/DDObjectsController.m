@@ -52,21 +52,42 @@ NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey = @"DDObjec
 
 + (NSString*)fullKeyForKey:(NSString*)key ofClass:(Class)objectsClass
 {
-    return [NSString stringWithFormat:@"%@%@", key, NSStringFromClass(objectsClass)];
+    return [[NSString stringWithFormat:@"%@%@", key, NSStringFromClass(objectsClass)] stringByAddingURLEncoding];
 }
 
 + (NSArray*)objectsForKey:(NSString*)key ofClass:(Class)objectsClass
 {
-    return [[NSUserDefaults standardUserDefaults] arrayForKey:[self fullKeyForKey:key ofClass:objectsClass]];
+    //save full key
+    NSString *fullKey = [self fullKeyForKey:key ofClass:objectsClass];
+    
+    //save full path
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fullKey];
+    
+    //load data
+    return [NSArray arrayWithContentsOfFile:filePath];
 }
 
 + (void)setObjects:(NSArray*)objects ofClass:(Class)objectsClass forKey:(NSString*)key
 {
+    //save full key
     NSString *fullKey = [self fullKeyForKey:key ofClass:objectsClass];
+    
+    //save full path
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fullKey];
+    
+    //check for objects
     if ([objects count])
-        [[NSUserDefaults standardUserDefaults] setObject:objects forKey:fullKey];
+    {
+        [objects writeToFile:filePath atomically:YES];
+    }
     else
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:fullKey];
+    {
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    }
 }
 
 + (void)cacheObject:(DDAPIObject*)object withMethod:(RKRequestMethod)method forPath:(NSString*)path
@@ -82,34 +103,27 @@ NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey = @"DDObjec
         return;
     
     //extract previous objects
-    NSMutableArray *objectsToReplace = [NSMutableArray array];
     Class objectClass = [[objects lastObject] class];
     NSArray *cachedDictionaries = [self objectsForKey:path ofClass:objectClass];
-    
+    NSMutableArray *objectsToReplace = [NSMutableArray arrayWithArray:cachedDictionaries];
+        
     //check object
     for (DDAPIObject *object in objects)
     {
-        //set save flag
-        BOOL needToAddObject = method != RKRequestMethodDELETE;
-        
         //check each cached object
+        NSDictionary *cachedDictionary = nil;
         for (NSDictionary *dictionary in cachedDictionaries)
         {
             //check the same object from cache
-            if ([[dictionary objectForKey:@"uniqueKey"] isEqualToString:[object uniqueKey]])
-            {
-                if (method == RKRequestMethodGET || method == RKRequestMethodPUT || method == RKRequestMethodPOST)
-                {
-                    needToAddObject = NO;
-                    [objectsToReplace addObject:[object dictionaryRepresentation]];
-                }
-            }
-            else
-                [objectsToReplace addObject:dictionary];
+            if ([[DDAPIObject stringForObject:[dictionary objectForKey:[object uniqueKeyField]]] isEqualToString:[object uniqueKey]])
+                cachedDictionary = dictionary;
         }
         
+        //remove cached dictionary from final list
+        [objectsToReplace removeObject:cachedDictionary];
+
         //check if we need to add the object
-        if (needToAddObject)
+        if (method != RKRequestMethodDELETE)
             [objectsToReplace addObject:[object dictionaryRepresentation]];
     }
     
