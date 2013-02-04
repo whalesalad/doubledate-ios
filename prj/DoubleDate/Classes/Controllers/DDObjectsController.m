@@ -41,8 +41,13 @@ NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey = @"DDObjec
 
 + (void)updateObjects:(NSArray*)objects withMethod:(RKRequestMethod)method cachePath:(NSString*)cachePath
 {
+    //update objects without caching
     for (DDAPIObject *object in objects)
-        [self updateObject:object withMethod:method cachePath:cachePath];
+        [self updateObject:object withMethod:method cachePath:nil];
+
+    //cache all objects
+    if (cachePath)
+        [self cacheObjects:objects withMethod:method forPath:cachePath];
 }
 
 + (NSString*)fullKeyForKey:(NSString*)key ofClass:(Class)objectsClass
@@ -66,39 +71,50 @@ NSString *DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey = @"DDObjec
 
 + (void)cacheObject:(DDAPIObject*)object withMethod:(RKRequestMethod)method forPath:(NSString*)path
 {
-    //extract previous objects
-    NSMutableArray *objectsToReplace = [NSMutableArray array];
-    NSArray *cachedDictionaries = [self objectsForKey:path ofClass:[object class]];
-    
-    //check each objects
-    BOOL needToAddObject = method != RKRequestMethodDELETE;
-    for (NSDictionary *dictionary in cachedDictionaries)
-    {
-        //check the same object from cache
-        if ([[dictionary objectForKey:@"uniqueKey"] isEqualToString:[object uniqueKey]])
-        {
-            if (method == RKRequestMethodGET || method == RKRequestMethodPUT || method == RKRequestMethodPOST)
-            {
-                needToAddObject = NO;
-                [objectsToReplace addObject:[object dictionaryRepresentation]];
-            }
-        }
-        else
-            [objectsToReplace addObject:dictionary];
-    }
-    
-    //check if we need to add the object
-    if (needToAddObject)
-        [objectsToReplace addObject:[object dictionaryRepresentation]];
-    
-    //save new objects to cache
-    [self setObjects:objectsToReplace ofClass:[object class] forKey:path];
+    if (object)
+        [self cacheObjects:[NSArray arrayWithObject:object] withMethod:method forPath:path];
 }
 
 + (void)cacheObjects:(NSArray*)objects withMethod:(RKRequestMethod)method forPath:(NSString*)path
 {
+    //check for dummy
+    if ([objects count] == 0)
+        return;
+    
+    //extract previous objects
+    NSMutableArray *objectsToReplace = [NSMutableArray array];
+    Class objectClass = [[objects lastObject] class];
+    NSArray *cachedDictionaries = [self objectsForKey:path ofClass:objectClass];
+    
+    //check object
     for (DDAPIObject *object in objects)
-        [self cacheObject:object withMethod:method forPath:path];
+    {
+        //set save flag
+        BOOL needToAddObject = method != RKRequestMethodDELETE;
+        
+        //check each cached object
+        for (NSDictionary *dictionary in cachedDictionaries)
+        {
+            //check the same object from cache
+            if ([[dictionary objectForKey:@"uniqueKey"] isEqualToString:[object uniqueKey]])
+            {
+                if (method == RKRequestMethodGET || method == RKRequestMethodPUT || method == RKRequestMethodPOST)
+                {
+                    needToAddObject = NO;
+                    [objectsToReplace addObject:[object dictionaryRepresentation]];
+                }
+            }
+            else
+                [objectsToReplace addObject:dictionary];
+        }
+        
+        //check if we need to add the object
+        if (needToAddObject)
+            [objectsToReplace addObject:[object dictionaryRepresentation]];
+    }
+    
+    //save new objects to cache
+    [self setObjects:objectsToReplace ofClass:objectClass forKey:path];
 }
 
 + (NSArray*)cachedObjectsOfClass:(Class)objectsClass forPath:(NSString*)path
