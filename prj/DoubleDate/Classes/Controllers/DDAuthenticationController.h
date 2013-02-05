@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DDRequestsController;
+@class DDUser;
 
 typedef enum
 {
@@ -35,5 +36,8 @@ extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
 
 + (void)authenticateWithFbToken:(NSString*)fbToken delegate:(id)delegate;
 + (void)authenticateWithEmail:(NSString*)email password:(NSString*)password delegate:(id)delegate;
+
++ (void)setCurrentUser:(DDUser*)user;
++ (DDUser*)currentUser;
 
 @end

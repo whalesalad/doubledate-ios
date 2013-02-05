@@ -9,6 +9,9 @@
 #import "DDNavigationMenu.h"
 #import "DDNavigationMenuTableViewCell.h"
 #import "DDAppDelegate.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
+#import "UIViewController+Extensions.h"
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
 
@@ -53,7 +56,10 @@
         }
     }
     if (indexPath.row < [tabBarController.viewControllers count])
+    {
+        [tabBarController.selectedViewController dismissNavigationMenu];
         tabBarController.selectedIndex = indexPath.row;
+    }
 }
 
 #pragma mark -
@@ -76,32 +82,32 @@
     
     //save center of the icon
     CGPoint iconCenter = cell.imageViewIcon.center;
-    
+        
     switch (indexPath.row) {
         case 0:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-notifications.png"];
             cell.labelTitle.text = NSLocalizedString(@"Notifications", nil);
-            cell.labelBadge.text = @"3";
+            cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadNotificationsCount intValue]];
             break;
         case 1:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-profile.png"];
             cell.labelTitle.text = NSLocalizedString(@"Profile", nil);
-            cell.labelBadge.text = @"0";
+            cell.labelBadge.text = nil;
             break;
         case 2:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-wings.png"];
             cell.labelTitle.text = NSLocalizedString(@"Wings", nil);
-            cell.labelBadge.text = @"1";
+            cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].pendingWingsCount intValue]];
             break;
         case 3:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
             cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
-            cell.labelBadge.text = @"0";
+            cell.labelBadge.text = nil;
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
             cell.labelTitle.text = NSLocalizedString(@"Messages", nil);
-            cell.labelBadge.text = @"2";
+            cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadMessagesCount intValue]];
             break;
         default:
             break;

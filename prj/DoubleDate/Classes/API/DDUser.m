@@ -50,6 +50,10 @@ NSString *DDUserInterestBoth = @"both";
 @synthesize totalCoins;
 @synthesize totalKarma;
 
+@synthesize unreadNotificationsCount;
+@synthesize unreadMessagesCount;
+@synthesize pendingWingsCount;
+
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
     if ((self = [super initWithDictionary:dictionary]))
@@ -83,6 +87,9 @@ NSString *DDUserInterestBoth = @"both";
         self.invitePath = [DDAPIObject stringForObject:[dictionary objectForKey:@"invite_path"]];
         self.totalCoins = [DDAPIObject numberForObject:[dictionary objectForKey:@"total_coins"]];
         self.totalKarma = [DDAPIObject numberForObject:[dictionary objectForKey:@"total_karma"]];
+        self.unreadNotificationsCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread_notifications_count"]];
+        self.unreadMessagesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread_messages_count"]];
+        self.pendingWingsCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"pending_wings_count"]];
     }
     return self;
 }
@@ -139,6 +146,12 @@ NSString *DDUserInterestBoth = @"both";
         [dictionary setObject:self.totalCoins forKey:@"total_coins"];
     if (self.totalKarma)
         [dictionary setObject:self.totalKarma forKey:@"total_karma"];
+    if (self.unreadNotificationsCount)
+        [dictionary setObject:self.unreadNotificationsCount forKey:@"unread_notifications_count"];
+    if (self.unreadMessagesCount)
+        [dictionary setObject:self.unreadMessagesCount forKey:@"unread_messages_count"];
+    if (self.pendingWingsCount)
+        [dictionary setObject:self.pendingWingsCount forKey:@"pending_wings_count"];
     return dictionary;
 }
 
@@ -184,6 +197,9 @@ NSString *DDUserInterestBoth = @"both";
     [invitePath release];
     [totalCoins release];
     [totalKarma release];
+    [unreadNotificationsCount release];
+    [unreadMessagesCount release];
+    [pendingWingsCount release];
     [super dealloc];
 }
 

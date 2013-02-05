@@ -14,6 +14,7 @@
 #import "DDRequestsController.h"
 #import "DDAppDelegate.h"
 #import "DDAppDelegate+APNS.h"
+#import "DDUser.h"
 
 NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAuthenticationControllerAuthenticateDidSucceesNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
@@ -27,6 +28,7 @@ NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthen
 
 @property(nonatomic, retain) NSObject *userId;
 @property(nonatomic, retain) NSObject *token;
+@property(nonatomic, retain) NSObject *user;
 
 - (void)authenticateWithFbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate;
 
@@ -38,6 +40,7 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 @synthesize userId;
 @synthesize token;
+@synthesize user;
 
 + (DDAuthenticationController*)sharedController
 {
@@ -64,6 +67,19 @@ static DDAuthenticationController *_sharedInstance = nil;
         return [(NSNumber*)ret stringValue];
     else if ([ret isKindOfClass:[NSString class]])
         return (NSString*)ret;
+    return nil;
+}
+
++ (void)setCurrentUser:(DDUser*)user
+{
+    [[DDAuthenticationController sharedController] setUser:user];
+}
+
++ (DDUser*)currentUser
+{
+    NSObject *user = [[DDAuthenticationController sharedController] user];
+    if ([user isKindOfClass:[DDUser class]])
+        return (DDUser*)user;
     return nil;
 }
 
@@ -141,6 +157,7 @@ static DDAuthenticationController *_sharedInstance = nil;
     [controller_ release];
     [userId release];
     [token release];
+    [user release];
     [super dealloc];
 }
 

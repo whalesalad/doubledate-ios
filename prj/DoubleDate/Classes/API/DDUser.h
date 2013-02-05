@@ -52,4 +52,8 @@ extern NSString *DDUserInterestBoth;
 @property(nonatomic, retain) NSNumber *totalCoins;
 @property(nonatomic, retain) NSNumber *totalKarma;
 
+@property(nonatomic, retain) NSNumber *unreadNotificationsCount;
+@property(nonatomic, retain) NSNumber *unreadMessagesCount;
+@property(nonatomic, retain) NSNumber *pendingWingsCount;
+
 @end

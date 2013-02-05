@@ -249,6 +249,9 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
     
+    //save user to user defaults
+    [DDAuthenticationController setCurrentUser:user];
+    
     //check user
     if (user)
     {
@@ -290,6 +293,9 @@
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:messagesViewController] autorelease]];
         tabBarController.viewControllers = viewControllers;
+        
+        //default is me tab
+        tabBarController.selectedIndex = 1;
         
         //go to next view controller
         [self.navigationController pushViewController:tabBarController animated:animated];
