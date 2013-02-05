@@ -88,29 +88,3 @@
 - (UIView*)viewForNavigationBarWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
 
 @end
-
-@interface UIViewController  (NavigationMenu)
-
-@property(nonatomic, retain) UIView *navigationMenu;
-
-#define DECLARE_NAVIGATION_MENU_WITH_PROPERTY(_CLASS_, _P_)\
-@implementation _CLASS_ (NavigationMenu)\
-- (void)setNavigationMenu:(UIView *)v\
-{\
-if (v != _P_)\
-{\
-[_P_ release];\
-_P_ = [v retain];\
-}\
-}\
-- (UIView*)navigationMenu\
-{\
-return _P_;\
-}\
-@end
-
-- (void)presentNavigationMenu;
-- (void)dismissNavigationMenu;
-- (BOOL)isNavigationMenuPresented;
-
-@end

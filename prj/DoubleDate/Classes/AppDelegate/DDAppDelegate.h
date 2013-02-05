@@ -18,4 +18,6 @@
 
 @property (retain, nonatomic) NSString *deviceToken;
 
+@property (retain, nonatomic) UIView *navigationMenu;
+
 @end

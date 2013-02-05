@@ -14,11 +14,11 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DDTools.h"
 #import "UIViewController+Extensions.h"
+#import "DDAppDelegate+NavigationMenu.h"
 
 DECLARE_HUD_WITH_PROPERTY(DDViewController, hud_)
 DECLARE_API_CONTROLLER_WITH_PROPERTY(DDViewController, apiController_)
 DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
-DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDViewController, navigationMenu_)
 
 @interface DDViewController (hidden) <DDAPIControllerDelegate>
 
@@ -84,10 +84,11 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDViewController, navigationMenu_)
 
 - (void)menuTouched:(id)sender
 {
-    if ([self isNavigationMenuPresented])
-        [self dismissNavigationMenu];
+    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
+    if ([appDelegate isNavigationMenuExist])
+        [appDelegate dismissNavigationMenu];
     else
-        [self presentNavigationMenu];
+        [appDelegate presentNavigationMenu];
 }
 
 - (void)dealloc
@@ -99,7 +100,6 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDViewController, navigationMenu_)
     self.apiController = nil;
     self.hud = nil;
     self.buffer = nil;
-    self.navigationMenu = nil;
     [super dealloc];
 }
 

@@ -22,7 +22,6 @@
     NSString *searchTerm_;
     BOOL movedWithKeyboard_;
     UIView *viewNoData_;
-    UIView *navigationMenu_;
 }
 
 @property(nonatomic, assign) BOOL showsCancelButton;

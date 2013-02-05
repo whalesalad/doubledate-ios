@@ -16,7 +16,6 @@
     NSMutableArray *buffer_;
     DDAPIController *apiController_;
     MBProgressHUD *hud_;
-    UIView *navigationMenu_;
     BOOL movedWithKeyboard_;
 }
 

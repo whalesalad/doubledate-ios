@@ -16,11 +16,11 @@
 #import "UIViewController+Extensions.h"
 #import "DDTableViewController+Refresh.h"
 #import "DDSearchBar.h"
+#import "DDAppDelegate+NavigationMenu.h"
 
 DECLARE_HUD_WITH_PROPERTY(DDTableViewController, hud_)
 DECLARE_API_CONTROLLER_WITH_PROPERTY(DDTableViewController, apiController_)
 DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
-DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDTableViewController, navigationMenu_)
 
 @interface DDTableViewController (hidden)
 
@@ -119,10 +119,11 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDTableViewController, navigationMenu_)
 
 - (void)menuTouched:(id)sender
 {
-    if ([self isNavigationMenuPresented])
-        [self dismissNavigationMenu];
+    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
+    if ([appDelegate isNavigationMenuExist])
+        [appDelegate dismissNavigationMenu];
     else
-        [self presentNavigationMenu];
+        [appDelegate presentNavigationMenu];
 }
 
 - (void)setupSearchBar
@@ -158,7 +159,6 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDTableViewController, navigationMenu_)
     self.apiController = nil;
     self.hud = nil;
     self.buffer = nil;
-    self.navigationMenu = nil;
     [super dealloc];
 }
 

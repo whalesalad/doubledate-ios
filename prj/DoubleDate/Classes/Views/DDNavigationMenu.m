@@ -12,6 +12,7 @@
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
 #import "UIViewController+Extensions.h"
+#import "DDAppDelegate+NavigationMenu.h"
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
 
@@ -57,7 +58,7 @@
     }
     if (indexPath.row < [tabBarController.viewControllers count])
     {
-        [tabBarController.selectedViewController dismissNavigationMenu];
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
         tabBarController.selectedIndex = indexPath.row;
     }
 }
