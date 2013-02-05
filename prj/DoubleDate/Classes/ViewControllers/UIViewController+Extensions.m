@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "DDAPIController.h"
 #import "DDTools.h"
+#import "DDNavigationMenu.h"
 
 @implementation UIViewController (HUD)
 
@@ -312,11 +313,10 @@
     dim.alpha = 0;
     [self.navigationMenu addSubview:dim];
     
-    //add tble view
-    UIView *table = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.navigationMenu.frame.size.width, 80)] autorelease];
+    //add table view
+    DDNavigationMenu *table = [[[DDNavigationMenu alloc] init] autorelease];
     table.tag = kTagNavigationMenuTable;
-    table.backgroundColor = [UIColor redColor];
-    table.center = CGPointMake(table.center.x, table.center.y - 80);
+    table.center = CGPointMake(table.center.x, table.center.y - table.frame.size.height);
     [self.navigationMenu addSubview:table];
     
     //animate
@@ -324,7 +324,7 @@
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0.5f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
-        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + 80)];
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + table.frame.size.height)];
     } completion:^(BOOL finished) {
     }];
 }
@@ -336,7 +336,7 @@
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
-        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - 80)];
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - viewTable.frame.size.height)];
     } completion:^(BOOL finished) {
         [self.navigationMenu removeFromSuperview];
         self.navigationMenu = nil;

@@ -26,7 +26,7 @@
 
 #define kTagEmailActionSheet 1
 
-@interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate, UITabBarControllerDelegate>
+@interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate>
 
 - (void)joinWithEmail;
 - (void)loginWithEmail;
@@ -280,7 +280,6 @@
         
         //create tab bar controller
         UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-        tabBarController.delegate = self;
         [tabBarController.tabBar setBackgroundImage:[DDTools clearImageOfSize:CGSizeMake(1, 1)]];
         [tabBarController.tabBar setSelectionIndicatorImage:[DDTools clearImageOfSize:CGSizeMake(1, 1)]];
         NSMutableArray *viewControllers = [NSMutableArray array];
@@ -298,18 +297,6 @@
 - (void)startWithUser:(DDUser *)user
 {
     [self startWithUser:user animated:NO];
-}
-
-#pragma mark -
-#pragma mark UITabBarControllerDelegate
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-    for (DDTabBarBackgroundView *viewUnderTabBar in [tabBarController.tabBar.superview subviews])
-    {
-        if ([viewUnderTabBar isKindOfClass:[DDTabBarBackgroundView class]])
-            viewUnderTabBar.selectedTab = [tabBarController.viewControllers indexOfObject:viewController];
-    }
 }
 
 @end

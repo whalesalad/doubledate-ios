@@ -215,6 +215,9 @@
 		960C005216C0F1BD002F0718 /* nav-icon-wings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C004216C0F1BD002F0718 /* nav-icon-wings@2x.png */; };
 		960C005316C0F1BD002F0718 /* nav-menu-btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C004316C0F1BD002F0718 /* nav-menu-btn.png */; };
 		960C005416C0F1BD002F0718 /* nav-menu-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 960C004416C0F1BD002F0718 /* nav-menu-btn@2x.png */; };
+		960C008016C1132F002F0718 /* DDNavigationMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C007F16C1132F002F0718 /* DDNavigationMenu.m */; };
+		960C008316C115D6002F0718 /* DDNavigationMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C008216C115D6002F0718 /* DDNavigationMenuTableViewCell.m */; };
+		960C008516C11631002F0718 /* DDNavigationMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C008416C11631002F0718 /* DDNavigationMenuTableViewCell.xib */; };
 		960C7E8C15FDD98400EAF708 /* DDBioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */; };
 		960C7E8F15FDD98E00EAF708 /* DDBioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */; };
 		960C844F15FDF60200EAF708 /* JSTokenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 960C844815FDF60200EAF708 /* JSTokenButton.m */; };
@@ -784,6 +787,11 @@
 		960C004216C0F1BD002F0718 /* nav-icon-wings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-icon-wings@2x.png"; sourceTree = "<group>"; };
 		960C004316C0F1BD002F0718 /* nav-menu-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-menu-btn.png"; sourceTree = "<group>"; };
 		960C004416C0F1BD002F0718 /* nav-menu-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-menu-btn@2x.png"; sourceTree = "<group>"; };
+		960C007E16C1132F002F0718 /* DDNavigationMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNavigationMenu.h; sourceTree = "<group>"; };
+		960C007F16C1132F002F0718 /* DDNavigationMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNavigationMenu.m; sourceTree = "<group>"; };
+		960C008116C115D6002F0718 /* DDNavigationMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNavigationMenuTableViewCell.h; sourceTree = "<group>"; };
+		960C008216C115D6002F0718 /* DDNavigationMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNavigationMenuTableViewCell.m; sourceTree = "<group>"; };
+		960C008416C11631002F0718 /* DDNavigationMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDNavigationMenuTableViewCell.xib; sourceTree = "<group>"; };
 		960C7E8B15FDD98400EAF708 /* DDBioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBioViewController.xib; sourceTree = "<group>"; };
 		960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBioViewController.h; sourceTree = "<group>"; };
 		960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBioViewController.m; sourceTree = "<group>"; };
@@ -1654,6 +1662,10 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				960C008116C115D6002F0718 /* DDNavigationMenuTableViewCell.h */,
+				960C008216C115D6002F0718 /* DDNavigationMenuTableViewCell.m */,
+				960C007E16C1132F002F0718 /* DDNavigationMenu.h */,
+				960C007F16C1132F002F0718 /* DDNavigationMenu.m */,
 				965F8A0C16A9417900A8C576 /* DDChatTableViewCell.h */,
 				965F8A0D16A9417900A8C576 /* DDChatTableViewCell.m */,
 				960C9A7D16A1578B006B6CDC /* DDShortUserTableViewCell.h */,
@@ -1824,6 +1836,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				960C008416C11631002F0718 /* DDNavigationMenuTableViewCell.xib */,
 				965F8A0F16A9420700A8C576 /* DDChatTableViewCell.xib */,
 				965DADAE16A7EEAB005F8B25 /* DDChatViewController.xib */,
 				963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */,
@@ -2579,6 +2592,7 @@
 				960C005216C0F1BD002F0718 /* nav-icon-wings@2x.png in Resources */,
 				960C005316C0F1BD002F0718 /* nav-menu-btn.png in Resources */,
 				960C005416C0F1BD002F0718 /* nav-menu-btn@2x.png in Resources */,
+				960C008516C11631002F0718 /* DDNavigationMenuTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2675,6 +2689,8 @@
 				7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */,
 				9662893016B68521002E0AD1 /* HPGrowingTextView.m in Sources */,
 				9662893116B68521002E0AD1 /* HPTextViewInternal.m in Sources */,
+				960C008016C1132F002F0718 /* DDNavigationMenu.m in Sources */,
+				960C008316C115D6002F0718 /* DDNavigationMenuTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

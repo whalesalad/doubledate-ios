@@ -65,9 +65,6 @@
         
         //add right button
         self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
-        
-        //remove left button
-        self.navigationItem.leftBarButtonItem = nil;
     }
     else
     {
