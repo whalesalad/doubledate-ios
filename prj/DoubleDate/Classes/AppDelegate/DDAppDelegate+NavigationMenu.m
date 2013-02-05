@@ -42,6 +42,11 @@
     table.center = CGPointMake(table.center.x, table.center.y - table.frame.size.height);
     [self.navigationMenu addSubview:table];
     
+    //add shadow
+    UIImageView *shadow = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-menu-inner-shadow.png"]] autorelease];
+    shadow.frame = CGRectMake(0, 0, shadow.frame.size.width, shadow.frame.size.height);
+    [self.navigationMenu addSubview:shadow];
+    
     //animate
     [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState  animations:^{
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
