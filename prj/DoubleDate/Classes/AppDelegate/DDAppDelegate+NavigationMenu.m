@@ -8,6 +8,7 @@
 
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDNavigationMenu.h"
+#import "DDNavigationMenuTableViewCell.h"
 
 #define kTagNavigationMenuDim 1
 #define kTagNavigationMenuTable 2
@@ -52,7 +53,7 @@
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0.5f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
-        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + table.frame.size.height)];
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + table.frame.size.height - [DDNavigationMenuTableViewCell height])];
     } completion:^(BOOL finished) {
     }];
 }
@@ -66,7 +67,7 @@
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             [viewDim setAlpha:0];
-            [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - viewTable.frame.size.height)];
+            [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - viewTable.frame.size.height + [DDNavigationMenuTableViewCell height])];
         } completion:^(BOOL finished) {
             [self.navigationMenu removeFromSuperview];
             self.navigationMenu = nil;

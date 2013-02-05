@@ -23,7 +23,7 @@
 
 - (id)init
 {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 5 * [DDNavigationMenuTableViewCell height])];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 6 * [DDNavigationMenuTableViewCell height])];
     if (self)
     {
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bg.png"]];
@@ -56,10 +56,11 @@
                 tabBarController = c;
         }
     }
-    if (indexPath.row < [tabBarController.viewControllers count])
+    NSInteger realIndex = indexPath.row - 1;
+    if (realIndex >= 0 && realIndex < [tabBarController.viewControllers count])
     {
         [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
-        tabBarController.selectedIndex = indexPath.row;
+        tabBarController.selectedIndex = realIndex;
     }
 }
 
@@ -68,7 +69,7 @@
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,26 +87,31 @@
         
     switch (indexPath.row) {
         case 0:
+            cell.imageViewIcon.image = nil;
+            cell.labelTitle.text = nil;
+            cell.labelBadge.text = nil;
+            break;
+        case 1:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-notifications.png"];
             cell.labelTitle.text = NSLocalizedString(@"Notifications", nil);
             cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadNotificationsCount intValue]];
             break;
-        case 1:
+        case 2:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-profile.png"];
             cell.labelTitle.text = NSLocalizedString(@"Profile", nil);
             cell.labelBadge.text = nil;
             break;
-        case 2:
+        case 3:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-wings.png"];
             cell.labelTitle.text = NSLocalizedString(@"Wings", nil);
             cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].pendingWingsCount intValue]];
             break;
-        case 3:
+        case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
             cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
             cell.labelBadge.text = nil;
             break;
-        case 4:
+        case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
             cell.labelTitle.text = NSLocalizedString(@"Messages", nil);
             cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadMessagesCount intValue]];
