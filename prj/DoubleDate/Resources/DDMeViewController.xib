@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<int key="IBDocument.SystemTarget">1552</int>
+		<string key="IBDocument.SystemVersion">12C3006</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -47,7 +47,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{0, 200}, {320, 147}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="624625623"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -62,7 +61,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{0, 200}, {296, 147}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="568764246"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -105,7 +103,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 200}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="872843684"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="276195241">
@@ -119,7 +116,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 200}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="236867197"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -129,7 +126,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{16, 375}, {288, 79}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -142,7 +139,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 352}, {91, 21}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="738702343"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="870857298">
@@ -183,7 +179,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 152}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="708366509"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -220,7 +215,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{20, 170}, {127, 30}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="859840156"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="870857298"/>
@@ -251,7 +245,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{150, 175}, {15, 15}}</string>
 								<reference key="NSSuperview" ref="877541446"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="406626179"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -264,7 +257,6 @@
 						</array>
 						<string key="NSFrameSize">{320, 504}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="709510876"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -278,7 +270,6 @@
 				</array>
 				<string key="NSFrame">{{0, 64}, {320, 504}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="877541446"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -609,7 +600,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1536" key="NS.object.0"/>
+			<real value="1552" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
@@ -617,6 +608,6 @@
 			<string key="bg-me-bio.png">{320, 147}</string>
 			<string key="icon-gender-male.png">{15, 15}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

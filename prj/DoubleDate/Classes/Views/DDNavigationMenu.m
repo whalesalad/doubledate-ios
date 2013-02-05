@@ -13,6 +13,7 @@
 #import "DDUser.h"
 #import "UIViewController+Extensions.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
 
@@ -25,9 +26,8 @@
     self = [super initWithFrame:CGRectMake(0, 0, 320, 5 * [DDNavigationMenuTableViewCell height])];
     if (self)
     {
-#warning customize navigation menu
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bg.png"]];
-        self.separatorColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+        self.separatorColor = [[UIColor blackColor] colorWithAlphaComponent:0.2f];
         self.delegate = self;
         self.dataSource = self;
         self.scrollEnabled = NO;
@@ -121,6 +121,9 @@
     //restore center of the icon
     cell.imageViewIcon.frame = CGRectMake(0, 0, cell.imageViewIcon.image.size.width, cell.imageViewIcon.image.size.height);
     cell.imageViewIcon.center = iconCenter;
+    
+    // hide the highlight line for the first cell
+    cell.highlightLine.hidden = (indexPath == 0);
     
     return cell;
 }

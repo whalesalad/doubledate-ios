@@ -59,6 +59,7 @@
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
+#warning is it possible to have the menu move downwards slightly then snap upwards like elastic? Using an easing like UIViewAnimationCurveEaseInOut
         [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - viewTable.frame.size.height)];
     } completion:^(BOOL finished) {
         [self.navigationMenu removeFromSuperview];
