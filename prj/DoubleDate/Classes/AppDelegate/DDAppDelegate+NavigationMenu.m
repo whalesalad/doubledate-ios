@@ -9,6 +9,7 @@
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDNavigationMenu.h"
 #import "DDNavigationMenuTableViewCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kTagNavigationMenuDim 1
 #define kTagNavigationMenuTable 2
@@ -17,6 +18,13 @@
 
 - (void)presentNavigationMenu
 {
+    //check if already exist
+    if (self.navigationMenuExist)
+        return;
+    
+    //set flag
+    self.navigationMenuExist = YES;
+    
     //create navigation menu
     [self.navigationMenu removeFromSuperview];
     self.navigationMenu = [[[UIView alloc] initWithFrame:CGRectMake(0, 20+44, self.window.frame.size.width, self.window.frame.size.height-20-44)] autorelease];
@@ -42,6 +50,7 @@
     table.tag = kTagNavigationMenuTable;
     table.center = CGPointMake(table.center.x, table.center.y - table.frame.size.height);
     [self.navigationMenu addSubview:table];
+    table.layer.cornerRadius = 6;
     
     //add shadow
     UIImageView *shadow = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-menu-inner-shadow.png"]] autorelease];
@@ -49,7 +58,7 @@
     [self.navigationMenu addSubview:shadow];
     
     //animate
-    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState  animations:^{
+    [UIView animateWithDuration:0.25f animations:^{
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0.5f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
@@ -60,6 +69,14 @@
 
 - (void)dismissNavigationMenu
 {
+    //check if not exist
+    if (!self.navigationMenuExist)
+        return;
+    
+    //unset flag
+    self.navigationMenuExist = NO;
+    
+    //animate
     UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
     UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
     [UIView animateWithDuration:0.1f animations:^{
@@ -77,7 +94,7 @@
 
 - (BOOL)isNavigationMenuExist
 {
-    return self.navigationMenu != nil;
+    return self.navigationMenuExist;
 }
 
 #pragma mark -
