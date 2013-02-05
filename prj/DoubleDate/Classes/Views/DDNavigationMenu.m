@@ -31,6 +31,13 @@
         self.delegate = self;
         self.dataSource = self;
         self.scrollEnabled = NO;
+        
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 2.0f);
+        self.layer.shadowOpacity = 0.7f;
+        self.layer.shadowRadius = 4.0f;
+        self.clipsToBounds = NO;
+        
     }
     return self;
 }
@@ -129,7 +136,9 @@
     cell.imageViewIcon.center = iconCenter;
     
     // hide the highlight line for the first cell
-    cell.highlightLine.hidden = (indexPath == 0);
+    if (indexPath.row > 1) {
+        cell.highlightLine.hidden = false;
+    }
     
     return cell;
 }
