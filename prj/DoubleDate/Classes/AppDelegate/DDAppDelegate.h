@@ -20,4 +20,6 @@
 
 @property (retain, nonatomic) UIView *navigationMenu;
 
+@property (assign, nonatomic) BOOL navigationMenuExist;
+
 @end

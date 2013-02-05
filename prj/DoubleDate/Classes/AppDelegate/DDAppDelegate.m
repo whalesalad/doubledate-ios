@@ -18,6 +18,7 @@
 @synthesize userPopover;
 @synthesize deviceToken;
 @synthesize navigationMenu;
+@synthesize navigationMenuExist;
 
 - (void)dealloc
 {

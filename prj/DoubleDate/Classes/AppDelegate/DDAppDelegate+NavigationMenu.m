@@ -8,6 +8,8 @@
 
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDNavigationMenu.h"
+#import "DDNavigationMenuTableViewCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kTagNavigationMenuDim 1
 #define kTagNavigationMenuTable 2
@@ -16,6 +18,13 @@
 
 - (void)presentNavigationMenu
 {
+    //check if already exist
+    if (self.navigationMenuExist)
+        return;
+    
+    //set flag
+    self.navigationMenuExist = YES;
+    
     //create navigation menu
     [self.navigationMenu removeFromSuperview];
     self.navigationMenu = [[[UIView alloc] initWithFrame:CGRectMake(0, 20+44, self.window.frame.size.width, self.window.frame.size.height-20-44)] autorelease];
@@ -41,35 +50,51 @@
     table.tag = kTagNavigationMenuTable;
     table.center = CGPointMake(table.center.x, table.center.y - table.frame.size.height);
     [self.navigationMenu addSubview:table];
+    table.layer.cornerRadius = 6;
+    
+    //add shadow
+    UIImageView *shadow = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-menu-inner-shadow.png"]] autorelease];
+    shadow.frame = CGRectMake(0, 0, shadow.frame.size.width, shadow.frame.size.height);
+    [self.navigationMenu addSubview:shadow];
     
     //animate
-    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState  animations:^{
+    [UIView animateWithDuration:0.25f animations:^{
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0.5f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
-        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + table.frame.size.height)];
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + table.frame.size.height - [DDNavigationMenuTableViewCell height])];
     } completion:^(BOOL finished) {
     }];
 }
 
 - (void)dismissNavigationMenu
 {
+    //check if not exist
+    if (!self.navigationMenuExist)
+        return;
+    
+    //unset flag
+    self.navigationMenuExist = NO;
+    
     //animate
-    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
-        [viewDim setAlpha:0];
-        UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
-#warning is it possible to have the menu move downwards slightly then snap upwards like elastic? Using an easing like UIViewAnimationCurveEaseInOut
-        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - viewTable.frame.size.height)];
+    UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
+    UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
+    [UIView animateWithDuration:0.1f animations:^{
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + 10)];
     } completion:^(BOOL finished) {
-        [self.navigationMenu removeFromSuperview];
-        self.navigationMenu = nil;
+        [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            [viewDim setAlpha:0];
+            [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - viewTable.frame.size.height + [DDNavigationMenuTableViewCell height])];
+        } completion:^(BOOL finished) {
+            [self.navigationMenu removeFromSuperview];
+            self.navigationMenu = nil;
+        }];
     }];
 }
 
 - (BOOL)isNavigationMenuExist
 {
-    return self.navigationMenu != nil;
+    return self.navigationMenuExist;
 }
 
 #pragma mark -
