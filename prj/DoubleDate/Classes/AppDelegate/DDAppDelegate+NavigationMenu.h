@@ -8,7 +8,7 @@
 
 #import "DDAppDelegate.h"
 
-@interface DDAppDelegate (NavigationMenu)
+@interface DDAppDelegate (NavigationMenu) <UINavigationControllerDelegate>
 
 - (void)presentNavigationMenu;
 - (void)dismissNavigationMenu;

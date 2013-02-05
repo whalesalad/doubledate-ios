@@ -10,12 +10,14 @@
 #import "DDWelcomeViewController.h"
 #import "DDChatViewController.h"
 #import "DDAppDelegate+APNS.h"
+#import "DDAppDelegate+NavigationMenu.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation DDAppDelegate
 
 @synthesize userPopover;
 @synthesize deviceToken;
+@synthesize navigationMenu;
 
 - (void)dealloc
 {
@@ -23,6 +25,7 @@
     [_viewController release];
     [userPopover release];
     [deviceToken release];
+    [navigationMenu release];
     [super dealloc];
 }
 
@@ -36,6 +39,7 @@
 //    vc.weakParentViewController = vc;
     self.viewController = [[[UINavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
     self.window.rootViewController = self.viewController;
+    [(UINavigationController*)self.viewController setDelegate:self];
     [self.window makeKeyAndVisible];
     
     return YES;

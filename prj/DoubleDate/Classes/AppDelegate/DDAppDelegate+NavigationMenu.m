@@ -30,6 +30,12 @@
     dim.alpha = 0;
     [self.navigationMenu addSubview:dim];
     
+    //add button under table view
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, dim.frame.size.width, dim.frame.size.height);
+    [button addTarget:self action:@selector(dismissNavigationMenu) forControlEvents:UIControlEventTouchUpInside];
+    [dim addSubview:button];
+    
     //add table view
     DDNavigationMenu *table = [[[DDNavigationMenu alloc] init] autorelease];
     table.tag = kTagNavigationMenuTable;
@@ -63,6 +69,14 @@
 - (BOOL)isNavigationMenuExist
 {
     return self.navigationMenu != nil;
+}
+
+#pragma mark -
+#pragma mark UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self dismissNavigationMenu];
 }
 
 @end

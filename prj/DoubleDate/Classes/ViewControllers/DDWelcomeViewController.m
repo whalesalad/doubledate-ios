@@ -23,6 +23,7 @@
 #import "DDWingsViewController.h"
 #import "DDDoubleDatesViewController.h"
 #import "DDTabBarBackgroundView.h"
+#import "DDAppDelegate+NavigationMenu.h"
 
 #define kTagEmailActionSheet 1
 
@@ -293,6 +294,13 @@
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:messagesViewController] autorelease]];
         tabBarController.viewControllers = viewControllers;
+        
+        //check each view controller
+        for (UINavigationController *nc in viewControllers)
+        {
+            if ([nc isKindOfClass:[UINavigationController class]])
+                nc.delegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
+        }
         
         //default is me tab
         tabBarController.selectedIndex = 1;
