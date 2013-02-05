@@ -462,18 +462,19 @@ typedef enum
         
         //add badge
         self.badgeView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-blue-notification-indicator.png"]] autorelease];
-        self.badgeView.center = CGPointMake(segmentedControl.frame.size.width-self.badgeView.frame.size.width/5, self.badgeView.frame.size.height/5);
+        self.badgeView.center = CGPointMake(segmentedControl.frame.size.width - 4, 4);
         [segmentedControl addSubview:self.badgeView];
         
         //add label
-#warning customize incoming messages unread badge
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
         label.text = [NSString stringWithFormat:@"%d", num];
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor whiteColor];
         label.font = [UIFont boldSystemFontOfSize:11];
+        label.shadowColor = [UIColor colorWithWhite:0 alpha:0.3f];
+        label.shadowOffset = CGSizeMake(0, 1);
         [label sizeToFit];
-        label.center = CGPointMake(self.badgeView.frame.size.width/2, self.badgeView.frame.size.height/2);
+        label.center = CGPointMake(9, 9);
         [self.badgeView addSubview:label];
     }
 }
