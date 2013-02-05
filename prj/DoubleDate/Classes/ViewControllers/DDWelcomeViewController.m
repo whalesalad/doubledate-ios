@@ -256,23 +256,27 @@
         DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
         meViewController.user = user;
         meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:0] autorelease];
+        meViewController.hidesBottomBarWhenPushed = YES;
         
         //set wingman view controller
         DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
         wingsViewController.user = user;
         wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:1] autorelease];
+        wingsViewController.hidesBottomBarWhenPushed = YES;
         
         //set browse view controller
         DDDoubleDatesViewController *browseViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
         browseViewController.mode = DDDoubleDatesViewControllerModeAll;
         browseViewController.user = user;
         browseViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:2] autorelease];
+        browseViewController.hidesBottomBarWhenPushed = YES;
         
         //set doubledates view controller
         DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
         doubledatesViewController.mode = DDDoubleDatesViewControllerModeMine;
         doubledatesViewController.user = user;
         doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:3] autorelease];
+        doubledatesViewController.hidesBottomBarWhenPushed = YES;
         
         //create tab bar controller
         UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
@@ -285,28 +289,6 @@
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:doubledatesViewController] autorelease]];
         tabBarController.viewControllers = viewControllers;
-        
-        //add view under tab bar and select me
-        DDTabBarBackgroundView *viewUnder = [[[DDTabBarBackgroundView alloc] initWithFrame:tabBarController.tabBar.frame] autorelease];
-        viewUnder.numberOfTabs = 4;
-        viewUnder.selectedTab = 0;
-        UIImage *imageMeNormal = nil;
-        UIImage *imageMeSelected = nil;
-        if ([user.gender isEqualToString:DDUserGenderMale])
-        {
-            imageMeNormal = [UIImage imageNamed:@"icon-male.png"];
-            imageMeSelected = [UIImage imageNamed:@"icon-male-selected.png"];
-        }
-        else if ([user.gender isEqualToString:DDUserGenderFemale])
-        {
-            imageMeNormal = [UIImage imageNamed:@"icon-female.png"];
-            imageMeSelected = [UIImage imageNamed:@"icon-female-selected.png"];
-        }
-        [viewUnder setFinishedSelectedImage:imageMeSelected withFinishedUnselectedImage:imageMeNormal forTab:0];
-        [viewUnder setFinishedSelectedImage:[UIImage imageNamed:@"icon-wings-selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"icon-wings.png"] forTab:1];
-        [viewUnder setFinishedSelectedImage:[UIImage imageNamed:@"icon-browse-selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"icon-browse.png"] forTab:2];
-        [viewUnder setFinishedSelectedImage:[UIImage imageNamed:@"icon-dates-selected.png"] withFinishedUnselectedImage:[UIImage imageNamed:@"icon-dates.png"] forTab:3];
-        [tabBarController.tabBar.superview insertSubview:viewUnder belowSubview:tabBarController.tabBar];
         
         //go to next view controller
         [self.navigationController pushViewController:tabBarController animated:animated];

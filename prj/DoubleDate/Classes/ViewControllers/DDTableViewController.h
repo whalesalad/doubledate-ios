@@ -22,6 +22,7 @@
     NSString *searchTerm_;
     BOOL movedWithKeyboard_;
     UIView *viewNoData_;
+    UIView *navigationMenu_;
 }
 
 @property(nonatomic, assign) BOOL showsCancelButton;
@@ -33,6 +34,8 @@
 
 @property(nonatomic, retain) NSString *backButtonTitle;
 @property(nonatomic, assign) BOOL moveWithKeyboard;
+
+@property(nonatomic, readonly) BOOL shouldShowNavigationMenu;
 
 - (void)setupSearchBar;
 

@@ -20,6 +20,7 @@
 DECLARE_HUD_WITH_PROPERTY(DDTableViewController, hud_)
 DECLARE_API_CONTROLLER_WITH_PROPERTY(DDTableViewController, apiController_)
 DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
+DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDTableViewController, navigationMenu_)
 
 @interface DDTableViewController (hidden)
 
@@ -32,6 +33,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 @synthesize backButtonTitle;
 @synthesize moveWithKeyboard;
 @synthesize viewNoData = viewNoData_;
+@synthesize shouldShowNavigationMenu;
 
 - (void)initSelf
 {
@@ -95,7 +97,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
     
     //customize left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
+    if ([self shouldShowNavigationMenu])
+        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
+    else
+        self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
     
     //add search bar
     [self setupSearchBar];
@@ -110,6 +115,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 - (void)backTouched:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)menuTouched:(id)sender
+{
 }
 
 - (void)setupSearchBar
@@ -135,6 +144,11 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     self.viewNoData.hidden = totalNumberOfRows > 0;
 }
 
+- (BOOL)shouldShowNavigationMenu
+{
+    return NO;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -143,6 +157,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [searchTerm_ release];
     [backButtonTitle release];
     [self hideHud:YES];
+    self.apiController = nil;
+    self.hud = nil;
+    self.buffer = nil;
+    self.navigationMenu = nil;
     [super dealloc];
 }
 

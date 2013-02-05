@@ -16,10 +16,12 @@
     NSMutableArray *buffer_;
     DDAPIController *apiController_;
     MBProgressHUD *hud_;
+    UIView *navigationMenu_;
     BOOL movedWithKeyboard_;
 }
 
 @property(nonatomic, retain) NSString *backButtonTitle;
 @property(nonatomic, assign) BOOL moveWithKeyboard;
+@property(nonatomic, readonly) BOOL shouldShowNavigationMenu;
 
 @end

@@ -281,3 +281,71 @@
 }
 
 @end
+
+@implementation UIViewController (NavigationMenu)
+
+- (void)setNavigationMenu:(UIView *)v
+{
+}
+
+- (UIView*)navigationMenu
+{
+    return nil;
+}
+
+#define kTagNavigationMenuDim 1
+#define kTagNavigationMenuTable 2
+
+- (void)presentNavigationMenu
+{    
+    //create navigation menu
+    [self.navigationMenu removeFromSuperview];
+    self.navigationMenu = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)] autorelease];
+    self.navigationMenu.backgroundColor = [UIColor clearColor];
+    self.navigationMenu.clipsToBounds = YES;
+    [self.view addSubview:self.navigationMenu];
+    
+    //add dim
+    UIView *dim = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.navigationMenu.frame.size.width, self.navigationMenu.frame.size.height)] autorelease];
+    dim.tag = kTagNavigationMenuDim;
+    dim.backgroundColor = [UIColor blackColor];
+    dim.alpha = 0;
+    [self.navigationMenu addSubview:dim];
+    
+    //add tble view
+    UIView *table = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.navigationMenu.frame.size.width, 80)] autorelease];
+    table.tag = kTagNavigationMenuTable;
+    table.backgroundColor = [UIColor redColor];
+    table.center = CGPointMake(table.center.x, table.center.y - 80);
+    [self.navigationMenu addSubview:table];
+    
+    //animate
+    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState  animations:^{
+        UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
+        [viewDim setAlpha:0.5f];
+        UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + 80)];
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)dismissNavigationMenu
+{
+    //animate
+    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
+        [viewDim setAlpha:0];
+        UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
+        [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y - 80)];
+    } completion:^(BOOL finished) {
+        [self.navigationMenu removeFromSuperview];
+        self.navigationMenu = nil;
+    }];
+}
+
+- (BOOL)isNavigationMenuPresented
+{
+    return self.navigationMenu != nil;
+}
+
+@end

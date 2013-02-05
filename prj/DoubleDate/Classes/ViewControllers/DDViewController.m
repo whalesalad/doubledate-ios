@@ -18,6 +18,7 @@
 DECLARE_HUD_WITH_PROPERTY(DDViewController, hud_)
 DECLARE_API_CONTROLLER_WITH_PROPERTY(DDViewController, apiController_)
 DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
+DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDViewController, navigationMenu_)
 
 @interface DDViewController (hidden) <DDAPIControllerDelegate>
 
@@ -27,6 +28,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
 
 @synthesize backButtonTitle;
 @synthesize moveWithKeyboard;
+@synthesize shouldShowNavigationMenu;
 
 - (void)initSelf
 {
@@ -69,12 +71,28 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
     
     //customize left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
+    if ([self shouldShowNavigationMenu])
+        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
+    else
+        self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
 }
 
 - (void)backTouched:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)menuTouched:(id)sender
+{
+    if ([self isNavigationMenuPresented])
+        [self dismissNavigationMenu];
+    else
+        [self presentNavigationMenu];
+}
+
+- (BOOL)shouldShowNavigationMenu
+{
+    return NO;
 }
 
 - (void)dealloc
@@ -84,6 +102,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDViewController, buffer_)
     [apiController_ release];
     [backButtonTitle release];
     [self hideHud:YES];
+    self.apiController = nil;
+    self.hud = nil;
+    self.buffer = nil;
+    self.navigationMenu = nil;
     [super dealloc];
 }
 

@@ -159,6 +159,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (BOOL)shouldShowNavigationMenu
+{
+    return YES;
+}
+
 - (void)dealloc
 {
     [user release];
