@@ -136,7 +136,9 @@
     cell.imageViewIcon.center = iconCenter;
     
     // hide the highlight line for the first cell
-    cell.highlightLine.hidden = (indexPath.row == 0);
+    if (indexPath.row > 1) {
+        cell.highlightLine.hidden = false;
+    }
     
     return cell;
 }

@@ -39,6 +39,7 @@
     self.highlightLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 1.0f)];
     self.highlightLine.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
+    self.highlightLine.hidden = true;
     
     [self addSubview:self.highlightLine];
     
