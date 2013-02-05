@@ -35,11 +35,9 @@
 @synthesize viewInterests;
 @synthesize labelInterests;
 @synthesize imageViewGender;
-@synthesize labelCoinsTitle;
-@synthesize labelCoinsValue;
-@synthesize labelKarmaTitle;
-@synthesize labelKarmaValue;
 @synthesize imageViewBioBackground;
+@synthesize buttonMoreCoins;
+@synthesize labelCoins;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -93,9 +91,11 @@
     //set location
     labelLocation.text = [[user location] name];
     
-    //set karma and coins
-    self.labelCoinsValue.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
-    self.labelKarmaValue.text = [NSString stringWithFormat:@"%d", [[user totalKarma] intValue]];
+    //update more coins button
+    [buttonMoreCoins setBackgroundImage:[DDTools resizableImageFromImage:[buttonMoreCoins backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    
+    //update coins label
+    labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
     
     //watch for text view change
     CGSize textViewBioSize = textViewBio.frame.size;
@@ -120,10 +120,6 @@
     viewInterests.backgroundColor = [UIColor clearColor];
     labelInterests.backgroundColor = [UIColor clearColor];
     imageViewGender.backgroundColor = [UIColor clearColor];
-    labelCoinsTitle.backgroundColor = [UIColor clearColor];
-    labelCoinsValue.backgroundColor = [UIColor clearColor];
-    labelKarmaTitle.backgroundColor = [UIColor clearColor];
-    labelKarmaValue.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -167,11 +163,9 @@
     [viewInterests release];
     [labelInterests release];
     [imageViewGender release];
-    [labelCoinsTitle release];
-    [labelCoinsValue release];
-    [labelKarmaTitle release];
-    [labelKarmaValue release];
     [imageViewBioBackground release];
+    [buttonMoreCoins release];
+    [labelCoins release];
     [super dealloc];
 }
 
@@ -188,6 +182,11 @@
         [self.tabBarController.navigationController popViewControllerAnimated:YES];
     else
         [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)moreCoinsTouched:(id)sender
+{
+    
 }
 
 @end

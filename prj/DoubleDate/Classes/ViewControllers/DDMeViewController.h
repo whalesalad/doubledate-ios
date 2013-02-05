@@ -25,10 +25,10 @@
 @property(nonatomic, retain) IBOutlet UIView *viewInterests;
 @property(nonatomic, retain) IBOutlet UILabel *labelInterests;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
-@property(nonatomic, retain) IBOutlet UILabel *labelCoinsTitle;
-@property(nonatomic, retain) IBOutlet UILabel *labelCoinsValue;
-@property(nonatomic, retain) IBOutlet UILabel *labelKarmaTitle;
-@property(nonatomic, retain) IBOutlet UILabel *labelKarmaValue;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBioBackground;
+@property(nonatomic, retain) IBOutlet UIButton *buttonMoreCoins;
+@property(nonatomic, retain) IBOutlet UILabel *labelCoins;
+
+- (IBAction)moreCoinsTouched:(id)sender;
 
 @end
