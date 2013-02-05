@@ -78,12 +78,10 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Wings", nil);
     
-    //add left button
+    //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
     
-    //add right button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
-    
+    //set placeholder for search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wings", nil)];
 }
 
@@ -176,30 +174,6 @@
         sheet.tag = kTagActionSheetInvite;
         [sheet showFromTabBar:self.tabBarController.tabBar];
     }
-}
-
-- (void)editTouched:(id)sender
-{
-    //update editing mode
-    self.tableView.editing = !self.tableView.editing;
-    
-    //set right button
-    if (self.tableView.editing)
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(editTouched:)];
-    else
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
-}
-
-- (void)tabChanged:(UISegmentedControl*)sender
-{
-    //unset editing
-    self.tableView.editing = NO;
-    
-    //reload the table
-    [self.tableView reloadData];
-    
-    //update title
-    self.navigationItem.title = [sender titleForSegmentAtIndex:sender.selectedSegmentIndex];
 }
 
 - (void)inviteTouched:(UIButton*)sender

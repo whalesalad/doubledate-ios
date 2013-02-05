@@ -35,7 +35,7 @@
 @property(nonatomic, retain) NSString *backButtonTitle;
 @property(nonatomic, assign) BOOL moveWithKeyboard;
 
-@property(nonatomic, readonly) BOOL shouldShowNavigationMenu;
+@property(nonatomic, assign) BOOL shouldShowNavigationMenu;
 
 - (void)setupSearchBar;
 

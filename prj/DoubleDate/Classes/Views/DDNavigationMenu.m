@@ -8,6 +8,7 @@
 
 #import "DDNavigationMenu.h"
 #import "DDNavigationMenuTableViewCell.h"
+#import "DDAppDelegate.h"
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
 
@@ -36,6 +37,23 @@
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [DDNavigationMenuTableViewCell height];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
+    UITabBarController *tabBarController = nil;
+    if ([appDelegate.viewController isKindOfClass:[UINavigationController class]])
+    {
+        NSArray *viewControllers = [(UINavigationController*)appDelegate.viewController viewControllers];
+        for (UITabBarController *c in viewControllers)
+        {
+            if ([c isKindOfClass:[UITabBarController class]] && [viewControllers indexOfObject:c] == 1)
+                tabBarController = c;
+        }
+    }
+    if (indexPath.row < [tabBarController.viewControllers count])
+        tabBarController.selectedIndex = indexPath.row;
 }
 
 #pragma mark -

@@ -256,18 +256,18 @@ typedef enum
 
 - (void)updateNavigationBar
 {
-    //check current mode
-    if (mode_ == DDDoubleDatesViewControllerModeMine)
-    {
-        if (self.tableView.editing)
-            self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(editTouched:)];
-        else
-            self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
-    }
-    else
-    {
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
-    }
+//    //check current mode
+//    if (mode_ == DDDoubleDatesViewControllerModeMine)
+//    {
+//        if (self.tableView.editing)
+//            self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(editTouched:)];
+//        else
+//            self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
+//    }
+//    else
+//    {
+//        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
+//    }
 }
 
 - (void)updateSearchBar

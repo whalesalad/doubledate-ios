@@ -90,18 +90,12 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDViewController, navigationMenu_)
         [self presentNavigationMenu];
 }
 
-- (BOOL)shouldShowNavigationMenu
-{
-    return NO;
-}
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    apiController_.delegate = nil;
-    [apiController_ release];
     [backButtonTitle release];
     [self hideHud:YES];
+    self.apiController.delegate = nil;
     self.apiController = nil;
     self.hud = nil;
     self.buffer = nil;

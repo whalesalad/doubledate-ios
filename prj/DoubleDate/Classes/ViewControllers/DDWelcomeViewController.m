@@ -252,41 +252,43 @@
     //check user
     if (user)
     {
+        //set notifications view controller
+        DDViewController *notificationsViewController = [[[DDViewController alloc] init] autorelease];
+        notificationsViewController.hidesBottomBarWhenPushed = YES;
+        notificationsViewController.shouldShowNavigationMenu = YES;
+        
         //set me view controller
         DDMeViewController *meViewController = [[[DDMeViewController alloc] init] autorelease];
         meViewController.user = user;
-        meViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:0] autorelease];
         meViewController.hidesBottomBarWhenPushed = YES;
+        meViewController.shouldShowNavigationMenu = YES;
         
         //set wingman view controller
         DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
         wingsViewController.user = user;
-        wingsViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:1] autorelease];
         wingsViewController.hidesBottomBarWhenPushed = YES;
+        wingsViewController.shouldShowNavigationMenu = YES;
         
         //set browse view controller
         DDDoubleDatesViewController *browseViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
         browseViewController.mode = DDDoubleDatesViewControllerModeAll;
         browseViewController.user = user;
-        browseViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:2] autorelease];
         browseViewController.hidesBottomBarWhenPushed = YES;
+        browseViewController.shouldShowNavigationMenu = YES;
         
-        //set doubledates view controller
-        DDDoubleDatesViewController *doubledatesViewController = [[[DDDoubleDatesViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
-        doubledatesViewController.mode = DDDoubleDatesViewControllerModeMine;
-        doubledatesViewController.user = user;
-        doubledatesViewController.tabBarItem = [[[UITabBarItem alloc] initWithTitle:nil image:nil tag:3] autorelease];
-        doubledatesViewController.hidesBottomBarWhenPushed = YES;
+        //add messages view controller
+        DDViewController *messagesViewController = [[[DDViewController alloc] init] autorelease];
+        messagesViewController.hidesBottomBarWhenPushed = YES;
+        messagesViewController.shouldShowNavigationMenu = YES;
         
         //create tab bar controller
         UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
-        [tabBarController.tabBar setBackgroundImage:[DDTools clearImageOfSize:CGSizeMake(1, 1)]];
-        [tabBarController.tabBar setSelectionIndicatorImage:[DDTools clearImageOfSize:CGSizeMake(1, 1)]];
         NSMutableArray *viewControllers = [NSMutableArray array];
+        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:notificationsViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:wingsViewController] autorelease]];
         [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
-        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:doubledatesViewController] autorelease]];
+        [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:messagesViewController] autorelease]];
         tabBarController.viewControllers = viewControllers;
         
         //go to next view controller

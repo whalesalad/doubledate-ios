@@ -119,6 +119,10 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDTableViewController, navigationMenu_)
 
 - (void)menuTouched:(id)sender
 {
+    if ([self isNavigationMenuPresented])
+        [self dismissNavigationMenu];
+    else
+        [self presentNavigationMenu];
 }
 
 - (void)setupSearchBar
@@ -144,19 +148,13 @@ DECLARE_NAVIGATION_MENU_WITH_PROPERTY(DDTableViewController, navigationMenu_)
     self.viewNoData.hidden = totalNumberOfRows > 0;
 }
 
-- (BOOL)shouldShowNavigationMenu
-{
-    return NO;
-}
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    apiController_.delegate = nil;
-    [apiController_ release];
     [searchTerm_ release];
     [backButtonTitle release];
     [self hideHud:YES];
+    self.apiController.delegate = nil;
     self.apiController = nil;
     self.hud = nil;
     self.buffer = nil;
