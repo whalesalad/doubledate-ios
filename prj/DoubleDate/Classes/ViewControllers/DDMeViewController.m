@@ -36,6 +36,7 @@
 @synthesize labelInterests;
 @synthesize imageViewGender;
 @synthesize imageViewBioBackground;
+@synthesize labelCoinsContainer;
 @synthesize buttonMoreCoins;
 @synthesize labelCoins;
 
@@ -96,6 +97,8 @@
     
     //update coins label
     labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
+    
+//    labelCoinsContainer
     
     //watch for text view change
     CGSize textViewBioSize = textViewBio.frame.size;

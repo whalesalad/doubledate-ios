@@ -120,7 +120,7 @@ typedef enum
     DD_F_TEXT(self.textView);
     
     //customize intereseted button
-    [self.buttonInterested setTitle:[NSString stringWithFormat:@"%@ + %@", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]] forState:UIControlStateNormal];
+    [self.buttonInterested setTitle:[NSString stringWithFormat:@"Send %@ & %@ a Message", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]] forState:UIControlStateNormal];
     [self.buttonInterested setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonInterested backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     
     //fill data

@@ -26,6 +26,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelInterests;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBioBackground;
+@property(nonatomic, retain) IBOutlet UIView *labelCoinsContainer;
 @property(nonatomic, retain) IBOutlet UIButton *buttonMoreCoins;
 @property(nonatomic, retain) IBOutlet UILabel *labelCoins;
 
