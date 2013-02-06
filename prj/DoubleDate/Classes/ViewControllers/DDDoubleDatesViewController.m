@@ -22,6 +22,7 @@
 #import "DDDoubleDateViewController.h"
 #import "DDObjectsController.h"
 #import "DDTools.h"
+#import "DDAPIController.h"
 
 typedef enum
 {
@@ -62,18 +63,6 @@ typedef enum
 {
     [super viewDidLoad];
     
-    //set needed title
-    if (mode_ == DDDoubleDatesViewControllerModeAll)
-        self.navigationItem.title = NSLocalizedString(@"DoubleDates", nil);
-    else if (mode_ == DDDoubleDatesViewControllerModeMine)
-        self.navigationItem.title = NSLocalizedString(@"My DoubleDates", nil);
-    
-    //add left button
-    if (mode_ == DDDoubleDatesViewControllerModeMine)
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
-    else
-        self.navigationItem.rightBarButtonItem = nil;
-    
     //customize separators
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -93,8 +82,8 @@ typedef enum
 {
     [super viewDidAppear:animated];
     
-    //check if we need to make a request
-    if (!doubleDates_)
+    //check for first time
+    if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_)
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
@@ -105,7 +94,8 @@ typedef enum
 
 - (void)dealloc
 {
-    [doubleDates_ release];
+    [doubleDatesAll_ release];
+    [doubleDatesMine_ release];
     [user release];
     [searchFilter release];
     [super dealloc];
@@ -130,13 +120,22 @@ typedef enum
     }];
 }
 
-- (void)editTouched:(id)sender
+- (void)segmentedControlTouched:(UISegmentedControl*)sender
 {
-    //update edigin style
-    self.tableView.editing = !self.tableView.editing;
+    //update mode
+    if (sender.selectedSegmentIndex == 0)
+        mode_ = DDDoubleDatesViewControllerModeAll;
+    else
+        mode_ = DDDoubleDatesViewControllerModeMine;
+    
+    //reload table
+    [self.tableView reloadData];
     
     //update navigation bar
     [self updateNavigationBar];
+    
+    //update search bar
+    [self updateSearchBar];
 }
 
 - (NSArray*)filteredDoubleDates:(NSArray*)doubleDates filter:(DDDoubleDatesViewControllerFilter)filter
@@ -193,34 +192,32 @@ typedef enum
 }
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section
-{
-    return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterNone];
-    
-    /*if (mode_ == DDDoubleDatesViewControllerModeAll)
-        return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterNone];
+{    
+    if (mode_ == DDDoubleDatesViewControllerModeAll)
+        return [self filteredDoubleDates:doubleDatesAll_ filter:DDDoubleDatesViewControllerFilterNone];
     else if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
         switch (section) {
             case 0:
-                return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterCreated];
+                return [self filteredDoubleDates:doubleDatesMine_ filter:DDDoubleDatesViewControllerFilterCreated];
                 break;
             case 1:
-                return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterWing];
+                return [self filteredDoubleDates:doubleDatesMine_ filter:DDDoubleDatesViewControllerFilterWing];
                 break;
             case 2:
-                return [self filteredDoubleDates:doubleDates_ filter:DDDoubleDatesViewControllerFilterAttending];
+                return [self filteredDoubleDates:doubleDatesMine_ filter:DDDoubleDatesViewControllerFilterAttending];
                 break;
             default:
                 break;
         }
     }
-    return nil;*/
+    return nil;
 }
 
 - (void)onDataRefreshed
 {
     //check for both data
-    if (doubleDates_)
+    if (![self.apiController isRequestExist:requestDoubleDatesAll_] && ![self.apiController isRequestExist:requestDoubleDatesMine_])
     {
         //hide hud
         [self hideHud:YES];
@@ -239,7 +236,12 @@ typedef enum
     NSMutableArray *doubleDatesToRemove = [NSMutableArray array];
 
     //add from all doubledates
-    for (DDDoubleDate *d in doubleDates_)
+    for (DDDoubleDate *d in doubleDatesAll_)
+    {
+        if ([[d identifier] intValue] == [[doubleDate identifier] intValue])
+            [doubleDatesToRemove addObject:d];
+    }
+    for (DDDoubleDate *d in doubleDatesMine_)
     {
         if ([[d identifier] intValue] == [[doubleDate identifier] intValue])
             [doubleDatesToRemove addObject:d];
@@ -249,25 +251,38 @@ typedef enum
     while ([doubleDatesToRemove count])
     {
         DDDoubleDate *d = [doubleDatesToRemove lastObject];
-        [doubleDates_ removeObject:d];
+        [doubleDatesAll_ removeObject:d];
+        [doubleDatesMine_ removeObject:d];
         [doubleDatesToRemove removeObject:d];
     }
 }
 
 - (void)updateNavigationBar
 {
-//    //check current mode
-//    if (mode_ == DDDoubleDatesViewControllerModeMine)
-//    {
-//        if (self.tableView.editing)
-//            self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(editTouched:)];
-//        else
-//            self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
-//    }
-//    else
-//    {
-//        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
-//    }
+    //check current mode
+    if (mode_ == DDDoubleDatesViewControllerModeMine)
+    {
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
+    }
+    else
+    {
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
+    }
+    
+    //create segmented control
+    if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
+    {
+        //add segmeneted control
+        NSMutableArray *items = [NSMutableArray array];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Explore", nil) width:0]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"My Dates", nil) width:0]];
+        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleSmall] autorelease];
+        self.navigationItem.titleView = segmentedControl;
+        [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
+    }
+    
+    //update mode
+    [(UISegmentedControl*)self.navigationItem.titleView setSelectedSegmentIndex:(mode_ == DDDoubleDatesViewControllerModeMine)?1:0];
 }
 
 - (void)updateSearchBar
@@ -313,12 +328,14 @@ typedef enum
         if (method == RKRequestMethodGET)
         {
             //just update the object in the list
-            [self replaceObject:[notification object] inArray:doubleDates_];
+            [self replaceObject:[notification object] inArray:doubleDatesAll_];
+            [self replaceObject:[notification object] inArray:doubleDatesMine_];
         }
         else if (method == RKRequestMethodPOST)
         {
             //add object
-            [doubleDates_ addObject:[notification object]];
+            [doubleDatesAll_ addObject:[notification object]];
+            [doubleDatesMine_ addObject:[notification object]];
             
             //reload the table
             [self.tableView reloadData];
@@ -447,47 +464,47 @@ typedef enum
 - (void)getDoubleDatesSucceed:(NSArray*)doubleDates
 {
     //save doubledates
-    [doubleDates_ release];
-    doubleDates_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
+    [doubleDatesAll_ release];
+    doubleDatesAll_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
     
     //inform about completion
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)getDoubleDatesDidFailedWithError:(NSError*)error
 {
     //save friends
-    [doubleDates_ release];
-    doubleDates_ = [[NSMutableArray alloc] init];
+    [doubleDatesAll_ release];
+    doubleDatesAll_ = [[NSMutableArray alloc] init];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
     
     //inform about completion
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)getMyDoubleDatesSucceed:(NSArray*)doubleDates
 {
     //save doubledates
-    [doubleDates_ release];
-    doubleDates_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
+    [doubleDatesMine_ release];
+    doubleDatesMine_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
     
     //inform about completion
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)getMyDoubleDatesDidFailedWithError:(NSError*)error
 {
     //save friends
-    [doubleDates_ release];
-    doubleDates_ = [[NSMutableArray alloc] init];
+    [doubleDatesMine_ release];
+    doubleDatesMine_ = [[NSMutableArray alloc] init];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
     
     //inform about completion
-    [self onDataRefreshed];
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)requestDeleteDoubleDateSucceed
@@ -508,15 +525,9 @@ typedef enum
 
 - (void)onRefresh
 {
-    //unset old values
-    [doubleDates_ release];
-    doubleDates_ = nil;
-    
     //request doubledates
-    if (mode_ == DDDoubleDatesViewControllerModeAll)
-        [self.apiController getDoubleDatesWithFilter:self.searchFilter];
-    else if (mode_ == DDDoubleDatesViewControllerModeMine)
-        [self.apiController getMyDoubleDates];
+    requestDoubleDatesAll_ = [self.apiController getDoubleDatesWithFilter:self.searchFilter];
+    requestDoubleDatesMine_ = [self.apiController getMyDoubleDates];
 }
 
 #pragma mark -

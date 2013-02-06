@@ -19,7 +19,10 @@ typedef enum
 
 @interface DDDoubleDatesViewController : DDTableViewController
 {
-    NSMutableArray *doubleDates_;
+    NSMutableArray *doubleDatesAll_;
+    NSMutableArray *doubleDatesMine_;
+    DDRequestId requestDoubleDatesAll_;
+    DDRequestId requestDoubleDatesMine_;
     DDDoubleDatesViewControllerMode mode_;
 }
 
