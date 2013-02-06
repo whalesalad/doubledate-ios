@@ -96,9 +96,6 @@ typedef enum
 @synthesize leftView;
 @synthesize rightView;
 
-@synthesize labelButtonInterestedDetailed;
-@synthesize labelButtonInterestedMain;
-
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -123,8 +120,8 @@ typedef enum
     DD_F_TEXT(self.textView);
     
     //customize intereseted button
-    self.labelButtonInterestedMain.text = [NSString stringWithFormat:@"%@ + %@", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]];
-    [self.buttonInterested setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-lower-button.png"]] forState:UIControlStateNormal];
+    [self.buttonInterested setTitle:[NSString stringWithFormat:@"%@ + %@", [self.doubleDate.user.firstName uppercaseString], [self.doubleDate.wing.firstName uppercaseString]] forState:UIControlStateNormal];
+    [self.buttonInterested setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonInterested backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
@@ -221,8 +218,6 @@ typedef enum
     [imageViewRightUserGender release];
     [leftView release];
     [rightView release];
-    [labelButtonInterestedDetailed release];
-    [labelButtonInterestedMain release];
     [super dealloc];
 }
 

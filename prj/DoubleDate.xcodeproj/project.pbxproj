@@ -251,6 +251,8 @@
 		960F9FF716A00E3F00258CA7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */; };
 		960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF816A00E6300258CA7 /* Social.framework */; };
 		960FB54C16413964003563FD /* DDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 960FB54B16413964003563FD /* DDTableViewCell.m */; };
+		961195F516C26393009761D8 /* lower-button-bar-large-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 961195F316C26393009761D8 /* lower-button-bar-large-bg.png */; };
+		961195F616C26393009761D8 /* lower-button-bar-large-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 961195F416C26393009761D8 /* lower-button-bar-large-bg@2x.png */; };
 		9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */; };
 		962B410016256397004E0656 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B40FF16256397004E0656 /* FacebookSDK.framework */; };
 		962B410416256413004E0656 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410216256413004E0656 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -842,6 +844,8 @@
 		960F9FF816A00E6300258CA7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		960FB54A16413964003563FD /* DDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTableViewCell.h; sourceTree = "<group>"; };
 		960FB54B16413964003563FD /* DDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTableViewCell.m; sourceTree = "<group>"; };
+		961195F316C26393009761D8 /* lower-button-bar-large-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-bar-large-bg.png"; sourceTree = "<group>"; };
+		961195F416C26393009761D8 /* lower-button-bar-large-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-bar-large-bg@2x.png"; sourceTree = "<group>"; };
 		9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateViewController.h; sourceTree = "<group>"; };
 		9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateViewController.m; sourceTree = "<group>"; };
 		962B40FF16256397004E0656 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -1203,6 +1207,8 @@
 		701BAA6016A4A89C007CB566 /* new-doubledate-detail */ = {
 			isa = PBXGroup;
 			children = (
+				961195F316C26393009761D8 /* lower-button-bar-large-bg.png */,
+				961195F416C26393009761D8 /* lower-button-bar-large-bg@2x.png */,
 				96EF6F8216A6B76000356D18 /* bubble-photo-overlay.png */,
 				96EF6F8316A6B76000356D18 /* bubble-photo-overlay@2x.png */,
 				701BAA6116A4A89C007CB566 /* details-bg-bottom.png */,
@@ -2646,6 +2652,8 @@
 				70507B1316C1B2EA00587EAF /* coinbar-coin-icon@2x.png in Resources */,
 				70507B1416C1B2EA00587EAF /* coinbar-inner.png in Resources */,
 				70507B1516C1B2EA00587EAF /* coinbar-inner@2x.png in Resources */,
+				961195F516C26393009761D8 /* lower-button-bar-large-bg.png in Resources */,
+				961195F616C26393009761D8 /* lower-button-bar-large-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
