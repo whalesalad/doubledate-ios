@@ -270,20 +270,28 @@ typedef enum
         self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
     }
     
+    //set names for segmented control items
+    NSString *exploreName = NSLocalizedString(@"Explore", nil);
+    NSString *myDatesName = NSLocalizedString(@"My Dates", nil);
+    
     //create segmented control
     if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
     {
         //add segmeneted control
         NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Explore", nil) width:0]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"My Dates", nil) width:0]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:exploreName width:0]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:myDatesName width:0]];
         DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleSmall] autorelease];
         self.navigationItem.titleView = segmentedControl;
+        segmentedControl.selectedSegmentIndex = 0;
         [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
     }
     
     //update mode
     [(UISegmentedControl*)self.navigationItem.titleView setSelectedSegmentIndex:(mode_ == DDDoubleDatesViewControllerModeMine)?1:0];
+    
+    //update navigation item
+    self.navigationItem.title = (mode_ == DDDoubleDatesViewControllerModeMine)?myDatesName:exploreName;
 }
 
 - (void)updateSearchBar
@@ -355,6 +363,7 @@ typedef enum
     //open view controller
     DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
     viewController.doubleDate = doubleDate;
+    viewController.backButtonTitle = self.navigationItem.title;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
