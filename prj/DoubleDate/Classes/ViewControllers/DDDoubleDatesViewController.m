@@ -109,7 +109,8 @@ typedef enum
     DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
     viewController.user = self.user;
     viewController.doubleDatesViewController = self;
-    [self.navigationController pushViewController:viewController animated:YES];
+    [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
+    }];
 }
 
 - (void)filterTouched:(id)sender

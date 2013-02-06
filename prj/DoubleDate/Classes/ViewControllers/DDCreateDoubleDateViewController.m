@@ -488,7 +488,8 @@
     [self showCompletedHudWithText:message];
     
     //go back
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)createDoubleDateDidFailedWithError:(NSError*)error
@@ -668,7 +669,8 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (actionSheet.tag == kTagCancelActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        }];
 }
 
 @end
