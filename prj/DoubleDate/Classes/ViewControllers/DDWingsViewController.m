@@ -30,6 +30,8 @@
 #define kTagConfirmDeleteFriendAlert 5
 #define kTagActionSheetInvite 6
 
+#define kMoneyForFriend 10
+
 @interface DDWingsViewControllerAlertView : UIAlertView
 @property(nonatomic, retain) DDShortUser *shortUser;
 @end
@@ -83,6 +85,34 @@
     
     //set placeholder for search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wings", nil)];
+    
+    //add no messages label
+    UILabel *labelStart = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
+    labelStart.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 100);
+    labelStart.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    labelStart.numberOfLines = 2;
+    labelStart.text = NSLocalizedString(@"Start by adding your\nclosest friends", nil);
+    labelStart.textAlignment = NSTextAlignmentCenter;
+    labelStart.backgroundColor = [UIColor clearColor];
+    DD_F_NO_DATA_LABEL(labelStart);
+    [self.viewNoData addSubview:labelStart];
+    
+    //add no incoming messages image view
+    UIImageView *imageViewNoData = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-wings.png"]] autorelease];
+    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y);
+    imageViewNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.viewNoData addSubview:imageViewNoData];
+    
+    //add no messages label
+    UILabel *labelInvite = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
+    labelInvite.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 100);
+    labelInvite.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    labelInvite.numberOfLines = 2;
+    labelInvite.text = [NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou both earn %d coins!", nil), kMoneyForFriend];
+    labelInvite.textAlignment = NSTextAlignmentCenter;
+    labelInvite.backgroundColor = [UIColor clearColor];
+    DD_F_NO_DATA_LABEL(labelInvite);
+    [self.viewNoData addSubview:labelInvite];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -156,6 +186,9 @@
         
         //reload the table
         [self.tableView reloadData];
+        
+        //update no messages
+        [self updateNoDataView];
     }
 }
 
@@ -462,6 +495,9 @@
             //reload the table
             [self.tableView reloadData];
             
+            //update no data view
+            [self updateNoDataView];
+            
             //send request
             [self.apiController requestDenyFriendshipForFriend:friend];
         }
@@ -479,6 +515,9 @@
             
             //reload the tanle
             [self.tableView reloadData];
+            
+            //update no data view
+            [self updateNoDataView];
             
             //send request
             [self.apiController requestDeleteFriend:shortuser];

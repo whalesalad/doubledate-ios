@@ -60,6 +60,8 @@
 		702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B416236E5800693673 /* user-photo-overlay@2x.png */; };
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
 		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
+		7047717C16C2FA4500FA83A0 /* no-wings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7047717A16C2FA4500FA83A0 /* no-wings.png */; };
+		7047717D16C2FA4500FA83A0 /* no-wings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7047717B16C2FA4500FA83A0 /* no-wings@2x.png */; };
 		704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */; };
 		704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */; };
 		70507B0E16C1B2EA00587EAF /* coinbar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70507B0616C1B2EA00587EAF /* coinbar-bg.png */; };
@@ -624,6 +626,8 @@
 		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
 		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
 		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		7047717A16C2FA4500FA83A0 /* no-wings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-wings.png"; sourceTree = "<group>"; };
+		7047717B16C2FA4500FA83A0 /* no-wings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-wings@2x.png"; sourceTree = "<group>"; };
 		704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementsViewController.h; sourceTree = "<group>"; };
 		704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagementsViewController.m; sourceTree = "<group>"; };
 		704A624B1687BF1C00B86F57 /* DDEngagementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementTableViewCell.h; sourceTree = "<group>"; };
@@ -1271,6 +1275,8 @@
 		70927FAE169E0E5900052C9F /* wing-and-list-overlays */ = {
 			isa = PBXGroup;
 			children = (
+				7047717A16C2FA4500FA83A0 /* no-wings.png */,
+				7047717B16C2FA4500FA83A0 /* no-wings@2x.png */,
 				70927FAF169E0E5900052C9F /* double-arrows.png */,
 				70927FB0169E0E5900052C9F /* double-arrows@2x.png */,
 				70927FB1169E0E5900052C9F /* double-list-overlay.png */,
@@ -2654,6 +2660,8 @@
 				70507B1516C1B2EA00587EAF /* coinbar-inner@2x.png in Resources */,
 				961195F516C26393009761D8 /* lower-button-bar-large-bg.png in Resources */,
 				961195F616C26393009761D8 /* lower-button-bar-large-bg@2x.png in Resources */,
+				7047717C16C2FA4500FA83A0 /* no-wings.png in Resources */,
+				7047717D16C2FA4500FA83A0 /* no-wings@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
