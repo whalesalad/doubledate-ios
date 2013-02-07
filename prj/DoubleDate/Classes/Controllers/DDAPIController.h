@@ -163,12 +163,12 @@ typedef int DDRequestId;
 
 - (DDRequestId)getEngagements;
 
-- (DDRequestId)createEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
+- (DDRequestId)createEngagement:(DDEngagement*)engagement;
 
-- (DDRequestId)unlockEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
+- (DDRequestId)unlockEngagement:(DDEngagement*)engagement;
 
-- (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
+- (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement;
 
-- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate;
+- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement;
 
 @end

@@ -648,13 +648,13 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)createEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)createEngagement:(DDEngagement*)engagement
 {
     //create user dictionary
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[engagement dictionaryRepresentation] forKey:@"engagement"];
     
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements", [doubleDate.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"engagements"]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
@@ -673,10 +673,10 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)unlockEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)unlockEngagement:(DDEngagement*)engagement
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/unlock", [doubleDate.identifier intValue], [engagement.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"engagements/%d/unlock", [engagement.identifier intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
@@ -692,10 +692,10 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/messages", [doubleDate.identifier intValue], [engagement.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"engagements/%d/messages", [engagement.identifier intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
@@ -711,13 +711,13 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement forDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement
 {
     //create user dictionary
     NSDictionary *dictionary = [message dictionaryRepresentation];
     
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements/%d/messages", [doubleDate.identifier intValue], [engagement.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"engagements/%d/messages", [engagement.identifier intValue]]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];

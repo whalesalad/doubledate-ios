@@ -107,7 +107,7 @@
         DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
         engagement.wingId = self.selectWingView.wing.identifier;
         engagement.message = [[(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] textView] text];
-        [self.apiController createEngagement:engagement forDoubleDate:self.doubleDate];
+        [self.apiController createEngagement:engagement];
     }
 }
 

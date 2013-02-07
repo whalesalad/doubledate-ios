@@ -181,7 +181,7 @@
     self.textViewInput.animateHeightChange = YES;
     
     //request new messages anyways
-    DDRequestId requestId = [self.apiController getMessagesForEngagement:self.engagement forDoubleDate:self.doubleDate];
+    DDRequestId requestId = [self.apiController getMessagesForEngagement:self.engagement];
     NSString *requestPath = [self.apiController pathForRequest:requestId];
     
     //load cache for path
@@ -218,12 +218,15 @@
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[messages_ count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     
+    //save tab bar height
+    CGFloat tabBarHeight = self.weakParentViewController.tabBarController.tabBar.hidden?0:self.weakParentViewController.tabBarController.tabBar.frame.size.height;
+    
     //animate
     [UIView beginAnimations:@"DDChatViewControllerKeyboardAnimation" context:nil];
     [UIView setAnimationCurve:[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
     [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
     CGRect rect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat dh = rect.size.height - self.weakParentViewController.tabBarController.tabBar.frame.size.height;
+    CGFloat dh = rect.size.height - tabBarHeight;
     self.mainView.frame = CGRectMake(self.mainView.frame.origin.x, self.mainView.frame.origin.y-dh, self.mainView.frame.size.width, self.mainView.frame.size.height);
     [UIView commitAnimations];
 }
@@ -236,12 +239,15 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    //save tab bar height
+    CGFloat tabBarHeight = self.weakParentViewController.tabBarController.tabBar.hidden?0:self.weakParentViewController.tabBarController.tabBar.frame.size.height;
+    
     //animate
     [UIView beginAnimations:@"DDChatViewControllerKeyboardAnimation" context:nil];
     [UIView setAnimationCurve:[[[notification userInfo] objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue]];
     [UIView setAnimationDuration:[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue]];
     CGRect rect = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat dh = rect.size.height - self.weakParentViewController.tabBarController.tabBar.frame.size.height;
+    CGFloat dh = rect.size.height - tabBarHeight;
     self.mainView.frame = CGRectMake(self.mainView.frame.origin.x, self.mainView.frame.origin.y+dh, self.mainView.frame.size.width, self.mainView.frame.size.height);
     [UIView commitAnimations];
 }
@@ -309,7 +315,7 @@
     {
         DDMessage *message = [[[DDMessage alloc] init] autorelease];
         message.message = self.textViewInput.text;
-        [self.apiController createMessage:message forEngagement:self.engagement forDoubleDate:self.doubleDate];
+        [self.apiController createMessage:message forEngagement:self.engagement];
     }
     
     //unset text
@@ -570,7 +576,7 @@
             [self showHudWithText:NSLocalizedString(@"Unlocking...", nil) animated:YES];
             
             //send request
-            [self.apiController unlockEngagement:self.engagement forDoubleDate:self.doubleDate];
+            [self.apiController unlockEngagement:self.engagement];
         }
     }
 }
