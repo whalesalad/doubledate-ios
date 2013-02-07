@@ -14,6 +14,8 @@
 #import "DDChatViewController.h"
 #import "DDShortUser.h"
 #import "DDObjectsController.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
 
 @implementation DDEngagementsViewController
 
@@ -53,6 +55,14 @@
     [self.viewNoData addSubview:labelNoData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //reload the table as we updated the number unread messages
+    [self.tableView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -60,14 +70,6 @@
     //check if we need to make a request
     if (!engagements_)
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    
-    //reload the table as we updated the number unread messages
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,6 +105,9 @@
     //save engagements
     [engagements_ release];
     engagements_ = [[NSMutableArray alloc] initWithArray:engagements];
+    
+    //unset number of unread wings
+    [DDAuthenticationController currentUser].unreadMessagesCount = [NSNumber numberWithInt:0];
     
     //finish refresh
     [self finishRefresh];

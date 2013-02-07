@@ -22,6 +22,8 @@
 #import "DDWingTableViewCell.h"
 #import "DDInvitationTableViewCell.h"
 #import "DDShortUser.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -398,6 +400,9 @@
     //save friends
     [friends_ release];
     friends_ = [[NSMutableArray arrayWithArray:friends] retain];
+    
+    //unset number of unread wings
+    [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:0];
     
     //inform about reloaded data
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
