@@ -214,8 +214,11 @@
     [super viewDidAppear:animated];
     
     //scroll to bottom
-    if ([messages_ count])
+    if ([messages_ count] && !alreadyAppeared_)
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[messages_ count]-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+    //save that view already appeared
+    alreadyAppeared_ = YES;
 }
 
 #pragma mark -

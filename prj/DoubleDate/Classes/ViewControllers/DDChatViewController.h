@@ -21,6 +21,7 @@
     NSMutableArray *messages_;
     NSMutableArray *shortUsers_;
     NSMutableArray *users_;
+    BOOL alreadyAppeared_;
 }
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;
