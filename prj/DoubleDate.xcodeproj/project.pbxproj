@@ -74,6 +74,10 @@
 		70507B1516C1B2EA00587EAF /* coinbar-inner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70507B0D16C1B2EA00587EAF /* coinbar-inner@2x.png */; };
 		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
+		7083ABF916C44D0A005BF23F /* disallow-chat-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7083ABF516C44D0A005BF23F /* disallow-chat-gradient.png */; };
+		7083ABFA16C44D0A005BF23F /* disallow-chat-gradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7083ABF616C44D0A005BF23F /* disallow-chat-gradient@2x.png */; };
+		7083ABFB16C44D0A005BF23F /* upper-chat-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 7083ABF716C44D0A005BF23F /* upper-chat-button.png */; };
+		7083ABFC16C44D0A005BF23F /* upper-chat-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7083ABF816C44D0A005BF23F /* upper-chat-button@2x.png */; };
 		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
 		7088936F164C49C8000D3A00 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889333164C49C8000D3A00 /* 37x-Checkmark.png */; };
 		70889370164C49C8000D3A00 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70889334164C49C8000D3A00 /* 37x-Checkmark@2x.png */; };
@@ -644,6 +648,10 @@
 		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
+		7083ABF516C44D0A005BF23F /* disallow-chat-gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disallow-chat-gradient.png"; sourceTree = "<group>"; };
+		7083ABF616C44D0A005BF23F /* disallow-chat-gradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "disallow-chat-gradient@2x.png"; sourceTree = "<group>"; };
+		7083ABF716C44D0A005BF23F /* upper-chat-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-chat-button.png"; sourceTree = "<group>"; };
+		7083ABF816C44D0A005BF23F /* upper-chat-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-chat-button@2x.png"; sourceTree = "<group>"; };
 		7086D9F016B54E3D003310D1 /* DDAppDelegate+APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+APNS.h"; sourceTree = "<group>"; };
 		7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+APNS.m"; sourceTree = "<group>"; };
 		70889333164C49C8000D3A00 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
@@ -1566,6 +1574,10 @@
 		965DAD8C16A7EE30005F8B25 /* chat-view */ = {
 			isa = PBXGroup;
 			children = (
+				7083ABF516C44D0A005BF23F /* disallow-chat-gradient.png */,
+				7083ABF616C44D0A005BF23F /* disallow-chat-gradient@2x.png */,
+				7083ABF716C44D0A005BF23F /* upper-chat-button.png */,
+				7083ABF816C44D0A005BF23F /* upper-chat-button@2x.png */,
 				4C2EBBF916B2312900FBBAD7 /* message-bubble-pink.png */,
 				4C2EBBFA16B2312900FBBAD7 /* message-bubble-pink@2x.png */,
 				4C2EBBFB16B2312900FBBAD7 /* message-bubble-gray.png */,
@@ -2662,6 +2674,10 @@
 				961195F616C26393009761D8 /* lower-button-bar-large-bg@2x.png in Resources */,
 				7047717C16C2FA4500FA83A0 /* no-wings.png in Resources */,
 				7047717D16C2FA4500FA83A0 /* no-wings@2x.png in Resources */,
+				7083ABF916C44D0A005BF23F /* disallow-chat-gradient.png in Resources */,
+				7083ABFA16C44D0A005BF23F /* disallow-chat-gradient@2x.png in Resources */,
+				7083ABFB16C44D0A005BF23F /* upper-chat-button.png in Resources */,
+				7083ABFC16C44D0A005BF23F /* upper-chat-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,6 +21,8 @@
 #import "DDAuthenticationController.h"
 #import "HPGrowingTextView.h"
 #import "DDObjectsController.h"
+#import "DDDoubleDateViewController.h"
+#import "DDBarButtonItem.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
@@ -92,17 +94,32 @@
     self.view.layer.masksToBounds = YES;
     
     //set header
-    UILabel *labelHeader = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 32)] autorelease];
-    labelHeader.backgroundColor = [UIColor clearColor];
-    labelHeader.textAlignment = NSTextAlignmentCenter;
-    
-    DD_F_CHAT_TIMESTAMP_LABEL(labelHeader);
-    
-    NSDate *date = [DDTools dateFromString:[self.engagement createdAt]];
-    NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
-    labelHeader.text = [dateFormatterTo stringFromDate:date];
-    self.tableView.tableHeaderView = labelHeader;
+    {
+        //add header view
+        UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 80)] autorelease];
+        self.tableView.tableHeaderView = headerView;
+        
+        //add button
+#warning customize view doubledate button
+        UIButton *buttonHeader = [[[UIButton alloc] initWithFrame:CGRectMake(10, 12, 300, 36)] autorelease];
+        [buttonHeader setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"upper-chat-button.png"]] forState:UIControlStateNormal];
+        [buttonHeader setTitle:NSLocalizedString(@"View DoubleDate", nil) forState:UIControlStateNormal];
+        [headerView addSubview:buttonHeader];
+        [buttonHeader addTarget:self action:@selector(doubleDateTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //add label
+        UILabel *labelHeader = [[[UILabel alloc] initWithFrame:CGRectMake(0, 48, 320, 32)] autorelease];
+        labelHeader.backgroundColor = [UIColor clearColor];
+        labelHeader.textAlignment = NSTextAlignmentCenter;
+        
+        DD_F_CHAT_TIMESTAMP_LABEL(labelHeader);
+        
+        NSDate *date = [DDTools dateFromString:[self.engagement createdAt]];
+        NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
+        labelHeader.text = [dateFormatterTo stringFromDate:date];
+        [headerView addSubview:labelHeader];
+    }
     
     //unset backgrounds
     self.mainView.backgroundColor = [UIColor clearColor];
@@ -343,6 +360,28 @@
 - (IBAction)user4Touched:(id)sender
 {
     [self presentPopoverWithUser:[shortUsers_ objectAtIndex:3]];
+}
+
+- (void)doubleDateTouched:(id)sender
+{
+    //open view controller
+    DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
+    viewController.doubleDate = self.doubleDate;
+    viewController.backButtonTitle = self.navigationItem.title;
+    
+    //wrap into navigation controller
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:viewController] autorelease];
+    [self.navigationController presentViewController:navigationController animated:YES completion:^{
+    }];
+    
+    //set back button
+    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelDoubleDateTouched:)];
+}
+
+- (void)cancelDoubleDateTouched:(id)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 #pragma mark -
