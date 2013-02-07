@@ -46,7 +46,6 @@ typedef enum
     DDAPIControllerMethodTypeGetDoubleDate,
     DDAPIControllerMethodTypeRequestDeleteDoubleDate,
     DDAPIControllerMethodTypeGetEngagements,
-    DDAPIControllerMethodTypeGetEngagement,
     DDAPIControllerMethodTypeCreateEngagement,
     DDAPIControllerMethodTypeUnlockEngagement,
     DDAPIControllerMethodTypeGetMessages,
@@ -630,10 +629,10 @@ typedef enum
     return [self startRequest:request];
 }
 
-- (DDRequestId)getEngagementsForDoubleDate:(DDDoubleDate*)doubleDate
+- (DDRequestId)getEngagements
 {
     //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagements", [doubleDate.identifier intValue]]];
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"/engagements"];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
@@ -641,27 +640,8 @@ typedef enum
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
     userData.method = DDAPIControllerMethodTypeGetEngagements;
-    userData.succeedSel = @selector(getEngagementsForDoubleDateSucceed:);
-    userData.failedSel = @selector(getEngagementsForDoubleDateDidFailedWithError:);
-    request.userData = userData;
-    
-    //send request
-    return [self startRequest:request];
-}
-
-- (DDRequestId)getEngagementForDoubleDate:(DDDoubleDate*)doubleDate
-{
-    //create request
-    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"activities/%d/engagement", [doubleDate.identifier intValue]]];
-    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
-    request.method = RKRequestMethodGET;
-    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
-    
-    //create user data
-    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
-    userData.method = DDAPIControllerMethodTypeGetEngagement;
-    userData.succeedSel = @selector(getEngagementForDoubleDateSucceed:);
-    userData.failedSel = @selector(getEngagementForDoubleDateDidFailedWithError:);
+    userData.succeedSel = @selector(getEngagementsDateSucceed:);
+    userData.failedSel = @selector(getEngagementsDateDidFailedWithError:);
     request.userData = userData;
     
     //send request
@@ -961,7 +941,6 @@ typedef enum
                 [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateEngagement ||
-                 userData.method == DDAPIControllerMethodTypeGetEngagement ||
                  userData.method == DDAPIControllerMethodTypeUnlockEngagement)
         {
             //create object

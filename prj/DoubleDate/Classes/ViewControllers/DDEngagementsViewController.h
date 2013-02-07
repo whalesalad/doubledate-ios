@@ -9,14 +9,14 @@
 #import "DDTableViewController.h"
 
 @class DDDoubleDate;
+@class DDEngagement;
 
 @interface DDEngagementsViewController : DDTableViewController
 {
     NSMutableArray *engagements_;
+    DDEngagement *selectedEngagement_;
 }
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;
-
-@property(nonatomic, retain) DDDoubleDate *doubleDate;
 
 @end

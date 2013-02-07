@@ -15,8 +15,7 @@
 
 @interface DDDoubleDateViewController : DDViewController
 {
-    int lastMode_;
-    NSMutableArray *engagements_;
+    BOOL messageSent_;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;

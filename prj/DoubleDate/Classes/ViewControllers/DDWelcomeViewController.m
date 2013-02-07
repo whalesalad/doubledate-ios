@@ -24,6 +24,7 @@
 #import "DDDoubleDatesViewController.h"
 #import "DDTabBarBackgroundView.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "DDEngagementsViewController.h"
 
 #define kTagEmailActionSheet 1
 
@@ -281,7 +282,8 @@
         browseViewController.shouldShowNavigationMenu = YES;
         
         //add messages view controller
-        DDViewController *messagesViewController = [[[DDViewController alloc] init] autorelease];
+        DDEngagementsViewController *messagesViewController = [[[DDEngagementsViewController alloc] init] autorelease];
+        messagesViewController.weakParentViewController = messagesViewController;
         messagesViewController.hidesBottomBarWhenPushed = YES;
         messagesViewController.shouldShowNavigationMenu = YES;
         

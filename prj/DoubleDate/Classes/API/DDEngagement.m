@@ -15,6 +15,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
 @implementation DDEngagement
 
 @synthesize identifier;
+@synthesize activityId;
 @synthesize userId;
 @synthesize wingId;
 @synthesize message;
@@ -32,6 +33,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     if ((self = [super initWithDictionary:dictionary]))
     {
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
+        self.activityId = [DDAPIObject numberForObject:[dictionary objectForKey:@"activity_id"]];
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
@@ -52,6 +54,8 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     if (self.identifier)
         [dictionary setObject:self.identifier forKey:@"id"];
+    if (self.activityId)
+        [dictionary setObject:self.activityId forKey:@"activity_id"];
     if (self.userId)
         [dictionary setObject:self.userId forKey:@"user_id"];
     if (self.wingId)
@@ -94,6 +98,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
 - (void)dealloc
 {
     [identifier release];
+    [activityId release];
     [userId release];
     [wingId release];
     [message release];

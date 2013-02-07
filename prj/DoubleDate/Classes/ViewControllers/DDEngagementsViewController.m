@@ -19,8 +19,6 @@
 
 @synthesize weakParentViewController;
 
-@synthesize doubleDate;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -64,6 +62,14 @@
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    //reload the table as we updated the number unread messages
+    [self.tableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -71,8 +77,8 @@
 
 - (void)dealloc
 {
-    [doubleDate release];
     [engagements_ release];
+    [selectedEngagement_ release];
     [super dealloc];
 }
 
@@ -86,13 +92,13 @@
     engagements_ = nil;
     
     //request friends
-    [self.apiController getEngagementsForDoubleDate:self.doubleDate];
+    [self.apiController getEngagements];
 }
 
 #pragma mark -
 #pragma mark API
 
-- (void)getEngagementsForDoubleDateSucceed:(NSArray*)engagements
+- (void)getEngagementsDateSucceed:(NSArray*)engagements
 {
     //save engagements
     [engagements_ release];
@@ -108,7 +114,7 @@
     [self updateNoDataView];
 }
 
-- (void)getEngagementsForDoubleDateDidFailedWithError:(NSError*)error
+- (void)getEngagementsDateDidFailedWithError:(NSError*)error
 {
     //unset engagements
     [engagements_ release];
@@ -117,6 +123,37 @@
     //finish refresh
     [self finishRefresh];
         
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getDoubleDateSucceed:(DDDoubleDate*)doubleDate
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //check if we got needed doubledate
+    if ([selectedEngagement_.activityId intValue] == [doubleDate.identifier intValue])
+    {
+        //unset unread count
+        selectedEngagement_.unreadCount = [NSNumber numberWithInt:0];
+        
+        //add chat view controller
+        DDChatViewController *chatViewController = [[[DDChatViewController alloc] init] autorelease];
+        [chatViewController setDoubleDate:doubleDate];
+        [chatViewController setEngagement:selectedEngagement_];
+        [chatViewController setWeakParentViewController:self.weakParentViewController];
+        
+        //push it
+        [self.weakParentViewController.navigationController pushViewController:chatViewController animated:YES];
+    }
+}
+
+- (void)getDoubleDateDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
@@ -134,17 +171,17 @@
     //save engagement
     DDEngagement *engagement = [engagements_ objectAtIndex:indexPath.row];
     
-    //unset unread count
-    engagement.unreadCount = [NSNumber numberWithInt:0];
+    //save selected engagement
+    [selectedEngagement_ release];
+    selectedEngagement_ = [engagement retain];
     
-    //add chat view controller
-    DDChatViewController *chatViewController = [[[DDChatViewController alloc] init] autorelease];
-    [chatViewController setDoubleDate:self.doubleDate];
-    [chatViewController setEngagement:engagement];
-    [chatViewController setWeakParentViewController:self.weakParentViewController];
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
     
-    //push it
-    [self.weakParentViewController.navigationController pushViewController:chatViewController animated:YES];
+    //request doubledate
+    DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
+    doubleDate.identifier = selectedEngagement_.activityId;
+    [self.apiController getDoubleDate:doubleDate];
 }
 
 #pragma mark -
