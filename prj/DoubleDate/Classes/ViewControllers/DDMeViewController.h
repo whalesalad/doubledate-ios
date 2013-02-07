@@ -29,6 +29,7 @@
 @property(nonatomic, retain) IBOutlet UIView *labelCoinsContainer;
 @property(nonatomic, retain) IBOutlet UIButton *buttonMoreCoins;
 @property(nonatomic, retain) IBOutlet UILabel *labelCoins;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewCoins;
 
 - (IBAction)moreCoinsTouched:(id)sender;
 

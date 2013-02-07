@@ -39,6 +39,7 @@
 @synthesize labelCoinsContainer;
 @synthesize buttonMoreCoins;
 @synthesize labelCoins;
+@synthesize imageViewCoins;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,9 +98,7 @@
     
     //update coins label
     labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
-    
-//    labelCoinsContainer
-    
+        
     //watch for text view change
     CGSize textViewBioSize = textViewBio.frame.size;
     CGSize newTextViewBioSize = [textViewBio sizeThatFits:textViewBio.bounds.size];
@@ -123,6 +122,9 @@
     viewInterests.backgroundColor = [UIColor clearColor];
     labelInterests.backgroundColor = [UIColor clearColor];
     imageViewGender.backgroundColor = [UIColor clearColor];
+    
+    //align coins label
+    [self alignCoinsLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -150,6 +152,22 @@
     self.scrollView.contentSize = CGSizeMake(320, viewInterests.frame.origin.y+viewInterests.frame.size.height);
 }
 
+- (void)alignCoinsLabel
+{
+    //save distance between label and button
+    CGFloat gap = (labelCoins.frame.origin.x - imageViewCoins.frame.origin.x - imageViewCoins.frame.size.width);
+    
+    //move label coins
+    CGSize newLabelSize = CGSizeMake([labelCoins sizeThatFits:labelCoins.bounds.size].width, labelCoins.frame.size.height);
+    
+    //update center of the label
+    labelCoins.frame = CGRectMake(0, labelCoins.frame.origin.y, newLabelSize.width, labelCoins.frame.size.height);
+    labelCoins.center = CGPointMake(labelCoinsContainer.frame.size.width / 2 + (gap + imageViewCoins.frame.size.width) / 2, labelCoins.center.y);
+
+    //update center of image view coins
+    imageViewCoins.center = CGPointMake(labelCoins.frame.origin.x - gap - imageViewCoins.frame.size.width / 2, imageViewCoins.center.y);
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -169,6 +187,7 @@
     [imageViewBioBackground release];
     [buttonMoreCoins release];
     [labelCoins release];
+    [imageViewCoins release];
     [super dealloc];
 }
 
