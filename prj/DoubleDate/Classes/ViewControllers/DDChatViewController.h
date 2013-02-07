@@ -53,6 +53,8 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelWarning;
 
+@property(nonatomic, retain) IBOutlet UIView *viewLocked;
+
 - (IBAction)sendTouched:(id)sender;
 
 - (IBAction)user1Touched:(id)sender;

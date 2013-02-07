@@ -68,6 +68,8 @@
 @synthesize labelTextFieldPlaceholder;
 @synthesize labelWarning;
 
+@synthesize viewLocked;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -207,6 +209,22 @@
     
     //reload the table
     [self.tableView reloadData];
+    
+    //check if you are the owner of engagement
+    self.viewLocked.hidden = YES;
+    if (([[self.engagement.user identifier] intValue] == [[DDAuthenticationController userId] intValue]) ||
+        ([[self.engagement.wing identifier] intValue] == [[DDAuthenticationController userId] intValue]))
+    {
+        //check if we need to unlock the engagement
+        if ([self.engagement.status isEqualToString:DDEngagementStatusLocked])
+        {
+            //make bottom bar opaque
+            self.bottomBarView.alpha = 0.5f;
+            
+            //put unlocked overlay
+            self.viewLocked.hidden = NO;
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -303,6 +321,7 @@
     [imageViewTextFieldBackground release];
     [labelTextFieldPlaceholder release];
     [labelWarning release];
+    [viewLocked release];
     [super dealloc];
 }
 
