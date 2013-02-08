@@ -76,7 +76,7 @@
 							<object class="IBUIButton" id="977885066">
 								<reference key="NSNextResponder" ref="791137414"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{156, 10}, {151, 30}}</string>
+								<string key="NSFrame">{{157, 10}, {150, 28}}</string>
 								<reference key="NSSuperview" ref="791137414"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -87,7 +87,7 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<int key="IBUIButtonType">1</int>
 								<string key="IBUITitleShadowOffset">{0, 1}</string>
-								<string key="IBUINormalTitle">Get MoreCoins</string>
+								<string key="IBUINormalTitle">Get More Coins</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="276195241">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
@@ -172,7 +172,7 @@
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 									</object>
 								</array>
-								<string key="NSFrame">{{12, 12}, {141, 25}}</string>
+								<string key="NSFrame">{{13, 10}, {141, 28}}</string>
 								<reference key="NSSuperview" ref="791137414"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="484540301"/>
@@ -582,6 +582,14 @@
 					<int key="connectionID">82</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">coinBar</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="791137414"/>
+					</object>
+					<int key="connectionID">83</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">moreCoinsTouched:</string>
 						<reference key="source" ref="977885066"/>
@@ -687,8 +695,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="244795061"/>
 							<reference ref="1012220008"/>
-							<reference ref="977885066"/>
 							<reference ref="1036328597"/>
+							<reference ref="977885066"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -700,11 +708,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">71</int>
 						<reference key="object" ref="1012220008"/>
-						<reference key="parent" ref="791137414"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">72</int>
-						<reference key="object" ref="977885066"/>
 						<reference key="parent" ref="791137414"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -725,6 +728,11 @@
 						<int key="objectID">75</int>
 						<reference key="object" ref="409292158"/>
 						<reference key="parent" ref="1036328597"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">72</int>
+						<reference key="object" ref="977885066"/>
+						<reference key="parent" ref="791137414"/>
 					</object>
 				</array>
 			</object>
@@ -758,7 +766,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">82</int>
+			<int key="maxID">83</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -786,6 +794,7 @@
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonMoreCoins">UIButton</string>
+						<string key="coinBar">UIView</string>
 						<string key="imageViewBioBackground">UIImageView</string>
 						<string key="imageViewCoins">UIImageView</string>
 						<string key="imageViewGender">UIImageView</string>
@@ -803,6 +812,10 @@
 						<object class="IBToOneOutletInfo" key="buttonMoreCoins">
 							<string key="name">buttonMoreCoins</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="coinBar">
+							<string key="name">coinBar</string>
+							<string key="candidateClassName">UIView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewBioBackground">
 							<string key="name">imageViewBioBackground</string>
@@ -879,7 +892,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="bg-me-bio.png">{320, 147}</string>
 			<string key="coinbar-bg.png">{1, 50}</string>
-			<string key="coinbar-button.png">{20, 30}</string>
+			<string key="coinbar-button.png">{20, 29}</string>
 			<string key="coinbar-coin-icon.png">{20, 21}</string>
 			<string key="coinbar-inner.png">{300, 36}</string>
 			<string key="icon-gender-male.png">{15, 15}</string>

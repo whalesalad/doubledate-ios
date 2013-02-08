@@ -40,6 +40,7 @@
 @synthesize buttonMoreCoins;
 @synthesize labelCoins;
 @synthesize imageViewCoins;
+@synthesize coinBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,6 +71,12 @@
     {
         //set title
         self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
+        
+        // Temporarily hide the coinbar for users that are not you,
+        // until bubble is integrated for wings
+        self.coinBar.hidden = true;
+        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height+self.coinBar.frame.size.height);
+        
     }
     
     //set title
@@ -188,6 +195,7 @@
     [buttonMoreCoins release];
     [labelCoins release];
     [imageViewCoins release];
+    [coinBar release];
     [super dealloc];
 }
 

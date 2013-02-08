@@ -572,7 +572,7 @@
 									<object class="IBUILabel" id="942959972">
 										<reference key="NSNextResponder" ref="591897486"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{20, 9}, {280, 21}}</string>
+										<string key="NSFrame">{{20, 7}, {280, 21}}</string>
 										<reference key="NSSuperview" ref="591897486"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="698757589"/>
@@ -585,27 +585,23 @@
 										<string key="IBUIText">Interested in this DoubleDate?</string>
 										<object class="NSColor" key="IBUITextColor">
 											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MSAxIDEAA</bytes>
-											<reference key="NSCustomColorSpace" ref="166397215"/>
+											<bytes key="NSRGB">MC42MDAwMDAwMjM4IDAuNjAwMDAwMDIzOCAwLjYwMDAwMDAyMzgAA</bytes>
 										</object>
 										<nil key="IBUIHighlightedColor"/>
+										<object class="NSColor" key="IBUIShadowColor">
+											<int key="NSColorSpace">1</int>
+											<bytes key="NSRGB">MCAwIDAgMC40AA</bytes>
+										</object>
 										<int key="IBUIBaselineAdjustment">0</int>
 										<int key="IBUITextAlignment">1</int>
-										<object class="IBUIFontDescription" key="IBUIFontDescription">
-											<int key="type">1</int>
-											<double key="pointSize">17</double>
-										</object>
-										<object class="NSFont" key="IBUIFont">
-											<string key="NSName">Helvetica</string>
-											<double key="NSSize">17</double>
-											<int key="NSfFlags">16</int>
-										</object>
+										<reference key="IBUIFontDescription" ref="218928459"/>
+										<reference key="IBUIFont" ref="444011758"/>
 										<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 									</object>
 									<object class="IBUIButton" id="698757589">
 										<reference key="NSNextResponder" ref="591897486"/>
 										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{10, 35}, {300, 51}}</string>
+										<string key="NSFrame">{{10, 33}, {300, 51}}</string>
 										<reference key="NSSuperview" ref="591897486"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView"/>
