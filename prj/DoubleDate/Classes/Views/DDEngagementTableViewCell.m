@@ -73,8 +73,9 @@
         if (engagement)
         {
             //apply text
-            self.labelTitle.text = [NSString stringWithFormat:@"%@ & %@", engagement.user.firstName, engagement.wing.firstName];
-            self.labelDetailed.text = [NSString stringWithFormat:@"%@ ago", engagement.createdAtAgo];
+            self.labelTitle.text = [NSString stringWithFormat:@"%@", engagement.activityTitle];
+            
+            self.labelDetailed.text = [NSString stringWithFormat:@"%@ & %@ — %@ ago", engagement.user.firstName, engagement.wing.firstName, engagement.updatedAtAgo];
             
             //apply genders
             [self.imageViewUser reloadFromUrl:[NSURL URLWithString:engagement.user.photo.smallUrl]];

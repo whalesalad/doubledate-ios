@@ -19,6 +19,7 @@ extern NSString *DDEngagementStatusUnlocked;
 
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSNumber *activityId;
+@property(nonatomic, retain) NSString *activityTitle;
 @property(nonatomic, retain) NSNumber *userId;
 @property(nonatomic, retain) NSNumber *wingId;
 @property(nonatomic, retain) NSString *message;
@@ -28,6 +29,8 @@ extern NSString *DDEngagementStatusUnlocked;
 @property(nonatomic, retain) NSNumber *unreadCount;
 @property(nonatomic, retain) NSString *createdAt;
 @property(nonatomic, retain) NSString *createdAtAgo;
+@property(nonatomic, retain) NSString *updatedAt;
+@property(nonatomic, retain) NSString *updatedAtAgo;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
 

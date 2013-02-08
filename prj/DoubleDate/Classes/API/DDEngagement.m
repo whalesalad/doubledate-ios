@@ -16,6 +16,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
 
 @synthesize identifier;
 @synthesize activityId;
+@synthesize activityTitle;
 @synthesize userId;
 @synthesize wingId;
 @synthesize message;
@@ -25,6 +26,8 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
 @synthesize messagesCount;
 @synthesize createdAt;
 @synthesize createdAtAgo;
+@synthesize updatedAt;
+@synthesize updatedAtAgo;
 @synthesize user;
 @synthesize wing;
 
@@ -34,6 +37,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     {
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.activityId = [DDAPIObject numberForObject:[dictionary objectForKey:@"activity_id"]];
+        self.activityTitle = [DDAPIObject stringForObject:[dictionary objectForKey:@"activity_title"]];
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
@@ -43,6 +47,8 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
         self.messagesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"messages_count"]];
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
         self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
+        self.updatedAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at"]];
+        self.updatedAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at_ago"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
     }
@@ -56,6 +62,8 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
         [dictionary setObject:self.identifier forKey:@"id"];
     if (self.activityId)
         [dictionary setObject:self.activityId forKey:@"activity_id"];
+    if (self.activityTitle)
+        [dictionary setObject:self.activityTitle forKey:@"activity_title"];
     if (self.userId)
         [dictionary setObject:self.userId forKey:@"user_id"];
     if (self.wingId)
@@ -99,6 +107,7 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
 {
     [identifier release];
     [activityId release];
+    [activityTitle release];
     [userId release];
     [wingId release];
     [message release];

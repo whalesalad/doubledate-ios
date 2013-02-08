@@ -36,6 +36,8 @@
     
     //remove search bar
     self.tableView.tableHeaderView = nil;
+    self.navigationItem.title = NSLocalizedString(@"Messages", nil);
+
     
     //add navigation title
     self.navigationItem.title = NSLocalizedString(@"Messages", nil);
