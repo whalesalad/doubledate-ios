@@ -36,6 +36,8 @@
     
     //remove search bar
     self.tableView.tableHeaderView = nil;
+    self.navigationItem.title = NSLocalizedString(@"Messages", nil);
+
     
     //add no incoming messages image view
     UIImageView *imageViewNoData = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-incoming.png"]] autorelease];

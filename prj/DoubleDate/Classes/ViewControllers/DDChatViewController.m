@@ -102,12 +102,16 @@
         self.tableView.tableHeaderView = headerView;
         
         //add button
-#warning customize view doubledate button
         UIButton *buttonHeader = [[[UIButton alloc] initWithFrame:CGRectMake(10, 12, 300, 36)] autorelease];
         [buttonHeader setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"upper-chat-button.png"]] forState:UIControlStateNormal];
         [buttonHeader setTitle:NSLocalizedString(@"View DoubleDate", nil) forState:UIControlStateNormal];
         [headerView addSubview:buttonHeader];
         [buttonHeader addTarget:self action:@selector(doubleDateTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
+        buttonHeader.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0f];
+        [buttonHeader setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [buttonHeader setTitleShadowColor:[UIColor colorWithWhite:0.0f alpha:0.3f] forState:UIControlStateNormal];
+        [buttonHeader.titleLabel setShadowOffset:CGSizeMake(0, -1)];
         
         //add label
         UILabel *labelHeader = [[[UILabel alloc] initWithFrame:CGRectMake(0, 48, 320, 32)] autorelease];
@@ -219,7 +223,8 @@
         if ([self.engagement.status isEqualToString:DDEngagementStatusLocked])
         {
             //make bottom bar opaque
-            self.bottomBarView.alpha = 0.5f;
+            self.bottomBarView.alpha = 0.2f;
+            self.labelWarning.hidden = YES;
             
             //put unlocked overlay
             self.viewLocked.hidden = NO;
@@ -397,7 +402,7 @@
     }];
     
     //set back button
-    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelDoubleDateTouched:)];
+    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Closeddcha", nil) target:self action:@selector(cancelDoubleDateTouched:)];
 }
 
 - (void)cancelDoubleDateTouched:(id)sender
