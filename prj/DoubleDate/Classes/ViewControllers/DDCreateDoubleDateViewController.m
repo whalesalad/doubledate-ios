@@ -259,7 +259,7 @@
 {
     UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Oops, Continue", nil) destructiveButtonTitle:NSLocalizedString(@"Yes, Stop Creating Date", nil) otherButtonTitles:nil, nil] autorelease];
     sheet.tag = kTagCancelActionSheet;
-    [sheet showInView:self.tabBarController.view];
+    [sheet showInView:self.view];
 }
 
 - (void)updateNavigationBar
