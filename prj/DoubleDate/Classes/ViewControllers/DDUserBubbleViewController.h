@@ -23,5 +23,6 @@
 @property(nonatomic, retain) IBOutlet UIView *viewBottom;
 @property(nonatomic, retain) IBOutlet UIPageControl *pageControl;
 @property(nonatomic, retain) IBOutlet UIView *viewEffects;
+@property(nonatomic, retain) IBOutlet UIView *innerGlow;
 
 @end

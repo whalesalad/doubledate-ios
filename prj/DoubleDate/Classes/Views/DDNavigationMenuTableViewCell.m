@@ -70,7 +70,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.imageViewIcon.layer.opacity = 1.0f;
         self.labelTitle.layer.opacity = 1.0f;
-        self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.2f];
+        self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
     }
 }
 

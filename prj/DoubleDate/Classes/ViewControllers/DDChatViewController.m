@@ -402,7 +402,7 @@
     }];
     
     //set back button
-    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Closeddcha", nil) target:self action:@selector(cancelDoubleDateTouched:)];
+    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Close", nil) target:self action:@selector(cancelDoubleDateTouched:)];
 }
 
 - (void)cancelDoubleDateTouched:(id)sender

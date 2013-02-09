@@ -21,7 +21,7 @@
     //check if already exist
     if (self.navigationMenuExist)
         return;
-    
+        
     //set flag
     self.navigationMenuExist = YES;
     
@@ -58,7 +58,7 @@
     [self.navigationMenu addSubview:shadow];
     
     //animate
-    [UIView animateWithDuration:0.25f animations:^{
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
         [viewDim setAlpha:0.5f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];

@@ -27,7 +27,7 @@
     if (self)
     {
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bg.png"]];
-        self.separatorColor = [[UIColor blackColor] colorWithAlphaComponent:0.2f];
+        self.separatorColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
         self.delegate = self;
         self.dataSource = self;
         self.scrollEnabled = NO;
@@ -115,7 +115,7 @@
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
-            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
+            cell.labelTitle.text = NSLocalizedString(@"Explore", nil);
             cell.labelBadge.text = nil;
             break;
         case 5:

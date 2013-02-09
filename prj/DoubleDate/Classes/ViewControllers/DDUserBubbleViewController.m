@@ -58,6 +58,11 @@
     self.viewEffects.layer.borderWidth = 1;
     self.viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     
+    _innerGlow.layer.cornerRadius = 5;
+    _innerGlow.layer.borderWidth = 1;
+    _innerGlow.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+    _innerGlow.backgroundColor = [UIColor clearColor];
+    
     // viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     // viewImagesContainer.layer.borderWidth = 1;
     
@@ -81,6 +86,7 @@
     [viewBottom release];
     [pageControl release];
     [viewEffects release];
+    [_innerGlow release];
     [super dealloc];
 }
 
