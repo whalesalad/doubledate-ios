@@ -222,7 +222,7 @@
 - (void)switchToNeededMode
 {
     //save visibility
-    BOOL bottomVisible = !messageSent_;
+    BOOL bottomVisible = (!messageSent_ && [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOpen]);
     
     //change visibility
     self.bottomView.hidden = !bottomVisible;
