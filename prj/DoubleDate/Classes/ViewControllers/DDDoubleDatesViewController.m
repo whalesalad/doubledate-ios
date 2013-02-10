@@ -345,10 +345,10 @@ typedef enum
             //add object
             [doubleDatesAll_ addObject:[notification object]];
             [doubleDatesMine_ addObject:[notification object]];
-            
-            //reload the table
-            [self.tableView reloadData];
         }
+        
+        //reload the table
+        [self.tableView reloadData];
     }
 }
 
