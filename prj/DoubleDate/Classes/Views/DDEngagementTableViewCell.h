@@ -24,6 +24,6 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelDetailed;
 @property(nonatomic, retain) IBOutlet UIView *viewImagesContainer;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
-@property(nonatomic, retain) IBOutlet UILabel *labelBadgeNumber;
+@property(nonatomic, retain) IBOutlet UIView *blueGlow;
 
 @end

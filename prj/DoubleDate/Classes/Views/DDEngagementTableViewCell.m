@@ -23,7 +23,7 @@
 @synthesize labelDetailed;
 @synthesize viewImagesContainer;
 @synthesize imageViewBadge;
-@synthesize labelBadgeNumber;
+@synthesize blueGlow;
 
 + (CGFloat)height
 {
@@ -55,7 +55,21 @@
     viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     viewImagesContainer.layer.borderWidth = 1;
     
-    //unset background
+    // add inner blue glow
+    blueGlow = [[UIView alloc] initWithFrame:viewImagesContainer.frame];
+    blueGlow.backgroundColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.4f];
+    
+    CAGradientLayer *blueGlowGradient = [CAGradientLayer layer];
+
+    blueGlowGradient.frame = blueGlow.bounds;
+    blueGlowGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                                        (id)[[UIColor blackColor] CGColor], nil];
+
+    blueGlow.layer.mask = blueGlowGradient;
+    
+    [self insertSubview:blueGlow atIndex:4];
+        
+    // unset background
     labelDetailed.backgroundColor = [UIColor clearColor];
     labelTitle.backgroundColor = [UIColor clearColor];
 }
@@ -82,9 +96,14 @@
             [self.imageViewWing reloadFromUrl:[NSURL URLWithString:engagement.wing.photo.smallUrl]];
             
             //apply unread count
-            self.imageViewBadge.hidden = [engagement.unreadCount intValue] == 0;
-            self.labelBadgeNumber.hidden = self.imageViewBadge.hidden;
-            self.labelBadgeNumber.text = [NSString stringWithFormat:@"%d", [engagement.unreadCount intValue]];
+            if ([engagement hasUnreadMessages])
+            {
+                self.viewImagesContainer.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f].CGColor;
+            } else {
+                self.imageViewBadge.hidden = YES;
+                self.blueGlow.hidden = YES;
+            }
+            
         }
         else
         {
@@ -93,7 +112,7 @@
             self.imageViewUser.image = nil;
             self.imageViewWing.image = nil;
             self.imageViewBadge.hidden = YES;
-            self.labelBadgeNumber.hidden = self.imageViewBadge.hidden;
+            self.blueGlow.hidden = YES;
         }
     }
 }
@@ -108,7 +127,7 @@
     [labelDetailed release];
     [viewImagesContainer release];
     [imageViewBadge release];
-    [labelBadgeNumber release];
+    [blueGlow release];
     [super dealloc];
 }
 
