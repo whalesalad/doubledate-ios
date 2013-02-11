@@ -103,11 +103,6 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     return @"id";
 }
 
-- (BOOL)hasUnreadMessages
-{
-    return [self.unreadCount intValue] > 0;
-}
-
 - (void)dealloc
 {
     [identifier release];

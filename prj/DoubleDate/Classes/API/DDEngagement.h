@@ -34,6 +34,4 @@ extern NSString *DDEngagementStatusUnlocked;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
 
-- (BOOL)hasUnreadMessages;
-
 @end
