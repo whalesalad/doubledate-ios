@@ -98,7 +98,7 @@
             //apply unread count
             if ([engagement hasUnreadMessages])
             {
-                self.viewImagesContainer.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f].CGColor;
+                self.viewImagesContainer.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
             } else {
                 self.imageViewBadge.hidden = YES;
                 self.blueGlow.hidden = YES;
