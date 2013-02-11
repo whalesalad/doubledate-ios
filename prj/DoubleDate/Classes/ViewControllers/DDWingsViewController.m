@@ -62,7 +62,6 @@
 
 @implementation DDWingsViewController
 
-@synthesize user;
 @synthesize delegate;
 @synthesize isSelectingMode;
 
@@ -133,7 +132,6 @@
 
 - (void)dealloc
 {
-    [user release];
     [friends_ release];
     [super dealloc];
 }
@@ -197,7 +195,7 @@
 - (void)plusTouched:(id)sender
 {
     //check facebook user
-    if (user.facebookId)
+    if ([DDAuthenticationController currentUser].facebookId)
     {
         UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), NSLocalizedString(@"From Facebook Friends", nil), nil] autorelease];
         sheet.tag = kTagActionSheetInvite;
@@ -253,7 +251,7 @@
     {
         MFMessageComposeViewController *messageComposer = [[[MFMessageComposeViewController alloc] init] autorelease];
         messageComposer.messageComposeDelegate = self;
-        messageComposer.body = [NSString stringWithFormat:@"Become my wing on DoubleDate! %@%@", [DDTools serverUrlPath], user.invitePath];
+        messageComposer.body = [NSString stringWithFormat:@"Become my wing on DoubleDate! %@%@", [DDTools serverUrlPath], [DDAuthenticationController currentUser].invitePath];
         [self.navigationController presentViewController:messageComposer animated:YES completion:^{
         }];
     }

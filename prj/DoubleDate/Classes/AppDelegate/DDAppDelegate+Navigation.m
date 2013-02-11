@@ -13,13 +13,14 @@
 #import "DDEngagementsViewController.h"
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDFacebookController.h"
+#import "DDNotificationsViewController.h"
 
 @implementation DDAppDelegate (APNS)
 
 - (void)loginUser:(DDUser*)user
 {
     //set notifications view controller
-    DDViewController *notificationsViewController = [[[DDViewController alloc] init] autorelease];
+    DDNotificationsViewController *notificationsViewController = [[[DDNotificationsViewController alloc] init] autorelease];
     notificationsViewController.hidesBottomBarWhenPushed = YES;
     notificationsViewController.shouldShowNavigationMenu = YES;
     
@@ -31,14 +32,12 @@
     
     //set wingman view controller
     DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
-    wingsViewController.user = user;
     wingsViewController.hidesBottomBarWhenPushed = YES;
     wingsViewController.shouldShowNavigationMenu = YES;
     
     //set browse view controller
     DDDoubleDatesViewController *browseViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
     browseViewController.mode = DDDoubleDatesViewControllerModeAll;
-    browseViewController.user = user;
     browseViewController.hidesBottomBarWhenPushed = YES;
     browseViewController.shouldShowNavigationMenu = YES;
     

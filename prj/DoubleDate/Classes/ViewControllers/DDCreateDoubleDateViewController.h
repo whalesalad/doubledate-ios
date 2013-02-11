@@ -17,8 +17,6 @@
     DDLocationController *locationController_;
 }
 
-@property(nonatomic, retain) DDUser *user;
-
 @property(nonatomic, retain) DDDoubleDatesViewController *doubleDatesViewController;
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;

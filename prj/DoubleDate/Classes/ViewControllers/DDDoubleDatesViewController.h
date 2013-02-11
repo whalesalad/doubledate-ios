@@ -28,8 +28,6 @@ typedef enum
 
 @property(nonatomic, assign) DDDoubleDatesViewControllerMode mode;
 
-@property(nonatomic, retain) DDUser *user;
-
 @property(nonatomic, retain) DDDoubleDateFilter *searchFilter;
 
 @end

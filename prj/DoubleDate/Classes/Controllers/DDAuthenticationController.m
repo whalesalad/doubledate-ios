@@ -26,7 +26,6 @@ NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthen
 
 @interface DDAuthenticationController ()<RKRequestDelegate>
 
-@property(nonatomic, retain) NSObject *userId;
 @property(nonatomic, retain) NSObject *token;
 @property(nonatomic, retain) NSObject *user;
 
@@ -38,7 +37,6 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 @implementation DDAuthenticationController
 
-@synthesize userId;
 @synthesize token;
 @synthesize user;
 
@@ -53,16 +51,6 @@ static DDAuthenticationController *_sharedInstance = nil;
 {
 //    return @"665cb6e04d175affc64e4b304e5a6414045313c7";
     NSObject *ret = [[DDAuthenticationController sharedController] token];
-    if ([ret isKindOfClass:[NSNumber class]])
-        return [(NSNumber*)ret stringValue];
-    else if ([ret isKindOfClass:[NSString class]])
-        return (NSString*)ret;
-    return nil;
-}
-
-+ (NSString*)userId
-{
-    NSObject *ret = [[DDAuthenticationController sharedController] userId];
     if ([ret isKindOfClass:[NSNumber class]])
         return [(NSNumber*)ret stringValue];
     else if ([ret isKindOfClass:[NSString class]])
@@ -155,7 +143,6 @@ static DDAuthenticationController *_sharedInstance = nil;
     controller_.delegate = nil;
     [controller_ stopAllRequests];
     [controller_ release];
-    [userId release];
     [token release];
     [user release];
     [super dealloc];
@@ -171,7 +158,6 @@ static DDAuthenticationController *_sharedInstance = nil;
     {
         //save data
         NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
-        [[DDAuthenticationController sharedController] setUserId:[dictionary objectForKey:@"user_id"]];
         [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
         
         //register for remote notifications

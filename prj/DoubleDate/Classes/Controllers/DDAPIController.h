@@ -105,6 +105,9 @@ typedef int DDRequestId;
 - (void)createMessageSucceed:(DDMessage*)message;
 - (void)createMessageDidFailedWithError:(NSError*)error;
 
+- (void)getNotificationsSucceed:(NSArray*)notifications;
+- (void)getNotificationsDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -170,5 +173,7 @@ typedef int DDRequestId;
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement;
+
+- (DDRequestId)getNotifications;
 
 @end

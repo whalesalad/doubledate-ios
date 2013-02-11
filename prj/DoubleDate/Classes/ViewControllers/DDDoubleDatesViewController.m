@@ -44,7 +44,6 @@ typedef enum
 
 @implementation DDDoubleDatesViewController
 
-@synthesize user;
 @synthesize searchFilter;
 @synthesize mode = mode_;
 
@@ -96,7 +95,6 @@ typedef enum
 {
     [doubleDatesAll_ release];
     [doubleDatesMine_ release];
-    [user release];
     [searchFilter release];
     [super dealloc];
 }
@@ -107,7 +105,6 @@ typedef enum
 - (void)plusTouched:(id)sender
 {
     DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
-    viewController.user = self.user;
     viewController.doubleDatesViewController = self;
     [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
     }];

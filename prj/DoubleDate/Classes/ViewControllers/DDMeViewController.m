@@ -63,7 +63,7 @@
     [self.imageViewPoster applyMask:[UIImage imageNamed:@"bg-me-photo-mask.png"]];
     
     //we can edit only yourself
-    if ([[DDAuthenticationController userId] isEqualToString:[user.userId stringValue]])
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
     {
         //set title
         self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
@@ -246,7 +246,7 @@
 
 - (void)backTouched:(id)sender
 {
-    if ([[DDAuthenticationController userId] isEqualToString:[user.userId stringValue]])
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
         [self.tabBarController.navigationController popViewControllerAnimated:YES];
     else
         [self.navigationController popViewControllerAnimated:YES];

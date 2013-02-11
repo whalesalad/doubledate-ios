@@ -50,6 +50,7 @@ typedef enum
     DDAPIControllerMethodTypeUnlockEngagement,
     DDAPIControllerMethodTypeGetMessages,
     DDAPIControllerMethodTypeCreateMessage,
+    DDAPIControllerMethodTypeGetNotifications,
 } DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
@@ -730,6 +731,27 @@ typedef enum
     userData.method = DDAPIControllerMethodTypeCreateMessage;
     userData.succeedSel = @selector(createMessageSucceed:);
     userData.failedSel = @selector(createMessageDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
+- (DDRequestId)getNotifications
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/notifications"]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetNotifications;
+    userData.succeedSel = @selector(getNotificationsSucceed:);
+    userData.failedSel = @selector(getNotificationsDidFailedWithError:);
     request.userData = userData;
     
     //send request

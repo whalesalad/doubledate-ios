@@ -75,6 +75,7 @@
 		70507B1316C1B2EA00587EAF /* coinbar-coin-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70507B0B16C1B2EA00587EAF /* coinbar-coin-icon@2x.png */; };
 		70507B1416C1B2EA00587EAF /* coinbar-inner.png in Resources */ = {isa = PBXBuildFile; fileRef = 70507B0C16C1B2EA00587EAF /* coinbar-inner.png */; };
 		70507B1516C1B2EA00587EAF /* coinbar-inner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70507B0D16C1B2EA00587EAF /* coinbar-inner@2x.png */; };
+		706EFAA516C9B18F00DD5791 /* DDNotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 706EFAA416C9B18F00DD5791 /* DDNotificationsViewController.m */; };
 		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		7083ABF916C44D0A005BF23F /* disallow-chat-gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7083ABF516C44D0A005BF23F /* disallow-chat-gradient.png */; };
@@ -641,6 +642,8 @@
 		70507B0B16C1B2EA00587EAF /* coinbar-coin-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coinbar-coin-icon@2x.png"; sourceTree = "<group>"; };
 		70507B0C16C1B2EA00587EAF /* coinbar-inner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coinbar-inner.png"; sourceTree = "<group>"; };
 		70507B0D16C1B2EA00587EAF /* coinbar-inner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coinbar-inner@2x.png"; sourceTree = "<group>"; };
+		706EFAA316C9B18F00DD5791 /* DDNotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNotificationsViewController.h; sourceTree = "<group>"; };
+		706EFAA416C9B18F00DD5791 /* DDNotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNotificationsViewController.m; sourceTree = "<group>"; };
 		7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewControllerChooseDate.h; sourceTree = "<group>"; };
 		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
@@ -1800,6 +1803,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				706EFAA316C9B18F00DD5791 /* DDNotificationsViewController.h */,
+				706EFAA416C9B18F00DD5791 /* DDNotificationsViewController.m */,
 				965DADA916A7EE84005F8B25 /* DDChatViewController.h */,
 				965DADAA16A7EE84005F8B25 /* DDChatViewController.m */,
 				965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */,
@@ -2751,6 +2756,7 @@
 				960C008316C115D6002F0718 /* DDNavigationMenuTableViewCell.m in Sources */,
 				96EBDD9616C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.m in Sources */,
 				701D770716C99C9A00EE2229 /* DDAppDelegate+Navigation.m in Sources */,
+				706EFAA516C9B18F00DD5791 /* DDNotificationsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

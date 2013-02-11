@@ -216,8 +216,8 @@
     
     //check if you are the owner of engagement
     self.viewLocked.hidden = YES;
-    if (([[self.engagement.user identifier] intValue] == [[DDAuthenticationController userId] intValue]) ||
-        ([[self.engagement.wing identifier] intValue] == [[DDAuthenticationController userId] intValue]))
+    if (([[self.engagement.user identifier] intValue] == [[[DDAuthenticationController currentUser] userId] intValue]) ||
+        ([[self.engagement.wing identifier] intValue] == [[[DDAuthenticationController currentUser] userId] intValue]))
     {
         //check if we need to unlock the engagement
         if ([self.engagement.status isEqualToString:DDEngagementStatusLocked])

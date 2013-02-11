@@ -26,6 +26,4 @@
 
 @property(nonatomic, assign) BOOL isSelectingMode;
 
-@property(nonatomic, retain) DDUser *user;
-
 @end

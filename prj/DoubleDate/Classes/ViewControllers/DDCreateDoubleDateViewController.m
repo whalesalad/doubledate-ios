@@ -22,6 +22,7 @@
 #import "DDTextFieldTableViewCell.h"
 #import "DDTextField.h"
 #import "DDTextViewTableViewCell.h"
+#import "DDAuthenticationController.h"
 
 #define kTagCancelActionSheet 1
 
@@ -44,7 +45,6 @@
 @synthesize wing;
 @synthesize location;
 @synthesize locationError;
-@synthesize user;
 @synthesize doubleDatesViewController;
 @synthesize day;
 @synthesize time;
@@ -113,7 +113,6 @@
     [wing release];
     [location release];
     [locationError release];
-    [user release];
     [doubleDatesViewController release];
     [day release];
     [time release];
@@ -242,7 +241,7 @@
     doubleDate.wing = [[[DDShortUser alloc] init] autorelease];
     doubleDate.wing.identifier = self.wing.identifier;
     doubleDate.user = [[[DDShortUser alloc] init] autorelease];
-    doubleDate.user.identifier = self.user.userId;
+    doubleDate.user.identifier = [[DDAuthenticationController currentUser] userId];
     doubleDate.location = [[[DDPlacemark alloc] init] autorelease];
     doubleDate.location.identifier = self.location.identifier;
     doubleDate.dayPref = self.day;
