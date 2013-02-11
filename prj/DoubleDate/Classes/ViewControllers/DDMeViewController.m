@@ -34,6 +34,7 @@
 @synthesize textViewBio;
 @synthesize viewInterests;
 @synthesize labelInterests;
+@synthesize interestsWrapper;
 @synthesize imageViewGender;
 @synthesize imageViewBioBackground;
 @synthesize labelCoinsContainer;
@@ -106,28 +107,58 @@
     //update coins label
     labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
         
-    //watch for text view change
-    CGSize textViewBioSize = textViewBio.frame.size;
-    CGSize newTextViewBioSize = [textViewBio sizeThatFits:textViewBio.bounds.size];
-    textViewBio.frame = CGRectMake(textViewBio.frame.origin.x, textViewBio.frame.origin.y, newTextViewBioSize.width, MAX(newTextViewBioSize.height, 80));
-    CGFloat dh = textViewBio.frame.size.height - textViewBioSize.height;
+    // watch for text view change
+    CGRect textViewBioFrame = textViewBio.frame;
+    textViewBioFrame.size.height = textViewBio.contentSize.height + 10;
+    textViewBio.frame = textViewBioFrame;
     
-    //stick bio background image
-    imageViewBioBackground.frame = CGRectMake(imageViewBioBackground.frame.origin.x, textViewBio.frame.origin.y+textViewBio.frame.size.height-imageViewBioBackground.frame.size.height, imageViewBioBackground.frame.size.width, imageViewBioBackground.frame.size.height);
+    // Create transparent white line to add below bio view.
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.frame = CGRectMake(0.0f, textViewBio.frame.origin.y + textViewBio.frame.size.height, 320, 1.0f);
+    bottomBorder.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.03f].CGColor;
     
-    //change position
-    self.labelInterests.frame = CGRectMake(labelInterests.frame.origin.x, labelInterests.frame.origin.y+dh, labelInterests.frame.size.width, labelInterests.frame.size.height);
-    self.labelInterests.hidden = [self.user.interests count] == 0;
-    self.viewInterests.frame = CGRectMake(viewInterests.frame.origin.x, viewInterests.frame.origin.y+dh, viewInterests.frame.size.width, viewInterests.frame.size.height);
-    self.viewInterests.hidden = self.labelInterests.hidden;
+    // Add the border to the scrollview
+    [scrollView.layer addSublayer:bottomBorder];
+    
+    // Create inner gradient for bio
+    CAGradientLayer *textViewBioGradient = [CAGradientLayer layer];
+    textViewBioGradient.frame = textViewBio.bounds;
+    textViewBioGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                                           (id)[[UIColor colorWithWhite:1.0f alpha:0.1f] CGColor], nil];
+    
+    // Add the gradient to the back of the text view
+    [textViewBio.layer insertSublayer:textViewBioGradient atIndex:0];
+    
+    
+    // change position
+//    self.labelInterests.frame = CGRectMake(labelInterests.frame.origin.x, labelInterests.frame.origin.y+dh, labelInterests.frame.size.width, labelInterests.frame.size.height);
+    
+//    self.labelInterests.hidden = [self.user.interests count] == 0;
+    
+//    self.viewInterests.frame = CGRectMake(viewInterests.frame.origin.x, viewInterests.frame.origin.y+dh, viewInterests.frame.size.width, viewInterests.frame.size.height);
+    
+//    self.viewInterests.hidden = self.labelInterests.hidden;
+    
+    // space between textViewBio and interestsWrapper
+    CGFloat textInterestSpacing = 12.0f;
+    
+    // resize interest wrapper view
+    CGRect interestsWrapperFrame = self.interestsWrapper.frame;
+    interestsWrapperFrame.origin.y = textViewBio.frame.size.height + textViewBio.frame.origin.y + textInterestSpacing;
+    self.interestsWrapper.frame = interestsWrapperFrame;
+    
+    // Hide interests if there aren't any
+    self.interestsWrapper.hidden = [self.user.interests count] == 0;
+    
+    
     
     //make background clear
     labelTitle.backgroundColor = [UIColor clearColor];
     imageViewPoster.backgroundColor = [UIColor clearColor];
     labelLocation.backgroundColor = [UIColor clearColor];
-    textViewBio.backgroundColor = [UIColor clearColor];
     viewInterests.backgroundColor = [UIColor clearColor];
     labelInterests.backgroundColor = [UIColor clearColor];
+    interestsWrapper.backgroundColor = [UIColor clearColor];
     imageViewGender.backgroundColor = [UIColor clearColor];
     
     //align coins label
@@ -190,6 +221,7 @@
     [textViewBio release];
     [viewInterests release];
     [labelInterests release];
+    [interestsWrapper release];
     [imageViewGender release];
     [imageViewBioBackground release];
     [buttonMoreCoins release];

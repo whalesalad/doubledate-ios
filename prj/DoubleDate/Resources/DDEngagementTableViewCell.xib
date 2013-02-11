@@ -89,7 +89,7 @@
 					<object class="IBUIImageView" id="909413565">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{5, 5}, {45, 45}}</string>
+						<string key="NSFrame">{{5, 5}, {46, 47}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="733694508"/>
@@ -452,7 +452,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="double-list-overlay.png">{310, 100}</string>
-			<string key="table-cell-badge.png">{45, 45}</string>
+			<string key="table-cell-badge.png">{46, 47}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
