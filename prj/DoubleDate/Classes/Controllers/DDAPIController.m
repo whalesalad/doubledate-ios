@@ -21,6 +21,7 @@
 #import "DDDoubleDateFilter.h"
 #import "DDEngagement.h"
 #import "DDMessage.h"
+#import "DDNotification.h"
 #import "DDObjectsController.h"
 
 typedef enum
@@ -1006,6 +1007,26 @@ typedef enum
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:message withObject:userData.userData];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetNotifications)
+        {
+            //extract data
+            NSMutableArray *notifications = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create object
+                DDNotification *notification = [DDNotification objectWithDictionary:dic];
+                if (notification)
+                    [notifications addObject:notification];
+            }
+            
+            //notify objects controller
+            [DDObjectsController updateObjects:notifications withMethod:request.method cachePath:request.URL.absoluteString];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:notifications withObject:userData.userData];
         }
     }
     else
