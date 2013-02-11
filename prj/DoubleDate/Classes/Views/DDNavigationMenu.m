@@ -62,6 +62,8 @@
             if ([c isKindOfClass:[UITabBarController class]] && [viewControllers indexOfObject:c] == 1)
                 tabBarController = c;
         }
+        if ([appDelegate.viewController.presentedViewController isKindOfClass:[UITabBarController class]])
+            tabBarController = (UITabBarController*)appDelegate.viewController.presentedViewController;
     }
     NSInteger realIndex = indexPath.row - 1;
     if (realIndex >= 0 && realIndex < [tabBarController.viewControllers count])
