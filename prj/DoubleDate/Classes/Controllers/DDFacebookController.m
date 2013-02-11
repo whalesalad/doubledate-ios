@@ -36,9 +36,6 @@ static DDFacebookController *_sharedInstance = nil;
 
 - (void)login
 {
-    //logout first
-    [self logout];
-    
     //unset flag
     __block BOOL alreadyLoggedIn = NO;
 
@@ -60,7 +57,7 @@ static DDFacebookController *_sharedInstance = nil;
 
     //open session
     FBSession *session = [[[FBSession alloc] initWithPermissions:permissions] autorelease];
-    [session openWithBehavior:FBSessionLoginBehaviorWithNoFallbackToWebView completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+    [session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (!error)
         {
             if (status == FBSessionStateOpen && !alreadyLoggedIn)
