@@ -12,7 +12,15 @@
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface DDEngagementTableViewCell ()
+
+@property(nonatomic, retain) UIView *viewBlueGlow;
+
+@end
+
 @implementation DDEngagementTableViewCell
+
+@synthesize viewBlueGlow;
 
 @synthesize engagement;
 
@@ -23,7 +31,6 @@
 @synthesize labelDetailed;
 @synthesize viewImagesContainer;
 @synthesize imageViewBadge;
-@synthesize blueGlow;
 
 + (CGFloat)height
 {
@@ -56,18 +63,14 @@
     viewImagesContainer.layer.borderWidth = 1;
     
     // add inner blue glow
-    blueGlow = [[UIView alloc] initWithFrame:viewImagesContainer.frame];
-    blueGlow.backgroundColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.4f];
-    
+    self.viewBlueGlow = [[[UIView alloc] initWithFrame:viewImagesContainer.frame] autorelease];
+    self.viewBlueGlow.backgroundColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.4f];
     CAGradientLayer *blueGlowGradient = [CAGradientLayer layer];
-
-    blueGlowGradient.frame = blueGlow.bounds;
+    blueGlowGradient.frame = self.viewBlueGlow.bounds;
     blueGlowGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
                                                         (id)[[UIColor blackColor] CGColor], nil];
-
-    blueGlow.layer.mask = blueGlowGradient;
-    
-    [self insertSubview:blueGlow atIndex:4];
+    self.viewBlueGlow.layer.mask = blueGlowGradient;
+    [self insertSubview:self.viewBlueGlow atIndex:4];
         
     // unset background
     labelDetailed.backgroundColor = [UIColor clearColor];
@@ -96,14 +99,14 @@
             [self.imageViewWing reloadFromUrl:[NSURL URLWithString:engagement.wing.photo.smallUrl]];
             
             //apply unread count
-            if ([engagement hasUnreadMessages])
+            if ([engagement.unreadCount intValue] > 0)
             {
                 self.viewImagesContainer.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
-            } else {
+            } else
+            {
                 self.imageViewBadge.hidden = YES;
-                self.blueGlow.hidden = YES;
+                self.viewBlueGlow.hidden = YES;
             }
-            
         }
         else
         {
@@ -112,7 +115,7 @@
             self.imageViewUser.image = nil;
             self.imageViewWing.image = nil;
             self.imageViewBadge.hidden = YES;
-            self.blueGlow.hidden = YES;
+            self.viewBlueGlow.hidden = YES;
         }
     }
 }
@@ -127,7 +130,7 @@
     [labelDetailed release];
     [viewImagesContainer release];
     [imageViewBadge release];
-    [blueGlow release];
+    [viewBlueGlow release];
     [super dealloc];
 }
 
