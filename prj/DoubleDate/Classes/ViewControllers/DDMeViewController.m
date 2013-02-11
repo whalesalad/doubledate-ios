@@ -19,8 +19,11 @@
 #import "DDTools.h"
 #import "UIView+Interests.h"
 #import "DDWingTableViewCell.h"
+#import "DDAppDelegate+Navigation.h"
 
-@interface DDMeViewController ()
+#define kTagActionSheetEdit 1
+
+@interface DDMeViewController () <UIActionSheetDelegate>
 
 @end
 
@@ -66,7 +69,7 @@
         self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
         
         //add right button
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Edit", nil) target:self action:@selector(editTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
     }
     else
     {
@@ -236,6 +239,9 @@
 
 - (void)editTouched:(id)sender
 {
+    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Edit Profile", nil), NSLocalizedString(@"Change Photo", nil), NSLocalizedString(@"Logout", nil), nil] autorelease];
+    actionSheet.tag = kTagActionSheetEdit;
+    [actionSheet showInView:self.view];
 }
 
 - (void)backTouched:(id)sender
@@ -249,6 +255,44 @@
 - (IBAction)moreCoinsTouched:(id)sender
 {
     
+}
+
+- (void)editProfileTouched
+{
+    
+}
+
+- (void)changePhotoTouched
+{
+    
+}
+
+- (void)logoutTouched
+{
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] logout];
+}
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (actionSheet.tag == kTagActionSheetEdit)
+    {
+        switch (buttonIndex) {
+            case 0:
+                [self editProfileTouched];
+                break;
+            case 1:
+                [self changePhotoTouched];
+                break;
+            case 2:
+                [self logoutTouched];
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 @end

@@ -48,6 +48,9 @@
 		701BAA7616A4A89D007CB566 /* photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701BAA6A16A4A89C007CB566 /* photo-overlay@2x.png */; };
 		701BAA7716A4A89D007CB566 /* send-message-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 701BAA6B16A4A89C007CB566 /* send-message-icon.png */; };
 		701BAA7816A4A89D007CB566 /* send-message-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701BAA6C16A4A89C007CB566 /* send-message-icon@2x.png */; };
+		701D770316C999E400EE2229 /* button-gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 701D770116C999E400EE2229 /* button-gear.png */; };
+		701D770416C999E400EE2229 /* button-gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 701D770216C999E400EE2229 /* button-gear@2x.png */; };
+		701D770716C99C9A00EE2229 /* DDAppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */; };
 		7025E53F168274B100FE3FBE /* DDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7025E53E168274B100FE3FBE /* DDMessage.m */; };
 		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
 		702846B516236E5800693673 /* approve-invite.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846AD16236E5800693673 /* approve-invite.png */; };
@@ -605,6 +608,10 @@
 		701BAA6A16A4A89C007CB566 /* photo-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-overlay@2x.png"; sourceTree = "<group>"; };
 		701BAA6B16A4A89C007CB566 /* send-message-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-message-icon.png"; sourceTree = "<group>"; };
 		701BAA6C16A4A89C007CB566 /* send-message-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-message-icon@2x.png"; sourceTree = "<group>"; };
+		701D770116C999E400EE2229 /* button-gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-gear.png"; path = "DoubleDate/Images/general/button-gear.png"; sourceTree = SOURCE_ROOT; };
+		701D770216C999E400EE2229 /* button-gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "button-gear@2x.png"; path = "DoubleDate/Images/general/button-gear@2x.png"; sourceTree = SOURCE_ROOT; };
+		701D770516C99C9A00EE2229 /* DDAppDelegate+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+Navigation.h"; sourceTree = "<group>"; };
+		701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+Navigation.m"; sourceTree = "<group>"; };
 		7025E53D168274B100FE3FBE /* DDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMessage.h; sourceTree = "<group>"; };
 		7025E53E168274B100FE3FBE /* DDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMessage.m; sourceTree = "<group>"; };
 		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
@@ -1600,6 +1607,8 @@
 		96831279169DA7D0007C14ED /* me */ = {
 			isa = PBXGroup;
 			children = (
+				701D770116C999E400EE2229 /* button-gear.png */,
+				701D770216C999E400EE2229 /* button-gear@2x.png */,
 				9683127C169DA7D0007C14ED /* bg-me-infobar.png */,
 				9683127D169DA7D0007C14ED /* bg-me-infobar@2x.png */,
 				9683127E169DA7D0007C14ED /* bg-me-interest.png */,
@@ -1774,6 +1783,8 @@
 		96E7F1AA15F738CA00200E1F /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				701D770516C99C9A00EE2229 /* DDAppDelegate+Navigation.h */,
+				701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */,
 				96EBDD9416C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.h */,
 				96EBDD9516C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.m */,
 				7086D9F016B54E3D003310D1 /* DDAppDelegate+APNS.h */,
@@ -2638,6 +2649,8 @@
 				7083ABFA16C44D0A005BF23F /* disallow-chat-gradient@2x.png in Resources */,
 				7083ABFB16C44D0A005BF23F /* upper-chat-button.png in Resources */,
 				7083ABFC16C44D0A005BF23F /* upper-chat-button@2x.png in Resources */,
+				701D770316C999E400EE2229 /* button-gear.png in Resources */,
+				701D770416C999E400EE2229 /* button-gear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2737,6 +2750,7 @@
 				960C008016C1132F002F0718 /* DDNavigationMenu.m in Sources */,
 				960C008316C115D6002F0718 /* DDNavigationMenuTableViewCell.m in Sources */,
 				96EBDD9616C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.m in Sources */,
+				701D770716C99C9A00EE2229 /* DDAppDelegate+Navigation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
