@@ -9,6 +9,10 @@
 #import "DDNotificationsViewController.h"
 #import "UIViewController+Extensions.h"
 #import "DDTableViewController+Refresh.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
+#import "DDNotificationTableViewCell.h"
+#import "DDNotification.h"
 
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -34,6 +38,9 @@
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Notifications", nil);
+    
+    //init search bar
+    [self setupSearchBar];
     
     //set placeholder for search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Notifications", nil)];
@@ -64,7 +71,19 @@
 
 - (NSArray*)notifications
 {
-    return notifications_;
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDNotification *notification in notifications_)
+    {
+        BOOL existInSearch = [self.searchTerm length] == 0;
+        if (self.searchTerm)
+        {
+            if (notification.notification && [notification.notification rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+                existInSearch = YES;
+        }
+        if (existInSearch)
+            [ret addObject:notification];
+    }
+    return ret;
 }
 
 - (void)onDataRefreshed
@@ -88,7 +107,7 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 0;
+    return [DDNotificationTableViewCell heightForNotification:[[self notifications] objectAtIndex:indexPath.row]];
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -111,17 +130,20 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set identifier
-    NSString *cellIdentifier = @"temp";
-    assert(cellIdentifier);
+    NSString *cellIdentifier = [[DDNotificationTableViewCell class] description];
     
     //create cell if needed
-    UITableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!tableViewCell)
-    {
-        tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
-    }
+    DDNotificationTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell)
+        cell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
     
-    return tableViewCell;
+    //save data
+    [cell setNotification:[[self notifications] objectAtIndex:indexPath.row]];
+    
+    //update layouts
+    [cell setNeedsLayout];
+    
+    return cell;
 }
 
 #pragma mark -
@@ -132,6 +154,12 @@
     //save notifications
     [notifications_ release];
     notifications_ = [[NSMutableArray arrayWithArray:notifications] retain];
+    
+    //unset number of unread wings
+    [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:0];
+    
+    //inform about reloaded data
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
 - (void)getNotificationsDidFailedWithError:(NSError*)error
