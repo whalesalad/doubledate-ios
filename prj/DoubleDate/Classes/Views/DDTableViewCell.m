@@ -34,6 +34,25 @@
     return self;
 }
 
+- (void)unsetScrollsToTopForView:(UIView*)view
+{
+    //unset flag
+    if ([view isKindOfClass:[UIScrollView class]])
+        [(UIScrollView*)view setScrollsToTop:NO];
+
+    //make for child
+    for (UIView *subview in [view subviews])
+        [self unsetScrollsToTopForView:subview];
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    //unset scrolls to top flag
+    [self unsetScrollsToTopForView:self];
+}
+
 - (void)setBackgroundStyle:(DDTableViewCellStyle)v
 {
     //apply value
