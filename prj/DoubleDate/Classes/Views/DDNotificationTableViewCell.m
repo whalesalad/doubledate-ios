@@ -57,6 +57,12 @@
     
     //apply attributed text
     textView.attributedText = attributedText;
+    
+    //apply needed offset
+    if (textView.contentSize.height < textView.frame.size.height)
+        textView.contentOffset = CGPointMake(0, -(textView.frame.size.height - textView.contentSize.height) / 2);
+    else
+        textView.contentOffset = CGPointZero;
 }
 
 + (CGFloat)heightForNotification:(DDNotification*)notification
