@@ -107,7 +107,7 @@
     
     self.imageViewLeft.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewRight.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageViewFull.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageViewFull.contentMode = UIViewContentModeCenter;
     
     self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
 }
