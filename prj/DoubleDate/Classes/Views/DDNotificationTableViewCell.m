@@ -94,28 +94,31 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
-        [self.wrapperView insertSubview:self.shadowView belowSubview:self.textViewContent];
-        self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
-        [self.wrapperView insertSubview:self.innerBorderView belowSubview:self.textViewContent];
-        
-        // mask for inner white border
-        CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
-        innerBorderMask.frame = self.innerBorderView.bounds;
-        innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
-                                  (id)[[UIColor clearColor] CGColor], nil];
-        self.innerBorderView.layer.mask = innerBorderMask;
-        
-        CAGradientLayer *shadowGradientMask = [CAGradientLayer layer];
-        shadowGradientMask.frame = shadowView.bounds;
-        shadowGradientMask.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                     (id)[[UIColor clearColor] CGColor],
-                                     (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
-                                     (id)[[UIColor blackColor] CGColor], nil];
-        
-        shadowView.layer.mask = shadowGradientMask;
     }
     return self;
+}
+
+- (void)customizeOnce
+{
+    self.shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
+    [self.wrapperView insertSubview:self.shadowView belowSubview:self.textViewContent];
+    self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
+    [self.wrapperView insertSubview:self.innerBorderView belowSubview:self.textViewContent];
+    
+    // mask for inner white border
+    CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
+    innerBorderMask.frame = self.innerBorderView.bounds;
+    innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
+                              (id)[[UIColor clearColor] CGColor], nil];
+    self.innerBorderView.layer.mask = innerBorderMask;
+    
+    CAGradientLayer *shadowGradientMask = [CAGradientLayer layer];
+    shadowGradientMask.frame = shadowView.bounds;
+    shadowGradientMask.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                 (id)[[UIColor clearColor] CGColor],
+                                 (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
+                                 (id)[[UIColor blackColor] CGColor], nil];
+    shadowView.layer.mask = shadowGradientMask;
 }
 
 - (void)customize
