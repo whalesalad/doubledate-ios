@@ -47,6 +47,9 @@
     // Apply shadows to icon and label.
     [self drawShadowForView:self.imageViewIcon];
     [self drawShadowForView:self.labelTitle];
+    
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
 }
 
 - (void)drawShadowForView:(UIView *)aView

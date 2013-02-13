@@ -203,7 +203,7 @@
             //apply unread count
             if ([notification.unread boolValue])
             {
-                self.innerGlowLayer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
+                self.innerGlowLayer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f].CGColor;
                 self.imageViewBadge.hidden = NO;
                 self.imageViewGlow.hidden = NO;
             }
