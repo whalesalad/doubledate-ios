@@ -44,7 +44,7 @@
     
     NSMutableAttributedString *attributedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", notification.notification, createdAtString]] autorelease];
     
-    NSString *mainFontName = ([notification.unread intValue] > 0) ? @"HelveticaNeue-Bold" : @"HelveticaNeue-Medium";
+    NSString *mainFontName = ([notification.unread boolValue]) ? @"HelveticaNeue-Bold" : @"HelveticaNeue-Medium";
     
     //cutomize notification
     NSRange rangeMain = NSMakeRange(0, [notification.notification length]);
@@ -170,7 +170,7 @@
             }
             
             //apply unread count
-            if ([notification.unread intValue] > 0)
+            if ([notification.unread boolValue])
             {
                 self.innerBorderView.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
                 self.imageViewBadge.hidden = NO;
