@@ -16,8 +16,8 @@
 
 @interface DDNotificationTableViewCell ()
 
-@property(nonatomic, retain) UIView *innerBorderView;
-@property(nonatomic, retain) UIView *shadowView;
+@property(nonatomic, retain) CALayer *innerGlowLayer;
+@property(nonatomic, retain) CAGradientLayer *glowLayerMask, *innerShadowLayer, *innerBlueLayer;
 
 @end
 
@@ -31,11 +31,8 @@
 @synthesize textViewContent;
 @synthesize viewImagesContainer;
 @synthesize imageViewBadge;
-@synthesize imageViewGlow;
 @synthesize imageViewBackground;
 @synthesize wrapperView;
-@synthesize innerBorderView;
-@synthesize shadowView;
 
 + (void)cutomizeTextView:(UITextView*)textView withNotification:(DDNotification*)notification
 {
@@ -44,7 +41,7 @@
     
     NSMutableAttributedString *attributedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", notification.notification, createdAtString]] autorelease];
     
-    NSString *mainFontName = ([notification.unread boolValue]) ? @"HelveticaNeue-Bold" : @"HelveticaNeue-Medium";
+    NSString *mainFontName = ([notification.unread boolValue]) ? @"HelveticaNeue-Bold" : @"HelveticaNeue";
     
     //cutomize notification
     NSRange rangeMain = NSMakeRange(0, [notification.notification length]);
@@ -94,40 +91,16 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
-        [self.wrapperView insertSubview:self.shadowView belowSubview:self.textViewContent];
-        self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
-        [self.wrapperView insertSubview:self.innerBorderView belowSubview:self.textViewContent];
-        
-        // mask for inner white border
-        CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
-        innerBorderMask.frame = self.innerBorderView.bounds;
-        innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
-                                  (id)[[UIColor clearColor] CGColor], nil];
-        self.innerBorderView.layer.mask = innerBorderMask;
-        
-        CAGradientLayer *shadowGradientMask = [CAGradientLayer layer];
-        shadowGradientMask.frame = shadowView.bounds;
-        shadowGradientMask.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                     (id)[[UIColor clearColor] CGColor],
-                                     (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
-                                     (id)[[UIColor blackColor] CGColor], nil];
-        
-        shadowView.layer.mask = shadowGradientMask;
     }
     return self;
 }
 
-- (void)customize
+- (void)customizeOnce
 {
-    shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
-    shadowView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    
-    // Add inner white border with mask
-    self.innerBorderView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-    self.innerBorderView.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
-    self.innerBorderView.layer.borderWidth = 1;
-        
+    [self drawInnerGlow];
+    [self drawInnerShadow];
+    [self drawInnerBlueLayer];
+
     self.imageViewLeft.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewRight.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewFull.center = self.center;
@@ -136,8 +109,82 @@
     self.imageViewRight.layer.opacity = 0.3f;
     self.imageViewFull.layer.opacity = 0.3f;
     
+    self.textViewContent.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.textViewContent.layer.shadowOffset = CGSizeMake(0, 1);
+    self.textViewContent.layer.shadowRadius = 0;
+    self.textViewContent.layer.shadowOpacity = 1;
+    
     self.textViewContent.backgroundColor = [UIColor clearColor];
     self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
+    
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+
+}
+
+- (void)layoutSubviews
+{
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    self.innerShadowLayer.frame = self.wrapperView.bounds;
+    self.innerBlueLayer.frame = self.wrapperView.bounds;
+    self.innerGlowLayer.frame = self.wrapperView.bounds;
+    self.glowLayerMask.frame = self.innerGlowLayer.bounds;
+    [CATransaction commit];
+    [super layoutSubviews];
+}
+
+- (void)drawInnerGlow
+{
+    if (!self.innerGlowLayer)
+    {
+        // Inner white/blue border
+        self.innerGlowLayer = [CALayer layer];
+        self.innerGlowLayer.borderWidth = 1;
+        self.innerGlowLayer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+        
+        self.glowLayerMask = [CAGradientLayer layer];
+        self.glowLayerMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
+                                                              (id)[[UIColor clearColor] CGColor], nil];
+        
+        self.innerGlowLayer.mask = self.glowLayerMask;
+        
+        [self.wrapperView.layer insertSublayer:self.innerGlowLayer atIndex:1];
+    }
+}
+
+- (void)drawInnerShadow
+{
+    if (!self.innerShadowLayer)
+    {
+        self.innerShadowLayer = [CAGradientLayer layer];
+        
+        self.innerShadowLayer.opacity = 0.8f;
+        
+        self.innerShadowLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                                                 (id)[[UIColor clearColor] CGColor],
+                                                                 (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
+                                                                 (id)[[UIColor blackColor] CGColor], nil];
+        
+        [self.wrapperView.layer insertSublayer:self.innerShadowLayer atIndex:2];
+    }
+}
+
+- (void)drawInnerBlueLayer
+{
+    if (!self.innerBlueLayer)
+    {
+        self.innerBlueLayer = [CAGradientLayer layer];
+        
+        self.innerBlueLayer.colors = [NSArray arrayWithObjects:
+                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.2f] CGColor],
+                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f] CGColor],
+                                      nil];
+        
+        [self.wrapperView.layer insertSublayer:self.innerBlueLayer atIndex:3];
+        
+        self.innerBlueLayer.hidden = YES;
+    }
 }
 
 - (void)setNotification:(DDNotification *)v
@@ -172,15 +219,15 @@
             //apply unread count
             if ([notification.unread boolValue])
             {
-                self.innerBorderView.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
+                self.innerGlowLayer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f].CGColor;
                 self.imageViewBadge.hidden = NO;
-                self.imageViewGlow.hidden = NO;
+                self.innerBlueLayer.hidden = NO;
             }
             else
             {
-                self.innerBorderView.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
+                self.innerGlowLayer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
                 self.imageViewBadge.hidden = YES;
-                self.imageViewGlow.hidden = YES;
+                self.innerBlueLayer.hidden = YES;
             }
         }
         else
@@ -191,7 +238,7 @@
             self.imageViewRight.image = nil;
             self.imageViewFull.image = nil;
             self.imageViewBadge.hidden = YES;
-            self.imageViewGlow.hidden = YES;
+            self.innerBlueLayer.hidden = YES;
         }
     }
 }
@@ -205,11 +252,12 @@
     [textViewContent release];
     [viewImagesContainer release];
     [imageViewBadge release];
-    [imageViewGlow release];
     [imageViewBackground release];
     [wrapperView release];
-    [innerBorderView release];
-    [shadowView release];
+    [_innerGlowLayer release];
+    [_innerShadowLayer release];
+    [_innerBlueLayer release];
+    [_glowLayerMask release];
     [super dealloc];
 }
 
@@ -229,7 +277,7 @@
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-#warning called only once
+        #warning called only once
         self.viewForEffect = [[[UIView alloc] init] autorelease];
         [self.contentView addSubview:self.viewForEffect];
         
@@ -239,7 +287,7 @@
                                   (id)[[UIColor clearColor] CGColor], nil];
         self.viewForEffect.layer.mask = innerBorderMask;
         
-#warning after this customization customize is not called, this is for test
+        #warning after this customization customize is not called, this is for test
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(customize) userInfo:nil repeats:YES];
         [self customize];
     }
@@ -248,7 +296,7 @@
 
 - (void)customize
 {
-#warning called multiple times
+    #warning called multiple times
     self.viewForEffect.backgroundColor = [UIColor redColor];
     self.viewForEffect.frame = CGRectMake(5, 5, self.contentView.frame.size.width-10, self.contentView.frame.size.height-10);
     self.viewForEffect.layer.mask.frame = CGRectMake(0, 0, self.viewForEffect.frame.size.width, self.viewForEffect.frame.size.height);

@@ -37,7 +37,7 @@
     return self;
 }
 
-- (void)c
+- (void)customizeOnce
 {    
     viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     viewEffects.layer.borderWidth = 1;
@@ -50,10 +50,6 @@
     
     imageViewPoster.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     imageViewPoster.layer.borderWidth = 1;
-    
-    //unset background
-    labelLocation.backgroundColor = [UIColor clearColor];
-    labelTitle.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setShortUser:(DDShortUser *)v

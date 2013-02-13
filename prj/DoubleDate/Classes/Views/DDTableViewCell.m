@@ -52,11 +52,22 @@
     //unset scrolls to top flag
     [self unsetScrollsToTopForView:self];
     
+    //check if already customized
+    if (!customized_)
+    {
+        customized_ = YES;
+        [self customizeOnce];
+    }
+    
     //customize self
     [self customize];
 }
 
 - (void)customize
+{
+}
+
+- (void)customizeOnce
 {
 }
 
