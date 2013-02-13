@@ -34,6 +34,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 @synthesize moveWithKeyboard;
 @synthesize viewNoData = viewNoData_;
 @synthesize shouldShowNavigationMenu;
+@synthesize cellsIdentifiers;
 
 - (void)initSelf
 {
@@ -78,6 +79,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //register cells
+    for (NSString *key in self.cellsIdentifiers)
+        [self.tableView registerNib:[UINib nibWithNibName:[self.cellsIdentifiers objectForKey:key] bundle:nil] forCellReuseIdentifier:key];
     
     //set background color
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
@@ -154,6 +159,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [searchTerm_ release];
     [backButtonTitle release];
+    [cellsIdentifiers release];
     [self hideHud:YES];
     self.apiController.delegate = nil;
     self.apiController = nil;

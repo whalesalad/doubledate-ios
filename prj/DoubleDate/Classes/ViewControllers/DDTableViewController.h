@@ -36,6 +36,8 @@
 
 @property(nonatomic, assign) BOOL shouldShowNavigationMenu;
 
+@property(nonatomic, retain) NSDictionary *cellsIdentifiers;
+
 - (void)setupSearchBar;
 
 - (void)updateNoDataView;
