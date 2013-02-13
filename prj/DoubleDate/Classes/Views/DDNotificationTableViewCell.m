@@ -119,6 +119,8 @@
                                  (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
                                  (id)[[UIColor blackColor] CGColor], nil];
     shadowView.layer.mask = shadowGradientMask;
+    
+    self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
 }
 
 - (void)customize
@@ -140,7 +142,6 @@
     self.imageViewFull.layer.opacity = 0.3f;
     
     self.textViewContent.backgroundColor = [UIColor clearColor];
-    self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
 }
 
 - (void)setNotification:(DDNotification *)v
