@@ -116,13 +116,17 @@
     
     self.textViewContent.backgroundColor = [UIColor clearColor];
     self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
+    
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+
 }
 
 - (void)layoutSubviews
 {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    self.innerShadowLayer.frame = self.wrapperView.bounds;
+    self.innerShadowLayer.frame = CGRectInset(self.wrapperView.bounds, -1, -1);
     self.innerGlowLayer.frame = self.wrapperView.bounds;
     self.glowLayerMask.frame = self.innerGlowLayer.bounds;
     [CATransaction commit];
@@ -160,6 +164,8 @@
                                                                  (id)[[UIColor clearColor] CGColor],
                                                                  (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
                                                                  (id)[[UIColor blackColor] CGColor], nil];
+        
+        self.innerShadowLayer.shouldRasterize = YES;
         
         [self.wrapperView.layer insertSublayer:self.innerShadowLayer atIndex:2];
     }
