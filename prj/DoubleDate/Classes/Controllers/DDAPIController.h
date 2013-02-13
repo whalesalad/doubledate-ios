@@ -48,6 +48,7 @@ typedef enum
     DDAPIControllerMethodTypeGetDoubleDate,
     DDAPIControllerMethodTypeRequestDeleteDoubleDate,
     DDAPIControllerMethodTypeGetEngagements,
+    DDAPIControllerMethodTypeGetEngagement,
     DDAPIControllerMethodTypeCreateEngagement,
     DDAPIControllerMethodTypeUnlockEngagement,
     DDAPIControllerMethodTypeGetMessages,
@@ -127,6 +128,9 @@ typedef int DDRequestId;
 - (void)getEngagementsDateSucceed:(NSArray*)engagements;
 - (void)getEngagementsDateDidFailedWithError:(NSError*)error;
 
+- (void)getEngagementSucceed:(DDEngagement*)engagement;
+- (void)getEngagementDidFailedWithError:(NSError*)error;
+
 - (void)createEngagementSucceed:(DDEngagement*)engagement;
 - (void)createEngagementDidFailedWithError:(NSError*)error;
 
@@ -201,6 +205,8 @@ typedef int DDRequestId;
 - (DDRequestId)requestDeleteDoubleDate:(DDDoubleDate*)doubleDate;
 
 - (DDRequestId)getEngagements;
+
+- (DDRequestId)getEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)createEngagement:(DDEngagement*)engagement;
 

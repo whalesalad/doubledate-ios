@@ -11,10 +11,17 @@
 #import "DDTableViewController+Refresh.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDEngagement.h"
+#import "DDDoubleDate.h"
 #import "DDNotificationTableViewCell.h"
 #import "DDNotification.h"
+#import "DDMeViewController.h"
+#import "DDDoubleDateViewController.h"
+#import "DDChatViewController.h"
 
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property(nonatomic, retain) DDEngagement *selectedEngagement;
 
 - (void)onDataRefreshed;
 - (NSArray*)notifications;
@@ -22,6 +29,8 @@
 @end
 
 @implementation DDNotificationsViewController
+
+@synthesize selectedEngagement;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,6 +67,7 @@
 - (void)dealloc
 {
     [notifications_ release];
+    [selectedEngagement release];
     [super dealloc];
 }
 
@@ -120,8 +130,12 @@
         NSString *path = [notification callbackUrl];
         path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
         DDAPIControllerMethodType requestType = -1;
-        if ([path rangeOfString:@"wings"].location != NSNotFound)
+        if ([path rangeOfString:@"users"].location != NSNotFound)
             requestType = DDAPIControllerMethodTypeGetUser;
+        else if ([path rangeOfString:@"engagements"].location != NSNotFound)
+            requestType = DDAPIControllerMethodTypeGetEngagement;
+        else if ([path rangeOfString:@"activities"].location != NSNotFound)
+            requestType = DDAPIControllerMethodTypeGetDoubleDate;
         assert(requestType != -1);
         [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
     }
@@ -190,11 +204,61 @@
 
 - (void)requestDidSucceed:(NSObject*)object
 {
-    //hide hud
-    [self hideHud:YES];
+    //check received object
+    if ([object isKindOfClass:[DDUser class]])
+    {
+        //hide hud
+        [self hideHud:YES];
+        
+        //push view controller
+        DDMeViewController *viewController = [[[DDMeViewController alloc] init] autorelease];
+        viewController.user = (DDUser*)object;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+    else if ([object isKindOfClass:[DDDoubleDate class]])
+    {
+        //hide hud
+        [self hideHud:YES];
+        
+        //push view controller
+        DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
+        viewController.doubleDate = (DDDoubleDate*)object;
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+    else if ([object isKindOfClass:[DDEngagement class]])
+    {
+        //save selected engagement
+        self.selectedEngagement = (DDEngagement*)object;
+        
+        //get doubledate
+        DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
+        doubleDate.identifier = [self.selectedEngagement activityId];
+        [self.apiController getDoubleDate:doubleDate];
+    }
 }
 
 - (void)requestDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getDoubleDateSucceed:(DDDoubleDate *)doubleDate
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //push view controller
+    DDChatViewController *viewController = [[[DDChatViewController alloc] init] autorelease];
+    viewController.doubleDate = doubleDate;
+    viewController.engagement = self.selectedEngagement;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)getDoubleDateDidFailedWithError:(NSError *)error
 {
     //hide hud
     [self hideHud:YES];

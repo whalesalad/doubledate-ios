@@ -640,6 +640,25 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)getEngagement:(DDEngagement*)engagement
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"engagements/%d", [engagement.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetEngagement;
+    userData.succeedSel = @selector(getEngagementSucceed:);
+    userData.failedSel = @selector(getEngagementDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)createEngagement:(DDEngagement*)engagement
 {
     //create user dictionary
@@ -954,7 +973,8 @@
                 [self.delegate performSelector:userData.succeedSel withObject:engagements withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeCreateEngagement ||
-                 userData.method == DDAPIControllerMethodTypeUnlockEngagement)
+                 userData.method == DDAPIControllerMethodTypeUnlockEngagement ||
+                 userData.method == DDAPIControllerMethodTypeGetEngagement)
         {
             //create object
             DDEngagement *engagement = [DDEngagement objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
