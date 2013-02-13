@@ -150,28 +150,13 @@
 								<string key="NSFrameSize">{37, 38}</string>
 								<reference key="NSSuperview" ref="625928284"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="138663375"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">notification-unread-badge.png</string>
-								</object>
-							</object>
-							<object class="IBUIImageView" id="138663375">
-								<reference key="NSNextResponder" ref="625928284"/>
-								<int key="NSvFlags">266</int>
-								<string key="NSFrame">{{0, 33}, {310, 59}}</string>
-								<reference key="NSSuperview" ref="625928284"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="609078669"/>
-								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">notification-unread-blue-gradient.png</string>
 								</object>
 							</object>
 						</array>
@@ -256,14 +241,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">imageViewGlow</string>
-						<reference key="source" ref="191373211"/>
-						<reference key="destination" ref="138663375"/>
-					</object>
-					<int key="connectionID">37</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">wrapperView</string>
 						<reference key="source" ref="191373211"/>
 						<reference key="destination" ref="625928284"/>
@@ -311,7 +288,6 @@
 							<reference ref="909413565"/>
 							<reference ref="609078669"/>
 							<reference ref="777324846"/>
-							<reference ref="138663375"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">wrapperView</string>
@@ -351,11 +327,6 @@
 						<reference key="object" ref="909413565"/>
 						<reference key="parent" ref="625928284"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">36</int>
-						<reference key="object" ref="138663375"/>
-						<reference key="parent" ref="625928284"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -371,7 +342,6 @@
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="32.CustomClassName">DDImageView</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.CustomClassName">DDImageView</string>
@@ -400,7 +370,6 @@
 						<string key="imageViewBackground">UIImageView</string>
 						<string key="imageViewBadge">UIImageView</string>
 						<string key="imageViewFull">DDImageView</string>
-						<string key="imageViewGlow">UIImageView</string>
 						<string key="imageViewLeft">DDImageView</string>
 						<string key="imageViewRight">DDImageView</string>
 						<string key="textViewContent">UITextView</string>
@@ -419,10 +388,6 @@
 						<object class="IBToOneOutletInfo" key="imageViewFull">
 							<string key="name">imageViewFull</string>
 							<string key="candidateClassName">DDImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="imageViewGlow">
-							<string key="name">imageViewGlow</string>
-							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="imageViewLeft">
 							<string key="name">imageViewLeft</string>
@@ -467,7 +432,6 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="notification-background.png">{320, 19}</string>
 			<string key="notification-unread-badge.png">{37, 38}</string>
-			<string key="notification-unread-blue-gradient.png">{1, 59}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

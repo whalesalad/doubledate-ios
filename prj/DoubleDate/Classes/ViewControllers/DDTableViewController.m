@@ -34,6 +34,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 @synthesize moveWithKeyboard;
 @synthesize viewNoData = viewNoData_;
 @synthesize shouldShowNavigationMenu;
+@synthesize cellsIdentifiers;
 
 - (void)initSelf
 {
@@ -79,6 +80,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 {
     [super viewDidLoad];
     
+    //register cells
+    for (NSString *key in self.cellsIdentifiers)
+        [self.tableView registerNib:[UINib nibWithNibName:[self.cellsIdentifiers objectForKey:key] bundle:nil] forCellReuseIdentifier:key];
+    
     //set background color
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
     
@@ -98,9 +103,20 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     
     //customize left button
     if ([self shouldShowNavigationMenu])
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
+    {
+        DDBarButtonItem *menuButton = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
+        
+        CGRect menuButtonFrame = menuButton.button.frame;
+        menuButtonFrame.size.width += 10;
+        menuButton.button.frame = menuButtonFrame;
+        
+        self.navigationItem.leftBarButtonItem = menuButton;
+    }
     else
+    {
         self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
+    }
+    
     
     //add search bar
     [self setupSearchBar];
@@ -154,6 +170,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [searchTerm_ release];
     [backButtonTitle release];
+    [cellsIdentifiers release];
     [self hideHud:YES];
     self.apiController.delegate = nil;
     self.apiController = nil;

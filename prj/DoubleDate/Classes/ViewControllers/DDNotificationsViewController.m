@@ -28,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        self.cellsIdentifiers = [NSDictionary dictionaryWithObject:NSStringFromClass([DDNotificationTableViewCell class]) forKey:NSStringFromClass([DDNotificationTableViewCell class])];
     }
     return self;
 }
@@ -130,20 +131,20 @@
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //set identifier
-    NSString *cellIdentifier = [[DDNotificationTableViewCell class] description];
+    NSString *cellIdentifier = NSStringFromClass([DDNotificationTableViewCell class]);
     
-//    //create cell if needed
-//    DDNotificationTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//    if (!cell)
-//        cell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
-//    
-//    //save data
-//    [cell setNotification:[[self notifications] objectAtIndex:indexPath.row]];
-    
-    DDNotificationTableViewCellTest *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    //create cell if needed
+    DDNotificationTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (!cell)
-        cell = [[[DDNotificationTableViewCellTest alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-    cell.textLabel.text = [(DDNotification*)[[self notifications] objectAtIndex:indexPath.row] notification];
+        cell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+    
+    //save data
+    [cell setNotification:[[self notifications] objectAtIndex:indexPath.row]];
+    
+//    DDNotificationTableViewCellTest *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    if (!cell)
+//        cell = [[[DDNotificationTableViewCellTest alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+//    cell.textLabel.text = [(DDNotification*)[[self notifications] objectAtIndex:indexPath.row] notification];
     
     //update layouts
     [cell setNeedsLayout];

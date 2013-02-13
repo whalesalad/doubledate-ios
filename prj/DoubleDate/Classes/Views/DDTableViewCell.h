@@ -22,6 +22,7 @@ typedef enum
 
 @interface DDTableViewCell : UITableViewCell
 {
+    BOOL customized_;
 }
 
 @property(nonatomic, assign) DDTableViewCellStyle backgroundStyle;
@@ -34,5 +35,6 @@ typedef enum
 - (void)attachImageView:(DDImageView*)ddImageView;
 
 - (void)customize;
+- (void)customizeOnce;
 
 @end

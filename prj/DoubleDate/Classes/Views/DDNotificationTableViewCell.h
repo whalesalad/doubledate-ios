@@ -23,11 +23,14 @@
 @property(nonatomic, retain) IBOutlet UITextView *textViewContent;
 @property(nonatomic, retain) IBOutlet UIView *viewImagesContainer;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewGlow;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBackground;
 @property(nonatomic, retain) IBOutlet UIView *wrapperView;
 
 + (CGFloat)heightForNotification:(DDNotification*)notification;
+
+- (void)drawInnerGlow;
+- (void)drawInnerShadow;
+- (void)drawInnerBlueLayer;
 
 @end
 
