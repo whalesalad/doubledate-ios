@@ -372,7 +372,7 @@
     [overlay addSubview:label];
     
     //hide after a moment
-    [UIView animateWithDuration:1 delay:1 options:UIViewAnimationOptionLayoutSubviews animations:^{
+    [UIView animateWithDuration:0.4f delay:2 options:UIViewAnimationOptionLayoutSubviews animations:^{
         overlay.alpha = 0;
     } completion:^(BOOL finished) {
         [overlay removeFromSuperview];
