@@ -103,9 +103,20 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     
     //customize left button
     if ([self shouldShowNavigationMenu])
-        self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
+    {
+        DDBarButtonItem *menuButton = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
+        
+        CGRect menuButtonFrame = menuButton.button.frame;
+        menuButtonFrame.size.width += 10;
+        menuButton.button.frame = menuButtonFrame;
+        
+        self.navigationItem.leftBarButtonItem = menuButton;
+    }
     else
+    {
         self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:self.backButtonTitle target:self action:@selector(backTouched:)];
+    }
+    
     
     //add search bar
     [self setupSearchBar];

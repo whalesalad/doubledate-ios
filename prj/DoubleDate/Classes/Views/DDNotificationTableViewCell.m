@@ -41,7 +41,7 @@
     
     NSMutableAttributedString *attributedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", notification.notification, createdAtString]] autorelease];
     
-    NSString *mainFontName = ([notification.unread boolValue]) ? @"HelveticaNeue-Bold" : @"HelveticaNeue-Medium";
+    NSString *mainFontName = ([notification.unread boolValue]) ? @"HelveticaNeue-Bold" : @"HelveticaNeue";
     
     //cutomize notification
     NSRange rangeMain = NSMakeRange(0, [notification.notification length]);
@@ -165,8 +165,6 @@
                                                                  (id)[[UIColor clearColor] CGColor],
                                                                  (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
                                                                  (id)[[UIColor blackColor] CGColor], nil];
-        
-        //self.innerShadowLayer.shouldRasterize = YES;
         
         [self.wrapperView.layer insertSublayer:self.innerShadowLayer atIndex:2];
     }
