@@ -229,7 +229,7 @@
 {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
     {
-#warning called only once
+        #warning called only once
         self.viewForEffect = [[[UIView alloc] init] autorelease];
         [self.contentView addSubview:self.viewForEffect];
         
@@ -239,7 +239,7 @@
                                   (id)[[UIColor clearColor] CGColor], nil];
         self.viewForEffect.layer.mask = innerBorderMask;
         
-#warning after this customization customize is not called, this is for test
+        #warning after this customization customize is not called, this is for test
         [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(customize) userInfo:nil repeats:YES];
         [self customize];
     }
@@ -248,7 +248,7 @@
 
 - (void)customize
 {
-#warning called multiple times
+    #warning called multiple times
     self.viewForEffect.backgroundColor = [UIColor redColor];
     self.viewForEffect.frame = CGRectMake(5, 5, self.contentView.frame.size.width-10, self.contentView.frame.size.height-10);
     self.viewForEffect.layer.mask.frame = CGRectMake(0, 0, self.viewForEffect.frame.size.width, self.viewForEffect.frame.size.height);
