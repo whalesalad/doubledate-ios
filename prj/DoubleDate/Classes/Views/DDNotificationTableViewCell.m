@@ -16,7 +16,7 @@
 
 @interface DDNotificationTableViewCell ()
 
-@property(nonatomic, retain) UIView *innerBorderView;
+@property(nonatomic, retain) CAGradientLayer *innerBorderView;
 @property(nonatomic, retain) UIView *shadowView;
 
 @end
@@ -34,8 +34,6 @@
 @synthesize imageViewGlow;
 @synthesize imageViewBackground;
 @synthesize wrapperView;
-@synthesize innerBorderView;
-@synthesize shadowView;
 
 + (void)cutomizeTextView:(UITextView*)textView withNotification:(DDNotification*)notification
 {
@@ -100,6 +98,7 @@
 
 - (void)customizeOnce
 {
+    
     self.shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
     [self.wrapperView insertSubview:self.shadowView belowSubview:self.textViewContent];
     self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
@@ -119,18 +118,15 @@
                                  (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
                                  (id)[[UIColor blackColor] CGColor], nil];
     shadowView.layer.mask = shadowGradientMask;
-}
-
-- (void)customize
-{
+    
     shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
-    shadowView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    shadowView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     
     // Add inner white border with mask
     self.innerBorderView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     self.innerBorderView.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     self.innerBorderView.layer.borderWidth = 1;
-        
+    
     self.imageViewLeft.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewRight.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewFull.center = self.center;
@@ -141,6 +137,14 @@
     
     self.textViewContent.backgroundColor = [UIColor clearColor];
     self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
+
+}
+
+- (void)customize
+{
+    self.shadowView.backgroundColor = [UIColor cyanColor];
+    self.shadowView.layer.frame = self.wrapperView.bounds;
+    self.innerBorderView.layer.frame = self.wrapperView.bounds;
 }
 
 - (void)setNotification:(DDNotification *)v
