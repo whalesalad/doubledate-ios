@@ -33,7 +33,3 @@
 - (void)drawInnerBlueLayer;
 
 @end
-
-@interface DDNotificationTableViewCellTest : DDTableViewCell
-
-@end
