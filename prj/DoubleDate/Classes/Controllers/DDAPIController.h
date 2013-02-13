@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
 #import "DDRequestsController.h"
 
 @class DDUser;
@@ -24,11 +25,44 @@ typedef enum
     DDLocationSearchOptionsBoth
 } DDLocationSearchOptions;
 
+typedef enum
+{
+    DDAPIControllerMethodTypeGetMe,
+    DDAPIControllerMethodTypeGetUser,
+    DDAPIControllerMethodTypeUpdateMe,
+    DDAPIControllerMethodTypeUpdatePhotoForMe,
+    DDAPIControllerMethodTypeCreateUser,
+    DDAPIControllerMethodTypeRequestFBUser,
+    DDAPIControllerMethodTypeSearchPlacemarks,
+    DDAPIControllerMethodTypeRequestAvailableInterests,
+    DDAPIControllerMethodTypeGetFriends,
+    DDAPIControllerMethodTypeRequestApproveFriendshipForFriend,
+    DDAPIControllerMethodTypeRequestDenyFriendshipForFriend,
+    DDAPIControllerMethodTypeRequestDeleteFriend,
+    DDAPIControllerMethodTypeGetFriend,
+    DDAPIControllerMethodTypeGetFacebookFriends,
+    DDAPIControllerMethodTypeRequestInvitations,
+    DDAPIControllerMethodTypeCreateDoubleDate,
+    DDAPIControllerMethodTypeGetDoubleDates,
+    DDAPIControllerMethodTypeGetMyDoubleDates,
+    DDAPIControllerMethodTypeGetDoubleDate,
+    DDAPIControllerMethodTypeRequestDeleteDoubleDate,
+    DDAPIControllerMethodTypeGetEngagements,
+    DDAPIControllerMethodTypeCreateEngagement,
+    DDAPIControllerMethodTypeUnlockEngagement,
+    DDAPIControllerMethodTypeGetMessages,
+    DDAPIControllerMethodTypeCreateMessage,
+    DDAPIControllerMethodTypeGetNotifications,
+} DDAPIControllerMethodType;
+
 typedef int DDRequestId;
 
 @protocol DDAPIControllerDelegate <NSObject>
 
 @optional
+
+- (void)requestDidSucceed:(NSObject*)object;
+- (void)requestDidFailedWithError:(NSError*)error;
 
 - (void)getMeDidSucceed:(DDUser*)me;
 - (void)getMeDidFailedWithError:(NSError*)error;
@@ -120,6 +154,8 @@ typedef int DDRequestId;
 - (BOOL)isRequestExist:(DDRequestId)requestId;
 - (BOOL)cancelRequest:(DDRequestId)requestId;
 - (NSString*)pathForRequest:(DDRequestId)requestId;
+
+- (DDRequestId)requestForPath:(NSString*)urlPath withMethod:(RKRequestMethod)method ofType:(DDAPIControllerMethodType)type;
 
 - (DDRequestId)getMe;
 

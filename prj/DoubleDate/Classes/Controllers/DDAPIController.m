@@ -23,36 +23,6 @@
 #import "DDMessage.h"
 #import "DDNotification.h"
 #import "DDObjectsController.h"
-
-typedef enum
-{
-    DDAPIControllerMethodTypeGetMe,
-    DDAPIControllerMethodTypeGetUser,
-    DDAPIControllerMethodTypeUpdateMe,
-    DDAPIControllerMethodTypeUpdatePhotoForMe,
-    DDAPIControllerMethodTypeCreateUser,
-    DDAPIControllerMethodTypeRequestFBUser,
-    DDAPIControllerMethodTypeSearchPlacemarks,
-    DDAPIControllerMethodTypeRequestAvailableInterests,
-    DDAPIControllerMethodTypeGetFriends,
-    DDAPIControllerMethodTypeRequestApproveFriendshipForFriend,
-    DDAPIControllerMethodTypeRequestDenyFriendshipForFriend,
-    DDAPIControllerMethodTypeRequestDeleteFriend,
-    DDAPIControllerMethodTypeGetFriend,
-    DDAPIControllerMethodTypeGetFacebookFriends,
-    DDAPIControllerMethodTypeRequestInvitations,
-    DDAPIControllerMethodTypeCreateDoubleDate,
-    DDAPIControllerMethodTypeGetDoubleDates,
-    DDAPIControllerMethodTypeGetMyDoubleDates,
-    DDAPIControllerMethodTypeGetDoubleDate,
-    DDAPIControllerMethodTypeRequestDeleteDoubleDate,
-    DDAPIControllerMethodTypeGetEngagements,
-    DDAPIControllerMethodTypeCreateEngagement,
-    DDAPIControllerMethodTypeUnlockEngagement,
-    DDAPIControllerMethodTypeGetMessages,
-    DDAPIControllerMethodTypeCreateMessage,
-    DDAPIControllerMethodTypeGetNotifications,
-} DDAPIControllerMethodType;
  
 @interface DDAPIControllerUserData : NSObject
 
@@ -147,6 +117,26 @@ typedef enum
             return [[request URL] absoluteString];
     }
     return nil;
+}
+
+- (DDRequestId)requestForPath:(NSString*)urlPath withMethod:(RKRequestMethod)method ofType:(DDAPIControllerMethodType)type
+{
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:urlPath];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = method;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = type;
+    userData.succeedSel = @selector(requestDidSucceed:);
+    userData.failedSel = @selector(requestDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
 }
 
 - (DDRequestId)getMe

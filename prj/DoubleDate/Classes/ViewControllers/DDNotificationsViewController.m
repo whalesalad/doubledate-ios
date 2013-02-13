@@ -39,12 +39,6 @@
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Notifications", nil);
-    
-    //init search bar
-    [self setupSearchBar];
-    
-    //set placeholder for search bar
-    [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Notifications", nil)];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -113,6 +107,24 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //save notification
+    DDNotification *notification = [[self notifications] objectAtIndex:indexPath.row];
+    
+    //check api path
+    if ([notification callbackUrl])
+    {
+        //show hud
+        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        
+        //make api request
+        NSString *path = [notification callbackUrl];
+        path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
+        DDAPIControllerMethodType requestType = -1;
+        if ([path rangeOfString:@"wings"].location != NSNotFound)
+            requestType = DDAPIControllerMethodTypeGetUser;
+        assert(requestType != -1);
+        [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
+    }
 }
 
 #pragma mark -
@@ -140,11 +152,6 @@
     
     //save data
     [cell setNotification:[[self notifications] objectAtIndex:indexPath.row]];
-    
-//    DDNotificationTableViewCellTest *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//    if (!cell)
-//        cell = [[[DDNotificationTableViewCellTest alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-//    cell.textLabel.text = [(DDNotification*)[[self notifications] objectAtIndex:indexPath.row] notification];
     
     //update layouts
     [cell setNeedsLayout];
@@ -176,6 +183,21 @@
     
     //inform about reloaded data
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)requestDidSucceed:(NSObject*)object
+{
+    //hide hud
+    [self hideHud:YES];
+}
+
+- (void)requestDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
