@@ -17,6 +17,7 @@
 @interface DDNotificationTableViewCell ()
 
 @property(nonatomic, retain) UIView *innerBorderView;
+@property(nonatomic, retain) UIView *shadowView;
 
 @end
 
@@ -33,6 +34,8 @@
 @synthesize imageViewGlow;
 @synthesize imageViewBackground;
 @synthesize wrapperView;
+@synthesize innerBorderView;
+@synthesize shadowView;
 
 + (void)cutomizeTextView:(UITextView*)textView withNotification:(DDNotification*)notification
 {
@@ -91,44 +94,40 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
+        [self.wrapperView insertSubview:self.shadowView belowSubview:self.textViewContent];
+        self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
+        [self.wrapperView insertSubview:self.innerBorderView belowSubview:self.textViewContent];
+        
+        // mask for inner white border
+        CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
+        innerBorderMask.frame = self.innerBorderView.bounds;
+        innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
+                                  (id)[[UIColor clearColor] CGColor], nil];
+        self.innerBorderView.layer.mask = innerBorderMask;
+        
+        CAGradientLayer *shadowGradientMask = [CAGradientLayer layer];
+        shadowGradientMask.frame = shadowView.bounds;
+        shadowGradientMask.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                     (id)[[UIColor clearColor] CGColor],
+                                     (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
+                                     (id)[[UIColor blackColor] CGColor], nil];
+        
+        shadowView.layer.mask = shadowGradientMask;
     }
     return self;
 }
 
-- (void)awakeFromNib
+- (void)customize
 {
-    [super awakeFromNib];
-    
-    UIView *shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
     shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
     shadowView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     
-    CAGradientLayer *shadowGradientMask = [CAGradientLayer layer];
-    shadowGradientMask.frame = shadowView.bounds;
-    shadowGradientMask.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                                          (id)[[UIColor clearColor] CGColor],
-                                                          (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
-                                                          (id)[[UIColor blackColor] CGColor], nil];
-    
-    shadowView.layer.mask = shadowGradientMask;
-    
     // Add inner white border with mask
-    self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
     self.innerBorderView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     self.innerBorderView.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     self.innerBorderView.layer.borderWidth = 1;
-    
-    // mask for inner white border
-    CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
-    innerBorderMask.frame = self.innerBorderView.bounds;
-    innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
-                                                       (id)[[UIColor clearColor] CGColor], nil];
-    self.innerBorderView.layer.mask = innerBorderMask;
-    
-    // Insert inner border first, followed by shadow
-    [self.wrapperView insertSubview:self.innerBorderView belowSubview:self.textViewContent];
-    [self.wrapperView insertSubview:shadowView belowSubview:self.textViewContent];
-    
+        
     self.imageViewLeft.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewRight.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewFull.center = self.center;
@@ -209,6 +208,55 @@
     [imageViewGlow release];
     [imageViewBackground release];
     [wrapperView release];
+    [innerBorderView release];
+    [shadowView release];
+    [super dealloc];
+}
+
+@end
+
+@interface DDNotificationTableViewCellTest ()
+
+@property(nonatomic, retain) UIView *viewForEffect;
+
+@end
+
+@implementation DDNotificationTableViewCellTest
+
+@synthesize viewForEffect;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
+    {
+#warning called only once
+        self.viewForEffect = [[[UIView alloc] init] autorelease];
+        [self.contentView addSubview:self.viewForEffect];
+        
+        // mask for inner white border
+        CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
+        innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor greenColor] CGColor],
+                                  (id)[[UIColor clearColor] CGColor], nil];
+        self.viewForEffect.layer.mask = innerBorderMask;
+        
+#warning after this customization customize is not called, this is for test
+        [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(customize) userInfo:nil repeats:YES];
+        [self customize];
+    }
+    return self;
+}
+
+- (void)customize
+{
+#warning called multiple times
+    self.viewForEffect.backgroundColor = [UIColor redColor];
+    self.viewForEffect.frame = CGRectMake(5, 5, self.contentView.frame.size.width-10, self.contentView.frame.size.height-10);
+    self.viewForEffect.layer.mask.frame = CGRectMake(0, 0, self.viewForEffect.frame.size.width, self.viewForEffect.frame.size.height);
+}
+
+- (void)dealloc
+{
+    [viewForEffect release];
     [super dealloc];
 }
 

@@ -16,7 +16,8 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
 @property(nonatomic, retain) IBOutlet UILabel *labelBadge;
-@property(nonatomic, retain) IBOutlet UIView *highlightLine;
+
+@property(nonatomic, retain) UIView *highlightLine;
 
 - (void)drawShadowForView:(UIView *)aView;
 

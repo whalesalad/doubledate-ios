@@ -14,6 +14,12 @@
 #import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface DDShortUserTableViewCell ()
+
+@property(nonatomic, retain) UIView *topBorderView;
+
+@end
+
 @implementation DDShortUserTableViewCell
 
 @synthesize shortUser;
@@ -24,6 +30,7 @@
 @synthesize imageViewPoster;
 @synthesize imageViewGender;
 @synthesize imageViewCheckmark;
+@synthesize topBorderView;
 
 + (CGFloat)height
 {
@@ -35,14 +42,14 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.topBorderView = [[[UIView alloc] init] autorelease];
+        [self.imageViewPoster addSubview:self.topBorderView];
     }
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
+- (void)customize
+{    
     //set background view
     self.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dark-tableview-bg.png"]]] autorelease];
     
@@ -65,11 +72,10 @@
     imageViewPoster.layer.masksToBounds = YES;
     
     // Add an inner white border on the top only
-    CALayer *topBorder = [CALayer layer];
-    topBorder.frame = CGRectMake(0, 1, imageViewPoster.frame.size.width, 1.0f);
+    CALayer *topBorder = self.topBorderView.layer;
+    self.topBorderView.frame = CGRectMake(0, 1, imageViewPoster.frame.size.width, 1.0f);
     topBorder.backgroundColor = [UIColor whiteColor].CGColor;
     topBorder.opacity = 0.2f;
-    [imageViewPoster.layer addSublayer:topBorder];
     
     //unset background
     labelLocation.backgroundColor = [UIColor clearColor];
@@ -114,6 +120,7 @@
     [imageViewPoster release];
     [imageViewGender release];
     [imageViewCheckmark release];
+    [topBorderView release];
     [super dealloc];
 }
 

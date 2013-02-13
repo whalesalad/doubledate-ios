@@ -15,10 +15,8 @@
 @synthesize buttonAccept;
 @synthesize buttonDeny;
 
-- (void)awakeFromNib
+- (void)customize
 {
-    [super awakeFromNib];
-
     [self.buttonAccept setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"accept-button.png"]] forState:UIControlStateNormal];
     [self.buttonDeny setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"deny-button.png"]] forState:UIControlStateNormal];
 

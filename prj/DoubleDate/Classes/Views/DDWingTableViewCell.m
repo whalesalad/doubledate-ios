@@ -37,10 +37,8 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
+- (void)c
+{    
     viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     viewEffects.layer.borderWidth = 1;
 

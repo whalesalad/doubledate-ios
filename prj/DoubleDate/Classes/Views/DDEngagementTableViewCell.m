@@ -42,14 +42,14 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.viewBlueGlow = [[[UIView alloc] initWithFrame:viewImagesContainer.frame] autorelease];
+        [self insertSubview:self.viewBlueGlow atIndex:4];
     }
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
+- (void)customize
+{    
     viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     viewEffects.layer.borderWidth = 1;
     
@@ -63,14 +63,14 @@
     viewImagesContainer.layer.borderWidth = 1;
     
     // add inner blue glow
-    self.viewBlueGlow = [[[UIView alloc] initWithFrame:viewImagesContainer.frame] autorelease];
+    self.viewBlueGlow.frame = viewImagesContainer.frame;
     self.viewBlueGlow.backgroundColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.4f];
     CAGradientLayer *blueGlowGradient = [CAGradientLayer layer];
     blueGlowGradient.frame = self.viewBlueGlow.bounds;
     blueGlowGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
                                                         (id)[[UIColor blackColor] CGColor], nil];
     self.viewBlueGlow.layer.mask = blueGlowGradient;
-    [self insertSubview:self.viewBlueGlow atIndex:4];
+    
         
     // unset background
     labelDetailed.backgroundColor = [UIColor clearColor];

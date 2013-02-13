@@ -31,10 +31,8 @@
     return self;
 }
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
+- (void)customize
+{    
     //unset text view background
     self.labelName.backgroundColor = [UIColor clearColor];
     self.labelTime.backgroundColor = [UIColor clearColor];

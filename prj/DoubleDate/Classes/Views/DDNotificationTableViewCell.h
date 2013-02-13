@@ -30,3 +30,7 @@
 + (CGFloat)heightForNotification:(DDNotification*)notification;
 
 @end
+
+@interface DDNotificationTableViewCellTest : DDTableViewCell
+
+@end

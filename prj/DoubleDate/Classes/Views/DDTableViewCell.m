@@ -51,6 +51,13 @@
     
     //unset scrolls to top flag
     [self unsetScrollsToTopForView:self];
+    
+    //customize self
+    [self customize];
+}
+
+- (void)customize
+{
 }
 
 - (void)setBackgroundStyle:(DDTableViewCellStyle)v

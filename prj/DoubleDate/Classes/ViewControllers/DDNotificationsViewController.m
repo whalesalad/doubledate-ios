@@ -132,13 +132,18 @@
     //set identifier
     NSString *cellIdentifier = [[DDNotificationTableViewCell class] description];
     
-    //create cell if needed
-    DDNotificationTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell)
-        cell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+//    //create cell if needed
+//    DDNotificationTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+//    if (!cell)
+//        cell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+//    
+//    //save data
+//    [cell setNotification:[[self notifications] objectAtIndex:indexPath.row]];
     
-    //save data
-    [cell setNotification:[[self notifications] objectAtIndex:indexPath.row]];
+    DDNotificationTableViewCellTest *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell)
+        cell = [[[DDNotificationTableViewCellTest alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    cell.textLabel.text = [(DDNotification*)[[self notifications] objectAtIndex:indexPath.row] notification];
     
     //update layouts
     [cell setNeedsLayout];

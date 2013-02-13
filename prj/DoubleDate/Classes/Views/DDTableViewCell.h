@@ -33,4 +33,6 @@ typedef enum
 
 - (void)attachImageView:(DDImageView*)ddImageView;
 
+- (void)customize;
+
 @end

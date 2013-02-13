@@ -27,6 +27,8 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.highlightLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 1.0f)];
+        [self addSubview:self.highlightLine];
     }
     return self;
 }
@@ -35,13 +37,10 @@
 {
     [super awakeFromNib];
     
-    // Add highlight line
-    self.highlightLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 1.0f)];
+    // customize highlight line
     self.highlightLine.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
     self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
     self.highlightLine.hidden = true;
-    
-    [self addSubview:self.highlightLine];
     
     self.backgroundColor = [UIColor clearColor];
     
