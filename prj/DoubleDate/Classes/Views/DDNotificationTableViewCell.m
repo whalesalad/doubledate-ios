@@ -16,8 +16,8 @@
 
 @interface DDNotificationTableViewCell ()
 
-@property(nonatomic, strong) CALayer *innerGlowLayer;
-@property(nonatomic, strong) CAGradientLayer *glowLayerMask, *innerShadowLayer;
+@property(nonatomic, retain) CALayer *innerGlowLayer;
+@property(nonatomic, retain) CAGradientLayer *glowLayerMask, *innerShadowLayer;
 
 @end
 
@@ -120,9 +120,12 @@
 
 - (void)layoutSubviews
 {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
     self.innerShadowLayer.frame = self.wrapperView.bounds;
     self.innerGlowLayer.frame = self.wrapperView.bounds;
     self.glowLayerMask.frame = self.innerGlowLayer.bounds;
+    [CATransaction commit];
     [super layoutSubviews];
 }
 
