@@ -62,6 +62,8 @@
 		702846BB16236E5800693673 /* user-photo-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B316236E5800693673 /* user-photo-overlay.png */; };
 		702846BC16236E5800693673 /* user-photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702846B416236E5800693673 /* user-photo-overlay@2x.png */; };
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
+		702C144C16CC2E7300C5B172 /* sent-engagement-plane.png in Resources */ = {isa = PBXBuildFile; fileRef = 702C144A16CC2E7300C5B172 /* sent-engagement-plane.png */; };
+		702C144D16CC2E7300C5B172 /* sent-engagement-plane@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 702C144B16CC2E7300C5B172 /* sent-engagement-plane@2x.png */; };
 		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
 		7047717C16C2FA4500FA83A0 /* no-wings.png in Resources */ = {isa = PBXBuildFile; fileRef = 7047717A16C2FA4500FA83A0 /* no-wings.png */; };
 		7047717D16C2FA4500FA83A0 /* no-wings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7047717B16C2FA4500FA83A0 /* no-wings@2x.png */; };
@@ -639,6 +641,8 @@
 		702846B416236E5800693673 /* user-photo-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-photo-overlay@2x.png"; sourceTree = "<group>"; };
 		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
 		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
+		702C144A16CC2E7300C5B172 /* sent-engagement-plane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-engagement-plane.png"; sourceTree = "<group>"; };
+		702C144B16CC2E7300C5B172 /* sent-engagement-plane@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent-engagement-plane@2x.png"; sourceTree = "<group>"; };
 		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7047717A16C2FA4500FA83A0 /* no-wings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-wings.png"; sourceTree = "<group>"; };
 		7047717B16C2FA4500FA83A0 /* no-wings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-wings@2x.png"; sourceTree = "<group>"; };
@@ -1339,6 +1343,8 @@
 		70FFEE56166EB15F00F1804E /* send message */ = {
 			isa = PBXGroup;
 			children = (
+				702C144A16CC2E7300C5B172 /* sent-engagement-plane.png */,
+				702C144B16CC2E7300C5B172 /* sent-engagement-plane@2x.png */,
 				4CC634AD169E692200B898A1 /* lower-button-gray.png */,
 				4CC634AE169E692200B898A1 /* lower-button-gray@2x.png */,
 				70FFEE57166EB15F00F1804E /* button-icon-cancel.png */,
@@ -2714,6 +2720,8 @@
 				96187E3416CA4EDD007D61E8 /* notification-unread-badge@2x.png in Resources */,
 				96187E3516CA4EDD007D61E8 /* notification-unread-blue-gradient.png in Resources */,
 				96187E3616CA4EDD007D61E8 /* notification-unread-blue-gradient@2x.png in Resources */,
+				702C144C16CC2E7300C5B172 /* sent-engagement-plane.png in Resources */,
+				702C144D16CC2E7300C5B172 /* sent-engagement-plane@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

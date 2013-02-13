@@ -349,11 +349,34 @@
     //save that we sent a message
     messageSent_ = YES;
     
-    //show succeed message
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! You've created engagement.", nil)];
+#warning message sent overlay
+    //add overlay
+    UIView *overlay = [[[UIView alloc] initWithFrame:self.navigationController.view.bounds] autorelease];
+    overlay.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9f];
+    [self.navigationController.view addSubview:overlay];
     
-    //show completed hud
-    [self showCompletedHudWithText:message];
+    //add image
+    UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sent-engagement-plane.png"]] autorelease];
+    imageView.center = CGPointMake(overlay.bounds.size.width/2, overlay.bounds.size.height/2-20);
+    [overlay addSubview:imageView];
+    
+    //add label
+    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 2;
+    NSString *format = NSLocalizedString(@"Your message has been sent\nto %@ & %@!", nil);
+    label.text = [NSString stringWithFormat:format, self.doubleDate.user.firstName, self.doubleDate.wing.firstName];
+    label.center = CGPointMake(overlay.bounds.size.width/2, overlay.bounds.size.height/2+40);
+    [overlay addSubview:label];
+    
+    //hide after a moment
+    [UIView animateWithDuration:1 delay:1 options:UIViewAnimationOptionLayoutSubviews animations:^{
+        overlay.alpha = 0;
+    } completion:^(BOOL finished) {
+        [overlay removeFromSuperview];
+    }];
     
     //dismiss
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
