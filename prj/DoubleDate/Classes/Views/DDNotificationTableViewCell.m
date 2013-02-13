@@ -17,7 +17,7 @@
 @interface DDNotificationTableViewCell ()
 
 @property(nonatomic, retain) CALayer *innerGlowLayer;
-@property(nonatomic, retain) CAGradientLayer *glowLayerMask, *innerShadowLayer;
+@property(nonatomic, retain) CAGradientLayer *glowLayerMask, *innerShadowLayer, *innerBlueLayer;
 
 @end
 
@@ -31,7 +31,6 @@
 @synthesize textViewContent;
 @synthesize viewImagesContainer;
 @synthesize imageViewBadge;
-@synthesize imageViewGlow;
 @synthesize imageViewBackground;
 @synthesize wrapperView;
 
@@ -100,6 +99,7 @@
 {
     [self drawInnerGlow];
     [self drawInnerShadow];
+    [self drawInnerBlueLayer];
 
     self.imageViewLeft.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewRight.contentMode = UIViewContentModeScaleAspectFill;
@@ -126,7 +126,8 @@
 {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    self.innerShadowLayer.frame = CGRectInset(self.wrapperView.bounds, -1, -1);
+    self.innerShadowLayer.frame = self.wrapperView.bounds;
+    self.innerBlueLayer.frame = self.wrapperView.bounds;
     self.innerGlowLayer.frame = self.wrapperView.bounds;
     self.glowLayerMask.frame = self.innerGlowLayer.bounds;
     [CATransaction commit];
@@ -165,9 +166,26 @@
                                                                  (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
                                                                  (id)[[UIColor blackColor] CGColor], nil];
         
-        self.innerShadowLayer.shouldRasterize = YES;
+        //self.innerShadowLayer.shouldRasterize = YES;
         
         [self.wrapperView.layer insertSublayer:self.innerShadowLayer atIndex:2];
+    }
+}
+
+- (void)drawInnerBlueLayer
+{
+    if (!self.innerBlueLayer)
+    {
+        self.innerBlueLayer = [CAGradientLayer layer];
+        
+        self.innerBlueLayer.colors = [NSArray arrayWithObjects:
+                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.2f] CGColor],
+                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f] CGColor],
+                                      nil];
+        
+        [self.wrapperView.layer insertSublayer:self.innerBlueLayer atIndex:3];
+        
+        self.innerBlueLayer.hidden = YES;
     }
 }
 
@@ -205,13 +223,13 @@
             {
                 self.innerGlowLayer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f].CGColor;
                 self.imageViewBadge.hidden = NO;
-                self.imageViewGlow.hidden = NO;
+                self.innerBlueLayer.hidden = NO;
             }
             else
             {
                 self.innerGlowLayer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
                 self.imageViewBadge.hidden = YES;
-                self.imageViewGlow.hidden = YES;
+                self.innerBlueLayer.hidden = YES;
             }
         }
         else
@@ -222,7 +240,7 @@
             self.imageViewRight.image = nil;
             self.imageViewFull.image = nil;
             self.imageViewBadge.hidden = YES;
-            self.imageViewGlow.hidden = YES;
+            self.innerBlueLayer.hidden = YES;
         }
     }
 }
@@ -236,11 +254,11 @@
     [textViewContent release];
     [viewImagesContainer release];
     [imageViewBadge release];
-    [imageViewGlow release];
     [imageViewBackground release];
     [wrapperView release];
     [_innerGlowLayer release];
     [_innerShadowLayer release];
+    [_innerBlueLayer release];
     [_glowLayerMask release];
     [super dealloc];
 }
