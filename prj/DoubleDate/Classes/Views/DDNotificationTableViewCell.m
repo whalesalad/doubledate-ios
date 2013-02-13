@@ -16,8 +16,8 @@
 
 @interface DDNotificationTableViewCell ()
 
-@property(nonatomic, retain) CAGradientLayer *innerBorderView;
-@property(nonatomic, retain) UIView *shadowView;
+@property(nonatomic, strong) CALayer *innerGlowLayer;
+@property(nonatomic, strong) CAGradientLayer *glowLayerMask, *innerShadowLayer;
 
 @end
 
@@ -98,35 +98,9 @@
 
 - (void)customizeOnce
 {
-    
-    self.shadowView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
-    [self.wrapperView insertSubview:self.shadowView belowSubview:self.textViewContent];
-    self.innerBorderView = [[[UIView alloc] initWithFrame:wrapperView.bounds] autorelease];
-    [self.wrapperView insertSubview:self.innerBorderView belowSubview:self.textViewContent];
-    
-    // mask for inner white border
-    CAGradientLayer *innerBorderMask = [CAGradientLayer layer];
-    innerBorderMask.frame = self.innerBorderView.bounds;
-    innerBorderMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
-                              (id)[[UIColor clearColor] CGColor], nil];
-    self.innerBorderView.layer.mask = innerBorderMask;
-    
-    CAGradientLayer *shadowGradientMask = [CAGradientLayer layer];
-    shadowGradientMask.frame = shadowView.bounds;
-    shadowGradientMask.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                 (id)[[UIColor clearColor] CGColor],
-                                 (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
-                                 (id)[[UIColor blackColor] CGColor], nil];
-    shadowView.layer.mask = shadowGradientMask;
-    
-    shadowView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
-    shadowView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-    
-    // Add inner white border with mask
-    self.innerBorderView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-    self.innerBorderView.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
-    self.innerBorderView.layer.borderWidth = 1;
-    
+    [self drawInnerGlow];
+    [self drawInnerShadow];
+
     self.imageViewLeft.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewRight.contentMode = UIViewContentModeScaleAspectFill;
     self.imageViewFull.center = self.center;
@@ -135,16 +109,57 @@
     self.imageViewRight.layer.opacity = 0.3f;
     self.imageViewFull.layer.opacity = 0.3f;
     
+    self.textViewContent.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.textViewContent.layer.shadowOffset = CGSizeMake(0, 1);
+    self.textViewContent.layer.shadowRadius = 0;
+    self.textViewContent.layer.shadowOpacity = 1;
+    
     self.textViewContent.backgroundColor = [UIColor clearColor];
     self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
-
 }
 
-- (void)customize
+- (void)layoutSubviews
 {
-    self.shadowView.backgroundColor = [UIColor cyanColor];
-    self.shadowView.layer.frame = self.wrapperView.bounds;
-    self.innerBorderView.layer.frame = self.wrapperView.bounds;
+    self.innerShadowLayer.frame = self.wrapperView.bounds;
+    self.innerGlowLayer.frame = self.wrapperView.bounds;
+    self.glowLayerMask.frame = self.innerGlowLayer.bounds;
+    [super layoutSubviews];
+}
+
+- (void)drawInnerGlow
+{
+    if (!self.innerGlowLayer)
+    {
+        // Inner white/blue border
+        self.innerGlowLayer = [CALayer layer];
+        self.innerGlowLayer.borderWidth = 1;
+        self.innerGlowLayer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+        
+        self.glowLayerMask = [CAGradientLayer layer];
+        self.glowLayerMask.colors = [NSArray arrayWithObjects:(id)[[UIColor blackColor] CGColor],
+                                                              (id)[[UIColor clearColor] CGColor], nil];
+        
+        self.innerGlowLayer.mask = self.glowLayerMask;
+        
+        [self.wrapperView.layer insertSublayer:self.innerGlowLayer atIndex:1];
+    }
+}
+
+- (void)drawInnerShadow
+{
+    if (!self.innerShadowLayer)
+    {
+        self.innerShadowLayer = [CAGradientLayer layer];
+        
+        self.innerShadowLayer.opacity = 0.8f;
+        
+        self.innerShadowLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                                                 (id)[[UIColor clearColor] CGColor],
+                                                                 (id)[[UIColor colorWithWhite:0 alpha:0.6f] CGColor],
+                                                                 (id)[[UIColor blackColor] CGColor], nil];
+        
+        [self.wrapperView.layer insertSublayer:self.innerShadowLayer atIndex:2];
+    }
 }
 
 - (void)setNotification:(DDNotification *)v
@@ -179,13 +194,13 @@
             //apply unread count
             if ([notification.unread boolValue])
             {
-                self.innerBorderView.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
+                self.innerGlowLayer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
                 self.imageViewBadge.hidden = NO;
                 self.imageViewGlow.hidden = NO;
             }
             else
             {
-                self.innerBorderView.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
+                self.innerGlowLayer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
                 self.imageViewBadge.hidden = YES;
                 self.imageViewGlow.hidden = YES;
             }
@@ -215,8 +230,9 @@
     [imageViewGlow release];
     [imageViewBackground release];
     [wrapperView release];
-    [innerBorderView release];
-    [shadowView release];
+    [_innerGlowLayer release];
+    [_innerShadowLayer release];
+    [_glowLayerMask release];
     [super dealloc];
 }
 

@@ -29,6 +29,9 @@
 
 + (CGFloat)heightForNotification:(DDNotification*)notification;
 
+- (void)drawInnerGlow;
+- (void)drawInnerShadow;
+
 @end
 
 @interface DDNotificationTableViewCellTest : DDTableViewCell
