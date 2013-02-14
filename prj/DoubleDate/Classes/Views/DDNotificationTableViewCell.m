@@ -177,8 +177,8 @@
         self.innerBlueLayer = [CAGradientLayer layer];
         
         self.innerBlueLayer.colors = [NSArray arrayWithObjects:
-                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.2f] CGColor],
-                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f] CGColor],
+                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.3f] CGColor],
+                                        (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.1f] CGColor],
                                       nil];
         
         [self.wrapperView.layer insertSublayer:self.innerBlueLayer atIndex:3];
@@ -216,19 +216,9 @@
                 [self.imageViewFull reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] mediumUrl]]];
             }
             
-            //apply unread count
-            if ([notification.unread boolValue])
-            {
-                self.innerGlowLayer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.5f].CGColor;
-                self.imageViewBadge.hidden = NO;
-                self.innerBlueLayer.hidden = NO;
-            }
-            else
-            {
-                self.innerGlowLayer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
-                self.imageViewBadge.hidden = YES;
-                self.innerBlueLayer.hidden = YES;
-            }
+            // Show unread styles
+            self.imageViewBadge.hidden = ![notification.unread boolValue];
+            self.innerBlueLayer.hidden = ![notification.unread boolValue];
         }
         else
         {

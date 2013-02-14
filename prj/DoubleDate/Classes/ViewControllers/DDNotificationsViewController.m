@@ -48,6 +48,12 @@
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Notifications", nil);
+    
+    // Remove search
+    self.tableView.tableHeaderView = nil;
+    
+    // Push the table view down slightly to make sides and top even.
+    self.tableView.contentInset = UIEdgeInsetsMake(2,0,0,0);
 }
 
 - (void)viewDidAppear:(BOOL)animated

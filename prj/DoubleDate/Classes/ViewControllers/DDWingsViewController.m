@@ -84,6 +84,9 @@
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
     
+    // Add slight padding to end of view.
+    self.tableView.contentInset = UIEdgeInsetsMake(0,0,3,0);
+    
     //set placeholder for search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wings", nil)];
     

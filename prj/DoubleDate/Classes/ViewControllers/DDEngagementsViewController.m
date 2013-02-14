@@ -37,6 +37,9 @@
     //remove search bar
     self.tableView.tableHeaderView = nil;
     
+    // Add slight padding to end of view.
+    self.tableView.contentInset = UIEdgeInsetsMake(0,0,3,0);
+    
     //add navigation title
     self.navigationItem.title = NSLocalizedString(@"Messages", nil);
     

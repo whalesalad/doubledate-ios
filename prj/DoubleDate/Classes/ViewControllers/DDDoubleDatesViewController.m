@@ -65,6 +65,9 @@ typedef enum
     //customize separators
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    // Add slight padding to end of view.
+    self.tableView.contentInset = UIEdgeInsetsMake(0,0,3,0);
+    
     //update navigation bar
     [self updateNavigationBar];
     

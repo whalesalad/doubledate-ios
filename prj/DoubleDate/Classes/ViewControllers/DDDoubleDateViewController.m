@@ -349,7 +349,6 @@
     //save that we sent a message
     messageSent_ = YES;
     
-#warning message sent overlay
     //add overlay
     UIView *overlay = [[[UIView alloc] initWithFrame:self.navigationController.view.bounds] autorelease];
     overlay.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9f];
@@ -357,7 +356,7 @@
     
     //add image
     UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sent-engagement-plane.png"]] autorelease];
-    imageView.center = CGPointMake(overlay.bounds.size.width/2, overlay.bounds.size.height/2-20);
+    imageView.center = CGPointMake(overlay.bounds.size.width/2, overlay.bounds.size.height/2-27);
     [overlay addSubview:imageView];
     
     //add label
@@ -365,10 +364,11 @@
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:19];
     label.numberOfLines = 2;
     NSString *format = NSLocalizedString(@"Your message has been sent\nto %@ & %@!", nil);
     label.text = [NSString stringWithFormat:format, self.doubleDate.user.firstName, self.doubleDate.wing.firstName];
-    label.center = CGPointMake(overlay.bounds.size.width/2, overlay.bounds.size.height/2+40);
+    label.center = CGPointMake(overlay.bounds.size.width/2, overlay.bounds.size.height/2+47);
     [overlay addSubview:label];
     
     //hide after a moment
