@@ -117,7 +117,7 @@
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Explore", nil);
+            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
             cell.labelBadge.text = nil;
             break;
         case 5:
