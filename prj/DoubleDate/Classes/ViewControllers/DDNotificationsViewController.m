@@ -102,9 +102,8 @@
         
         //make api call
         DDNotification *notification = [[[DDNotification alloc] init] autorelease];
-        notification.unread = [self.selectedNotification unread];
         notification.identifier = [self.selectedNotification identifier];
-        [self.apiController updateNotification:notification];
+        [self.apiController getNotification:notification];
     }
 }
 

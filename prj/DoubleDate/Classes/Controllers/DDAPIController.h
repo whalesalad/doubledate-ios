@@ -55,6 +55,7 @@ typedef enum
     DDAPIControllerMethodTypeGetMessages,
     DDAPIControllerMethodTypeCreateMessage,
     DDAPIControllerMethodTypeGetNotifications,
+    DDAPIControllerMethodTypeGetNotification,
     DDAPIControllerMethodTypeUpdateNotification,
 } DDAPIControllerMethodType;
 
@@ -148,6 +149,9 @@ typedef int DDRequestId;
 - (void)getNotificationsSucceed:(NSArray*)notifications;
 - (void)getNotificationsDidFailedWithError:(NSError*)error;
 
+- (void)getNotificationSucceed:(DDNotification*)notification;
+- (void)getNotificationDidFailedWithError:(NSError*)error;
+
 - (void)updateNotificationSucceed:(DDNotification*)notification;
 - (void)updateNotificationDidFailedWithError:(NSError*)error;
 
@@ -222,6 +226,8 @@ typedef int DDRequestId;
 - (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)getNotifications;
+
+- (DDRequestId)getNotification:(DDNotification*)notification;
 
 - (DDRequestId)updateNotification:(DDNotification*)notification;
 
