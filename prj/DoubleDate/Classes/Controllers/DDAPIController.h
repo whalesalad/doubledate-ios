@@ -17,6 +17,7 @@
 @class DDDoubleDateFilter;
 @class DDEngagement;
 @class DDMessage;
+@class DDNotification;
 
 typedef enum
 {
@@ -54,6 +55,7 @@ typedef enum
     DDAPIControllerMethodTypeGetMessages,
     DDAPIControllerMethodTypeCreateMessage,
     DDAPIControllerMethodTypeGetNotifications,
+    DDAPIControllerMethodTypeUpdateNotification,
 } DDAPIControllerMethodType;
 
 typedef int DDRequestId;
@@ -146,6 +148,9 @@ typedef int DDRequestId;
 - (void)getNotificationsSucceed:(NSArray*)notifications;
 - (void)getNotificationsDidFailedWithError:(NSError*)error;
 
+- (void)updateNotificationSucceed:(DDNotification*)notification;
+- (void)updateNotificationDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -217,5 +222,7 @@ typedef int DDRequestId;
 - (DDRequestId)createMessage:(DDMessage*)message forEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)getNotifications;
+
+- (DDRequestId)updateNotification:(DDNotification*)notification;
 
 @end

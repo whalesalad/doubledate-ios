@@ -195,41 +195,41 @@
         //update value
         [notification release];
         notification = [v retain];
+    }
+    
+    //check object
+    if (notification)
+    {
+        //customize content
+        [DDNotificationTableViewCell cutomizeTextView:self.textViewContent withNotification:notification];
         
-        //check friend
-        if (notification)
+        //apply genders
+        imageViewFull.hidden = [notification.photos count] != 1;
+        imageViewLeft.hidden = [notification.photos count] != 2;
+        imageViewRight.hidden = [notification.photos count] != 2;
+        if ([notification.photos count] == 2)
         {
-            //customize content
-            [DDNotificationTableViewCell cutomizeTextView:self.textViewContent withNotification:notification];
-            
-            //apply genders
-            imageViewFull.hidden = [notification.photos count] != 1;
-            imageViewLeft.hidden = [notification.photos count] != 2;
-            imageViewRight.hidden = [notification.photos count] != 2;
-            if ([notification.photos count] == 2)
-            {
-                [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] smallUrl]]];
-                [self.imageViewRight reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:1] smallUrl]]];
-            }
-            else if ([notification.photos count] == 1)
-            {
-                [self.imageViewFull reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] mediumUrl]]];
-            }
-            
-            // Show unread styles
-            self.imageViewBadge.hidden = ![notification.unread boolValue];
-            self.innerBlueLayer.hidden = ![notification.unread boolValue];
+            [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] smallUrl]]];
+            [self.imageViewRight reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:1] smallUrl]]];
         }
-        else
+        else if ([notification.photos count] == 1)
         {
-            self.textViewContent.attributedText = nil;
-            self.textViewContent.text = nil;
-            self.imageViewLeft.image = nil;
-            self.imageViewRight.image = nil;
-            self.imageViewFull.image = nil;
-            self.imageViewBadge.hidden = YES;
-            self.innerBlueLayer.hidden = YES;
+            [self.imageViewFull reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] mediumUrl]]];
         }
+        
+        // Show unread styles
+        self.imageViewBadge.hidden = ![notification.unread boolValue];
+        self.innerBlueLayer.hidden = ![notification.unread boolValue];
+    }
+    else
+    {
+        self.textViewContent.attributedText = nil;
+        self.textViewContent.text = nil;
+        self.imageViewLeft.image = nil;
+        self.imageViewRight.image = nil;
+        self.imageViewFull.image = nil;
+        self.imageViewBadge.hidden = YES;
+        self.innerBlueLayer.hidden = YES;
     }
 }
 
