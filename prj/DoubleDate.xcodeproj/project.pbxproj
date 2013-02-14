@@ -11,6 +11,7 @@
 		4C2EBBFE16B2312900FBBAD7 /* message-bubble-pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBFA16B2312900FBBAD7 /* message-bubble-pink@2x.png */; };
 		4C2EBBFF16B2312900FBBAD7 /* message-bubble-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBFB16B2312900FBBAD7 /* message-bubble-gray.png */; };
 		4C2EBC0016B2312900FBBAD7 /* message-bubble-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C2EBBFC16B2312900FBBAD7 /* message-bubble-gray@2x.png */; };
+		4C35AE4616CD508E00AD75CE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C35AE4516CD508E00AD75CE /* Crashlytics.framework */; };
 		4C66950716A745F100A00B64 /* search-background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6694FD16A745F100A00B64 /* search-background.png */; };
 		4C66950816A745F100A00B64 /* search-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6694FE16A745F100A00B64 /* search-background@2x.png */; };
 		4C66950916A745F100A00B64 /* search-cancel-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C6694FF16A745F100A00B64 /* search-cancel-button.png */; };
@@ -586,6 +587,7 @@
 		4C2EBBFA16B2312900FBBAD7 /* message-bubble-pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-pink@2x.png"; sourceTree = "<group>"; };
 		4C2EBBFB16B2312900FBBAD7 /* message-bubble-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-gray.png"; sourceTree = "<group>"; };
 		4C2EBBFC16B2312900FBBAD7 /* message-bubble-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-bubble-gray@2x.png"; sourceTree = "<group>"; };
+		4C35AE4516CD508E00AD75CE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		4C6694FD16A745F100A00B64 /* search-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-background.png"; sourceTree = "<group>"; };
 		4C6694FE16A745F100A00B64 /* search-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-background@2x.png"; sourceTree = "<group>"; };
 		4C6694FF16A745F100A00B64 /* search-cancel-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-cancel-button.png"; sourceTree = "<group>"; };
@@ -1212,6 +1214,7 @@
 				960A02CF15F7371C00BA9EB0 /* Foundation.framework in Frameworks */,
 				960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */,
 				962B410016256397004E0656 /* FacebookSDK.framework in Frameworks */,
+				4C35AE4616CD508E00AD75CE /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1386,6 +1389,7 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C35AE4516CD508E00AD75CE /* Crashlytics.framework */,
 				96187E2416CA4676007D61E8 /* CoreText.framework */,
 				960F9FF816A00E6300258CA7 /* Social.framework */,
 				960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */,
@@ -2212,6 +2216,7 @@
 				960A02C415F7371C00BA9EB0 /* Sources */,
 				960A02C515F7371C00BA9EB0 /* Frameworks */,
 				960A02C615F7371C00BA9EB0 /* Resources */,
+				4C35AE3B16CD505300AD75CE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2727,6 +2732,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4C35AE3B16CD505300AD75CE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 8f1d9834293a48fdf632da59507bdd08f2842fde";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		960A02C415F7371C00BA9EB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -2895,6 +2916,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoubleDate/DoubleDate-Prefix.pch";
@@ -2917,6 +2939,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoubleDate/DoubleDate-Prefix.pch";

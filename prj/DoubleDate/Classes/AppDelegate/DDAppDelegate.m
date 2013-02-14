@@ -12,6 +12,7 @@
 #import "DDAppDelegate+APNS.h"
 #import "DDAppDelegate+NavigationMenu.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation DDAppDelegate
 
@@ -32,6 +33,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Crashlytics startWithAPIKey:@"8f1d9834293a48fdf632da59507bdd08f2842fde"];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 //    DDChatViewController *vc = [[[DDChatViewController alloc] init] autorelease];
 //    UITabBarController *t = [[[UITabBarController alloc] init] autorelease];
