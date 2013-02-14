@@ -8,6 +8,8 @@
 
 #import "UIImageView+WebCache.h"
 
+extern NSString *const DDImageViewUpdateNotification;
+
 @interface DDImageView : UIImageView
 {
     UIActivityIndicatorView *activityIndicatorView_;

@@ -13,6 +13,9 @@
 @class DDTagsView;
 
 @interface DDMeViewController : DDViewController
+{
+    DDRequestId updatePhotoRequest_;
+}
 
 @property(nonatomic, retain) DDUser *user;
 

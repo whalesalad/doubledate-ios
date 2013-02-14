@@ -9,6 +9,8 @@
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
 
+NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification";
+
 @implementation DDImageView
 
 - (void)initSelf
@@ -57,6 +59,9 @@
         
         //apply new image
         self.image = image;
+        
+        //notify about change
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDImageViewUpdateNotification object:self];
     }];
 }
 

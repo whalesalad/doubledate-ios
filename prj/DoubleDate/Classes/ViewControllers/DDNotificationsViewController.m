@@ -22,15 +22,18 @@
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, retain) DDEngagement *selectedEngagement;
+@property(nonatomic, retain) DDNotification *selectedNotification;
 
 - (void)onDataRefreshed;
 - (NSArray*)notifications;
+- (void)markSelectedNotification;
 
 @end
 
 @implementation DDNotificationsViewController
 
 @synthesize selectedEngagement;
+@synthesize selectedNotification;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +59,14 @@
     self.tableView.contentInset = UIEdgeInsetsMake(2,0,0,0);
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //reload the table as we updated the number unread messages
+    [self.tableView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -74,11 +85,27 @@
 {
     [notifications_ release];
     [selectedEngagement release];
+    [selectedNotification release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark other
+
+- (void)markSelectedNotification
+{
+    //check if unread
+    if ([[self.selectedNotification unread] boolValue])
+    {
+        //mark as read
+        self.selectedNotification.unread = [NSNumber numberWithBool:NO];
+        
+        //make api call
+        DDNotification *notification = [[[DDNotification alloc] init] autorelease];
+        notification.identifier = [self.selectedNotification identifier];
+        [self.apiController getNotification:notification];
+    }
+}
 
 - (NSArray*)notifications
 {
@@ -123,17 +150,17 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //save notification
-    DDNotification *notification = [[self notifications] objectAtIndex:indexPath.row];
+    //save selected notification
+    self.selectedNotification = [[self notifications] objectAtIndex:indexPath.row];
     
     //check api path
-    if ([notification callbackUrl])
+    if ([self.selectedNotification callbackUrl])
     {
         //show hud
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //make api request
-        NSString *path = [notification callbackUrl];
+        NSString *path = [self.selectedNotification callbackUrl];
         path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
         DDAPIControllerMethodType requestType = -1;
         if ([path rangeOfString:@"users"].location != NSNotFound)
@@ -216,6 +243,9 @@
         //hide hud
         [self hideHud:YES];
         
+        //mark selected notification
+        [self markSelectedNotification];
+        
         //push view controller
         DDMeViewController *viewController = [[[DDMeViewController alloc] init] autorelease];
         viewController.user = (DDUser*)object;
@@ -225,6 +255,9 @@
     {
         //hide hud
         [self hideHud:YES];
+        
+        //mark selected notification
+        [self markSelectedNotification];
         
         //push view controller
         DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
@@ -256,6 +289,9 @@
 {
     //hide hud
     [self hideHud:YES];
+    
+    //mark selected notification
+    [self markSelectedNotification];
     
     //push view controller
     DDChatViewController *viewController = [[[DDChatViewController alloc] init] autorelease];

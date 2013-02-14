@@ -20,10 +20,16 @@
 #import "UIView+Interests.h"
 #import "DDWingTableViewCell.h"
 #import "DDAppDelegate+Navigation.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
+#define kTagActionSheetChangePhoto 2
+#define kTagLoadingSpinner 3
 
-@interface DDMeViewController () <UIActionSheetDelegate>
+@interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+- (void)setAvatarShown:(BOOL)shown;
+- (void)updateAvatarWithImage:(UIImage*)image;
 
 @end
 
@@ -51,6 +57,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageViewUpdateNotification:) name:DDImageViewUpdateNotification object:nil];
     }
     return self;
 }
@@ -264,12 +271,96 @@
 
 - (void)changePhotoTouched
 {
-    
+    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Choose Existing Photo", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Take New Photo", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Pull Facebook Photo", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [actionSheet setCancelButtonIndex:[actionSheet numberOfButtons]-1];
+    actionSheet.tag = kTagActionSheetChangePhoto;
+    [actionSheet showInView:self.view];
 }
 
 - (void)logoutTouched
 {
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] logout];
+}
+
+- (BOOL)loadImageFromSourceType:(UIImagePickerControllerSourceType)type
+{
+    if ([[UIImagePickerController availableMediaTypesForSourceType:type] containsObject:(NSString *)kUTTypeImage])
+    {
+        UIImagePickerController *imagePicker = [[[UIImagePickerController alloc] init] autorelease];
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = YES;
+        imagePicker.sourceType = type;
+        imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+        [self.navigationController presentViewController:imagePicker animated:YES completion:^{
+        }];
+        return YES;
+    }
+    return NO;
+}
+
+- (void)changePhotoChooseTouched
+{
+    [self loadImageFromSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+}
+
+- (void)changePhotoCreateTouched
+{
+    [self loadImageFromSourceType:UIImagePickerControllerSourceTypeCamera];
+}
+
+- (void)changePhotoPullTouched
+{
+    
+}
+
+- (void)setAvatarShown:(BOOL)shown
+{
+    //animate loading
+    UIActivityIndicatorView *loadingView = (UIActivityIndicatorView*)[self.imageViewPoster.superview viewWithTag:kTagLoadingSpinner];
+    if (!loadingView)
+    {
+        loadingView = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge] autorelease];
+        loadingView.tag = kTagLoadingSpinner;
+        loadingView.center = self.imageViewPoster.center;
+        loadingView.hidesWhenStopped = YES;
+        [self.imageViewPoster.superview addSubview:loadingView];
+    }
+    
+    //stop animating before fading
+    if (shown)
+        [loadingView stopAnimating];
+    
+    //hide or show avatar
+    [UIView animateWithDuration:0.5f animations:^{
+        
+        //update alpha
+        self.imageViewPoster.alpha = shown?1:0;
+    } completion:^(BOOL finished) {
+        
+        //start animating after fading
+        if (!shown)
+            [loadingView startAnimating];
+    }];
+}
+
+- (void)updateAvatarWithImage:(UIImage*)image
+{
+    //check new image
+    if (!image)
+        return;
+    
+    //hide avatar
+    [self setAvatarShown:NO];
+    
+    //cancel previous request
+    [self.apiController cancelRequest:updatePhotoRequest_];
+    
+    //create new request
+    updatePhotoRequest_ = [self.apiController updatePhotoForMe:image];
 }
 
 #pragma mark -
@@ -293,6 +384,79 @@
                 break;
         }
     }
+    else if (actionSheet.tag == kTagActionSheetChangePhoto)
+    {
+        switch (buttonIndex) {
+            case 0:
+                [self changePhotoChooseTouched];
+                break;
+            case 1:
+                [self changePhotoCreateTouched];
+                break;
+            case 2:
+                [self changePhotoPullTouched];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+- (void)imageViewUpdateNotification:(NSNotification*)notification
+{
+    if ([notification object] == self.imageViewPoster)
+        [self setAvatarShown:YES];
+}
+
+#pragma mark -
+#pragma mark UIImagePickerControllerDelegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    //check for image
+    if (CFStringCompare((CFStringRef)[info objectForKey:UIImagePickerControllerMediaType], kUTTypeImage, 0) == kCFCompareEqualTo)
+    {
+        //save image
+        UIImage *image = nil;
+        if ([info objectForKey:UIImagePickerControllerEditedImage])
+            image = [info objectForKey:UIImagePickerControllerEditedImage];
+        else if ([info objectForKey:UIImagePickerControllerOriginalImage])
+            image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        //check image
+        [self updateAvatarWithImage:image];
+    }
+    
+    //dismiss view controller
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+#pragma mark -
+#pragma mark API
+
+- (void)updatePhotoForMeSucceed:(DDImage*)photo
+{
+    //update url
+    [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.mediumUrl]];
+    
+    //update object
+    self.user.photo = photo;
+}
+
+- (void)updatePhotoForMeDidFailedWithError:(NSError*)error
+{
+    //hide avatar
+    [self setAvatarShown:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

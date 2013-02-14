@@ -768,6 +768,52 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)getNotification:(DDNotification*)notification
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/notifications/%d", [notification.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetNotification;
+    userData.succeedSel = @selector(getNotificationSucceed:);
+    userData.failedSel = @selector(getNotificationDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
+- (DDRequestId)updateNotification:(DDNotification*)notification
+{
+    //create user dictionary
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[notification dictionaryRepresentation] forKey:@"notification"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/notifications/%d", [notification.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPUT;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeUpdateNotification;
+    userData.succeedSel = @selector(updateNotificationSucceed:);
+    userData.failedSel = @selector(updateNotificationDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -1037,6 +1083,19 @@
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:notifications withObject:userData.userData];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeUpdateNotification ||
+                 userData.method == DDAPIControllerMethodTypeGetNotification)
+        {
+            //create object
+            DDNotification *notification = [DDNotification objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:notification withMethod:request.method cachePath:request.URL.absoluteString];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:notification withObject:userData.userData];
         }
     }
     else
