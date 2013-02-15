@@ -314,7 +314,14 @@
 
 - (void)changePhotoPullTouched
 {
+    //hide avatar
+    [self setAvatarShown:NO];
     
+    //cancel previous request
+    [self.apiController cancelRequest:updatePhotoRequest_];
+    
+    //create new request
+    updatePhotoRequest_ = [self.apiController updatePhotoForMeFromFacebook];
 }
 
 - (void)setAvatarShown:(BOOL)shown
@@ -452,7 +459,25 @@
 
 - (void)updatePhotoForMeDidFailedWithError:(NSError*)error
 {
-    //hide avatar
+    //show avatar
+    [self setAvatarShown:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)updatePhotoForMeFromFacebookSucceed:(DDImage*)photo
+{
+    //update url
+    [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.mediumUrl]];
+    
+    //update object
+    self.user.photo = photo;
+}
+
+- (void)updatePhotoForMeFromFacebookDidFailedWithError:(NSError*)error
+{
+    //show avatar
     [self setAvatarShown:YES];
     
     //show error

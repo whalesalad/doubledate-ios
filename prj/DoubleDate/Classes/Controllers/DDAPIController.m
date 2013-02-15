@@ -229,6 +229,27 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)updatePhotoForMeFromFacebook
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo/pull_facebook"];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPOST;
+    NSArray *keys = [NSArray arrayWithObjects:@"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeUpdatePhotoForMeFromFacebook;
+    userData.succeedSel = @selector(updatePhotoForMeFromFacebookSucceed:);
+    userData.failedSel = @selector(updatePhotoForMeFromFacebookDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)createUser:(DDUser*)user
 {
     //create user dictionary
@@ -890,7 +911,8 @@
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:interests withObject:userData.userData];
         }
-        else if (userData.method == DDAPIControllerMethodTypeUpdatePhotoForMe)
+        else if (userData.method == DDAPIControllerMethodTypeUpdatePhotoForMe ||
+                 userData.method == DDAPIControllerMethodTypeUpdatePhotoForMeFromFacebook)
         {
             //create photo object
             DDImage *photo = [DDImage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
