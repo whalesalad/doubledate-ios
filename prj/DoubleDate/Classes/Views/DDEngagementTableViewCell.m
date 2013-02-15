@@ -14,13 +14,11 @@
 
 @interface DDEngagementTableViewCell ()
 
-@property(nonatomic, retain) UIView *viewBlueGlow;
+@property(nonatomic, retain) CAGradientLayer *innerBlueLayer;
 
 @end
 
 @implementation DDEngagementTableViewCell
-
-@synthesize viewBlueGlow;
 
 @synthesize engagement;
 
@@ -42,14 +40,12 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.viewBlueGlow = [[[UIView alloc] initWithFrame:viewImagesContainer.frame] autorelease];
-        [self insertSubview:self.viewBlueGlow atIndex:4];
     }
     return self;
 }
 
 - (void)customize
-{    
+{
     viewEffects.layer.borderColor = [UIColor blackColor].CGColor;
     viewEffects.layer.borderWidth = 1;
     
@@ -62,19 +58,34 @@
     viewImagesContainer.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1].CGColor;
     viewImagesContainer.layer.borderWidth = 1;
     
-    // add inner blue glow
-    self.viewBlueGlow.frame = viewImagesContainer.frame;
-    self.viewBlueGlow.backgroundColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.4f];
-    CAGradientLayer *blueGlowGradient = [CAGradientLayer layer];
-    blueGlowGradient.frame = self.viewBlueGlow.bounds;
-    blueGlowGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                                        (id)[[UIColor blackColor] CGColor], nil];
-    self.viewBlueGlow.layer.mask = blueGlowGradient;
-    
+    [self drawInnerBlueLayer];
         
     // unset background
     labelDetailed.backgroundColor = [UIColor clearColor];
     labelTitle.backgroundColor = [UIColor clearColor];
+    
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+
+}
+
+- (void)drawInnerBlueLayer
+{
+    if (!self.innerBlueLayer)
+    {
+        self.innerBlueLayer = [CAGradientLayer layer];
+        
+        self.innerBlueLayer.colors = [NSArray arrayWithObjects:
+                                      (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.3f] CGColor],
+                                      (id)[[UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.1f] CGColor],
+                                      nil];
+        
+        self.innerBlueLayer.frame = self.viewImagesContainer.frame;
+        
+        [self.layer insertSublayer:self.innerBlueLayer below:imageViewBadge.layer];
+        
+        self.innerBlueLayer.hidden = YES;
+    }
 }
 
 - (void)setEngagement:(DDEngagement *)v
@@ -99,14 +110,8 @@
             [self.imageViewWing reloadFromUrl:[NSURL URLWithString:engagement.wing.photo.smallUrl]];
             
             //apply unread count
-            if ([engagement.unreadCount intValue] > 0)
-            {
-                self.viewImagesContainer.layer.borderColor = [UIColor colorWithRed:0 green:152.0/255.0 blue:216.0/255.0 alpha:0.7f].CGColor;
-            } else
-            {
-                self.imageViewBadge.hidden = YES;
-                self.viewBlueGlow.hidden = YES;
-            }
+            self.imageViewBadge.hidden = [engagement.unreadCount intValue] == 0;
+            self.innerBlueLayer.hidden = [engagement.unreadCount intValue] == 0;
         }
         else
         {
@@ -115,7 +120,7 @@
             self.imageViewUser.image = nil;
             self.imageViewWing.image = nil;
             self.imageViewBadge.hidden = YES;
-            self.viewBlueGlow.hidden = YES;
+            self.innerBlueLayer.hidden = YES;
         }
     }
 }
@@ -130,7 +135,7 @@
     [labelDetailed release];
     [viewImagesContainer release];
     [imageViewBadge release];
-    [viewBlueGlow release];
+    [_innerBlueLayer release];
     [super dealloc];
 }
 

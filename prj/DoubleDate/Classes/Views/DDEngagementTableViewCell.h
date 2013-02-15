@@ -25,4 +25,6 @@
 @property(nonatomic, retain) IBOutlet UIView *viewImagesContainer;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
 
+- (void)drawInnerBlueLayer;
+
 @end

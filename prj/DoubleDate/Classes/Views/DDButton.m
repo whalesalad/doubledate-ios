@@ -8,6 +8,7 @@
 
 #import "DDButton.h"
 #import "DDTools.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDButtonDeprecated
 
@@ -283,12 +284,19 @@
     [self setTitle:title forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
-    [self.titleLabel setFont:[UIFont fontWithName:@"Avenir-Black" size:16]];
+
+    [self.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16]];
+    
+    self.titleLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.titleLabel.layer.shadowRadius = 0;
+    self.titleLabel.layer.shadowOpacity = 0.4f;
+    self.titleLabel.layer.shadowOffset = CGSizeMake(0, -1);
+    
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     if (icon)
     {
         UIImageView *iconImageView = [[[UIImageView alloc] initWithImage:icon] autorelease];
-        iconImageView.center = CGPointMake(self.frame.size.width/2 - self.titleLabel.frame.size.width/2-2, self.frame.size.height/2);
+        iconImageView.center = CGPointMake(self.frame.size.width/2 - self.titleLabel.frame.size.width/2-4, self.frame.size.height/2);
         [self addSubview:iconImageView];
         self.titleEdgeInsets = UIEdgeInsetsMake(2, iconImageView.frame.size.width+6, 0, 0);
     }
