@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DDAPIController.h"
 
-@interface DDAppDelegate : UIResponder <UIApplicationDelegate>
+@interface DDAppDelegate : UIResponder <UIApplicationDelegate, DDAPIControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) UIViewController *viewController;
+
+@property (strong, nonatomic) UINavigationController *topNavigationController;
 
 @property (retain, nonatomic) UIView *userPopover;
 
@@ -21,5 +24,9 @@
 @property (retain, nonatomic) UIView *navigationMenu;
 
 @property (assign, nonatomic) BOOL navigationMenuExist;
+
+@property (retain, nonatomic) DDAPIController *apiController;
+
+@property (retain, nonatomic) DDEngagement *selectedEngagement;
 
 @end

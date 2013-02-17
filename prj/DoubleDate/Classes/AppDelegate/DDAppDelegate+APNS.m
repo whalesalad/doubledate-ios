@@ -10,6 +10,13 @@
 #import "DDAPIController.h"
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
+#import "UIViewController+Extensions.h"
+#import "DDUser.h"
+#import "DDMeViewController.h"
+#import "DDDoubleDate.h"
+#import "DDDoubleDateViewController.h"
+#import "DDEngagement.h"
+#import "DDChatViewController.h"
 #import <RestKit/RestKit.h>
 #import <SBJson.h>
 
@@ -42,6 +49,12 @@
 	self.deviceToken = nil;
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    if ([[userInfo objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
+        [self handleNotificationUrl:[userInfo objectForKey:@"callback_url"]];
+}
+
 - (BOOL)sendMyDevice
 {
     //check if device token exist
@@ -63,6 +76,94 @@
     }
     
     return NO;
+}
+
+- (void)handleNotificationUrl:(NSString*)callbackUrl
+{
+    //only authenticated users can handle
+    if ([DDAuthenticationController currentUser])
+    {
+        //show loading hud
+        [self.window.rootViewController showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        
+        //make api request
+        NSString *path = callbackUrl;
+        path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
+        DDAPIControllerMethodType requestType = -1;
+        if ([path rangeOfString:@"users"].location != NSNotFound)
+            requestType = DDAPIControllerMethodTypeGetUser;
+        else if ([path rangeOfString:@"engagements"].location != NSNotFound)
+            requestType = DDAPIControllerMethodTypeGetEngagement;
+        else if ([path rangeOfString:@"activities"].location != NSNotFound)
+            requestType = DDAPIControllerMethodTypeGetDoubleDate;
+        assert(requestType != -1);
+        [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
+    }
+}
+
+- (void)requestDidSucceed:(NSObject*)object
+{
+    //check received object
+    if ([object isKindOfClass:[DDUser class]])
+    {
+        //hide hud
+        [self.window.rootViewController hideHud:YES];
+        
+        //push view controller
+        DDMeViewController *viewController = [[[DDMeViewController alloc] init] autorelease];
+        viewController.user = (DDUser*)object;
+        [self.topNavigationController pushViewController:viewController animated:YES];
+    }
+    else if ([object isKindOfClass:[DDDoubleDate class]])
+    {
+        //hide hud
+        [self.window.rootViewController hideHud:YES];
+        
+        //push view controller
+        DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
+        viewController.doubleDate = (DDDoubleDate*)object;
+        [self.topNavigationController pushViewController:viewController animated:YES];
+    }
+    else if ([object isKindOfClass:[DDEngagement class]])
+    {
+        //save selected engagement
+        self.selectedEngagement = (DDEngagement*)object;
+        
+        //get doubledate
+        DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
+        doubleDate.identifier = [self.selectedEngagement activityId];
+        [self.apiController getDoubleDate:doubleDate];
+    }
+}
+
+- (void)requestDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self.window.rootViewController hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getDoubleDateSucceed:(DDDoubleDate *)doubleDate
+{
+    //hide hud
+    [self.window.rootViewController hideHud:YES];
+    
+    //push view controller
+    DDChatViewController *viewController = [[[DDChatViewController alloc] init] autorelease];
+    viewController.doubleDate = doubleDate;
+    viewController.engagement = self.selectedEngagement;
+    [self.topNavigationController pushViewController:viewController animated:YES];
+}
+
+- (void)getDoubleDateDidFailedWithError:(NSError *)error
+{
+    //hide hud
+    [self.window.rootViewController hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

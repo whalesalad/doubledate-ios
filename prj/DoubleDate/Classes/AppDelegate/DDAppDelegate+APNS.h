@@ -13,5 +13,6 @@
 - (void)registerForRemoteNotifications;
 - (void)unregisterFromRemoteNotifications;
 - (BOOL)sendMyDevice;
+- (void)handleNotificationUrl:(NSString*)callbackUrl;
 
 @end
