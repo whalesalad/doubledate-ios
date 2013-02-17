@@ -38,5 +38,6 @@ extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
 
 + (void)setCurrentUser:(DDUser*)user;
 + (DDUser*)currentUser;
++ (void)updateCurrentUser;
 
 @end

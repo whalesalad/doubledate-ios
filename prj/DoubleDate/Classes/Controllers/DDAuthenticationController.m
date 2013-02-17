@@ -71,6 +71,20 @@ static DDAuthenticationController *_sharedInstance = nil;
     return nil;
 }
 
++ (void)updateCurrentUser
+{
+    //create request
+    NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me"];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //send request
+    [[DDRequestsController sharedMeController] startRequest:request];
+}
+
 + (void)authenticateWithFbToken:(NSString*)fbToken delegate:(id)delegate
 {
     [[DDAuthenticationController sharedController] authenticateWithFbToken:fbToken email:nil password:nil delegate:delegate];

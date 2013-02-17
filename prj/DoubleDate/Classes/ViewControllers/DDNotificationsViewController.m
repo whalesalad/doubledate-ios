@@ -104,6 +104,12 @@
         DDNotification *notification = [[[DDNotification alloc] init] autorelease];
         notification.identifier = [self.selectedNotification identifier];
         [self.apiController getNotification:notification];
+        
+        //unset number of unread wings
+        [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:[DDAuthenticationController currentUser].unreadNotificationsCount.intValue - 1];
+        
+        //update current user
+        [DDAuthenticationController performSelector:@selector(updateCurrentUser) withObject:nil afterDelay:1];
     }
 }
 
@@ -214,9 +220,6 @@
     //save notifications
     [notifications_ release];
     notifications_ = [[NSMutableArray arrayWithArray:notifications] retain];
-    
-    //unset number of unread wings
-    [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:0];
     
     //inform about reloaded data
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];

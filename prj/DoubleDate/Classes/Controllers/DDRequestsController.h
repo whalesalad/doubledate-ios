@@ -21,6 +21,7 @@
 @property(nonatomic, readonly) NSArray *requests;
 
 + (DDRequestsController*)sharedDummyController;
++ (DDRequestsController*)sharedMeController;
 
 - (void)startRequest:(RKRequest*)request;
 - (void)stopAllRequests;

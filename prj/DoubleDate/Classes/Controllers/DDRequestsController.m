@@ -11,6 +11,8 @@
 #import "DDFacebookController.h"
 #import "SBJson.h"
 #import "DDTools.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
 
 @interface DDRequestsController () <RKRequestDelegate>
 
@@ -24,12 +26,20 @@
 @synthesize requests=requests_;
 
 static DDRequestsController *_sharedDummyInstance = nil;
+static DDRequestsController *_sharedMeInstance = nil;
 
 + (DDRequestsController*)sharedDummyController
 {
     if (!_sharedDummyInstance)
         _sharedDummyInstance = [[DDRequestsController alloc] init];
     return _sharedDummyInstance;
+}
+
++ (DDRequestsController*)sharedMeController
+{
+    if (!_sharedMeInstance)
+        _sharedMeInstance = [[DDRequestsController alloc] init];
+    return _sharedMeInstance;
 }
 
 - (id)init
@@ -74,6 +84,16 @@ static DDRequestsController *_sharedDummyInstance = nil;
 
 - (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response
 {
+    //check me request
+    if (request.delegate == _sharedMeInstance)
+    {
+        if (response.statusCode == 200)
+        {
+            NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            [DDAuthenticationController setCurrentUser:[[[DDUser alloc] initWithDictionary:dictionary] autorelease]];
+        }
+    }
+    
     //inform delegate
     [self.delegate request:request didLoadResponse:response];
     
