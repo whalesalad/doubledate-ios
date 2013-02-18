@@ -105,7 +105,10 @@
     
     //check if opened from remote notification
     if ([[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] isKindOfClass:[NSDictionary class]])
-        [self application:application didReceiveRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
+    {
+        if ([[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
+            [self handleNotificationUrl:[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:@"callback_url"]];
+    }
     
     return YES;
 }

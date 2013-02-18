@@ -117,8 +117,8 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
             requestType = DDAPIControllerMethodTypeGetEngagement;
         else if ([path rangeOfString:@"activities"].location != NSNotFound)
             requestType = DDAPIControllerMethodTypeGetDoubleDate;
-        assert(requestType != -1);
-        [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
+        if (requestType != -1)
+            [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
     }
     else
         self.callbackUrl = callbackUrl;

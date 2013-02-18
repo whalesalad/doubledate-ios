@@ -70,8 +70,12 @@
         
     //go to next view controller
     [self.viewController presentViewController:tabBarController animated:YES completion:^{
+        [self performSelector:@selector(checkAndShowCallbackUrl) withObject:nil afterDelay:0];
     }];
-    
+}
+
+- (void)checkAndShowCallbackUrl
+{
     //check if we have callback to open
     if (self.callbackUrl)
     {
