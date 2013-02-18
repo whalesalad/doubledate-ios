@@ -8,6 +8,8 @@
 
 #import "DDAppDelegate.h"
 
+extern NSString *DDAppDelegateAPNSDidReceiveRemoteNotification;
+
 @interface DDAppDelegate (APNS)
 
 - (void)registerForRemoteNotifications;

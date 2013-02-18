@@ -21,6 +21,8 @@
 #import <RestKit/RestKit.h>
 #import <SBJson.h>
 
+NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDidReceiveRemoteNotification";
+
 @implementation DDAppDelegate (APNS)
 
 - (void)registerForRemoteNotifications
@@ -52,8 +54,7 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ([[userInfo objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
-        [self handleNotificationUrl:[userInfo objectForKey:@"callback_url"]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidReceiveRemoteNotification object:userInfo];
 }
 
 - (BOOL)sendMyDevice

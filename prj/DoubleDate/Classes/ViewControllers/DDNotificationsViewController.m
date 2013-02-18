@@ -42,6 +42,7 @@
     if (self)
     {
         self.cellsIdentifiers = [NSDictionary dictionaryWithObject:NSStringFromClass([DDNotificationTableViewCell class]) forKey:NSStringFromClass([DDNotificationTableViewCell class])];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRefresh) name:DDAppDelegateAPNSDidReceiveRemoteNotification object:nil];
     }
     return self;
 }
@@ -229,7 +230,8 @@
 - (void)onRefresh
 {
     //request notifications
-    notificationsRequest_ = [self.apiController getNotifications];
+    if (![self.apiController isRequestExist:notificationsRequest_])
+        notificationsRequest_ = [self.apiController getNotifications];
 }
 
 @end
