@@ -11,6 +11,8 @@
 #import "DDChatViewController.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "DDAPIController.h"
+#import "DDEngagement.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -20,6 +22,10 @@
 @synthesize deviceToken;
 @synthesize navigationMenu;
 @synthesize navigationMenuExist;
+@synthesize apiController;
+@synthesize selectedEngagement;
+@synthesize topNavigationController;
+@synthesize callbackUrl;
 
 - (void)dealloc
 {
@@ -28,23 +34,78 @@
     [userPopover release];
     [deviceToken release];
     [navigationMenu release];
+    [apiController release];
+    [selectedEngagement release];
+    [callbackUrl release];
     [super dealloc];
+}
+
+- (UINavigationController*)topNavigationController
+{
+    UINavigationController *top = (UINavigationController*)self.viewController;
+    while (top.presentedViewController)
+    {
+        //save top view controller
+        UIViewController *vc = top.presentedViewController;
+        
+        //navigation controller to present
+        UINavigationController *nc = vc.navigationController;
+        
+        //check class
+        if (!nc && [vc isKindOfClass:[UINavigationController class]])
+        {
+            UINavigationController *ncToCheck = (UINavigationController*)vc;
+            nc = ncToCheck;
+        }
+        if (!nc && [vc isKindOfClass:[UITabBarController class]])
+        {
+            UITabBarController *tbcToCheck = (UITabBarController*)vc;
+            UIViewController *vcToCheck = [tbcToCheck selectedViewController];
+            if (vcToCheck.navigationController)
+                nc = vcToCheck.navigationController;
+            else if ([vcToCheck isKindOfClass:[UINavigationController class]])
+                nc = (UINavigationController*)vcToCheck;
+        }
+        
+        //check if we need to continue
+        if (nc)
+        {
+            top = nc;
+            continue;
+        }
+        else
+            break;
+    }
+    return top;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //init crash reporting
     [Crashlytics startWithAPIKey:@"8f1d9834293a48fdf632da59507bdd08f2842fde"];
     
+    //create api controller
+    self.apiController = [[[DDAPIController alloc] init] autorelease];
+    self.apiController.delegate = self;
+    
+    //create window
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-//    DDChatViewController *vc = [[[DDChatViewController alloc] init] autorelease];
-//    UITabBarController *t = [[[UITabBarController alloc] init] autorelease];
-//    t.viewControllers = [NSArray arrayWithObject:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease]];
-//    self.viewController = t;
-//    vc.weakParentViewController = vc;
-    self.viewController = [[[UINavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
+
+    //create view controller
+    self.viewController = [[[DDNavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
+
+    //attach view controller
     self.window.rootViewController = self.viewController;
+
+    //set view controller delegate
     [(UINavigationController*)self.viewController setDelegate:self];
+
+    //show window
     [self.window makeKeyAndVisible];
+    
+    //check if opened from remote notification
+    if ([[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] isKindOfClass:[NSDictionary class]])
+        [self application:application didReceiveRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
     
     return YES;
 }

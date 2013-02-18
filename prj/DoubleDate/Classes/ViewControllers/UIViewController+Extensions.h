@@ -11,6 +11,12 @@
 @class MBProgressHUD;
 @class DDAPIController;
 
+@interface DDNavigationController : UINavigationController
+{
+    MBProgressHUD *hud_;
+}
+@end
+
 @interface UIViewController (HUD)
 
 @property(nonatomic, retain) MBProgressHUD *hud;
