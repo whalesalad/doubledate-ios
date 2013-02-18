@@ -98,7 +98,7 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
     }];
     
     //set left bar buton item
-    vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(dismissModalViewController)];
+    vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Close", nil) target:self action:@selector(dismissModalViewController)];
 }
 
 - (void)dismissModalViewController
