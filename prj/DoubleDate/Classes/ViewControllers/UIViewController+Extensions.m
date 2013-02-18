@@ -12,6 +12,11 @@
 #import "DDTools.h"
 #import "DDAppDelegate+NavigationMenu.h"
 
+DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
+
+@implementation DDNavigationController
+@end
+
 @implementation UIViewController (HUD)
 
 - (void)setHud:(MBProgressHUD*)hud
