@@ -25,6 +25,8 @@
 @property(nonatomic, retain) DDEngagement *selectedEngagement;
 @property(nonatomic, retain) DDNotification *selectedNotification;
 
+@property(nonatomic, retain) NSString *lastReadCallbackUrl;
+
 - (void)onDataRefreshed;
 - (NSArray*)notifications;
 - (void)markSelectedNotification;
@@ -35,6 +37,7 @@
 
 @synthesize selectedEngagement;
 @synthesize selectedNotification;
+@synthesize lastReadCallbackUrl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,7 +45,7 @@
     if (self)
     {
         self.cellsIdentifiers = [NSDictionary dictionaryWithObject:NSStringFromClass([DDNotificationTableViewCell class]) forKey:NSStringFromClass([DDNotificationTableViewCell class])];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRefresh) name:DDAppDelegateAPNSDidReceiveRemoteNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDelegateAPNSDidReceiveRemoteNotification:) name:DDAppDelegateAPNSDidReceiveRemoteNotification object:nil];
     }
     return self;
 }
@@ -88,6 +91,7 @@
     [notifications_ release];
     [selectedEngagement release];
     [selectedNotification release];
+    [lastReadCallbackUrl release];
     [super dealloc];
 }
 
@@ -207,6 +211,13 @@
     [notifications_ release];
     notifications_ = [[NSMutableArray arrayWithArray:notifications] retain];
     
+    //mark notification from apns as read
+    for (DDNotification *notification in notifications_)
+    {
+        if (self.lastReadCallbackUrl && [notification.callbackUrl isEqualToString:self.lastReadCallbackUrl])
+            notification.unread = [NSNumber numberWithBool:NO];
+    }
+    
     //inform about reloaded data
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
@@ -231,6 +242,16 @@
 {
     //request notifications
     notificationsRequest_ = [self.apiController getNotifications];
+}
+
+- (void)appDelegateAPNSDidReceiveRemoteNotification:(NSNotification*)notification
+{
+    //save last read callback
+    if ([[notification object] isKindOfClass:[NSDictionary class]])
+        self.lastReadCallbackUrl = [(NSDictionary*)[notification object] objectForKey:@"callback_url"];
+    
+    //just refresh
+    [self onRefresh];
 }
 
 @end

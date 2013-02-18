@@ -54,9 +54,11 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ([application applicationState] == UIApplicationStateActive)
-        [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidReceiveRemoteNotification object:userInfo];
-    else
+    //notify
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidReceiveRemoteNotification object:userInfo];
+    
+    //check if we need to open new view controller
+    if ([application applicationState] != UIApplicationStateActive)
     {
         if ([[userInfo objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
             [self handleNotificationUrl:[userInfo objectForKey:@"callback_url"]];
