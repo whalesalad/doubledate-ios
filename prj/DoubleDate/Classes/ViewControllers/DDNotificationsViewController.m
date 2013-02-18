@@ -230,8 +230,7 @@
 - (void)onRefresh
 {
     //request notifications
-    if (![self.apiController isRequestExist:notificationsRequest_])
-        notificationsRequest_ = [self.apiController getNotifications];
+    notificationsRequest_ = [self.apiController getNotifications];
 }
 
 @end

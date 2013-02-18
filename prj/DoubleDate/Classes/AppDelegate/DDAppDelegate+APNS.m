@@ -54,7 +54,13 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidReceiveRemoteNotification object:userInfo];
+    if ([application applicationState] == UIApplicationStateActive)
+        [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidReceiveRemoteNotification object:userInfo];
+    else
+    {
+        if ([[userInfo objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
+            [self handleNotificationUrl:[userInfo objectForKey:@"callback_url"]];
+    }
 }
 
 - (BOOL)sendMyDevice
