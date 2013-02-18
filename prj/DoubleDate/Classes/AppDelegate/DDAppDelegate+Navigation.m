@@ -14,8 +14,9 @@
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDFacebookController.h"
 #import "DDNotificationsViewController.h"
+#import "DDAppDelegate+APNS.h"
 
-@implementation DDAppDelegate (APNS)
+@implementation DDAppDelegate (Navigation)
 
 - (void)loginUser:(DDUser*)user
 {
@@ -70,6 +71,16 @@
     //go to next view controller
     [self.viewController presentViewController:tabBarController animated:YES completion:^{
     }];
+    
+    //check if we have callback to open
+    if (self.callbackUrl)
+    {
+        //handle url
+        [self handleNotificationUrl:self.callbackUrl];
+        
+        //unset callbacl url
+        self.callbackUrl = nil;
+    }
 }
 
 - (void)logout

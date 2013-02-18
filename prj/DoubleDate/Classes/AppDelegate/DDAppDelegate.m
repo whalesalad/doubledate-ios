@@ -25,6 +25,7 @@
 @synthesize apiController;
 @synthesize selectedEngagement;
 @synthesize topNavigationController;
+@synthesize callbackUrl;
 
 - (void)dealloc
 {
@@ -35,6 +36,7 @@
     [navigationMenu release];
     [apiController release];
     [selectedEngagement release];
+    [callbackUrl release];
     [super dealloc];
 }
 
@@ -100,6 +102,10 @@
 
     //show window
     [self.window makeKeyAndVisible];
+    
+    //check if opened from remote notification
+    if ([[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] isKindOfClass:[NSDictionary class]])
+        [self application:application didReceiveRemoteNotification:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
     
     return YES;
 }

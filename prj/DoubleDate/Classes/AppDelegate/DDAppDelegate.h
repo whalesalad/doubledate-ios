@@ -29,4 +29,6 @@
 
 @property (retain, nonatomic) DDEngagement *selectedEngagement;
 
+@property (retain, nonatomic) NSString *callbackUrl;
+
 @end

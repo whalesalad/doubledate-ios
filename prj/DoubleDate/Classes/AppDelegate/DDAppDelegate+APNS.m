@@ -17,6 +17,7 @@
 #import "DDDoubleDateViewController.h"
 #import "DDEngagement.h"
 #import "DDChatViewController.h"
+#import "DDBarButtonItem.h"
 #import <RestKit/RestKit.h>
 #import <SBJson.h>
 
@@ -78,6 +79,25 @@
     return NO;
 }
 
+- (void)presentModalViewController:(UIViewController*)vc
+{
+    //wrap view controller into the navigaton controller
+    UINavigationController *nc = [[[DDNavigationController alloc] initWithRootViewController:vc] autorelease];
+    
+    //present view controller
+    [self.topNavigationController presentViewController:nc animated:YES completion:^{
+    }];
+    
+    //set left bar buton item
+    vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(dismissModalViewController)];
+}
+
+- (void)dismissModalViewController
+{
+    [self.topNavigationController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
 - (void)handleNotificationUrl:(NSString*)callbackUrl
 {
     //only authenticated users can handle
@@ -99,6 +119,8 @@
         assert(requestType != -1);
         [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
     }
+    else
+        self.callbackUrl = callbackUrl;
 }
 
 - (void)requestDidSucceed:(NSObject*)object
@@ -112,7 +134,7 @@
         //push view controller
         DDMeViewController *viewController = [[[DDMeViewController alloc] init] autorelease];
         viewController.user = (DDUser*)object;
-        [self.topNavigationController pushViewController:viewController animated:YES];
+        [self presentModalViewController:viewController];
     }
     else if ([object isKindOfClass:[DDDoubleDate class]])
     {
@@ -122,7 +144,7 @@
         //push view controller
         DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
         viewController.doubleDate = (DDDoubleDate*)object;
-        [self.topNavigationController pushViewController:viewController animated:YES];
+        [self presentModalViewController:viewController];
     }
     else if ([object isKindOfClass:[DDEngagement class]])
     {
@@ -154,7 +176,7 @@
     DDChatViewController *viewController = [[[DDChatViewController alloc] init] autorelease];
     viewController.doubleDate = doubleDate;
     viewController.engagement = self.selectedEngagement;
-    [self.topNavigationController pushViewController:viewController animated:YES];
+    [self presentModalViewController:viewController];
 }
 
 - (void)getDoubleDateDidFailedWithError:(NSError *)error
