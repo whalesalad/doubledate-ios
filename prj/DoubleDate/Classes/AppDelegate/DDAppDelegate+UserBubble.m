@@ -29,6 +29,7 @@
     sv.pagingEnabled = [users count]>1;
     sv.delegate = self;
     sv.showsHorizontalScrollIndicator = NO;
+    sv.tag = 100;
     [self.userPopover addSubview:sv];
     
     //add tap recognizer
@@ -89,7 +90,11 @@
 {
     if (self.userPopover)
     {
-        [UIView animateWithDuration:0.3f animations:^{
+        UIView *scrollView = [self.userPopover viewWithTag:100];
+        CGPoint newCenter = scrollView.center;
+        newCenter.y += 100;
+        [UIView animateWithDuration:0.2f animations:^{
+            scrollView.center = newCenter;
             self.userPopover.alpha = 0;
         } completion:^(BOOL finished) {
             [self.userPopover removeFromSuperview];
