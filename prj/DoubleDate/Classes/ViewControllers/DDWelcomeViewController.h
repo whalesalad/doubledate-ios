@@ -13,8 +13,15 @@
 
 @interface DDWelcomeViewController : DDViewController
 {
+    CGFloat bottomViewVisibleHeight_;
 }
 
+@property(nonatomic, assign) BOOL privacyShown;
+
+@property(nonatomic, retain) IBOutlet UIView *bottomView;
+@property(nonatomic, retain) IBOutlet UITextView *privacyTextView;
+
+- (IBAction)whyFacebookTouched:(id)sender;
 - (IBAction)facebookTouched:(id)sender;
 - (IBAction)emailTouched:(id)sender;
 

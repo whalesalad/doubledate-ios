@@ -42,6 +42,11 @@
 
 @implementation DDWelcomeViewController
 
+@synthesize privacyShown;
+
+@synthesize bottomView;
+@synthesize privacyTextView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,9 +60,63 @@
     return self;
 }
 
+- (CGFloat)screenHeight
+{
+    if ([DDTools isiPhone5Device])
+        return 548;
+    return 460;
+}
+
+- (void)cutomizePrivacyTextView
+{
+    //set text
+    NSString *title = NSLocalizedString(@"Your Provacy is Improtant!", nil);
+    NSString *message = NSLocalizedString(@"We rely on Facebook to ensure That DoubleDate are genuine. We'll never post on your wall, or spam you friends. Promise!", nil);
+    NSString *fullText = [NSString stringWithFormat:@"%@\n%@", title, message];
+    
+    //create attributed text
+    NSMutableAttributedString *attributedText = [[[NSMutableAttributedString alloc] initWithString:fullText] autorelease];
+    
+    //cutomize notification
+    [attributedText addAttribute:NSFontAttributeName
+                           value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+                           range:[fullText rangeOfString:title]];
+    [attributedText addAttribute:NSForegroundColorAttributeName
+                           value:[UIColor blackColor]
+                           range:[fullText rangeOfString:title]];
+    
+    //cutomize date
+    [attributedText addAttribute:NSFontAttributeName
+                           value:[UIFont fontWithName:@"HelveticaNeue" size:13]
+                           range:[fullText rangeOfString:message]];
+    [attributedText addAttribute:NSForegroundColorAttributeName
+                           value:[UIColor lightGrayColor]
+                           range:[fullText rangeOfString:message]];
+    
+    // apply attributed text
+    self.privacyTextView.attributedText = attributedText;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //as XIB set up with iPhone 5 resolution then apply change for usual iPhone
+    if (![DDTools isiPhone5Device])
+        self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - ([self screenHeight]-460));
+    
+    //measure height of unvisible bottom view
+    if ([DDTools isiPhone5Device])
+        bottomViewVisibleHeight_ = 548 - self.bottomView.frame.origin.y;
+    else
+        bottomViewVisibleHeight_ = 460 - self.bottomView.frame.origin.y;
+    
+    //update privacy text
+    [self cutomizePrivacyTextView];
+    
+    //check the difference in size
+    CGFloat dh = self.privacyTextView.contentSize.height - self.privacyTextView.frame.size.height;
+    self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, self.bottomView.frame.origin.y, self.bottomView.frame.size.width, self.bottomView.frame.size.height+dh);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -73,11 +132,18 @@
 
 - (void)dealloc
 {
+    [bottomView release];
+    [privacyTextView release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark IB
+
+- (IBAction)whyFacebookTouched:(id)sender
+{
+    self.privacyShown = !self.privacyShown;
+}
 
 - (IBAction)facebookTouched:(id)sender
 {
@@ -113,6 +179,26 @@
 
 #pragma mark -
 #pragma mark other
+
+- (void)setPrivacyShown:(BOOL)v
+{
+    //check the same value
+    if (privacyShown != v)
+    {
+        //update value
+        privacyShown = v;
+        
+        //animate
+        [UIView animateWithDuration:0.5f animations:^{
+            
+            //animate bottom
+            if (v)
+                self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, [self screenHeight] - self.bottomView.frame.size.height , self.bottomView.frame.size.width, self.bottomView.frame.size.height);
+            else
+                self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, [self screenHeight] - bottomViewVisibleHeight_, self.bottomView.frame.size.width, self.bottomView.frame.size.height);
+        }];
+    }
+}
 
 - (void)joinWithEmail
 {
