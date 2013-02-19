@@ -37,7 +37,7 @@
 
 //#define DD_F_ICON_TABLE_CELL_LABEL(_X_) [_X_ setFontOfName:@"Avenir-Black" fontSize:12 textColor:[UIColor darkGrayColor] shadowOffset:CGSizeMake(0, -1) shadowColor:[UIColor blackColor]]
 
-#define DD_F_NO_DATA_LABEL(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:18 textColor:[UIColor colorWithRed:78.0f/255.0f green:78.0f/255.0f blue:78.0f/255.0f alpha:1.0] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.2f]]
+#define DD_F_NO_DATA_LABEL(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:18 textColor:[UIColor colorWithRed:78.0f/255.0f green:78.0f/255.0f blue:78.0f/255.0f alpha:1.0]]
 
 #define DD_F_CHAT_TIMESTAMP_LABEL(_X_) [_X_ setFontOfName:@"HelveticaNeue-Bold" fontSize:14 textColor:[UIColor grayColor] shadowOffset:CGSizeMake(0, 1) shadowColor:[[UIColor blackColor] colorWithAlphaComponent:0.7]]
 

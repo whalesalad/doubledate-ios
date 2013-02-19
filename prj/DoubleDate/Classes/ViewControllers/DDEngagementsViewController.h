@@ -19,4 +19,6 @@
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;
 
+- (void)applyNoDataLabelStyle:(UILabel*)label;
+
 @end

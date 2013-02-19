@@ -92,31 +92,46 @@
     
     //add no messages label
     UILabel *labelStart = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
-    labelStart.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 100);
+    labelStart.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 80);
     labelStart.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     labelStart.numberOfLines = 2;
-    labelStart.text = NSLocalizedString(@"Start by adding your\nclosest friends", nil);
+    labelStart.text = NSLocalizedString(@"Add some of your closest\nfriends to get started", nil);
     labelStart.textAlignment = NSTextAlignmentCenter;
     labelStart.backgroundColor = [UIColor clearColor];
-    DD_F_NO_DATA_LABEL(labelStart);
+    
+    [self applyNoDataLabelStyle:labelStart];
+    
     [self.viewNoData addSubview:labelStart];
     
     //add no incoming messages image view
     UIImageView *imageViewNoData = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-wings.png"]] autorelease];
-    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y);
+    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 20);
     imageViewNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.viewNoData addSubview:imageViewNoData];
     
     //add no messages label
     UILabel *labelInvite = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
-    labelInvite.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 100);
+    labelInvite.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 120);
     labelInvite.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     labelInvite.numberOfLines = 2;
-    labelInvite.text = [NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou both earn %d coins!", nil), kMoneyForFriend];
+    labelInvite.text = [NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend];
     labelInvite.textAlignment = NSTextAlignmentCenter;
     labelInvite.backgroundColor = [UIColor clearColor];
-    DD_F_NO_DATA_LABEL(labelInvite);
+    
+    // no data label style
+    [self applyNoDataLabelStyle:labelInvite];
+    
     [self.viewNoData addSubview:labelInvite];
+}
+
+- (void)applyNoDataLabelStyle:(UILabel*)label {
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+    label.textColor = [UIColor colorWithRed:93.0f/255.0f green:93.0f/255.0f blue:93.0f/255.0f alpha:1.0];
+    label.layer.shadowOffset = CGSizeMake(0, 1);
+    label.layer.shadowOpacity = 1.0f;
+    label.layer.shadowColor = [UIColor blackColor].CGColor;
+    label.layer.shadowRadius = 1;
+    label.layer.masksToBounds = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated

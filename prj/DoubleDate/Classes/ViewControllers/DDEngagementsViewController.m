@@ -16,6 +16,7 @@
 #import "DDObjectsController.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDEngagementsViewController
 
@@ -45,20 +46,33 @@
     
     //add no incoming messages image view
     UIImageView *imageViewNoData = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-incoming.png"]] autorelease];
-    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 40);
+    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 50);
     imageViewNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.viewNoData addSubview:imageViewNoData];
     
     //add no messages label
     UILabel *labelNoData = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
-    labelNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 70);
+    labelNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 60);
     labelNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     labelNoData.numberOfLines = 2;
-    labelNoData.text = NSLocalizedString(@"You haven't received any\nincoming messages yet.", nil);
+    labelNoData.text = NSLocalizedString(@"Chat messages with other\nDoubleDaters will appear here", nil);
     labelNoData.textAlignment = NSTextAlignmentCenter;
     labelNoData.backgroundColor = [UIColor clearColor];
-    DD_F_NO_DATA_LABEL(labelNoData);
+    
+    // no data label style
+    [self applyNoDataLabelStyle:labelNoData];
+    
     [self.viewNoData addSubview:labelNoData];
+}
+
+- (void)applyNoDataLabelStyle:(UILabel*)label {
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+    label.textColor = [UIColor colorWithRed:93.0f/255.0f green:93.0f/255.0f blue:93.0f/255.0f alpha:1.0];
+    label.layer.shadowOffset = CGSizeMake(0, 1);
+    label.layer.shadowOpacity = 1.0f;
+    label.layer.shadowColor = [UIColor blackColor].CGColor;
+    label.layer.shadowRadius = 1;
+    label.layer.masksToBounds = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated
