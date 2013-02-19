@@ -14,13 +14,19 @@
 @interface DDWelcomeViewController : DDViewController
 {
     CGFloat bottomViewVisibleHeight_;
+    CGPoint initialLogoPosition_;
 }
 
 @property(nonatomic, assign) BOOL privacyShown;
 
 @property(nonatomic, retain) IBOutlet UIView *bottomView;
 @property(nonatomic, retain) IBOutlet UITextView *privacyTextView;
+@property(nonatomic, retain) IBOutlet UIImageView *logoImageView;
+@property(nonatomic, retain) IBOutlet UIView *fadeView;
+@property(nonatomic, retain) IBOutlet UIButton *whyFacebookButton;
+@property(nonatomic, retain) IBOutlet UIView *animateView;
 
+- (IBAction)whyFacebookOutTouched:(id)sender;
 - (IBAction)whyFacebookTouched:(id)sender;
 - (IBAction)facebookTouched:(id)sender;
 - (IBAction)emailTouched:(id)sender;

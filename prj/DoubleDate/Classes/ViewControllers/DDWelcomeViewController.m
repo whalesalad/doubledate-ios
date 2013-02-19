@@ -46,6 +46,10 @@
 
 @synthesize bottomView;
 @synthesize privacyTextView;
+@synthesize logoImageView;
+@synthesize fadeView;
+@synthesize whyFacebookButton;
+@synthesize animateView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -97,6 +101,50 @@
     self.privacyTextView.attributedText = attributedText;
 }
 
+- (void)animateImagesMovedInView
+{
+    //previous image view
+    UIImageView *previousImageView = nil;
+    
+    //for each image
+    for (int i = 0; i < 2; i++)
+    {
+        //load image
+        NSString *imageName = nil;
+        switch (i)
+        {
+            case 0:
+                imageName = @"welcome-image-breakfast.jpg";
+                break;
+            case 1:
+                imageName = @"welcome-image-horses.jpg";
+                break;
+            default:
+                break;
+        }
+        
+        //check image name
+        if (!imageName)
+            continue;
+        
+        //load image
+        UIImage *image = [UIImage imageNamed:imageName];
+        
+        //set offset
+        CGPoint offset = CGPointMake(image.size.width/2, image.size.height/2);
+        if (previousImageView)
+            offset = CGPointMake(previousImageView.center.x - previousImageView.image.size.width/2 - image.size.width/2, image.size.height/2);
+        
+        //add image view
+        UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]] autorelease];
+        imageView.center = offset;
+        [self.animateView addSubview:imageView];
+        
+        //save previous image view
+        previousImageView = imageView;
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -117,6 +165,12 @@
     //check the difference in size
     CGFloat dh = self.privacyTextView.contentSize.height - self.privacyTextView.frame.size.height;
     self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, self.bottomView.frame.origin.y, self.bottomView.frame.size.width, self.bottomView.frame.size.height+dh);
+    
+    //save position of logo
+    initialLogoPosition_ = self.logoImageView.center;
+    
+    //animated images in view
+    [self animateImagesMovedInView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -134,11 +188,21 @@
 {
     [bottomView release];
     [privacyTextView release];
+    [logoImageView release];
+    [fadeView release];
+    [whyFacebookButton release];
+    [animateView release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark IB
+
+- (IBAction)whyFacebookOutTouched:(id)sender
+{
+    if (self.privacyShown)
+        self.privacyShown = NO;
+}
 
 - (IBAction)whyFacebookTouched:(id)sender
 {
@@ -190,6 +254,24 @@
         
         //animate
         [UIView animateWithDuration:0.5f animations:^{
+            
+            //move logo
+            if (v)
+                logoImageView.center = CGPointMake(initialLogoPosition_.x, ([self screenHeight] - self.bottomView.frame.size.height) / 2);
+            else
+                logoImageView.center = initialLogoPosition_;
+            
+            //fade center
+            if (v)
+                fadeView.alpha = 0;
+            else
+                fadeView.alpha = 1;
+            
+            //fade why
+            if (v)
+                whyFacebookButton.alpha = 0;
+            else
+                whyFacebookButton.alpha = 1;
             
             //animate bottom
             if (v)
