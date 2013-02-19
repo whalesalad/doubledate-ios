@@ -103,7 +103,7 @@
     
     //as XIB set up with iPhone 5 resolution then apply change for usual iPhone
     if (![DDTools isiPhone5Device])
-        self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - ([self screenHeight]-460));
+        self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - (548-460));
     
     //measure height of unvisible bottom view
     if ([DDTools isiPhone5Device])
