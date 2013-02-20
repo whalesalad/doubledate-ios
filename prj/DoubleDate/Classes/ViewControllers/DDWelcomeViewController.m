@@ -152,6 +152,15 @@
     else
         bottomViewVisibleHeight_ = 460 - self.bottomView.frame.origin.y;
     
+    if ([[UIScreen mainScreen] scale] == 1) {
+        CGPoint fadeCenter = fadeView.center;
+        CGPoint logoCenter = logoImageView.center;
+        fadeCenter.y -= 40;
+        logoCenter.y -= 40;
+        fadeView.center = fadeCenter;
+        logoImageView.center = logoCenter;
+    }
+    
     //update privacy text
     [self cutomizePrivacyTextView];
     
