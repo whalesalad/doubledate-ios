@@ -161,7 +161,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     NSInteger totalNumberOfRows = 0;
     for (int i = 0; i < [self.tableView numberOfSections]; i++)
         totalNumberOfRows += [self.tableView numberOfRowsInSection:i];
-    self.tableView.scrollEnabled = totalNumberOfRows > 0;
+//    self.tableView.scrollEnabled = totalNumberOfRows > 0;
     self.viewNoData.hidden = totalNumberOfRows > 0;
 }
 
