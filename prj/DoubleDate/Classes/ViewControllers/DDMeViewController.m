@@ -197,7 +197,7 @@
     viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
     
     //apply needed content size
-    self.scrollView.contentSize = CGSizeMake(320, viewInterests.frame.origin.y+viewInterests.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(320, viewInterests.frame.origin.y+interestsWrapper.frame.origin.y+viewInterests.frame.size.height);
 }
 
 - (void)alignCoinsLabel
