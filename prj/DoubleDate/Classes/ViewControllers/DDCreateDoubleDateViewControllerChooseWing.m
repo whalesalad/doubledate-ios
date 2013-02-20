@@ -12,6 +12,7 @@
 #import "DDSearchBar.h"
 #import "DDTableViewCell.h"
 #import "DDImageView.h"
+#import "DDTableViewController+Refresh.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -42,7 +43,7 @@
     if (!wings_)
     {
         //show hud
-        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
         
         //search for wings
         [self.apiController getFriends];
@@ -196,7 +197,7 @@
 - (void)getFriendsSucceed:(NSArray *)friends
 {
     //hide hud
-    [self hideHud:YES];
+    [self finishRefresh];
     
     //save placemarks
     [wings_ release];
@@ -209,10 +210,19 @@
 - (void)getFriendsDidFailedWithError:(NSError *)error
 {
     //hide hud
-    [self hideHud:YES];
+    [self finishRefresh];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark -
+
+- (void)onRefresh
+{
+    //search for wings
+    [self.apiController getFriends];
 }
 
 @end
