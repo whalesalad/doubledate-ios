@@ -75,7 +75,7 @@
 - (void)cutomizePrivacyTextView
 {
     //set text
-    NSString *title = NSLocalizedString(@"Your Provacy is Improtant!", nil);
+    NSString *title = NSLocalizedString(@"Your Privacy is Improtant!", nil);
     NSString *message = NSLocalizedString(@"We rely on Facebook to ensure That DoubleDate are genuine. We'll never post on your wall, or spam you friends. Promise!", nil);
     NSString *fullText = [NSString stringWithFormat:@"%@\n%@", title, message];
     
@@ -84,33 +84,58 @@
     
     //cutomize notification
     [attributedText addAttribute:NSFontAttributeName
-                           value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]
+                           value:[UIFont fontWithName:@"HelveticaNeue-Bold" size:19]
                            range:[fullText rangeOfString:title]];
     [attributedText addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor blackColor]
+                           value:[UIColor whiteColor]
                            range:[fullText rangeOfString:title]];
     
     //cutomize date
     [attributedText addAttribute:NSFontAttributeName
-                           value:[UIFont fontWithName:@"HelveticaNeue" size:13]
+                           value:[UIFont fontWithName:@"HelveticaNeue" size:17]
                            range:[fullText rangeOfString:message]];
     [attributedText addAttribute:NSForegroundColorAttributeName
-                           value:[UIColor lightGrayColor]
+                           value:[UIColor whiteColor]
                            range:[fullText rangeOfString:message]];
     
     // apply attributed text
     self.privacyTextView.attributedText = attributedText;
+    
+    self.privacyTextView.alpha = 0;
 }
+
 
 - (void)animateImagesMovedInView
 {
     //add images
     NSMutableArray *images = [NSMutableArray array];
-    [images addObject:[UIImage imageNamed:@"welcome-image-breakfast.jpg"]];
-    [images addObject:[UIImage imageNamed:@"welcome-image-horses.jpg"]];
+    [images addObject:[UIImage imageNamed:@"bar.jpg"]];
+    [images addObject:[UIImage imageNamed:@"beach.jpg"]];
+    [images addObject:[UIImage imageNamed:@"boat.jpg"]];
+    [images addObject:[UIImage imageNamed:@"bowling.jpg"]];
+    [images addObject:[UIImage imageNamed:@"breakfast.jpg"]];
+    [images addObject:[UIImage imageNamed:@"cycling.jpg"]];
+    [images addObject:[UIImage imageNamed:@"fika.jpg"]];
+    [images addObject:[UIImage imageNamed:@"golfing.jpg"]];
+    [images addObject:[UIImage imageNamed:@"hiking.jpg"]];
+    [images addObject:[UIImage imageNamed:@"horses.jpg"]];
+    [images addObject:[UIImage imageNamed:@"jeep.jpg"]];
+    [images addObject:[UIImage imageNamed:@"lounge.jpg"]];
+    [images addObject:[UIImage imageNamed:@"lunch.jpg"]];
+    [images addObject:[UIImage imageNamed:@"park.jpg"]];
+    [images addObject:[UIImage imageNamed:@"skiing.jpg"]];
+    [images addObject:[UIImage imageNamed:@"snorkel.jpg"]];
+    [images addObject:[UIImage imageNamed:@"speedboat.jpg"]];
+    [images addObject:[UIImage imageNamed:@"yoga.jpg"]];
+    
+    // Randomize the array...
+    for (NSInteger i = images.count-1; i > 0; i--)
+    {
+        [images exchangeObjectAtIndex:i withObjectAtIndex:arc4random_uniform(i+1)];
+    }
     
     //animate
-    [self.animateView animateWithImages:images transitionDuration:10.0f loop:YES isLandscape:YES];
+    [self.animateView animateWithImages:images transitionDuration:8.0f loop:YES isLandscape:YES];
 }
 
 - (void)viewDidLoad
@@ -221,31 +246,21 @@
         privacyShown = v;
         
         //animate
-        [UIView animateWithDuration:0.5f animations:^{
-            
-            //move logo
-            if (v)
+        [UIView animateWithDuration:0.3f animations:^{
+            if (v) {
                 logoImageView.center = CGPointMake(initialLogoPosition_.x, ([self screenHeight] - self.bottomView.frame.size.height) / 2);
-            else
-                logoImageView.center = initialLogoPosition_;
-            
-            //fade center
-            if (v)
                 fadeView.alpha = 0;
-            else
-                fadeView.alpha = 1;
-            
-            //fade why
-            if (v)
                 whyFacebookButton.alpha = 0;
-            else
-                whyFacebookButton.alpha = 1;
-            
-            //animate bottom
-            if (v)
+                privacyTextView.alpha = 1;
                 self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, [self screenHeight] - self.bottomView.frame.size.height , self.bottomView.frame.size.width, self.bottomView.frame.size.height);
-            else
+            } else {
+                logoImageView.center = initialLogoPosition_;
+                fadeView.alpha = 1;
+                whyFacebookButton.alpha = 1;
+                privacyTextView.alpha = 0;
                 self.bottomView.frame = CGRectMake(self.bottomView.frame.origin.x, [self screenHeight] - bottomViewVisibleHeight_, self.bottomView.frame.size.width, self.bottomView.frame.size.height);
+            }
+                
         }];
     }
 }

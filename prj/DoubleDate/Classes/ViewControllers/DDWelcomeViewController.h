@@ -33,6 +33,8 @@
 - (IBAction)facebookTouched:(id)sender;
 - (IBAction)emailTouched:(id)sender;
 
+- (void)imagesForScrolling;
+
 - (void)startWithUser:(DDUser*)user;
 
 @end
