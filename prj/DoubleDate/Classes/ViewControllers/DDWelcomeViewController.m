@@ -39,6 +39,9 @@
 
 - (void)startWithUser:(DDUser*)user animated:(BOOL)animated;
 
+- (void)startAnimation;
+- (void)stopAnimation;
+
 @end
 
 @implementation DDWelcomeViewController
@@ -101,12 +104,20 @@
     // apply attributed text
     self.privacyTextView.attributedText = attributedText;
     
+    //set text view alpha
     self.privacyTextView.alpha = 0;
 }
 
-
-- (void)animateImagesMovedInView
+- (void)startAnimation
 {
+    //stop animation at first
+    [self stopAnimation];
+    
+    //add animation view
+    KenBurnsView *animationView = [[[KenBurnsView alloc] initWithFrame:self.animateView.bounds] autorelease];
+    animationView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.animateView addSubview:animationView];
+    
     //add images
     NSMutableArray *images = [NSMutableArray array];
     [images addObject:[UIImage imageNamed:@"bar.jpg"]];
@@ -135,7 +146,18 @@
     }
     
     //animate
-    [self.animateView animateWithImages:images transitionDuration:8.0f loop:YES isLandscape:YES];
+    [animationView animateWithImages:images transitionDuration:8.0f loop:YES isLandscape:YES];
+}
+
+- (void)stopAnimation
+{
+    while ([[self.animateView subviews] count])
+    {
+        KenBurnsView *animationView = [[self.animateView subviews] lastObject];
+        if ([animationView isKindOfClass:[KenBurnsView class]])
+            animationView.isLoop = NO;
+        [animationView removeFromSuperview];
+    }
 }
 
 - (void)viewDidLoad
@@ -161,9 +183,6 @@
     
     //save position of logo
     initialLogoPosition_ = self.logoImageView.center;
-    
-    //animated images in view
-    [self animateImagesMovedInView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -174,7 +193,20 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    //hide navigation bar
     self.navigationController.navigationBarHidden = YES;
+    
+    //start animation
+    [self startAnimation];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    //stop animation
+    [self stopAnimation];
 }
 
 - (void)dealloc
