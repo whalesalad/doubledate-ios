@@ -26,6 +26,7 @@
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDEngagementsViewController.h"
 #import "DDAppDelegate+Navigation.h"
+#import "JBKenBurnsView.h"
 
 #define kTagEmailActionSheet 1
 
@@ -103,46 +104,13 @@
 
 - (void)animateImagesMovedInView
 {
-    //previous image view
-    UIImageView *previousImageView = nil;
+    //add images
+    NSMutableArray *images = [NSMutableArray array];
+    [images addObject:[UIImage imageNamed:@"welcome-image-breakfast.jpg"]];
+    [images addObject:[UIImage imageNamed:@"welcome-image-horses.jpg"]];
     
-    //for each image
-    for (int i = 0; i < 2; i++)
-    {
-        //load image
-        NSString *imageName = nil;
-        switch (i)
-        {
-            case 0:
-                imageName = @"welcome-image-breakfast.jpg";
-                break;
-            case 1:
-                imageName = @"welcome-image-horses.jpg";
-                break;
-            default:
-                break;
-        }
-        
-        //check image name
-        if (!imageName)
-            continue;
-        
-        //load image
-        UIImage *image = [UIImage imageNamed:imageName];
-        
-        //set offset
-        CGPoint offset = CGPointMake(image.size.width/2, image.size.height/2);
-        if (previousImageView)
-            offset = CGPointMake(previousImageView.center.x - previousImageView.image.size.width/2 - image.size.width/2, image.size.height/2);
-        
-        //add image view
-        UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]] autorelease];
-        imageView.center = offset;
-        [self.animateView addSubview:imageView];
-        
-        //save previous image view
-        previousImageView = imageView;
-    }
+    //animate
+    [self.animateView animateWithImages:images transitionDuration:10.0f loop:YES isLandscape:YES];
 }
 
 - (void)viewDidLoad

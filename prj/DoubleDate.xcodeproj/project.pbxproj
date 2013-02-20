@@ -513,6 +513,7 @@
 		96EF700F16A6EA3800356D18 /* dd-user-photo-overlay-bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96EF6FEF16A6EA3800356D18 /* dd-user-photo-overlay-bubble@2x.png */; };
 		96EF701016A6EA3800356D18 /* dd-user-photo-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 96EF6FF016A6EA3800356D18 /* dd-user-photo-overlay.png */; };
 		96EF701116A6EA3800356D18 /* dd-user-photo-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96EF6FF116A6EA3800356D18 /* dd-user-photo-overlay@2x.png */; };
+		96F12DC816D4BAB0009127AF /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F12DC716D4BAB0009127AF /* JBKenBurnsView.m */; };
 		96F1EB661612F63F00A9ED12 /* location-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F1EB5E1612F63F00A9ED12 /* location-marker.png */; };
 		96F1EB671612F63F00A9ED12 /* location-marker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96F1EB5F1612F63F00A9ED12 /* location-marker@2x.png */; };
 		96F293D4169EFF1200711F14 /* DDDoubleDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */; };
@@ -1187,6 +1188,8 @@
 		96EF6FEF16A6EA3800356D18 /* dd-user-photo-overlay-bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-photo-overlay-bubble@2x.png"; sourceTree = "<group>"; };
 		96EF6FF016A6EA3800356D18 /* dd-user-photo-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-photo-overlay.png"; sourceTree = "<group>"; };
 		96EF6FF116A6EA3800356D18 /* dd-user-photo-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dd-user-photo-overlay@2x.png"; sourceTree = "<group>"; };
+		96F12DC616D4BAB0009127AF /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
+		96F12DC716D4BAB0009127AF /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
 		96F1EB5E1612F63F00A9ED12 /* location-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-marker.png"; sourceTree = "<group>"; };
 		96F1EB5F1612F63F00A9ED12 /* location-marker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location-marker@2x.png"; sourceTree = "<group>"; };
 		96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateTableViewCell.xib; sourceTree = "<group>"; };
@@ -1990,6 +1993,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				96F12DC516D4BAB0009127AF /* KenBurns */,
 				9662892B16B68521002E0AD1 /* HPGrowingTextView */,
 				96EA06AF1689D9DB009F09BC /* SDWebImage */,
 				70803B131610FF3400BFDE8B /* TITokenField */,
@@ -2197,6 +2201,15 @@
 				96EF6FF116A6EA3800356D18 /* dd-user-photo-overlay@2x.png */,
 			);
 			path = "doubledate-detail";
+			sourceTree = "<group>";
+		};
+		96F12DC516D4BAB0009127AF /* KenBurns */ = {
+			isa = PBXGroup;
+			children = (
+				96F12DC616D4BAB0009127AF /* JBKenBurnsView.h */,
+				96F12DC716D4BAB0009127AF /* JBKenBurnsView.m */,
+			);
+			path = KenBurns;
 			sourceTree = "<group>";
 		};
 		96F1EB5B1612F63F00A9ED12 /* basic info */ = {
@@ -2862,6 +2875,7 @@
 				706EFAA516C9B18F00DD5791 /* DDNotificationsViewController.m in Sources */,
 				706EFAA816C9B5D300DD5791 /* DDNotification.m in Sources */,
 				706EFAAB16C9B9B200DD5791 /* DDNotificationTableViewCell.m in Sources */,
+				96F12DC816D4BAB0009127AF /* JBKenBurnsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

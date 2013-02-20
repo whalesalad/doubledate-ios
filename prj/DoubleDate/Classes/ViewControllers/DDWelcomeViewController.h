@@ -11,6 +11,8 @@
 @class DDAPIController;
 @class DDUser;
 
+@class KenBurnsView;
+
 @interface DDWelcomeViewController : DDViewController
 {
     CGFloat bottomViewVisibleHeight_;
@@ -24,7 +26,7 @@
 @property(nonatomic, retain) IBOutlet UIImageView *logoImageView;
 @property(nonatomic, retain) IBOutlet UIView *fadeView;
 @property(nonatomic, retain) IBOutlet UIButton *whyFacebookButton;
-@property(nonatomic, retain) IBOutlet UIView *animateView;
+@property(nonatomic, retain) IBOutlet KenBurnsView *animateView;
 
 - (IBAction)whyFacebookOutTouched:(id)sender;
 - (IBAction)whyFacebookTouched:(id)sender;
