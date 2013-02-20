@@ -29,7 +29,7 @@
 
 - (void)onDataRefreshed;
 - (NSArray*)notifications;
-- (void)markSelectedNotification;
+- (void)markNotificationAsSelected:(DDNotification*)notification;
 
 @end
 
@@ -46,6 +46,7 @@
     {
         self.cellsIdentifiers = [NSDictionary dictionaryWithObject:NSStringFromClass([DDNotificationTableViewCell class]) forKey:NSStringFromClass([DDNotificationTableViewCell class])];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDelegateAPNSDidReceiveRemoteNotification:) name:DDAppDelegateAPNSDidReceiveRemoteNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDelegateAPNSWillOpenCallbackUrlNotification:) name:DDAppDelegateAPNSWillOpenCallbackUrlNotification object:nil];
     }
     return self;
 }
@@ -98,24 +99,27 @@
 #pragma mark -
 #pragma mark other
 
-- (void)markSelectedNotification
+- (void)markNotificationAsSelected:(DDNotification*)notification
 {
     //check if unread
-    if ([[self.selectedNotification unread] boolValue])
+    if ([[notification unread] boolValue])
     {
         //mark as read
-        self.selectedNotification.unread = [NSNumber numberWithBool:NO];
+        notification.unread = [NSNumber numberWithBool:NO];
         
         //make api call
-        DDNotification *notification = [[[DDNotification alloc] init] autorelease];
-        notification.identifier = [self.selectedNotification identifier];
-        [self.apiController getNotification:notification];
-        
-        //unset number of unread wings
-        [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:[DDAuthenticationController currentUser].unreadNotificationsCount.intValue - 1];
+        DDNotification *notificationToSend = [[[DDNotification alloc] init] autorelease];
+        notificationToSend.identifier = [notification identifier];
+        [self.apiController getNotification:notificationToSend];
         
         //update current user
-        [DDAuthenticationController performSelector:@selector(updateCurrentUser) withObject:nil afterDelay:1];
+        NSInteger unreadNotificationsCount = 0;
+        for (DDNotification *n in notifications_)
+        {
+            if ([[n unread] boolValue])
+                unreadNotificationsCount++;
+        }
+        [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:unreadNotificationsCount];
     }
 }
 
@@ -215,7 +219,7 @@
     for (DDNotification *notification in notifications_)
     {
         if (self.lastReadCallbackUrl && [notification.callbackUrl isEqualToString:self.lastReadCallbackUrl])
-            notification.unread = [NSNumber numberWithBool:NO];
+            [self markNotificationAsSelected:notification];
     }
     
     //inform about reloaded data
@@ -252,6 +256,21 @@
     
     //just refresh
     [self onRefresh];
+}
+
+- (void)appDelegateAPNSWillOpenCallbackUrlNotification:(NSNotification*)notification
+{
+    //get needed notification
+    NSString *notificationCallbackUrl = [notification object];
+    DDNotification *notificationToApply = nil;
+    for (DDNotification *n in notifications_)
+    {
+        if (notificationCallbackUrl && [[n callbackUrl] isEqualToString:notificationCallbackUrl])
+            notificationToApply = n;
+    }
+    
+    //apply
+    [self markNotificationAsSelected:notificationToApply];
 }
 
 @end

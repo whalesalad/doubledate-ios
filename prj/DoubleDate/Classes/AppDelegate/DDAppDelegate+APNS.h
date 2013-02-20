@@ -9,6 +9,8 @@
 #import "DDAppDelegate.h"
 
 extern NSString *DDAppDelegateAPNSDidReceiveRemoteNotification;
+extern NSString *DDAppDelegateAPNSWillOpenCallbackUrlNotification;
+extern NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification;
 
 @interface DDAppDelegate (APNS)
 

@@ -26,6 +26,7 @@
 @synthesize selectedEngagement;
 @synthesize topNavigationController;
 @synthesize callbackUrl;
+@synthesize openedCallbackUrl;
 
 - (void)dealloc
 {
@@ -37,6 +38,7 @@
     [apiController release];
     [selectedEngagement release];
     [callbackUrl release];
+    [openedCallbackUrl release];
     [super dealloc];
 }
 

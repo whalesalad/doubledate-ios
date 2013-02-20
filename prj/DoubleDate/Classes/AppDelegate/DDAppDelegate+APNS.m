@@ -22,6 +22,8 @@
 #import <SBJson.h>
 
 NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDidReceiveRemoteNotification";
+NSString *DDAppDelegateAPNSWillOpenCallbackUrlNotification = @"DDAppDelegateAPNSWillOpenCallbackUrlNotification";
+NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNSDidCloseCallbackUrlNotification";
 
 @implementation DDAppDelegate (APNS)
 
@@ -90,6 +92,9 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
 
 - (void)presentModalViewController:(UIViewController*)vc
 {
+    //send notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSWillOpenCallbackUrlNotification object:self.openedCallbackUrl];
+    
     //wrap view controller into the navigaton controller
     UINavigationController *nc = [[[DDNavigationController alloc] initWithRootViewController:vc] autorelease];
     
@@ -103,8 +108,12 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
 
 - (void)dismissModalViewController
 {
+    //dismiss view controller
     [self.topNavigationController dismissViewControllerAnimated:YES completion:^{
     }];
+    
+    //send notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidCloseCallbackUrlNotification object:self.openedCallbackUrl];
 }
 
 - (void)handleNotificationUrl:(NSString*)callbackUrl
@@ -114,6 +123,9 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
     {
         //show loading hud
         [self.window.rootViewController showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+        
+        //save callback url to open
+        self.openedCallbackUrl = callbackUrl;
         
         //make api request
         NSString *path = callbackUrl;

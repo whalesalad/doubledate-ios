@@ -31,4 +31,6 @@
 
 @property (retain, nonatomic) NSString *callbackUrl;
 
+@property (retain, nonatomic) NSString *openedCallbackUrl;
+
 @end
