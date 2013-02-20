@@ -41,6 +41,7 @@
 @synthesize imageViewPoster;
 @synthesize labelLocation;
 @synthesize textViewBio;
+@synthesize textViewBioWrapper;
 @synthesize viewInterests;
 @synthesize labelInterests;
 @synthesize interestsWrapper;
@@ -118,13 +119,13 @@
     labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
         
     // watch for text view change
-    CGRect textViewBioFrame = textViewBio.frame;
+    CGRect textViewBioFrame = textViewBioWrapper.frame;
     textViewBioFrame.size.height = textViewBio.contentSize.height + 10;
-    textViewBio.frame = textViewBioFrame;
+    textViewBioWrapper.frame = textViewBioFrame;
     
     // Create transparent white line to add below bio view.
     CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, textViewBio.frame.origin.y + textViewBio.frame.size.height, 320, 1.0f);
+    bottomBorder.frame = CGRectMake(0.0f, textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, 320, 1.0f);
     bottomBorder.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.03f].CGColor;
     
     // Add the border to the scrollview
@@ -132,12 +133,12 @@
     
     // Create inner gradient for bio
     CAGradientLayer *textViewBioGradient = [CAGradientLayer layer];
-    textViewBioGradient.frame = textViewBio.bounds;
+    textViewBioGradient.frame = textViewBioWrapper.bounds;
     textViewBioGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
                                                            (id)[[UIColor colorWithWhite:1.0f alpha:0.1f] CGColor], nil];
     
     // Add the gradient to the back of the text view
-    [textViewBio.layer insertSublayer:textViewBioGradient atIndex:0];
+    [textViewBioWrapper.layer insertSublayer:textViewBioGradient atIndex:0];
     
     
     // change position
@@ -154,7 +155,7 @@
     
     // resize interest wrapper view
     CGRect interestsWrapperFrame = self.interestsWrapper.frame;
-    interestsWrapperFrame.origin.y = textViewBio.frame.size.height + textViewBio.frame.origin.y + textInterestSpacing;
+    interestsWrapperFrame.origin.y = textViewBioWrapper.frame.size.height + textViewBioWrapper.frame.origin.y + textInterestSpacing;
     self.interestsWrapper.frame = interestsWrapperFrame;
     
     // Hide interests if there aren't any
@@ -229,6 +230,7 @@
     [imageViewPoster release];
     [labelLocation release];
     [textViewBio release];
+    [textViewBioWrapper release];
     [viewInterests release];
     [labelInterests release];
     [interestsWrapper release];

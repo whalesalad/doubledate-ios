@@ -25,6 +25,7 @@
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPoster;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UITextView *textViewBio;
+@property(nonatomic, retain) IBOutlet UIView *textViewBioWrapper;
 @property(nonatomic, retain) IBOutlet UIView *viewInterests;
 @property(nonatomic, retain) IBOutlet UILabel *labelInterests;
 @property(nonatomic, retain) IBOutlet UIView *interestsWrapper;
@@ -35,6 +36,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelCoins;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewCoins;
 @property(nonatomic, retain) IBOutlet UIView *coinBar;
+
 
 - (IBAction)moreCoinsTouched:(id)sender;
 
