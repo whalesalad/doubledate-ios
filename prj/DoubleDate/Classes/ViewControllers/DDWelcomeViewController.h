@@ -26,14 +26,12 @@
 @property(nonatomic, retain) IBOutlet UIImageView *logoImageView;
 @property(nonatomic, retain) IBOutlet UIView *fadeView;
 @property(nonatomic, retain) IBOutlet UIButton *whyFacebookButton;
-@property(nonatomic, retain) IBOutlet KenBurnsView *animateView;
+@property(nonatomic, retain) IBOutlet UIView *animateView;
 
 - (IBAction)whyFacebookOutTouched:(id)sender;
 - (IBAction)whyFacebookTouched:(id)sender;
 - (IBAction)facebookTouched:(id)sender;
 - (IBAction)emailTouched:(id)sender;
-
-- (void)imagesForScrolling;
 
 - (void)startWithUser:(DDUser*)user;
 
