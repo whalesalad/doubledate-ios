@@ -20,6 +20,7 @@
 #import "UIView+Interests.h"
 #import "DDWingTableViewCell.h"
 #import "DDAppDelegate+Navigation.h"
+#import "DDEditProfileViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -268,7 +269,17 @@
 
 - (void)editProfileTouched
 {
-    
+    DDEditProfileViewController *viewController = [[[DDEditProfileViewController alloc] initWithUser:self.user] autorelease];
+    [self.navigationController presentViewController:[[[DDNavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
+    }];
+    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(dismissModalViewController)];
+}
+
+- (void)dismissModalViewController
+{
+    //dismiss view controller
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)changePhotoTouched

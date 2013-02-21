@@ -94,7 +94,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 
     //create view controller
-    self.viewController = [[[DDNavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] initWithNibName:@"DDWelcomeViewController" bundle:nil] autorelease]] autorelease];
+    self.viewController = [[[DDNavigationController alloc] initWithRootViewController:[[[DDWelcomeViewController alloc] init] autorelease]] autorelease];
 
     //attach view controller
     self.window.rootViewController = self.viewController;
