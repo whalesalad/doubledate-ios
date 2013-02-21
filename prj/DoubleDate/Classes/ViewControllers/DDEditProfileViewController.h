@@ -15,8 +15,6 @@
 
 - (id)initWithUser:(DDUser*)user;
 
-@property(nonatomic, retain) IBOutlet UITableView *tableViewBio;
-@property(nonatomic, retain) IBOutlet UITableView *tableViewLocation;
-@property(nonatomic, retain) IBOutlet UITableView *tableViewInterests;
+@property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
