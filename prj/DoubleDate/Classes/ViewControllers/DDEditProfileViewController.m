@@ -15,16 +15,24 @@
 #import "DDUser.h"
 #import "DDLocationChooserViewController.h"
 #import "DDInterest.h"
+#import "DDBarButtonItem.h"
 
-@interface DDEditProfileViewController () <DDLocationPickerViewControllerDelegate>
+#define kMaxBioLength 250
+#define kMaxInterestsCount 10
+
+@interface DDEditProfileViewController () <DDLocationPickerViewControllerDelegate, UITextViewDelegate>
+
+@property(nonatomic, retain) UILabel *labelLeftCharacters;
 
 - (NSInteger)numberOfAvailableInterests;
+- (void)updateLeftCharacters;
 
 @end
 
 @implementation DDEditProfileViewController
 
 @synthesize tableView;
+@synthesize labelLeftCharacters;
 
 - (id)initWithUser:(DDUser*)user
 {
@@ -50,12 +58,16 @@
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Edit Profile", nil);
+    
+    //set right button
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(doneTouched:)];
 }
 
 - (void)dealloc
 {
     [user_ release];
     [tableView release];
+    [labelLeftCharacters release];
     [super dealloc];
 }
 
@@ -64,6 +76,11 @@
 - (NSInteger)numberOfAvailableInterests
 {
     return 6;
+}
+
+- (void)updateLeftCharacters
+{
+    self.labelLeftCharacters.text = [NSString stringWithFormat:@"%d/%d", kMaxBioLength-[user_.bio length], kMaxBioLength];
 }
 
 - (void)updateBioCell:(DDTextViewTableViewCell*)cell
@@ -75,14 +92,7 @@
     cell.textView.placeholder = NSLocalizedString(@"Enter the bio", nil);
     
     //handle change of the text
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bioTextDidChange:) name:UITextViewTextDidChangeNotification object:cell.textView.textView];
-}
-
-- (void)bioTextDidChange:(NSNotification*)notification
-{
-    //update bio
-    user_.bio = [(UITextView*)[notification object] text];
+    cell.textView.textView.delegate = self;
 }
 
 - (void)updateLocationCell:(DDIconTableViewCell*)cell
@@ -129,18 +139,65 @@
 
 - (void)updateAddInterestCell:(DDTableViewCell*)cell
 {
+    //add button
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:NSLocalizedString(@"Add an Ice Breaker", nil) forState:UIControlStateNormal];
     button.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     button.frame = CGRectMake(20, 5, cell.contentView.frame.size.width-40, cell.contentView.frame.size.height-8);
     UIImage *image = [UIImage imageNamed:@"blue-icon-button.png"];
     [button setBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width-7, image.size.height/2, 7)] forState:UIControlStateNormal];
+    UIImage *icon = [UIImage imageNamed:@"plus-icon-for-button.png"];
+    [button setImage:icon forState:UIControlStateNormal];
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -62, 0, 0);
     [cell.contentView addSubview:button];
 }
 
 - (void)updateInterestCell:(DDTableViewCell*)cell withInterest:(DDInterest*)interest
 {
+    //add text
     cell.textLabel.text = [interest name];
+    
+    //add remove button
+    UIButton *removeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [removeButton setFrame:CGRectMake(0, 0, 15, 16)];
+    [removeButton setBackgroundImage:[UIImage imageNamed:@"remove-interest-button.png"] forState:UIControlStateNormal];
+    [removeButton addTarget:self action:@selector(resetInterestTouched:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryView = removeButton;
+}
+
+- (void)resetInterestTouched:(id)sender
+{
+    //get cell
+    UITableViewCell *cell = sender;
+    while (cell && ![cell isKindOfClass:[UITableViewCell class]])
+        cell = (UITableViewCell*)cell.superview;
+    
+    //get index path of the cell
+    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+    
+    //remove interest
+    NSMutableArray *newInterests = [NSMutableArray arrayWithArray:user_.interests];
+    [newInterests removeObjectAtIndex:cellIndexPath.row];
+    user_.interests = newInterests;
+    
+    //update table view
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (void)doneTouched:(id)sender
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:YES];
+    
+    //copy only needed fields
+    DDUser *userToSend = [[[DDUser alloc] init] autorelease];
+    userToSend.userId = [user_ userId];
+    userToSend.bio = user_.bio;
+    userToSend.interests = user_.interests;
+    userToSend.location = user_.location;
+    
+    //set request
+    [self.apiController updateMe:userToSend];
 }
 
 #pragma mark UITableViewDelegate
@@ -185,7 +242,22 @@
     
     if (section == 0)
     {
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"YOUR BIO", nil) detailedText:NSLocalizedString(@"SHORT N' SWEET", nil)];
+        //create new one view
+        UIView *headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"YOUR BIO", nil) detailedText:NSLocalizedString(@"SHORT N' SWEET", nil)];
+        
+        //check for new label
+        if (self.labelLeftCharacters)
+        {
+            [self.labelLeftCharacters removeFromSuperview];
+            self.labelLeftCharacters = nil;
+        }
+        
+        //add new label
+        self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 8, 80, 18)] autorelease];
+        [headerView addSubview:self.labelLeftCharacters];
+        [self updateLeftCharacters];
+        
+        return headerView;
     }
     
     if (section == 1)
@@ -231,7 +303,10 @@
     else if (section == 1)
         return 1;
     else if (section == 2)
-        return [[user_ interests] count]+1;
+    {
+        BOOL addButtonExist = [user_.interests count] < kMaxInterestsCount;
+        return [[user_ interests] count]+(int)addButtonExist;
+    }
     return 0;
 }
 
@@ -326,9 +401,53 @@
     DDTextViewTableViewCell *cell = (DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if ([cell isKindOfClass:[DDTextViewTableViewCell class]])
     {
-        if ([cell.textView.textView isFirstResponder])
+        if (scrollView != cell.textView.textView && [cell.textView.textView isFirstResponder])
             [cell.textView.textView resignFirstResponder];
     }
+}
+
+#pragma mark UITextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    //change text
+    user_.bio = textView.text;
+    
+    //update label
+    [self updateLeftCharacters];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return newLength <= kMaxBioLength;
+}
+
+#pragma mark api
+
+- (void)updateMeSucceed:(DDUser*)user
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show succeed message
+    NSString *message = NSLocalizedString(@"Done", nil);
+    
+    //show completed hud
+    [self showCompletedHudWithText:message];
+    
+    //go back
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (void)updateMeDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end
