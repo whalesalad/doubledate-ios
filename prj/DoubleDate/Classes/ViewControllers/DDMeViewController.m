@@ -40,6 +40,7 @@
 @synthesize scrollView;
 @synthesize labelTitle;
 @synthesize imageViewPoster;
+@synthesize blackBackgroundView;
 @synthesize labelLocation;
 @synthesize textViewBio;
 @synthesize textViewBioWrapper;
@@ -123,6 +124,9 @@
     CGRect textViewBioFrame = textViewBioWrapper.frame;
     textViewBioFrame.size.height = textViewBio.contentSize.height + 10;
     textViewBioWrapper.frame = textViewBioFrame;
+    
+    // Make the black background view only as tall as the bottom of text view
+    blackBackgroundView.frame = CGRectMake(0, 0, blackBackgroundView.frame.size.width, MIN(textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, scrollView.frame.size.height/2));
     
     // Create transparent white line to add below bio view.
     CALayer *bottomBorder = [CALayer layer];
@@ -229,6 +233,7 @@
     [scrollView release];
     [labelTitle release];
     [imageViewPoster release];
+    [blackBackgroundView release];
     [labelLocation release];
     [textViewBio release];
     [textViewBioWrapper release];

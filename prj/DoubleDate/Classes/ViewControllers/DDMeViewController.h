@@ -23,6 +23,7 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewPoster;
+@property(nonatomic, retain) IBOutlet UIView *blackBackgroundView;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UITextView *textViewBio;
 @property(nonatomic, retain) IBOutlet UIView *textViewBioWrapper;
