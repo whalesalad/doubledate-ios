@@ -59,6 +59,11 @@
     
     //set right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(doneTouched:)];
+    
+    //add new label
+    self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 8, 80, 18)] autorelease];
+    [self.tableView addSubview:self.labelLeftCharacters];
+    [self updateLeftCharacters];
 }
 
 - (void)dealloc
@@ -265,22 +270,7 @@
     
     if (section == 0)
     {
-        //create new one view
-        UIView *headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"YOUR BIO", nil) detailedText:NSLocalizedString(@"SHORT N' SWEET", nil)];
-        
-        //check for new label
-        if (self.labelLeftCharacters)
-        {
-            [self.labelLeftCharacters removeFromSuperview];
-            self.labelLeftCharacters = nil;
-        }
-        
-        //add new label
-        self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 8, 80, 18)] autorelease];
-        [headerView addSubview:self.labelLeftCharacters];
-        [self updateLeftCharacters];
-        
-        return headerView;
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"YOUR BIO", nil) detailedText:NSLocalizedString(@"SHORT N' SWEET", nil)];
     }
     
     if (section == 1)
