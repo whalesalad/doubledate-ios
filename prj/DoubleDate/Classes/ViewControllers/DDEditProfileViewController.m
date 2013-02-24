@@ -16,6 +16,9 @@
 #import "DDLocationChooserViewController.h"
 #import "DDInterest.h"
 #import "DDBarButtonItem.h"
+#import "DDInterestsViewController.h"
+#import "TITokenField.h"
+#import "UIViewController+Extensions.h"
 
 #define kMaxBioLength 250
 #define kMaxInterestsCount 10
@@ -43,14 +46,6 @@
     if (self)
     {
         user_ = [user copy];
-        
-        user_.interests = [NSMutableArray array];
-        for (int i = 0; i < 3; i++)
-        {
-            DDInterest *interest = [[[DDInterest alloc] init] autorelease];
-            interest.name = [NSString stringWithFormat:@"%d", i];
-            [user_.interests addObject:interest];
-        }
     }
     return self;
 }
@@ -127,6 +122,51 @@
     [button setImage:icon forState:UIControlStateNormal];
     button.imageEdgeInsets = UIEdgeInsetsMake(0, -62, 0, 0);
     [cell.contentView addSubview:button];
+    [button addTarget:self action:@selector(createInterestTouched:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)createInterestTouched:(id)sender
+{
+    //create veiw controller
+    DDInterestsViewController *viewController = [[[DDInterestsViewController alloc] init] autorelease];
+    viewController.user = user_;
+    [self.navigationController pushViewController:viewController animated:YES];
+    
+    //update tokens
+    for (DDInterest *interest in user_.interests)
+        [viewController.tokenFieldViewInterests.tokenField addToken:[[[TIToken alloc] initWithTitle:interest.name] autorelease]];
+    
+    //set navigation buttons
+    viewController.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(updateInterestsTouched:)];
+    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(cancelInterestsTouched:)];
+}
+
+- (void)updateInterestsTouched:(id)sender
+{
+    //get interest view controller
+    DDInterestsViewController *viewController = (DDInterestsViewController*)[self viewControllerForClass:[DDInterestsViewController class]];
+    
+    //add interests
+    NSMutableArray *interests = [NSMutableArray array];
+    for (NSString *title in viewController.tokenFieldViewInterests.tokenTitles)
+    {
+        DDInterest *interest = [[[DDInterest alloc] init] autorelease];
+        interest.name = title;
+        [interests addObject:interest];
+    }
+    user_.interests = interests;
+    
+    //reload the table
+    [self.tableView reloadData];
+    
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)cancelInterestsTouched:(id)sender
+{
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updateInterestCell:(DDTableViewCell*)cell withInterest:(DDInterest*)interest
