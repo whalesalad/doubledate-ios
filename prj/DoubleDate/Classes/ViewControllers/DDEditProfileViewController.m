@@ -19,10 +19,12 @@
 
 #define kMaxBioLength 250
 #define kMaxInterestsCount 10
+#define kMinTextViewLinesNumber 4
 
 @interface DDEditProfileViewController () <DDLocationPickerViewControllerDelegate, UITextViewDelegate>
 
 @property(nonatomic, retain) UILabel *labelLeftCharacters;
+@property(nonatomic, retain) UITextView *textViewBio;
 
 - (NSInteger)numberOfAvailableInterests;
 - (void)updateLeftCharacters;
@@ -33,6 +35,7 @@
 
 @synthesize tableView;
 @synthesize labelLeftCharacters;
+@synthesize textViewBio;
 
 - (id)initWithUser:(DDUser*)user
 {
@@ -68,6 +71,7 @@
     [user_ release];
     [tableView release];
     [labelLeftCharacters release];
+    [textViewBio release];
     [super dealloc];
 }
 
@@ -207,7 +211,13 @@
     if (indexPath.section == 0)
     {
         UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:16];
-        return [font lineHeight]*4;
+        NSInteger numberOfLines = kMinTextViewLinesNumber;
+        if (self.textViewBio)
+        {
+            font = self.textViewBio.font;
+            numberOfLines = self.textViewBio.contentSize.height / [font lineHeight] + 1;
+        }
+        return [font lineHeight]*MAX(kMinTextViewLinesNumber, numberOfLines);
     }
     
     if (indexPath.section == 1)
@@ -318,6 +328,9 @@
         //create cell
         DDTextViewTableViewCell *cell = [[[DDTextViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
         
+        //save bio text view
+        self.textViewBio = cell.textView.textView;
+        
         //apply styling for cell
         [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
         
@@ -415,6 +428,10 @@
     
     //update label
     [self updateLeftCharacters];
+    
+    //update table view height
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
