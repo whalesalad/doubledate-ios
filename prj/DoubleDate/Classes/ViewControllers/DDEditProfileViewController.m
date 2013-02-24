@@ -99,40 +99,13 @@
     cell.textView.textView.delegate = self;
 }
 
-- (void)updateLocationCell:(DDIconTableViewCell*)cell
+- (void)updateLocationCell:(DDTableViewCell*)cell
 {
     //apply blank image by default
-    cell.iconImageView.image = [UIImage imageNamed:@"create-dd-unselected-location.png"];
+    cell.imageView.image = [UIImage imageNamed:@"edit-profile-location-icon.png"];
     
-    //set left text
-    cell.leftText = NSLocalizedString(@"WHERE", nil);
-    
-    //set right placeholder
-    cell.rightPlaceholder = NSLocalizedString(@"Choose a location...", nil);
-    
-    //unset right text
-    cell.rightText = nil;
-    
-    //unset accessory view
-    cell.accessoryView = nil;
-    
-    //update user's location
-    if (user_.location)
-    {
-        //apply image
-        cell.iconImageView.image = [UIImage imageNamed:@"create-dd-selected-location.png"];
-        
-        //set location text
-        cell.rightText = [user_.location name];
-        
-        //set close button
-        UIImage *closeImage = [UIImage imageNamed:@"search-clear-button.png"];
-        UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        closeButton.frame = CGRectMake(0, 0, closeImage.size.width, closeImage.size.height);
-        [closeButton addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [closeButton setBackgroundImage:closeImage forState:UIControlStateNormal];
-        cell.accessoryView = closeButton;
-    }
+    //set location text
+    cell.textLabel.text = [user_.location name];
 }
 
 - (void)resetLocationTouched:(id)sender
@@ -343,7 +316,7 @@
     else if (indexPath.section == 1)
     {
         //create cell
-        DDIconTableViewCell *cell = [[[DDIconTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        DDTableViewCell *cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
         
         //apply styling for cell
         [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
