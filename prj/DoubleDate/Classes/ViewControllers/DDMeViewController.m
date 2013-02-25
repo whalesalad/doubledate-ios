@@ -21,6 +21,7 @@
 #import "DDWingTableViewCell.h"
 #import "DDAppDelegate+Navigation.h"
 #import "DDEditProfileViewController.h"
+#import "DDObjectsController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -31,6 +32,9 @@
 
 - (void)setAvatarShown:(BOOL)shown;
 - (void)updateAvatarWithImage:(UIImage*)image;
+
+@property(nonatomic, retain) CAGradientLayer *textViewBioGradient;
+@property(nonatomic, retain) CALayer *bottomBorder;
 
 @end
 
@@ -54,6 +58,8 @@
 @synthesize labelCoins;
 @synthesize imageViewCoins;
 @synthesize coinBar;
+@synthesize textViewBioGradient;
+@synthesize bottomBorder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,6 +67,7 @@
     if (self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageViewUpdateNotification:) name:DDImageViewUpdateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectUpdatedNotification:) name:DDObjectsControllerDidUpdateObjectNotification object:nil];
     }
     return self;
 }
@@ -108,65 +115,17 @@
     if (user.photo.mediumUrl)
         [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.mediumUrl]];
     
-    //set biography
-    textViewBio.text = user.bio;
+    //reinit bio
+    [self reinitBio];
     
-    //set location
-    labelLocation.text = [[user location] name];
+    //reinit location
+    [self reinitLocation];
     
     //update more coins button
     [buttonMoreCoins setBackgroundImage:[DDTools resizableImageFromImage:[buttonMoreCoins backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     
     //update coins label
     labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
-        
-    // watch for text view change
-    CGRect textViewBioFrame = textViewBioWrapper.frame;
-    textViewBioFrame.size.height = textViewBio.contentSize.height + 10;
-    textViewBioWrapper.frame = textViewBioFrame;
-    
-    // Make the black background view only as tall as the bottom of text view
-    blackBackgroundView.frame = CGRectMake(0, 0, blackBackgroundView.frame.size.width, MIN(textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, scrollView.frame.size.height/2));
-    
-    // Create transparent white line to add below bio view.
-    CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.frame = CGRectMake(0.0f, textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, 320, 1.0f);
-    bottomBorder.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.03f].CGColor;
-    
-    // Add the border to the scrollview
-    [scrollView.layer addSublayer:bottomBorder];
-    
-    // Create inner gradient for bio
-    CAGradientLayer *textViewBioGradient = [CAGradientLayer layer];
-    textViewBioGradient.frame = textViewBioWrapper.bounds;
-    textViewBioGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                                           (id)[[UIColor colorWithWhite:1.0f alpha:0.1f] CGColor], nil];
-    
-    // Add the gradient to the back of the text view
-    [textViewBioWrapper.layer insertSublayer:textViewBioGradient atIndex:0];
-    
-    
-    // change position
-//    self.labelInterests.frame = CGRectMake(labelInterests.frame.origin.x, labelInterests.frame.origin.y+dh, labelInterests.frame.size.width, labelInterests.frame.size.height);
-    
-//    self.labelInterests.hidden = [self.user.interests count] == 0;
-    
-//    self.viewInterests.frame = CGRectMake(viewInterests.frame.origin.x, viewInterests.frame.origin.y+dh, viewInterests.frame.size.width, viewInterests.frame.size.height);
-    
-//    self.viewInterests.hidden = self.labelInterests.hidden;
-    
-    // space between textViewBio and interestsWrapper
-    CGFloat textInterestSpacing = 12.0f;
-    
-    // resize interest wrapper view
-    CGRect interestsWrapperFrame = self.interestsWrapper.frame;
-    interestsWrapperFrame.origin.y = textViewBioWrapper.frame.size.height + textViewBioWrapper.frame.origin.y + textInterestSpacing;
-    self.interestsWrapper.frame = interestsWrapperFrame;
-    
-    // Hide interests if there aren't any
-    self.interestsWrapper.hidden = [self.user.interests count] == 0;
-    
-    
     
     //make background clear
     labelTitle.backgroundColor = [UIColor clearColor];
@@ -184,11 +143,24 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self reinitBio];
     [self reinitInterests];
+    [self reinitLocation];
 }
 
 - (void)reinitInterests
 {
+    // space between textViewBio and interestsWrapper
+    CGFloat textInterestSpacing = 12.0f;
+    
+    // resize interest wrapper view
+    CGRect interestsWrapperFrame = self.interestsWrapper.frame;
+    interestsWrapperFrame.origin.y = textViewBioWrapper.frame.size.height + textViewBioWrapper.frame.origin.y + textInterestSpacing;
+    self.interestsWrapper.frame = interestsWrapperFrame;
+    
+    // Hide interests if there aren't any
+    self.interestsWrapper.hidden = [self.user.interests count] == 0;
+    
     //save old frame
     CGRect oldInterestsFrame = viewInterests.frame;
     
@@ -204,6 +176,51 @@
     
     //apply needed content size
     self.scrollView.contentSize = CGSizeMake(320, viewInterests.frame.origin.y+interestsWrapper.frame.origin.y+viewInterests.frame.size.height);
+}
+
+- (void)reinitBio
+{
+    //set biography
+    textViewBio.text = user.bio;
+    
+    // watch for text view change
+    CGRect textViewBioFrame = textViewBioWrapper.frame;
+    textViewBioFrame.size.height = textViewBio.contentSize.height + 10;
+    textViewBioWrapper.frame = textViewBioFrame;
+    
+    // Make the black background view only as tall as the bottom of text view
+    blackBackgroundView.frame = CGRectMake(0, 0, blackBackgroundView.frame.size.width, MIN(textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, scrollView.frame.size.height/2));
+    
+    //remove old one
+    [self.textViewBioGradient removeFromSuperlayer];
+    self.textViewBioGradient = nil;
+    
+    // Create inner gradient for bio
+    self.textViewBioGradient = [CAGradientLayer layer];
+    self.textViewBioGradient.frame = textViewBioWrapper.bounds;
+    self.textViewBioGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+                                       (id)[[UIColor colorWithWhite:1.0f alpha:0.1f] CGColor], nil];
+    
+    // Add the gradient to the back of the text view
+    [textViewBioWrapper.layer insertSublayer:self.textViewBioGradient atIndex:0];
+    
+    //remove old one
+    [self.bottomBorder removeFromSuperlayer];
+    self.bottomBorder = nil;
+    
+    // Create transparent white line to add below bio view.
+    self.bottomBorder = [CALayer layer];
+    self.bottomBorder.frame = CGRectMake(0.0f, textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, 320, 1.0f);
+    self.bottomBorder.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.03f].CGColor;
+    
+    // Add the border to the scrollview
+    [scrollView.layer addSublayer:self.bottomBorder];
+}
+
+- (void)reinitLocation
+{
+    //set location
+    labelLocation.text = [[user location] name];
 }
 
 - (void)alignCoinsLabel
@@ -246,6 +263,8 @@
     [labelCoins release];
     [imageViewCoins release];
     [coinBar release];
+    [textViewBioGradient release];
+    [bottomBorder release];
     [super dealloc];
 }
 
@@ -431,6 +450,16 @@
 {
     if ([notification object] == self.imageViewPoster)
         [self setAvatarShown:YES];
+}
+
+- (void)objectUpdatedNotification:(NSNotification*)notification
+{
+    if ([[notification object] isKindOfClass:[DDUser class]])
+    {
+        DDUser *userToUpdate = (DDUser*)[notification object];
+        if ([[userToUpdate userId] intValue] == [self.user.userId intValue])
+            self.user = userToUpdate;
+    }
 }
 
 #pragma mark -
