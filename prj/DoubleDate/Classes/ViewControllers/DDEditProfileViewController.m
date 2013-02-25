@@ -72,6 +72,14 @@
     
     [self.tableView addSubview:self.labelLeftCharacters];
     [self updateLeftCharacters];
+    
+    [self performSelector:@selector(customizeTextViewAtFirst) withObject:nil afterDelay:0];
+}
+
+- (void)customizeTextViewAtFirst
+{
+    [self.tableView reloadData];
+    [self textViewDidChange:self.textViewBio];
 }
 
 - (void)dealloc
