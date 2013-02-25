@@ -19,6 +19,7 @@
 #import "DDInterestsViewController.h"
 #import "TITokenField.h"
 #import "UIViewController+Extensions.h"
+#import "DDAuthenticationController.h"
 
 #define kMaxBioLength 250
 #define kMaxInterestsCount 10
@@ -203,7 +204,16 @@
     user_.interests = newInterests;
     
     //update table view
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    if ([user_.interests count] == kMaxInterestsCount-1)
+    {
+//        NSMutableArray *indexes = [NSMutableArray array];
+//        for (int i = cellIndexPath.row; i < [user_.interests count]+1; i++)
+//            [indexes addObject:[NSIndexPath indexPathForRow:i inSection:cellIndexPath.section]];
+//        [self.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:UITableViewRowAnimationTop];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)doneTouched:(id)sender
