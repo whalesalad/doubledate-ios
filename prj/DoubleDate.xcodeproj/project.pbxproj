@@ -346,6 +346,7 @@
 		706EFAAD16C9B9BC00DD5791 /* DDNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 706EFAAC16C9B9BC00DD5791 /* DDNotificationTableViewCell.xib */; };
 		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
+		7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */; };
 		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
 		708893AD164C4D1B000D3A00 /* DDIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */; };
 		708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 708957DD16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m */; };
@@ -913,6 +914,8 @@
 		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
+		7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSelectInterestsViewController.h; sourceTree = "<group>"; };
+		7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectInterestsViewController.m; sourceTree = "<group>"; };
 		7086D9F016B54E3D003310D1 /* DDAppDelegate+APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+APNS.h"; sourceTree = "<group>"; };
 		7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+APNS.m"; sourceTree = "<group>"; };
 		708893AB164C4D1B000D3A00 /* DDIconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDIconTableViewCell.h; sourceTree = "<group>"; };
@@ -1974,6 +1977,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
+				7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */,
 				96E2623316D651140041FD26 /* DDEditProfileViewController.h */,
 				96E2623416D651140041FD26 /* DDEditProfileViewController.m */,
 				706EFAA316C9B18F00DD5791 /* DDNotificationsViewController.h */,
@@ -2772,6 +2777,7 @@
 				96F12DC816D4BAB0009127AF /* JBKenBurnsView.m in Sources */,
 				96E2623616D651140041FD26 /* DDEditProfileViewController.m in Sources */,
 				964220CF16DB567900840733 /* DDMaxActivitiesPayload.m in Sources */,
+				7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

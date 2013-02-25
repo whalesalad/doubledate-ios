@@ -16,10 +16,11 @@
 #import "DDLocationChooserViewController.h"
 #import "DDInterest.h"
 #import "DDBarButtonItem.h"
-#import "DDInterestsViewController.h"
+#import "DDSelectInterestsViewController.h"
 #import "TITokenField.h"
 #import "UIViewController+Extensions.h"
 #import "DDAuthenticationController.h"
+#import "DDSelectInterestsViewController.h"
 
 #define kMaxBioLength 250
 #define kMaxInterestsCount 10
@@ -192,33 +193,22 @@
 - (void)createInterestTouched:(id)sender
 {
     //create veiw controller
-    DDInterestsViewController *viewController = [[[DDInterestsViewController alloc] init] autorelease];
-    viewController.user = user_;
+    DDSelectInterestsViewController *viewController = [[[DDSelectInterestsViewController alloc] init] autorelease];
+    viewController.selectedInterests = user_.interests;
+    viewController.maxInterestsCount = kMaxInterestsCount;
     [self.navigationController pushViewController:viewController animated:YES];
-    
-    //update tokens
-    for (DDInterest *interest in user_.interests)
-        [viewController.tokenFieldViewInterests.tokenField addToken:[[[TIToken alloc] initWithTitle:interest.name] autorelease]];
     
     //set navigation buttons
     viewController.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(updateInterestsTouched:)];
-    viewController.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(cancelInterestsTouched:)];
 }
 
 - (void)updateInterestsTouched:(id)sender
 {
     //get interest view controller
-    DDInterestsViewController *viewController = (DDInterestsViewController*)[self viewControllerForClass:[DDInterestsViewController class]];
-    
-    //add interests
-    NSMutableArray *interests = [NSMutableArray array];
-    for (NSString *title in viewController.tokenFieldViewInterests.tokenTitles)
-    {
-        DDInterest *interest = [[[DDInterest alloc] init] autorelease];
-        interest.name = title;
-        [interests addObject:interest];
-    }
-    user_.interests = interests;
+    DDSelectInterestsViewController *viewController = (DDSelectInterestsViewController*)[self viewControllerForClass:[DDSelectInterestsViewController class]];
+
+    //update interests
+    user_.interests = viewController.selectedInterests;
     
     //reload the table
     [self.tableView reloadData];

@@ -189,6 +189,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     [self.tableView reloadData];
     if (self.showsCancelButton)
         [aSearchBar setShowsCancelButton:YES animated:YES];
+    refreshControlEnabled_ = [self isRefreshControlEnabled];
     [self setIsRefreshControlEnabled:NO];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
@@ -196,7 +197,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 - (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
 {
     [aSearchBar setShowsCancelButton:NO animated:YES];
-    [self setIsRefreshControlEnabled:YES];
+    [self setIsRefreshControlEnabled:refreshControlEnabled_];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 

@@ -199,6 +199,7 @@ typedef int DDRequestId;
 - (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options;
 
 - (DDRequestId)requestAvailableInterests;
+- (DDRequestId)requestAvailableInterestsWithQuery:(NSString*)query;
 
 - (DDRequestId)getFriends;
 

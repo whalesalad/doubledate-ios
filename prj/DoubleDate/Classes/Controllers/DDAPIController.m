@@ -361,8 +361,15 @@
 
 - (DDRequestId)requestAvailableInterests
 {
+    return [self requestAvailableInterestsWithQuery:nil];
+}
+
+- (DDRequestId)requestAvailableInterestsWithQuery:(NSString*)query
+{
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"interests"];
+    if ([query length])
+        requestPath = [NSString stringWithFormat:@"%@?query=%@", requestPath, [query stringByAddingURLEncoding]];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
     
@@ -1163,7 +1170,7 @@
             errorMessage = responseMessage;
         
         //create error
-        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+        NSError *error = [NSError errorWithDomain:DDErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
         
         //redirect to self
         [self request:request didFailLoadWithError:error];
@@ -1191,7 +1198,7 @@
 - (void)requestDidCancelLoad:(RKRequest *)request
 {
     //create error
-    NSError *error = [NSError errorWithDomain:@"DDDomain" code:DDErrorTypeCancelled userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Cancelled", nil) forKey:NSLocalizedDescriptionKey]];
+    NSError *error = [NSError errorWithDomain:DDErrorDomain code:DDErrorTypeCancelled userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Cancelled", nil) forKey:NSLocalizedDescriptionKey]];
     
     //redirect to self
     [self request:request didFailLoadWithError:error];
@@ -1203,7 +1210,7 @@
 - (void)requestDidTimeout:(RKRequest *)request
 {
     //create error
-    NSError *error = [NSError errorWithDomain:@"DDDomain" code:DDErrorTypeTimeout userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Timeout", nil) forKey:NSLocalizedDescriptionKey]];
+    NSError *error = [NSError errorWithDomain:DDErrorDomain code:DDErrorTypeTimeout userInfo:[NSDictionary dictionaryWithObject:NSLocalizedString(@"Timeout", nil) forKey:NSLocalizedDescriptionKey]];
     
     //redirect to self
     [self request:request didFailLoadWithError:error];

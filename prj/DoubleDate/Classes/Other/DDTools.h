@@ -16,6 +16,8 @@ typedef enum
     DDErrorTypeOther
 } DDErrorType;
 
+extern NSString *DDErrorDomain;
+
 @interface DDTools : NSObject
 {
 }

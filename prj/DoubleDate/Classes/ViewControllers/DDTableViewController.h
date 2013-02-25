@@ -22,6 +22,7 @@
     NSString *searchTerm_;
     BOOL movedWithKeyboard_;
     UIView *viewNoData_;
+    BOOL refreshControlEnabled_;
 }
 
 @property(nonatomic, assign) BOOL showsCancelButton;

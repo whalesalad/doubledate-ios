@@ -15,6 +15,8 @@
 #define API_URL @"http://api.dbld8.com"
 #define SERVER_URL @"http://dbld8.com"
 
+NSString *DDErrorDomain = @"DDErrorDomain";
+
 @implementation DDTools
 
 + (NSString*)apiUrlPath

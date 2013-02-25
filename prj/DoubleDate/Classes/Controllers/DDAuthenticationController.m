@@ -204,7 +204,7 @@ static DDAuthenticationController *_sharedInstance = nil;
             [userInfo setObject:codeMessage forKey:DDAuthenticationControllerAuthenticateDidFailedUserInfoCodeKey];
         
         //create error
-        NSError *error = [NSError errorWithDomain:@"DDDomain" code:-1 userInfo:userInfo];
+        NSError *error = [NSError errorWithDomain:DDErrorDomain code:-1 userInfo:userInfo];
         
         //redirect to self
         [self request:request didFailLoadWithError:error];
