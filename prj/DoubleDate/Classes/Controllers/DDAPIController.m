@@ -23,6 +23,7 @@
 #import "DDMessage.h"
 #import "DDNotification.h"
 #import "DDObjectsController.h"
+#import "DDMaxActivitiesPayload.h"
  
 @interface DDAPIControllerUserData : NSObject
 
@@ -835,6 +836,27 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)getMeUnlockMaxActivities
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/unlock/max_activities"]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetMeUnlock;
+    userData.succeedSel = @selector(getMeUnlockMaxActivitiesSucceed:);
+    userData.failedSel = @selector(getMeUnlockMaxActivitiesDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -1111,6 +1133,18 @@
         {
             //create object
             DDNotification *notification = [DDNotification objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:notification withMethod:request.method cachePath:request.URL.absoluteString];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:notification withObject:userData.userData];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetMeUnlock)
+        {
+            //create object
+            DDMaxActivitiesPayload *notification = [DDMaxActivitiesPayload objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
             
             //notify objects controller
             [DDObjectsController updateObject:notification withMethod:request.method cachePath:request.URL.absoluteString];

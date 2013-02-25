@@ -18,6 +18,7 @@
 @class DDEngagement;
 @class DDMessage;
 @class DDNotification;
+@class DDMaxActivitiesPayload;
 
 typedef enum
 {
@@ -58,6 +59,7 @@ typedef enum
     DDAPIControllerMethodTypeGetNotifications,
     DDAPIControllerMethodTypeGetNotification,
     DDAPIControllerMethodTypeUpdateNotification,
+    DDAPIControllerMethodTypeGetMeUnlock,
 } DDAPIControllerMethodType;
 
 typedef int DDRequestId;
@@ -159,6 +161,9 @@ typedef int DDRequestId;
 - (void)updateNotificationSucceed:(DDNotification*)notification;
 - (void)updateNotificationDidFailedWithError:(NSError*)error;
 
+- (void)getMeUnlockMaxActivitiesSucceed:(DDMaxActivitiesPayload*)payload;
+- (void)getMeUnlockMaxActivitiesDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -236,5 +241,7 @@ typedef int DDRequestId;
 - (DDRequestId)getNotification:(DDNotification*)notification;
 
 - (DDRequestId)updateNotification:(DDNotification*)notification;
+
+- (DDRequestId)getMeUnlockMaxActivities;
 
 @end
