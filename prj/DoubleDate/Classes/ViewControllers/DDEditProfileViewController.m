@@ -178,7 +178,7 @@
     button.titleLabel.shadowOffset = CGSizeMake(0, -1);
     
     button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    button.frame = CGRectMake(20, 5, cell.contentView.frame.size.width-40, cell.contentView.frame.size.height-8);
+    button.frame = CGRectMake(20, 12, cell.contentView.frame.size.width-40, 42);
     UIImage *image = [UIImage imageNamed:@"blue-icon-button.png"];
     [button setBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width-7, image.size.height/2, 7)] forState:UIControlStateNormal];
     UIImage *icon = [UIImage imageNamed:@"plus-icon-for-button.png"];
@@ -314,7 +314,11 @@
         return [DDTableViewCell height];
     
     if (indexPath.section == 2)
+    {
+        if ([user_.interests count] < kMaxInterestsCount && [user_.interests count] == indexPath.row)
+            return 65;
         return 50;
+    }
     
     return 0;
 }
