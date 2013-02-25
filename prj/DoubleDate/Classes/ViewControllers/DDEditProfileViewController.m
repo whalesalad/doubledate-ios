@@ -60,7 +60,7 @@
     self.navigationItem.title = NSLocalizedString(@"Edit Profile", nil);
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(doneTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Save", nil) target:self action:@selector(doneTouched:)];
     
     //add new label
     self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 22, 80, 18)] autorelease];
@@ -498,7 +498,7 @@
     [self hideHud:YES];
     
     //show succeed message
-    NSString *message = NSLocalizedString(@"Done", nil);
+    NSString *message = NSLocalizedString(@"Saved", nil);
     
     //show completed hud
     [self showCompletedHudWithText:message];
