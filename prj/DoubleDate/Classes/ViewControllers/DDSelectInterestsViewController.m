@@ -14,17 +14,24 @@
 #import "DDSearchBar.h"
 #import "DDTools.h"
 
-@interface DDSelectInterestsViewController ()
+@interface DDSelectInterestsViewController ()<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, assign) BOOL searchMode;
+@property(nonatomic, retain) UITableView *tableView;
+@property(nonatomic, retain) DDSearchBar *searchBar;
+
+- (void)onRefresh;
 
 @end
 
 @implementation DDSelectInterestsViewController
 
 @synthesize searchMode;
+@synthesize tableView;
+@synthesize searchBar;
 @synthesize selectedInterests;
 @synthesize maxInterestsCount;
+@synthesize delegate;
 
 - (void)viewDidLoad
 {
@@ -36,11 +43,47 @@
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(doneTouched:)];
     
-    //disable reloading
-    [self setIsRefreshControlEnabled:NO];
-    
     //load data
     [self onRefresh];
+    
+    //add search bar
+    self.searchBar = [[[DDSearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    self.searchBar.delegate = self;
+    [self.searchBar setShowsCancelButton:YES animated:NO];
+    [self.view addSubview:self.searchBar];
+    
+    //set search mode
+    self.searchMode = YES;
+    
+    //set content insets as we have search bar
+    self.tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, 44, 320, self.view.frame.size.height-44-216) style:UITableViewStylePlain] autorelease];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.tableView];
+    
+    //set table view properties
+    [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setSeparatorColor:[UIColor clearColor]];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //hide navigation bar
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    //unsetup search bar
+    self.tableView.tableHeaderView = nil;
+    
+    //reload data
+    [self.tableView reloadData];
+    
+    //enable cancel button
+    [self.searchBar.textField becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -52,6 +95,9 @@
 {
     [allInterests_ release];
     [selectedInterests release];
+    [interestsToShow_ release];
+    [tableView release];
+    [searchBar release];
     [super dealloc];
 }
 
@@ -60,14 +106,12 @@
 
 - (void)onDataRefreshed
 {
-    //hide loading
-    [self finishRefresh];
+    //update filtered interests
+    [interestsToShow_ release];
+    interestsToShow_ = [[self interestsToShowInternal] retain];
     
     //reload the table
     [self.tableView reloadData];
-    
-    //update no messages
-    [self updateNoDataView];
 }
 
 - (void)doneTouched:(id)sender
@@ -75,13 +119,19 @@
     
 }
 
-- (NSArray*)interestsToShow
+- (NSString*)searchTerm
+{
+    return self.searchBar.text;
+}
+
+- (NSArray*)interestsToShowInternal
 {
     if (self.searchMode)
     {
         NSMutableArray *ret = [NSMutableArray array];
         
         //add filtered objects from interests
+        BOOL existTheSameName = NO;
         for (DDInterest *i in allInterests_)
         {
             //check search condition
@@ -95,16 +145,25 @@
             //check if we can add the double date
             if (existInSearch)
                 [ret addObject:i];
+            
+            //check if exactly the same name
+            if ([self.searchTerm length] && [[self.searchTerm lowercaseString] isEqualToString:[i.name lowercaseString]])
+                existTheSameName = YES;
         }
         
         //add search word
-        if ([self.searchTerm length])
+        if ([self.searchTerm length] && !existTheSameName)
             [ret addObject:self.searchTerm];
         
         return ret;
     }
     else
         return self.selectedInterests;
+}
+
+- (NSArray*)interestsToShow
+{
+    return interestsToShow_;
 }
 
 - (NSString*)interestNameForIndexPath:(NSIndexPath*)indexPath
@@ -133,40 +192,13 @@
         //save selected interest
         NSString *selectedInterestName = [self interestNameForIndexPath:indexPath];
         
-        //save if interest already exist
-        BOOL interestAlreadyExist = NO;
-        for (DDInterest *i in self.selectedInterests)
-        {
-            if ([[i name] isEqualToString:selectedInterestName])
-                interestAlreadyExist = YES;
-        }
+        //create object
+        DDInterest *interest = [[[DDInterest alloc] init] autorelease];
+        interest.name = selectedInterestName;
         
-        //check if interest already exist
-        if (!interestAlreadyExist)
-        {
-            //create object
-            DDInterest *interest = [[[DDInterest alloc] init] autorelease];
-            interest.name = selectedInterestName;
-            
-            //set interests
-            self.selectedInterests = [self.selectedInterests arrayByAddingObject:interest];
-        }
+        //inform delegate
+        [self.delegate selectInterestsViewController:self didSelectInterest:interest];
     }
-    
-    //unset search mode
-    self.searchMode = NO;
-    
-    //reload data
-    [self.tableView reloadData];
-    
-    //resign first responder
-    [[self.searchBar textField] resignFirstResponder];
-    
-    //unset search text
-    [[self.searchBar textField] setText:nil];
-    
-    //deselect then
-    [aTableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -
@@ -272,22 +304,24 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)aSearchBar
 {
-    [super searchBarTextDidBeginEditing:aSearchBar];
     self.searchMode = YES;
     [self.tableView reloadData];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
 {
-    [super searchBarTextDidEndEditing:aSearchBar];
     self.searchMode = NO;
     [self.tableView reloadData];
 }
 
-- (void)onChangedSearchTerm
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    [super onChangedSearchTerm];
     [self onRefresh];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)aSearchBar
+{
+    [self.delegate selectInterestsViewControllerDidCancel:self];
 }
 
 #pragma mark -
@@ -301,12 +335,6 @@
         [selectedInterests release];
         selectedInterests = [v retain];
     }
-    
-    //update search mode
-    if (self.maxInterestsCount && [selectedInterests count] < self.maxInterestsCount)
-        [self setupSearchBar];
-    else
-        [self.tableView setTableHeaderView:nil];
 }
 
 - (void)setMaxInterestsCount:(NSInteger)v
@@ -316,12 +344,6 @@
     {
         maxInterestsCount = v;
     }
-    
-    //update search mode
-    if (self.maxInterestsCount && [selectedInterests count] < self.maxInterestsCount)
-        [self setupSearchBar];
-    else
-        [self.tableView setTableHeaderView:nil];
 }
 
 @end

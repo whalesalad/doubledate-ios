@@ -26,7 +26,7 @@
 #define kMaxInterestsCount 10
 #define kMinTextViewLinesNumber 4
 
-@interface DDEditProfileViewController () <DDLocationPickerViewControllerDelegate, UITextViewDelegate>
+@interface DDEditProfileViewController () <DDLocationPickerViewControllerDelegate, UITextViewDelegate, DDSelectInterestsViewControllerDelegate>
 
 @property(nonatomic, retain) UILabel *labelLeftCharacters;
 @property(nonatomic, retain) UITextView *textViewBio;
@@ -75,6 +75,14 @@
     [self updateLeftCharacters];
     
     [self performSelector:@selector(customizeTextViewAtFirst) withObject:nil afterDelay:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //show navigation bar
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)customizeTextViewAtFirst
@@ -196,31 +204,8 @@
     DDSelectInterestsViewController *viewController = [[[DDSelectInterestsViewController alloc] init] autorelease];
     viewController.selectedInterests = user_.interests;
     viewController.maxInterestsCount = kMaxInterestsCount;
+    viewController.delegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
-    
-    //set navigation buttons
-    viewController.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(updateInterestsTouched:)];
-}
-
-- (void)updateInterestsTouched:(id)sender
-{
-    //get interest view controller
-    DDSelectInterestsViewController *viewController = (DDSelectInterestsViewController*)[self viewControllerForClass:[DDSelectInterestsViewController class]];
-
-    //update interests
-    user_.interests = viewController.selectedInterests;
-    
-    //reload the table
-    [self.tableView reloadData];
-    
-    //pop view controller
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)cancelInterestsTouched:(id)sender
-{
-    //pop view controller
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)updateInterestCell:(DDTableViewCell*)cell withInterest:(DDInterest*)interest
@@ -530,6 +515,38 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark DDSelectInterestsViewControllerDelegate
+
+- (void)selectInterestsViewController:(DDSelectInterestsViewController*)viewController didSelectInterest:(DDInterest*)interest
+{
+    //add interest if not exist
+    BOOL isExist = NO;
+    for (DDInterest *i in user_.interests)
+    {
+        if ([[[i name] lowercaseString] isEqualToString:[[interest name] lowercaseString]])
+            isExist = YES;
+    }
+    if (!isExist)
+    {
+        //update interests
+        if (!user_.interests)
+            user_.interests = [NSArray arrayWithObject:interest];
+        else
+            user_.interests = [user_.interests arrayByAddingObject:interest];
+        
+        //reload the data
+        [self.tableView reloadData];
+    }
+    
+    //go back
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)selectInterestsViewControllerDidCancel:(DDSelectInterestsViewController*)viewController
+{
+    //go back
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

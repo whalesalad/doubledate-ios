@@ -6,13 +6,26 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDTableViewController.h"
+#import "DDViewController.h"
 
-@interface DDSelectInterestsViewController : DDTableViewController
+@class DDSelectInterestsViewController;
+@class DDInterest;
+
+@protocol DDSelectInterestsViewControllerDelegate <NSObject>
+
+- (void)selectInterestsViewController:(DDSelectInterestsViewController*)viewController didSelectInterest:(DDInterest*)interest;
+- (void)selectInterestsViewControllerDidCancel:(DDSelectInterestsViewController*)viewController;
+
+@end
+
+@interface DDSelectInterestsViewController : DDViewController
 {
     DDRequestId request_;
     NSArray *allInterests_;
+    NSArray *interestsToShow_;
 }
+
+@property(nonatomic, assign) id<DDSelectInterestsViewControllerDelegate> delegate;
 
 @property(nonatomic, retain) NSArray *selectedInterests;
 @property(nonatomic, assign) NSInteger maxInterestsCount;
