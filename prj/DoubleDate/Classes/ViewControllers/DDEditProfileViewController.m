@@ -62,7 +62,14 @@
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(doneTouched:)];
     
     //add new label
-    self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 8, 80, 18)] autorelease];
+    self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 22, 80, 18)] autorelease];
+    self.labelLeftCharacters.backgroundColor = [UIColor clearColor];
+    self.labelLeftCharacters.textColor = [UIColor darkGrayColor];
+    self.labelLeftCharacters.textAlignment = NSTextAlignmentRight;
+    self.labelLeftCharacters.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    self.labelLeftCharacters.shadowOffset = CGSizeMake(0, -1);
+    self.labelLeftCharacters.shadowColor = [UIColor colorWithWhite:0 alpha:0.6f];
+    
     [self.tableView addSubview:self.labelLeftCharacters];
     [self updateLeftCharacters];
 }
@@ -85,7 +92,7 @@
 
 - (void)updateLeftCharacters
 {
-    self.labelLeftCharacters.text = [NSString stringWithFormat:@"%d/%d", kMaxBioLength-[user_.bio length], kMaxBioLength];
+    self.labelLeftCharacters.text = [NSString stringWithFormat:@"%d/%d", user_.bio.length, kMaxBioLength];
 }
 
 - (void)updateBioCell:(DDTextViewTableViewCell*)cell
@@ -120,13 +127,30 @@
     //add button
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:NSLocalizedString(@"Add an Ice Breaker", nil) forState:UIControlStateNormal];
-    button.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+    button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
+    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+    
+    button.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     button.frame = CGRectMake(20, 5, cell.contentView.frame.size.width-40, cell.contentView.frame.size.height-8);
     UIImage *image = [UIImage imageNamed:@"blue-icon-button.png"];
     [button setBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width-7, image.size.height/2, 7)] forState:UIControlStateNormal];
     UIImage *icon = [UIImage imageNamed:@"plus-icon-for-button.png"];
     [button setImage:icon forState:UIControlStateNormal];
-    button.imageEdgeInsets = UIEdgeInsetsMake(0, -62, 0, 0);
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -42-icon.size.width/2, 0, 0);
+    button.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
+    
+//    cell.background
+//    interest-tablecell-bottom-bg
+    UIImage *interestCellBackgroundImage = [UIImage imageNamed:@"interest-tablecell-bottom-bg.png"];
+    UIImageView *interestCellBackground = [[UIImageView alloc] initWithImage:interestCellBackgroundImage];
+
+    [cell setBackgroundView:interestCellBackground];
+    CGRect cellFrame = cell.frame;
+    cellFrame.size.height = interestCellBackgroundImage.size.height;
+    [cell setFrame:cellFrame];
+    
     [cell.contentView addSubview:button];
     [button addTarget:self action:@selector(createInterestTouched:) forControlEvents:UIControlEventTouchUpInside];
 }
