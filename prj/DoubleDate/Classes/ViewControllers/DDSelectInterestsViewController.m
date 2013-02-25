@@ -247,6 +247,9 @@
     //apply needed style
     tableViewCell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]] autorelease];
     
+    //disable selection
+    tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     //set cell text
     tableViewCell.textLabel.text = [self interestNameForIndexPath:indexPath];
         

@@ -388,6 +388,9 @@
         //apply styling for cell
         [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
         
+        //disable selection
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         //update content
         [self updateBioCell:cell];
         
@@ -401,6 +404,9 @@
         
         //apply styling for cell
         [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+        
+        //disable selection
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         //update content
         [self updateLocationCell:cell];
@@ -419,6 +425,9 @@
             //apply styling for cell
             [self applyInterestStylingForCell:cell withIndexPath:indexPath];
             
+            //disable selection
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
             //update content
             [self updateAddInterestCell:cell];
             
@@ -431,6 +440,9 @@
             
             //apply styling for cell
             [self applyInterestStylingForCell:cell withIndexPath:indexPath];
+            
+            //disable selection
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             //update content
             [self updateInterestCell:cell withInterest:(DDInterest*)[[user_ interests] objectAtIndex:indexPath.row]];
