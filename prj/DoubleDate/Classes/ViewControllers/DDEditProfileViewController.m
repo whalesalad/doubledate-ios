@@ -85,6 +85,43 @@
 
 #pragma mark other
 
+- (void)applyInterestStylingForCell:(UITableViewCell*)cell withIndexPath:(NSIndexPath*)indexPath
+{
+    //set cell style
+    DDTableViewCellStyle style = DDTableViewCellStyleNone;
+    if ([self.tableView numberOfRowsInSection:indexPath.section] <= 1)
+        style = DDTableViewCellStyleGroupedSolid;
+    else if (indexPath.row == 0)
+        style = DDTableViewCellStyleGroupedTop;
+    else if (indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1)
+        style = DDTableViewCellStyleGroupedBottom;
+    else
+        style = DDTableViewCellStyleGroupedCenter;
+    
+    //check needed style
+    if (style != DDTableViewCellStyleNone)
+    {
+        switch (style) {
+            case DDTableViewCellStyleGroupedTop:
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-top-bg.png"]]] autorelease];
+                break;
+            case DDTableViewCellStyleGroupedBottom:
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bottom-bg.png"]]] autorelease];
+                break;
+            case DDTableViewCellStyleGroupedCenter:
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]]] autorelease];
+                break;
+            case DDTableViewCellStyleGroupedSolid:
+#warning this is a case when there is only add interest cell
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]]] autorelease];
+                break;
+            default:
+                break;
+        }
+    }
+    
+}
+
 - (NSInteger)numberOfAvailableInterests
 {
     return 6;
@@ -140,17 +177,6 @@
     [button setImage:icon forState:UIControlStateNormal];
     button.imageEdgeInsets = UIEdgeInsetsMake(0, -42-icon.size.width/2, 0, 0);
     button.titleEdgeInsets = UIEdgeInsetsMake(0, 24, 0, 0);
-    
-//    cell.background
-//    interest-tablecell-bottom-bg
-    UIImage *interestCellBackgroundImage = [UIImage imageNamed:@"interest-tablecell-bottom-bg.png"];
-    UIImageView *interestCellBackground = [[UIImageView alloc] initWithImage:interestCellBackgroundImage];
-
-    [cell setBackgroundView:interestCellBackground];
-    CGRect cellFrame = cell.frame;
-    cellFrame.size.height = interestCellBackgroundImage.size.height;
-    [cell setFrame:cellFrame];
-    
     [cell.contentView addSubview:button];
     [button addTarget:self action:@selector(createInterestTouched:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -230,14 +256,18 @@
     //update table view
     if ([user_.interests count] == kMaxInterestsCount-1)
     {
-//        NSMutableArray *indexes = [NSMutableArray array];
-//        for (int i = cellIndexPath.row; i < [user_.interests count]+1; i++)
-//            [indexes addObject:[NSIndexPath indexPathForRow:i inSection:cellIndexPath.section]];
-//        [self.tableView reloadRowsAtIndexPaths:indexes withRowAnimation:UITableViewRowAnimationTop];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
     }
     else
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:cellIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    //update styling of table view cells
+    for (int i = 0; i < MIN([user_.interests count]+1, kMaxInterestsCount); i++)
+    {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:2];
+        DDTableViewCell *cell = (DDTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        [self applyInterestStylingForCell:cell withIndexPath:indexPath];
+    }
 }
 
 - (void)doneTouched:(id)sender
@@ -400,7 +430,7 @@
             DDTableViewCell *cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
             
             //apply styling for cell
-            [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+            [self applyInterestStylingForCell:cell withIndexPath:indexPath];
             
             //update content
             [self updateAddInterestCell:cell];
@@ -413,7 +443,7 @@
             DDTableViewCell *cell = [[[DDTableViewCell alloc] init] autorelease];
             
             //apply styling for cell
-            [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+            [self applyInterestStylingForCell:cell withIndexPath:indexPath];
             
             //update content
             [self updateInterestCell:cell withInterest:(DDInterest*)[[user_ interests] objectAtIndex:indexPath.row]];
