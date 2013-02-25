@@ -23,6 +23,7 @@ typedef enum
     NSMutableArray *doubleDatesMine_;
     DDRequestId requestDoubleDatesAll_;
     DDRequestId requestDoubleDatesMine_;
+    DDRequestId requestMeUnlockMaxActivities_;
     DDDoubleDatesViewControllerMode mode_;
 }
 

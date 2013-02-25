@@ -23,6 +23,9 @@
 #import "DDObjectsController.h"
 #import "DDTools.h"
 #import "DDAPIController.h"
+#import "DDMaxActivitiesPayload.h"
+
+#define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
 
 typedef enum
 {
@@ -34,16 +37,21 @@ typedef enum
 
 @interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate>
 
+@property(nonatomic, retain) UIView *unlockTopView;
+@property(nonatomic, retain) DDMaxActivitiesPayload *maxActivitiesPayload;
+
 - (NSArray*)doubleDatesForSection:(NSInteger)section;
 - (void)onDataRefreshed;
 - (void)removeDoubleDate:(DDDoubleDate*)doubleDate;
 - (void)updateNavigationBar;
 - (void)updateSearchBar;
+- (void)updateUnlockView;
 
 @end
 
 @implementation DDDoubleDatesViewController
 
+@synthesize unlockTopView;
 @synthesize searchFilter;
 @synthesize mode = mode_;
 
@@ -65,8 +73,14 @@ typedef enum
     //customize separators
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    // Add slight padding to end of view.
-    self.tableView.contentInset = UIEdgeInsetsMake(0,0,3,0);
+    //add slight padding to end of view.
+    self.tableView.contentInset = kTableViewContentInset;
+    
+    //add unlock view to the top
+    self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -50, 320, 50)] autorelease];
+    self.unlockTopView.backgroundColor = [UIColor redColor];
+    self.unlockTopView.hidden = YES;
+    [self.tableView addSubview:self.unlockTopView];
     
     //update navigation bar
     [self updateNavigationBar];
@@ -85,7 +99,7 @@ typedef enum
     [super viewDidAppear:animated];
     
     //check for first time
-    if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_)
+    if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_ && !requestMeUnlockMaxActivities_)
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
@@ -128,6 +142,9 @@ typedef enum
         mode_ = DDDoubleDatesViewControllerModeAll;
     else
         mode_ = DDDoubleDatesViewControllerModeMine;
+    
+    //show/hide unlock view
+    [self updateUnlockView];
     
     //reload table
     [self.tableView reloadData];
@@ -218,13 +235,16 @@ typedef enum
 - (void)onDataRefreshed
 {
     //check for both data
-    if (![self.apiController isRequestExist:requestDoubleDatesAll_] && ![self.apiController isRequestExist:requestDoubleDatesMine_])
+    if (![self.apiController isRequestExist:requestDoubleDatesAll_] && ![self.apiController isRequestExist:requestDoubleDatesMine_] && ![self.apiController isRequestExist:requestMeUnlockMaxActivities_])
     {
         //hide hud
         [self hideHud:YES];
         
         //make super
         [self finishRefresh];
+        
+        //update unlock view
+        [self updateUnlockView];
     
         //reload data
         [self.tableView reloadData];
@@ -309,6 +329,15 @@ typedef enum
     {
         self.tableView.tableHeaderView = nil;
     }
+}
+
+- (void)updateUnlockView
+{
+    self.unlockTopView.hidden = mode_ == DDDoubleDatesViewControllerModeAll;
+    UIEdgeInsets contentInsetBefore = self.tableView.contentInset;
+    self.tableView.contentInset = UIEdgeInsetsMake(kTableViewContentInset.top+self.unlockTopView.hidden?0:self.unlockTopView.frame.size.height, kTableViewContentInset.left, kTableViewContentInset.bottom, kTableViewContentInset.right);
+    self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y - self.tableView.contentInset.top + contentInsetBefore.top);
+    [self scrollViewDidScroll:self.tableView];
 }
 
 - (void)replaceObject:(DDDoubleDate*)object inArray:(NSMutableArray*)array
@@ -517,6 +546,27 @@ typedef enum
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
+- (void)getMeUnlockMaxActivitiesSucceed:(DDMaxActivitiesPayload *)payload
+{
+    //save data
+    self.maxActivitiesPayload = payload;
+    
+    //inform about completion
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
+}
+
+- (void)getMeUnlockMaxActivitiesDidFailedWithError:(NSError *)error
+{
+    //save data
+    self.maxActivitiesPayload = nil;
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //inform about completion
+    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
+}
+
 - (void)requestDeleteDoubleDateSucceed
 {
 }
@@ -538,6 +588,18 @@ typedef enum
     //request doubledates
     requestDoubleDatesAll_ = [self.apiController getDoubleDatesWithFilter:self.searchFilter];
     requestDoubleDatesMine_ = [self.apiController getMyDoubleDates];
+    requestMeUnlockMaxActivities_ = [self.apiController getMeUnlockMaxActivities];
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentOffset.y < -self.unlockTopView.frame.size.height)
+        self.unlockTopView.frame = CGRectMake(0, -self.unlockTopView.frame.size.height, self.unlockTopView.frame.size.width, self.unlockTopView.frame.size.height);
+    else
+        self.unlockTopView.frame = CGRectMake(0, scrollView.contentOffset.y, self.unlockTopView.frame.size.width, self.unlockTopView.frame.size.height);
 }
 
 #pragma mark -
