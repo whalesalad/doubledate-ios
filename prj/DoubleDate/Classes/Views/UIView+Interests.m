@@ -10,7 +10,7 @@
 #import "DDInterest.h"
 #import "DDTools.h"
 
-@interface DDInterestViewInternal : UIView
+@interface DDInterestViewInternal : UIImageView
 @end
 
 @implementation DDInterestViewInternal
@@ -58,7 +58,7 @@
         
         //create background image
         UIImage *labelBackgroundImage = [[interest matched] boolValue]?matchedBubbleImage:bubbleImage;
-        UIImageView *labelBackground = [[[UIImageView alloc] initWithFrame:CGRectMake(curX, curY, label.frame.size.width+2*inEdgePadding, labelBackgroundImage.size.height)] autorelease];
+        UIImageView *labelBackground = [[[DDInterestViewInternal alloc] initWithFrame:CGRectMake(curX, curY, label.frame.size.width+2*inEdgePadding, labelBackgroundImage.size.height)] autorelease];
         labelBackground.image = [DDTools resizableImageFromImage:labelBackgroundImage];
         
         //add label
