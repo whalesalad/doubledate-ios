@@ -42,7 +42,7 @@
 - (void)customizeButton
 {
     //customize field
-    [[self button] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [[self button] setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     //set cancel button
     [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateNormal];

@@ -129,7 +129,6 @@
                 cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedSolid:
-#warning this is a case when there is only add interest cell
                 cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]]] autorelease];
                 break;
             default:
@@ -183,7 +182,9 @@
     label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     label.numberOfLines = 2;
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = NSLocalizedString(@"What are the ten things that\nyou can't live without", nil);
+    label.text = NSLocalizedString(@"What are the ten things that\nyou can't live without?", nil);
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Regular" size:16];
+    label.textColor = [UIColor lightGrayColor];
     [cell.contentView addSubview:label];
 }
 
