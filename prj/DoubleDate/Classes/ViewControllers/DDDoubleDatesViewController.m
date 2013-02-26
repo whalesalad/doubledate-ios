@@ -27,6 +27,8 @@
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
 
+#define kEarnCost 50
+
 typedef enum
 {
     DDDoubleDatesViewControllerFilterNone,
@@ -66,6 +68,35 @@ typedef enum
     return self;
 }
 
+- (void)customizeNoDataView
+{
+    //add create date button
+    UIButton *buttonCreateDate = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *buttonCreateDateImage = [UIImage imageNamed:@"btn-blue-create.png"];
+    buttonCreateDate.frame = CGRectMake(0, 0, buttonCreateDateImage.size.width, buttonCreateDateImage.size.height);
+    buttonCreateDate.center = CGPointMake(self.viewNoData.frame.size.width/2, self.viewNoData.frame.size.height/2);
+    buttonCreateDate.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [buttonCreateDate setBackgroundImage:buttonCreateDateImage forState:UIControlStateNormal];
+    [buttonCreateDate addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewNoData addSubview:buttonCreateDate];
+    
+    //add label
+    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
+    labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 82);
+    labelTop.textAlignment = NSTextAlignmentCenter;
+    labelTop.numberOfLines = 2;
+    labelTop.text = NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil);
+    [self.viewNoData addSubview:labelTop];
+    
+    //add label
+    UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)] autorelease];
+    labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
+    labelBottom.textAlignment = NSTextAlignmentCenter;
+    NSString *format = NSLocalizedString(@"Earn %d coins every time you post", nil);
+    labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
+    [self.viewNoData addSubview:labelBottom];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -87,6 +118,9 @@ typedef enum
     
     //update search bar
     [self updateSearchBar];
+    
+    //customize no data view
+    [self customizeNoDataView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -148,6 +182,9 @@ typedef enum
     
     //reload table
     [self.tableView reloadData];
+    
+    //update no data view
+    [self updateNoDataView];
     
     //update navigation bar
     [self updateNavigationBar];
@@ -245,9 +282,12 @@ typedef enum
         
         //update unlock view
         [self updateUnlockView];
-    
+        
         //reload data
         [self.tableView reloadData];
+        
+        //update no data view
+        [self updateNoDataView];
     }
 }
 
@@ -283,7 +323,7 @@ typedef enum
     //check current mode
     if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
+        self.navigationItem.rightBarButtonItem = nil;
     }
     else
     {
@@ -340,6 +380,14 @@ typedef enum
     [self scrollViewDidScroll:self.tableView];
 }
 
+- (void)updateNoDataView
+{
+    if (doubleDatesMine_ && (mode_ == DDDoubleDatesViewControllerModeMine))
+        [super updateNoDataView];
+    else
+        self.viewNoData.hidden = YES;
+}
+
 - (void)replaceObject:(DDDoubleDate*)object inArray:(NSMutableArray*)array
 {
     NSInteger index = NSNotFound;
@@ -378,6 +426,9 @@ typedef enum
         
         //reload the table
         [self.tableView reloadData];
+        
+        //update no data view
+        [self updateNoDataView];
     }
 }
 
@@ -457,6 +508,9 @@ typedef enum
         
         //reload the table
         [self.tableView reloadData];
+        
+        //update no data view
+        [self updateNoDataView];
         
         //request delete doubledate
         [self.apiController requestDeleteDoubleDate:doubleDate];
