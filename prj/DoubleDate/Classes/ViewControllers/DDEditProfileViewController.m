@@ -176,6 +176,17 @@
     user_.location = nil;
 }
 
+- (void)updateEmptyInterestCell:(DDTableViewCell*)cell
+{
+    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, cell.frame.size.width, cell.frame.size.height)] autorelease];
+    label.backgroundColor = [UIColor clearColor];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    label.numberOfLines = 2;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = NSLocalizedString(@"What are the ten things that\nyou can't live without", nil);
+    [cell.contentView addSubview:label];
+}
+
 - (void)updateAddInterestCell:(DDTableViewCell*)cell
 {
     //add button
@@ -237,7 +248,7 @@
     user_.interests = newInterests;
     
     //update table view
-    if ([user_.interests count] == kMaxInterestsCount-1)
+    if ([user_.interests count] == kMaxInterestsCount-1 || [user_.interests count] == 0)
     {
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -290,8 +301,18 @@
     
     if (indexPath.section == 2)
     {
-        if ([user_.interests count] < kMaxInterestsCount && [user_.interests count] == indexPath.row)
-            return 65;
+        if ([user_.interests count] < kMaxInterestsCount)
+        {
+            if ([user_.interests count] == 0)
+            {
+                if (indexPath.row == 0)
+                    return 87;
+                else
+                    return 65;
+            }
+            else if ([user_.interests count] == indexPath.row)
+                return 65;
+        }
         return 50;
     }
     
@@ -369,7 +390,8 @@
     else if (section == 2)
     {
         BOOL addButtonExist = [user_.interests count] < kMaxInterestsCount;
-        return [[user_ interests] count]+(int)addButtonExist;
+        BOOL dummyTopCellExists = [[user_ interests] count] == 0;
+        return [[user_ interests] count]+(int)addButtonExist+(int)dummyTopCellExists;
     }
     return 0;
 }
@@ -416,8 +438,28 @@
     //interests
     else if (indexPath.section == 2)
     {
-        //check for last object - add button
-        if (indexPath.row == [[user_ interests] count])
+        //apply type of button
+        BOOL emptyInterestCell = [[user_ interests] count] == 0 && indexPath.row == 0;
+        BOOL addInterestCell = ([[user_ interests] count] == 0 && indexPath.row == 1) || (indexPath.row == [[user_ interests] count]);
+        
+        //check the type of button
+        if (emptyInterestCell)
+        {
+            //create cell
+            DDTableViewCell *cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+            
+            //apply styling for cell
+            [self applyInterestStylingForCell:cell withIndexPath:indexPath];
+            
+            //disable selection
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            //update content
+            [self updateEmptyInterestCell:cell];
+            
+            return cell;
+        }
+        else if (addInterestCell)
         {
             //create cell
             DDTableViewCell *cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
