@@ -35,8 +35,8 @@ NSString *DDEngagementStatusUnlocked = @"unlocked";
     if ((self = [super initWithDictionary:dictionary]))
     {
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
-        self.activityId = [DDAPIObject numberForObject:[dictionary objectForKey:@"activity_id"]];
-        self.activityTitle = [DDAPIObject stringForObject:[dictionary objectForKey:@"activity_title"]];
+        self.activityId = [DDAPIObject numberForObject:[[dictionary objectForKey:@"activity"] objectForKey:@"id"]];
+        self.activityTitle = [DDAPIObject stringForObject:[[dictionary objectForKey:@"activity"] objectForKey:@"title"]];
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
