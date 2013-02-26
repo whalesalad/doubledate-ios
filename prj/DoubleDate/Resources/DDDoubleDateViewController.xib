@@ -616,7 +616,7 @@
 										<double key="IBUIContentEdgeInsets.right">0.0</double>
 										<int key="IBUILineBreakMode">4</int>
 										<string key="IBUITitleShadowOffset">{0, -1}</string>
-										<string key="IBUINormalTitle">Send User &amp; Wing a Message</string>
+										<string key="IBUINormalTitle">Send a Message</string>
 										<reference key="IBUIHighlightedTitleColor" ref="487837321"/>
 										<reference key="IBUINormalTitleColor" ref="487837321"/>
 										<object class="NSColor" key="IBUINormalTitleShadowColor">
@@ -631,11 +631,11 @@
 											<string key="name">HelveticaNeue-Bold</string>
 											<string key="family">Helvetica Neue</string>
 											<int key="traits">2</int>
-											<double key="pointSize">17</double>
+											<double key="pointSize">20</double>
 										</object>
 										<object class="NSFont" key="IBUIFont">
 											<string key="NSName">HelveticaNeue-Bold</string>
-											<double key="NSSize">17</double>
+											<double key="NSSize">20</double>
 											<int key="NSfFlags">16</int>
 										</object>
 									</object>
