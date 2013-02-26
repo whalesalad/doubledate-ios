@@ -28,9 +28,9 @@
 @synthesize options;
 @synthesize allowsMultiplyChoice;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithStyle:style];
     if (self)
     {
         selectedLocations_ = [[NSMutableArray alloc] init];
@@ -57,9 +57,6 @@
     
     //set header as search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Location…", nil)];
-    
-    //disable cancel button
-    self.showsCancelButton = NO;
     
     //customize keyboard
     self.searchBar.textField.enablesReturnKeyAutomatically = NO;
