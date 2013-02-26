@@ -42,8 +42,7 @@
 - (void)customizeButton
 {
     //customize field
-#warning This does not seem to work, any ideas?
-    self.button.titleLabel.textColor = [UIColor grayColor];
+    [[self button] setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     //set cancel button
     [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateNormal];
@@ -74,6 +73,7 @@
     //customize button
     [self customizeButton];
     
+    //customize self
     self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 1);
     self.layer.shadowRadius = 2;
