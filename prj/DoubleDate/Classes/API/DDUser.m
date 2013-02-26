@@ -136,6 +136,8 @@ NSString *DDUserInterestBoth = @"both";
             [interestsDicArray addObject:interest.name];
         [dictionary setObject:interestsDicArray forKey:@"interest_names"];
     }
+    else if (self.interests)
+        [dictionary setObject:[NSArray array] forKey:@"interest_names"];
     if (self.uuid)
         [dictionary setObject:self.uuid forKey:@"uuid"];
     if (self.inviteSlug)
