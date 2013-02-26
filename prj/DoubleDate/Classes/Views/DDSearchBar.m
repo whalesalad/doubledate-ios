@@ -42,7 +42,8 @@
 - (void)customizeButton
 {
     //customize field
-    DD_F_BUTTON([self button]);
+#warning This does not seem to work, any ideas?
+    self.button.titleLabel.textColor = [UIColor grayColor];
     
     //set cancel button
     [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateNormal];
