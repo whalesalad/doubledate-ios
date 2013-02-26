@@ -373,7 +373,7 @@ typedef enum
 
 - (void)updateUnlockView
 {
-    self.unlockTopView.hidden = mode_ == DDDoubleDatesViewControllerModeAll;
+    self.unlockTopView.hidden = (mode_ == DDDoubleDatesViewControllerModeAll) || ([doubleDatesMine_ count] == 0);
     UIEdgeInsets contentInsetBefore = self.tableView.contentInset;
     self.tableView.contentInset = UIEdgeInsetsMake(kTableViewContentInset.top+self.unlockTopView.hidden?0:self.unlockTopView.frame.size.height, kTableViewContentInset.left, kTableViewContentInset.bottom, kTableViewContentInset.right);
     self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y - self.tableView.contentInset.top + contentInsetBefore.top);
