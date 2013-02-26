@@ -216,11 +216,11 @@
     
     if (self.searchMode)
     {
-        return [self viewForHeaderWithMainText:NSLocalizedString(@"INTERESTS TO SELECT", nil) detailedText:nil];
+        return [self viewForHeaderWithMainText:NSLocalizedString(@"Popular Interests", nil) detailedText:nil];
     }
     else
     {
-        return [self viewForHeaderWithMainText:NSLocalizedString(@"YOUR INTERESTS", nil) detailedText:nil];
+        return [self viewForHeaderWithMainText:NSLocalizedString(@"Your Interests", nil) detailedText:nil];
     }
     
     return nil;
@@ -245,7 +245,7 @@
     }
     
     //apply needed style
-    tableViewCell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]] autorelease];
+    tableViewCell.backgroundView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"interest-search-tablecell.png"]] autorelease];
     
     //disable selection
     tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
