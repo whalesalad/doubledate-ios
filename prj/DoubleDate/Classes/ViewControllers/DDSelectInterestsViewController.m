@@ -74,7 +74,7 @@
     [super viewWillAppear:animated];
     
     //hide navigation bar
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     //unsetup search bar
     self.tableView.tableHeaderView = nil;

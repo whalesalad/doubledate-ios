@@ -68,6 +68,18 @@ typedef enum
     return self;
 }
 
+- (void)reloadData
+{
+    //show/hide unlock view
+    [self updateUnlockView];
+    
+    //reload table
+    [self.tableView reloadData];
+    
+    //update no data view
+    [self updateNoDataView];
+}
+
 - (void)customizeNoDataView
 {
     //add create date button
@@ -177,14 +189,8 @@ typedef enum
     else
         mode_ = DDDoubleDatesViewControllerModeMine;
     
-    //show/hide unlock view
-    [self updateUnlockView];
-    
-    //reload table
-    [self.tableView reloadData];
-    
-    //update no data view
-    [self updateNoDataView];
+    //reload data
+    [self reloadData];
     
     //update navigation bar
     [self updateNavigationBar];
@@ -280,14 +286,8 @@ typedef enum
         //make super
         [self finishRefresh];
         
-        //update unlock view
-        [self updateUnlockView];
-        
         //reload data
-        [self.tableView reloadData];
-        
-        //update no data view
-        [self updateNoDataView];
+        [self reloadData];
     }
 }
 
@@ -323,7 +323,7 @@ typedef enum
     //check current mode
     if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Add", nil) target:self action:@selector(plusTouched:)];
     }
     else
     {

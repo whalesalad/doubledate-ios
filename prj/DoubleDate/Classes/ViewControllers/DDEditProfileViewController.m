@@ -82,7 +82,7 @@
     [super viewWillAppear:animated];
     
     //show navigation bar
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)customizeTextViewAtFirst
