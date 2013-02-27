@@ -91,7 +91,6 @@ typedef enum
     [ret setBackgroundImage:image forState:UIControlStateNormal];
     [ret addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
     [ret setTitle:NSLocalizedString(@"Create a DoubleDate", nil) forState:UIControlStateNormal];
-    ret.contentEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
     return ret;
 }
 
@@ -142,7 +141,6 @@ typedef enum
     
     //add unlock view to the top
     self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -88, 320, 88)] autorelease];
-//    self.unlockTopView.backgroundColor = [UIColor greenColor];
     self.unlockTopView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-doubledates-upper.png"]];
     self.unlockTopView.hidden = YES;
     [self.tableView addSubview:self.unlockTopView];
