@@ -323,7 +323,7 @@ typedef enum
     //check current mode
     if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Add", nil) target:self action:@selector(plusTouched:)];
+        self.navigationItem.rightBarButtonItem = nil;
     }
     else
     {
@@ -416,19 +416,24 @@ typedef enum
             //just update the object in the list
             [self replaceObject:[notification object] inArray:doubleDatesAll_];
             [self replaceObject:[notification object] inArray:doubleDatesMine_];
+            
+            //reload the table
+            [self.tableView reloadData];
         }
         else if (method == RKRequestMethodPOST)
         {
             //add object
             [doubleDatesAll_ addObject:[notification object]];
             [doubleDatesMine_ addObject:[notification object]];
+            
+            //reload the whole data
+            [self reloadData];
+            
+            //refresh
+            requestDoubleDatesAll_ = 0;
+            requestDoubleDatesMine_ = 0;
+            requestMeUnlockMaxActivities_ = 0;
         }
-        
-        //reload the table
-        [self.tableView reloadData];
-        
-        //update no data view
-        [self updateNoDataView];
     }
 }
 
@@ -506,11 +511,8 @@ typedef enum
         //remove sliently
         [self removeDoubleDate:doubleDate];
         
-        //reload the table
-        [self.tableView reloadData];
-        
-        //update no data view
-        [self updateNoDataView];
+        //reload data
+        [self reloadData];
         
         //request delete doubledate
         [self.apiController requestDeleteDoubleDate:doubleDate];
