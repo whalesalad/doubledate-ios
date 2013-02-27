@@ -25,6 +25,7 @@
 #import "DDAPIController.h"
 #import "DDMaxActivitiesPayload.h"
 #import "DDUnlockAlertView.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
 
@@ -453,16 +454,24 @@ typedef enum
             button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+15);
         }
         
-        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-        button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
-        button.titleLabel.shadowOffset = CGSizeMake(0, -1);
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
-        
         //add views
-        if (button)
+        if (button) {
+            button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+            button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
+            button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+            button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
             [self.unlockTopView addSubview:button];
-        if (label)
+        }
+        
+        if (label) {
+            label.layer.shadowOffset = CGSizeMake(0, 1);
+            label.layer.shadowOpacity = 1.0f;
+            label.layer.shadowColor = [UIColor blackColor].CGColor;
+            label.layer.shadowRadius = 1;
+            label.layer.masksToBounds = NO;
             [self.unlockTopView addSubview:label];
+        }
+    
     }
 }
 
