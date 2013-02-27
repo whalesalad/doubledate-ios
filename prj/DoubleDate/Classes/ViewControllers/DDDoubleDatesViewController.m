@@ -140,8 +140,9 @@ typedef enum
     self.tableView.contentInset = kTableViewContentInset;
     
     //add unlock view to the top
-    self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -80, 320, 80)] autorelease];
-    self.unlockTopView.backgroundColor = [UIColor redColor];
+    self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -88, 320, 88)] autorelease];
+//    self.unlockTopView.backgroundColor = [UIColor greenColor];
+    self.unlockTopView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-doubledates-upper.png"]];
     self.unlockTopView.hidden = YES;
     [self.tableView addSubview:self.unlockTopView];
     
@@ -418,10 +419,11 @@ typedef enum
             [[[self.unlockTopView subviews] lastObject] removeFromSuperview];
         
         //add label
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 4, 320, 24)] autorelease];
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 24)] autorelease];
         label.textAlignment = NSTextAlignmentCenter;
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont systemFontOfSize:12];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+        label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
         
         //add button
         UIButton *button = nil;
@@ -449,6 +451,11 @@ typedef enum
             [button setTitle:[NSString stringWithFormat:buttonFormat, [self.maxActivitiesPayload.maxActivities intValue]] forState:UIControlStateNormal];
             button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
         }
+        
+        button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+        button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
+        button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
         
         //add views
         if (button)
