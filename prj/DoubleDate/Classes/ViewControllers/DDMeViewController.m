@@ -84,7 +84,7 @@
     [super viewDidLoad];
     
     //add coin bar
-    [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:@"DDCoinsBar" owner:self options:nil] objectAtIndex:0]];
+    [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
     
     //add handler
     [[self coinBar] addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];

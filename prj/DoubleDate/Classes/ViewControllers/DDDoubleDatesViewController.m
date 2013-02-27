@@ -24,6 +24,7 @@
 #import "DDTools.h"
 #import "DDAPIController.h"
 #import "DDMaxActivitiesPayload.h"
+#import "DDUnlockAlertView.h"
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
 
@@ -186,7 +187,12 @@ typedef enum
 
 - (void)unlockTouched:(id)sender
 {
-    
+    DDUnlockAlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0];
+    alertView.price = [self.maxActivitiesPayload.cost intValue];
+    alertView.title = [self.maxActivitiesPayload title];
+    alertView.message = [self.maxActivitiesPayload description];
+    alertView.center = CGPointMake(320/2, 480/2);
+    [self.navigationController.view addSubview:alertView];
 }
 
 - (void)plusTouched:(id)sender
@@ -434,11 +440,13 @@ typedef enum
         else
         {
             //set text
-            label.text = self.maxActivitiesPayload.description;
+            NSString *textFormat = NSLocalizedString(@"You've posted your maximum of %d dates!", nil);
+            label.text = [NSString stringWithFormat:textFormat, [self.maxActivitiesPayload.activitiesAllowed intValue]];
             
             //set button
             button = [self newUnlockButton];
-            [button setTitle:self.maxActivitiesPayload.title forState:UIControlStateNormal];
+            NSString *buttonFormat = NSLocalizedString(@"Unlock %d DoubleDates", nil);
+            [button setTitle:[NSString stringWithFormat:buttonFormat, [self.maxActivitiesPayload.maxActivities intValue]] forState:UIControlStateNormal];
             button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
         }
         
