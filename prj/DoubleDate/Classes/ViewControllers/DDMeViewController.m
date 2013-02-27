@@ -108,8 +108,8 @@
         
         // Temporarily hide the coinbar for users that are not you,
         // until bubble is integrated for wings
-        self.coinBar.hidden = true;
-        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height+self.coinBar.frame.size.height);
+        self.coinBarContainer.hidden = true;
+        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height+self.coinBarContainer.frame.size.height);
         
     }
     
@@ -276,7 +276,15 @@
 
 - (void)moreCoinsTouched:(id)sender
 {
+    //present view controller
+    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
+    UIViewController *vc = [[[DDViewController alloc] init] autorelease];
+    UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+    [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
+    }];
     
+    //set navigation item
+    vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Close", nil) target:vc action:@selector(dismissViewController)];
 }
 
 - (void)editProfileTouched

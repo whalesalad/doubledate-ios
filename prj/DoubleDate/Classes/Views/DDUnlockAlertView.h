@@ -12,6 +12,8 @@
 
 @protocol DDUnlockAlertViewDelegate <NSObject>
 
+@optional
+
 - (void)unlockAlertViewDidCancel:(DDUnlockAlertView*)sender;
 - (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender;
 
@@ -26,5 +28,12 @@
 @property(nonatomic, assign) NSInteger price;
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *message;
+
+- (void)show;
+- (void)dismiss;
+
+@end
+
+@interface DDUnlockAlertViewFullScreen : DDUnlockAlertView
 
 @end

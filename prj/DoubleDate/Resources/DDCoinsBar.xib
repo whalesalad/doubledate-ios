@@ -171,7 +171,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1026424870"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
+						<object class="NSColor" key="IBUIBackgroundColor" id="935770010">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -183,10 +183,7 @@
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="799492676"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MSAxIDAAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="935770010"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</array>
@@ -315,7 +312,7 @@
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">DDCoinsBar</string>
-					<string key="superclassName">UIView</string>
+					<string key="superclassName">UIControl</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonMoreCoins">UIButton</string>
 						<string key="imageViewCoins">UIImageView</string>

@@ -25,6 +25,7 @@
 #import "DDAPIController.h"
 #import "DDMaxActivitiesPayload.h"
 #import "DDUnlockAlertView.h"
+#import "DDAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
@@ -39,7 +40,7 @@ typedef enum
     DDDoubleDatesViewControllerFilterAttending,
 } DDDoubleDatesViewControllerFilter;
 
-@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate>
+@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate, DDUnlockAlertViewDelegate>
 
 @property(nonatomic, retain) UIView *unlockTopView;
 @property(nonatomic, retain) DDMaxActivitiesPayload *maxActivitiesPayload;
@@ -189,12 +190,12 @@ typedef enum
 
 - (void)unlockTouched:(id)sender
 {
-    DDUnlockAlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0];
-    alertView.price = [self.maxActivitiesPayload.cost intValue];
-    alertView.title = [self.maxActivitiesPayload title];
-    alertView.message = [self.maxActivitiesPayload description];
-    alertView.center = CGPointMake(320/2, 480/2);
-    [self.navigationController.view addSubview:alertView];
+    DDUnlockAlertViewFullScreen *alert = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
+    alert.price = [self.maxActivitiesPayload.cost intValue];
+    alert.title = [self.maxActivitiesPayload title];
+    alert.message = [self.maxActivitiesPayload description];
+    alert.delegate = self;
+    [alert show];
 }
 
 - (void)plusTouched:(id)sender
@@ -772,6 +773,17 @@ typedef enum
     self.searchFilter = filter;
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
+}
+
+#pragma mark -
+#pragma mark DDUnlockAlertViewDelegate
+
+- (void)unlockAlertViewDidCancel:(DDUnlockAlertView*)sender
+{
+}
+
+- (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender
+{
 }
 
 @end

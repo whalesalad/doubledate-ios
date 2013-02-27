@@ -286,4 +286,10 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     return view;
 }
 
+- (void)dismissViewController
+{
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
 @end
