@@ -90,7 +90,13 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"%@ & %@", nil), self.engagement.user.firstName, self.engagement.wing.firstName];
+    //check if authenticated user is in activity
+    BOOL authenticatedUserIsInActivity = [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityUser] identifier] intValue] || [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityWing] identifier] intValue];
+    DDShortUser *userToShow = authenticatedUserIsInActivity?self.engagement.user:self.engagement.activityUser;
+    DDShortUser *wingToShow = authenticatedUserIsInActivity?self.engagement.wing:self.engagement.activityWing;
+    
+    //set navigation title
+    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"%@ & %@", nil), userToShow.firstName, wingToShow.firstName];
     
     //don't show layer under the status bar
     self.view.layer.masksToBounds = YES;

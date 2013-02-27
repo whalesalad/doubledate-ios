@@ -10,6 +10,8 @@
 #import "DDEngagement.h"
 #import "DDShortUser.h"
 #import "DDImageView.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDEngagementTableViewCell ()
@@ -100,14 +102,20 @@
         //check friend
         if (engagement)
         {
+            //check if authenticated user is in activity
+            BOOL authenticatedUserIsInActivity = [[[DDAuthenticationController currentUser] userId] intValue] == [[[engagement activityUser] identifier] intValue] || [[[DDAuthenticationController currentUser] userId] intValue] == [[[engagement activityWing] identifier] intValue];
+            DDShortUser *userToShow = authenticatedUserIsInActivity?engagement.user:engagement.activityUser;
+            DDShortUser *wingToShow = authenticatedUserIsInActivity?engagement.wing:engagement.activityWing;
+            
             //apply text
             self.labelTitle.text = [NSString stringWithFormat:@"%@", engagement.activityTitle];
             
-            self.labelDetailed.text = [NSString stringWithFormat:@"%@ & %@ — %@ ago", engagement.user.firstName, engagement.wing.firstName, engagement.updatedAtAgo];
+            //update users label
+            self.labelDetailed.text = [NSString stringWithFormat:@"%@ & %@ — %@ ago", userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
             
             //apply genders
-            [self.imageViewUser reloadFromUrl:[NSURL URLWithString:engagement.user.photo.smallUrl]];
-            [self.imageViewWing reloadFromUrl:[NSURL URLWithString:engagement.wing.photo.smallUrl]];
+            [self.imageViewUser reloadFromUrl:[NSURL URLWithString:userToShow.photo.smallUrl]];
+            [self.imageViewWing reloadFromUrl:[NSURL URLWithString:wingToShow.photo.smallUrl]];
             
             //apply unread count
             self.imageViewBadge.hidden = [engagement.unreadCount intValue] == 0;

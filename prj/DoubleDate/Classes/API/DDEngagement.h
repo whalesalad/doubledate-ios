@@ -20,6 +20,8 @@ extern NSString *DDEngagementStatusUnlocked;
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSNumber *activityId;
 @property(nonatomic, retain) NSString *activityTitle;
+@property(nonatomic, retain) DDShortUser *activityUser;
+@property(nonatomic, retain) DDShortUser *activityWing;
 @property(nonatomic, retain) NSNumber *userId;
 @property(nonatomic, retain) NSNumber *wingId;
 @property(nonatomic, retain) NSString *message;
