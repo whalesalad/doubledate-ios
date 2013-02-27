@@ -83,26 +83,32 @@ typedef enum
     [self updateNoDataView];
 }
 
+- (UIButton*)newBaseButtonWithImage:(UIImage*)image
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+    button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
+    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+    button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
+    return button;
+}
+
 - (UIButton*)newAddButton
 {
-    UIButton *ret = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *image = [UIImage imageNamed:@"btn-blue-create.png"];
-    ret.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    ret.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [ret setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton *ret = [self newBaseButtonWithImage:image];
     [ret addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
     [ret setTitle:NSLocalizedString(@"Create a DoubleDate", nil) forState:UIControlStateNormal];
-    ret.contentEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
     return ret;
 }
 
 - (UIButton*)newUnlockButton
 {
-    UIButton *ret = [UIButton buttonWithType:UIButtonTypeCustom];
     UIImage *image = [UIImage imageNamed:@"btn-yellow-unlock.png"];
-    ret.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    ret.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [ret setBackgroundImage:image forState:UIControlStateNormal];
+    UIButton *ret = [self newBaseButtonWithImage:image];
     [ret addTarget:self action:@selector(unlockTouched:) forControlEvents:UIControlEventTouchUpInside];
     return ret;
 }
@@ -117,18 +123,20 @@ typedef enum
     //add label
     UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
     labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 82);
-    labelTop.textAlignment = NSTextAlignmentCenter;
     labelTop.numberOfLines = 2;
     labelTop.text = NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil);
-    [self.viewNoData addSubview:labelTop];
     
     //add label
     UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)] autorelease];
     labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
-    labelBottom.textAlignment = NSTextAlignmentCenter;
-    NSString *format = NSLocalizedString(@"Earn %d coins every time you post", nil);
+    [self customizeGenericLabel:labelTop];
+    [self.viewNoData addSubview:labelTop];
+
+    NSString *format = NSLocalizedString(@"Earn %d coins every time you post.", nil);
     labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
+    [self customizeGenericLabel:labelBottom];
     [self.viewNoData addSubview:labelBottom];
+    
 }
 
 - (void)viewDidLoad
@@ -143,7 +151,6 @@ typedef enum
     
     //add unlock view to the top
     self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -88, 320, 88)] autorelease];
-//    self.unlockTopView.backgroundColor = [UIColor greenColor];
     self.unlockTopView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-doubledates-upper.png"]];
     self.unlockTopView.hidden = YES;
     [self.tableView addSubview:self.unlockTopView];
@@ -422,13 +429,10 @@ typedef enum
         
         //add label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 24)] autorelease];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-        label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
+        [self customizeGenericLabel:label];
         
         //add button
-        UIButton *button = nil;
+        UIButton *button = nil;        [self customizeGenericLabel:label];
         
         //we are able to add new activity here
         if (![self.maxActivitiesPayload.unlockRequired boolValue])
@@ -456,24 +460,26 @@ typedef enum
         }
         
         //add views
-        if (button) {
-            button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-            button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
-            button.titleLabel.shadowOffset = CGSizeMake(0, -1);
-            button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
+        if (button)
             [self.unlockTopView addSubview:button];
-        }
         
-        if (label) {
-            label.layer.shadowOffset = CGSizeMake(0, 1);
-            label.layer.shadowOpacity = 1.0f;
-            label.layer.shadowColor = [UIColor blackColor].CGColor;
-            label.layer.shadowRadius = 1;
-            label.layer.masksToBounds = NO;
+        if (label)
             [self.unlockTopView addSubview:label];
-        }
     
     }
+}
+
+- (void)customizeGenericLabel:(UILabel*)label
+{
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+    label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.layer.shadowOffset = CGSizeMake(0, 1);
+    label.layer.shadowOpacity = 1.0f;
+    label.layer.shadowColor = [UIColor blackColor].CGColor;
+    label.layer.shadowRadius = 1;
+    label.layer.masksToBounds = NO;
 }
 
 - (void)updateNoDataView
