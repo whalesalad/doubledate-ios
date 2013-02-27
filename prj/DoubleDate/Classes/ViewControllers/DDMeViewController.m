@@ -22,6 +22,7 @@
 #import "DDAppDelegate+Navigation.h"
 #import "DDEditProfileViewController.h"
 #import "DDObjectsController.h"
+#import "DDCoinsBar.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -53,11 +54,7 @@
 @synthesize interestsWrapper;
 @synthesize imageViewGender;
 @synthesize imageViewBioBackground;
-@synthesize labelCoinsContainer;
-@synthesize buttonMoreCoins;
-@synthesize labelCoins;
-@synthesize imageViewCoins;
-@synthesize coinBar;
+@synthesize coinBarContainer;
 @synthesize textViewBioGradient;
 @synthesize bottomBorder;
 
@@ -72,9 +69,25 @@
     return self;
 }
 
+- (DDCoinsBar*)coinBar
+{
+    for (DDCoinsBar *v in [self.coinBarContainer subviews])
+    {
+        if ([v isKindOfClass:[DDCoinsBar class]])
+            return v;
+    }
+    return nil;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //add coin bar
+    [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:@"DDCoinsBar" owner:self options:nil] objectAtIndex:0]];
+    
+    //add handler
+    [[self coinBar] addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
     
     //apply mask
     [self.imageViewPoster applyMask:[UIImage imageNamed:@"bg-me-photo-mask.png"]];
@@ -121,11 +134,8 @@
     //reinit location
     [self reinitLocation];
     
-    //update more coins button
-    [buttonMoreCoins setBackgroundImage:[DDTools resizableImageFromImage:[buttonMoreCoins backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    
     //update coins label
-    labelCoins.text = [NSString stringWithFormat:@"%d", [[user totalCoins] intValue]];
+    [[self coinBar] setValue:[[user totalCoins] intValue]];
     
     //make background clear
     labelTitle.backgroundColor = [UIColor clearColor];
@@ -135,9 +145,6 @@
     labelInterests.backgroundColor = [UIColor clearColor];
     interestsWrapper.backgroundColor = [UIColor clearColor];
     imageViewGender.backgroundColor = [UIColor clearColor];
-    
-    //align coins label
-    [self alignCoinsLabel];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -223,22 +230,6 @@
     labelLocation.text = [[user location] name];
 }
 
-- (void)alignCoinsLabel
-{
-    //save distance between label and button
-    CGFloat gap = (labelCoins.frame.origin.x - imageViewCoins.frame.origin.x - imageViewCoins.frame.size.width);
-    
-    //move label coins
-    CGSize newLabelSize = CGSizeMake([labelCoins sizeThatFits:labelCoins.bounds.size].width, labelCoins.frame.size.height);
-    
-    //update center of the label
-    labelCoins.frame = CGRectMake(0, labelCoins.frame.origin.y, newLabelSize.width, labelCoins.frame.size.height);
-    labelCoins.center = CGPointMake(labelCoinsContainer.frame.size.width / 2 + (gap + imageViewCoins.frame.size.width) / 2, labelCoins.center.y);
-
-    //update center of image view coins
-    imageViewCoins.center = CGPointMake(labelCoins.frame.origin.x - gap - imageViewCoins.frame.size.width / 2, imageViewCoins.center.y);
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -259,10 +250,7 @@
     [interestsWrapper release];
     [imageViewGender release];
     [imageViewBioBackground release];
-    [buttonMoreCoins release];
-    [labelCoins release];
-    [imageViewCoins release];
-    [coinBar release];
+    [coinBarContainer release];
     [textViewBioGradient release];
     [bottomBorder release];
     [super dealloc];
@@ -286,7 +274,7 @@
         [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)moreCoinsTouched:(id)sender
+- (void)moreCoinsTouched:(id)sender
 {
     
 }

@@ -430,6 +430,8 @@
 		964A6EFF15F8A7420077AAF1 /* DDAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6EFE15F8A7410077AAF1 /* DDAuthenticationController.m */; };
 		964A6F0215F8AFE90077AAF1 /* DDAPIController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0115F8AFE90077AAF1 /* DDAPIController.m */; };
 		964A6F0515F8B1250077AAF1 /* DDRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6F0415F8B1250077AAF1 /* DDRequestsController.m */; };
+		964F742D16DE69E90095DBED /* DDCoinsBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F742C16DE69E90095DBED /* DDCoinsBar.m */; };
+		964F743816DE6A3F0095DBED /* DDCoinsBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964F743716DE6A3F0095DBED /* DDCoinsBar.xib */; };
 		965989FC166F970300490CCE /* DDSelectWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FB166F970300490CCE /* DDSelectWingView.m */; };
 		965989FF166FAFB700490CCE /* DDEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FE166FAFB700490CCE /* DDEngagement.m */; };
 		965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */; };
@@ -1054,6 +1056,9 @@
 		964A6F0115F8AFE90077AAF1 /* DDAPIController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAPIController.m; sourceTree = "<group>"; };
 		964A6F0315F8B1250077AAF1 /* DDRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRequestsController.h; sourceTree = "<group>"; };
 		964A6F0415F8B1250077AAF1 /* DDRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRequestsController.m; sourceTree = "<group>"; };
+		964F742B16DE69E90095DBED /* DDCoinsBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCoinsBar.h; sourceTree = "<group>"; };
+		964F742C16DE69E90095DBED /* DDCoinsBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCoinsBar.m; sourceTree = "<group>"; };
+		964F743716DE6A3F0095DBED /* DDCoinsBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDCoinsBar.xib; sourceTree = "<group>"; };
 		965989FA166F970300490CCE /* DDSelectWingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSelectWingView.h; sourceTree = "<group>"; };
 		965989FB166F970300490CCE /* DDSelectWingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectWingView.m; sourceTree = "<group>"; };
 		965989FD166FAFB700490CCE /* DDEngagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagement.h; sourceTree = "<group>"; };
@@ -1929,6 +1934,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				964F742B16DE69E90095DBED /* DDCoinsBar.h */,
+				964F742C16DE69E90095DBED /* DDCoinsBar.m */,
 				706EFAA916C9B9B200DD5791 /* DDNotificationTableViewCell.h */,
 				706EFAAA16C9B9B200DD5791 /* DDNotificationTableViewCell.m */,
 				960C008116C115D6002F0718 /* DDNavigationMenuTableViewCell.h */,
@@ -2108,6 +2115,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				964F743716DE6A3F0095DBED /* DDCoinsBar.xib */,
 				96E2623816D6555E0041FD26 /* DDEditProfileViewController.xib */,
 				706EFAAC16C9B9BC00DD5791 /* DDNotificationTableViewCell.xib */,
 				960C008416C11631002F0718 /* DDNavigationMenuTableViewCell.xib */,
@@ -2743,6 +2751,7 @@
 				4C9E27F816DCD8550050DF05 /* interest-tablecell-top-empty@2x.png in Resources */,
 				4C9E280416DCFB740050DF05 /* interest-search-tablecell.png in Resources */,
 				4C9E280516DCFB740050DF05 /* interest-search-tablecell@2x.png in Resources */,
+				964F743816DE6A3F0095DBED /* DDCoinsBar.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2866,6 +2875,7 @@
 				96E2623616D651140041FD26 /* DDEditProfileViewController.m in Sources */,
 				964220CF16DB567900840733 /* DDMaxActivitiesPayload.m in Sources */,
 				7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */,
+				964F742D16DE69E90095DBED /* DDCoinsBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

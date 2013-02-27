@@ -11,6 +11,7 @@
 @class DDUser;
 @class DDImageView;
 @class DDTagsView;
+@class DDCoinsBar;
 
 @interface DDMeViewController : DDViewController
 {
@@ -32,13 +33,6 @@
 @property(nonatomic, retain) IBOutlet UIView *interestsWrapper;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBioBackground;
-@property(nonatomic, retain) IBOutlet UIView *labelCoinsContainer;
-@property(nonatomic, retain) IBOutlet UIButton *buttonMoreCoins;
-@property(nonatomic, retain) IBOutlet UILabel *labelCoins;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewCoins;
-@property(nonatomic, retain) IBOutlet UIView *coinBar;
-
-
-- (IBAction)moreCoinsTouched:(id)sender;
+@property(nonatomic, retain) IBOutlet UIView *coinBarContainer;
 
 @end
