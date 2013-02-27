@@ -80,16 +80,35 @@ typedef enum
     [self updateNoDataView];
 }
 
+- (UIButton*)newAddButton
+{
+    UIButton *ret = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image = [UIImage imageNamed:@"btn-blue-create.png"];
+    ret.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    ret.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [ret setBackgroundImage:image forState:UIControlStateNormal];
+    [ret addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [ret setTitle:NSLocalizedString(@"Create a DoubleDate", nil) forState:UIControlStateNormal];
+    ret.contentEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
+    return ret;
+}
+
+- (UIButton*)newUnlockButton
+{
+    UIButton *ret = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImage *image = [UIImage imageNamed:@"btn-yellow-unlock.png"];
+    ret.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    ret.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [ret setBackgroundImage:image forState:UIControlStateNormal];
+    [ret addTarget:self action:@selector(unlockTouched:) forControlEvents:UIControlEventTouchUpInside];
+    return ret;
+}
+
 - (void)customizeNoDataView
 {
     //add create date button
-    UIButton *buttonCreateDate = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImage *buttonCreateDateImage = [UIImage imageNamed:@"btn-blue-create.png"];
-    buttonCreateDate.frame = CGRectMake(0, 0, buttonCreateDateImage.size.width, buttonCreateDateImage.size.height);
+    UIButton *buttonCreateDate = [self newAddButton];
     buttonCreateDate.center = CGPointMake(self.viewNoData.frame.size.width/2, self.viewNoData.frame.size.height/2);
-    buttonCreateDate.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [buttonCreateDate setBackgroundImage:buttonCreateDateImage forState:UIControlStateNormal];
-    [buttonCreateDate addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.viewNoData addSubview:buttonCreateDate];
     
     //add label
@@ -120,7 +139,7 @@ typedef enum
     self.tableView.contentInset = kTableViewContentInset;
     
     //add unlock view to the top
-    self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -50, 320, 50)] autorelease];
+    self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -80, 320, 80)] autorelease];
     self.unlockTopView.backgroundColor = [UIColor redColor];
     self.unlockTopView.hidden = YES;
     [self.tableView addSubview:self.unlockTopView];
@@ -164,6 +183,11 @@ typedef enum
 
 #pragma mark -
 #pragma mark other
+
+- (void)unlockTouched:(id)sender
+{
+    
+}
 
 - (void)plusTouched:(id)sender
 {
@@ -253,7 +277,7 @@ typedef enum
 }
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section
-{    
+{
     if (mode_ == DDDoubleDatesViewControllerModeAll)
         return [self filteredDoubleDates:doubleDatesAll_ filter:DDDoubleDatesViewControllerFilterNone];
     else if (mode_ == DDDoubleDatesViewControllerModeMine)
@@ -295,7 +319,7 @@ typedef enum
 {
     //init array
     NSMutableArray *doubleDatesToRemove = [NSMutableArray array];
-
+    
     //add from all doubledates
     for (DDDoubleDate *d in doubleDatesAll_)
     {
@@ -373,11 +397,57 @@ typedef enum
 
 - (void)updateUnlockView
 {
+    //update visibility of unlock view
     self.unlockTopView.hidden = (mode_ == DDDoubleDatesViewControllerModeAll) || ([doubleDatesMine_ count] == 0);
     UIEdgeInsets contentInsetBefore = self.tableView.contentInset;
     self.tableView.contentInset = UIEdgeInsetsMake(kTableViewContentInset.top+self.unlockTopView.hidden?0:self.unlockTopView.frame.size.height, kTableViewContentInset.left, kTableViewContentInset.bottom, kTableViewContentInset.right);
     self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y - self.tableView.contentInset.top + contentInsetBefore.top);
     [self scrollViewDidScroll:self.tableView];
+    
+    //check if no hidden
+    if (!self.unlockTopView.hidden)
+    {
+        //customize view
+        while ([[self.unlockTopView subviews] count])
+            [[[self.unlockTopView subviews] lastObject] removeFromSuperview];
+        
+        //add label
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 4, 320, 24)] autorelease];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:12];
+        
+        //add button
+        UIButton *button = nil;
+        
+        //we are able to add new activity here
+        if (![self.maxActivitiesPayload.unlockRequired boolValue])
+        {
+            //set text
+            NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
+            label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
+
+            //set button
+            button = [self newAddButton];
+            button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
+        }
+        else
+        {
+            //set text
+            label.text = self.maxActivitiesPayload.description;
+            
+            //set button
+            button = [self newUnlockButton];
+            [button setTitle:self.maxActivitiesPayload.title forState:UIControlStateNormal];
+            button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
+        }
+        
+        //add views
+        if (button)
+            [self.unlockTopView addSubview:button];
+        if (label)
+            [self.unlockTopView addSubview:label];
+    }
 }
 
 - (void)updateNoDataView
@@ -444,7 +514,7 @@ typedef enum
 {
     //get double date
     DDDoubleDate *doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
-
+    
     //open view controller
     DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
     viewController.doubleDate = doubleDate;
@@ -454,9 +524,9 @@ typedef enum
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
-//    UIView *headerView = [self tableView:aTableView viewForHeaderInSection:section];
-//    if (headerView)
-//        return headerView.frame.size.height;
+    //    UIView *headerView = [self tableView:aTableView viewForHeaderInSection:section];
+    //    if (headerView)
+    //        return headerView.frame.size.height;
     return 0;
 }
 
@@ -467,25 +537,25 @@ typedef enum
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
-//    if ([self tableView:aTableView numberOfRowsInSection:section] > 0)
-//    {
-//        if (mode_ == DDDoubleDatesViewControllerModeMine)
-//        {
-//            switch (section) {
-//                case 0:
-//                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I've Created", nil) detailedText:nil];
-//                    break;
-//                case 1:
-//                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm a Wing", nil) detailedText:nil];
-//                    break;
-//                case 2:
-//                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm Attending", nil) detailedText:nil];
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
-//    }
+    //    if ([self tableView:aTableView numberOfRowsInSection:section] > 0)
+    //    {
+    //        if (mode_ == DDDoubleDatesViewControllerModeMine)
+    //        {
+    //            switch (section) {
+    //                case 0:
+    //                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I've Created", nil) detailedText:nil];
+    //                    break;
+    //                case 1:
+    //                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm a Wing", nil) detailedText:nil];
+    //                    break;
+    //                case 2:
+    //                    return [self viewForHeaderWithMainText:NSLocalizedString(@"I'm Attending", nil) detailedText:nil];
+    //                    break;
+    //                default:
+    //                    break;
+    //            }
+    //        }
+    //    }
     return nil;
 }
 
@@ -507,7 +577,7 @@ typedef enum
     {
         //get doubledate
         DDDoubleDate *doubleDate = [[[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row] retain];
-
+        
         //remove sliently
         [self removeDoubleDate:doubleDate];
         
@@ -524,8 +594,8 @@ typedef enum
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//    if (mode_ == DDDoubleDatesViewControllerModeMine)
-//        return 3;
+    //    if (mode_ == DDDoubleDatesViewControllerModeMine)
+    //        return 3;
     return 1;
 }
 
@@ -653,14 +723,18 @@ typedef enum
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView.contentOffset.y < -self.unlockTopView.frame.size.height)
+    {
         self.unlockTopView.frame = CGRectMake(0, -self.unlockTopView.frame.size.height, self.unlockTopView.frame.size.width, self.unlockTopView.frame.size.height);
+    }
     else
+    {
         self.unlockTopView.frame = CGRectMake(0, scrollView.contentOffset.y, self.unlockTopView.frame.size.width, self.unlockTopView.frame.size.height);
+    }
 }
 
 #pragma mark -
 #pragma mark DDDoubleDateFilterViewControllerDelegate
-    
+
 - (void)doubleDateFilterViewControllerDidCancel
 {
     self.searchFilter = nil;

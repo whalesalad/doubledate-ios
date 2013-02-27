@@ -26,13 +26,14 @@
     {
         self.activitiesCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"activities_count"]];
         self.activitiesAllowed = [DDAPIObject numberForObject:[dictionary objectForKey:@"activities_allowed"]];
-        if ([[dictionary objectForKey:@"unlock_required"] isKindOfClass:[NSNumber class]])
+        if ([[dictionary objectForKey:@"unlock"] isKindOfClass:[NSNumber class]])
         {
-            self.unlockRequired = [dictionary objectForKey:@"unlock_required"];
+            self.unlockRequired = [dictionary objectForKey:@"unlock"];
         }
-        else
+        else if ([[dictionary objectForKey:@"unlock"] isKindOfClass:[NSDictionary class]])
         {
-            dictionary = [dictionary objectForKey:@"unlock_required"];
+            dictionary = [dictionary objectForKey:@"unlock"];
+            self.unlockRequired = [NSNumber numberWithBool:YES];
             self.slug = [DDAPIObject stringForObject:[dictionary objectForKey:@"slug"]];
             self.cost = [DDAPIObject numberForObject:[dictionary objectForKey:@"cost"]];
             self.maxActivities = [DDAPIObject numberForObject:[dictionary objectForKey:@"max_activities"]];
