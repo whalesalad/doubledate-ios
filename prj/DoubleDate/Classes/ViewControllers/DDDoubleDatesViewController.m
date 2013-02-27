@@ -444,12 +444,13 @@ typedef enum
             //set text
             NSString *textFormat = NSLocalizedString(@"You've posted your maximum of %d dates!", nil);
             label.text = [NSString stringWithFormat:textFormat, [self.maxActivitiesPayload.activitiesAllowed intValue]];
+            label.textColor = [UIColor colorWithRed:236.0f/255.0f green:165.0f/255.0f blue:26.0f/255.0f alpha:1];
             
             //set button
             button = [self newUnlockButton];
             NSString *buttonFormat = NSLocalizedString(@"Unlock %d DoubleDates", nil);
             [button setTitle:[NSString stringWithFormat:buttonFormat, [self.maxActivitiesPayload.maxActivities intValue]] forState:UIControlStateNormal];
-            button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
+            button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+15);
         }
         
         button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
