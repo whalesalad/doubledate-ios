@@ -26,6 +26,8 @@
 #import "DDMaxActivitiesPayload.h"
 #import "DDUnlockAlertView.h"
 #import "DDAppDelegate.h"
+#import "DDAuthenticationController.h"
+#import "DDObjectsController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
@@ -44,6 +46,7 @@ typedef enum
 
 @property(nonatomic, retain) UIView *unlockTopView;
 @property(nonatomic, retain) DDMaxActivitiesPayload *maxActivitiesPayload;
+@property(nonatomic, assign) NSInteger unlockCost;
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section;
 - (void)onDataRefreshed;
@@ -198,7 +201,7 @@ typedef enum
 - (void)unlockTouched:(id)sender
 {
     DDUnlockAlertViewFullScreen *alert = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
-    alert.price = [self.maxActivitiesPayload.cost intValue];
+    alert.price = abs([self.maxActivitiesPayload.cost intValue]);
     alert.title = [self.maxActivitiesPayload title];
     alert.message = [self.maxActivitiesPayload description];
     alert.delegate = self;
@@ -738,6 +741,34 @@ typedef enum
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
+- (void)unlockMeMaxActivitiesSucceed:(DDMaxActivitiesPayload*)payload
+{
+    //hide hud
+    [self hideHud:YES];
+        
+    //update total coins
+    NSInteger totalCoins = [[[DDAuthenticationController currentUser] totalCoins] intValue] + self.unlockCost;
+    [[DDAuthenticationController currentUser] setTotalCoins:[NSNumber numberWithInt:totalCoins]];
+    
+    //inform about change
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
+    
+    //update payload
+    self.maxActivitiesPayload = payload;
+    
+    //update unlock view
+    [self updateUnlockView];
+}
+
+- (void)unlockMeMaxActivitiesDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
 #pragma mark -
 #pragma mark Refreshing
 
@@ -790,6 +821,14 @@ typedef enum
 
 - (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender
 {
+    //show loading
+    [self showHudWithText:NSLocalizedString(@"Unlocking", nil) animated:YES];
+    
+    //save cost of unlock
+    self.unlockCost = [self.maxActivitiesPayload.cost intValue];
+        
+    //unlock
+    [self.apiController unlockMeMaxActivities:self.maxActivitiesPayload];
 }
 
 @end

@@ -134,8 +134,8 @@
     //reinit location
     [self reinitLocation];
     
-    //update coins label
-    [[self coinBar] setValue:[[user totalCoins] intValue]];
+    //reinit coins
+    [self reinitCoins];
     
     //make background clear
     labelTitle.backgroundColor = [UIColor clearColor];
@@ -153,6 +153,12 @@
     [self reinitBio];
     [self reinitInterests];
     [self reinitLocation];
+    [self reinitCoins];
+}
+
+- (void)reinitCoins
+{
+    [[self coinBar] setValue:[[user totalCoins] intValue]];
 }
 
 - (void)reinitInterests
