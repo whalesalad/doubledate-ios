@@ -128,20 +128,13 @@ typedef enum
     //add label
     UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)] autorelease];
     labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
+    [self customizeGenericLabel:labelTop];
+    [self.viewNoData addSubview:labelTop];
+
     NSString *format = NSLocalizedString(@"Earn %d coins every time you post.", nil);
     labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
-
-    NSMutableArray *array = [NSMutableArray array];
-    [array addObject:labelTop];
-    [array addObject:labelBottom];
-    for (UILabel *label in array)
-    {
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-        label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
-        label.textAlignment = NSTextAlignmentCenter;
-        [self.viewNoData addSubview:label];
-    }
+    [self customizeGenericLabel:labelBottom];
+    [self.viewNoData addSubview:labelBottom];
     
 }
 
@@ -435,13 +428,10 @@ typedef enum
         
         //add label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 24)] autorelease];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-        label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
+        [self customizeGenericLabel:label];
         
         //add button
-        UIButton *button = nil;
+        UIButton *button = nil;        [self customizeGenericLabel:label];
         
         //we are able to add new activity here
         if (![self.maxActivitiesPayload.unlockRequired boolValue])
@@ -472,16 +462,23 @@ typedef enum
         if (button)
             [self.unlockTopView addSubview:button];
         
-        if (label) {
-            label.layer.shadowOffset = CGSizeMake(0, 1);
-            label.layer.shadowOpacity = 1.0f;
-            label.layer.shadowColor = [UIColor blackColor].CGColor;
-            label.layer.shadowRadius = 1;
-            label.layer.masksToBounds = NO;
+        if (label)
             [self.unlockTopView addSubview:label];
-        }
     
     }
+}
+
+- (void)customizeGenericLabel:(UILabel*)label
+{
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+    label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.layer.shadowOffset = CGSizeMake(0, 1);
+    label.layer.shadowOpacity = 1.0f;
+    label.layer.shadowColor = [UIColor blackColor].CGColor;
+    label.layer.shadowRadius = 1;
+    label.layer.masksToBounds = NO;
 }
 
 - (void)updateNoDataView
