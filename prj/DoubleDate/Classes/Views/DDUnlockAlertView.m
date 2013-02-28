@@ -14,6 +14,7 @@
 #import "DDUser.h"
 #import "DDViewController.h"
 #import "DDBarButtonItem.h"
+#import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDUnlockAlertView ()
@@ -23,6 +24,8 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelMessage;
 @property(nonatomic, retain) IBOutlet UIButton *buttonCancel;
 @property(nonatomic, retain) IBOutlet UIButton *buttonUnlock;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewBackground;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewCoinIcon;
 
 - (IBAction)cancelTouched:(id)sender;
 - (IBAction)unlockTouched:(id)sender;
@@ -36,6 +39,8 @@
 @synthesize labelMessage;
 @synthesize buttonCancel;
 @synthesize buttonUnlock;
+@synthesize imageViewBackground;
+@synthesize imageViewCoinIcon;
 
 @synthesize delegate;
 
@@ -50,6 +55,9 @@
     [super awakeFromNib];
     self.unlockButtonText = [self.buttonUnlock titleForState:UIControlStateNormal];
     self.cancelButtonText = [self.buttonCancel titleForState:UIControlStateNormal];
+    [self.buttonUnlock setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonUnlock backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCancel backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
 }
 
 - (IBAction)cancelTouched:(id)sender
@@ -85,6 +93,7 @@
         title_ = [title retain];
     }
     [self.labelTitle setText:title];
+    [self setNeedsLayout];
 }
 
 - (NSString*)title
@@ -168,6 +177,15 @@
     [self.layer addAnimation:bounceAnimation forKey:nil];
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    CGFloat gap = CGRectGetMinX(self.labelTitle.frame) - CGRectGetMaxX(self.imageViewCoinIcon.frame);
+    CGFloat bothWidth = gap + self.imageViewCoinIcon.image.size.width + [self.labelTitle sizeThatFits:self.labelTitle.bounds.size].width;
+    self.imageViewCoinIcon.frame = CGRectMake(self.frame.size.width/2 - bothWidth/2, self.imageViewCoinIcon.frame.origin.y, self.imageViewCoinIcon.frame.size.width, self.imageViewCoinIcon.frame.size.height);
+    self.labelTitle.frame = CGRectMake(CGRectGetMaxX(self.imageViewCoinIcon.frame) + gap, self.labelTitle.frame.origin.y, self.labelTitle.frame.size.width, self.labelTitle.frame.size.height);
+}
+
 - (void)dismiss
 {
     [self removeFromSuperview];
@@ -180,6 +198,8 @@
     [labelMessage release];
     [buttonCancel release];
     [buttonUnlock release];
+    [imageViewBackground release];
+    [imageViewCoinIcon release];
     [title_ release];
     [message_ release];
     [cancelButtonText_ release];

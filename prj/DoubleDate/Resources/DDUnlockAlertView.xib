@@ -37,10 +37,25 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="IBUIImageView" id="201102259">
+						<reference key="NSNextResponder" ref="178138378"/>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrameSize">{320, 289}</string>
+						<reference key="NSSuperview" ref="178138378"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="847782046"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">unlock-bg-bubble.png</string>
+						</object>
+					</object>
 					<object class="IBUIImageView" id="847782046">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">288</int>
-						<string key="NSFrame">{{116, 25}, {24, 25}}</string>
+						<string key="NSFrame">{{125, 57}, {24, 25}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="226902031"/>
@@ -55,7 +70,7 @@
 					<object class="IBUILabel" id="226902031">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">288</int>
-						<string key="NSFrame">{{148, 27}, {42, 21}}</string>
+						<string key="NSFrame">{{139, 90}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="995521401"/>
@@ -72,6 +87,7 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
+						<int key="IBUITextAlignment">1</int>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="815061314">
 							<int key="type">1</int>
 							<double key="pointSize">17</double>
@@ -86,7 +102,7 @@
 					<object class="IBUILabel" id="995521401">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">288</int>
-						<string key="NSFrame">{{20, 52}, {280, 21}}</string>
+						<string key="NSFrame">{{156, 59}, {123, 21}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="63297002"/>
@@ -104,7 +120,6 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">0</int>
-						<int key="IBUITextAlignment">1</int>
 						<reference key="IBUIFontDescription" ref="815061314"/>
 						<reference key="IBUIFont" ref="272555118"/>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
@@ -112,7 +127,7 @@
 					<object class="IBUILabel" id="63297002">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">272</int>
-						<string key="NSFrame">{{20, 79}, {280, 51}}</string>
+						<string key="NSFrame">{{39, 121}, {240, 59}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="292883053"/>
@@ -144,7 +159,7 @@
 					<object class="IBUIButton" id="292883053">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">270</int>
-						<string key="NSFrame">{{20, 138}, {74, 44}}</string>
+						<string key="NSFrame">{{39, 188}, {74, 44}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="84039465"/>
@@ -167,6 +182,10 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">unlock-btn-cancel.png</string>
+						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="1034197967">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
@@ -179,8 +198,8 @@
 					</object>
 					<object class="IBUIButton" id="84039465">
 						<reference key="NSNextResponder" ref="178138378"/>
-						<int key="NSvFlags">270</int>
-						<string key="NSFrame">{{190, 138}, {110, 44}}</string>
+						<int key="NSvFlags">267</int>
+						<string key="NSFrame">{{170, 188}, {110, 44}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -197,18 +216,22 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="8796501"/>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">unlock-btn-confirm.png</string>
+						</object>
 						<reference key="IBUIFontDescription" ref="1034197967"/>
 						<reference key="IBUIFont" ref="598541787"/>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 201}</string>
+				<string key="NSFrameSize">{320, 289}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="847782046"/>
+				<reference key="NSNextKeyView" ref="201102259"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+					<bytes key="NSWhite">MCAwAA</bytes>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
@@ -254,6 +277,22 @@
 						<reference key="destination" ref="84039465"/>
 					</object>
 					<int key="connectionID">47</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageViewBackground</string>
+						<reference key="source" ref="178138378"/>
+						<reference key="destination" ref="201102259"/>
+					</object>
+					<int key="connectionID">49</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageViewCoinIcon</string>
+						<reference key="source" ref="178138378"/>
+						<reference key="destination" ref="847782046"/>
+					</object>
+					<int key="connectionID">50</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -303,6 +342,7 @@
 							<reference ref="292883053"/>
 							<reference ref="84039465"/>
 							<reference ref="995521401"/>
+							<reference ref="201102259"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -336,6 +376,11 @@
 						<reference key="object" ref="995521401"/>
 						<reference key="parent" ref="178138378"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">48</int>
+						<reference key="object" ref="201102259"/>
+						<reference key="parent" ref="178138378"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -350,12 +395,13 @@
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="38.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="48.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">47</int>
+			<int key="maxID">50</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -379,6 +425,8 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="buttonCancel">UIButton</string>
 						<string key="buttonUnlock">UIButton</string>
+						<string key="imageViewBackground">UIImageView</string>
+						<string key="imageViewCoinIcon">UIImageView</string>
 						<string key="labelMessage">UILabel</string>
 						<string key="labelPrice">UILabel</string>
 						<string key="labelTitle">UILabel</string>
@@ -391,6 +439,14 @@
 						<object class="IBToOneOutletInfo" key="buttonUnlock">
 							<string key="name">buttonUnlock</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imageViewBackground">
+							<string key="name">imageViewBackground</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imageViewCoinIcon">
+							<string key="name">imageViewCoinIcon</string>
+							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="labelMessage">
 							<string key="name">labelMessage</string>
@@ -416,10 +472,12 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">unlock-icon-coin.png</string>
-			<string key="NS.object.0">{24, 25}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="unlock-bg-bubble.png">{320, 289}</string>
+			<string key="unlock-btn-cancel.png">{20, 38}</string>
+			<string key="unlock-btn-confirm.png">{20, 38}</string>
+			<string key="unlock-icon-coin.png">{24, 25}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
