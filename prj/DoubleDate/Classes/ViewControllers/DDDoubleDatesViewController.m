@@ -155,6 +155,8 @@ typedef enum
     //add unlock view to the top
     self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -88, 320, 88)] autorelease];
     self.unlockTopView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-doubledates-upper.png"]];
+    
+//    self.unlockTopView
     self.unlockTopView.hidden = YES;
     [self.tableView addSubview:self.unlockTopView];
     
