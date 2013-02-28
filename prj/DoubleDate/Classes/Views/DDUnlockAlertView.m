@@ -158,8 +158,11 @@
     //save window
     UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
     
-    //set position
+    //set center
     self.center = CGPointMake(window.bounds.size.width/2, window.bounds.size.height/2);
+    
+    //add view
+    [window addSubview:self];
     
     //animate
     CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
@@ -188,7 +191,23 @@
 
 - (void)dismiss
 {
-    [self removeFromSuperview];
+    //animate
+    CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    bounceAnimation.fillMode = kCAFillModeBoth;
+    bounceAnimation.removedOnCompletion = NO;
+    bounceAnimation.duration = 0.1;
+    bounceAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DIdentity],
+                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9f, 0.9f, 0.9f)],
+                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.7f, 0.7f, 0.7f)],
+                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0, 0, 0)]];
+    bounceAnimation.keyTimes = @[@0.0f, @0.25f, @0.5f, @1.0f];
+    bounceAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [self.layer addAnimation:bounceAnimation forKey:nil];
+    
+    //remove them
+    [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.1f];
 }
 
 - (void)dealloc
@@ -214,47 +233,75 @@
 @end
 
 @implementation DDUnlockAlertViewFullScreen
+{
+    UIView *fadeView_;
+    DDUnlockAlertView *alertView_;
+    DDCoinsBar *coinsBar_;
+}
 
 - (void)show
 {
     //save window
     UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
     
-    //add view
+    //set frame
     self.frame = [window bounds];
+    
+    //add view
     [window addSubview:self];
     
     //fade screen
-    UIView *fadeView = [[[UIView alloc] initWithFrame:[window bounds]] autorelease];
-    fadeView.alpha = 0;
-    fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
-    [self addSubview:fadeView];
+    fadeView_ = [[[[UIView alloc] initWithFrame:[window bounds]] autorelease] retain];
+    fadeView_.alpha = 0;
+    fadeView_.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+    [self addSubview:fadeView_];
     
     //show unlock
-    DDUnlockAlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0];
-    alertView.delegate = self;
-    alertView.price = self.price;
-    alertView.title = [self.title uppercaseString];
-    alertView.message = self.message;
+    alertView_ = [[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0] retain];
+    alertView_.delegate = self;
+    alertView_.price = self.price;
+    alertView_.title = [self.title uppercaseString];
+    alertView_.message = self.message;
     if (self.cancelButtonText)
-        alertView.cancelButtonText = self.cancelButtonText;
+        alertView_.cancelButtonText = self.cancelButtonText;
     if (self.unlockButtonText)
-        alertView.unlockButtonText = self.unlockButtonText;
-    [alertView show];
-    [self addSubview:alertView];
+        alertView_.unlockButtonText = self.unlockButtonText;
+    [alertView_ show];
     
     //add coins bar
-    DDCoinsBar *coinsBar = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0];
-    coinsBar.frame = CGRectMake(coinsBar.frame.origin.x, [window bounds].size.height, coinsBar.frame.size.width, coinsBar.frame.size.height);
-    [coinsBar setValue:[[[DDAuthenticationController currentUser] totalCoins] intValue]];
-    [coinsBar addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:coinsBar];
+    coinsBar_ = [[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0] retain];
+    coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [window bounds].size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
+    [coinsBar_ setValue:[[[DDAuthenticationController currentUser] totalCoins] intValue]];
+    [coinsBar_ addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:coinsBar_];
     
     //animate
     [UIView animateWithDuration:0.3f animations:^{
-        fadeView.alpha = 1;
-        coinsBar.frame = CGRectMake(coinsBar.frame.origin.x, [window bounds].size.height-coinsBar.frame.size.height, coinsBar.frame.size.width, coinsBar.frame.size.height);
+        fadeView_.alpha = 1;
+        coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [window bounds].size.height-coinsBar_.frame.size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
     }];
+}
+
+- (void)dismiss
+{
+    //save window
+    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
+    
+    //dismiss alert
+    for (DDUnlockAlertView *alertView in [self subviews])
+    {
+        if ([alertView isKindOfClass:[DDUnlockAlertView class]])
+            [alertView dismiss];
+    }
+    
+    //animate
+    [UIView animateWithDuration:0.2f animations:^{
+        fadeView_.alpha =0;
+        coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [window bounds].size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
+    }];
+    
+    //remove from superview after delay
+    [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.2f];
 }
 
 - (void)unlockAlertViewDidCancel:(DDUnlockAlertView*)sender
@@ -289,6 +336,14 @@
     
     //set navigation item
     vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Close", nil) target:vc action:@selector(dismissViewController)];
+}
+
+- (void)dealloc
+{
+    [fadeView_ release];
+    [alertView_ release];
+    [coinsBar_ release];
+    [super dealloc];
 }
 
 @end
