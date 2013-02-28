@@ -180,10 +180,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    CGFloat gap = CGRectGetMinX(self.labelTitle.frame) - CGRectGetMaxX(self.imageViewCoinIcon.frame);
-    CGFloat bothWidth = gap + self.imageViewCoinIcon.image.size.width + [self.labelTitle sizeThatFits:self.labelTitle.bounds.size].width;
+    CGFloat gap = CGRectGetMinX(self.labelPrice.frame) - CGRectGetMaxX(self.imageViewCoinIcon.frame);
+    CGFloat bothWidth = gap + self.imageViewCoinIcon.image.size.width + [self.labelPrice sizeThatFits:self.labelPrice.bounds.size].width;
     self.imageViewCoinIcon.frame = CGRectMake(self.frame.size.width/2 - bothWidth/2, self.imageViewCoinIcon.frame.origin.y, self.imageViewCoinIcon.frame.size.width, self.imageViewCoinIcon.frame.size.height);
-    self.labelTitle.frame = CGRectMake(CGRectGetMaxX(self.imageViewCoinIcon.frame) + gap, self.labelTitle.frame.origin.y, self.labelTitle.frame.size.width, self.labelTitle.frame.size.height);
+    self.labelPrice.frame = CGRectMake(CGRectGetMaxX(self.imageViewCoinIcon.frame) + gap, self.labelPrice.frame.origin.y, self.labelPrice.frame.size.width, self.labelPrice.frame.size.height);
 }
 
 - (void)dismiss
@@ -234,7 +234,7 @@
     DDUnlockAlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0];
     alertView.delegate = self;
     alertView.price = self.price;
-    alertView.title = self.title;
+    alertView.title = [self.title uppercaseString];
     alertView.message = self.message;
     if (self.cancelButtonText)
         alertView.cancelButtonText = self.cancelButtonText;
