@@ -288,11 +288,7 @@
     UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
     
     //dismiss alert
-    for (DDUnlockAlertView *alertView in [self subviews])
-    {
-        if ([alertView isKindOfClass:[DDUnlockAlertView class]])
-            [alertView dismiss];
-    }
+    [alertView_ dismiss];
     
     //animate
     [UIView animateWithDuration:0.2f animations:^{
@@ -308,18 +304,14 @@
 {
     if ([self.delegate respondsToSelector:@selector(unlockAlertViewDidCancel:)])
         [self.delegate unlockAlertViewDidCancel:self];
-    [sender retain];
     [self dismiss];
-    [sender release];
 }
 
 - (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender
 {
     if ([self.delegate respondsToSelector:@selector(unlockAlertViewDidUnlock:)])
         [self.delegate unlockAlertViewDidUnlock:self];
-    [sender retain];
     [self dismiss];
-    [sender release];
 }
 
 - (void)moreCoinsTouched:(id)sender
