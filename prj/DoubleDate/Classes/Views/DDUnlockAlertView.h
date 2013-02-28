@@ -25,6 +25,9 @@
 
 @property(nonatomic, assign) id<DDUnlockAlertViewDelegate> delegate;
 
+@property(nonatomic, retain) NSString *cancelButtonText;
+@property(nonatomic, retain) NSString *unlockButtonText;
+
 @property(nonatomic, assign) NSInteger price;
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *message;

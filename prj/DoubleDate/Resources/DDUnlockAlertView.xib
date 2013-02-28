@@ -58,7 +58,7 @@
 						<string key="NSFrame">{{148, 27}, {42, 21}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="63297002"/>
+						<reference key="NSNextKeyView" ref="995521401"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -89,6 +89,7 @@
 						<string key="NSFrame">{{20, 52}, {280, 21}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="63297002"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -182,6 +183,7 @@
 						<string key="NSFrame">{{190, 138}, {110, 44}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -236,6 +238,22 @@
 						<reference key="destination" ref="995521401"/>
 					</object>
 					<int key="connectionID">44</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">buttonCancel</string>
+						<reference key="source" ref="178138378"/>
+						<reference key="destination" ref="292883053"/>
+					</object>
+					<int key="connectionID">46</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">buttonUnlock</string>
+						<reference key="source" ref="178138378"/>
+						<reference key="destination" ref="84039465"/>
+					</object>
+					<int key="connectionID">47</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -337,7 +355,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">44</int>
+			<int key="maxID">47</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -359,11 +377,21 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="buttonCancel">UIButton</string>
+						<string key="buttonUnlock">UIButton</string>
 						<string key="labelMessage">UILabel</string>
 						<string key="labelPrice">UILabel</string>
 						<string key="labelTitle">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="buttonCancel">
+							<string key="name">buttonCancel</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="buttonUnlock">
+							<string key="name">buttonUnlock</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="labelMessage">
 							<string key="name">labelMessage</string>
 							<string key="candidateClassName">UILabel</string>

@@ -21,6 +21,8 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelPrice;
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UILabel *labelMessage;
+@property(nonatomic, retain) IBOutlet UIButton *buttonCancel;
+@property(nonatomic, retain) IBOutlet UIButton *buttonUnlock;
 
 - (IBAction)cancelTouched:(id)sender;
 - (IBAction)unlockTouched:(id)sender;
@@ -32,16 +34,22 @@
 @synthesize labelPrice;
 @synthesize labelTitle;
 @synthesize labelMessage;
+@synthesize buttonCancel;
+@synthesize buttonUnlock;
 
 @synthesize delegate;
 
 @synthesize price=price_;
 @synthesize title=title_;
 @synthesize message=message_;
+@synthesize unlockButtonText=unlockButtonText_;
+@synthesize cancelButtonText=cancelButtonText_;
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    self.unlockButtonText = [self.buttonUnlock titleForState:UIControlStateNormal];
+    self.cancelButtonText = [self.buttonCancel titleForState:UIControlStateNormal];
 }
 
 - (IBAction)cancelTouched:(id)sender
@@ -106,6 +114,36 @@
     return message_;
 }
 
+- (void)setCancelButtonText:(NSString *)cancelButtonText
+{
+    if (cancelButtonText_ != cancelButtonText)
+    {
+        [cancelButtonText_ release];
+        cancelButtonText_ = [cancelButtonText retain];
+    }
+    [[self buttonCancel] setTitle:cancelButtonText_ forState:UIControlStateNormal];
+}
+
+- (NSString*)cancelButtonText
+{
+    return cancelButtonText_;
+}
+
+- (void)setUnlockButtonText:(NSString *)unlockButtonText
+{
+    if (unlockButtonText_ != unlockButtonText)
+    {
+        [unlockButtonText_ release];
+        unlockButtonText_ = [unlockButtonText retain];
+    }
+    [[self buttonUnlock] setTitle:unlockButtonText_ forState:UIControlStateNormal];
+}
+
+- (NSString*)unlockButtonText
+{
+    return unlockButtonText_;
+}
+
 - (void)show
 {
     //save window
@@ -140,8 +178,12 @@
     [labelPrice release];
     [labelTitle release];
     [labelMessage release];
+    [buttonCancel release];
+    [buttonUnlock release];
     [title_ release];
     [message_ release];
+    [cancelButtonText_ release];
+    [unlockButtonText_ release];
     [super dealloc];
 }
 
@@ -174,6 +216,10 @@
     alertView.price = self.price;
     alertView.title = self.title;
     alertView.message = self.message;
+    if (self.cancelButtonText)
+        alertView.cancelButtonText = self.cancelButtonText;
+    if (self.unlockButtonText)
+        alertView.unlockButtonText = self.unlockButtonText;
     [alertView show];
     [self addSubview:alertView];
     

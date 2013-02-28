@@ -23,12 +23,13 @@
 #import "DDObjectsController.h"
 #import "DDDoubleDateViewController.h"
 #import "DDBarButtonItem.h"
+#import "DDUnlockAlertView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
 #define kUnlockCost 50
 
-@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate>
+@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, DDUnlockAlertViewDelegate>
 
 @property(nonatomic, retain) UIView *popover;
 
@@ -348,13 +349,17 @@
         //check if we need to unlock the engagement
         if ([engagement.status isEqualToString:DDEngagementStatusLocked])
         {
-            //set format
-            NSString *format = NSLocalizedString(@"It costs %d coins to start the conversation with %@ and %@.", nil);
+            //hide keyboard
+            [self.textViewInput resignFirstResponder];
             
-            //create alert view
-            UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:nil message:[NSString stringWithFormat:format, kUnlockCost, [engagement.user.firstName capitalizedString], [engagement.wing.firstName capitalizedString]] delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) otherButtonTitles:NSLocalizedString(@"Okay, Send!", nil), nil] autorelease];
-            alert.tag = kTagUnlockAlert;
-            [alert show];
+            //add full-screen alert
+            DDUnlockAlertViewFullScreen *alertView = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
+            alertView.unlockButtonText = NSLocalizedString(@"Yes! Chat", nil);
+            alertView.delegate = self;
+            alertView.title = NSLocalizedString(@"UNLOCK CHAT THREAD", nil);
+            alertView.price = kUnlockCost;
+            alertView.message = NSLocalizedString(@"Would you like to start this chat and reply? ", nil);
+            [alertView show];
             
             return;
         }
@@ -618,6 +623,13 @@
     //update obejct
     self.engagement = e;
     
+    //update total coins
+    NSInteger totalCoins = [[[DDAuthenticationController currentUser] totalCoins] intValue] - kUnlockCost;
+    [[DDAuthenticationController currentUser] setTotalCoins:[NSNumber numberWithInt:totalCoins]];
+    
+    //inform about change
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
+    
     //replay send button
     [self sendTouched:nil];
 }
@@ -632,25 +644,15 @@
 }
 
 #pragma mark -
-#pragma mark UIAlertViewDelegate
+#pragma mark DDUnlockAlertViewDelegate
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender
 {
-    //check for invitation error
-    if (alertView.tag == kTagUnlockAlert)
-    {
-        //check needed action
-        if (buttonIndex == 0)
-            ;
-        else
-        {
-            //show loading
-            [self showHudWithText:NSLocalizedString(@"Unlocking...", nil) animated:YES];
-            
-            //send request
-            [self.apiController unlockEngagement:self.engagement];
-        }
-    }
+    //show loading
+    [self showHudWithText:NSLocalizedString(@"Unlocking", nil) animated:YES];
+    
+    //send request
+    [self.apiController unlockEngagement:self.engagement];
 }
 
 @end
