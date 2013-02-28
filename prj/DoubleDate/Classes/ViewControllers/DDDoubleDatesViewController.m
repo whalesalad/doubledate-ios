@@ -118,6 +118,12 @@ typedef enum
 
 - (void)customizeNoDataView
 {
+    //add gradient background
+    UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
+    gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
+    gradientView.center = CGPointMake(self.viewNoData.frame.size.width/2, self.viewNoData.frame.size.height/2-32);
+    [self.viewNoData addSubview:gradientView];
+    
     //add create date button
     UIButton *buttonCreateDate = [self newAddButton];
     buttonCreateDate.center = CGPointMake(self.viewNoData.frame.size.width/2, self.viewNoData.frame.size.height/2);
