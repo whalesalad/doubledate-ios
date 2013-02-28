@@ -130,7 +130,7 @@ typedef enum
     gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
     gradientView.layer.borderColor = [UIColor greenColor].CGColor;
     gradientView.layer.borderWidth = 1.0f;
-    gradientView.center = buttonCreateDate.center;
+    gradientView.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 32);
     [self.viewNoData insertSubview:gradientView belowSubview:buttonCreateDate];
     
     //add label
@@ -429,7 +429,7 @@ typedef enum
 - (void)updateUnlockView
 {
     //update visibility of unlock view
-    self.unlockTopView.hidden = (mode_ == DDDoubleDatesViewControllerModeAll) || ([doubleDatesMine_ count] == 0);
+    self.unlockTopView.hidden = (mode_ == DDDoubleDatesViewControllerModeAll) || ([doubleDatesMine_ count] == 0) || (self.maxActivitiesPayload == nil);
     UIEdgeInsets contentInsetBefore = self.tableView.contentInset;
     self.tableView.contentInset = UIEdgeInsetsMake(kTableViewContentInset.top+self.unlockTopView.hidden?0:self.unlockTopView.frame.size.height, kTableViewContentInset.left, kTableViewContentInset.bottom, kTableViewContentInset.right);
     self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y - self.tableView.contentInset.top + contentInsetBefore.top);
@@ -447,14 +447,23 @@ typedef enum
         [self customizeGenericLabel:label];
         
         //add button
-        UIButton *button = nil;        [self customizeGenericLabel:label];
+        UIButton *button = nil;
         
         //we are able to add new activity here
-        if (![self.maxActivitiesPayload.unlockRequired boolValue])
+        BOOL unlockRequiredFromAPI = [self.maxActivitiesPayload.unlockRequired boolValue];
+        BOOL lessThanAllowedCountOfActivities = self.maxActivitiesPayload.activitiesAllowed && ([doubleDatesMine_ count] < [self.maxActivitiesPayload.activitiesAllowed intValue]);
+        if (!unlockRequiredFromAPI || lessThanAllowedCountOfActivities)
         {
             //set text
-            NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
-            label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
+            if (unlockRequiredFromAPI)
+            {
+                NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
+                label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
+            }
+            else
+            {
+                label.text = NSLocalizedString(@"Post a date", nil);
+            }
 
             //set button
             button = [self newAddButton];
