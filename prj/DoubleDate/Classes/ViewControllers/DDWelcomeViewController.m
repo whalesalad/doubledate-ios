@@ -79,7 +79,7 @@
 {
     //set text
     NSString *title = NSLocalizedString(@"Your Privacy is Important", nil);
-    NSString *message = NSLocalizedString(@"We rely on Facebook to ensure That DoubleDaters are genuine. We'll never post on your wall, or spam you friends.", nil);
+    NSString *message = NSLocalizedString(@"We rely on Facebook to ensure That DoubleDaters are genuine. We'll never post on your wall, or spam your friends.", nil);
     NSString *fullText = [NSString stringWithFormat:@"%@\n%@", title, message];
     
     //create attributed text
