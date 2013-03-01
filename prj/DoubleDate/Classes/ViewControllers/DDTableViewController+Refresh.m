@@ -17,6 +17,7 @@
         if (!self.refreshControl)
         {
             self.refreshControl = [[[UIRefreshControl alloc] init] autorelease];
+            self.refreshControl.tintColor = [UIColor colorWithWhite:0.1f alpha:1.0f];
             [self.refreshControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         }
     }
@@ -94,7 +95,18 @@
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         [dateFormatter setDateStyle:kCFDateFormatterShortStyle];
         [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
-        [self sharedRefreshControl].attributedTitle = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Last updated: %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
+
+        NSMutableAttributedString *updatedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Updated %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
+        [updatedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0.25f alpha:1.0f] range:NSMakeRange(0,updatedText.length)];
+
+        NSShadow *updatedTextShadow = [[NSShadow alloc] init];
+        [updatedTextShadow setShadowBlurRadius:0.5f];
+        [updatedTextShadow setShadowColor:[UIColor colorWithWhite:0 alpha:0.7f]];
+        [updatedTextShadow setShadowOffset:CGSizeMake(0, 1)];
+        
+        [updatedText addAttribute:NSShadowAttributeName value:updatedTextShadow range:NSMakeRange(0,updatedText.length)];
+        
+        [self sharedRefreshControl].attributedTitle = updatedText;
 
         //stop refreshing
         [[self sharedRefreshControl] endRefreshing];
