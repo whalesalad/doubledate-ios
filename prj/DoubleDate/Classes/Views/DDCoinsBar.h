@@ -13,5 +13,6 @@
 }
 
 - (void)setValue:(NSInteger)value;
+- (void)setButtonTitle:(NSString*)title;
 
 @end
