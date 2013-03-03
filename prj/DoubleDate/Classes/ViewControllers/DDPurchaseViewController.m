@@ -10,6 +10,7 @@
 #import "DDCoinsBar.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDInAppProductTableViewCell.h"
 
 @interface DDPurchaseViewController ()
 
@@ -19,6 +20,7 @@
 
 @implementation DDPurchaseViewController
 
+@synthesize tableView;
 @synthesize coinsBarContainer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,6 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //register cell
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DDInAppProductTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([DDInAppProductTableViewCell class])];
     
     //add coin bar
     [self.coinsBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
@@ -57,6 +62,7 @@
 
 - (void)dealloc
 {
+    [tableView release];
     [coinsBarContainer release];
     [super dealloc];
 }
@@ -80,16 +86,41 @@
     }];
 }
 
-#pragma UITableViewDataSource
+#pragma mark UITableViewDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 0;
+    return [DDInAppProductTableViewCell height];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return nil;
+    return 7;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //set identifier
+    NSString *cellIdentifier = NSStringFromClass([DDInAppProductTableViewCell class]);
+    assert(cellIdentifier);
+    
+    //create cell if needed
+    DDInAppProductTableViewCell *tableViewCell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!tableViewCell)
+    {
+        tableViewCell = [[[UINib nibWithNibName:cellIdentifier bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+    }
+    
+    //customize background style
+    [tableViewCell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+    
+    //apply value
+    tableViewCell.labelAmount.text = [NSString stringWithFormat:@"%d", indexPath.row * 1000];
+    tableViewCell.labelCost.text = @"$0.99";
+    
+    return tableViewCell;
 }
 
 @end
