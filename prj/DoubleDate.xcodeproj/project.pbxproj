@@ -367,6 +367,12 @@
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */; };
 		70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */; };
+		70E1A27216E3823A008979FD /* coin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A26E16E3823A008979FD /* coin-icon.png */; };
+		70E1A27316E3823A008979FD /* coin-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A26F16E3823A008979FD /* coin-icon@2x.png */; };
+		70E1A27416E3823A008979FD /* most-popular-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27016E3823A008979FD /* most-popular-badge.png */; };
+		70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27116E3823A008979FD /* most-popular-badge@2x.png */; };
+		70E1A28216E3837E008979FD /* DDPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E1A28016E3837E008979FD /* DDPurchaseViewController.m */; };
+		70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A28416E38437008979FD /* DDPurchaseViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
 		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
 		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
@@ -972,6 +978,13 @@
 		70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewController.h; sourceTree = "<group>"; };
 		70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewController.m; sourceTree = "<group>"; };
 		70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateFilterViewController.xib; sourceTree = "<group>"; };
+		70E1A26E16E3823A008979FD /* coin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-icon.png"; sourceTree = "<group>"; };
+		70E1A26F16E3823A008979FD /* coin-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-icon@2x.png"; sourceTree = "<group>"; };
+		70E1A27016E3823A008979FD /* most-popular-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "most-popular-badge.png"; sourceTree = "<group>"; };
+		70E1A27116E3823A008979FD /* most-popular-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "most-popular-badge@2x.png"; sourceTree = "<group>"; };
+		70E1A27F16E3837E008979FD /* DDPurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPurchaseViewController.h; sourceTree = "<group>"; };
+		70E1A28016E3837E008979FD /* DDPurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPurchaseViewController.m; sourceTree = "<group>"; };
+		70E1A28416E38437008979FD /* DDPurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDPurchaseViewController.xib; sourceTree = "<group>"; };
 		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
@@ -1240,6 +1253,7 @@
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				70E1A26D16E3823A008979FD /* purchase-coins-assets */,
 				962DEA4B16DCBE94007B1603 /* date-stages */,
 				96E2620916D650E60041FD26 /* edit-profile-assets */,
 				4C3632C116D519F6001BBFE7 /* basic info */,
@@ -1729,6 +1743,17 @@
 			path = TITokenField;
 			sourceTree = "<group>";
 		};
+		70E1A26D16E3823A008979FD /* purchase-coins-assets */ = {
+			isa = PBXGroup;
+			children = (
+				70E1A26E16E3823A008979FD /* coin-icon.png */,
+				70E1A26F16E3823A008979FD /* coin-icon@2x.png */,
+				70E1A27016E3823A008979FD /* most-popular-badge.png */,
+				70E1A27116E3823A008979FD /* most-popular-badge@2x.png */,
+			);
+			path = "purchase-coins-assets";
+			sourceTree = "<group>";
+		};
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
@@ -2059,6 +2084,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				70E1A27F16E3837E008979FD /* DDPurchaseViewController.h */,
+				70E1A28016E3837E008979FD /* DDPurchaseViewController.m */,
 				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
 				7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */,
 				96E2623316D651140041FD26 /* DDEditProfileViewController.h */,
@@ -2122,6 +2149,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70E1A28416E38437008979FD /* DDPurchaseViewController.xib */,
 				964F743C16DE7C620095DBED /* DDUnlockAlertView.xib */,
 				964F743716DE6A3F0095DBED /* DDCoinsBar.xib */,
 				96E2623816D6555E0041FD26 /* DDEditProfileViewController.xib */,
@@ -2761,6 +2789,11 @@
 				4C9E280516DCFB740050DF05 /* interest-search-tablecell@2x.png in Resources */,
 				964F743816DE6A3F0095DBED /* DDCoinsBar.xib in Resources */,
 				964F743D16DE7C620095DBED /* DDUnlockAlertView.xib in Resources */,
+				70E1A27216E3823A008979FD /* coin-icon.png in Resources */,
+				70E1A27316E3823A008979FD /* coin-icon@2x.png in Resources */,
+				70E1A27416E3823A008979FD /* most-popular-badge.png in Resources */,
+				70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */,
+				70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2886,6 +2919,7 @@
 				7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */,
 				964F742D16DE69E90095DBED /* DDCoinsBar.m in Sources */,
 				964F743B16DE7C260095DBED /* DDUnlockAlertView.m in Sources */,
+				70E1A28216E3837E008979FD /* DDPurchaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
