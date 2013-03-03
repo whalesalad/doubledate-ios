@@ -23,6 +23,9 @@
 + (DDRequestsController*)sharedDummyController;
 + (DDRequestsController*)sharedMeController;
 
++ (void)setActiveRequestsCount:(NSInteger)count;
++ (NSInteger)activeRequestsCount;
+
 - (void)startRequest:(RKRequest*)request;
 - (void)stopAllRequests;
 

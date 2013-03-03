@@ -28,6 +28,8 @@
 static DDRequestsController *_sharedDummyInstance = nil;
 static DDRequestsController *_sharedMeInstance = nil;
 
+static NSInteger _activeRequestsCount = 0;
+
 + (DDRequestsController*)sharedDummyController
 {
     if (!_sharedDummyInstance)
@@ -40,6 +42,17 @@ static DDRequestsController *_sharedMeInstance = nil;
     if (!_sharedMeInstance)
         _sharedMeInstance = [[DDRequestsController alloc] init];
     return _sharedMeInstance;
+}
+
++ (void)setActiveRequestsCount:(NSInteger)count
+{
+    _activeRequestsCount = count;
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:_activeRequestsCount > 0];
+}
+
++ (NSInteger)activeRequestsCount
+{
+    return _activeRequestsCount;
 }
 
 - (id)init
@@ -56,6 +69,7 @@ static DDRequestsController *_sharedMeInstance = nil;
     request.delegate = self;
     [requests_ addObject:request];
     [request sendAsynchronously];
+    [[self class] setActiveRequestsCount:[[self class] activeRequestsCount] + 1];
 }
 
 - (void)stopRequest:(RKRequest*)request
@@ -64,6 +78,7 @@ static DDRequestsController *_sharedMeInstance = nil;
     [request cancel];
     [[request retain] autorelease];
     [requests_ removeObject:request];
+    [[self class] setActiveRequestsCount:[[self class] activeRequestsCount] - 1];
 }
 
 - (void)stopAllRequests
