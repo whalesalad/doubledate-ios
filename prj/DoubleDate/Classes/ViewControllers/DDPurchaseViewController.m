@@ -14,6 +14,7 @@
 #import "DDInAppProduct.h"
 #import "DDStoreKitController.h"
 #import "DDObjectsController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDPurchaseViewController ()<DDStoreKitControllerDelegate>
 
@@ -39,6 +40,10 @@
     
     //set coins bar right button
     [self.coinsBar setButtonTitle:NSLocalizedString(@"Close", nil)];
+    
+    self.coinsBar.layer.shadowOffset = CGSizeMake(0, 1);
+    self.coinsBar.layer.shadowOpacity = 0.5f;
+    self.coinsBar.layer.shadowColor = [UIColor blackColor].CGColor;
     
     //set coins close handler
     [self.coinsBar addTarget:self action:@selector(closeTouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -93,6 +98,7 @@
     textView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
     textView.textColor = [UIColor whiteColor];
     [tableViewCell.contentView addSubview:textView];
+    tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)customizeDescriptionTableViewCell:(UITableViewCell*)tableViewCell
@@ -105,6 +111,7 @@
     textView.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     textView.textColor = [UIColor whiteColor];
     [tableViewCell.contentView addSubview:textView];
+    tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 #pragma mark UITableViewDelegate
@@ -129,13 +136,11 @@
 {
     if (section == 0)
     {
-#warning padding in the bottom of title
-        return 10;
+        return 1;
     }
     else if (section == 1)
     {
-#warning padding in the bottom of description
-        return 10;
+        return 1;
     }
     else if (section == 2)
     {
@@ -148,13 +153,11 @@
 {
     if (section == 0)
     {
-#warning padding in the top of title
-        return 10;
+        return 5;
     }
     else if (section == 1)
     {
-#warning padding in the top of description
-        return 10;
+        return 1;
     }
     else if (section == 2)
         return 40;
@@ -165,10 +168,13 @@
 {
     if (section == 2)
     {
-#warning customization of label
         UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(12, 0, 300, 40)] autorelease];
-        label.text = NSLocalizedString(@"CHOOSE A PACKAGE BELOW", nil);
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(20, 0, 300, 40)] autorelease];
+        label.text = [NSLocalizedString(@"Choose a Package Below", nil) uppercaseString];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
+        label.textColor = [UIColor grayColor];
+        label.backgroundColor = [UIColor clearColor];
+        
         [headerView addSubview:label];
         return headerView;
     }
