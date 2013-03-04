@@ -12,6 +12,7 @@
 
 @property(nonatomic, retain) NSArray *products;
 
+@property(nonatomic, retain) IBOutlet UIView *viewCoinsContainer;
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
