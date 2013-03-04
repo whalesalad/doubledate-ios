@@ -21,6 +21,7 @@
 @implementation DDPurchaseViewController
 
 @synthesize products;
+@synthesize viewCoinsContainer;
 @synthesize tableView;
 
 - (void)viewDidLoad
@@ -31,7 +32,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DDInAppProductTableViewCell class]) bundle:nil] forCellReuseIdentifier:NSStringFromClass([DDInAppProductTableViewCell class])];
     
     //set coins bar as table view header
-    self.tableView.tableHeaderView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0];
+    [self.viewCoinsContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
     
     //set coins bar right button
     [self.coinsBar setButtonTitle:NSLocalizedString(@"Close", nil)];
@@ -54,6 +55,7 @@
 - (void)dealloc
 {
     [products release];
+    [viewCoinsContainer release];
     [tableView release];
     [super dealloc];
 }
@@ -63,7 +65,12 @@
 
 - (DDCoinsBar*)coinsBar
 {
-    return (DDCoinsBar*)self.tableView.tableHeaderView;
+    for (DDCoinsBar *v in [self.viewCoinsContainer subviews])
+    {
+        if ([v isKindOfClass:[DDCoinsBar class]])
+            return v;
+    }
+    return nil;
 }
 
 - (void)closeTouched:(id)sender
