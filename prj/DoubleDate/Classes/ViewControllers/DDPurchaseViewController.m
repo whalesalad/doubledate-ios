@@ -118,11 +118,11 @@
 {
     if (section == 0)
     {
-        return 0;
+        return 1;
     }
     else if (section == 1)
     {
-        return 0;
+        return 1;
     }
     else if (section == 2)
     {
@@ -135,11 +135,11 @@
 {
     if (section == 0)
     {
-        return 0;
+        return 5;
     }
     else if (section == 1)
     {
-        return 0;
+        return 1;
     }
     else if (section == 2)
         return 40;
