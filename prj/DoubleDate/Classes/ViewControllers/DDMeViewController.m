@@ -283,12 +283,11 @@
 
 - (void)moreCoinsTouched:(id)sender
 {
-    //present view controller
-    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
-    UIViewController *vc = [[[DDPurchaseViewController alloc] init] autorelease];
-    UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-    [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
-    }];
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //request products
+    [self.apiController getInAppProducts];
 }
 
 - (void)editProfileTouched
@@ -526,6 +525,29 @@
 {
     //show avatar
     [self setAvatarShown:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getInAppProductsSucceed:(NSArray *)products
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //present view controller
+    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
+    DDPurchaseViewController *vc = [[[DDPurchaseViewController alloc] init] autorelease];
+    vc.products = products;
+    UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+    [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
+    }];
+}
+
+- (void)getInAppProductsDidFailedWithError:(NSError *)error
+{
+    //hide hud
+    [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

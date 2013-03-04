@@ -10,8 +10,8 @@
 
 @interface DDPurchaseViewController : DDViewController
 
-@property(nonatomic, retain) IBOutlet UITableView *tableView;
+@property(nonatomic, retain) NSArray *products;
 
-@property(nonatomic, retain) IBOutlet UIView *coinsBarContainer;
+@property(nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end
