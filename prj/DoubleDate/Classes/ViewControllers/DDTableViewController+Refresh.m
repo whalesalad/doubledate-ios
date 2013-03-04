@@ -17,7 +17,7 @@
         if (!self.refreshControl)
         {
             self.refreshControl = [[[UIRefreshControl alloc] init] autorelease];
-            self.refreshControl.tintColor = [UIColor colorWithWhite:0.1f alpha:1.0f];
+            self.refreshControl.tintColor = [UIColor colorWithWhite:0.2f alpha:1.0f];
             [self.refreshControl addTarget:self action:@selector(refreshControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         }
     }
@@ -97,7 +97,7 @@
         [dateFormatter setTimeStyle:kCFDateFormatterShortStyle];
 
         NSMutableAttributedString *updatedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Updated %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
-        [updatedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0.25f alpha:1.0f] range:NSMakeRange(0,updatedText.length)];
+        [updatedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0.3f alpha:1.0f] range:NSMakeRange(0,updatedText.length)];
 
         NSShadow *updatedTextShadow = [[NSShadow alloc] init];
         [updatedTextShadow setShadowBlurRadius:0.5f];

@@ -86,8 +86,10 @@
     UITextView *textView = [[[UITextView alloc] initWithFrame:tableViewCell.bounds] autorelease];
     textView.userInteractionEnabled = NO;
     textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    textView.backgroundColor = [UIColor redColor];
+    textView.backgroundColor = [UIColor clearColor];
     textView.text = NSLocalizedString(@"Coins let you unlock upgrades and respond to incoming messages.", nil);
+    textView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+    textView.textColor = [UIColor whiteColor];
     [tableViewCell.contentView addSubview:textView];
 }
 
@@ -96,8 +98,10 @@
     UITextView *textView = [[[UITextView alloc] initWithFrame:tableViewCell.bounds] autorelease];
     textView.userInteractionEnabled = NO;
     textView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    textView.backgroundColor = [UIColor greenColor];
+    textView.backgroundColor = [UIColor clearColor];
     textView.text = NSLocalizedString(@"Coins never expire and we'll never automatically charge you for more.", nil);
+    textView.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    textView.textColor = [UIColor whiteColor];
     [tableViewCell.contentView addSubview:textView];
 }
 
@@ -156,7 +160,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0)
-        return 40;
+        return 55;
     else if (indexPath.section == 1)
         return 60;
     else if (indexPath.section == 2)

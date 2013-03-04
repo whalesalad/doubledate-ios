@@ -121,15 +121,11 @@ typedef enum
     //add create date button
     UIButton *buttonCreateDate = [self newAddButton];
     buttonCreateDate.center = CGPointMake(self.viewNoData.frame.size.width/2, self.viewNoData.frame.size.height/2);
-    buttonCreateDate.layer.borderColor = [UIColor cyanColor].CGColor;
-    buttonCreateDate.layer.borderWidth = 1.0f;
     [self.viewNoData addSubview:buttonCreateDate];
     
     //add gradient background
     UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
     gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
-    gradientView.layer.borderColor = [UIColor greenColor].CGColor;
-    gradientView.layer.borderWidth = 1.0f;
     gradientView.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 32);
     [self.viewNoData insertSubview:gradientView belowSubview:buttonCreateDate];
     
@@ -455,15 +451,17 @@ typedef enum
         if (!unlockRequiredFromAPI || lessThanAllowedCountOfActivities)
         {
             //set text
-            if (unlockRequiredFromAPI)
-            {
-                NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
-                label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
-            }
-            else
-            {
-                label.text = NSLocalizedString(@"Post a date", nil);
-            }
+//            if (unlockRequiredFromAPI)
+//            {
+//                NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
+//                label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
+//            }
+//            else
+//            {
+//                label.text = NSLocalizedString(@"Post a date", nil);
+//            }
+            NSString *format = NSLocalizedString(@"Post up to %d dates at the same time.", nil);
+            label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
 
             //set button
             button = [self newAddButton];
