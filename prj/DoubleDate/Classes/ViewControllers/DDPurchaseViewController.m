@@ -11,6 +11,8 @@
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
 #import "DDInAppProductTableViewCell.h"
+#import "DDInAppProduct.h"
+#import "DDStoreKitController.h"
 
 @interface DDPurchaseViewController ()
 
@@ -215,9 +217,14 @@
         //customize background style
         [tableViewCell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
         
+        //get product
+        DDInAppProduct *product = [self.products objectAtIndex:indexPath.row];
+        
         //apply value
-        tableViewCell.labelAmount.text = [NSString stringWithFormat:@"%d", indexPath.row * 1000];
-        tableViewCell.labelCost.text = @"$0.99";
+        tableViewCell.labelAmount.text = [NSString stringWithFormat:@"%d", [product.coins intValue]];
+        tableViewCell.labelCost.text = [[DDStoreKitController sharedController] localizedPriceOfProductWithPid:product.identifier];
+        tableViewCell.labelPopular.hidden = ![product.popular boolValue];
+        tableViewCell.imageViewPopular.hidden = tableViewCell.labelPopular.hidden;
         
         return tableViewCell;
     }

@@ -41,6 +41,16 @@ static DDStoreKitController *_sharedController = nil;
 	return ret;
 }
 
+- (SKProduct*)productForPid:(NSString*)pid
+{
+    for (SKProduct *product in products_)
+    {
+        if ([product.productIdentifier isEqualToString:pid])
+            return product;
+    }
+    return nil;
+}
+
 - (void)requestProductDataWithPids:(NSSet*)pids
 {
 	//delete old request
@@ -51,6 +61,21 @@ static DDStoreKitController *_sharedController = nil;
 	request_= [[SKProductsRequest alloc] initWithProductIdentifiers: pids];
 	request_.delegate = self;
 	[request_ start];
+}
+
+- (NSString*)localizedPriceOfProductWithPid:(NSString*)pid
+{
+    return [[self class] localizedPriceFromProduct:[self productForPid:pid]];
+}
+
+- (NSString*)descriptionOfProductWithPid:(NSString*)pid
+{
+    return [[self productForPid:pid] localizedDescription];
+}
+
+- (NSString*)titleOfProductWithPid:(NSString*)pid
+{
+    return [[self productForPid:pid] localizedTitle];
 }
 
 - (void)dealloc

@@ -30,6 +30,8 @@
 
 - (void)requestProductDataWithPids:(NSSet*)pids;
 
-+ (NSString*)localizedPriceFromProduct:(SKProduct*)product;
+- (NSString*)localizedPriceOfProductWithPid:(NSString*)pid;
+- (NSString*)descriptionOfProductWithPid:(NSString*)pid;
+- (NSString*)titleOfProductWithPid:(NSString*)pid;
 
 @end

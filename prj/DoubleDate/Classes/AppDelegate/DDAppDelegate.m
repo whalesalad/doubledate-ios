@@ -27,6 +27,7 @@
 @synthesize topNavigationController;
 @synthesize callbackUrl;
 @synthesize openedCallbackUrl;
+@synthesize products;
 
 - (void)dealloc
 {
@@ -39,6 +40,7 @@
     [selectedEngagement release];
     [callbackUrl release];
     [openedCallbackUrl release];
+    [products release];
     [super dealloc];
 }
 

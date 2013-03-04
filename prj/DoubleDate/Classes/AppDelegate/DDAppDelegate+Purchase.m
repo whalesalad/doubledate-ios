@@ -30,6 +30,9 @@
 
 - (void)getInAppProductsSucceed:(NSArray *)products
 {
+    //save products
+    self.products = products;
+    
     //create request
     NSMutableSet *pids = [NSMutableSet set];
     for (DDInAppProduct *product in products)
@@ -64,7 +67,7 @@
     //present view controller
     DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
     DDPurchaseViewController *vc = [[[DDPurchaseViewController alloc] init] autorelease];
-    vc.products = products;
+    vc.products = self.products;
     UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
     [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
     }];

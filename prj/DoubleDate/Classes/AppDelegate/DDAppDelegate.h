@@ -33,4 +33,6 @@
 
 @property (retain, nonatomic) NSString *openedCallbackUrl;
 
+@property (retain, nonatomic) NSArray *products;
+
 @end
