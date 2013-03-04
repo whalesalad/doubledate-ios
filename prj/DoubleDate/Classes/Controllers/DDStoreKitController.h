@@ -15,6 +15,11 @@
 - (void)productsReceived:(NSArray*)products;
 - (void)productsReceivingFailed:(NSError*)error;
 
+- (void)productPurchasingIsNotAuthorized;
+
+- (void)productPurchased:(NSString*)pid;
+- (void)productPurchasingFailed:(NSError*)error;
+
 @end
 
 @interface DDStoreKitController : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver>
@@ -29,6 +34,8 @@
 + (DDStoreKitController *)sharedController;
 
 - (void)requestProductDataWithPids:(NSSet*)pids;
+
+- (void)purchaseProductWithPid:(NSString*)pid;
 
 - (NSString*)localizedPriceOfProductWithPid:(NSString*)pid;
 - (NSString*)descriptionOfProductWithPid:(NSString*)pid;

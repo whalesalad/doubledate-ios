@@ -63,6 +63,28 @@ static DDStoreKitController *_sharedController = nil;
 	[request_ start];
 }
 
+- (void)purchaseProductWithPid:(NSString*)pid
+{
+    if ([SKPaymentQueue canMakePayments])
+	{
+		SKProduct *product = [self productForPid:pid];
+		if (product)
+		{
+			NSLog(@"Try to purchase the product: %@", product.productIdentifier);
+			SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
+			payment.quantity = 1;
+			[[SKPaymentQueue defaultQueue] addPayment:payment];
+		}
+        else
+            NSLog(@"Error: product %@ not found", pid);
+	}
+	else
+	{
+		if ([(id)self.delegate respondsToSelector:@selector(productPurchasingIsNotAuthorized)])
+			[(id)self.delegate productPurchasingIsNotAuthorized];
+	}
+}
+
 - (NSString*)localizedPriceOfProductWithPid:(NSString*)pid
 {
     return [[self class] localizedPriceFromProduct:[self productForPid:pid]];
@@ -135,7 +157,29 @@ static DDStoreKitController *_sharedController = nil;
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
-    
+    for (SKPaymentTransaction *transaction in transactions)
+	{
+		//check transaction state
+		switch (transaction.transactionState)
+		{
+			case SKPaymentTransactionStatePurchased:
+				NSLog(@"Purchased the product: %@", transaction.payment.productIdentifier);
+				if ([(id)self.delegate respondsToSelector:@selector(productPurchased:)])
+					[(id)self.delegate productPurchased:transaction.payment.productIdentifier];
+                break;
+            case SKPaymentTransactionStateFailed:
+				NSLog(@"Purchasing of the product failed: %@", transaction.payment.productIdentifier);
+				if ([(id)self.delegate respondsToSelector:@selector(productPurchasingFailed:)])
+					[(id)self.delegate productPurchasingFailed:transaction.error];
+				break;
+            default:
+                break;
+		}
+		
+		//finish transaction
+		if (transaction.transactionState != SKPaymentTransactionStatePurchasing)
+			[[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+	}
 }
 
 @end
