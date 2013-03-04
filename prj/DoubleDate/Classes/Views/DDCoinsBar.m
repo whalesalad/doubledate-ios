@@ -33,13 +33,22 @@
     [self.buttonMoreCoins setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonMoreCoins backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
 }
 
-- (void)alignCoinsLabel
+- (void)layoutSubviews
 {
     //save distance between label and button
     CGFloat gap = (self.labelCoins.frame.origin.x - self.imageViewCoins.frame.origin.x - self.imageViewCoins.frame.size.width);
     
     //move label coins
     CGSize newLabelSize = CGSizeMake([self.labelCoins sizeThatFits:self.labelCoins.bounds.size].width, self.labelCoins.frame.size.height);
+    
+    //align button
+    CGSize newButtonSize = CGSizeMake([self.buttonMoreCoins sizeThatFits:self.buttonMoreCoins.bounds.size].width, self.buttonMoreCoins.frame.size.height);
+    
+    //update label container
+//    self.labelCoinsContainer.frame = CGRectMake(0, self.labelCoinsContainer.frame.origin.y, self.frame.size.width - newButtonSize.width, self.labelCoinsContainer.frame.size.height);
+    
+    //update button
+    self.buttonMoreCoins.frame = CGRectMake(self.buttonMoreCoins.frame.origin.x - newButtonSize.width + self.buttonMoreCoins.frame.size.width, self.buttonMoreCoins.frame.origin.y, newButtonSize.width, self.buttonMoreCoins.frame.size.height);
     
     //update center of the label
     self.labelCoins.frame = CGRectMake(0, self.labelCoins.frame.origin.y, newLabelSize.width, self.labelCoins.frame.size.height);
@@ -52,7 +61,13 @@
 - (void)setValue:(NSInteger)value
 {
     self.labelCoins.text = [NSString stringWithFormat:@"%d", value];
-    [self alignCoinsLabel];
+    [self setNeedsLayout];
+}
+
+- (void)setButtonTitle:(NSString*)title
+{
+    [self.buttonMoreCoins setTitle:title forState:UIControlStateNormal];
+    [self setNeedsLayout];
 }
 
 - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents

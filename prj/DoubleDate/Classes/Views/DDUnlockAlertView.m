@@ -15,6 +15,7 @@
 #import "DDViewController.h"
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
+#import "DDPurchaseViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDUnlockAlertView ()
@@ -321,13 +322,10 @@
     
     //present view controller
     DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
-    UIViewController *vc = [[[DDViewController alloc] init] autorelease];
+    UIViewController *vc = [[[DDPurchaseViewController alloc] init] autorelease];
     UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
     [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
     }];
-    
-    //set navigation item
-    vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Close", nil) target:vc action:@selector(dismissViewController)];
 }
 
 - (void)dealloc

@@ -341,6 +341,9 @@
 		7025E53F168274B100FE3FBE /* DDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7025E53E168274B100FE3FBE /* DDMessage.m */; };
 		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
+		7041769216E3A047003B6B24 /* DDInAppProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */; };
+		7041769516E3A065003B6B24 /* DDInAppProductTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7041769416E3A065003B6B24 /* DDInAppProductTableViewCell.m */; };
+		7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */; };
 		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
 		704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */; };
 		704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */; };
@@ -367,6 +370,11 @@
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */; };
 		70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */; };
+		70E1A27216E3823A008979FD /* coin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A26E16E3823A008979FD /* coin-icon.png */; };
+		70E1A27316E3823A008979FD /* coin-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A26F16E3823A008979FD /* coin-icon@2x.png */; };
+		70E1A27416E3823A008979FD /* most-popular-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27016E3823A008979FD /* most-popular-badge.png */; };
+		70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27116E3823A008979FD /* most-popular-badge@2x.png */; };
+		70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A28416E38437008979FD /* DDPurchaseViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
 		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
 		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
@@ -926,6 +934,11 @@
 		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
 		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
 		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
+		7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInAppProductTableViewCell.xib; sourceTree = "<group>"; };
+		7041769316E3A065003B6B24 /* DDInAppProductTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInAppProductTableViewCell.h; sourceTree = "<group>"; };
+		7041769416E3A065003B6B24 /* DDInAppProductTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInAppProductTableViewCell.m; sourceTree = "<group>"; };
+		7041769616E3A2CD003B6B24 /* DDPurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPurchaseViewController.h; sourceTree = "<group>"; };
+		7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPurchaseViewController.m; sourceTree = "<group>"; };
 		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementsViewController.h; sourceTree = "<group>"; };
 		704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagementsViewController.m; sourceTree = "<group>"; };
@@ -972,6 +985,11 @@
 		70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewController.h; sourceTree = "<group>"; };
 		70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewController.m; sourceTree = "<group>"; };
 		70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateFilterViewController.xib; sourceTree = "<group>"; };
+		70E1A26E16E3823A008979FD /* coin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-icon.png"; sourceTree = "<group>"; };
+		70E1A26F16E3823A008979FD /* coin-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-icon@2x.png"; sourceTree = "<group>"; };
+		70E1A27016E3823A008979FD /* most-popular-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "most-popular-badge.png"; sourceTree = "<group>"; };
+		70E1A27116E3823A008979FD /* most-popular-badge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "most-popular-badge@2x.png"; sourceTree = "<group>"; };
+		70E1A28416E38437008979FD /* DDPurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDPurchaseViewController.xib; sourceTree = "<group>"; };
 		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
@@ -1240,6 +1258,7 @@
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				70E1A26D16E3823A008979FD /* purchase-coins-assets */,
 				962DEA4B16DCBE94007B1603 /* date-stages */,
 				96E2620916D650E60041FD26 /* edit-profile-assets */,
 				4C3632C116D519F6001BBFE7 /* basic info */,
@@ -1729,6 +1748,17 @@
 			path = TITokenField;
 			sourceTree = "<group>";
 		};
+		70E1A26D16E3823A008979FD /* purchase-coins-assets */ = {
+			isa = PBXGroup;
+			children = (
+				70E1A26E16E3823A008979FD /* coin-icon.png */,
+				70E1A26F16E3823A008979FD /* coin-icon@2x.png */,
+				70E1A27016E3823A008979FD /* most-popular-badge.png */,
+				70E1A27116E3823A008979FD /* most-popular-badge@2x.png */,
+			);
+			path = "purchase-coins-assets";
+			sourceTree = "<group>";
+		};
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
@@ -1939,6 +1969,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7041769316E3A065003B6B24 /* DDInAppProductTableViewCell.h */,
+				7041769416E3A065003B6B24 /* DDInAppProductTableViewCell.m */,
 				964F743916DE7C260095DBED /* DDUnlockAlertView.h */,
 				964F743A16DE7C260095DBED /* DDUnlockAlertView.m */,
 				964F742B16DE69E90095DBED /* DDCoinsBar.h */,
@@ -2059,6 +2091,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7041769616E3A2CD003B6B24 /* DDPurchaseViewController.h */,
+				7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */,
 				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
 				7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */,
 				96E2623316D651140041FD26 /* DDEditProfileViewController.h */,
@@ -2122,6 +2156,8 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */,
+				70E1A28416E38437008979FD /* DDPurchaseViewController.xib */,
 				964F743C16DE7C620095DBED /* DDUnlockAlertView.xib */,
 				964F743716DE6A3F0095DBED /* DDCoinsBar.xib */,
 				96E2623816D6555E0041FD26 /* DDEditProfileViewController.xib */,
@@ -2761,6 +2797,12 @@
 				4C9E280516DCFB740050DF05 /* interest-search-tablecell@2x.png in Resources */,
 				964F743816DE6A3F0095DBED /* DDCoinsBar.xib in Resources */,
 				964F743D16DE7C620095DBED /* DDUnlockAlertView.xib in Resources */,
+				70E1A27216E3823A008979FD /* coin-icon.png in Resources */,
+				70E1A27316E3823A008979FD /* coin-icon@2x.png in Resources */,
+				70E1A27416E3823A008979FD /* most-popular-badge.png in Resources */,
+				70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */,
+				70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */,
+				7041769216E3A047003B6B24 /* DDInAppProductTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2886,6 +2928,8 @@
 				7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */,
 				964F742D16DE69E90095DBED /* DDCoinsBar.m in Sources */,
 				964F743B16DE7C260095DBED /* DDUnlockAlertView.m in Sources */,
+				7041769516E3A065003B6B24 /* DDInAppProductTableViewCell.m in Sources */,
+				7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

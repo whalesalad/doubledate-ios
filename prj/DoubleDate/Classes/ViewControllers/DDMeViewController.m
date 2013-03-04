@@ -23,6 +23,7 @@
 #import "DDEditProfileViewController.h"
 #import "DDObjectsController.h"
 #import "DDCoinsBar.h"
+#import "DDPurchaseViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -284,13 +285,10 @@
 {
     //present view controller
     DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
-    UIViewController *vc = [[[DDViewController alloc] init] autorelease];
+    UIViewController *vc = [[[DDPurchaseViewController alloc] init] autorelease];
     UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
     [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
     }];
-    
-    //set navigation item
-    vc.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Close", nil) target:vc action:@selector(dismissViewController)];
 }
 
 - (void)editProfileTouched
