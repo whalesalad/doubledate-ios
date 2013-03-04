@@ -16,6 +16,7 @@
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
 #import "DDPurchaseViewController.h"
+#import "DDAppDelegate+Purchase.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDUnlockAlertView ()
@@ -320,12 +321,8 @@
     //remove self
     [self dismiss];
     
-    //present view controller
-    DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
-    UIViewController *vc = [[[DDPurchaseViewController alloc] init] autorelease];
-    UINavigationController *nc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-    [[appDelegate topNavigationController] presentViewController:nc animated:YES completion:^{
-    }];
+    //present purchase screen
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentPurchaseScreen];
 }
 
 - (void)dealloc

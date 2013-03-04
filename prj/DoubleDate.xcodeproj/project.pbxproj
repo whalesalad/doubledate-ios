@@ -355,6 +355,7 @@
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */; };
 		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
+		7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */; };
 		708893AD164C4D1B000D3A00 /* DDIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */; };
 		708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 708957DD16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
@@ -960,6 +961,8 @@
 		7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectInterestsViewController.m; sourceTree = "<group>"; };
 		7086D9F016B54E3D003310D1 /* DDAppDelegate+APNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+APNS.h"; sourceTree = "<group>"; };
 		7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+APNS.m"; sourceTree = "<group>"; };
+		7086FFAA16E543310051F95A /* DDAppDelegate+Purchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+Purchase.h"; sourceTree = "<group>"; };
+		7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+Purchase.m"; sourceTree = "<group>"; };
 		708893AB164C4D1B000D3A00 /* DDIconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDIconTableViewCell.h; sourceTree = "<group>"; };
 		708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDIconTableViewCell.m; sourceTree = "<group>"; };
 		708957DC16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+UserBubble.h"; sourceTree = "<group>"; };
@@ -2079,6 +2082,8 @@
 		96E7F1AA15F738CA00200E1F /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				7086FFAA16E543310051F95A /* DDAppDelegate+Purchase.h */,
+				7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */,
 				701D770516C99C9A00EE2229 /* DDAppDelegate+Navigation.h */,
 				701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */,
 				96EBDD9416C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.h */,
@@ -2936,6 +2941,7 @@
 				7041769516E3A065003B6B24 /* DDInAppProductTableViewCell.m in Sources */,
 				7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */,
 				9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */,
+				7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
