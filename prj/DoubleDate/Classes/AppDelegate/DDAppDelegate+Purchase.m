@@ -80,9 +80,6 @@
     
     //hide hud
     [self.window.rootViewController hideHud:YES];
-    
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
 @end

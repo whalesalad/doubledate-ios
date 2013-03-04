@@ -13,8 +13,9 @@
 #import "DDInAppProductTableViewCell.h"
 #import "DDInAppProduct.h"
 #import "DDStoreKitController.h"
+#import "DDObjectsController.h"
 
-@interface DDPurchaseViewController ()
+@interface DDPurchaseViewController ()<DDStoreKitControllerDelegate>
 
 @property(nonatomic, readonly) DDCoinsBar *coinsBar;
 
@@ -56,6 +57,7 @@
 
 - (void)dealloc
 {
+    [[DDStoreKitController sharedController] setDelegate:nil];
     [products release];
     [viewCoinsContainer release];
     [tableView release];
@@ -106,6 +108,22 @@
 }
 
 #pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //check purchase section
+    if (indexPath.section == 2)
+    {
+        //get pid
+        NSString *pid = [[self.products objectAtIndex:indexPath.row] identifier];
+        
+        //set delegate
+        [[DDStoreKitController sharedController] setDelegate:self];
+        
+        //purchase product
+        [[DDStoreKitController sharedController] purchaseProductWithPid:pid];
+    }
+}
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
 {
@@ -234,6 +252,47 @@
     }
     
     return [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+}
+
+#pragma mark store
+
+- (void)productPurchasingIsNotAuthorized
+{
+    //unset delegate
+    [[DDStoreKitController sharedController] setDelegate:nil];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"You are not authorized to make a payment", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)productPurchased:(NSString*)pid
+{
+    //unset delegate
+    [[DDStoreKitController sharedController] setDelegate:nil];
+    
+    //get money to increase
+    NSInteger coins = 0;
+    for (DDInAppProduct *product in self.products)
+    {
+        if ([product.identifier isEqualToString:pid])
+            coins = [product.coins intValue];
+    }
+    
+    //update total coins
+    NSInteger totalCoins = [[[DDAuthenticationController currentUser] totalCoins] intValue] + coins;
+    [[DDAuthenticationController currentUser] setTotalCoins:[NSNumber numberWithInt:totalCoins]];
+    
+    //inform about change
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
+    
+    //update coins bar
+    [self.coinsBar setValue:totalCoins];
+}
+
+- (void)productPurchasingFailed:(NSError*)error
+{
+    //unset delegate
+    [[DDStoreKitController sharedController] setDelegate:nil];
 }
 
 @end
