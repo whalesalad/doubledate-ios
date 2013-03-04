@@ -403,6 +403,7 @@
 		960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF816A00E6300258CA7 /* Social.framework */; };
 		960FB54C16413964003563FD /* DDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 960FB54B16413964003563FD /* DDTableViewCell.m */; };
 		9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */; };
+		9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */; };
 		96187E2516CA4676007D61E8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96187E2416CA4676007D61E8 /* CoreText.framework */; };
 		962B410016256397004E0656 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B40FF16256397004E0656 /* FacebookSDK.framework */; };
 		962B410416256413004E0656 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410216256413004E0656 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -1032,6 +1033,8 @@
 		960FB54B16413964003563FD /* DDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTableViewCell.m; sourceTree = "<group>"; };
 		9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateViewController.h; sourceTree = "<group>"; };
 		9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateViewController.m; sourceTree = "<group>"; };
+		9615C8A816E4EE3A00F5D0AC /* DDInAppProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInAppProduct.h; sourceTree = "<group>"; };
+		9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInAppProduct.m; sourceTree = "<group>"; };
 		96187E2416CA4676007D61E8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		962B40FF16256397004E0656 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		962B410216256413004E0656 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -1919,6 +1922,8 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9615C8A816E4EE3A00F5D0AC /* DDInAppProduct.h */,
+				9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */,
 				964220CD16DB567900840733 /* DDMaxActivitiesPayload.h */,
 				964220CE16DB567900840733 /* DDMaxActivitiesPayload.m */,
 				706EFAA616C9B5D300DD5791 /* DDNotification.h */,
@@ -2930,6 +2935,7 @@
 				964F743B16DE7C260095DBED /* DDUnlockAlertView.m in Sources */,
 				7041769516E3A065003B6B24 /* DDInAppProductTableViewCell.m in Sources */,
 				7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */,
+				9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
