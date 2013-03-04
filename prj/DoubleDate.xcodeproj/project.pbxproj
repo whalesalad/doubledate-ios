@@ -356,6 +356,8 @@
 		7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */; };
 		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
 		7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */; };
+		7086FFB816E545360051F95A /* DDStoreKitController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7086FFB716E545360051F95A /* DDStoreKitController.mm */; };
+		7086FFBA16E546B10051F95A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7086FFB916E546B10051F95A /* StoreKit.framework */; };
 		708893AD164C4D1B000D3A00 /* DDIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */; };
 		708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 708957DD16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
@@ -963,6 +965,9 @@
 		7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+APNS.m"; sourceTree = "<group>"; };
 		7086FFAA16E543310051F95A /* DDAppDelegate+Purchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+Purchase.h"; sourceTree = "<group>"; };
 		7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+Purchase.m"; sourceTree = "<group>"; };
+		7086FFB616E545360051F95A /* DDStoreKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDStoreKitController.h; sourceTree = "<group>"; };
+		7086FFB716E545360051F95A /* DDStoreKitController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DDStoreKitController.mm; sourceTree = "<group>"; };
+		7086FFB916E546B10051F95A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		708893AB164C4D1B000D3A00 /* DDIconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDIconTableViewCell.h; sourceTree = "<group>"; };
 		708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDIconTableViewCell.m; sourceTree = "<group>"; };
 		708957DC16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+UserBubble.h"; sourceTree = "<group>"; };
@@ -1233,6 +1238,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7086FFBA16E546B10051F95A /* StoreKit.framework in Frameworks */,
 				96187E2516CA4676007D61E8 /* CoreText.framework in Frameworks */,
 				960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */,
 				960F9FF716A00E3F00258CA7 /* MobileCoreServices.framework in Frameworks */,
@@ -1788,6 +1794,7 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7086FFB916E546B10051F95A /* StoreKit.framework */,
 				4C35AE4716CE59F800AD75CE /* Crashlytics.framework */,
 				96187E2416CA4676007D61E8 /* CoreText.framework */,
 				960F9FF816A00E6300258CA7 /* Social.framework */,
@@ -2233,6 +2240,8 @@
 		96E7F20215F7A05F00200E1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7086FFB616E545360051F95A /* DDStoreKitController.h */,
+				7086FFB716E545360051F95A /* DDStoreKitController.mm */,
 				96EA06AC1689D36F009F09BC /* DDObjectsController.h */,
 				96EA06AD1689D36F009F09BC /* DDObjectsController.m */,
 				708AB15C160904CA009817FC /* DDLocationController.h */,
@@ -2942,6 +2951,7 @@
 				7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */,
 				9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */,
 				7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */,
+				7086FFB816E545360051F95A /* DDStoreKitController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
