@@ -13,6 +13,7 @@
 #import "DDInAppProductTableViewCell.h"
 #import "DDInAppProduct.h"
 #import "DDStoreKitController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDPurchaseViewController ()
 
@@ -38,6 +39,10 @@
     
     //set coins bar right button
     [self.coinsBar setButtonTitle:NSLocalizedString(@"Close", nil)];
+    
+    self.coinsBar.layer.shadowOffset = CGSizeMake(0, 1);
+    self.coinsBar.layer.shadowOpacity = 0.5f;
+    self.coinsBar.layer.shadowColor = [UIColor blackColor].CGColor;
     
     //set coins close handler
     [self.coinsBar addTarget:self action:@selector(closeTouched:) forControlEvents:UIControlEventTouchUpInside];
