@@ -96,6 +96,7 @@
     textView.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
     textView.textColor = [UIColor whiteColor];
     [tableViewCell.contentView addSubview:textView];
+    tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)customizeDescriptionTableViewCell:(UITableViewCell*)tableViewCell
@@ -108,6 +109,7 @@
     textView.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
     textView.textColor = [UIColor whiteColor];
     [tableViewCell.contentView addSubview:textView];
+    tableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 #pragma mark UITableViewDelegate
@@ -116,12 +118,10 @@
 {
     if (section == 0)
     {
-#warning padding in the bottom of title
         return 0;
     }
     else if (section == 1)
     {
-#warning padding in the bottom of description
         return 0;
     }
     else if (section == 2)
@@ -135,12 +135,10 @@
 {
     if (section == 0)
     {
-#warning padding in the top of title
-        return 10;
+        return 0;
     }
     else if (section == 1)
     {
-#warning padding in the top of description
         return 0;
     }
     else if (section == 2)
