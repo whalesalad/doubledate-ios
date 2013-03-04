@@ -107,15 +107,35 @@
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
 {
+    if (section == 0)
+    {
+#warning padding in the bottom of title
+        return 10;
+    }
+    else if (section == 1)
+    {
+#warning padding in the bottom of description
+        return 10;
+    }
+    else if (section == 2)
+    {
+        return 40;
+    }
     return FLT_MIN;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0)
-        return FLT_MIN;
+    {
+#warning padding in the top of title
+        return 10;
+    }
     else if (section == 1)
-        return FLT_MIN;
+    {
+#warning padding in the top of description
+        return 10;
+    }
     else if (section == 2)
         return 40;
     return FLT_MIN;
@@ -125,12 +145,12 @@
 {
     if (section == 2)
     {
-#warning I cannot seem to move this label inward to align with the other text blocks. It needs to be pushed +20 from the left, I think.
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
-        label.text = [NSLocalizedString(@"Choose a Package Below", nil) uppercaseString];
-        label.textColor = [UIColor grayColor];
-        label.backgroundColor = [UIColor clearColor];
-        return label;
+#warning customization of label
+        UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(12, 0, 300, 40)] autorelease];
+        label.text = NSLocalizedString(@"CHOOSE A PACKAGE BELOW", nil);
+        [headerView addSubview:label];
+        return headerView;
     }
     return nil;
 }
