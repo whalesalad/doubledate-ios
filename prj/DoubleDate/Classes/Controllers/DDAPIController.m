@@ -24,6 +24,7 @@
 #import "DDNotification.h"
 #import "DDObjectsController.h"
 #import "DDMaxActivitiesPayload.h"
+#import "DDInAppProduct.h"
  
 @interface DDAPIControllerUserData : NSObject
 
@@ -889,6 +890,27 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)getInAppProducts
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"packages"]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetInAppProducts;
+    userData.succeedSel = @selector(getInAppProductsSucceed:);
+    userData.failedSel = @selector(getInAppProductsDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -1185,6 +1207,26 @@
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:notification withObject:userData.userData];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetInAppProducts)
+        {
+            //extract data
+            NSMutableArray *products = [NSMutableArray array];
+            NSArray *responseData = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
+            for (NSDictionary *dic in responseData)
+            {
+                //create object
+                DDInAppProduct *product = [DDInAppProduct objectWithDictionary:dic];
+                if (product)
+                    [products addObject:product];
+            }
+            
+            //notify objects controller
+            [DDObjectsController updateObjects:products withMethod:request.method cachePath:request.URL.absoluteString];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:products withObject:userData.userData];
         }
     }
     else

@@ -61,6 +61,7 @@ typedef enum
     DDAPIControllerMethodTypeUpdateNotification,
     DDAPIControllerMethodTypeGetMeUnlockMaxActivities,
     DDAPIControllerMethodTypeUnlockMeMaxActivities,
+    DDAPIControllerMethodTypeGetInAppProducts,
 } DDAPIControllerMethodType;
 
 typedef int DDRequestId;
@@ -168,6 +169,9 @@ typedef int DDRequestId;
 - (void)unlockMeMaxActivitiesSucceed:(DDMaxActivitiesPayload*)payload;
 - (void)unlockMeMaxActivitiesDidFailedWithError:(NSError*)error;
 
+- (void)getInAppProductsSucceed:(NSArray*)products;
+- (void)getInAppProductsDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -250,5 +254,7 @@ typedef int DDRequestId;
 - (DDRequestId)getMeUnlockMaxActivities;
 
 - (DDRequestId)unlockMeMaxActivities:(DDMaxActivitiesPayload*)payload;
+
+- (DDRequestId)getInAppProducts;
 
 @end
