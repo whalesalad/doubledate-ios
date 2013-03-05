@@ -38,7 +38,7 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Add an Interes", nil);
+    self.navigationItem.title = NSLocalizedString(@"Add an Interest", nil);
     
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(doneTouched:)];

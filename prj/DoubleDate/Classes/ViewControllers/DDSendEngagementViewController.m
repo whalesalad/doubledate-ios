@@ -147,7 +147,7 @@
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
-    return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"ADD A NOTE", nil) detailedText:NSLocalizedString(@"250 CHARACTERS REMAINING", nil)];
+    return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Add a Note", nil) uppercaseString] detailedText:[NSLocalizedString(@"250 Characters Remaining", nil) uppercaseString]];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
