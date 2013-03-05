@@ -97,7 +97,7 @@
     DDShortUser *wingToShow = authenticatedUserIsInActivity?self.engagement.wing:self.engagement.activityWing;
     
     //set navigation title
-    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"%@ & %@", nil), userToShow.firstName, wingToShow.firstName];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@ & %@", userToShow.firstName, wingToShow.firstName];
     
     //don't show layer under the status bar
     self.view.layer.masksToBounds = YES;

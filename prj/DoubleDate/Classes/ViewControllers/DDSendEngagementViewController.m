@@ -56,7 +56,7 @@
     self.navigationItem.leftBarButtonItem = nil;
     
     //set navigation title
-    self.navigationItem.titleView = [self viewForNavigationBarWithMainText:NSLocalizedString(@"Send Message", nil) detailedText:[NSString stringWithFormat:NSLocalizedString(@"%@ & %@", nil), doubleDate.user.firstName, doubleDate.wing.firstName]];
+    self.navigationItem.titleView = [self viewForNavigationBarWithMainText:NSLocalizedString(@"Send Message", nil) detailedText:[NSString stringWithFormat:@"%@ & %@", doubleDate.user.firstName, doubleDate.wing.firstName]];
     
     //add gesture recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];

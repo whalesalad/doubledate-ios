@@ -111,7 +111,8 @@
             self.labelTitle.text = [NSString stringWithFormat:@"%@", engagement.activityTitle];
             
             //update users label
-            self.labelDetailed.text = [NSString stringWithFormat:@"%@ & %@ — %@ ago", userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
+            NSString *format = NSLocalizedString(@"%@ & %@ — %@ ago", nil);
+            self.labelDetailed.text = [NSString stringWithFormat:format, userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
             
             //apply genders
             [self.imageViewUser reloadFromUrl:[NSURL URLWithString:userToShow.photo.smallUrl]];

@@ -356,7 +356,7 @@
 		7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */; };
 		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
 		7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */; };
-		7086FFB816E545360051F95A /* DDStoreKitController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7086FFB716E545360051F95A /* DDStoreKitController.mm */; };
+		7086FFB816E545360051F95A /* DDStoreKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086FFB716E545360051F95A /* DDStoreKitController.m */; };
 		7086FFBA16E546B10051F95A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7086FFB916E546B10051F95A /* StoreKit.framework */; };
 		708893AD164C4D1B000D3A00 /* DDIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */; };
 		708957DE16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = 708957DD16B1E9A2003BFF25 /* DDAppDelegate+UserBubble.m */; };
@@ -485,6 +485,7 @@
 		96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D65B16524BAF00DAC219 /* DDTableViewController.m */; };
 		96C6D69B16527D7000DAC219 /* DDTableViewController+Refresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */; };
 		96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */; };
+		96CDD64616E5F0D7006B6937 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 96CDD64816E5F0D7006B6937 /* Localizable.strings */; };
 		96D585461684607800CFB9A3 /* DDDoubleDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */; };
 		96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */; };
 		96E2621A16D650E70041FD26 /* blue-icon-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E2620A16D650E60041FD26 /* blue-icon-button.png */; };
@@ -966,7 +967,7 @@
 		7086FFAA16E543310051F95A /* DDAppDelegate+Purchase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+Purchase.h"; sourceTree = "<group>"; };
 		7086FFAB16E543310051F95A /* DDAppDelegate+Purchase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+Purchase.m"; sourceTree = "<group>"; };
 		7086FFB616E545360051F95A /* DDStoreKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDStoreKitController.h; sourceTree = "<group>"; };
-		7086FFB716E545360051F95A /* DDStoreKitController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DDStoreKitController.mm; sourceTree = "<group>"; };
+		7086FFB716E545360051F95A /* DDStoreKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDStoreKitController.m; sourceTree = "<group>"; };
 		7086FFB916E546B10051F95A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		708893AB164C4D1B000D3A00 /* DDIconTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDIconTableViewCell.h; sourceTree = "<group>"; };
 		708893AC164C4D1B000D3A00 /* DDIconTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDIconTableViewCell.m; sourceTree = "<group>"; };
@@ -1161,6 +1162,8 @@
 		96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDTableViewController+Refresh.m"; sourceTree = "<group>"; };
 		96C6D6C8165296FD00DAC219 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
 		96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
+		96CDD64716E5F0D7006B6937 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		96CDD64916E5F18E006B6937 /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateViewController.xib; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
@@ -1837,6 +1840,7 @@
 				960A02D415F7371D00BA9EB0 /* DoubleDate-Info.plist */,
 				960A02D815F7371D00BA9EB0 /* main.m */,
 				960A02DA15F7371D00BA9EB0 /* DoubleDate-Prefix.pch */,
+				96CDD64816E5F0D7006B6937 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2241,7 +2245,7 @@
 			isa = PBXGroup;
 			children = (
 				7086FFB616E545360051F95A /* DDStoreKitController.h */,
-				7086FFB716E545360051F95A /* DDStoreKitController.mm */,
+				7086FFB716E545360051F95A /* DDStoreKitController.m */,
 				96EA06AC1689D36F009F09BC /* DDObjectsController.h */,
 				96EA06AD1689D36F009F09BC /* DDObjectsController.m */,
 				708AB15C160904CA009817FC /* DDLocationController.h */,
@@ -2333,6 +2337,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				sv,
 			);
 			mainGroup = 960A02BD15F7371C00BA9EB0;
 			productRefGroup = 960A02C915F7371C00BA9EB0 /* Products */;
@@ -2822,6 +2827,7 @@
 				70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */,
 				70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */,
 				7041769216E3A047003B6B24 /* DDInAppProductTableViewCell.xib in Resources */,
+				96CDD64616E5F0D7006B6937 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2951,11 +2957,23 @@
 				7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */,
 				9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */,
 				7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */,
-				7086FFB816E545360051F95A /* DDStoreKitController.mm in Sources */,
+				7086FFB816E545360051F95A /* DDStoreKitController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		96CDD64816E5F0D7006B6937 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				96CDD64716E5F0D7006B6937 /* en */,
+				96CDD64916E5F18E006B6937 /* sv */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		960A02E415F7371D00BA9EB0 /* Debug */ = {
