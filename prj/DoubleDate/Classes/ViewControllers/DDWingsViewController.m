@@ -215,15 +215,15 @@
     //check facebook user
     if ([DDAuthenticationController currentUser].facebookId)
     {
-        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), NSLocalizedString(@"From Facebook Friends", nil), nil] autorelease];
+        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Add a Wing", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"SMS / iMessage", nil), NSLocalizedString(@"Facebook Friends", nil), nil] autorelease];
         sheet.tag = kTagActionSheetInvite;
-        [sheet showFromTabBar:self.tabBarController.tabBar];
+        [sheet showInView:self.view];
     }
     else
     {
-        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"By SMS / iMessage", nil), nil] autorelease];
+        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Add a Wing", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"SMS / iMessage", nil), nil] autorelease];
         sheet.tag = kTagActionSheetInvite;
-        [sheet showFromTabBar:self.tabBarController.tabBar];
+        [sheet showInView:self.view];
     }
 }
 
