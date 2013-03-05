@@ -18,7 +18,7 @@ static DDStoreKitController *_sharedController = nil;
 {
 	if (!_sharedController)
         _sharedController = [[self alloc] init];
-		return _sharedController;
+    return _sharedController;
 }
 
 + (NSString*)localizedPriceFromProduct:(SKProduct*)product
@@ -56,7 +56,7 @@ static DDStoreKitController *_sharedController = nil;
 	//delete old request
 	request_.delegate = nil;
 	[request_ release];
-		
+    
 	//create new request
 	request_= [[SKProductsRequest alloc] initWithProductIdentifiers: pids];
 	request_.delegate = self;
