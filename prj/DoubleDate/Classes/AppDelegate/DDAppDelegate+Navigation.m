@@ -15,11 +15,15 @@
 #import "DDFacebookController.h"
 #import "DDNotificationsViewController.h"
 #import "DDAppDelegate+APNS.h"
+#import "DDAuthenticationController.h"
 
 @implementation DDAppDelegate (Navigation)
 
 - (void)loginUser:(DDUser*)user
 {
+    //save current user
+    [DDAuthenticationController setCurrentUser:user];
+    
     //set notifications view controller
     DDNotificationsViewController *notificationsViewController = [[[DDNotificationsViewController alloc] init] autorelease];
     notificationsViewController.hidesBottomBarWhenPushed = YES;
@@ -89,8 +93,9 @@
 
 - (void)logout
 {
+    [DDAuthenticationController setCurrentUser:nil];
+    [[DDFacebookController sharedController] logout];
     [self.viewController dismissViewControllerAnimated:YES completion:^{
-        [[DDFacebookController sharedController] logout];
     }];
 }
 

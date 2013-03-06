@@ -61,6 +61,7 @@ static DDAuthenticationController *_sharedInstance = nil;
 + (void)setCurrentUser:(DDUser*)user
 {
     [[DDAuthenticationController sharedController] setUser:user];
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
 }
 
 + (DDUser*)currentUser

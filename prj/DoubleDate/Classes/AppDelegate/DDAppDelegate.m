@@ -14,6 +14,7 @@
 #import "DDAPIController.h"
 #import "DDEngagement.h"
 #import "DDAuthenticationController.h"
+#import "DDUser.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -82,6 +83,12 @@
             break;
     }
     return top;
+}
+
+- (void)updateApplicationBadge
+{
+    DDUser *currentUser = [DDAuthenticationController currentUser];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[currentUser.unreadNotificationsCount intValue]+[currentUser.unreadMessagesCount intValue]+[currentUser.pendingWingsCount intValue]];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

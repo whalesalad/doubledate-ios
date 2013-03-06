@@ -444,9 +444,6 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
     
-    //save user to user defaults
-    [DDAuthenticationController setCurrentUser:user];
-    
     //login user
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] loginUser:user];
 }

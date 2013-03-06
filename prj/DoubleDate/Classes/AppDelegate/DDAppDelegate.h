@@ -35,4 +35,6 @@
 
 @property (retain, nonatomic) NSArray *products;
 
+- (void)updateApplicationBadge;
+
 @end
