@@ -662,8 +662,8 @@
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
     userData.method = DDAPIControllerMethodTypeGetEngagements;
-    userData.succeedSel = @selector(getEngagementsDateSucceed:);
-    userData.failedSel = @selector(getEngagementsDateDidFailedWithError:);
+    userData.succeedSel = @selector(getEngagementsSucceed:);
+    userData.failedSel = @selector(getEngagementsDidFailedWithError:);
     request.userData = userData;
     
     //send request

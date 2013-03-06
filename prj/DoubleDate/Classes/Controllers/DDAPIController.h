@@ -136,8 +136,8 @@ typedef int DDRequestId;
 - (void)requestDeleteDoubleDateSucceed;
 - (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error;
 
-- (void)getEngagementsDateSucceed:(NSArray*)engagements;
-- (void)getEngagementsDateDidFailedWithError:(NSError*)error;
+- (void)getEngagementsSucceed:(NSArray*)engagements;
+- (void)getEngagementsDidFailedWithError:(NSError*)error;
 
 - (void)getEngagementSucceed:(DDEngagement*)engagement;
 - (void)getEngagementDidFailedWithError:(NSError*)error;

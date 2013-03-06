@@ -16,6 +16,7 @@
 #import "DDObjectsController.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDAppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDEngagementsViewController
@@ -97,6 +98,21 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)updateUnreadMessagesBadge
+{
+    //unset number of unread wings
+    NSInteger numberOfUnreadMessages = 0;
+    for (DDEngagement *engagement in engagements_)
+    {
+        if ([engagement unreadCount] > 0)
+            numberOfUnreadMessages++;
+    }
+    [DDAuthenticationController currentUser].unreadMessagesCount = numberOfUnreadMessages;
+    
+    //update application badge number
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
+}
+
 - (void)dealloc
 {
     [engagements_ release];
@@ -120,14 +136,14 @@
 #pragma mark -
 #pragma mark API
 
-- (void)getEngagementsDateSucceed:(NSArray*)engagements
+- (void)getEngagementsSucceed:(NSArray*)engagements
 {
     //save engagements
     [engagements_ release];
     engagements_ = [[NSMutableArray alloc] initWithArray:engagements];
     
-    //unset number of unread wings
-    [DDAuthenticationController currentUser].unreadMessagesCount = [NSNumber numberWithInt:0];
+    //update badge
+    [self updateUnreadMessagesBadge];
     
     //finish refresh
     [self finishRefresh];
@@ -139,7 +155,7 @@
     [self updateNoDataView];
 }
 
-- (void)getEngagementsDateDidFailedWithError:(NSError*)error
+- (void)getEngagementsDidFailedWithError:(NSError*)error
 {
     //unset engagements
     [engagements_ release];
@@ -160,14 +176,15 @@
     //check if we got needed doubledate
     if ([selectedEngagement_.activityId intValue] == [doubleDate.identifier intValue])
     {
-        //unset unread count
-        selectedEngagement_.unreadCount = [NSNumber numberWithInt:0];
-        
         //add chat view controller
         DDChatViewController *chatViewController = [[[DDChatViewController alloc] init] autorelease];
         [chatViewController setDoubleDate:doubleDate];
         [chatViewController setEngagement:selectedEngagement_];
         [chatViewController setWeakParentViewController:self.weakParentViewController];
+        
+        //unset unread messages count and update badge
+        selectedEngagement_.unreadCount = [NSNumber numberWithInt:0];
+        [self updateUnreadMessagesBadge];
         
         //push it
         [self.weakParentViewController.navigationController pushViewController:chatViewController animated:YES];
