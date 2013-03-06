@@ -13,6 +13,7 @@
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDAPIController.h"
 #import "DDEngagement.h"
+#import "DDAuthenticationController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -133,6 +134,7 @@
 {
     [[FBSession activeSession] handleDidBecomeActive];
     [self sendMyDevice];
+    [DDAuthenticationController updateCurrentUser];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

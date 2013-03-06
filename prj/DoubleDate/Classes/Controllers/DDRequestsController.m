@@ -13,6 +13,7 @@
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDObjectsController.h"
 
 @interface DDRequestsController () <RKRequestDelegate>
 
@@ -106,6 +107,7 @@ static NSInteger _activeRequestsCount = 0;
         {
             NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
             [DDAuthenticationController setCurrentUser:[[[DDUser alloc] initWithDictionary:dictionary] autorelease]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
         }
     }
     
