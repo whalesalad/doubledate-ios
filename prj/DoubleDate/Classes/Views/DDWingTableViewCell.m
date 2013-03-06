@@ -77,14 +77,14 @@
 
 + (NSString*)titleForShortUser:(DDShortUser*)user
 {
-    NSString *name = user.fullName?[user.fullName capitalizedString]:[user.name capitalizedString];
+    NSString *name = [user.firstName capitalizedString];
     NSString *age = user.age?[NSString stringWithFormat:@", %d", [user.age intValue]]:@"";
     return [NSString stringWithFormat:@"%@%@", name, age];
 }
 
 + (NSString*)titleForUser:(DDUser*)user
 {
-    return [NSString stringWithFormat:@"%@ %@, %d", [user.firstName capitalizedString], [user.lastName capitalizedString], [user.age intValue]];
+    return [NSString stringWithFormat:@"%@, %d", [user.firstName capitalizedString], [user.age intValue]];
 }
 
 - (void)dealloc
