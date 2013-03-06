@@ -106,7 +106,7 @@
     else
     {
         //set title
-        self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", [user.firstName capitalizedString], [user.lastName capitalizedString]];
+        self.navigationItem.title = [user.firstName capitalizedString];
         
         // Temporarily hide the coinbar for users that are not you,
         // until bubble is integrated for wings
