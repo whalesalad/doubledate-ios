@@ -381,6 +381,7 @@
 		70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27116E3823A008979FD /* most-popular-badge@2x.png */; };
 		70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A28416E38437008979FD /* DDPurchaseViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
+		70ECEE3216E7EC8900E5EB89 /* UIView+Other.m in Sources */ = {isa = PBXBuildFile; fileRef = 70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */; };
 		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
 		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
@@ -1006,6 +1007,8 @@
 		70E1A28416E38437008979FD /* DDPurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDPurchaseViewController.xib; sourceTree = "<group>"; };
 		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
+		70ECEE3016E7EC8900E5EB89 /* UIView+Other.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Other.h"; sourceTree = "<group>"; };
+		70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Other.m"; sourceTree = "<group>"; };
 		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
 		70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSendEngagementViewController.m; sourceTree = "<group>"; };
 		70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDSendEngagementViewController.xib; sourceTree = "<group>"; };
@@ -2002,6 +2005,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70ECEE3016E7EC8900E5EB89 /* UIView+Other.h */,
+				70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */,
 				7041769316E3A065003B6B24 /* DDInAppProductTableViewCell.h */,
 				7041769416E3A065003B6B24 /* DDInAppProductTableViewCell.m */,
 				964F743916DE7C260095DBED /* DDUnlockAlertView.h */,
@@ -2974,6 +2979,7 @@
 				9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */,
 				7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */,
 				7086FFB816E545360051F95A /* DDStoreKitController.m in Sources */,
+				70ECEE3216E7EC8900E5EB89 /* UIView+Other.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
