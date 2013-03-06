@@ -104,7 +104,7 @@
     NSInteger numberOfUnreadMessages = 0;
     for (DDEngagement *engagement in engagements_)
     {
-        if ([engagement unreadCount] > 0)
+        if ([[engagement unreadCount] intValue] > 0)
             numberOfUnreadMessages++;
     }
     [DDAuthenticationController currentUser].unreadMessagesCount = [NSNumber numberWithInt:numberOfUnreadMessages];
