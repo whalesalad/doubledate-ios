@@ -78,13 +78,7 @@
     
     //check if we need to make a request
     if (!friends_)
-    {
-        //show loading
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
-        
-        //search for placemarks
-        [self.apiController getFacebookFriends];
-    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
