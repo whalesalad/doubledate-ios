@@ -17,6 +17,7 @@
 #import "DDShortUserTableViewCell.h"
 #import "DDWingTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 #define kFriendsOnDoubleDateTitle NSLocalizedString(@"Friends on DoubleDate", nil)
 
@@ -142,7 +143,7 @@
         
         //get first symbol
         NSString *firstSymbol = [[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString];
-
+        
         //add if not exist
         if (![ret containsObject:firstSymbol])
             [ret addObject:firstSymbol];
@@ -179,11 +180,58 @@
     return ret;
 }
 
+- (void)showInvitationForFacebookUsers:(NSArray*)fbIds ddUsers:(NSArray*)ddIds
+{
+    //save users id
+    NSMutableString *fbidsString = [NSMutableString string];
+    for (NSString *userId in fbIds)
+    {
+        [fbidsString appendString:userId];
+        if (userId != [fbIds lastObject])
+            [fbidsString appendString:@","];
+    }
+    
+    //set parameters
+    NSDictionary *params = [NSDictionary dictionaryWithObject:fbidsString forKey:@"suggestions"];
+#warning MICHAEL this is fix; without it doesn't work
+    params = nil;
+    
+    //show dialog
+    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                  message:NSLocalizedString(@"Choose the user", nil)
+                                                    title:NSLocalizedString(@"Invite Friend", nil)
+                                               parameters:params
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error)
+                                                      {
+                                                          [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                      }
+                                                      else
+                                                      {
+                                                          //check for completion
+                                                          if (result == FBWebDialogResultDialogCompleted)
+                                                          {
+                                                              //make api call if dd users exist
+                                                              if ([ddIds count])
+                                                              {
+                                                                  //show hud
+                                                                  [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
+                                                                  
+                                                                  //make api call
+                                                                  [self.apiController requestInvitationsForFBUsers:nil andDDUsers:ddIds];
+                                                              }
+                                                              else
+                                                              {
+                                                                  //make the same like we do when receive success
+                                                                  [self requestInvitationsSucceed:[NSArray array]];
+                                                              }
+                                                          }
+                                                      }
+                                                  }];
+}
+
 - (void)addTouched:(id)sender
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Updating", nil) animated:NO];
-    
     //init arrays
     NSMutableArray *fbIds = [NSMutableArray array];
     NSMutableArray *ddIds = [NSMutableArray array];
@@ -197,8 +245,8 @@
             [ddIds addObject:[friend.identifier stringValue]];
     }
     
-    //make api call
-    [self.apiController requestInvitationsForFBUsers:fbIds andDDUsers:ddIds];
+    //show facebook dialog
+    [self showInvitationForFacebookUsers:fbIds ddUsers:ddIds];
 }
 
 - (void)cancelTouched:(id)sender
@@ -213,7 +261,7 @@
     
     //add left button
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
-            
+    
     //set title
     if ([friendsToInvite_ count])
     {
@@ -402,7 +450,7 @@
     
     //show succeed message
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! We've invited %d of your friends.", nil), [friendsToInvite_ count]];
-
+    
     //show completed hud
     [self showCompletedHudWithText:message];
     
