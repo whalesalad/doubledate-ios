@@ -193,13 +193,12 @@
     
     //set parameters
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   @"Become my wing on DoubleDate", @"message",
-                                   fbidsString, @"to",nil];
+                                   fbidsString, @"to", nil];
     
     //show dialog
     [FBWebDialogs presentRequestsDialogModallyWithSession:nil
-                                                  message:NSLocalizedString(@"Choose the user", nil)
-                                                    title:NSLocalizedString(@"Invite Friend", nil)
+                                                  message:NSLocalizedString(@"Let's go out and have some fun. Become my wing on DoubleDate!", nil)
+                                                    title:NSLocalizedString(@"Invite Friends", nil)
                                                parameters:params
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
                                                       if (error)
