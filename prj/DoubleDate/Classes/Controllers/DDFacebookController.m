@@ -31,7 +31,7 @@ static DDFacebookController *_sharedInstance = nil;
 
 + (NSString*)token
 {
-    return [[FBSession activeSession] accessToken];
+    return [[[FBSession activeSession] accessTokenData] accessToken];
 }
 
 - (void)login
