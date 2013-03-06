@@ -58,6 +58,11 @@ static DDAuthenticationController *_sharedInstance = nil;
     return nil;
 }
 
++ (void)clearToken
+{
+    [[DDAuthenticationController sharedController] setToken:nil];
+}
+
 + (void)setCurrentUser:(DDUser*)user
 {
     [[DDAuthenticationController sharedController] setUser:user];
@@ -74,16 +79,19 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 + (void)updateCurrentUser
 {
-    //create request
-    NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me"];
-    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
-    request.method = RKRequestMethodGET;
-    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
-    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
-    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-    
-    //send request
-    [[DDRequestsController sharedMeController] startRequest:request];
+    if ([self currentUser])
+    {
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me"];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodGET;
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedMeController] startRequest:request];
+    }
 }
 
 + (void)authenticateWithFbToken:(NSString*)fbToken delegate:(id)delegate
