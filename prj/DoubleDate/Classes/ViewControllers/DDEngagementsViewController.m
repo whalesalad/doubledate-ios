@@ -107,7 +107,7 @@
         if ([engagement unreadCount] > 0)
             numberOfUnreadMessages++;
     }
-    [DDAuthenticationController currentUser].unreadMessagesCount = numberOfUnreadMessages;
+    [DDAuthenticationController currentUser].unreadMessagesCount = [NSNumber numberWithInt:numberOfUnreadMessages];
     
     //update application badge number
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
