@@ -24,6 +24,7 @@
 #import "DDShortUser.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDAppDelegate.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -238,6 +239,12 @@
         //move friend from friendship
         friend.approved = [NSNumber numberWithBool:YES];
         
+        //unset number of unread wings
+        [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:[[self pendingInvitations] count]];
+        
+        //update application badge
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
+        
         //reload the table
         [self.tableView reloadData];
         
@@ -417,9 +424,6 @@
     [friends_ release];
     friends_ = [[NSMutableArray arrayWithArray:friends] retain];
     
-    //unset number of unread wings
-    [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:0];
-    
     //inform about reloaded data
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
@@ -448,6 +452,9 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //update current user
+    [DDAuthenticationController updateCurrentUser];
 }
 
 - (void)requestDenyFriendshipForFriendSucceed
@@ -461,6 +468,9 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //update current user
+    [DDAuthenticationController updateCurrentUser];
 }
 
 - (void)requestDeleteFriendSucceed
@@ -512,6 +522,12 @@
             
             //remove silent
             [friends_ removeObject:friend];
+            
+            //unset number of unread wings
+            [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:[[self pendingInvitations] count]];
+            
+            //update application badge
+            [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
             
             //reload the table
             [self.tableView reloadData];

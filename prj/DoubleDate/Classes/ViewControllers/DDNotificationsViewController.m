@@ -120,6 +120,7 @@
                 unreadNotificationsCount++;
         }
         [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:unreadNotificationsCount];
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
     }
 }
 
