@@ -192,9 +192,9 @@
     }
     
     //set parameters
-    NSDictionary *params = [NSDictionary dictionaryWithObject:fbidsString forKey:@"suggestions"];
-#warning MICHAEL this is fix; without it doesn't work
-    params = nil;
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   @"Become my wing on DoubleDate", @"message",
+                                   fbidsString, @"to",nil];
     
     //show dialog
     [FBWebDialogs presentRequestsDialogModallyWithSession:nil
