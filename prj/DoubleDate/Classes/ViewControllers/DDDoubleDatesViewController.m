@@ -34,6 +34,9 @@
 
 #define kEarnCost 50
 
+#define kTagNoDataExplore 1
+#define kTagNoDataMine 2
+
 typedef enum
 {
     DDDoubleDatesViewControllerFilterNone,
@@ -118,34 +121,77 @@ typedef enum
 
 - (void)customizeNoDataView
 {
-    //add create date button
-    UIButton *buttonCreateDate = [self newAddButton];
-    buttonCreateDate.center = CGPointMake(self.viewNoData.frame.size.width/2, self.viewNoData.frame.size.height/2);
-    [self.viewNoData addSubview:buttonCreateDate];
+    //mine
+    {
+        UIView *viewMine = [[[UIView alloc] initWithFrame:self.viewNoData.bounds] autorelease];
+        viewMine.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        viewMine.tag = kTagNoDataMine;
+        viewMine.hidden = YES;
+        [self.viewNoData addSubview:viewMine];
+        
+        //add create date button
+        UIButton *buttonCreateDate = [self newAddButton];
+        buttonCreateDate.center = CGPointMake(viewMine.frame.size.width/2, viewMine.frame.size.height/2);
+        [viewMine addSubview:buttonCreateDate];
+        
+        //add gradient background
+        UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
+        gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
+        gradientView.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 32);
+        [viewMine insertSubview:gradientView belowSubview:buttonCreateDate];
+        
+        //add label
+        UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
+        labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 82);
+        labelTop.numberOfLines = 2;
+        labelTop.text = NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil);
+        [self customizeGenericLabel:labelTop];
+        [viewMine addSubview:labelTop];
+        
+        //add label
+        UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)] autorelease];
+        labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
+        NSString *format = NSLocalizedString(@"Earn %d coins every time you post.", nil);
+        labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
+        [self customizeGenericLabel:labelBottom];
+        [viewMine addSubview:labelBottom];
+    }
     
-    //add gradient background
-    UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
-    gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
-    gradientView.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 32);
-    [self.viewNoData insertSubview:gradientView belowSubview:buttonCreateDate];
-    
-    //add label
-    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
-    labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 82);
-    labelTop.numberOfLines = 2;
-    labelTop.text = NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil);
-    
-    //add label
-    UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)] autorelease];
-    labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
-    [self customizeGenericLabel:labelTop];
-    [self.viewNoData addSubview:labelTop];
-
-    NSString *format = NSLocalizedString(@"Earn %d coins every time you post.", nil);
-    labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
-    [self customizeGenericLabel:labelBottom];
-    [self.viewNoData addSubview:labelBottom];
-    
+    //explore
+    {
+        UIView *viewMine = [[[UIView alloc] initWithFrame:self.viewNoData.bounds] autorelease];
+        viewMine.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        viewMine.tag = kTagNoDataExplore;
+        viewMine.hidden = YES;
+        [self.viewNoData addSubview:viewMine];
+        
+        //add create date button
+        UIButton *buttonCreateDate = [self newAddButton];
+        buttonCreateDate.center = CGPointMake(viewMine.frame.size.width/2, viewMine.frame.size.height/2+100);
+        [viewMine addSubview:buttonCreateDate];
+        
+        //add label
+        UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
+        labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 102);
+        labelTop.numberOfLines = 2;
+        labelTop.text = NSLocalizedString(@"It looks like there aren't any\nDoubleDatesnearby.", nil);
+        [self customizeGenericLabel:labelTop];
+        [viewMine addSubview:labelTop];
+        
+        //add image view
+        UIImageView *imageViewTop = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-explore-dates.png"]] autorelease];
+        imageViewTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 182);
+        [viewMine addSubview:imageViewTop];
+        
+        //add label
+        UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
+        labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
+        labelBottom.numberOfLines = 2;
+        NSString *format = NSLocalizedString(@"Be the first to create a date in your\narea and earn %d extra coins.", nil);
+        labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
+        [self customizeGenericLabel:labelBottom];
+        [viewMine addSubview:labelBottom];
+    }
 }
 
 - (void)viewDidLoad
@@ -506,10 +552,9 @@ typedef enum
 
 - (void)updateNoDataView
 {
-    if (doubleDatesMine_ && (mode_ == DDDoubleDatesViewControllerModeMine))
-        [super updateNoDataView];
-    else
-        self.viewNoData.hidden = YES;
+    [super updateNoDataView];
+    [[self.viewNoData viewWithTag:kTagNoDataExplore] setHidden:mode_ != DDDoubleDatesViewControllerModeAll];
+    [[self.viewNoData viewWithTag:kTagNoDataMine] setHidden:mode_ != DDDoubleDatesViewControllerModeMine];
 }
 
 - (void)replaceObject:(DDDoubleDate*)object inArray:(NSMutableArray*)array
