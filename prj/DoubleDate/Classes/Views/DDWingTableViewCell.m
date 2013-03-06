@@ -78,6 +78,10 @@
 + (NSString*)titleForShortUser:(DDShortUser*)user
 {
     NSString *name = [user.firstName capitalizedString];
+    if (!name)
+        name = [user.name capitalizedString];
+    if (!name)
+        name = user.fullName;
     NSString *age = user.age?[NSString stringWithFormat:@", %d", [user.age intValue]]:@"";
     return [NSString stringWithFormat:@"%@%@", name, age];
 }
