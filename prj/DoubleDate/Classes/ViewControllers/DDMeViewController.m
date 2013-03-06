@@ -88,6 +88,10 @@
     //add coin bar
     [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
     
+    self.coinBarContainer.layer.shadowOffset = CGSizeMake(0, -1);
+    self.coinBarContainer.layer.shadowOpacity = 0.5f;
+    self.coinBarContainer.layer.shadowColor = [UIColor blackColor].CGColor;
+    
     //add handler
     [[self coinBar] addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
     
