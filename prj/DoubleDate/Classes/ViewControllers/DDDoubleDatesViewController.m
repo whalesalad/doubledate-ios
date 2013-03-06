@@ -28,6 +28,7 @@
 #import "DDAppDelegate.h"
 #import "DDAuthenticationController.h"
 #import "DDObjectsController.h"
+#import "UIView+Other.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
@@ -89,33 +90,20 @@ typedef enum
     [self updateNoDataView];
 }
 
-- (UIButton*)newBaseButtonWithImage:(UIImage*)image
+- (UIButton*)newUnlockButton
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-    button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [button setBackgroundImage:image forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-    button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
-    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
-    return button;
+    UIImage *image = [UIImage imageNamed:@"btn-yellow-unlock.png"];
+    UIButton *ret = [self.view baseButtonWithImage:image];
+    [ret addTarget:self action:@selector(unlockTouched:) forControlEvents:UIControlEventTouchUpInside];
+    return ret;
 }
 
 - (UIButton*)newAddButton
 {
     UIImage *image = [UIImage imageNamed:@"btn-blue-create.png"];
-    UIButton *ret = [self newBaseButtonWithImage:image];
+    UIButton *ret = [self.view baseButtonWithImage:image];
     [ret addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
     [ret setTitle:NSLocalizedString(@"Create a DoubleDate", nil) forState:UIControlStateNormal];
-    return ret;
-}
-
-- (UIButton*)newUnlockButton
-{
-    UIImage *image = [UIImage imageNamed:@"btn-yellow-unlock.png"];
-    UIButton *ret = [self newBaseButtonWithImage:image];
-    [ret addTarget:self action:@selector(unlockTouched:) forControlEvents:UIControlEventTouchUpInside];
     return ret;
 }
 
@@ -129,68 +117,20 @@ typedef enum
         viewMine.hidden = YES;
         [self.viewNoData addSubview:viewMine];
         
-        //add create date button
-        UIButton *buttonCreateDate = [self newAddButton];
-        buttonCreateDate.center = CGPointMake(viewMine.frame.size.width/2, viewMine.frame.size.height/2);
-        [viewMine addSubview:buttonCreateDate];
-        
-        //add gradient background
-        UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
-        gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
-        gradientView.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 32);
-        [viewMine insertSubview:gradientView belowSubview:buttonCreateDate];
-        
-        //add label
-        UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
-        labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 82);
-        labelTop.numberOfLines = 2;
-        labelTop.text = NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil);
-        [self customizeGenericLabel:labelTop];
-        [viewMine addSubview:labelTop];
-        
-        //add label
-        UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)] autorelease];
-        labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
-        NSString *format = NSLocalizedString(@"Earn %d coins every time you post.", nil);
-        labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
-        [self customizeGenericLabel:labelBottom];
-        [viewMine addSubview:labelBottom];
+        //customize
+        [viewMine applyNoDataWithImage:nil title:NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil) addButtonTitle:NSLocalizedString(@"Create a DoubleDate", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"Earn %d coins every time you post.", nil), kEarnCost]];
     }
     
     //explore
     {
-        UIView *viewMine = [[[UIView alloc] initWithFrame:self.viewNoData.bounds] autorelease];
-        viewMine.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        viewMine.tag = kTagNoDataExplore;
-        viewMine.hidden = YES;
-        [self.viewNoData addSubview:viewMine];
+        UIView *viewExplore = [[[UIView alloc] initWithFrame:self.viewNoData.bounds] autorelease];
+        viewExplore.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        viewExplore.tag = kTagNoDataExplore;
+        viewExplore.hidden = YES;
+        [self.viewNoData addSubview:viewExplore];
         
-        //add create date button
-        UIButton *buttonCreateDate = [self newAddButton];
-        buttonCreateDate.center = CGPointMake(viewMine.frame.size.width/2, viewMine.frame.size.height/2+100);
-        [viewMine addSubview:buttonCreateDate];
-        
-        //add label
-        UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
-        labelTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 102);
-        labelTop.numberOfLines = 2;
-        labelTop.text = NSLocalizedString(@"It looks like there aren't any\nDoubleDatesnearby.", nil);
-        [self customizeGenericLabel:labelTop];
-        [viewMine addSubview:labelTop];
-        
-        //add image view
-        UIImageView *imageViewTop = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-explore-dates.png"]] autorelease];
-        imageViewTop.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y - 182);
-        [viewMine addSubview:imageViewTop];
-        
-        //add label
-        UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)] autorelease];
-        labelBottom.center = CGPointMake(buttonCreateDate.center.x, buttonCreateDate.center.y + 24);
-        labelBottom.numberOfLines = 2;
-        NSString *format = NSLocalizedString(@"Be the first to create a date in your\narea and earn %d extra coins.", nil);
-        labelBottom.text = [NSString stringWithFormat:format, kEarnCost];
-        [self customizeGenericLabel:labelBottom];
-        [viewMine addSubview:labelBottom];
+        //customize
+        [viewExplore applyNoDataWithImage:[UIImage imageNamed:@"no-explore-dates.png"] title:NSLocalizedString(@"It looks like there aren't any\nDoubleDates nearby.", nil) addButtonTitle:NSLocalizedString(@"Create a DoubleDate", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"Be the first to create a date in your\narea and earn %d extra coins.", nil), kEarnCost]];
     }
 }
 
@@ -208,7 +148,7 @@ typedef enum
     self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -88, 320, 88)] autorelease];
     self.unlockTopView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-doubledates-upper.png"]];
     
-//    self.unlockTopView
+    //    self.unlockTopView
     self.unlockTopView.hidden = YES;
     [self.tableView addSubview:self.unlockTopView];
     
@@ -486,7 +426,7 @@ typedef enum
         
         //add label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 24)] autorelease];
-        [self customizeGenericLabel:label];
+        [self.view customizeGenericLabel:label];
         
         //add button
         UIButton *button = nil;
@@ -497,18 +437,18 @@ typedef enum
         if (!unlockRequiredFromAPI || lessThanAllowedCountOfActivities)
         {
             //set text
-//            if (unlockRequiredFromAPI)
-//            {
-//                NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
-//                label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
-//            }
-//            else
-//            {
-//                label.text = NSLocalizedString(@"Post a date", nil);
-//            }
+            //            if (unlockRequiredFromAPI)
+            //            {
+            //                NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
+            //                label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
+            //            }
+            //            else
+            //            {
+            //                label.text = NSLocalizedString(@"Post a date", nil);
+            //            }
             NSString *format = NSLocalizedString(@"Post up to %d dates at the same time.", nil);
             label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
-
+            
             //set button
             button = [self newAddButton];
             button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
@@ -533,21 +473,8 @@ typedef enum
         
         if (label)
             [self.unlockTopView addSubview:label];
-    
+        
     }
-}
-
-- (void)customizeGenericLabel:(UILabel*)label
-{
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-    label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.layer.shadowOffset = CGSizeMake(0, 1);
-    label.layer.shadowOpacity = 1.0f;
-    label.layer.shadowColor = [UIColor blackColor].CGColor;
-    label.layer.shadowRadius = 1;
-    label.layer.masksToBounds = NO;
 }
 
 - (void)updateNoDataView
@@ -809,7 +736,7 @@ typedef enum
 {
     //hide hud
     [self hideHud:YES];
-        
+    
     //update total coins
     NSInteger totalCoins = [[[DDAuthenticationController currentUser] totalCoins] intValue] + self.unlockCost;
     [[DDAuthenticationController currentUser] setTotalCoins:[NSNumber numberWithInt:totalCoins]];
@@ -890,7 +817,7 @@ typedef enum
     
     //save cost of unlock
     self.unlockCost = [self.maxActivitiesPayload.cost intValue];
-        
+    
     //unlock
     [self.apiController unlockMeMaxActivities:self.maxActivitiesPayload];
 }

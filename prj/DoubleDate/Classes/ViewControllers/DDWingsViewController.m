@@ -25,6 +25,7 @@
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
 #import "DDAppDelegate.h"
+#import "UIView+Other.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -75,6 +76,11 @@
     return self;
 }
 
+- (void)customizeNoDataView
+{
+    [self.viewNoData applyNoDataWithImage:[UIImage imageNamed:@"no-wings.png"] title:NSLocalizedString(@"Add some of your closest\nfriends to get started", nil) addButtonTitle:NSLocalizedString(@"Add Wing", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -91,38 +97,8 @@
     //set placeholder for search bar
     [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Wings", nil)];
     
-    //add no messages label
-    UILabel *labelStart = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
-    labelStart.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y - 80);
-    labelStart.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    labelStart.numberOfLines = 2;
-    labelStart.text = NSLocalizedString(@"Add some of your closest\nfriends to get started", nil);
-    labelStart.textAlignment = NSTextAlignmentCenter;
-    labelStart.backgroundColor = [UIColor clearColor];
-    
-    [self applyNoDataLabelStyle:labelStart];
-    
-    [self.viewNoData addSubview:labelStart];
-    
-    //add no incoming messages image view
-    UIImageView *imageViewNoData = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no-wings.png"]] autorelease];
-    imageViewNoData.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 20);
-    imageViewNoData.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [self.viewNoData addSubview:imageViewNoData];
-    
-    //add no messages label
-    UILabel *labelInvite = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 60)] autorelease];
-    labelInvite.center = CGPointMake(self.viewNoData.center.x, self.viewNoData.center.y + 120);
-    labelInvite.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    labelInvite.numberOfLines = 2;
-    labelInvite.text = [NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend];
-    labelInvite.textAlignment = NSTextAlignmentCenter;
-    labelInvite.backgroundColor = [UIColor clearColor];
-    
-    // no data label style
-    [self applyNoDataLabelStyle:labelInvite];
-    
-    [self.viewNoData addSubview:labelInvite];
+    //customize no data view
+    [self customizeNoDataView];
 }
 
 - (void)applyNoDataLabelStyle:(UILabel*)label {
@@ -320,7 +296,7 @@
         //deselect row
         [aTableView deselectRowAtIndexPath:indexPath animated:YES];
     }
-
+    
     //inform delegate about selecting
     [self.delegate wingsViewController:self didSelectUser:[(DDWingTableViewCell*)[aTableView cellForRowAtIndexPath:indexPath] shortUser]];
 }
