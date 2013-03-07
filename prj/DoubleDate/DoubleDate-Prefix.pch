@@ -15,3 +15,6 @@
 
 #import "NSObject+DD.h"
 
+#define APNS_CALLBACK_URL_KEY @"callback_url"
+#define APNS_NOTIFICATION_ID_KEY @"id"
+

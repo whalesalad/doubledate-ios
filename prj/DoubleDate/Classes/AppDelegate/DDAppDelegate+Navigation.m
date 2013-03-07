@@ -74,20 +74,20 @@
         
     //go to next view controller
     [self.viewController presentViewController:tabBarController animated:YES completion:^{
-        [self performSelector:@selector(checkAndShowCallbackUrl) withObject:nil afterDelay:0];
+        [self performSelector:@selector(checkAndShowCallbackPayload) withObject:nil afterDelay:0];
     }];
 }
 
-- (void)checkAndShowCallbackUrl
+- (void)checkAndShowCallbackPayload
 {
     //check if we have callback to open
-    if (self.callbackUrl)
+    if (self.payload)
     {
         //handle url
-        [self handleNotificationUrl:self.callbackUrl];
+        [self handleNotificationPayload:self.payload];
         
         //unset callbacl url
-        self.callbackUrl = nil;
+        self.payload = nil;
     }
 }
 

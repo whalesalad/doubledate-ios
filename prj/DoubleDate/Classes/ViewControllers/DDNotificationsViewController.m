@@ -25,7 +25,7 @@
 @property(nonatomic, retain) DDEngagement *selectedEngagement;
 @property(nonatomic, retain) DDNotification *selectedNotification;
 
-@property(nonatomic, retain) NSString *lastReadCallbackUrl;
+@property(nonatomic, retain) NSString *lastReadCallbackNotificationId;
 
 - (void)onDataRefreshed;
 - (NSArray*)notifications;
@@ -37,7 +37,7 @@
 
 @synthesize selectedEngagement;
 @synthesize selectedNotification;
-@synthesize lastReadCallbackUrl;
+@synthesize lastReadCallbackNotificationId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -92,7 +92,7 @@
     [notifications_ release];
     [selectedEngagement release];
     [selectedNotification release];
-    [lastReadCallbackUrl release];
+    [lastReadCallbackNotificationId release];
     [super dealloc];
 }
 
@@ -172,7 +172,12 @@
     
     //check api path
     if ([self.selectedNotification callbackUrl])
-        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] handleNotificationUrl:[self.selectedNotification callbackUrl]];
+    {
+        DDAPNSPayload *payload = [[[DDAPNSPayload alloc] init] autorelease];
+        payload.callbackUrl = [self.selectedNotification callbackUrl];
+        payload.notificationId = [[self.selectedNotification identifier] stringValue];
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] handleNotificationPayload:payload];
+    }
 }
 
 #pragma mark -
@@ -219,7 +224,7 @@
     //mark notification from apns as read
     for (DDNotification *notification in notifications_)
     {
-        if (self.lastReadCallbackUrl && [notification.callbackUrl isEqualToString:self.lastReadCallbackUrl])
+        if (self.lastReadCallbackNotificationId && ([notification.identifier intValue] == [self.lastReadCallbackNotificationId intValue]))
             [self markNotificationAsSelected:notification];
     }
     
@@ -253,7 +258,7 @@
 {
     //save last read callback
     if ([[notification object] isKindOfClass:[NSDictionary class]])
-        self.lastReadCallbackUrl = [(NSDictionary*)[notification object] objectForKey:@"callback_url"];
+        self.lastReadCallbackNotificationId = [[(NSDictionary*)[notification object] objectForKey:APNS_NOTIFICATION_ID_KEY] stringValue];
     
     //just refresh
     [self onRefresh];
@@ -262,11 +267,11 @@
 - (void)appDelegateAPNSWillOpenCallbackUrlNotification:(NSNotification*)notification
 {
     //get needed notification
-    NSString *notificationCallbackUrl = [notification object];
+    DDAPNSPayload *payload = [notification object];
     DDNotification *notificationToApply = nil;
     for (DDNotification *n in notifications_)
     {
-        if (notificationCallbackUrl && [[n callbackUrl] isEqualToString:notificationCallbackUrl])
+        if (payload.notificationId && ([payload.notificationId intValue] == [[n identifier] intValue]))
             notificationToApply = n;
     }
     
