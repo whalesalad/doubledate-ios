@@ -12,11 +12,18 @@ extern NSString *DDAppDelegateAPNSDidReceiveRemoteNotification;
 extern NSString *DDAppDelegateAPNSWillOpenCallbackUrlNotification;
 extern NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification;
 
+@interface DDAPNSPayload : NSObject
+
+@property(nonatomic, retain) NSString *callbackUrl;
+@property(nonatomic, retain) NSString *notificationId;
+
+@end
+
 @interface DDAppDelegate (APNS)
 
 - (void)registerForRemoteNotifications;
 - (void)unregisterFromRemoteNotifications;
 - (BOOL)sendMyDevice;
-- (void)handleNotificationUrl:(NSString*)callbackUrl;
+- (void)handleNotificationPayload:(DDAPNSPayload*)payload;
 
 @end

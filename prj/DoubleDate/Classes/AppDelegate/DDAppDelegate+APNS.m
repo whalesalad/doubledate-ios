@@ -25,6 +25,20 @@ NSString *DDAppDelegateAPNSDidReceiveRemoteNotification = @"DDAppDelegateAPNSDid
 NSString *DDAppDelegateAPNSWillOpenCallbackUrlNotification = @"DDAppDelegateAPNSWillOpenCallbackUrlNotification";
 NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNSDidCloseCallbackUrlNotification";
 
+@implementation DDAPNSPayload
+
+@synthesize callbackUrl;
+@synthesize notificationId;
+
+- (void)dealloc
+{
+    [callbackUrl release];
+    [notificationId release];
+    [super dealloc];
+}
+
+@end
+
 @implementation DDAppDelegate (APNS)
 
 - (void)registerForRemoteNotifications
@@ -62,8 +76,12 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     //check if we need to open new view controller
     if ([application applicationState] != UIApplicationStateActive)
     {
-        if ([[userInfo objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
-            [self handleNotificationUrl:[userInfo objectForKey:@"callback_url"]];
+        //set payload
+        DDAPNSPayload *p = [[[DDAPNSPayload alloc] init] autorelease];
+        p.callbackUrl = [[userInfo objectForKey:APNS_CALLBACK_URL_KEY] stringValue];
+        p.notificationId = [[userInfo objectForKey:APNS_NOTIFICATION_ID_KEY] stringValue];
+        if (p.callbackUrl && p.notificationId)
+            [self handleNotificationPayload:p];
     }
 }
 
@@ -93,7 +111,7 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
 - (void)presentModalViewController:(UIViewController*)vc
 {
     //send notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSWillOpenCallbackUrlNotification object:self.openedCallbackUrl];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSWillOpenCallbackUrlNotification object:self.openedPayload];
     
     //wrap view controller into the navigaton controller
     UINavigationController *nc = [[[DDNavigationController alloc] initWithRootViewController:vc] autorelease];
@@ -113,10 +131,10 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     }];
     
     //send notification
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidCloseCallbackUrlNotification object:self.openedCallbackUrl];
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateAPNSDidCloseCallbackUrlNotification object:self.openedPayload];
 }
 
-- (void)handleNotificationUrl:(NSString*)callbackUrl
+- (void)handleNotificationPayload:(DDAPNSPayload*)payload
 {
     //only authenticated users can handle
     if ([DDAuthenticationController currentUser])
@@ -125,10 +143,10 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
         [self.window.rootViewController showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
         //save callback url to open
-        self.openedCallbackUrl = callbackUrl;
+        self.openedPayload = payload;
         
         //make api request
-        NSString *path = callbackUrl;
+        NSString *path = payload.callbackUrl;
         path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
         DDAPIControllerMethodType requestType = -1;
         if ([path rangeOfString:@"users"].location != NSNotFound)
@@ -141,7 +159,7 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
             [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
     }
     else
-        self.callbackUrl = callbackUrl;
+        self.payload = payload;
 }
 
 - (void)requestDidSucceed:(NSObject*)object
