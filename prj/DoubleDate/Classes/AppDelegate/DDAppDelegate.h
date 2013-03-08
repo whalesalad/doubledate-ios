@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DDAPIController.h"
 
+@class DDAPNSPayload;
+
 @interface DDAppDelegate : UIResponder <UIApplicationDelegate, DDAPIControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -29,9 +31,9 @@
 
 @property (retain, nonatomic) DDEngagement *selectedEngagement;
 
-@property (retain, nonatomic) NSString *callbackUrl;
+@property (retain, nonatomic) DDAPNSPayload *payload;
 
-@property (retain, nonatomic) NSString *openedCallbackUrl;
+@property (retain, nonatomic) DDAPNSPayload *openedPayload;
 
 @property (retain, nonatomic) NSArray *products;
 
