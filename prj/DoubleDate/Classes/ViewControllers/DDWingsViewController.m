@@ -78,7 +78,7 @@
 
 - (void)customizeNoDataView
 {
-    [self.viewNoData applyNoDataWithImage:[UIImage imageNamed:@"no-wings.png"] title:NSLocalizedString(@"Add some of your closest\nfriends to get started", nil) addButtonTitle:NSLocalizedString(@"Add Wing", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend]];
+    [self.viewNoData applyNoDataWithImage:[UIImage imageNamed:@"no-wings.png"] title:NSLocalizedString(@"Add some of your closest\nfriends to get started", nil) addButtonTitle:NSLocalizedString(@"Add a Wing", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend]];
 }
 
 - (void)viewDidLoad
