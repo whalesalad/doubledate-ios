@@ -27,8 +27,8 @@
 @synthesize apiController;
 @synthesize selectedEngagement;
 @synthesize topNavigationController;
-@synthesize callbackUrl;
-@synthesize openedCallbackUrl;
+@synthesize payload;
+@synthesize openedPayload;
 @synthesize products;
 
 - (void)dealloc
@@ -40,8 +40,8 @@
     [navigationMenu release];
     [apiController release];
     [selectedEngagement release];
-    [callbackUrl release];
-    [openedCallbackUrl release];
+    [payload release];
+    [openedPayload release];
     [products release];
     [super dealloc];
 }
@@ -118,8 +118,15 @@
     //check if opened from remote notification
     if ([[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] isKindOfClass:[NSDictionary class]])
     {
-        if ([[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:@"callback_url"] isKindOfClass:[NSString class]])
-            [self handleNotificationUrl:[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:@"callback_url"]];
+        NSString *paramCallbackUrl = [[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_CALLBACK_URL_KEY] stringValue];
+        NSString *paramCallbackNotificationId = [[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_NOTIFICATION_ID_KEY] stringValue];
+        if (paramCallbackUrl && paramCallbackNotificationId)
+        {
+            DDAPNSPayload *p = [[[DDAPNSPayload alloc] init] autorelease];
+            p.callbackUrl = paramCallbackUrl;
+            p.notificationId = paramCallbackNotificationId;
+            [self handleNotificationPayload:p];
+        }
     }
     
     return YES;
