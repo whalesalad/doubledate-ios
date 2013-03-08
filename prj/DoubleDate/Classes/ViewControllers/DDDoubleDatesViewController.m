@@ -118,7 +118,7 @@ typedef enum
         [self.viewNoData addSubview:viewMine];
         
         //customize
-        [viewMine applyNoDataWithImage:nil title:NSLocalizedString(@"You haven't created any dates yet.\nWhat are you waiting for?", nil) addButtonTitle:NSLocalizedString(@"Create a DoubleDate", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"Earn %d coins every time you post.", nil), kEarnCost]];
+        [viewMine applyNoDataWithImage:nil title:NSLocalizedString(@"You haven't created any dates\nWhat are you waiting for?", nil) addButtonTitle:NSLocalizedString(@"Create a DoubleDate", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"Earn %d coins every time you post.", nil), kEarnCost]];
     }
     
     //explore

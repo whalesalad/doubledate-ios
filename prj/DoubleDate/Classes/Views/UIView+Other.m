@@ -20,6 +20,7 @@
     button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
     button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
     button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+    button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
     return button;
 }
 
@@ -27,10 +28,10 @@
 {
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-    label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
+    label.textColor = [UIColor colorWithWhite:0.38f alpha:1];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.shadowOffset = CGSizeMake(0, 1);
-    label.layer.shadowOpacity = 1.0f;
+    label.layer.shadowOpacity = 0.5f;
     label.layer.shadowColor = [UIColor blackColor].CGColor;
     label.layer.shadowRadius = 1;
     label.layer.masksToBounds = NO;
@@ -40,10 +41,10 @@
 {
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-    label.textColor = [UIColor colorWithWhite:0.8f alpha:1];
+    label.textColor = [UIColor colorWithWhite:0.4f alpha:1];
     label.textAlignment = NSTextAlignmentCenter;
     label.layer.shadowOffset = CGSizeMake(0, 1);
-    label.layer.shadowOpacity = 1.0f;
+    label.layer.shadowOpacity = 0.5f;
     label.layer.shadowColor = [UIColor blackColor].CGColor;
     label.layer.shadowRadius = 1;
     label.layer.masksToBounds = NO;
@@ -51,41 +52,60 @@
 
 - (void)applyNoDataWithImage:(UIImage*)image title:(NSString*)title addButtonTitle:(NSString*)buttonTitle addButtonTarget:(id)target addButtonAction:(SEL)action addButtonEdgeInsets:(UIEdgeInsets)insets detailed:(NSString*)detailed
 {
-    //add create date button
+
+    //add image view
+    UIImageView *imageViewTop = [[[UIImageView alloc] initWithImage:image] autorelease];
+    imageViewTop.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+
+    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
+    labelTop.numberOfLines = 2;
+    labelTop.text = title;
+    labelTop.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    [self customizeTitleLabel:labelTop];
+    
+    UIView *upperView = [[UIView alloc] initWithFrame:CGRectMake(20, 120, 280, imageViewTop.frame.size.height + labelTop.frame.size.height + 20)];
+    
+    CGRect labelFrame = upperView.bounds;
+    labelFrame.size.height = 75;
+    labelFrame.origin.y = upperView.frame.size.height - labelFrame.size.height;
+    labelTop.frame = labelFrame;
+    
+    CGRect imageFrame = imageViewTop.frame;
+    imageFrame.origin.x = upperView.frame.size.width/2 - imageFrame.size.width/2;
+    imageViewTop.frame = imageFrame;
+        
+    [upperView addSubview:imageViewTop];
+    [upperView addSubview:labelTop];
+    
+    //add label
+    [self addSubview:upperView];
+
+    UIView *lowerView = [[UIView alloc] initWithFrame:CGRectMake(20, self.frame.size.height - 160, 280, 120)];
+    
+    // add create date button
     UIImage *imageButton = [UIImage imageNamed:@"btn-blue-create.png"];
     UIButton *button = [self baseButtonWithImage:imageButton];
-    button.center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2+54);
-    button.titleEdgeInsets = insets;
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:buttonTitle forState:UIControlStateNormal];
-    [self addSubview:button];
+    [lowerView addSubview:button];
     
     //add gradient background
     UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
     gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
-    gradientView.center = CGPointMake(button.center.x, button.center.y - 32);
-    [self insertSubview:gradientView belowSubview:button];
-    
-    //add image view
-    UIImageView *imageViewTop = [[[UIImageView alloc] initWithImage:image] autorelease];
-    imageViewTop.center = CGPointMake(button.center.x, button.center.y - 182);
-    [self addSubview:imageViewTop];
-    
-    //add label
-    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
-    labelTop.center = CGPointMake(button.center.x, button.center.y - 82);
-    labelTop.numberOfLines = 2;
-    labelTop.text = title;
-    [self customizeTitleLabel:labelTop];
-    [self addSubview:labelTop];
-    
+    gradientView.center = CGPointMake(button.center.x, button.center.y + 30);
+    [lowerView insertSubview:gradientView belowSubview:button];
+        
     //add label
     UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
-    labelBottom.center = CGPointMake(button.center.x, button.center.y + 24);
+    labelBottom.center = CGPointMake(button.center.x, button.center.y + 55);
     labelBottom.numberOfLines = 2;
     labelBottom.text = detailed;
     [self customizeGenericLabel:labelBottom];
-    [self addSubview:labelBottom];
+    
+    [lowerView addSubview:labelBottom];
+    
+    [self addSubview:lowerView];
+    
 }
 
 @end

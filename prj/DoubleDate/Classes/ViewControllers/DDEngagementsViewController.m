@@ -72,7 +72,7 @@
     label.layer.shadowOffset = CGSizeMake(0, 1);
     label.layer.shadowOpacity = 1.0f;
     label.layer.shadowColor = [UIColor blackColor].CGColor;
-    label.layer.shadowRadius = 1;
+    label.layer.shadowRadius = 0.5;
     label.layer.masksToBounds = NO;
 }
 
