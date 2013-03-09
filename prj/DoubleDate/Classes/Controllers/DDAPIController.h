@@ -62,6 +62,7 @@ typedef enum
     DDAPIControllerMethodTypeGetMeUnlockMaxActivities,
     DDAPIControllerMethodTypeUnlockMeMaxActivities,
     DDAPIControllerMethodTypeGetInAppProducts,
+    DDAPIControllerMethodTypeRequestConnectFriends,
 } DDAPIControllerMethodType;
 
 typedef int DDRequestId;
@@ -172,6 +173,9 @@ typedef int DDRequestId;
 - (void)getInAppProductsSucceed:(NSArray*)products;
 - (void)getInAppProductsDidFailedWithError:(NSError*)error;
 
+- (void)requestConnectFriendsSucceed:(NSArray*)friends;
+- (void)requestConnectFriendsDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -256,5 +260,7 @@ typedef int DDRequestId;
 - (DDRequestId)unlockMeMaxActivities:(DDMaxActivitiesPayload*)payload;
 
 - (DDRequestId)getInAppProducts;
+
+- (DDRequestId)requestConnectFriends:(NSString*)fbFriends;
 
 @end

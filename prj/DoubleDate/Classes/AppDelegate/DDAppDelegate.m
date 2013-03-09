@@ -158,7 +158,24 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSLog(@"%@ : %@ : %@", url, sourceApplication, annotation);
+    NSDictionary *queryParams = [url queryParameters];
+    for (NSString *key in queryParams)
+    {
+        if ([key isEqualToString:@"target_url"])
+        {
+            NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
+            NSURL *targetUrl = [NSURL URLWithString:decodedParam];
+            if (targetUrl)
+            {
+                NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
+                for (NSString *targetUrlQueryKey in targetUrlQueryParams)
+                {
+                    if ([targetUrlQueryKey isEqualToString:@"request_ids"])
+                        [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                }
+            }
+        }
+    }
     return [[FBSession activeSession] handleOpenURL:url];
 }
 

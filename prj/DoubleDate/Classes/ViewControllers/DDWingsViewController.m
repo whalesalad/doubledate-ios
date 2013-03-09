@@ -26,6 +26,7 @@
 #import "DDUser.h"
 #import "DDAppDelegate.h"
 #import "UIView+Other.h"
+#import "DDObjectsController.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -72,6 +73,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectUpdatedNotification:) name:DDObjectsControllerDidUpdateObjectNotification object:nil];
+
     }
     return self;
 }
@@ -526,7 +529,7 @@
             //remove silent
             [friends_ removeObject:shortuser];
             
-            //reload the tanle
+            //reload the table
             [self.tableView reloadData];
             
             //update no data view
@@ -581,5 +584,45 @@
     //request friends
     friendsRequest_ = [self.apiController getFriends];
 }
+
+#pragma mark -
+#pragma mark -
+
+- (void)objectUpdatedNotification:(NSNotification*)notification
+{
+    //save request method
+    RKRequestMethod method = [[[notification userInfo] objectForKey:DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey] intValue];
+    
+    //check object
+    if ([[notification object] isKindOfClass:[DDShortUser class]])
+    {
+        //check method
+        if (method == RKRequestMethodPOST)
+        {
+            //check if friend is already exist
+            DDShortUser *friendToAdd = [notification object];
+            BOOL exist = NO;
+            for (DDShortUser *shortUser in friends_)
+            {
+                if ([[shortUser identifier] intValue] == [[friendToAdd identifier] intValue])
+                    exist = YES;
+            }
+            
+            //check if not exist
+            if (!exist)
+            {
+                //add object
+                [friends_ addObject:friendToAdd];
+                
+                //reload the table
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+                
+                //update no data view
+                [self updateNoDataView];
+            }
+        }
+    }
+}
+
 
 @end
