@@ -15,6 +15,7 @@
 #import "DDEngagement.h"
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
+#import "DDAPIObject.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -118,8 +119,8 @@
     //check if opened from remote notification
     if ([[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] isKindOfClass:[NSDictionary class]])
     {
-        NSString *paramCallbackUrl = [[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_CALLBACK_URL_KEY] stringValue];
-        NSString *paramCallbackNotificationId = [[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_NOTIFICATION_ID_KEY] stringValue];
+        NSString *paramCallbackUrl = [DDAPIObject stringForObject:[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_CALLBACK_URL_KEY]];
+        NSString *paramCallbackNotificationId = [DDAPIObject stringForObject:[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_NOTIFICATION_ID_KEY]];
         if (paramCallbackUrl && paramCallbackNotificationId)
         {
             DDAPNSPayload *p = [[[DDAPNSPayload alloc] init] autorelease];

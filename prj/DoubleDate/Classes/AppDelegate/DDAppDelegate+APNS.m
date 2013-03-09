@@ -78,8 +78,8 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     {
         //set payload
         DDAPNSPayload *p = [[[DDAPNSPayload alloc] init] autorelease];
-        p.callbackUrl = [[userInfo objectForKey:APNS_CALLBACK_URL_KEY] stringValue];
-        p.notificationId = [[userInfo objectForKey:APNS_NOTIFICATION_ID_KEY] stringValue];
+        p.callbackUrl = [DDAPIObject stringForObject:[userInfo objectForKey:APNS_CALLBACK_URL_KEY]];
+        p.notificationId = [DDAPIObject stringForObject:[userInfo objectForKey:APNS_NOTIFICATION_ID_KEY]];
         if (p.callbackUrl && p.notificationId)
             [self handleNotificationPayload:p];
     }
