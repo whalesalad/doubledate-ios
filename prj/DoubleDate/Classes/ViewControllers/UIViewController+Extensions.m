@@ -194,6 +194,16 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     return ret;
 }
 
+- (NSInteger)tagMainLabel
+{
+    return 51324;
+}
+
+- (NSInteger)tagDetailedLabel
+{
+    return 31412;
+}
+
 - (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText
 {
     //set general view
@@ -203,6 +213,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     
     //add label
     UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    labelMain.tag = [self tagMainLabel];
     DD_F_HEADER_MAIN(labelMain);
     labelMain.textColor = [UIColor whiteColor];
     labelMain.text = mainText;
@@ -215,6 +226,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     if ([detailedText length])
     {
         UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        labelDetailed.tag = [self tagDetailedLabel];
         DD_F_HEADER_DETAILED(labelDetailed);
         labelDetailed.textColor = [UIColor grayColor];
         labelDetailed.text = detailedText;
@@ -235,6 +247,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     
     //add label
     UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    labelMain.tag = [self tagMainLabel];
     DD_F_HEADER_MAIN(labelMain);
     labelMain.textColor = [UIColor grayColor];
     labelMain.text = mainText;
@@ -247,6 +260,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     if ([detailedText length])
     {
         UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        labelDetailed.tag = [self tagDetailedLabel];
         DD_F_HEADER_DETAILED(labelDetailed);
         labelDetailed.textColor = [UIColor grayColor];
         labelDetailed.text = detailedText;
@@ -267,6 +281,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     
     //add label
     UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    labelMain.tag = [self tagMainLabel];
     DD_F_NAVIGATION_HEADER_MAIN(labelMain);
     labelMain.text = mainText;
     labelMain.backgroundColor = [UIColor clearColor];
@@ -276,6 +291,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     
     //add detailed
     UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    labelDetailed.tag = [self tagDetailedLabel];
     DD_F_NAVIGATION_HEADER_DETAILED(labelDetailed);
     labelDetailed.text = detailedText;
     labelDetailed.backgroundColor = [UIColor clearColor];
@@ -284,6 +300,22 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     [view addSubview:labelDetailed];
     
     return view;
+}
+
+- (UILabel*)mainLabelForHeaderView:(UIView*)view
+{
+    UILabel *label = (UILabel*)[view viewWithTag:[self tagMainLabel]];
+    if ([label isKindOfClass:[UILabel class]])
+        return label;
+    return nil;
+}
+
+- (UILabel*)detailedLabelForHeaderView:(UIView*)view
+{
+    UILabel *label = (UILabel*)[view viewWithTag:[self tagDetailedLabel]];
+    if ([label isKindOfClass:[UILabel class]])
+        return label;
+    return nil;
 }
 
 - (void)dismissViewController

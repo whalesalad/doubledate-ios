@@ -93,6 +93,9 @@
 - (UIView*)oldStyleViewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
 - (UIView*)viewForNavigationBarWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText;
 
+- (UILabel*)mainLabelForHeaderView:(UIView*)view;
+- (UILabel*)detailedLabelForHeaderView:(UIView*)view;
+
 - (void)dismissViewController;
 
 @end
