@@ -227,8 +227,8 @@
     
     //add remove button
     UIButton *removeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [removeButton setFrame:CGRectMake(0, 0, 15, 16)];
-    [removeButton setBackgroundImage:[UIImage imageNamed:@"remove-interest-button.png"] forState:UIControlStateNormal];
+    [removeButton setFrame:CGRectMake(0, 0, 40, 40)];
+    [removeButton setImage:[UIImage imageNamed:@"remove-interest-button.png"] forState:UIControlStateNormal];
     [removeButton addTarget:self action:@selector(resetInterestTouched:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = removeButton;
 }
