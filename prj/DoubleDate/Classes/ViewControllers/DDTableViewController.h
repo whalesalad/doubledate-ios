@@ -23,6 +23,7 @@
     BOOL movedWithKeyboard_;
     UIView *viewNoData_;
     BOOL refreshControlEnabled_;
+    UISearchBar *previousSearchBar_;
 }
 
 @property(nonatomic, assign) BOOL showsCancelButton;
