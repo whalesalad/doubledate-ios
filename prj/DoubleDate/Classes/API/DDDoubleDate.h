@@ -31,6 +31,7 @@ extern NSString *DDDoubleDateRelationshipEngaged;
 @property(nonatomic, retain) NSString *dayPref;
 @property(nonatomic, retain) NSString *timePref;
 @property(nonatomic, retain) NSDate *updatedAt;
+@property(nonatomic, retain) NSDate *createdAt;
 @property(nonatomic, retain) NSNumber *myEngagementId;
 @property(nonatomic, retain) NSNumber *unreadCount;
 @property(nonatomic, retain) DDShortUser *user;

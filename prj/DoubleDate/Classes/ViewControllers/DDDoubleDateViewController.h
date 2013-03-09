@@ -35,6 +35,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationMain;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationDetailed;
 @property(nonatomic, retain) IBOutlet UILabel *labelDayTime;
+@property(nonatomic, retain) IBOutlet UILabel *labelDayTimeDetailed;
 
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UITextView *textView;

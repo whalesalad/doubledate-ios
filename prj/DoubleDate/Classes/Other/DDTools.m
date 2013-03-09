@@ -120,4 +120,11 @@ NSString *DDErrorDomain = @"DDErrorDomain";
     return [[[[RKISO8601DateFormatter alloc] init] autorelease] dateFromString:string];
 }
 
++ (NSString*)stringFromDate:(NSDate*)date
+{
+    NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
+    [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
+    return [dateFormatterTo stringFromDate:date];
+}
+
 @end

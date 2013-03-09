@@ -41,5 +41,6 @@ extern NSString *DDErrorDomain;
 + (BOOL)isiPhone5Device;
 
 + (NSDate*)dateFromString:(NSString*)string;
++ (NSString*)stringFromDate:(NSDate*)date;
 
 @end

@@ -28,6 +28,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 @synthesize dayPref;
 @synthesize timePref;
 @synthesize updatedAt;
+@synthesize createdAt;
 @synthesize myEngagementId;
 @synthesize unreadCount;
 @synthesize user;
@@ -45,6 +46,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         self.dayPref = [DDAPIObject stringForObject:[dictionary objectForKey:@"day_pref"]];
         self.timePref = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_pref"]];
         self.updatedAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"updated_at"]];
+        self.createdAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"created_at"]];
         self.myEngagementId = [DDAPIObject numberForObject:[dictionary objectForKey:@"my_engagement_id"]];
         self.unreadCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread_count"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
@@ -71,6 +73,8 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         [dictionary setObject:self.timePref forKey:@"time_pref"];
     if (self.updatedAt)
         [dictionary setObject:self.updatedAt forKey:@"updated_at"];
+    if (self.createdAt)
+        [dictionary setObject:self.createdAt forKey:@"created_at"];
     if (self.myEngagementId)
         [dictionary setObject:self.myEngagementId forKey:@"my_engagement_id"];
     if (self.unreadCount)
@@ -112,6 +116,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     [dayPref release];
     [timePref release];
     [updatedAt release];
+    [createdAt release];
     [myEngagementId release];
     [unreadCount release];
     [user release];

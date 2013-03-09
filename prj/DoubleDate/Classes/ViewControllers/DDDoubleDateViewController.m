@@ -65,6 +65,7 @@
 @synthesize labelLocationMain;
 @synthesize labelLocationDetailed;
 @synthesize labelDayTime;
+@synthesize labelDayTimeDetailed;
 
 @synthesize labelTitle;
 @synthesize textView;
@@ -108,6 +109,7 @@
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
+    self.labelDayTimeDetailed.text = [DDTools stringFromDate:[self.doubleDate createdAt]];
     
     //set text
     self.textView.text = [self.doubleDate details];
@@ -181,6 +183,7 @@
     [labelLocationMain release];
     [labelLocationDetailed release];
     [labelDayTime release];
+    [labelDayTimeDetailed release];
     [labelTitle release];
     [textView release];
     [labelLeftUser release];

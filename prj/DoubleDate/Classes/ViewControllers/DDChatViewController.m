@@ -127,10 +127,7 @@
         
         DD_F_CHAT_TIMESTAMP_LABEL(labelHeader);
         
-        NSDate *date = [DDTools dateFromString:[self.engagement createdAt]];
-        NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
-        labelHeader.text = [dateFormatterTo stringFromDate:date];
+        labelHeader.text = [DDTools stringFromDate:[DDTools dateFromString:[self.engagement createdAt]]];
         [headerView addSubview:labelHeader];
     }
     
