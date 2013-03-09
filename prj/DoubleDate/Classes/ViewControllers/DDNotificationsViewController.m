@@ -19,6 +19,7 @@
 #import "DDDoubleDateViewController.h"
 #import "DDChatViewController.h"
 #import "DDAppDelegate+APNS.h"
+#import "DDAPIObject.h"
 
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -175,7 +176,7 @@
     {
         DDAPNSPayload *payload = [[[DDAPNSPayload alloc] init] autorelease];
         payload.callbackUrl = [self.selectedNotification callbackUrl];
-        payload.notificationId = [[self.selectedNotification identifier] stringValue];
+        payload.notificationId = [DDAPIObject stringForObject:[self.selectedNotification identifier]];
         [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] handleNotificationPayload:payload];
     }
 }
@@ -258,7 +259,7 @@
 {
     //save last read callback
     if ([[notification object] isKindOfClass:[NSDictionary class]])
-        self.lastReadCallbackNotificationId = [[(NSDictionary*)[notification object] objectForKey:APNS_NOTIFICATION_ID_KEY] stringValue];
+        self.lastReadCallbackNotificationId = [DDAPIObject stringForObject:[(NSDictionary*)[notification object] objectForKey:APNS_NOTIFICATION_ID_KEY]];
     
     //just refresh
     [self onRefresh];
