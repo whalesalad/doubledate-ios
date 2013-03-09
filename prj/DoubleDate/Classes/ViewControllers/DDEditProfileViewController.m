@@ -33,6 +33,7 @@
 
 - (NSInteger)numberOfAvailableInterests;
 - (void)updateLeftCharacters;
+- (void)updateLeftInterests;
 
 @end
 
@@ -48,6 +49,7 @@
     if (self)
     {
         user_ = [user copy];
+        interestsHeaderViews_ = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -81,6 +83,12 @@
 {
     [super viewWillAppear:animated];
     
+    //update left interests
+    [self updateLeftInterests];
+    
+    //remove all header views
+    [interestsHeaderViews_ removeAllObjects];
+    
     //show navigation bar
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
@@ -95,6 +103,7 @@
 {
     [user_ release];
     [tableView release];
+    [interestsHeaderViews_ release];
     [labelLeftCharacters release];
     [textViewBio release];
     [super dealloc];
@@ -140,7 +149,20 @@
 
 - (NSInteger)numberOfAvailableInterests
 {
-    return 6;
+    return kMaxInterestsCount - [user_.interests count];
+}
+
+- (void)updateLeftInterestsForView:(UIView*)headerView
+{
+    UILabel *label = [self detailedLabelForHeaderView:headerView];
+    label.hidden = [self numberOfAvailableInterests] == 0;
+    [label setText:[NSString stringWithFormat:NSLocalizedString(@"Add up to %d more", nil), [self numberOfAvailableInterests]]];
+}
+
+- (void)updateLeftInterests
+{
+    for (UIView *v in interestsHeaderViews_)
+        [self updateLeftInterestsForView:v];
 }
 
 - (void)updateLeftCharacters
@@ -227,8 +249,8 @@
     
     //add remove button
     UIButton *removeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [removeButton setFrame:CGRectMake(0, 0, 15, 16)];
-    [removeButton setBackgroundImage:[UIImage imageNamed:@"remove-interest-button.png"] forState:UIControlStateNormal];
+    [removeButton setFrame:CGRectMake(0, 0, 40, 40)];
+    [removeButton setImage:[UIImage imageNamed:@"remove-interest-button.png"] forState:UIControlStateNormal];
     [removeButton addTarget:self action:@selector(resetInterestTouched:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = removeButton;
 }
@@ -263,6 +285,9 @@
         DDTableViewCell *cell = (DDTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [self applyInterestStylingForCell:cell withIndexPath:indexPath];
     }
+    
+    //update left interests
+    [self updateLeftInterests];
 }
 
 - (void)doneTouched:(id)sender
@@ -353,7 +378,10 @@
     
     if (section == 2)
     {
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"ICE BREAKERS", nil) detailedText:[NSString stringWithFormat:NSLocalizedString(@"Add up to %d more", nil), [self numberOfAvailableInterests]]];
+        UIView *header = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"ICE BREAKERS", nil) detailedText:@"                                    "];
+        [interestsHeaderViews_ addObject:header];
+        [self updateLeftInterestsForView:header];
+        return header;
     }
     
     return nil;

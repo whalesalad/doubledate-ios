@@ -11,6 +11,7 @@
 @interface DDEditProfileViewController : DDViewController
 {
     DDUser *user_;
+    NSMutableArray *interestsHeaderViews_;
 }
 
 - (id)initWithUser:(DDUser*)user;

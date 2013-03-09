@@ -162,6 +162,18 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     for (int i = 0; i < [self.tableView numberOfSections]; i++)
         totalNumberOfRows += [self.tableView numberOfRowsInSection:i];
 //    self.tableView.scrollEnabled = totalNumberOfRows > 0;
+    if (previousSearchBar_ && totalNumberOfRows > 0)
+    {
+        self.tableView.tableHeaderView = previousSearchBar_;
+        [previousSearchBar_ release];
+        previousSearchBar_ = nil;
+    }
+    else if (totalNumberOfRows == 0)
+    {
+        [previousSearchBar_ release];
+        previousSearchBar_ = [self.searchBar retain];
+        self.tableView.tableHeaderView = nil;
+    }
     self.viewNoData.hidden = totalNumberOfRows > 0;
 }
 
@@ -169,6 +181,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [searchTerm_ release];
+    [previousSearchBar_ release];
     [backButtonTitle release];
     [cellsIdentifiers release];
     [self hideHud:YES];
