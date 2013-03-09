@@ -36,6 +36,7 @@ extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
 
 + (void)authenticateWithFbToken:(NSString*)fbToken delegate:(id)delegate;
 + (void)authenticateWithEmail:(NSString*)email password:(NSString*)password delegate:(id)delegate;
++ (void)logout;
 
 + (void)setCurrentUser:(DDUser*)user;
 + (DDUser*)currentUser;

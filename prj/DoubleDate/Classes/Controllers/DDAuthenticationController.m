@@ -129,6 +129,29 @@ static DDAuthenticationController *_sharedInstance = nil;
     [controller_ startRequest:request];
 }
 
++ (void)logout
+{
+    //send a logout request
+    {
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/logout"];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodGET;
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
+    
+    //clear token
+    [DDAuthenticationController clearToken];
+    
+    //unset current user
+    [DDAuthenticationController setCurrentUser:nil];
+}
+
 - (void)heartbeat:(id)sender
 {
     //save device token

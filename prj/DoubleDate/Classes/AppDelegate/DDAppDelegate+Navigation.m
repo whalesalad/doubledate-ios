@@ -93,8 +93,7 @@
 
 - (void)logout
 {
-    [DDAuthenticationController setCurrentUser:nil];
-    [DDAuthenticationController clearToken];
+    [DDAuthenticationController logout];
     [[DDFacebookController sharedController] logout];
     [self.viewController dismissViewControllerAnimated:YES completion:^{
     }];
