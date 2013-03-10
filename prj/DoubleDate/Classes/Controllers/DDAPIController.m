@@ -936,6 +936,31 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)requestInviteFriend:(NSString*)slug
+{
+    //set parameters
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:slug forKey:@"invite_slug"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/friends/invite_connect"]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPOST;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeRequestInviteFriend;
+    userData.succeedSel = @selector(requestInviteFriendSucceed:);
+    userData.failedSel = @selector(requestInviteFriendDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -1047,7 +1072,8 @@
                 [self.delegate performSelector:userData.succeedSel withObject:users withObject:userData.userData];
         }
         
-        else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendshipForFriend)
+        else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendshipForFriend ||
+                 userData.method == DDAPIControllerMethodTypeRequestInviteFriend)
         {
             //create friendship object
             DDShortUser *friend = [DDShortUser objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];

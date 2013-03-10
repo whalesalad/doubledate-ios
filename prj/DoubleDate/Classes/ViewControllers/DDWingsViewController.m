@@ -74,7 +74,7 @@
     if (self)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectUpdatedNotification:) name:DDObjectsControllerDidUpdateObjectNotification object:nil];
-
+        invitedFriends_ = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -131,6 +131,7 @@
 - (void)dealloc
 {
     [friends_ release];
+    [invitedFriends_ release];
     [super dealloc];
 }
 
@@ -152,10 +153,27 @@
     return existInSearch;
 }
 
+- (NSArray*)allFriends
+{
+    NSMutableArray *ret = [NSMutableArray arrayWithArray:friends_];
+    for (DDShortUser *friend in invitedFriends_)
+    {
+        BOOL exist = NO;
+        for (DDShortUser *f in ret)
+        {
+            if ([[f identifier] intValue] == [[friend identifier] intValue])
+                exist = YES;
+        }
+        if (!exist)
+            [ret addObject:friend];
+    }
+    return ret;
+}
+
 - (NSArray*)pendingInvitations
 {
     NSMutableArray *ret = [NSMutableArray array];
-    for (DDShortUser *shortUser in friends_)
+    for (DDShortUser *shortUser in [self allFriends])
     {
         if (![shortUser.approved boolValue] && [self isUserExistInSearch:shortUser])
             [ret addObject:shortUser];
@@ -166,7 +184,7 @@
 - (NSArray*)wings
 {
     NSMutableArray *ret = [NSMutableArray array];
-    for (DDShortUser *shortUser in friends_)
+    for (DDShortUser *shortUser in [self allFriends])
     {
         if ([shortUser.approved boolValue] && [self isUserExistInSearch:shortUser])
             [ret addObject:shortUser];
@@ -501,6 +519,7 @@
             
             //remove silent
             [friends_ removeObject:friend];
+            [invitedFriends_ removeObject:friend];
             
             //unset number of unread wings
             [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:[[self pendingInvitations] count]];
@@ -528,6 +547,7 @@
             
             //remove silent
             [friends_ removeObject:shortuser];
+            [invitedFriends_ removeObject:shortuser];
             
             //reload the table
             [self.tableView reloadData];
@@ -602,7 +622,7 @@
             //check if friend is already exist
             DDShortUser *friendToAdd = [notification object];
             BOOL exist = NO;
-            for (DDShortUser *shortUser in friends_)
+            for (DDShortUser *shortUser in [self allFriends])
             {
                 if ([[shortUser identifier] intValue] == [[friendToAdd identifier] intValue])
                     exist = YES;
@@ -611,11 +631,17 @@
             //check if not exist
             if (!exist)
             {
+                //save objects before
+                NSInteger wingsBefore = [[self wings] count];
+                
                 //add object
-                [friends_ addObject:friendToAdd];
+                [invitedFriends_ addObject:friendToAdd];
+                
+                //save objects after
+                NSInteger wingsAfter = [[self wings] count];
                 
                 //reload the table
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:(wingsBefore==wingsAfter)?0:1]] withRowAnimation:UITableViewRowAnimationTop];
                 
                 //update no data view
                 [self updateNoDataView];

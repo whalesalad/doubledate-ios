@@ -91,6 +91,12 @@
     }
 }
 
+- (void)switchToWingsTab
+{
+    UITabBarController *tabBarController = (UITabBarController*)[self.viewController viewControllerForClass:[UITabBarController class]];
+    [tabBarController setSelectedIndex:2];
+}
+
 - (void)logout
 {
     [DDAuthenticationController logout];

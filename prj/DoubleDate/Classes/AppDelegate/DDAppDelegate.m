@@ -11,6 +11,7 @@
 #import "DDChatViewController.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "DDAppDelegate+Navigation.h"
 #import "DDAPIController.h"
 #import "DDEngagement.h"
 #import "DDAuthenticationController.h"
@@ -158,21 +159,50 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSDictionary *queryParams = [url queryParameters];
-    for (NSString *key in queryParams)
+    //check if user is authenticated
+    if ([DDAuthenticationController currentUser])
     {
-        if ([key isEqualToString:@"target_url"])
+        //check prefix
+        if ([[[url absoluteString] lowercaseString] hasPrefix:@"fb"])
         {
-            NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
-            NSURL *targetUrl = [NSURL URLWithString:decodedParam];
-            if (targetUrl)
+            NSDictionary *queryParams = [url queryParameters];
+            for (NSString *key in queryParams)
             {
-                NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
-                for (NSString *targetUrlQueryKey in targetUrlQueryParams)
+                if ([key isEqualToString:@"target_url"])
                 {
-                    if ([targetUrlQueryKey isEqualToString:@"request_ids"])
-                        [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                    NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
+                    NSURL *targetUrl = [NSURL URLWithString:decodedParam];
+                    if (targetUrl)
+                    {
+                        NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
+                        for (NSString *targetUrlQueryKey in targetUrlQueryParams)
+                        {
+                            if ([targetUrlQueryKey isEqualToString:@"request_ids"])
+                            {
+                                //switch to wings
+                                [self switchToWingsTab];
+                                
+                                //request add user
+                                [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                            }
+                        }
+                    }
                 }
+            }
+        }
+        else if ([[[url absoluteString] lowercaseString] hasPrefix:@"dbld8"])
+        {
+            //check invite
+            if ([[url host] isEqualToString:@"invite"])
+            {
+                //extract slug
+                NSString *slug = [url lastPathComponent];
+                
+                //switch to wings
+                [self switchToWingsTab];
+                
+                //request add user
+                [self.apiController requestInviteFriend:slug];
             }
         }
     }
