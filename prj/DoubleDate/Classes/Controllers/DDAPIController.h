@@ -63,6 +63,7 @@ typedef enum
     DDAPIControllerMethodTypeUnlockMeMaxActivities,
     DDAPIControllerMethodTypeGetInAppProducts,
     DDAPIControllerMethodTypeRequestConnectFriends,
+    DDAPIControllerMethodTypeRequestInviteFriend,
 } DDAPIControllerMethodType;
 
 typedef int DDRequestId;
@@ -104,7 +105,7 @@ typedef int DDRequestId;
 - (void)getFriendsSucceed:(NSArray*)friends;
 - (void)getFriendsDidFailedWithError:(NSError*)error;
 
-- (void)requestApproveFriendshipForFriendSucceed:(DDShortUser*)friend;
+- (void)requestApproveFriendshipForFriendSucceed:(DDShortUser*)friendUser;
 - (void)requestApproveFriendshipForFriendDidFailedWithError:(NSError*)error;
 
 - (void)requestDenyFriendshipForFriendSucceed;
@@ -175,6 +176,9 @@ typedef int DDRequestId;
 
 - (void)requestConnectFriendsSucceed:(NSArray*)friends;
 - (void)requestConnectFriendsDidFailedWithError:(NSError*)error;
+
+- (void)requestInviteFriendSucceed:(DDShortUser*)friendUser;
+- (void)requestInviteFriendDidFailedWithError:(NSError*)error;
 
 @end
 
@@ -262,5 +266,7 @@ typedef int DDRequestId;
 - (DDRequestId)getInAppProducts;
 
 - (DDRequestId)requestConnectFriends:(NSString*)fbFriends;
+
+- (DDRequestId)requestInviteFriend:(NSString*)slug;
 
 @end

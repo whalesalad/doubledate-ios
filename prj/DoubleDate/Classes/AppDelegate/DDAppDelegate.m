@@ -162,28 +162,47 @@
     //check if user is authenticated
     if ([DDAuthenticationController currentUser])
     {
-        NSDictionary *queryParams = [url queryParameters];
-        for (NSString *key in queryParams)
+        //check prefix
+        if ([[[url absoluteString] lowercaseString] hasPrefix:@"fb"])
         {
-            if ([key isEqualToString:@"target_url"])
+            NSDictionary *queryParams = [url queryParameters];
+            for (NSString *key in queryParams)
             {
-                NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
-                NSURL *targetUrl = [NSURL URLWithString:decodedParam];
-                if (targetUrl)
+                if ([key isEqualToString:@"target_url"])
                 {
-                    NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
-                    for (NSString *targetUrlQueryKey in targetUrlQueryParams)
+                    NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
+                    NSURL *targetUrl = [NSURL URLWithString:decodedParam];
+                    if (targetUrl)
                     {
-                        if ([targetUrlQueryKey isEqualToString:@"request_ids"])
+                        NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
+                        for (NSString *targetUrlQueryKey in targetUrlQueryParams)
                         {
-                            //switch to wings
-                            [self switchToWingsTab];
-                            
-                            //request add user
-                            [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                            if ([targetUrlQueryKey isEqualToString:@"request_ids"])
+                            {
+                                //switch to wings
+                                [self switchToWingsTab];
+                                
+                                //request add user
+                                [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                            }
                         }
                     }
                 }
+            }
+        }
+        else if ([[[url absoluteString] lowercaseString] hasPrefix:@"dbld8"])
+        {
+            //check invite
+            if ([[url host] isEqualToString:@"invite"])
+            {
+                //extract slug
+                NSString *slug = [url lastPathComponent];
+                
+                //switch to wings
+                [self switchToWingsTab];
+                
+                //request add user
+                [self.apiController requestInviteFriend:slug];
             }
         }
     }
