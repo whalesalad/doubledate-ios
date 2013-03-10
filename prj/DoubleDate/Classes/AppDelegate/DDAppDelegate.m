@@ -11,6 +11,7 @@
 #import "DDChatViewController.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "DDAppDelegate+Navigation.h"
 #import "DDAPIController.h"
 #import "DDEngagement.h"
 #import "DDAuthenticationController.h"
@@ -158,20 +159,30 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSDictionary *queryParams = [url queryParameters];
-    for (NSString *key in queryParams)
+    //check if user is authenticated
+    if ([DDAuthenticationController currentUser])
     {
-        if ([key isEqualToString:@"target_url"])
+        NSDictionary *queryParams = [url queryParameters];
+        for (NSString *key in queryParams)
         {
-            NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
-            NSURL *targetUrl = [NSURL URLWithString:decodedParam];
-            if (targetUrl)
+            if ([key isEqualToString:@"target_url"])
             {
-                NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
-                for (NSString *targetUrlQueryKey in targetUrlQueryParams)
+                NSString *decodedParam = [[queryParams objectForKey:key] stringByReplacingURLEncoding];
+                NSURL *targetUrl = [NSURL URLWithString:decodedParam];
+                if (targetUrl)
                 {
-                    if ([targetUrlQueryKey isEqualToString:@"request_ids"])
-                        [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                    NSDictionary *targetUrlQueryParams = [targetUrl queryParameters];
+                    for (NSString *targetUrlQueryKey in targetUrlQueryParams)
+                    {
+                        if ([targetUrlQueryKey isEqualToString:@"request_ids"])
+                        {
+                            //switch to wings
+                            [self switchToWingsTab];
+                            
+                            //request add user
+                            [self.apiController requestConnectFriends:[targetUrlQueryParams objectForKey:targetUrlQueryKey]];
+                        }
+                    }
                 }
             }
         }

@@ -631,11 +631,17 @@
             //check if not exist
             if (!exist)
             {
+                //save objects before
+                NSInteger wingsBefore = [[self wings] count];
+                
                 //add object
                 [invitedFriends_ addObject:friendToAdd];
                 
+                //save objects after
+                NSInteger wingsAfter = [[self wings] count];
+                
                 //reload the table
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:(wingsBefore==wingsAfter)?0:1]] withRowAnimation:UITableViewRowAnimationTop];
                 
                 //update no data view
                 [self updateNoDataView];

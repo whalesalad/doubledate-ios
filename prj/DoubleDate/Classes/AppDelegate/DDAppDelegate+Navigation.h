@@ -13,6 +13,7 @@
 @interface DDAppDelegate (Navigation)
 
 - (void)loginUser:(DDUser*)user;
+- (void)switchToWingsTab;
 - (void)logout;
 
 @end
