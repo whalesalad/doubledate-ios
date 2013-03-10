@@ -17,10 +17,10 @@
     button.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [button setBackgroundImage:image forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-    button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.2f];
+    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
+    button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.1f];
     button.titleLabel.shadowOffset = CGSizeMake(0, -1);
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, 40, 0, 0);
+    button.titleEdgeInsets = UIEdgeInsetsMake(1, 40, 0, 0);
     return button;
 }
 
