@@ -619,33 +619,17 @@
         //check method
         if (method == RKRequestMethodPOST)
         {
-            //check if friend is already exist
+            //get friend to add
             DDShortUser *friendToAdd = [notification object];
-            BOOL exist = NO;
-            for (DDShortUser *shortUser in [self allFriends])
-            {
-                if ([[shortUser identifier] intValue] == [[friendToAdd identifier] intValue])
-                    exist = YES;
-            }
             
-            //check if not exist
-            if (!exist)
-            {
-                //save objects before
-                NSInteger wingsBefore = [[self wings] count];
-                
-                //add object
-                [invitedFriends_ addObject:friendToAdd];
-                
-                //save objects after
-                NSInteger wingsAfter = [[self wings] count];
-                
-                //reload the table
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:(wingsBefore==wingsAfter)?0:1]] withRowAnimation:UITableViewRowAnimationTop];
-                
-                //update no data view
-                [self updateNoDataView];
-            }
+            //add friend
+            [invitedFriends_ addObject:friendToAdd];
+            
+            //reload data
+            [self.tableView reloadData];
+            
+            //update no data view
+            [self updateNoDataView];
         }
     }
 }
