@@ -19,7 +19,7 @@
 
 @end
 
-@interface DDSelectWingView : UIView
+DEPRECATED_ATTRIBUTE @interface DDSelectWingView : UIView
 {
     UIActivityIndicatorView *loading_;
     DDAPIController *apiController_;

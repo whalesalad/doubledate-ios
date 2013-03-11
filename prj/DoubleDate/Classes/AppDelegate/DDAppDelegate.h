@@ -10,6 +10,7 @@
 #import "DDAPIController.h"
 
 @class DDAPNSPayload;
+@protocol DDChooseWingViewDelegate;
 
 @interface DDAppDelegate : UIResponder <UIApplicationDelegate, DDAPIControllerDelegate>
 
@@ -26,6 +27,12 @@
 @property (retain, nonatomic) UIView *navigationMenu;
 
 @property (assign, nonatomic) BOOL navigationMenuExist;
+
+@property (retain, nonatomic) UIView *wingsMenu;
+
+@property (assign, nonatomic) BOOL wingsMenuExist;
+
+@property (assign, nonatomic) id<DDChooseWingViewDelegate> wingsMenuDelegate;
 
 @property (retain, nonatomic) DDAPIController *apiController;
 
