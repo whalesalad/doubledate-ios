@@ -21,6 +21,9 @@
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
+@property(nonatomic, retain) IBOutlet UIButton *buttonCancel;
+@property(nonatomic, retain) IBOutlet UIButton *buttonCreate;
+
 + (NSString*)titleForDDDoubleDateProperty:(NSString*)property;
 + (NSString*)titleForDDDay:(NSString*)day ddTime:(NSString*)time;
 
