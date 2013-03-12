@@ -300,6 +300,7 @@
         imageView.backgroundColor = [UIColor redColor];
         imageView.frame = CGRectMake(cell.contentView.frame.size.width - [DDTableViewCell height] * 3 / 2, 0, [DDTableViewCell height] * 3 / 2, [DDTableViewCell height]);
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
         [cell.contentView addSubview:imageView];
                 
         //update image view
@@ -561,6 +562,14 @@
 {
     if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         return 100;
+    else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
+        return 45;
+    else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+        return 45;
+    else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
+        return 45;
+    else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
+        return 45;
     return [DDTableViewCell height];
 }
 
