@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12C3006</string>
+		<string key="IBDocument.SystemVersion">11G63</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -38,10 +38,10 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIImageView" id="1033363023">
+					<object class="IBUIImageView" id="564850977">
 						<reference key="NSNextResponder" ref="178138378"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{200, 57}</string>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrameSize">{200, 586}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="900129154"/>
@@ -50,22 +50,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">wing-slideout-top.png</string>
-						</object>
-					</object>
-					<object class="IBUIImageView" id="36337360">
-						<reference key="NSNextResponder" ref="178138378"/>
-						<int key="NSvFlags">276</int>
-						<string key="NSFrameSize">{7, 586}</string>
-						<reference key="NSSuperview" ref="178138378"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="659385709"/>
-						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">wing-slideout-left.png</string>
+							<string key="NSResourceName">wing-slideout-bg.png</string>
 						</object>
 					</object>
 					<object class="IBUITableView" id="659385709">
@@ -76,7 +61,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="836169286"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
+						<object class="NSColor" key="IBUIBackgroundColor" id="160702886">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -94,7 +79,6 @@
 						<string key="NSFrame">{{79, 266}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -106,7 +90,7 @@
 						<string key="NSFrame">{{13, 12}, {168, 21}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="36337360"/>
+						<reference key="NSNextKeyView" ref="659385709"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -147,12 +131,9 @@
 				<string key="NSFrameSize">{200, 568}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="1033363023"/>
+				<reference key="NSNextKeyView" ref="564850977"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="160702886"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<object class="IBUISimulatedSizeMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUISimulatedFreeformSizeMetricsSentinel</string>
@@ -178,6 +159,14 @@
 						<reference key="destination" ref="659385709"/>
 					</object>
 					<int key="connectionID">37</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">imageViewBackground</string>
+						<reference key="source" ref="178138378"/>
+						<reference key="destination" ref="564850977"/>
+					</object>
+					<int key="connectionID">44</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -222,8 +211,7 @@
 							<reference ref="836169286"/>
 							<reference ref="659385709"/>
 							<reference ref="900129154"/>
-							<reference ref="1033363023"/>
-							<reference ref="36337360"/>
+							<reference ref="564850977"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -243,13 +231,8 @@
 						<reference key="parent" ref="178138378"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">41</int>
-						<reference key="object" ref="1033363023"/>
-						<reference key="parent" ref="178138378"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">42</int>
-						<reference key="object" ref="36337360"/>
+						<int key="objectID">43</int>
+						<reference key="object" ref="564850977"/>
 						<reference key="parent" ref="178138378"/>
 					</object>
 				</array>
@@ -263,14 +246,13 @@
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="40.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="42.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="43.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">42</int>
+			<int key="maxID">44</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -278,10 +260,15 @@
 					<string key="className">DDChooseWingView</string>
 					<string key="superclassName">UIView</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="imageViewBackground">UIImageView</string>
 						<string key="loading">UIActivityIndicatorView</string>
 						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="imageViewBackground">
+							<string key="name">imageViewBackground</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="loading">
 							<string key="name">loading</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
@@ -302,10 +289,10 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="wing-slideout-left.png">{14, 2}</string>
-			<string key="wing-slideout-top.png">{1, 57}</string>
-		</dictionary>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">wing-slideout-bg.png</string>
+			<string key="NS.object.0">{221, 548}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
