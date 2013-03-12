@@ -53,7 +53,9 @@
     wings.frame = CGRectMake(self.wingsMenu.frame.size.width, 0, wings.frame.size.width, self.wingsMenu.frame.size.height);
     [wings start];
     [self.wingsMenu addSubview:wings];
-    wings.layer.cornerRadius = 5;
+    
+    //add button handler
+    [wings.buttonFullscreen addTarget:self action:@selector(dismissWingsMenu) forControlEvents:UIControlEventTouchUpInside];
     
     //animate
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{

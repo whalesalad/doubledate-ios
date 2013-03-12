@@ -24,6 +24,8 @@
     NSArray *friends_;
 }
 
+@property(nonatomic, retain) IBOutlet UIButton *buttonFullscreen;
+
 @property(nonatomic, assign) id<DDChooseWingViewDelegate> delegate;
 
 - (void)start;

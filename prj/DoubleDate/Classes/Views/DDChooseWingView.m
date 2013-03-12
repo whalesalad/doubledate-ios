@@ -23,6 +23,8 @@
 
 @implementation DDChooseWingView
 
+@synthesize buttonFullscreen;
+
 @synthesize loading;
 @synthesize tableView;
 @synthesize imageViewBackground;
@@ -69,6 +71,7 @@
 {
     apiController_.delegate = nil;
     [apiController_ release];
+    [buttonFullscreen release];
     [loading release];
     [tableView release];
     [imageViewBackground release];
