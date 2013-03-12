@@ -80,7 +80,7 @@
 					<object class="IBUIImageView" id="292136941">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">273</int>
-						<string key="NSFrameSize">{221, 548}</string>
+						<string key="NSFrameSize">{229, 548}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="900129154"/>
@@ -95,7 +95,7 @@
 					<object class="IBUITableView" id="659385709">
 						<reference key="NSNextResponder" ref="178138378"/>
 						<int key="NSvFlags">273</int>
-						<string key="NSFrame">{{50, 45}, {168, 483}}</string>
+						<string key="NSFrame">{{58, 45}, {168, 483}}</string>
 						<reference key="NSSuperview" ref="178138378"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="836169286"/>
@@ -167,7 +167,7 @@
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{221, 548}</string>
+				<string key="NSFrameSize">{229, 548}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="211177545"/>
@@ -350,7 +350,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NS.key.0">wing-slideout-bg.png</string>
-			<string key="NS.object.0">{221, 548}</string>
+			<string key="NS.object.0">{229, 548}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
