@@ -1129,7 +1129,7 @@
 			<string key="details-bg-top.png">{320, 34}</string>
 			<string key="icon-gender-male.png">{15, 15}</string>
 			<string key="lower-button-bar-large-bg.png">{1, 94}</string>
-			<string key="lower-button-blue.png">{28, 46}</string>
+			<string key="lower-button-blue.png">{30, 47}</string>
 			<string key="photo-overlay.png">{320, 110}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>

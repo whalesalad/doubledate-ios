@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12C3006</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -83,7 +83,7 @@
 							<object class="IBUIButton" id="847993161">
 								<reference key="NSNextResponder" ref="198195314"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 10}, {101, 46}}</string>
+								<string key="NSFrame">{{10, 9}, {146, 47}}</string>
 								<reference key="NSSuperview" ref="198195314"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="817151130"/>
@@ -93,58 +93,63 @@
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<int key="IBUIButtonType">1</int>
+								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Cancel</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="881137113">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor">
+								<object class="NSColor" key="IBUINormalTitleColor" id="975769274">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleShadowColor" id="1027574899">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC41AA</bytes>
+								<object class="NSColor" key="IBUINormalTitleShadowColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAgMC41AA</bytes>
 								</object>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">lower-button-gray.png</string>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="1004560504">
-									<int key="type">2</int>
-									<double key="pointSize">15</double>
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="661464627">
+									<string key="name">HelveticaNeue-Bold</string>
+									<string key="family">Helvetica Neue</string>
+									<int key="traits">2</int>
+									<double key="pointSize">20</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="344400759">
-									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">15</double>
+								<object class="NSFont" key="IBUIFont" id="762899306">
+									<string key="NSName">HelveticaNeue-Bold</string>
+									<double key="NSSize">20</double>
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
 							<object class="IBUIButton" id="817151130">
 								<reference key="NSNextResponder" ref="198195314"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{199, 10}, {101, 46}}</string>
+								<string key="NSFrame">{{164, 9}, {146, 47}}</string>
 								<reference key="NSSuperview" ref="198195314"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<int key="IBUIButtonType">1</int>
+								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Create</string>
 								<reference key="IBUIHighlightedTitleColor" ref="881137113"/>
-								<object class="NSColor" key="IBUINormalTitleColor">
+								<reference key="IBUINormalTitleColor" ref="975769274"/>
+								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+									<bytes key="NSRGB">MCAwIDAgMC41AA</bytes>
 								</object>
-								<reference key="IBUINormalTitleShadowColor" ref="1027574899"/>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">lower-button-blue.png</string>
 								</object>
-								<reference key="IBUIFontDescription" ref="1004560504"/>
-								<reference key="IBUIFont" ref="344400759"/>
+								<reference key="IBUIFontDescription" ref="661464627"/>
+								<reference key="IBUIFont" ref="762899306"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 394}, {320, 66}}</string>
@@ -262,9 +267,9 @@
 						<int key="objectID">34</int>
 						<reference key="object" ref="198195314"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="847993161"/>
-							<reference ref="817151130"/>
 							<reference ref="376465990"/>
+							<reference ref="817151130"/>
+							<reference ref="847993161"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -348,8 +353,8 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="lower-button-bar-bg.png">{1, 66}</string>
-			<string key="lower-button-blue.png">{28, 46}</string>
-			<string key="lower-button-gray.png">{28, 46}</string>
+			<string key="lower-button-blue.png">{30, 47}</string>
+			<string key="lower-button-gray.png">{30, 47}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
