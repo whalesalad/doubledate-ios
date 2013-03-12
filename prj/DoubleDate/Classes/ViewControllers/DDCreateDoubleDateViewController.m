@@ -298,10 +298,14 @@
         //add image view
         DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
         imageView.backgroundColor = [UIColor redColor];
-        imageView.frame = CGRectMake(cell.contentView.frame.size.width - [DDTableViewCell height] * 3 / 2, 0, [DDTableViewCell height] * 3 / 2, [DDTableViewCell height]);
+        imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
         [cell.contentView addSubview:imageView];
+        
+        //add overlay
+        UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
+        [imageView addSubview:overlay];
                 
         //update image view
         [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].smallUrl]];
