@@ -78,24 +78,31 @@
     
     //switch background image name
     NSString *backgroundImageName = nil;
+    NSString *selectedBackgroundImageName = nil;
     switch (v) {
         case DDTableViewCellStyleNone:
             backgroundImageName = nil;
+            selectedBackgroundImageName = nil;
             break;
         case DDTableViewCellStylePlain:
             backgroundImageName = @"dd-tablecell-background.png";
+            selectedBackgroundImageName = nil;
             break;
         case DDTableViewCellStyleGroupedTop:
             backgroundImageName = @"dd-tableview-cell-top.png";
+            selectedBackgroundImageName = @"dd-tableview-cell-top-highlighted.png";
             break;
         case DDTableViewCellStyleGroupedCenter:
             backgroundImageName = @"dd-tableview-cell-center.png";
+            selectedBackgroundImageName = @"dd-tableview-cell-center-highlighted.png";
             break;
         case DDTableViewCellStyleGroupedBottom:
             backgroundImageName = @"dd-tableview-cell-bottom.png";
+            selectedBackgroundImageName = @"dd-tableview-cell-bottom-highlighted.png";
             break;
         case DDTableViewCellStyleGroupedSolid:
             backgroundImageName = @"dd-tableview-cell-single.png";
+            selectedBackgroundImageName = @"dd-tableview-cell-single-highlighted.png";
             break;
         default:
             break;
@@ -108,6 +115,14 @@
     }
     else
         self.backgroundView = nil;
+    
+    //check selected background image name
+    if (selectedBackgroundImageName)
+    {
+        self.selectedBackgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:selectedBackgroundImageName]]] autorelease];
+    }
+    else
+        self.selectedBackgroundView = nil;
 }
 
 - (void)applyGroupedBackgroundStyleForTableView:(UITableView*)tableView withIndexPath:(NSIndexPath*)indexPath
