@@ -2,15 +2,15 @@
 //  DDSendEngagementViewController.h
 //  DoubleDate
 //
-//  Created by Gennadii Ivanov on 05.12.12.
+//  Created by Gennadii Ivanov on 10/25/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
 #import "DDViewController.h"
-#import "DDSelectWingView.h"
-
-@class DDDoubleDate;
-@class DDEngagement;
+#import "DDLocationController.h"
+#import "DDTextView.h"
+#import "DDUser.h"
+#import "DDDoubleDatesViewController.h"
 
 @protocol DDSendEngagementViewControllerDelegate <NSObject>
 
@@ -20,6 +20,8 @@
 @end
 
 @interface DDSendEngagementViewController : DDViewController
+{
+}
 
 @property(nonatomic, assign) id<DDSendEngagementViewControllerDelegate> delegate;
 
@@ -27,12 +29,7 @@
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 
-@property(nonatomic, retain) IBOutlet DDSelectWingView *selectWingView;
-
 @property(nonatomic, retain) IBOutlet UIButton *buttonCancel;
-@property(nonatomic, retain) IBOutlet UIButton *buttonSend;
-
-- (IBAction)cancelTouched:(id)sender;
-- (IBAction)sendTouched:(id)sender;
+@property(nonatomic, retain) IBOutlet UIButton *buttonCreate;
 
 @end

@@ -72,7 +72,6 @@
     self.labelLeftCharacters.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
     self.labelLeftCharacters.shadowOffset = CGSizeMake(0, -1);
     self.labelLeftCharacters.shadowColor = [UIColor colorWithWhite:0 alpha:0.6f];
-    
     [self.tableView addSubview:self.labelLeftCharacters];
     [self updateLeftCharacters];
     

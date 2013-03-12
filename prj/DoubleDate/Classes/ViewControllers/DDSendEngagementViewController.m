@@ -2,44 +2,58 @@
 //  DDSendEngagementViewController.m
 //  DoubleDate
 //
-//  Created by Gennadii Ivanov on 05.12.12.
+//  Created by Gennadii Ivanov on 10/25/12.
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
 #import "DDSendEngagementViewController.h"
-#import "DDLocationTableViewCell.h"
-#import "DDDoubleDate.h"
-#import "DDTableViewCell.h"
-#import "DDTextViewTableViewCell.h"
+#import "DDChooseWingView.h"
 #import "DDTools.h"
-#import "DDButton.h"
 #import "DDShortUser.h"
 #import "DDEngagement.h"
+#import "DDTableViewCell.h"
+#import "DDImageView.h"
+#import "DDTextFieldTableViewCell.h"
+#import "DDTextViewTableViewCell.h"
+#import "DDTextField.h"
 #import "DDTextView.h"
+#import "DDAppDelegate+WingsMenu.h"
+#import <QuartzCore/QuartzCore.h>
 
-@interface DDSendEngagementViewController () <DDSelectWingViewDelegate>
+#define kMaxDetailsLength 250
 
-- (void)updateSendButton;
+@interface DDSendEngagementViewController () <UITextFieldDelegate, UITextViewDelegate, DDChooseWingViewDelegate>
+
+@property(nonatomic, retain) NSString *details;
+
+@property(nonatomic, retain) DDShortUser *wing;
+
+@property(nonatomic, retain) UILabel *labelLeftCharacters;
 
 @end
 
 @implementation DDSendEngagementViewController
 
+@synthesize delegate;
+
 @synthesize doubleDate;
 
 @synthesize tableView;
-
-@synthesize selectWingView;
-
 @synthesize buttonCancel;
-@synthesize buttonSend;
+@synthesize buttonCreate;
+
+@synthesize details;
+
+@synthesize wing;
+
+@synthesize labelLeftCharacters;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        self.moveWithKeyboard = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
 }
@@ -48,28 +62,39 @@
 {
     [super viewDidLoad];
     
-    //customize button
-    [self.buttonCancel applyBottomBarDesignWithTitle:self.buttonCancel.titleLabel.text icon:[UIImage imageNamed:@"button-icon-cancel.png"] background:[UIImage imageNamed:@"lower-button-gray.png"]];
-    [self.buttonSend applyBottomBarDesignWithTitle:self.buttonSend.titleLabel.text icon:[UIImage imageNamed:@"button-icon-send.png"] background:[UIImage imageNamed:@"lower-button-blue.png"]];
-    
-    //hide back button
-    self.navigationItem.leftBarButtonItem = nil;
-    
-    //set navigation title
+    //set title
     self.navigationItem.titleView = [self viewForNavigationBarWithMainText:NSLocalizedString(@"Send Message", nil) detailedText:[NSString stringWithFormat:@"%@ & %@", doubleDate.user.firstName, doubleDate.wing.firstName]];
     
-    //add gesture recognizer
-    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
-    [self.view addGestureRecognizer:tapRecognizer];
+    //set left button
+    self.navigationItem.leftBarButtonItem = nil;
     
-    //set selecting view
-    self.selectWingView.doubleDate = self.doubleDate;
-    self.selectWingView.delegate = self;
-    [self.selectWingView start];
+    //unset background color of the table view
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundView = nil;
     
+    //update images of the buttons
+    [self.buttonCreate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCreate backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCancel backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     
-    //update send button
-    [self updateSendButton];
+    //set handlers for button
+    [self.buttonCancel addTarget:self action:@selector(backTouched:) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonCreate addTarget:self action:@selector(postTouched:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //add new label
+    self.labelLeftCharacters = [[[UILabel alloc] initWithFrame:CGRectMake(220, 88, 80, 18)] autorelease];
+    self.labelLeftCharacters.backgroundColor = [UIColor clearColor];
+    self.labelLeftCharacters.textColor = [UIColor darkGrayColor];
+    self.labelLeftCharacters.textAlignment = NSTextAlignmentRight;
+    self.labelLeftCharacters.font = [UIFont fontWithName:@"HelveticaNeue" size:13];
+    self.labelLeftCharacters.shadowOffset = CGSizeMake(0, -1);
+    self.labelLeftCharacters.shadowColor = [UIColor colorWithWhite:0 alpha:0.6f];
+    [self.tableView addSubview:self.labelLeftCharacters];
+    
+    //update navigation bar
+    [self updateNavigationBar];
+    
+    //update left characters label
+    [self updateLeftCharacters];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,24 +106,21 @@
 {
     [doubleDate release];
     [tableView release];
-    [selectWingView release];
     [buttonCancel release];
-    [buttonSend release];
+    [buttonCreate release];
+    [details release];
+    [wing release];
+    [labelLeftCharacters release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark other
 
-- (IBAction)cancelTouched:(id)sender
-{
-    [self.delegate sendEngagementViewControllerDidCancel];
-}
-
-- (IBAction)sendTouched:(id)sender
+- (void)postTouched:(id)sender
 {
     //check for wing
-    if (self.selectWingView.wing)
+    if (self.wing)
     {
         //show loading
         [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
@@ -106,99 +128,95 @@
         //request api
         DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
         engagement.activityId = self.doubleDate.identifier;
-        engagement.wingId = self.selectWingView.wing.identifier;
-        engagement.message = [[(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] textView] text];
+        engagement.wingId = self.wing.identifier;
+        engagement.message = self.details;
         [self.apiController createEngagement:engagement];
     }
 }
 
-- (void)updateSendButton
+- (void)backTouched:(id)sender
 {
-    self.buttonSend.enabled = self.selectWingView.wing != nil;
+    [self.delegate sendEngagementViewControllerDidCancel];
 }
 
-#pragma mark -
-#pragma mark touch
-
-- (void)checkAndDismissResponderForView:(UIView*)v
+- (void)updateNavigationBar
 {
-    if ([v isFirstResponder])
-        [v resignFirstResponder];
-    for (UIView *c in [v subviews])
-        [self checkAndDismissResponderForView:c];
+    //update right button
+    BOOL rightButtonEnabled = YES;
+    if ([self.details length] == 0)
+        rightButtonEnabled = NO;
+    if (!self.wing)
+        rightButtonEnabled = NO;
+    self.buttonCreate.enabled = rightButtonEnabled;
 }
 
-- (void)tap:(UIGestureRecognizer*)sender
+- (void)updateLeftCharacters
 {
-    if (sender.state == UIGestureRecognizerStateEnded)
+    self.labelLeftCharacters.text = [NSString stringWithFormat:@"%d/%d", [self.details length], kMaxDetailsLength];
+}
+
+- (void)updateWingCell:(DDTableViewCell*)cell
+{
+    //check if we need to update the wing
+    if (self.wing)
     {
-        if (![sender.view isFirstResponder])
-            [self checkAndDismissResponderForView:self.view];
+        //set wing label
+        cell.textLabel.text = [wing fullName];
+        
+        //add image view
+        DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
+        imageView.backgroundColor = [UIColor redColor];
+        imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
+        [cell.contentView addSubview:imageView];
+        
+        //add overlay
+        UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
+        [imageView addSubview:overlay];
+                
+        //update image view
+        [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].smallUrl]];
+    }
+    else
+    {
+        //set placeholder
+        cell.textLabel.text = NSLocalizedString(@"Choose a wing", nil);
+        
+        //set text color
+        cell.textLabel.textColor = [UIColor grayColor];
     }
 }
 
-#pragma mark -
-#pragma mark UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
+- (void)updateDetailsCell:(DDTextViewTableViewCell*)cell
 {
-    return [self tableView:aTableView viewForHeaderInSection:section].frame.size.height;
-}
-
-- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
-{
-    return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Add a Note", nil) uppercaseString] detailedText:[NSLocalizedString(@"250 Characters Remaining", nil) uppercaseString]];
-}
-
-- (CGFloat)tableView:(UITableView *)aTableView heightForFooterInSection:(NSInteger)section
-{
-    return 16;
-}
-
-- (CGFloat)tableView:(UITableView *)aTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return (aTableView.frame.size.height - 44 - 16);
-}
-
-#pragma mark -
-#pragma mark UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //set cell identifier
-    NSString *cellIdentifier = [NSString stringWithFormat:@"s%dr%d", indexPath.section, indexPath.row];
+    //apply title
+    cell.textView.text = self.details;
     
-    //get exist cell
-    DDTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell)
-    {
-        //create text view
-        cell = [[[DDTextViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-    }
+    //update delegate
+    cell.textView.textView.delegate = self;
     
-    //apply table view style
-    [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
-    
-    return cell;
+    //set placeholder
+    cell.textView.placeholder = NSLocalizedString(@"Have any extra details?", nil);
+}
+
+- (NSIndexPath*)wingIndexPath
+{
+    return [NSIndexPath indexPathForRow:0 inSection:0];
+}
+
+- (NSIndexPath*)detailsIndexPath
+{
+    return [NSIndexPath indexPathForRow:0 inSection:1];
+}
+
+- (DDTextView*)textViewDetails
+{
+    return [(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[self detailsIndexPath]] textView];
 }
 
 #pragma mark -
-#pragma mark DDSelectWingViewDelegate
-
-- (void)selectWingViewDidSelectWing:(id)sender
-{
-    [self updateSendButton];
-}
+#pragma mark API
 
 #pragma mark -
 #pragma mark DDAPIControllerDelegate
@@ -219,6 +237,133 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark UITextViewDelegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    //update details
+    self.details = [[self textViewDetails] text];
+    
+    //update navigation bar
+    [self updateNavigationBar];
+    
+    //update left characters
+    [self updateLeftCharacters];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    NSUInteger newLength = [textView.text length] + [text length] - range.length;
+    return newLength <= kMaxDetailsLength;
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tableView)
+    {
+        if ([[[self textViewDetails] textView] isFirstResponder])
+            [[[self textViewDetails] textView] resignFirstResponder];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
+{
+    return [[self tableView:aTableView viewForHeaderInSection:section] frame].size.height;
+}
+
+- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return nil;
+    
+    return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"YOUR MESSAGE", nil) detailedText:nil];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
+        return 160;
+    else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+        return 45;
+    return [DDTableViewCell height];
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //check pressed cell
+    if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+    {
+        DDTextViewTableViewCell *textViewCell = (DDTextViewTableViewCell*)[aTableView cellForRowAtIndexPath:[self detailsIndexPath]];
+        if ([textViewCell isKindOfClass:[DDTextFieldTableViewCell class]] && [textViewCell.textView.textView isFirstResponder])
+            [textViewCell.textView.textView resignFirstResponder];
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentWingsMenuWithDelegate:self];
+    }
+    
+    //unselect row
+    [aTableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //set cell identifier
+    NSString *cellIdentifier = [NSString stringWithFormat:@"s%dr%d", indexPath.section, indexPath.row];
+    
+    //get exist cell
+    DDTableViewCell *cell = nil;//[aTableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell)
+    {
+        //create icon table view cell
+        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+            cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        //create text view table view cell
+        else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
+            cell = [[[DDTextViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+    }
+    
+    //apply table view style
+    [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
+    
+    //check index path
+    if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
+        [self updateWingCell:cell];
+    else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
+        [self updateDetailsCell:(DDTextViewTableViewCell*)cell];
+    
+    return cell;
+}
+
+#pragma mark -
+#pragma mark DDChooseWingViewDelegate
+
+- (void)chooseWingViewDidSelectUser:(DDShortUser*)user
+{
+    //set wing
+    self.wing = user;
+    
+    //update
+    [self updateNavigationBar];
+    
+    //update the cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

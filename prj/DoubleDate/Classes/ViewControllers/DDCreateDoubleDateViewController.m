@@ -691,6 +691,9 @@
     //set wing
     self.wing = user;
     
+    //update
+    [self updateNavigationBar];
+    
     //update the cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
