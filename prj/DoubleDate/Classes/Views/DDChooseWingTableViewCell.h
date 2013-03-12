@@ -16,6 +16,7 @@
 }
 
 @property(nonatomic, retain) IBOutlet DDImageView *imageViewUser;
+@property(nonatomic, retain) IBOutlet UILabel *labelName;
 
 @property(nonatomic, retain) DDShortUser *shortUser;
 

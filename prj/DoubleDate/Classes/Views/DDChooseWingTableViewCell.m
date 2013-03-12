@@ -14,6 +14,7 @@
 @implementation DDChooseWingTableViewCell
 
 @synthesize imageViewUser;
+@synthesize labelName;
 
 @synthesize shortUser;
 
@@ -46,11 +47,15 @@
     
     //set image view
     [self.imageViewUser reloadFromUrl:[NSURL URLWithString:shortUser.photo.smallUrl]];
+    
+    //set label
+    self.labelName.text = shortUser.firstName;
 }
 
 - (void)dealloc
 {
     [imageViewUser release];
+    [labelName release];
     [shortUser release];
     [super dealloc];
 }
