@@ -10,12 +10,14 @@
 #import "DDDoubleDate.h"
 #import "DDAPIController.h"
 #import "DDChooseWingTableViewCell.h"
+#import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDChooseWingView ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property(nonatomic, retain) IBOutlet UIActivityIndicatorView *loading;
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewBackground;
 
 @end
 
@@ -23,6 +25,7 @@
 
 @synthesize loading;
 @synthesize tableView;
+@synthesize imageViewBackground;
 
 @synthesize delegate;
 
@@ -37,16 +40,12 @@
     apiController_ = [[DDAPIController alloc] init];
     apiController_.delegate = self;
     
-//    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wing-slideout-bg.png"]];
-    UIImage *noise = [UIImage imageNamed:@"wing-slideout-bg.png"];
-    self.backgroundColor = [UIColor colorWithPatternImage:noise];
-    [self.layer setOpaque:NO];
-    self.opaque = NO;
-        
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOffset = CGSizeMake(-1, 0);
-    self.layer.shadowRadius = 10;
-    self.layer.shadowOpacity = 0.8f;
+    self.imageViewBackground.image = [DDTools resizableImageFromImage:self.imageViewBackground.image];
+    
+//    self.layer.shadowColor = [UIColor blackColor].CGColor;
+//    self.layer.shadowOffset = CGSizeMake(-1, 0);
+//    self.layer.shadowRadius = 10;
+//    self.layer.shadowOpacity = 0.8f;
 
 }
 
@@ -77,6 +76,7 @@
     [apiController_ release];
     [loading release];
     [tableView release];
+    [imageViewBackground release];
     [friends_ release];
     [super dealloc];
 }
