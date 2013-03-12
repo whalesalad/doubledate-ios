@@ -332,7 +332,7 @@
     else if (location)
     {
         //apply blank image by default
-        cell.imageView.image = [UIImage imageNamed:@"edit-profile-location-icon.png"];
+        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
         
         //set location text
         cell.textLabel.text = [location name];
@@ -343,7 +343,7 @@
     else
     {
         //apply blank image by default
-        cell.imageView.image = [UIImage imageNamed:@"edit-profile-location-icon.png"];
+        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
         
         //set location text
         cell.textLabel.text = NSLocalizedString(@"Choose a location", nil);
@@ -356,7 +356,7 @@
 - (void)updateDayTimeCell:(DDTableViewCell*)cell
 {
     //apply blank image by default
-    cell.imageView.image = [UIImage imageNamed:@"create-dd-selected-daytime.png"];
+    cell.imageView.image = [UIImage imageNamed:@"create-date-time-icon.png"];
     
     //set text
     cell.textLabel.text = [DDCreateDoubleDateViewController titleForDDDay:self.day ddTime:self.time];
