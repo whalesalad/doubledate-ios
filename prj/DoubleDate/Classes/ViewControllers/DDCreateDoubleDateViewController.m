@@ -76,11 +76,8 @@
     //set title
     self.navigationItem.title = NSLocalizedString(@"Create a DoubleDate", nil);
     
-    //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Go!", nil) target:self action:@selector(postTouched:)];
-    
     //set left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = nil;
     
     //unset background color of the table view
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -284,7 +281,6 @@
     if (!self.wing)
         rightButtonEnabled = NO;
     self.buttonCreate.enabled = rightButtonEnabled;
-    self.navigationItem.rightBarButtonItem.enabled = rightButtonEnabled;
 }
 
 - (void)updateWingCell:(DDTableViewCell*)cell
