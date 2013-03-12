@@ -37,7 +37,6 @@
     apiController_ = [[DDAPIController alloc] init];
     apiController_.delegate = self;
     
-//    self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wing-slideout-bg.png"]];
     UIImage *noise = [UIImage imageNamed:@"wing-slideout-bg.png"];
     self.backgroundColor = [UIColor colorWithPatternImage:noise];
     [self.layer setOpaque:NO];

@@ -119,13 +119,13 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">lower-button-gray.png</string>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="923316849">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="580188685">
 									<string key="name">HelveticaNeue-Bold</string>
 									<string key="family">Helvetica Neue</string>
 									<int key="traits">2</int>
 									<double key="pointSize">20</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="497481780">
+								<object class="NSFont" key="IBUIFont" id="775100763">
 									<string key="NSName">HelveticaNeue-Bold</string>
 									<double key="NSSize">20</double>
 									<int key="NSfFlags">16</int>
@@ -137,6 +137,7 @@
 								<string key="NSFrame">{{164, 9}, {146, 47}}</string>
 								<reference key="NSSuperview" ref="198195314"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -166,8 +167,8 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">lower-button-blue.png</string>
 								</object>
-								<reference key="IBUIFontDescription" ref="923316849"/>
-								<reference key="IBUIFont" ref="497481780"/>
+								<reference key="IBUIFontDescription" ref="580188685"/>
+								<reference key="IBUIFont" ref="775100763"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 394}, {320, 66}}</string>

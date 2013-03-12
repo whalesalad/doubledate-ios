@@ -63,7 +63,8 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.titleView = [self viewForNavigationBarWithMainText:NSLocalizedString(@"Send Message", nil) detailedText:[NSString stringWithFormat:@"%@ & %@", doubleDate.user.firstName, doubleDate.wing.firstName]];
+    self.navigationItem.title = NSLocalizedString(@"Send a Message", nil);
+    //[self viewForNavigationBarWithMainText: detailedText:[NSString stringWithFormat:@"%@ & %@", doubleDate.user.firstName, doubleDate.wing.firstName]];
     
     //set left button
     self.navigationItem.leftBarButtonItem = nil;
@@ -197,7 +198,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Have any extra details?", nil);
+    cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"Enter your message to %@ & %@. This is your chance to be unique, so get creative. First impressions are important. No pressure!", nil), doubleDate.user.firstName, doubleDate.wing.firstName];
 }
 
 - (NSIndexPath*)wingIndexPath
