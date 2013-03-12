@@ -99,9 +99,17 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
-								<object class="NSColor" key="IBUINormalTitleColor" id="975769274">
+								<object class="NSColor" key="IBUIDisabledTitleColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MSAxIDEAA</bytes>
+									<bytes key="NSRGB">MC44MTU2ODYyODU1IDAuODE1Njg2Mjg1NSAwLjgxNTY4NjI4NTUgMC40OQA</bytes>
+								</object>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC44MTU2ODYyODU1IDAuODE1Njg2Mjg1NSAwLjgxNTY4NjI4NTUAA</bytes>
+								</object>
+								<object class="NSColor" key="IBUIDisabledTitleShadowColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAgMC4xAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">1</int>
@@ -111,13 +119,13 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">lower-button-gray.png</string>
 								</object>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="661464627">
+								<object class="IBUIFontDescription" key="IBUIFontDescription" id="923316849">
 									<string key="name">HelveticaNeue-Bold</string>
 									<string key="family">Helvetica Neue</string>
 									<int key="traits">2</int>
 									<double key="pointSize">20</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="762899306">
+								<object class="NSFont" key="IBUIFont" id="497481780">
 									<string key="NSName">HelveticaNeue-Bold</string>
 									<double key="NSSize">20</double>
 									<int key="NSfFlags">16</int>
@@ -129,7 +137,6 @@
 								<string key="NSFrame">{{164, 9}, {146, 47}}</string>
 								<reference key="NSSuperview" ref="198195314"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -139,7 +146,18 @@
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Create</string>
 								<reference key="IBUIHighlightedTitleColor" ref="881137113"/>
-								<reference key="IBUINormalTitleColor" ref="975769274"/>
+								<object class="NSColor" key="IBUIDisabledTitleColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MSAwLjMAA</bytes>
+								</object>
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MSAxIDEAA</bytes>
+								</object>
+								<object class="NSColor" key="IBUIDisabledTitleShadowColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAgMC4xAA</bytes>
+								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAgMC41AA</bytes>
@@ -148,8 +166,8 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">lower-button-blue.png</string>
 								</object>
-								<reference key="IBUIFontDescription" ref="661464627"/>
-								<reference key="IBUIFont" ref="762899306"/>
+								<reference key="IBUIFontDescription" ref="923316849"/>
+								<reference key="IBUIFont" ref="497481780"/>
 							</object>
 						</array>
 						<string key="NSFrame">{{0, 394}, {320, 66}}</string>
@@ -299,7 +317,9 @@
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="3" key="35.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="36.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="0.0" key="36.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="37.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
