@@ -27,6 +27,7 @@
 @synthesize clLocation;
 @synthesize options;
 @synthesize allowsMultiplyChoice;
+@synthesize query;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -134,6 +135,7 @@
 {
     [ddLocation release];
     [clLocation release];
+    [query release];
     [placemarks_ release];
     [selectedLocations_ release];
     [super dealloc];
@@ -242,10 +244,10 @@
 #pragma mark -
 #pragma mark DDAPIControllerDelegate
 
-- (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString *)query
+- (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString *)forQuery
 {
     //check the same query as search term
-    if (self.searchTerm == query)
+    if (self.searchTerm == forQuery || [self.query isEqualToString:forQuery])
     {
         //hide refresh UI
         [self finishRefresh];
@@ -296,10 +298,12 @@
         latitude = self.clLocation.coordinate.latitude;
         longitude = self.clLocation.coordinate.longitude;
     }
-    NSString *query = self.searchTerm;
-    if (query == nil)
-        query = self.searchBar.text;
-    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude query:query options:self.options];
+    NSString *queryToRequest = self.searchTerm;
+    if (queryToRequest == nil)
+        queryToRequest = self.searchBar.text;
+    if (queryToRequest == nil)
+        queryToRequest = self.query;
+    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude query:queryToRequest options:self.options];
 }
 
 @end

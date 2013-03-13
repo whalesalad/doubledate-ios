@@ -22,6 +22,7 @@
 
 @property(nonatomic, retain) DDPlacemark *ddLocation;
 @property(nonatomic, retain) CLLocation *clLocation;
+@property(nonatomic, retain) NSString *query;
 
 @property(nonatomic, assign) DDLocationSearchOptions options;
 
