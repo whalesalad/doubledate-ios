@@ -487,6 +487,8 @@
 		9662893016B68521002E0AD1 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662892D16B68521002E0AD1 /* HPGrowingTextView.m */; };
 		9662893116B68521002E0AD1 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662892F16B68521002E0AD1 /* HPTextViewInternal.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
+		967A65E116F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65E016F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m */; };
+		967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */; };
 		968312A0169DB354007C14ED /* UIView+Interests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683129F169DB354007C14ED /* UIView+Interests.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
 		96892CA915FF15DD0054C108 /* DDMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96892CA815FF15DD0054C108 /* DDMeViewController.m */; };
@@ -1178,6 +1180,10 @@
 		9662892F16B68521002E0AD1 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
 		96701CEF16490E6000E4436A /* DDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControl.m; sourceTree = "<group>"; };
+		967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewControllerNew.h; sourceTree = "<group>"; };
+		967A65E016F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewControllerNew.m; sourceTree = "<group>"; };
+		967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControlTableViewCell.m; sourceTree = "<group>"; };
+		967A65EC16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControlTableViewCell.h; sourceTree = "<group>"; };
 		9683129E169DB354007C14ED /* UIView+Interests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Interests.h"; sourceTree = "<group>"; };
 		9683129F169DB354007C14ED /* UIView+Interests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Interests.m"; sourceTree = "<group>"; };
 		9683B730165145D40043350E /* DDDoubleDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateTableViewCell.h; sourceTree = "<group>"; };
@@ -2100,6 +2106,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				967A65EC16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.h */,
+				967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */,
 				70C519BC16EE7CAC00FE2026 /* DDChooseWingTableViewCell.h */,
 				70C519BD16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m */,
 				70C519AB16EE60A200FE2026 /* DDChooseWingView.h */,
@@ -2232,6 +2240,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.h */,
+				967A65E016F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m */,
 				7041769616E3A2CD003B6B24 /* DDPurchaseViewController.h */,
 				7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */,
 				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
@@ -3110,6 +3120,8 @@
 				70C519AD16EE60A200FE2026 /* DDChooseWingView.m in Sources */,
 				70C519BB16EE670400FE2026 /* DDAppDelegate+WingsMenu.m in Sources */,
 				70C519BE16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m in Sources */,
+				967A65E116F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m in Sources */,
+				967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
