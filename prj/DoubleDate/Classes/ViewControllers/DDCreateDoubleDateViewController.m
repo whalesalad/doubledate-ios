@@ -103,6 +103,10 @@
     //apply location
     self.location = self.location;
     
+    //apply user location if no location exist
+    if (!self.location)
+        self.location = [DDAuthenticationController currentUser].location;
+    
     //force location update
     [locationController_ forceSearchPlacemarks];
     
@@ -240,7 +244,7 @@
 
 - (void)resetLocationTouched:(id)sender
 {
-    self.location = nil;
+    self.location = [DDAuthenticationController currentUser].location;
 }
 
 - (void)postTouched:(id)sender
@@ -325,16 +329,8 @@
     //enable/disable touch
     cell.userInteractionEnabled = locationError == nil;
     
-    //apply location
-    if (locationError)
-    {
-        //apply style
-        cell.textLabel.textColor = [UIColor redColor];
-        
-        //set text
-        cell.textLabel.text = NSLocalizedString(@"Failed to find location", nil);
-    }
-    else if (location)
+    //check exist location
+    if (self.location)
     {
         //apply blank image by default
         cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
@@ -344,6 +340,26 @@
         
         //apply style
         cell.textLabel.textColor = [UIColor whiteColor];
+        
+        //check if we need to add reset button
+        if ([[[[DDAuthenticationController currentUser] location] identifier] intValue] != [[self.location identifier] intValue])
+        {
+            UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.backgroundColor = [UIColor clearColor];
+            button.frame = CGRectMake(0, 0, 30, 30);
+            cell.accessoryView = button;
+            [button setImage:cancelImage forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
+        }
+    }
+    else if (locationError)
+    {
+        //apply style
+        cell.textLabel.textColor = [UIColor redColor];
+        
+        //set text
+        cell.textLabel.text = NSLocalizedString(@"Failed to find location", nil);
     }
     else
     {
@@ -594,7 +610,7 @@
     {
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
-        if (self.location)
+        if ([[self.location identifier] intValue] != [[[[DDAuthenticationController currentUser] location] identifier] intValue])
             locationChooserViewController.ddLocation = self.location;
         else
             locationChooserViewController.clLocation = locationController_.location;

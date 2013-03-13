@@ -11,7 +11,7 @@
 @interface DDTextView : UIView
 {
     UITextView *textView_;
-    UITextField *textField_;
+    UILabel *label_;
     NSString *placeholder_;
 }
 
