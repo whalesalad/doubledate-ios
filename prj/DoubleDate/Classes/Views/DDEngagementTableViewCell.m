@@ -111,7 +111,7 @@
             self.labelTitle.text = [NSString stringWithFormat:@"%@", engagement.activityTitle];
             
             //update users label
-            NSString *format = NSLocalizedString(@"%@ & %@ — %@ ago", nil);
+            NSString *format = NSLocalizedString(@"%@ & %@ — %@ ago", @"detail text for engagement list item");
             self.labelDetailed.text = [NSString stringWithFormat:format, userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
             
             //apply genders

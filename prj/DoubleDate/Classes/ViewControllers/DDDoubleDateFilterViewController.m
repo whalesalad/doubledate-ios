@@ -50,22 +50,22 @@
 
         //fill data
         distances_ = [[NSMutableArray alloc] init];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 5 MILES OF ME", nil) forKey:@"5mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 10 MILES OF ME", nil) forKey:@"10mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 50 MILES OF ME", nil) forKey:@"50mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 100 MILES OF ME", nil) forKey:@"100mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 5 MILES OF ME", @"skip") forKey:@"5mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 10 MILES OF ME", @"skip") forKey:@"10mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 50 MILES OF ME", @"skip") forKey:@"50mi"]];
+        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 100 MILES OF ME", @"skip") forKey:@"100mi"]];
         
         //fill data
         minAges_ = [[NSMutableArray alloc] init];
-        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"20 YEARS", nil) forKey:[NSNumber numberWithInt:20]]];
-        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"25 YEARS", nil) forKey:[NSNumber numberWithInt:25]]];
-        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"30 YEARS", nil) forKey:[NSNumber numberWithInt:30]]];
+        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"20 YEARS", @"skip") forKey:[NSNumber numberWithInt:20]]];
+        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"25 YEARS", @"skip") forKey:[NSNumber numberWithInt:25]]];
+        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"30 YEARS", @"skip") forKey:[NSNumber numberWithInt:30]]];
         
         //fill data
         maxAges_ = [[NSMutableArray alloc] init];
-        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"20 YEARS", nil) forKey:[NSNumber numberWithInt:20]]];
-        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"25 YEARS", nil) forKey:[NSNumber numberWithInt:25]]];
-        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"30 YEARS", nil) forKey:[NSNumber numberWithInt:30]]];
+        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"20 YEARS", @"skip") forKey:[NSNumber numberWithInt:20]]];
+        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"25 YEARS", @"skip") forKey:[NSNumber numberWithInt:25]]];
+        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"30 YEARS", @"skip") forKey:[NSNumber numberWithInt:30]]];
     }
     return self;
 }
@@ -137,9 +137,9 @@
         //add when segmented control
         NSInteger itemWidth = self.viewWhenContainer.frame.size.width/3;
         NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"ANYTIME", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"WEEKDAY", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"WEEKEND", nil) width:itemWidth]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Anytime", nil) width:itemWidth]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekday", nil) width:itemWidth]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekend", nil) width:itemWidth]];
         DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleLarge] autorelease];
         segmentedControl.frame = CGRectMake(0, 0, self.viewWhenContainer.frame.size.width, self.viewWhenContainer.frame.size.height);
         [self.viewWhenContainer addSubview:segmentedControl];

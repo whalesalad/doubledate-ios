@@ -155,7 +155,7 @@
 {
     UILabel *label = [self detailedLabelForHeaderView:headerView];
     label.hidden = [self numberOfAvailableInterests] == 0;
-    [label setText:[NSString stringWithFormat:NSLocalizedString(@"Add up to %d more", nil), [self numberOfAvailableInterests]]];
+    [label setText:[NSString stringWithFormat:NSLocalizedString(@"Add up to %d more", @"in reference to the number of interests you can add"), [self numberOfAvailableInterests]]];
 }
 
 - (void)updateLeftInterests

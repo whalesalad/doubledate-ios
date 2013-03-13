@@ -43,7 +43,7 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Almost Done!", nil);
+    self.navigationItem.title = NSLocalizedString(@"Almost Done!", @"skip");
     
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Finish", nil) target:self action:@selector(finishTouched:)];

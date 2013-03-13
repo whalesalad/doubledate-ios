@@ -317,7 +317,7 @@
     else
     {
         //set placeholder
-        cell.textLabel.text = NSLocalizedString(@"Choose a wing", nil);
+        cell.textLabel.text = NSLocalizedString(@"Choose a Wing", nil);
         
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
