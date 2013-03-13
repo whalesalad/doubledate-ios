@@ -22,14 +22,15 @@
     [self addSubview:textView_];
     
     //add text field
-    [textField_ removeFromSuperview];
-    [textField_ release];
-    textField_ = [[UITextField alloc] init];
-    textField_.userInteractionEnabled = NO;
-    textField_.font = textView_.font;
-    textField_.backgroundColor = [UIColor clearColor];
-    DD_F_TEXT(textField_);
-    [self addSubview:textField_];
+    [label_ removeFromSuperview];
+    [label_ release];
+    label_ = [[UILabel alloc] init];
+    label_.userInteractionEnabled = NO;
+    label_.font = textView_.font;
+    label_.backgroundColor = [UIColor clearColor];
+    label_.contentMode = UIViewContentModeTopLeft;
+    DD_F_PLACEHOLDER(label_);
+    [self addSubview:label_];
     
     //add notification handling
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -38,7 +39,10 @@
 
 - (void)updatePlaceholder
 {
-    textField_.placeholder = [textView_.text length]?nil:placeholder_;
+    label_.text = [textView_.text length]?nil:placeholder_;
+    CGSize newLabelSize = [placeholder_ sizeWithFont:label_.font constrainedToSize:CGSizeMake(label_.frame.size.width, self.frame.size.height) lineBreakMode:NSLineBreakByWordWrapping];
+    label_.numberOfLines = newLabelSize.height / label_.font.pointSize;
+    label_.frame = CGRectMake(label_.frame.origin.x, label_.frame.origin.y, label_.frame.size.width, newLabelSize.height);
 }
 
 - (void)textDidChange:(NSNotification*)notification
@@ -70,14 +74,16 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    textField_.frame = CGRectMake(8, 9, self.frame.size.width-10, self.frame.size.height-8);
+    label_.frame = CGRectMake(8, 9, self.frame.size.width-10, 0);
+    [self updatePlaceholder];
+    label_.frame = CGRectMake(label_.frame.origin.x, label_.frame.origin.y, label_.frame.size.width, [label_ sizeThatFits:label_.bounds.size].height);
     textView_.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 }
 
 - (void)setFont:(UIFont *)font
 {
     textView_.font = font;
-    textField_.font = font;
+    label_.font = font;
 }
 
 - (UIFont*)font
@@ -120,7 +126,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [textView_ release];
-    [textField_ release];
+    [label_ release];
     [placeholder_ release];
     [super dealloc];
 }
