@@ -20,13 +20,20 @@
 #import "DDTextFieldTableViewCell.h"
 #import "DDTextField.h"
 
-@interface DDDoubleDateFilterViewController () <DDSegmentedControlTableViewCellDelegate, DDLocationPickerViewControllerDelegate>
+#define kMinAge 17
+#define kMaxAge 50
+
+@interface DDDoubleDateFilterViewController () <DDSegmentedControlTableViewCellDelegate, DDLocationPickerViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+
+@property(nonatomic, retain) UITextField *textField;
 
 @end
 
 @implementation DDDoubleDateFilterViewController
 
 @synthesize delegate;
+
+@synthesize textField;
 
 - (id)initWithFilter:(DDDoubleDateFilter*)filter
 {
@@ -58,6 +65,9 @@
     //disable scrolling
     self.tableView.scrollEnabled = NO;
     
+    //set initial content inset
+    self.tableView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
+    
     //set right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(applyTouched:)];
     
@@ -67,6 +77,12 @@
     //check for default value
     if (filter_.location == nil)
         filter_.location = [[DDAuthenticationController currentUser] location];
+    
+    //check for default min/max values
+    if (filter_.minAge == nil)
+        filter_.minAge = [NSNumber numberWithInt:kMinAge];
+    if (filter_.maxAge == nil)
+        filter_.maxAge = [NSNumber numberWithInt:kMaxAge];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -80,6 +96,7 @@
 - (void)dealloc
 {
     [filter_ release];
+    [textField release];
     [super dealloc];
 }
 
@@ -88,6 +105,11 @@
 
 - (void)applyTouched:(id)sender
 {
+    //check for nil location
+    if ([[filter_.location identifier] intValue] == [[[[DDAuthenticationController currentUser] location] identifier] intValue])
+        filter_.location = nil;
+    
+    //apply filter
     [self.delegate doubleDateFilterViewControllerDidAppliedFilter:filter_];
 }
 
@@ -138,6 +160,11 @@
     }
 }
 
+- (NSString*)ageTitle
+{
+    return [NSString stringWithFormat:@"%d - %d", [filter_.minAge intValue], [filter_.maxAge intValue]];
+}
+
 - (void)resetLocationTouched:(id)sender
 {
     //set location
@@ -147,8 +174,19 @@
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+- (void)tap
+{
+    if ([self.textField isFirstResponder])
+        [self.textField resignFirstResponder];
+}
+
 #pragma mark -
 #pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return FLT_MIN;
+}
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
 {
@@ -157,13 +195,15 @@
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
+    UIView *headerView = nil;
     if (section == 0)
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Timeframe", nil) detailedText:nil];
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Timeframe", nil) detailedText:nil];
     else if (section == 1)
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Near", nil) detailedText:nil];
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Near", nil) detailedText:nil];
     else if (section == 2)
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Age Range", nil) detailedText:nil];
-    return nil;
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Age Range", nil) detailedText:nil];
+    [headerView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)] autorelease]];
+    return headerView;
 }
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -235,11 +275,31 @@
         //create cell
         DDTextFieldTableViewCell *cell = [[[DDTextFieldTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
         
-        //set text
-        cell.textField.text = [NSString stringWithFormat:@"%d - %d", [filter_.minAge intValue], [filter_.maxAge intValue]];
+        //save text field
+        self.textField = cell.textField;
         
-        //hide close
-        cell.textField.rightViewMode = UITextFieldViewModeNever;
+        //unset selection style
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        //set text
+        cell.textField.text = [self ageTitle];
+        
+        //set delegate
+        cell.textField.delegate = self;
+        
+        //remove cancel
+        cell.textField.rightView = nil;
+        
+        //set picker
+        UIPickerView *picker = [[[UIPickerView alloc] init] autorelease];
+        picker.delegate = self;
+        picker.dataSource = self;
+        picker.showsSelectionIndicator = YES;
+        cell.textField.inputView = picker;
+        
+        //select needed row
+        [picker selectRow:[filter_.minAge intValue]-kMinAge inComponent:0 animated:NO];
+        [picker selectRow:[filter_.maxAge intValue]-kMinAge inComponent:1 animated:NO];
         
         //apply style
         [cell applyGroupedBackgroundStyleForTableView:tableView withIndexPath:indexPath];
@@ -283,6 +343,60 @@
 
 - (void)locationPickerViewControllerDidCancel
 {
+}
+
+#pragma mark UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 2;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return kMaxAge-kMinAge+1;
+}
+
+#pragma mark UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [NSString stringWithFormat:@"%d", kMinAge + row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    //update values
+    if (component == 0)
+        filter_.minAge = [NSNumber numberWithInt:kMinAge + row];
+    else if (component == 1)
+        filter_.maxAge = [NSNumber numberWithInt:kMinAge + row];
+    
+    //disable values
+    if ([[filter_ minAge] intValue] > [[filter_ maxAge] intValue])
+    {
+        //update min age
+        if (component == 1)
+            filter_.minAge = filter_.maxAge;
+        else
+            filter_.maxAge = filter_.minAge;
+        
+        //update picker
+        [pickerView selectRow:[filter_.minAge intValue]-kMinAge inComponent:0 animated:YES];
+        [pickerView selectRow:[filter_.maxAge intValue]-kMinAge inComponent:1 animated:YES];
+    }
+    
+    //update text view
+    DDTextFieldTableViewCell *cell = (DDTextFieldTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+    if ([cell isKindOfClass:[DDTextFieldTableViewCell class]])
+        cell.textField.text = [self ageTitle];
+}
+
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    return NO;
 }
 
 @end
