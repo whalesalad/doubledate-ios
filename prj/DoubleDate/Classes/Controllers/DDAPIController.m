@@ -320,11 +320,15 @@
 - (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options
 {
     //set parameters
-    NSString *params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
+    NSString *params = [NSString string];
+    
+    //check for valid values
+    if (latitude != 0 && longitude != 0)
+        params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
     
     //add query if needed
     if ([query length])
-        params = [NSString stringWithFormat:@"%@&query=%@", params, [query stringByAddingURLEncoding]];
+        params = [NSString stringWithFormat:@"%@%@query=%@", params, [params length]?@"&":@"", [query stringByAddingURLEncoding]];
     
     //create request
     NSString *requestPath = nil;
@@ -341,11 +345,17 @@
         default:
             break;
     }
-    requestPath = [requestPath stringByAppendingFormat:@"?%@", params];
+    if ([params length])
+        requestPath = [requestPath stringByAppendingFormat:@"?%@", params];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodGET;
-    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", nil];
-    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", nil];
+    NSMutableArray *keys = [NSMutableArray arrayWithObjects:@"Accept", @"Content-Type", nil];
+    NSMutableArray *objects = [NSMutableArray arrayWithObjects:@"application/json", @"application/json", nil];
+    if ([[DDAuthenticationController token] length])
+    {
+        [keys addObject:@"Authorization"];
+        [objects addObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]]];
+    }
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
     
     //create user data
