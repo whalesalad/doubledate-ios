@@ -11,17 +11,16 @@
 #import "DDButton.h"
 #import "DDBarButtonItem.h"
 #import "DDDoubleDateFilter.h"
+#import "DDSegmentedControlTableViewCell.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
+#import "DDShortUser.h"
+#import "DDLocationChooserViewController.h"
+#import "DDPlacemark.h"
+#import "DDTextFieldTableViewCell.h"
+#import "DDTextField.h"
 
-@interface DDDoubleDateFilterViewController ()<UIPickerViewDataSource, UIPickerViewDelegate>
-
-- (void)updateArrowForButton:(UIButton*)button;
-- (NSString*)objectForIndex:(NSInteger)index fromArray:(NSArray*)array;
-- (NSObject*)keyForIndex:(NSInteger)index fromArray:(NSArray*)array;
-- (NSArray*)arrayForPicker:(UIPickerView*)picker;
-- (UITextField*)textFieldForPicker:(UIPickerView*)picker;
-- (void)updateNavigationButton;
-- (UISegmentedControl*)segmentedControlSort;
-- (UISegmentedControl*)segmentedControlWhen;
+@interface DDDoubleDateFilterViewController () <DDSegmentedControlTableViewCellDelegate, DDLocationPickerViewControllerDelegate>
 
 @end
 
@@ -29,44 +28,18 @@
 
 @synthesize delegate;
 
-@synthesize labelSort;
-@synthesize viewSortContainer;
-@synthesize labelWhen;
-@synthesize viewWhenContainer;
-@synthesize labelDistance;
-@synthesize viewDistanceContainer;
-@synthesize labelMinAge;
-@synthesize viewMinAgeContainer;
-@synthesize labelMaxAge;
-@synthesize viewMaxAgeContainer;
-
 - (id)initWithFilter:(DDDoubleDateFilter*)filter
 {
-    self = [super init];
+    self = [super initWithStyle:UITableViewStyleGrouped];
     if (self)
     {
-        //save filter
-        filter_ = [filter retain];
-
-        //fill data
-        distances_ = [[NSMutableArray alloc] init];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 5 MILES OF ME", @"skip") forKey:@"5mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 10 MILES OF ME", @"skip") forKey:@"10mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 50 MILES OF ME", @"skip") forKey:@"50mi"]];
-        [distances_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"WITHIN 100 MILES OF ME", @"skip") forKey:@"100mi"]];
-        
-        //fill data
-        minAges_ = [[NSMutableArray alloc] init];
-        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"20 YEARS", @"skip") forKey:[NSNumber numberWithInt:20]]];
-        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"25 YEARS", @"skip") forKey:[NSNumber numberWithInt:25]]];
-        [minAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"30 YEARS", @"skip") forKey:[NSNumber numberWithInt:30]]];
-        
-        //fill data
-        maxAges_ = [[NSMutableArray alloc] init];
-        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"20 YEARS", @"skip") forKey:[NSNumber numberWithInt:20]]];
-        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"25 YEARS", @"skip") forKey:[NSNumber numberWithInt:25]]];
-        [maxAges_ addObject:[NSDictionary dictionaryWithObject:NSLocalizedString(@"30 YEARS", @"skip") forKey:[NSNumber numberWithInt:30]]];
-    }
+        filter_ = [[DDDoubleDateFilter alloc] init];
+        filter_.happening = filter.happening;
+        filter_.minAge = filter.minAge;
+        filter_.maxAge = filter.maxAge;
+        filter_.query = filter.query;
+        filter_.location = filter.location;
+   }
     return self;
 }
 
@@ -74,315 +47,48 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = NSLocalizedString(@"Filter & Sort", nil);
+    self.navigationItem.title = NSLocalizedString(@"Filter Results", nil);
+    
+    //remove search
+    self.tableView.tableHeaderView = nil;
+    
+    //remove refresh
+    self.refreshControl = nil;
+    
+    //disable scrolling
+    self.tableView.scrollEnabled = NO;
     
     //set right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Apply", nil) target:self action:@selector(applyTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Done", nil) target:self action:@selector(applyTouched:)];
     
     //set left button
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
+    self.navigationItem.leftBarButtonItem = nil;
     
-#define ADD_PICKER_FIELD_TO_BUTTON(_FIELD_, _ARRAY_, _DEF_)\
-    {\
-        _FIELD_ = [[UITextField alloc] initWithFrame:CGRectZero];\
-        _FIELD_.text = [self objectForIndex:_DEF_ fromArray:_ARRAY_];\
-        [button addSubview:_FIELD_];\
-        UIPickerView *pickerView = [[[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)] autorelease];\
-        pickerView.dataSource = self;\
-        pickerView.delegate = self;\
-        pickerView.showsSelectionIndicator = YES;\
-        _FIELD_.inputView = pickerView;\
-        [pickerView selectRow:_DEF_ inComponent:0 animated:NO];\
-    }
+    //check for default value
+    if (filter_.location == nil)
+        filter_.location = [[DDAuthenticationController currentUser] location];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    //unset parameters
-    self.labelSort.backgroundColor = [UIColor clearColor];
-    DD_F_HEADER_MAIN(self.labelSort);
-    self.viewSortContainer.backgroundColor = [UIColor clearColor];
-    self.labelWhen.backgroundColor = [UIColor clearColor];
-    DD_F_HEADER_MAIN(self.labelWhen);
-    self.viewWhenContainer.backgroundColor = [UIColor clearColor];
-    self.labelDistance.backgroundColor = [UIColor clearColor];
-    DD_F_HEADER_MAIN(self.labelDistance);
-    self.viewDistanceContainer.backgroundColor = [UIColor clearColor];
-    self.labelMinAge.backgroundColor = [UIColor clearColor];
-    DD_F_HEADER_MAIN(self.labelMinAge);
-    self.viewMinAgeContainer.backgroundColor = [UIColor clearColor];
-    self.labelMaxAge.backgroundColor = [UIColor clearColor];
-    DD_F_HEADER_MAIN(self.labelMaxAge);
-    self.viewMaxAgeContainer.backgroundColor = [UIColor clearColor];
-    
-    {
-        //add sort segmented control
-        NSInteger itemWidth = self.viewSortContainer.frame.size.width/3;
-        NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"CLOSEST", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"NEWEST", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"OLDEST", nil) width:itemWidth]];
-        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleLarge] autorelease];
-        segmentedControl.frame = CGRectMake(0, 0, self.viewSortContainer.frame.size.width, self.viewSortContainer.frame.size.height);
-        [self.viewSortContainer addSubview:segmentedControl];
-        [segmentedControl addTarget:self action:@selector(updateNavigationButton) forControlEvents:UIControlEventValueChanged];
-        
-        //set default value
-        if (filter_ && [filter_.sort isEqualToString:DDDoubleDateFilterSortClosest])
-            segmentedControl.selectedSegmentIndex = 0;
-        if (filter_ && [filter_.sort isEqualToString:DDDoubleDateFilterSortNewest])
-            segmentedControl.selectedSegmentIndex = 1;
-        if (filter_ && [filter_.sort isEqualToString:DDDoubleDateFilterSortOldest])
-            segmentedControl.selectedSegmentIndex = 2;
-    }
-    
-    {
-        //add when segmented control
-        NSInteger itemWidth = self.viewWhenContainer.frame.size.width/3;
-        NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Anytime", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekday", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekend", nil) width:itemWidth]];
-        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleLarge] autorelease];
-        segmentedControl.frame = CGRectMake(0, 0, self.viewWhenContainer.frame.size.width, self.viewWhenContainer.frame.size.height);
-        [self.viewWhenContainer addSubview:segmentedControl];
-        [segmentedControl addTarget:self action:@selector(updateNavigationButton) forControlEvents:UIControlEventValueChanged];
-        
-        //set default value
-        segmentedControl.selectedSegmentIndex = 0;
-        if (filter_ && [filter_.happening isEqualToString:DDDoubleDateFilterHappeningWeekday])
-            segmentedControl.selectedSegmentIndex = 1;
-        if (filter_ && [filter_.happening isEqualToString:DDDoubleDateFilterHappeningWeekend])
-            segmentedControl.selectedSegmentIndex = 2;
-    }
-    
-    //add button
-    {
-        //set selected index
-        NSInteger selectedindex = 0;
-        for (int i = 0; i < [distances_ count]; i++)
-        {
-            if (filter_ && [filter_.distance isEqualToString:[self objectForIndex:i fromArray:distances_]])
-                selectedindex = i;
-        }
-        
-        //add button
-        UIButton *button = [DDToggleButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, self.viewDistanceContainer.frame.size.width, self.viewDistanceContainer.frame.size.height);
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]] forState:UIControlStateNormal];
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]] forState:UIControlStateHighlighted];
-        DD_F_BUTTON_LARGE(button);
-        [button setTitle:[self objectForIndex:selectedindex fromArray:distances_] forState:UIControlStateNormal];
-        [self.viewDistanceContainer addSubview:button];
-        
-        //update arrow
-        [self updateArrowForButton:button];
-        
-        //add handler
-        [button addTarget:self action:@selector(distanceTouched:) forControlEvents:UIControlEventTouchUpInside];
-        
-        ADD_PICKER_FIELD_TO_BUTTON(textFieldDistance_, distances_, selectedindex);
-    }
-    
-    //add button
-    {
-        //set selected index
-        NSInteger selectedindex = 1;
-        for (int i = 0; i < [minAges_ count]; i++)
-        {
-            if (filter_ && ([filter_.minAge intValue] == [[self objectForIndex:i fromArray:minAges_] intValue]))
-                selectedindex = i;
-        }
-        
-        //add button
-        UIButton *button = [DDToggleButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, self.viewMinAgeContainer.frame.size.width, self.viewMinAgeContainer.frame.size.height);
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]] forState:UIControlStateNormal];
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]] forState:UIControlStateHighlighted];
-        DD_F_BUTTON_LARGE(button);
-        [button setTitle:[self objectForIndex:selectedindex fromArray:minAges_] forState:UIControlStateNormal];
-        [self.viewMinAgeContainer addSubview:button];
-        
-        //update arrow
-        [self updateArrowForButton:button];
-        
-        //add handler
-        [button addTarget:self action:@selector(minAgeTouched:) forControlEvents:UIControlEventTouchUpInside];
-        
-        ADD_PICKER_FIELD_TO_BUTTON(textFieldMinAge_, minAges_, selectedindex);
-    }
-    
-    //add button
-    {
-        //set selected index
-        NSInteger selectedindex = 2;
-        for (int i = 0; i < [maxAges_ count]; i++)
-        {
-            if (filter_ && ([filter_.maxAge intValue] == [[self objectForIndex:i fromArray:maxAges_] intValue]))
-                selectedindex = i;
-        }
-        
-        //add button
-        UIButton *button = [DDToggleButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, self.viewMaxAgeContainer.frame.size.width, self.viewMaxAgeContainer.frame.size.height);
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]] forState:UIControlStateNormal];
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]] forState:UIControlStateHighlighted];
-        DD_F_BUTTON_LARGE(button);
-        [button setTitle:[self objectForIndex:selectedindex fromArray:maxAges_] forState:UIControlStateNormal];
-        [self.viewMaxAgeContainer addSubview:button];
-        
-        //update arrow
-        [self updateArrowForButton:button];
-        
-        //add handler
-        [button addTarget:self action:@selector(maxAgeTouched:) forControlEvents:UIControlEventTouchUpInside];
-        
-        ADD_PICKER_FIELD_TO_BUTTON(textFieldMaxAge_, maxAges_, selectedindex);
-    }
-    
-    //update navigation button
-    [self updateNavigationButton];
+    //show navigation bar
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (void)dealloc
 {
     [filter_ release];
-    [distances_ release];
-    [minAges_ release];
-    [maxAges_ release];
-    [textFieldDistance_ release];
-    [textFieldMinAge_ release];
-    [textFieldMaxAge_ release];
-    [labelSort release];
-    [viewSortContainer release];
-    [labelWhen release];
-    [viewWhenContainer release];
-    [labelDistance release];
-    [viewDistanceContainer release];
-    [labelMinAge release];
-    [viewMinAgeContainer release];
-    [labelMaxAge release];
-    [viewMaxAgeContainer release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark other
 
-- (void)updateArrowForButton:(UIButton *)button
-{
-    UIImageView *imageView = nil;
-    for (UIImageView *iv in [button.superview subviews])
-    {
-        if ([iv isKindOfClass:[UIImageView class]])
-            imageView = iv;
-    }
-    if (!imageView)
-    {
-        imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"large-button-down-arrow.png"]] autorelease];
-        [button.superview addSubview:imageView];
-    }
-    imageView.center = CGPointMake(button.frame.size.width/2 + [[button titleForState:UIControlStateNormal] sizeWithFont:[button titleLabel].font].width/2 + 12, button.frame.size.height/2-2);
-}
-
-- (NSString*)objectForIndex:(NSInteger)index fromArray:(NSArray*)array
-{
-    NSDictionary *dictionary = [array objectAtIndex:index];
-    return [dictionary objectForKey:[[dictionary allKeys] lastObject]];
-}
-
-- (NSObject*)keyForIndex:(NSInteger)index fromArray:(NSArray*)array
-{
-    NSDictionary *dictionary = [array objectAtIndex:index];
-    return [[dictionary allKeys] lastObject];
-}
-
-- (NSArray*)arrayForPicker:(UIPickerView*)picker
-{
-    if (picker == textFieldDistance_.inputView)
-        return distances_;
-    if (picker == textFieldMinAge_.inputView)
-        return minAges_;
-    if (picker == textFieldMaxAge_.inputView)
-        return maxAges_;
-    return nil;
-}
-
-- (UITextField*)textFieldForPicker:(UIPickerView*)picker
-{
-    if (picker == textFieldDistance_.inputView)
-        return textFieldDistance_;
-    if (picker == textFieldMinAge_.inputView)
-        return textFieldMinAge_;
-    if (picker == textFieldMaxAge_.inputView)
-        return textFieldMaxAge_;
-    return nil;
-}
-
-- (void)distanceTouched:(DDToggleButton*)button
-{
-    if (button.toggled)
-        [textFieldDistance_ becomeFirstResponder];
-    else
-        [textFieldDistance_ resignFirstResponder];
-}
-
-- (void)minAgeTouched:(DDToggleButton*)button
-{
-    if (button.toggled)
-        [textFieldMinAge_ becomeFirstResponder];
-    else
-        [textFieldMinAge_ resignFirstResponder];
-}
-
-- (void)maxAgeTouched:(DDToggleButton*)button
-{
-    if (button.toggled)
-        [textFieldMaxAge_ becomeFirstResponder];
-    else
-        [textFieldMaxAge_ resignFirstResponder];
-}
-
-- (void)updateNavigationButton
-{
-    self.navigationItem.rightBarButtonItem.enabled = [textFieldMinAge_.text intValue] <= [textFieldMaxAge_.text intValue] && [self segmentedControlSort].selectedSegmentIndex >= 0;
-}
-
 - (void)applyTouched:(id)sender
 {
-    DDDoubleDateFilter *filter = [[[DDDoubleDateFilter alloc] init] autorelease];
-    switch ([self.segmentedControlSort selectedSegmentIndex]) {
-        case 0:
-            filter.sort = DDDoubleDateFilterSortClosest;
-            break;
-        case 1:
-            filter.sort = DDDoubleDateFilterSortNewest;
-            break;
-        case 2:
-            filter.sort = DDDoubleDateFilterSortOldest;
-            break;
-        default:
-            break;
-    }
-    switch ([self.segmentedControlWhen selectedSegmentIndex]) {
-        case 0:
-            filter.happening = nil;
-            break;
-        case 1:
-            filter.happening = DDDoubleDateFilterHappeningWeekday;
-            break;
-        case 2:
-            filter.happening = DDDoubleDateFilterHappeningWeekend;
-            break;
-        default:
-            break;
-    }
-    filter.minAge = [NSNumber numberWithInt:[[textFieldMinAge_ text] intValue]];
-    filter.maxAge = [NSNumber numberWithInt:[[textFieldMaxAge_ text] intValue]];
-    for (NSDictionary *dic in distances_)
-    {
-        NSString *key = [[dic allKeys] lastObject];
-        if ([[dic objectForKey:key] isEqualToString:[textFieldDistance_ text]])
-            filter.distance = key;
-    }
-    [self.delegate doubleDateFilterViewControllerDidAppliedFilter:filter];
+    [self.delegate doubleDateFilterViewControllerDidAppliedFilter:filter_];
 }
 
 - (void)cancelTouched:(id)sender
@@ -390,56 +96,193 @@
     [self.delegate doubleDateFilterViewControllerDidCancel];
 }
 
-- (UISegmentedControl*)segmentedControlSort
+- (void)updateLocationCell:(DDTableViewCell*)cell
 {
-    for (UISegmentedControl *v in [self.viewSortContainer subviews])
+    //enable/disable touch
+    cell.userInteractionEnabled = YES;
+    
+    //check exist location
+    if (filter_.location)
     {
-        if ([v isKindOfClass:[UISegmentedControl class]])
-            return v;
+        //apply blank image by default
+        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
+        
+        //set location text
+        cell.textLabel.text = [filter_.location name];
+        
+        //apply style
+        cell.textLabel.textColor = [UIColor whiteColor];
+        
+        //check if we need to add reset button
+        if ([[[[DDAuthenticationController currentUser] location] identifier] intValue] != [[filter_.location identifier] intValue])
+        {
+            UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.backgroundColor = [UIColor clearColor];
+            button.frame = CGRectMake(0, 0, 30, 30);
+            cell.accessoryView = button;
+            [button setImage:cancelImage forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
+        }
     }
-    return nil;
+    else
+    {
+        //apply blank image by default
+        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
+        
+        //set location text
+        cell.textLabel.text = NSLocalizedString(@"Choose a location", nil);
+        
+        //apply style
+        cell.textLabel.textColor = [UIColor grayColor];
+    }
 }
 
-- (UISegmentedControl*)segmentedControlWhen
+- (void)resetLocationTouched:(id)sender
 {
-    for (UISegmentedControl *v in [self.viewWhenContainer subviews])
-    {
-        if ([v isKindOfClass:[UISegmentedControl class]])
-            return v;
-    }
-    return nil;
+    //set location
+    filter_.location = [DDAuthenticationController currentUser].location;
+    
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark -
-#pragma mark UIPickerViewDataSource
+#pragma mark UITableViewDelegate
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
+{
+    return [[self tableView:aTableView viewForHeaderInSection:section] frame].size.height;
+}
+
+- (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Timeframe", nil) detailedText:nil];
+    else if (section == 1)
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Near", nil) detailedText:nil];
+    else if (section == 2)
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Age Range", nil) detailedText:nil];
+    return nil;
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([indexPath section] == 1)
+    {
+        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
+        locationChooserViewController.delegate = self;
+        locationChooserViewController.query = [[filter_.location.name componentsSeparatedByString:@","] objectAtIndex:0];
+        locationChooserViewController.options = DDLocationSearchOptionsCities;
+        [self.navigationController pushViewController:locationChooserViewController animated:YES];
+    }
+    
+    //unselect row
+    [aTableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[self arrayForPicker:pickerView] count];
+    //check timeframe section
+    if (indexPath.section == 0)
+    {
+        //set segmented control
+        NSInteger itemWidth = 100;
+        NSMutableArray *items = [NSMutableArray array];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Anytime", nil) width:itemWidth]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekday", nil) width:itemWidth]];
+        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekend", nil) width:itemWidth]];
+        
+        //create cell
+        DDSegmentedControlTableViewCell *cell = [[[DDSegmentedControlTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil items:items segmentedContolStyle:DDSegmentedControlStyleLarge] autorelease];
+        
+        //set delegate
+        cell.delegate = self;
+        
+        //set selected segment index
+        cell.selectedSegmentIndex = [filter_.happening isEqualToString:DDDoubleDateFilterHappeningWeekday]?1:([filter_.happening isEqualToString:DDDoubleDateFilterHappeningWeekend]?2:0);
+
+        return cell;
+    }
+    else if (indexPath.section == 1)
+    {
+        //create cell
+        DDTableViewCell *cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        
+        //apply style
+        [cell applyGroupedBackgroundStyleForTableView:tableView withIndexPath:indexPath];
+        
+        //update location cell
+        [self updateLocationCell:cell];
+        
+        return cell;
+    }
+    else if (indexPath.section == 2)
+    {
+        //create cell
+        DDTextFieldTableViewCell *cell = [[[DDTextFieldTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        
+        //set text
+        cell.textField.text = [NSString stringWithFormat:@"%d - %d", [filter_.minAge intValue], [filter_.maxAge intValue]];
+        
+        //hide close
+        cell.textField.rightViewMode = UITextFieldViewModeNever;
+        
+        //apply style
+        [cell applyGroupedBackgroundStyleForTableView:tableView withIndexPath:indexPath];
+        
+        return cell;
+    }
+    
+    return nil;
 }
 
-#pragma mark -
-#pragma mark UIPickerViewDelegate
+#pragma mark DDSegmentedControlTableViewCellDelegate
 
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+- (void)segmentedControlTableViewCellValueChanged:(DDSegmentedControlTableViewCell*)sender
 {
-    return [self objectForIndex:row fromArray:[self arrayForPicker:thePickerView]];
+    filter_.happening = nil;
+    switch (sender.selectedSegmentIndex) {
+        case 1:
+            filter_.happening = DDDoubleDateFilterHappeningWeekday;
+            break;
+        case 2:
+            filter_.happening = DDDoubleDateFilterHappeningWeekend;
+            break;
+        default:
+            break;
+    }
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+#pragma mark DDLocationPickerViewControllerDelegate
+
+- (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
-    UITextField *textField = [self textFieldForPicker:pickerView];
-    [textField setText:[self objectForIndex:row fromArray:[self arrayForPicker:pickerView]]];
-    [textField resignFirstResponder];
-    [(DDToggleButton*)[textField superview] setToggled:NO];
-    [(DDToggleButton*)[textField superview] setTitle:textField.text forState:UIControlStateNormal];
-    [self updateArrowForButton:(DDToggleButton*)[textField superview]];
-    [self updateNavigationButton];
+    //set location
+    filter_.location = [placemarks objectAtIndex:0];
+    
+    //reload the table
+    [self.tableView reloadData];
+    
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)locationPickerViewControllerDidCancel
+{
 }
 
 @end

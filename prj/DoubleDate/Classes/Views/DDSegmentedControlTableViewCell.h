@@ -9,6 +9,14 @@
 #import "DDTableViewCell.h"
 #import "DDSegmentedControl.h"
 
+@class DDSegmentedControlTableViewCell;
+
+@protocol DDSegmentedControlTableViewCellDelegate <NSObject>
+
+- (void)segmentedControlTableViewCellValueChanged:(DDSegmentedControlTableViewCell*)sender;
+
+@end
+
 @interface DDSegmentedControlTableViewCell : DDTableViewCell
 {
     NSArray *items_;
@@ -17,6 +25,8 @@
 }
 
 @property(nonatomic, assign) NSInteger selectedSegmentIndex;
+
+@property(nonatomic, assign) id<DDSegmentedControlTableViewCellDelegate> delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier items:(NSArray*)items segmentedContolStyle:(DDSegmentedControlStyle)segmentedContolStyle;
 

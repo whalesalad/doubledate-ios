@@ -6,7 +6,8 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import "DDViewController.h"
+#import "DDTableViewController.h"
+#import "DDDoubleDateFilterViewController.h"
 #import "DDSegmentedControl.h"
 
 @class DDDoubleDateFilter;
@@ -18,29 +19,12 @@
 
 @end
 
-@interface DDDoubleDateFilterViewController : DDViewController
+@interface DDDoubleDateFilterViewController : DDTableViewController
 {
     DDDoubleDateFilter *filter_;
-    NSMutableArray *distances_;
-    NSMutableArray *minAges_;
-    NSMutableArray *maxAges_;
-    UITextField *textFieldDistance_;
-    UITextField *textFieldMinAge_;
-    UITextField *textFieldMaxAge_;
 }
 
 @property(nonatomic, assign) id<DDDoubleDateFilterViewControllerDelegate> delegate;
-
-@property(nonatomic, retain) IBOutlet UILabel *labelSort;
-@property(nonatomic, retain) IBOutlet UIView *viewSortContainer;
-@property(nonatomic, retain) IBOutlet UILabel *labelWhen;
-@property(nonatomic, retain) IBOutlet UIView *viewWhenContainer;
-@property(nonatomic, retain) IBOutlet UILabel *labelDistance;
-@property(nonatomic, retain) IBOutlet UIView *viewDistanceContainer;
-@property(nonatomic, retain) IBOutlet UILabel *labelMinAge;
-@property(nonatomic, retain) IBOutlet UIView *viewMinAgeContainer;
-@property(nonatomic, retain) IBOutlet UILabel *labelMaxAge;
-@property(nonatomic, retain) IBOutlet UIView *viewMaxAgeContainer;
 
 - (id)initWithFilter:(DDDoubleDateFilter*)filter;
 

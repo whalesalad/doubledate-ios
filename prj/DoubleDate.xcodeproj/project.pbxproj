@@ -400,8 +400,6 @@
 		70C519BB16EE670400FE2026 /* DDAppDelegate+WingsMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C519BA16EE670400FE2026 /* DDAppDelegate+WingsMenu.m */; };
 		70C519BE16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C519BD16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m */; };
 		70C519C016EE7D1500FE2026 /* DDChooseWingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C519BF16EE7D1500FE2026 /* DDChooseWingTableViewCell.xib */; };
-		70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */; };
-		70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */; };
 		70E1A27216E3823A008979FD /* coin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A26E16E3823A008979FD /* coin-icon.png */; };
 		70E1A27316E3823A008979FD /* coin-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A26F16E3823A008979FD /* coin-icon@2x.png */; };
 		70E1A27416E3823A008979FD /* most-popular-badge.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27016E3823A008979FD /* most-popular-badge.png */; };
@@ -487,7 +485,7 @@
 		9662893016B68521002E0AD1 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662892D16B68521002E0AD1 /* HPGrowingTextView.m */; };
 		9662893116B68521002E0AD1 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 9662892F16B68521002E0AD1 /* HPTextViewInternal.m */; };
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
-		967A65E116F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65E016F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m */; };
+		967A65E116F089F300E59D03 /* DDDoubleDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */; };
 		967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */; };
 		968312A0169DB354007C14ED /* UIView+Interests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683129F169DB354007C14ED /* UIView+Interests.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
@@ -1056,9 +1054,6 @@
 		70C519BC16EE7CAC00FE2026 /* DDChooseWingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDChooseWingTableViewCell.h; sourceTree = "<group>"; };
 		70C519BD16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDChooseWingTableViewCell.m; sourceTree = "<group>"; };
 		70C519BF16EE7D1500FE2026 /* DDChooseWingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDChooseWingTableViewCell.xib; sourceTree = "<group>"; };
-		70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewController.h; sourceTree = "<group>"; };
-		70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewController.m; sourceTree = "<group>"; };
-		70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateFilterViewController.xib; sourceTree = "<group>"; };
 		70E1A26E16E3823A008979FD /* coin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-icon.png"; sourceTree = "<group>"; };
 		70E1A26F16E3823A008979FD /* coin-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coin-icon@2x.png"; sourceTree = "<group>"; };
 		70E1A27016E3823A008979FD /* most-popular-badge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "most-popular-badge.png"; sourceTree = "<group>"; };
@@ -1180,8 +1175,8 @@
 		9662892F16B68521002E0AD1 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
 		96701CEE16490E6000E4436A /* DDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControl.h; sourceTree = "<group>"; };
 		96701CEF16490E6000E4436A /* DDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControl.m; sourceTree = "<group>"; };
-		967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewControllerNew.h; sourceTree = "<group>"; };
-		967A65E016F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewControllerNew.m; sourceTree = "<group>"; };
+		967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateFilterViewController.h; sourceTree = "<group>"; };
+		967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewController.m; sourceTree = "<group>"; };
 		967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControlTableViewCell.m; sourceTree = "<group>"; };
 		967A65EC16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControlTableViewCell.h; sourceTree = "<group>"; };
 		9683129E169DB354007C14ED /* UIView+Interests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Interests.h"; sourceTree = "<group>"; };
@@ -2240,8 +2235,8 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.h */,
-				967A65E016F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m */,
+				967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewController.h */,
+				967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */,
 				7041769616E3A2CD003B6B24 /* DDPurchaseViewController.h */,
 				7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */,
 				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
@@ -2260,8 +2255,6 @@
 				70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */,
 				9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */,
 				9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */,
-				70C9A13B16530CCA0046F98F /* DDDoubleDateFilterViewController.h */,
-				70C9A13C16530CCA0046F98F /* DDDoubleDateFilterViewController.m */,
 				96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */,
 				96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */,
 				7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */,
@@ -2326,7 +2319,6 @@
 				965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */,
 				70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */,
 				96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */,
-				70C9A14016530CF00046F98F /* DDDoubleDateFilterViewController.xib */,
 				969353DF1639397B007376AA /* DDCreateDoubleDateViewController.xib */,
 				96892D4C15FF61830054C108 /* DDLocationPickerViewController.xib */,
 				96892CB415FF1F7A0054C108 /* DDCompleteRegistrationViewController.xib */,
@@ -2578,7 +2570,6 @@
 				9695DD301647AECC00A80922 /* Avenir.ttc in Resources */,
 				4CA80EDC16521233004A4BE9 /* app-icon.png in Resources */,
 				4CA80EDE16521236004A4BE9 /* app-icon@2x.png in Resources */,
-				70C9A14116530CF00046F98F /* DDDoubleDateFilterViewController.xib in Resources */,
 				70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */,
 				4C855AAD167EE36200DB39D5 /* Default-568h@2x.png in Resources */,
 				96D585461684607800CFB9A3 /* DDDoubleDateViewController.xib in Resources */,
@@ -3065,7 +3056,6 @@
 				96C6D65C16524BAF00DAC219 /* DDTableViewController.m in Sources */,
 				96C6D69B16527D7000DAC219 /* DDTableViewController+Refresh.m in Sources */,
 				96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */,
-				70C9A13E16530CCA0046F98F /* DDDoubleDateFilterViewController.m in Sources */,
 				9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */,
 				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
 				965989FC166F970300490CCE /* DDSelectWingView.m in Sources */,
@@ -3120,7 +3110,7 @@
 				70C519AD16EE60A200FE2026 /* DDChooseWingView.m in Sources */,
 				70C519BB16EE670400FE2026 /* DDAppDelegate+WingsMenu.m in Sources */,
 				70C519BE16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m in Sources */,
-				967A65E116F089F300E59D03 /* DDDoubleDateFilterViewControllerNew.m in Sources */,
+				967A65E116F089F300E59D03 /* DDDoubleDateFilterViewController.m in Sources */,
 				967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

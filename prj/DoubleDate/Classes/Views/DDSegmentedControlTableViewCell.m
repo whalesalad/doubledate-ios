@@ -11,9 +11,13 @@
 @implementation DDSegmentedControlTableViewCell
 
 @synthesize selectedSegmentIndex;
+@synthesize delegate;
 
 - (void)updateSegmentedControl
 {
+    //save selected segment index
+    NSInteger value = self.selectedSegmentIndex;
+    
     //remove previous segmented control
     [segmentedControl_ removeFromSuperview];
     [segmentedControl_ release];
@@ -23,7 +27,7 @@
     segmentedControl_.center = CGPointMake(self.contentView.frame.size.width/2, self.contentView.frame.size.height/2);
     [segmentedControl_ addTarget:self action:@selector(segmentedControlChanged:) forControlEvents:UIControlEventValueChanged];
     [self.contentView addSubview:segmentedControl_];
-    segmentedControl_.selectedSegmentIndex = self.selectedSegmentIndex;
+    segmentedControl_.selectedSegmentIndex = value;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier items:(NSArray*)items segmentedContolStyle:(DDSegmentedControlStyle)segmentedContolStyle
@@ -32,6 +36,7 @@
     {
         items_ = [items retain];
         segmentedContolStyle_ = segmentedContolStyle;
+        [self updateSegmentedControl];
         self.selectedSegmentIndex = -1;
     }
     return self;
@@ -46,6 +51,7 @@
 - (void)segmentedControlChanged:(DDSegmentedControl*)sender
 {
     self.selectedSegmentIndex = sender.selectedSegmentIndex;
+    [self.delegate segmentedControlTableViewCellValueChanged:self];
 }
 
 - (void)setSelectedSegmentIndex:(NSInteger)v

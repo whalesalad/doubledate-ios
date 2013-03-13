@@ -29,7 +29,6 @@
 #import "DDAuthenticationController.h"
 #import "DDObjectsController.h"
 #import "UIView+Other.h"
-#import "DDDoubleDateFilterViewControllerNew.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
@@ -213,7 +212,7 @@ typedef enum
 
 - (void)filterTouched:(id)sender
 {
-    DDDoubleDateFilterViewControllerNew *viewController = [[[DDDoubleDateFilterViewControllerNew alloc] initWithFilter:self.searchFilter] autorelease];
+    DDDoubleDateFilterViewController *viewController = [[[DDDoubleDateFilterViewController alloc] initWithFilter:self.searchFilter] autorelease];
     viewController.delegate = self;
     [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
     }];
