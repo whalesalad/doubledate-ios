@@ -109,7 +109,7 @@
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
-//    self.labelDayTimeDetailed.text = [NSString stringWithFormat:NSLocalizedString(@"Created %@", nil), [DDTools stringFromDate:[self.doubleDate createdAt]]];
+//    self.labelDayTimeDetailed.text = [NSString stringWithFormat:NSLocalizedString(@"Created %@", @"skip"), [DDTools stringFromDate:[self.doubleDate createdAt]]];
     
     //set text
     self.textView.text = [self.doubleDate details];

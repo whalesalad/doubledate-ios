@@ -182,7 +182,7 @@
     else
     {
         //set placeholder
-        cell.textLabel.text = NSLocalizedString(@"Choose a wing", nil);
+        cell.textLabel.text = NSLocalizedString(@"Choose a Wing", nil);
         
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
@@ -198,7 +198,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"Enter your message to %@ & %@. This is your chance to be unique, so get creative. First impressions are important. No pressure!", nil), doubleDate.user.firstName, doubleDate.wing.firstName];
+    cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"Enter your message to %@ & %@. Here is your chance to be unique and make a good first impression.", @"The variables are the activity creator and wing, respectively."), doubleDate.user.firstName, doubleDate.wing.firstName];
 }
 
 - (NSIndexPath*)wingIndexPath

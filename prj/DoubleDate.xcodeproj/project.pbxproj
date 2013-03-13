@@ -3200,7 +3200,7 @@
 		960A02E715F7371D00BA9EB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Marcus Tybell (SCTJRY9MZ7)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
@@ -3216,7 +3216,7 @@
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "B3E1F63A-CBC3-4609-9F89-055C864ED09F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3224,7 +3224,7 @@
 		960A02E815F7371D00BA9EB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Marcus Tybell";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
@@ -3240,7 +3240,7 @@
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "AED53E27-4D14-48D8-9D78-47543500FDDA";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
