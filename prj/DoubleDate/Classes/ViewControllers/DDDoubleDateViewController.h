@@ -49,6 +49,8 @@
 @property(nonatomic, retain) IBOutlet UIView *leftView;
 @property(nonatomic, retain) IBOutlet UIView *rightView;
 
+@property(nonatomic, retain) IBOutlet UILabel *labelInterested;
+
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;
 - (IBAction)interestedTouched:(id)sender;

@@ -79,6 +79,8 @@
 @synthesize leftView;
 @synthesize rightView;
 
+@synthesize labelInterested;
+
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -91,6 +93,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //localize
+    labelInterested.text = NSLocalizedString(@"Interested in this DoubleDate?", nil);
+    [buttonInterested setTitle:NSLocalizedString(@"Send a Message", nil) forState:UIControlStateNormal];
     
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
@@ -192,6 +198,7 @@
     [imageViewRightUserGender release];
     [leftView release];
     [rightView release];
+    [labelInterested release];
     [super dealloc];
 }
 
