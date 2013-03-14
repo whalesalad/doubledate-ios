@@ -73,6 +73,10 @@
 {
     [super viewDidLoad];
     
+    //localize
+    [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    [buttonCreate setTitle:NSLocalizedString(@"Create", nil) forState:UIControlStateNormal];
+    
     //set title
     self.navigationItem.title = NSLocalizedString(@"Create a DoubleDate", nil);
     
