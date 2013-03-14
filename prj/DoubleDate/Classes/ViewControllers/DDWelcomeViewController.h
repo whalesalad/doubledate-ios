@@ -28,6 +28,9 @@
 @property(nonatomic, retain) IBOutlet UIButton *whyFacebookButton;
 @property(nonatomic, retain) IBOutlet UIView *animateView;
 
+@property(nonatomic, retain) IBOutlet UILabel *labelGrabAFriend;
+@property(nonatomic, retain) IBOutlet UIButton *buttonLoginWithFacebook;
+
 - (IBAction)whyFacebookOutTouched:(id)sender;
 - (IBAction)whyFacebookTouched:(id)sender;
 - (IBAction)facebookTouched:(id)sender;

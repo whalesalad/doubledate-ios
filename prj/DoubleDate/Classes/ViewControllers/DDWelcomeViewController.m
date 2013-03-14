@@ -55,6 +55,9 @@
 @synthesize whyFacebookButton;
 @synthesize animateView;
 
+@synthesize labelGrabAFriend;
+@synthesize buttonLoginWithFacebook;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -164,6 +167,11 @@
 {
     [super viewDidLoad];
     
+    //localize
+    labelGrabAFriend.text = NSLocalizedString(@"GRAB A FRIEND • GO OUT • HAVE FUN", nil);
+    [buttonLoginWithFacebook setTitle:NSLocalizedString(@"Login with Facebook", nil) forState:UIControlStateNormal];
+    [whyFacebookButton setTitle:NSLocalizedString(@"WHY FACEBOOK?", nil) forState:UIControlStateNormal];
+    
     //as XIB set up with iPhone 5 resolution then apply change for usual iPhone
     if (![DDTools isiPhone5Device])
         self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - (548-460));
@@ -226,6 +234,8 @@
     [fadeView release];
     [whyFacebookButton release];
     [animateView release];
+    [labelGrabAFriend release];
+    [buttonLoginWithFacebook release];
     [super dealloc];
 }
 
