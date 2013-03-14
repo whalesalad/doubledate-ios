@@ -55,6 +55,8 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    [self.buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    [self.buttonUnlock setTitle:NSLocalizedString(@"Yes! Unlock", nil) forState:UIControlStateNormal];
     self.unlockButtonText = [self.buttonUnlock titleForState:UIControlStateNormal];
     self.cancelButtonText = [self.buttonCancel titleForState:UIControlStateNormal];
     [self.buttonUnlock setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonUnlock backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
