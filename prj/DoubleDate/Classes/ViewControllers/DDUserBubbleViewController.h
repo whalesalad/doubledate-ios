@@ -19,7 +19,7 @@
 @property(nonatomic, retain) IBOutlet UITextView *textView;
 @property(nonatomic, retain) IBOutlet UIView *viewInterests;
 @property(nonatomic, retain) IBOutlet UIView *viewMain;
-@property(nonatomic, retain) IBOutlet UIView *labelIceBreakers;
+@property(nonatomic, retain) IBOutlet UILabel *labelIceBreakers;
 @property(nonatomic, retain) IBOutlet UIView *viewBottom;
 @property(nonatomic, retain) IBOutlet UIPageControl *pageControl;
 @property(nonatomic, retain) IBOutlet UIView *viewEffects;
