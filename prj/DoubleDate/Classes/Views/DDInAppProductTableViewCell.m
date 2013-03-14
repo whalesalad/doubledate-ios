@@ -36,6 +36,8 @@
 {
     [super customizeOnce];
     
+    self.labelPopular.text = NSLocalizedString(@"POPULAR!", nil);
+    
     self.imageViewPopular.image = [DDTools resizableImageFromImage:self.imageViewPopular.image];
 }
 
