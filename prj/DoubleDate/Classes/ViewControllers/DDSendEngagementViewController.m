@@ -62,9 +62,12 @@
 {
     [super viewDidLoad];
     
+    //localize
+    [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
+    [buttonCreate setTitle:NSLocalizedString(@"Create", nil) forState:UIControlStateNormal];
+    
     //set title
     self.navigationItem.title = NSLocalizedString(@"Send a Message", nil);
-    //[self viewForNavigationBarWithMainText: detailedText:[NSString stringWithFormat:@"%@ & %@", doubleDate.user.firstName, doubleDate.wing.firstName]];
     
     //set left button
     self.navigationItem.leftBarButtonItem = nil;
