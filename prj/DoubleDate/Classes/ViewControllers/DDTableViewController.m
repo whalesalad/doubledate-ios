@@ -168,13 +168,13 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
         [previousSearchBar_ release];
         previousSearchBar_ = nil;
     }
-    else if (totalNumberOfRows == 0)
+    else if (totalNumberOfRows == 0 && [self.searchTerm length] == 0)
     {
         [previousSearchBar_ release];
         previousSearchBar_ = [self.searchBar retain];
         self.tableView.tableHeaderView = nil;
     }
-    self.viewNoData.hidden = totalNumberOfRows > 0;
+    self.viewNoData.hidden = !(totalNumberOfRows == 0 && [self.searchTerm length] == 0);
 }
 
 - (void)dealloc
