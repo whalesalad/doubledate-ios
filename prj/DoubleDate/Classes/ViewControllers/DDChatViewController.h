@@ -55,6 +55,8 @@
 
 @property(nonatomic, retain) IBOutlet UIView *viewLocked;
 
+@property(nonatomic, retain) IBOutlet UILabel *labelMessageReceived;
+
 - (IBAction)sendTouched:(id)sender;
 
 - (IBAction)user1Touched:(id)sender;

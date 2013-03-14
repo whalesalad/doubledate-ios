@@ -71,6 +71,8 @@
 
 @synthesize viewLocked;
 
+@synthesize labelMessageReceived;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -90,6 +92,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //localize
+    labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
+    [buttonSend setTitle:NSLocalizedString(@"SEND", nil) forState:UIControlStateNormal];
+    labelMessageReceived.text = NSLocalizedString(@"Message received. We'll let you know when they reply.", nil);
     
     //check if authenticated user is in activity
     BOOL authenticatedUserIsInActivity = [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityUser] identifier] intValue] || [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityWing] identifier] intValue];
@@ -331,6 +338,7 @@
     [labelTextFieldPlaceholder release];
     [labelWarning release];
     [viewLocked release];
+    [labelMessageReceived release];
     [super dealloc];
 }
 
