@@ -1,4 +1,4 @@
-NOW=$(date +"%Y-%m-%d/%H:%M:%S")
+NOW=$(date +"%Y-%m-%d-%H:%M:%S")
 FILE_BEFORE=$1
 FILE_AFTER=$1'_'$NOW
 cp $FILE_BEFORE $FILE_AFTER
