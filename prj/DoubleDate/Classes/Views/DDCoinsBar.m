@@ -29,6 +29,9 @@
 {
     [super awakeFromNib];
     
+    //localize
+    [self.buttonMoreCoins setTitle:NSLocalizedString(@"Get More Coins", nil) forState:UIControlStateNormal];
+    
     //update more coins button
     [self.buttonMoreCoins setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonMoreCoins backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
 }
