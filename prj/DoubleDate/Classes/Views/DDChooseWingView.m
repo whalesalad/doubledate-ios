@@ -18,6 +18,7 @@
 @property(nonatomic, retain) IBOutlet UIActivityIndicatorView *loading;
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBackground;
+@property(nonatomic, retain) IBOutlet UILabel *labelChooseWing;
 
 @end
 
@@ -28,12 +29,16 @@
 @synthesize loading;
 @synthesize tableView;
 @synthesize imageViewBackground;
+@synthesize labelChooseWing;
 
 @synthesize delegate;
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    //localize
+    self.labelChooseWing.text = NSLocalizedString(@"Choose a Wing", nil);
 }
 
 - (void)initSelf
@@ -75,6 +80,7 @@
     [loading release];
     [tableView release];
     [imageViewBackground release];
+    [labelChooseWing release];
     [friends_ release];
     [super dealloc];
 }
