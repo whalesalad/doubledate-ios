@@ -85,6 +85,9 @@
 {
     [super viewDidLoad];
     
+    //localize
+    labelInterests.text = NSLocalizedString(@"ICE BREAKERS", nil);
+    
     //add coin bar
     [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
     
