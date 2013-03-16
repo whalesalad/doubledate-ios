@@ -57,7 +57,13 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelMessageReceived;
 
+@property(nonatomic, retain) IBOutlet UIView *viewBottomLocked;
+@property(nonatomic, retain) IBOutlet UIButton *buttonIgnore;
+@property(nonatomic, retain) IBOutlet UIButton *buttonStartChat;
+
 - (IBAction)sendTouched:(id)sender;
+- (IBAction)ignoreTouched:(id)sender;
+- (IBAction)startChatTouched:(id)sender;
 
 - (IBAction)user1Touched:(id)sender;
 - (IBAction)user2Touched:(id)sender;

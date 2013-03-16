@@ -54,6 +54,7 @@ typedef enum
     DDAPIControllerMethodTypeGetEngagement,
     DDAPIControllerMethodTypeCreateEngagement,
     DDAPIControllerMethodTypeUnlockEngagement,
+    DDAPIControllerMethodTypeRequestDeleteEngagement,
     DDAPIControllerMethodTypeGetMessages,
     DDAPIControllerMethodTypeCreateMessage,
     DDAPIControllerMethodTypeGetNotifications,
@@ -149,6 +150,9 @@ typedef int DDRequestId;
 
 - (void)unlockEngagementSucceed:(DDEngagement*)engagement;
 - (void)unlockEngagementDidFailedWithError:(NSError*)error;
+
+- (void)requestDeleteEngagementSucceed;
+- (void)requestDeleteEngagementDidFailedWithError:(NSError*)error;
 
 - (void)getMessagesForEngagementSucceed:(NSArray*)messages;
 - (void)getMessagesForEngagementDidFailedWithError:(NSError*)error;
@@ -248,6 +252,8 @@ typedef int DDRequestId;
 - (DDRequestId)createEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)unlockEngagement:(DDEngagement*)engagement;
+
+- (DDRequestId)requestDeleteEngagement:(DDEngagement*)engagement;
 
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement;
 

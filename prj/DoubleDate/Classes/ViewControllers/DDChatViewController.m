@@ -35,6 +35,8 @@
 
 - (void)presentPopoverWithUser:(DDShortUser*)user;
 
+- (void)updateLockedView;
+
 @end
 
 @implementation DDChatViewController
@@ -73,6 +75,10 @@
 
 @synthesize labelMessageReceived;
 
+@synthesize viewBottomLocked;
+@synthesize buttonIgnore;
+@synthesize buttonStartChat;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -97,6 +103,8 @@
     labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
     [buttonSend setTitle:NSLocalizedString(@"SEND", nil) forState:UIControlStateNormal];
     labelMessageReceived.text = NSLocalizedString(@"Message received. We'll let you know when they reply.", nil);
+    [buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
+    [buttonStartChat setTitle:NSLocalizedString(@"Start Chat", nil) forState:UIControlStateNormal];
     
     //check if authenticated user is in activity
     BOOL authenticatedUserIsInActivity = [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityUser] identifier] intValue] || [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityWing] identifier] intValue];
@@ -164,6 +172,10 @@
     
     //customize send button
     [self.buttonSend setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"button-send.png"]] forState:UIControlStateNormal];
+    
+    //customize buttons
+    [self.buttonIgnore setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonIgnore backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     
     //add users
     [shortUsers_ removeAllObjects];
@@ -241,6 +253,9 @@
             self.viewLocked.hidden = NO;
         }
     }
+    
+    //update locked view
+    [self updateLockedView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -339,6 +354,9 @@
     [labelWarning release];
     [viewLocked release];
     [labelMessageReceived release];
+    [viewBottomLocked release];
+    [buttonIgnore release];
+    [buttonStartChat release];
     [super dealloc];
 }
 
@@ -347,29 +365,6 @@
 
 - (IBAction)sendTouched:(id)sender
 {
-    //check if you are the owner of doubledate
-    if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
-        [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
-    {
-        //check if we need to unlock the engagement
-        if ([engagement.status isEqualToString:DDEngagementStatusLocked])
-        {
-            //hide keyboard
-            [self.textViewInput resignFirstResponder];
-            
-            //add full-screen alert
-            DDUnlockAlertViewFullScreen *alertView = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
-            alertView.unlockButtonText = NSLocalizedString(@"Yes! Chat", nil);
-            alertView.delegate = self;
-            alertView.title = NSLocalizedString(@"UNLOCK CHAT THREAD", nil);
-            alertView.price = kUnlockCost;
-            alertView.message = NSLocalizedString(@"Would you like to start this chat and reply? ", nil);
-            [alertView show];
-            
-            return;
-        }
-    }
-    
     //send message
     if ([self.textViewInput.text length])
     {
@@ -383,6 +378,27 @@
     
     //hide keyboard
     [self.textViewInput resignFirstResponder];
+}
+
+- (IBAction)ignoreTouched:(id)sender
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Deleting...", @"Deleting engagement on chat page") animated:YES];
+    
+    //request delete engagement
+    [self.apiController requestDeleteEngagement:self.engagement];
+}
+
+- (IBAction)startChatTouched:(id)sender
+{
+    //add full-screen alert
+    DDUnlockAlertViewFullScreen *alertView = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
+    alertView.unlockButtonText = NSLocalizedString(@"Yes! Chat", nil);
+    alertView.delegate = self;
+    alertView.title = NSLocalizedString(@"UNLOCK CHAT THREAD", nil);
+    alertView.price = kUnlockCost;
+    alertView.message = NSLocalizedString(@"Would you like to start this chat and reply? ", nil);
+    [alertView show];
 }
 
 - (IBAction)user1Touched:(id)sender
@@ -458,6 +474,15 @@
     
     //present user bubble
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentUserBubbleForUser:userToSelect fromUsers:usersInBubble];
+}
+
+- (void)updateLockedView
+{
+    BOOL locked = NO;
+    if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
+        [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
+        locked = [engagement.status isEqualToString:DDEngagementStatusLocked];
+    self.viewBottomLocked.hidden = !locked;
 }
 
 #pragma mark -
@@ -635,11 +660,39 @@
     //inform about change
     [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
     
+    //update locked view
+    [self updateLockedView];
+    
     //replay send button
     [self sendTouched:nil];
 }
 
 - (void)unlockEngagementDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)requestDeleteEngagementSucceed
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show completed hud
+    [self showCompletedHudWithText:NSLocalizedString(@"Done", @"Complete message after deleting chat view")];
+    
+    //go back
+    if (self.navigationController.presentedViewController == self)
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        }];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)requestDeleteEngagementDidFailedWithError:(NSError*)error
 {
     //hide hud
     [self hideHud:YES];
