@@ -19,7 +19,7 @@
 #import "DDAppDelegate+Purchase.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface DDUnlockAlertView ()
+@interface DDUnlockAlertView () <DDUnlockAlertViewDelegate>
 
 @property(nonatomic, retain) IBOutlet UILabel *labelPrice;
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
@@ -35,6 +35,9 @@
 @end
 
 @implementation DDUnlockAlertView
+{
+    DDUnlockAlertView *core_;
+}
 
 @synthesize labelPrice;
 @synthesize labelTitle;
@@ -159,29 +162,21 @@
 
 - (void)show
 {
-    //save window
-    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
+    //make super
+    [super show];
     
-    //set center
-    self.center = CGPointMake(window.bounds.size.width/2, window.bounds.size.height/2);
-    
-    //add view
-    [window addSubview:self];
-    
-    //animate
-    CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    bounceAnimation.fillMode = kCAFillModeBoth;
-    bounceAnimation.removedOnCompletion = YES;
-    bounceAnimation.duration = 0.4;
-    bounceAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f, 0.01f, 0.01f)],
-                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f, 1.1f, 1.1f)],
-                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9f, 0.9f, 0.9f)],
-                               [NSValue valueWithCATransform3D:CATransform3DIdentity]];
-    bounceAnimation.keyTimes = @[@0.0f, @0.5f, @0.75f, @1.0f];
-    bounceAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [self.layer addAnimation:bounceAnimation forKey:nil];
+    //add core
+    core_ = [[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0] retain];
+    core_.delegate = self;
+    core_.price = self.price;
+    core_.title = [self.title uppercaseString];
+    core_.message = self.message;
+    core_.center = self.bounceView.center;
+    if (self.cancelButtonText)
+        core_.cancelButtonText = self.cancelButtonText;
+    if (self.unlockButtonText)
+        core_.unlockButtonText = self.unlockButtonText;
+    [self.bounceView addSubview:core_];
 }
 
 - (void)layoutSubviews
@@ -193,25 +188,18 @@
     self.labelPrice.frame = CGRectMake(CGRectGetMaxX(self.imageViewCoinIcon.frame) + gap, self.labelPrice.frame.origin.y, self.labelPrice.frame.size.width, self.labelPrice.frame.size.height);
 }
 
-- (void)dismiss
+- (void)unlockAlertViewDidCancel:(DDUnlockAlertView*)sender
 {
-    //animate
-    CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    bounceAnimation.fillMode = kCAFillModeBoth;
-    bounceAnimation.removedOnCompletion = NO;
-    bounceAnimation.duration = 0.1;
-    bounceAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DIdentity],
-                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9f, 0.9f, 0.9f)],
-                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.7f, 0.7f, 0.7f)],
-                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0, 0, 0)]];
-    bounceAnimation.keyTimes = @[@0.0f, @0.25f, @0.5f, @1.0f];
-    bounceAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
-                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [self.layer addAnimation:bounceAnimation forKey:nil];
-    
-    //remove them
-    [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.1f];
+    if ([self.delegate respondsToSelector:@selector(unlockAlertViewDidCancel:)])
+        [self.delegate unlockAlertViewDidCancel:self];
+    [self dismiss];
+}
+
+- (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender
+{
+    if ([self.delegate respondsToSelector:@selector(unlockAlertViewDidUnlock:)])
+        [self.delegate unlockAlertViewDidUnlock:self];
+    [self dismiss];
 }
 
 - (void)dealloc
@@ -227,6 +215,7 @@
     [message_ release];
     [cancelButtonText_ release];
     [unlockButtonText_ release];
+    [core_ release];
     [super dealloc];
 }
 
@@ -238,70 +227,35 @@
 
 @implementation DDUnlockAlertViewFullScreen
 {
-    UIView *fadeView_;
-    DDUnlockAlertView *alertView_;
     DDCoinsBar *coinsBar_;
 }
 
-- (void)show
+- (void)animationWillStart
 {
-    //save window
-    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
-    
-    //set frame
-    self.frame = [window bounds];
-    
-    //add view
-    [window addSubview:self];
-    
-    //fade screen
-    fadeView_ = [[[[UIView alloc] initWithFrame:[window bounds]] autorelease] retain];
-    fadeView_.alpha = 0;
-    fadeView_.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
-    [self addSubview:fadeView_];
-    
-    //show unlock
-    alertView_ = [[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUnlockAlertView class]) owner:self options:nil] objectAtIndex:0] retain];
-    alertView_.delegate = self;
-    alertView_.price = self.price;
-    alertView_.title = [self.title uppercaseString];
-    alertView_.message = self.message;
-    if (self.cancelButtonText)
-        alertView_.cancelButtonText = self.cancelButtonText;
-    if (self.unlockButtonText)
-        alertView_.unlockButtonText = self.unlockButtonText;
-    [alertView_ show];
-    
     //add coins bar
     coinsBar_ = [[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0] retain];
-    coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [window bounds].size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
+    coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [self bounds].size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
     [coinsBar_ setValue:[[[DDAuthenticationController currentUser] totalCoins] intValue]];
     [coinsBar_ addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:coinsBar_];
-    
-    //animate
-    [UIView animateWithDuration:0.3f animations:^{
-        fadeView_.alpha = 1;
-        coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [window bounds].size.height-coinsBar_.frame.size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
-    }];
 }
 
-- (void)dismiss
+- (void)onAnimateShow
 {
-    //save window
-    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
-    
-    //dismiss alert
-    [alertView_ dismiss];
-    
-    //animate
-    [UIView animateWithDuration:0.2f animations:^{
-        fadeView_.alpha =0;
-        coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [window bounds].size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
-    }];
-    
-    //remove from superview after delay
-    [self performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:0.2f];
+    coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [self bounds].size.height-coinsBar_.frame.size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
+}
+
+- (void)onAnimateHide
+{
+    coinsBar_.frame = CGRectMake(coinsBar_.frame.origin.x, [self bounds].size.height, coinsBar_.frame.size.width, coinsBar_.frame.size.height);
+}
+
+- (void)animationDidStop
+{
+    //remove coins bar
+    [coinsBar_ removeFromSuperview];
+    [coinsBar_ release];
+    coinsBar_ = nil;
 }
 
 - (void)unlockAlertViewDidCancel:(DDUnlockAlertView*)sender
@@ -329,8 +283,6 @@
 
 - (void)dealloc
 {
-    [fadeView_ release];
-    [alertView_ release];
     [coinsBar_ release];
     [super dealloc];
 }

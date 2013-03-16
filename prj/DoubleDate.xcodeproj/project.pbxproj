@@ -409,6 +409,7 @@
 		70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A28416E38437008979FD /* DDPurchaseViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
 		70ECEE3216E7EC8900E5EB89 /* UIView+Other.m in Sources */ = {isa = PBXBuildFile; fileRef = 70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */; };
+		70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA0616F5058800FE01F4 /* DDAlertView.m */; };
 		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
 		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
@@ -1068,6 +1069,8 @@
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		70ECEE3016E7EC8900E5EB89 /* UIView+Other.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Other.h"; sourceTree = "<group>"; };
 		70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Other.m"; sourceTree = "<group>"; };
+		70F0DA0516F5058800FE01F4 /* DDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAlertView.h; sourceTree = "<group>"; };
+		70F0DA0616F5058800FE01F4 /* DDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAlertView.m; sourceTree = "<group>"; };
 		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
 		70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSendEngagementViewController.m; sourceTree = "<group>"; };
 		70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDSendEngagementViewController.xib; sourceTree = "<group>"; };
@@ -2105,6 +2108,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70F0DA0516F5058800FE01F4 /* DDAlertView.h */,
+				70F0DA0616F5058800FE01F4 /* DDAlertView.m */,
 				7037656916F4856A00870D1C /* DDLabelTableViewCell.h */,
 				7037656A16F4856B00870D1C /* DDLabelTableViewCell.m */,
 				7037655D16F47F3C00870D1C /* DDLabel.h */,
@@ -3120,6 +3125,7 @@
 				967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */,
 				7037655F16F47F3C00870D1C /* DDLabel.m in Sources */,
 				7037656B16F4856B00870D1C /* DDLabelTableViewCell.m in Sources */,
+				70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
