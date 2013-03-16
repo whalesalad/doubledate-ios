@@ -791,7 +791,6 @@ typedef enum
 
 - (void)doubleDateFilterViewControllerDidCancel
 {
-    self.searchFilter = nil;
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }
@@ -799,6 +798,7 @@ typedef enum
 - (void)doubleDateFilterViewControllerDidAppliedFilter:(DDDoubleDateFilter*)filter
 {
     self.searchFilter = filter;
+    [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
 }

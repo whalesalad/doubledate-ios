@@ -7,7 +7,6 @@
 //
 
 #import "DDSendEngagementViewController.h"
-#import "DDChooseWingView.h"
 #import "DDTools.h"
 #import "DDShortUser.h"
 #import "DDEngagement.h"
@@ -306,7 +305,7 @@
         DDTextViewTableViewCell *textViewCell = (DDTextViewTableViewCell*)[aTableView cellForRowAtIndexPath:[self detailsIndexPath]];
         if ([textViewCell isKindOfClass:[DDTextFieldTableViewCell class]] && [textViewCell.textView.textView isFirstResponder])
             [textViewCell.textView.textView resignFirstResponder];
-        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentWingsMenuWithDelegate:self];
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentWingsMenuWithDelegate:self excludedUsers:[NSArray arrayWithObjects:self.doubleDate.wing, self.doubleDate.user, nil]];
     }
     
     //unselect row

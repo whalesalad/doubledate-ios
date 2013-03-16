@@ -7,6 +7,12 @@
 //
 
 #import "DDStoreKitController.h"
+#import "DDTools.h"
+#import "DDAuthenticationController.h"
+#import "DDRequestsController.h"
+#import <SBJson/SBJson.h>
+#import <RestKit/NSData+Base64.h>
+#import <RestKit/RestKit.h>
 
 @implementation DDStoreKitController
 
@@ -100,6 +106,29 @@ static DDStoreKitController *_sharedController = nil;
     return [[self productForPid:pid] localizedTitle];
 }
 
+- (void)provideTransaction:(SKPaymentTransaction*)transaction
+{
+    if (transaction.transactionState == SKPaymentTransactionStatePurchased)
+    {
+        //set dictionary
+        NSMutableDictionary *purchaseDic = [NSMutableDictionary dictionary];
+        [purchaseDic setObject:transaction.payment.productIdentifier forKey:@"identifier"];
+        [purchaseDic setObject:[transaction.transactionReceipt base64EncodedString] forKey:@"receipt"];
+        
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me/purchases"];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodPOST;
+        request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:[NSDictionary dictionaryWithObject:purchaseDic forKey:@"purchase"]];
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
+}
+
 - (void)dealloc
 {
 	[[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
@@ -164,11 +193,13 @@ static DDStoreKitController *_sharedController = nil;
 		{
 			case SKPaymentTransactionStatePurchased:
 				NSLog(@"Purchased the product: %@", transaction.payment.productIdentifier);
+                [self provideTransaction:transaction];
 				if ([(id)self.delegate respondsToSelector:@selector(productPurchased:)])
 					[(id)self.delegate productPurchased:transaction.payment.productIdentifier];
                 break;
             case SKPaymentTransactionStateFailed:
 				NSLog(@"Purchasing of the product failed: %@", transaction.payment.productIdentifier);
+                [self provideTransaction:transaction];
 				if ([(id)self.delegate respondsToSelector:@selector(productPurchasingFailed:)])
 					[(id)self.delegate productPurchasingFailed:transaction.error];
 				break;

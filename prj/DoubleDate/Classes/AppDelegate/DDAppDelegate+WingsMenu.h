@@ -11,8 +11,8 @@
 
 @interface DDAppDelegate (WingsMenu) <DDChooseWingViewDelegate>
 
-- (void)presentWingsMenuWithDelegate:(id<DDChooseWingViewDelegate>)delegate;
-- (void)dismissWingsMenu;
+- (BOOL)presentWingsMenuWithDelegate:(id<DDChooseWingViewDelegate>)delegate excludedUsers:(NSArray*)excludedUsers;
+- (BOOL)dismissWingsMenu;
 - (BOOL)isWingsMenuExist;
 
 @end

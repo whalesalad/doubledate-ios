@@ -144,13 +144,13 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    [self sendMyDevice];
+    [DDAuthenticationController updateCurrentUser];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[FBSession activeSession] handleDidBecomeActive];
-    [self sendMyDevice];
-    [DDAuthenticationController updateCurrentUser];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
