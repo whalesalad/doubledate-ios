@@ -17,15 +17,15 @@
 #import "DDShortUser.h"
 #import "DDLocationChooserViewController.h"
 #import "DDPlacemark.h"
-#import "DDTextFieldTableViewCell.h"
-#import "DDTextField.h"
+#import "DDLabelTableViewCell.h"
+#import "DDLabel.h"
 
 #define kMinAge 17
 #define kMaxAge 50
 
-@interface DDDoubleDateFilterViewController () <DDSegmentedControlTableViewCellDelegate, DDLocationPickerViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate>
+@interface DDDoubleDateFilterViewController () <DDSegmentedControlTableViewCellDelegate, DDLocationPickerViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property(nonatomic, retain) UITextField *textField;
+@property(nonatomic, retain) UILabel *labelAge;
 
 @end
 
@@ -33,7 +33,7 @@
 
 @synthesize delegate;
 
-@synthesize textField;
+@synthesize labelAge;
 
 - (id)initWithFilter:(DDDoubleDateFilter*)filter
 {
@@ -96,7 +96,7 @@
 - (void)dealloc
 {
     [filter_ release];
-    [textField release];
+    [labelAge release];
     [super dealloc];
 }
 
@@ -176,8 +176,8 @@
 
 - (void)tap
 {
-    if ([self.textField isFirstResponder])
-        [self.textField resignFirstResponder];
+    if ([self.labelAge isFirstResponder])
+        [self.labelAge resignFirstResponder];
 }
 
 #pragma mark -
@@ -273,29 +273,26 @@
     else if (indexPath.section == 2)
     {
         //create cell
-        DDTextFieldTableViewCell *cell = [[[DDTextFieldTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        DDLabelTableViewCell *cell = [[[DDLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
         
         //save text field
-        self.textField = cell.textField;
+        self.labelAge = cell.label;
         
         //unset selection style
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         //set text
-        cell.textField.text = [self ageTitle];
+        cell.label.text = [self ageTitle];
         
-        //set delegate
-        cell.textField.delegate = self;
-        
-        //remove cancel
-        cell.textField.rightView = nil;
+        //enable touch
+        cell.label.userInteractionEnabled = YES;
         
         //set picker
         UIPickerView *picker = [[[UIPickerView alloc] init] autorelease];
         picker.delegate = self;
         picker.dataSource = self;
         picker.showsSelectionIndicator = YES;
-        cell.textField.inputView = picker;
+        cell.label.inputView = picker;
         
         //select needed row
         [picker selectRow:[filter_.minAge intValue]-kMinAge inComponent:0 animated:NO];
@@ -387,9 +384,9 @@
     }
     
     //update text view
-    DDTextFieldTableViewCell *cell = (DDTextFieldTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
-    if ([cell isKindOfClass:[DDTextFieldTableViewCell class]])
-        cell.textField.text = [self ageTitle];
+    DDLabelTableViewCell *cell = (DDLabelTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+    if ([cell isKindOfClass:[DDLabelTableViewCell class]])
+        cell.label.text = [self ageTitle];
 }
 
 #pragma mark UITextFieldDelegate
