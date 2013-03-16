@@ -28,6 +28,8 @@
 
 @property(nonatomic, assign) id<DDChooseWingViewDelegate> delegate;
 
+@property(nonatomic, retain) NSArray *excludedUsers;
+
 - (void)start;
 
 @end

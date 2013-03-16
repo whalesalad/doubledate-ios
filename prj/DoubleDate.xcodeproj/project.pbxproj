@@ -473,7 +473,6 @@
 		964F743816DE6A3F0095DBED /* DDCoinsBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964F743716DE6A3F0095DBED /* DDCoinsBar.xib */; };
 		964F743B16DE7C260095DBED /* DDUnlockAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 964F743A16DE7C260095DBED /* DDUnlockAlertView.m */; };
 		964F743D16DE7C620095DBED /* DDUnlockAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964F743C16DE7C620095DBED /* DDUnlockAlertView.xib */; };
-		965989FC166F970300490CCE /* DDSelectWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FB166F970300490CCE /* DDSelectWingView.m */; };
 		965989FF166FAFB700490CCE /* DDEngagement.m in Sources */ = {isa = PBXBuildFile; fileRef = 965989FE166FAFB700490CCE /* DDEngagement.m */; };
 		965AF0301688A6F400A014D1 /* DDUserBubbleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */; };
 		965AF0331688A71B00A014D1 /* DDUserBubbleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 965AF0321688A71B00A014D1 /* DDUserBubbleViewController.xib */; };
@@ -1154,8 +1153,6 @@
 		964F743916DE7C260095DBED /* DDUnlockAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUnlockAlertView.h; sourceTree = "<group>"; };
 		964F743A16DE7C260095DBED /* DDUnlockAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUnlockAlertView.m; sourceTree = "<group>"; };
 		964F743C16DE7C620095DBED /* DDUnlockAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUnlockAlertView.xib; sourceTree = "<group>"; };
-		965989FA166F970300490CCE /* DDSelectWingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSelectWingView.h; sourceTree = "<group>"; };
-		965989FB166F970300490CCE /* DDSelectWingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSelectWingView.m; sourceTree = "<group>"; };
 		965989FD166FAFB700490CCE /* DDEngagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagement.h; sourceTree = "<group>"; };
 		965989FE166FAFB700490CCE /* DDEngagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagement.m; sourceTree = "<group>"; };
 		965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserBubbleViewController.h; sourceTree = "<group>"; };
@@ -2140,8 +2137,6 @@
 				704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */,
 				963672FE167094C800D3D8D3 /* DDPhotoView.h */,
 				963672FF167094C800D3D8D3 /* DDPhotoView.m */,
-				965989FA166F970300490CCE /* DDSelectWingView.h */,
-				965989FB166F970300490CCE /* DDSelectWingView.m */,
 				9683B730165145D40043350E /* DDDoubleDateTableViewCell.h */,
 				9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */,
 				96E78E30164D0F9200897C4F /* DDTextViewTableViewCell.h */,
@@ -3060,7 +3055,6 @@
 				96C6D6CA1652970000DAC219 /* UIViewController+Extensions.m in Sources */,
 				9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */,
 				70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */,
-				965989FC166F970300490CCE /* DDSelectWingView.m in Sources */,
 				965989FF166FAFB700490CCE /* DDEngagement.m in Sources */,
 				96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */,
 				7025E53F168274B100FE3FBE /* DDMessage.m in Sources */,

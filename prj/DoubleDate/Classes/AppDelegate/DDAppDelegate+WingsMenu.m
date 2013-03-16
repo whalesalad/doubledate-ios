@@ -14,14 +14,14 @@
 
 @implementation DDAppDelegate (WingsMenu)
 
-- (void)presentWingsMenuWithDelegate:(id<DDChooseWingViewDelegate>)delegate
+- (BOOL)presentWingsMenuWithDelegate:(id<DDChooseWingViewDelegate>)delegate excludedUsers:(NSArray*)excludedUsers
 {
-    //save delegate
-    self.wingsMenuDelegate = delegate;
-    
     //check if already exist
     if (self.wingsMenuExist)
-        return;
+        return NO;
+    
+    //save delegate
+    self.wingsMenuDelegate = delegate;    
         
     //set flag
     self.wingsMenuExist = YES;
@@ -51,6 +51,7 @@
     wings.delegate = self;
     wings.tag = kTagWingsMenuView;
     wings.frame = CGRectMake(self.wingsMenu.frame.size.width, 0, wings.frame.size.width, self.wingsMenu.frame.size.height);
+    wings.excludedUsers = excludedUsers;
     [wings start];
     [self.wingsMenu addSubview:wings];
     
@@ -65,13 +66,15 @@
         viewWings.center = CGPointMake(viewWings.center.x-viewWings.frame.size.width+viewWings.layer.cornerRadius, viewWings.center.y);
     } completion:^(BOOL finished) {
     }];
+    
+    return YES;
 }
 
-- (void)dismissWingsMenu
+- (BOOL)dismissWingsMenu
 {
     //check if not exist
     if (!self.wingsMenuExist)
-        return;
+        return NO;
     
     //unset flag
     self.wingsMenuExist = NO;
@@ -89,6 +92,8 @@
             self.wingsMenu = nil;
         }];
     }];
+    
+    return YES;
 }
 
 - (BOOL)isWingsMenuExist

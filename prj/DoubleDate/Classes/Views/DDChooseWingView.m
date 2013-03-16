@@ -11,6 +11,7 @@
 #import "DDAPIController.h"
 #import "DDChooseWingTableViewCell.h"
 #import "DDTools.h"
+#import "DDShortUser.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDChooseWingView ()<DDAPIControllerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -32,6 +33,8 @@
 @synthesize labelChooseWing;
 
 @synthesize delegate;
+
+@synthesize excludedUsers;
 
 - (void)awakeFromNib
 {
@@ -72,6 +75,23 @@
     [apiController_ getFriends];
 }
 
+- (NSArray*)friends
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDShortUser *user in friends_)
+    {
+        BOOL existInExcludedUsers = NO;
+        for (DDShortUser *excludedUser in self.excludedUsers)
+        {
+            if ([[excludedUser identifier] intValue] == [[user identifier] intValue])
+                existInExcludedUsers = YES;
+        }
+        if (!existInExcludedUsers)
+            [ret addObject:user];
+    }
+    return ret;
+}
+
 - (void)dealloc
 {
     apiController_.delegate = nil;
@@ -82,6 +102,7 @@
     [imageViewBackground release];
     [labelChooseWing release];
     [friends_ release];
+    [excludedUsers release];
     [super dealloc];
 }
 
@@ -129,7 +150,7 @@
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return [friends_ count];
+    return [[self friends] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -145,7 +166,7 @@
     }
     
     //set user
-    [tableViewCell setShortUser:[friends_ objectAtIndex:indexPath.row]];
+    [tableViewCell setShortUser:[[self friends] objectAtIndex:indexPath.row]];
     
     return tableViewCell;
 }
