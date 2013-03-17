@@ -414,6 +414,7 @@
 		70F0DA1716F5228100FE01F4 /* resizable-dialog-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1516F5228100FE01F4 /* resizable-dialog-bg.png */; };
 		70F0DA1816F5228100FE01F4 /* resizable-dialog-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1616F5228100FE01F4 /* resizable-dialog-bg@2x.png */; };
 		70F0DA1A16F5232000FE01F4 /* DDCustomizableAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1916F5232000FE01F4 /* DDCustomizableAlertView.xib */; };
+		70F0DA1F16F6532C00FE01F4 /* DDDialogAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */; };
 		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
 		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
@@ -1080,6 +1081,8 @@
 		70F0DA1516F5228100FE01F4 /* resizable-dialog-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resizable-dialog-bg.png"; sourceTree = "<group>"; };
 		70F0DA1616F5228100FE01F4 /* resizable-dialog-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resizable-dialog-bg@2x.png"; sourceTree = "<group>"; };
 		70F0DA1916F5232000FE01F4 /* DDCustomizableAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDCustomizableAlertView.xib; sourceTree = "<group>"; };
+		70F0DA1D16F6532C00FE01F4 /* DDDialogAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDialogAlertView.h; sourceTree = "<group>"; };
+		70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDialogAlertView.m; sourceTree = "<group>"; };
 		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
 		70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSendEngagementViewController.m; sourceTree = "<group>"; };
 		70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDSendEngagementViewController.xib; sourceTree = "<group>"; };
@@ -2127,6 +2130,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70F0DA1D16F6532C00FE01F4 /* DDDialogAlertView.h */,
+				70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */,
 				70F0DA1116F5221F00FE01F4 /* DDCustomizableAlertView.h */,
 				70F0DA1216F5221F00FE01F4 /* DDCustomizableAlertView.m */,
 				70F0DA0516F5058800FE01F4 /* DDAlertView.h */,
@@ -3152,6 +3157,7 @@
 				7037656B16F4856B00870D1C /* DDLabelTableViewCell.m in Sources */,
 				70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */,
 				70F0DA1316F5221F00FE01F4 /* DDCustomizableAlertView.m in Sources */,
+				70F0DA1F16F6532C00FE01F4 /* DDDialogAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

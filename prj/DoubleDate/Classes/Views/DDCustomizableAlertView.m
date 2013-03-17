@@ -110,6 +110,11 @@
     core_.imageViewCoins.frame = CGRectMake(core_.frame.size.width/2 - bothSize/2, core_.imageViewCoins.frame.origin.y, core_.imageViewCoins.frame.size.width, core_.imageViewCoins.frame.size.height);
     core_.labelCoins.frame = CGRectMake(core_.imageViewCoins.frame.origin.x + core_.imageViewCoins.frame.size.width + coinsGap, core_.labelCoins.frame.origin.y, core_.labelCoins.frame.size.width, core_.labelCoins.frame.size.height);
     
+    //add custom view
+    UIView *customView = [self.delegate viewForCustomAreaOfAlert:self];
+    if (customView)
+        [core_.viewCustomArea addSubview:customView];
+    
     //add buttons
     for (int i = 0; i < [self.delegate numberOfButtonsOfAlert:self]; i++)
     {

@@ -13,6 +13,8 @@
 @protocol DDCustomizableAlertViewDelegate <NSObject>
 
 - (NSInteger)heightForCustomAreaOfAlert:(DDCustomizableAlertView*)alert;
+- (UIView*)viewForCustomAreaOfAlert:(DDCustomizableAlertView*)alert;
+
 - (NSInteger)heightForButtonsAreaOfAlert:(DDCustomizableAlertView*)alert;
 - (NSInteger)numberOfButtonsOfAlert:(DDCustomizableAlertView*)alert;
 - (UIButton*)buttonWithIndex:(NSInteger)index ofAlert:(DDCustomizableAlertView*)alert;
