@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DDAlertView.h"
 
 @class DDUnlockAlertView;
 
@@ -19,7 +19,7 @@
 
 @end
 
-@interface DDUnlockAlertView : UIView
+@interface DDUnlockAlertView : DDAlertView
 {
 }
 
@@ -31,9 +31,6 @@
 @property(nonatomic, assign) NSInteger price;
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *message;
-
-- (void)show;
-- (void)dismiss;
 
 @end
 

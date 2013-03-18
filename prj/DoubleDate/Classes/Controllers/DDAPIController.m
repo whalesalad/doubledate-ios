@@ -743,6 +743,25 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)requestDeleteEngagement:(DDEngagement*)engagement
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"engagements/%d", [engagement.identifier intValue]]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodDELETE;
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]] forKey:@"Authorization"];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeRequestDeleteEngagement;
+    userData.succeedSel = @selector(requestDeleteEngagementSucceed);
+    userData.failedSel = @selector(requestDeleteEngagementDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)getMessagesForEngagement:(DDEngagement*)engagement
 {
     //create request
@@ -1098,7 +1117,8 @@
         else if (userData.method == DDAPIControllerMethodTypeRequestDenyFriendshipForFriend ||
                  userData.method == DDAPIControllerMethodTypeRequestDeleteFriend ||
                  userData.method == DDAPIControllerMethodTypeRequestInvitations ||
-                 userData.method == DDAPIControllerMethodTypeRequestDeleteDoubleDate)
+                 userData.method == DDAPIControllerMethodTypeRequestDeleteDoubleDate ||
+                 userData.method == DDAPIControllerMethodTypeRequestDeleteEngagement)
         {
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

@@ -409,6 +409,12 @@
 		70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A28416E38437008979FD /* DDPurchaseViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
 		70ECEE3216E7EC8900E5EB89 /* UIView+Other.m in Sources */ = {isa = PBXBuildFile; fileRef = 70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */; };
+		70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA0616F5058800FE01F4 /* DDAlertView.m */; };
+		70F0DA1316F5221F00FE01F4 /* DDCustomizableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA1216F5221F00FE01F4 /* DDCustomizableAlertView.m */; };
+		70F0DA1716F5228100FE01F4 /* resizable-dialog-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1516F5228100FE01F4 /* resizable-dialog-bg.png */; };
+		70F0DA1816F5228100FE01F4 /* resizable-dialog-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1616F5228100FE01F4 /* resizable-dialog-bg@2x.png */; };
+		70F0DA1A16F5232000FE01F4 /* DDCustomizableAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1916F5232000FE01F4 /* DDCustomizableAlertView.xib */; };
+		70F0DA1F16F6532C00FE01F4 /* DDDialogAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */; };
 		70FFEE52166EAF8300F1804E /* DDSendEngagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */; };
 		70FFEE55166EAFAF00F1804E /* DDSendEngagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */; };
 		960A02CD15F7371C00BA9EB0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960A02CC15F7371C00BA9EB0 /* UIKit.framework */; };
@@ -1068,6 +1074,15 @@
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
 		70ECEE3016E7EC8900E5EB89 /* UIView+Other.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Other.h"; sourceTree = "<group>"; };
 		70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Other.m"; sourceTree = "<group>"; };
+		70F0DA0516F5058800FE01F4 /* DDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAlertView.h; sourceTree = "<group>"; };
+		70F0DA0616F5058800FE01F4 /* DDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAlertView.m; sourceTree = "<group>"; };
+		70F0DA1116F5221F00FE01F4 /* DDCustomizableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCustomizableAlertView.h; sourceTree = "<group>"; };
+		70F0DA1216F5221F00FE01F4 /* DDCustomizableAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCustomizableAlertView.m; sourceTree = "<group>"; };
+		70F0DA1516F5228100FE01F4 /* resizable-dialog-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resizable-dialog-bg.png"; sourceTree = "<group>"; };
+		70F0DA1616F5228100FE01F4 /* resizable-dialog-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "resizable-dialog-bg@2x.png"; sourceTree = "<group>"; };
+		70F0DA1916F5232000FE01F4 /* DDCustomizableAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDCustomizableAlertView.xib; sourceTree = "<group>"; };
+		70F0DA1D16F6532C00FE01F4 /* DDDialogAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDialogAlertView.h; sourceTree = "<group>"; };
+		70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDialogAlertView.m; sourceTree = "<group>"; };
 		70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSendEngagementViewController.h; sourceTree = "<group>"; };
 		70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSendEngagementViewController.m; sourceTree = "<group>"; };
 		70FFEE54166EAFAF00F1804E /* DDSendEngagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDSendEngagementViewController.xib; sourceTree = "<group>"; };
@@ -1342,6 +1357,7 @@
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				70F0DA1416F5228100FE01F4 /* resizable-dialog */,
 				708A059716EFC91000852CE1 /* wing-selection */,
 				7099628416E7E3BB000E3F72 /* no-explore-dates */,
 				70E1A26D16E3823A008979FD /* purchase-coins-assets */,
@@ -1891,6 +1907,15 @@
 			path = "purchase-coins-assets";
 			sourceTree = "<group>";
 		};
+		70F0DA1416F5228100FE01F4 /* resizable-dialog */ = {
+			isa = PBXGroup;
+			children = (
+				70F0DA1516F5228100FE01F4 /* resizable-dialog-bg.png */,
+				70F0DA1616F5228100FE01F4 /* resizable-dialog-bg@2x.png */,
+			);
+			path = "resizable-dialog";
+			sourceTree = "<group>";
+		};
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
@@ -2105,6 +2130,12 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				70F0DA1D16F6532C00FE01F4 /* DDDialogAlertView.h */,
+				70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */,
+				70F0DA1116F5221F00FE01F4 /* DDCustomizableAlertView.h */,
+				70F0DA1216F5221F00FE01F4 /* DDCustomizableAlertView.m */,
+				70F0DA0516F5058800FE01F4 /* DDAlertView.h */,
+				70F0DA0616F5058800FE01F4 /* DDAlertView.m */,
 				7037656916F4856A00870D1C /* DDLabelTableViewCell.h */,
 				7037656A16F4856B00870D1C /* DDLabelTableViewCell.m */,
 				7037655D16F47F3C00870D1C /* DDLabel.h */,
@@ -2306,6 +2337,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				70F0DA1916F5232000FE01F4 /* DDCustomizableAlertView.xib */,
 				70C519BF16EE7D1500FE2026 /* DDChooseWingTableViewCell.xib */,
 				70C519B716EE615200FE2026 /* DDChooseWingView.xib */,
 				7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */,
@@ -2984,6 +3016,9 @@
 				708A05B616EFD43F00852CE1 /* dd-tableview-cell-single-highlighted@2x.png in Resources */,
 				708A05B716EFD43F00852CE1 /* dd-tableview-cell-top-highlighted.png in Resources */,
 				708A05B816EFD43F00852CE1 /* dd-tableview-cell-top-highlighted@2x.png in Resources */,
+				70F0DA1716F5228100FE01F4 /* resizable-dialog-bg.png in Resources */,
+				70F0DA1816F5228100FE01F4 /* resizable-dialog-bg@2x.png in Resources */,
+				70F0DA1A16F5232000FE01F4 /* DDCustomizableAlertView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3120,6 +3155,9 @@
 				967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */,
 				7037655F16F47F3C00870D1C /* DDLabel.m in Sources */,
 				7037656B16F4856B00870D1C /* DDLabelTableViewCell.m in Sources */,
+				70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */,
+				70F0DA1316F5221F00FE01F4 /* DDCustomizableAlertView.m in Sources */,
+				70F0DA1F16F6532C00FE01F4 /* DDDialogAlertView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
