@@ -8,6 +8,8 @@
 
 #import "DDAPIObject.h"
 
+@class DDDialog;
+
 @interface DDNotification : DDAPIObject
 {
 }
@@ -21,5 +23,6 @@
 @property(nonatomic, retain) NSArray *photos;
 @property(nonatomic, retain) NSString *createdAt;
 @property(nonatomic, retain) NSString *createdAtAgo;
+@property(nonatomic, retain) DDDialog *dialog;
 
 @end
