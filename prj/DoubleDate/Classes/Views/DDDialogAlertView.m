@@ -117,10 +117,13 @@
     //save dismiss flag
     BOOL dismissButton = ![self containsAllButtons] || (index == 1);
     
+#warning customize button of the dialogs
+    
     //add button
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(20, 8 + 50 * index, [self coreSize].width-40, 38);
     [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:dismissButton?@"unlock-btn-cancel.png":@"unlock-btn-confirm.png"]] forState:UIControlStateNormal];
+    [button setTitle:dismissButton?dialog_.dismissText:dialog_.confirmText forState:UIControlStateNormal];
     [button addTarget:self action:dismissButton?@selector(cancelTouched:):@selector(confirmTouched:) forControlEvents:UIControlEventTouchUpInside];
     
     return button;
