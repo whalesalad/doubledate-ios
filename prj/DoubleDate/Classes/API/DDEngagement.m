@@ -30,6 +30,7 @@ NSString *DDEngagementStatusExpired = @"expired";
 @synthesize createdAtAgo;
 @synthesize updatedAt;
 @synthesize updatedAtAgo;
+@synthesize timeRemaining;
 @synthesize user;
 @synthesize wing;
 
@@ -52,6 +53,7 @@ NSString *DDEngagementStatusExpired = @"expired";
         self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
         self.updatedAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at"]];
         self.updatedAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"updated_at_ago"]];
+        self.timeRemaining = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_remaining"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
     }
@@ -83,6 +85,8 @@ NSString *DDEngagementStatusExpired = @"expired";
         [dictionary setObject:self.createdAt forKey:@"created_at"];
     if (self.createdAtAgo)
         [dictionary setObject:self.createdAtAgo forKey:@"created_at_ago"];
+    if (self.timeRemaining)
+        [dictionary setObject:self.timeRemaining forKey:@"time_remaining"];
     return dictionary;
 }
 
@@ -123,6 +127,7 @@ NSString *DDEngagementStatusExpired = @"expired";
     [unreadCount release];
     [createdAt release];
     [createdAtAgo release];
+    [timeRemaining release];
     [user release];
     [wing release];
     [super dealloc];

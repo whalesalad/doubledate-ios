@@ -69,6 +69,7 @@
 @synthesize imageViewTextFieldBackground;
 
 @synthesize labelTextFieldPlaceholder;
+@synthesize viewWarning;
 @synthesize labelWarning;
 
 @synthesize viewLocked;
@@ -214,8 +215,8 @@
     }
     
     //set warning
-    self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"You have %d days to chat!", nil), 10];
-    
+    self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%@ to chat!", @"Chat page: warning - remaining time to chat"), self.engagement.timeRemaining];
+
     //customize text view
     self.textViewInput.delegate = self;
     self.textViewInput.maxNumberOfLines = [DDTools isiPhone5Device]?16:10;
@@ -250,7 +251,7 @@
         {
             //make bottom bar opaque
             self.bottomBarView.alpha = 0.2f;
-            self.labelWarning.hidden = YES;
+            self.viewWarning.hidden = YES;
             
             //put unlocked overlay
             self.viewLocked.hidden = NO;
@@ -259,6 +260,10 @@
     
     //update locked view
     [self updateLockedView];
+    
+    //add touch recognizer
+    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
+    [self.view addGestureRecognizer:tapRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -354,6 +359,7 @@
     [imageViewChatBarBackground release];
     [imageViewTextFieldBackground release];
     [labelTextFieldPlaceholder release];
+    [viewWarning release];
     [labelWarning release];
     [viewLocked release];
     [labelMessageReceived release];
@@ -403,6 +409,11 @@
     alertView.price = kUnlockCost;
     alertView.message = NSLocalizedString(@"Would you like to unlock\nthis chat and reply?", nil);
     [alertView show];
+}
+
+- (IBAction)closeWarningTouched:(id)sender
+{
+    self.viewWarning.hidden = YES;
 }
 
 - (IBAction)user1Touched:(id)sender
@@ -515,6 +526,18 @@
     
     //update locked view
     self.viewBottomLocked.hidden = !(locked || expired);
+}
+
+- (void)tap:(UITapGestureRecognizer*)sender
+{
+    BOOL warningTouched = NO;
+    if (CGRectContainsPoint(self.viewWarning.bounds, [sender locationInView:self.viewWarning]))
+    {
+        if (!self.viewWarning.hidden)
+            warningTouched = YES;
+    }
+    if (warningTouched)
+        [self closeWarningTouched:self];
 }
 
 #pragma mark -

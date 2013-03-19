@@ -33,6 +33,7 @@ extern NSString *DDEngagementStatusExpired;
 @property(nonatomic, retain) NSString *createdAtAgo;
 @property(nonatomic, retain) NSString *updatedAt;
 @property(nonatomic, retain) NSString *updatedAtAgo;
+@property(nonatomic, retain) NSString *timeRemaining;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
 

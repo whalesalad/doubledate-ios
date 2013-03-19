@@ -32,7 +32,10 @@
 }
 
 - (void)customize
-{    
+{
+    //disable selection
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     //unset text view background
     self.labelName.backgroundColor = [UIColor clearColor];
     self.labelTime.backgroundColor = [UIColor clearColor];
@@ -92,6 +95,9 @@
         
         //set message
         self.textView.text = v.message;
+        
+        //disable user interaction for text view
+        self.textView.userInteractionEnabled = NO;
         
         //set time
         self.labelTime.text = [NSString stringWithFormat:@"%@ ago", v.createdAtAgo];
