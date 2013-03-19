@@ -78,6 +78,7 @@
 @synthesize viewBottomLocked;
 @synthesize buttonIgnore;
 @synthesize buttonStartChat;
+@synthesize labelLocked;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -103,8 +104,6 @@
     labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
     [buttonSend setTitle:NSLocalizedString(@"SEND", nil) forState:UIControlStateNormal];
     labelMessageReceived.text = NSLocalizedString(@"Message received. We'll let you know when they reply.", nil);
-    [buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
-    [buttonStartChat setTitle:NSLocalizedString(@"Start Chat", nil) forState:UIControlStateNormal];
     
     //check if authenticated user is in activity
     BOOL authenticatedUserIsInActivity = [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityUser] identifier] intValue] || [[[DDAuthenticationController currentUser] userId] intValue] == [[[self.engagement activityWing] identifier] intValue];
@@ -176,6 +175,10 @@
     //customize buttons
     [self.buttonIgnore setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonIgnore backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    
+    //customize
+#warning customize locked label
+    [self.labelLocked setTextColor:[UIColor redColor]];
     
     //add users
     [shortUsers_ removeAllObjects];
@@ -357,6 +360,7 @@
     [viewBottomLocked release];
     [buttonIgnore release];
     [buttonStartChat release];
+    [labelLocked release];
     [super dealloc];
 }
 
@@ -478,11 +482,39 @@
 
 - (void)updateLockedView
 {
+    //save locked/expired flags
     BOOL locked = NO;
+    BOOL expired = NO;
     if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
         [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
+    {
+        //save flags
         locked = [engagement.status isEqualToString:DDEngagementStatusLocked];
-    self.viewBottomLocked.hidden = !locked;
+        expired = [engagement.status isEqualToString:DDEngagementStatusExpired];
+        
+        //switch between different titles
+        if (locked)
+        {
+            [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
+            [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
+            [self.labelLocked setText:NSLocalizedString(@"This chat is locked.", @"Chat page locked label while engagement is locked")];
+        }
+        else if (expired)
+        {
+            [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is expired") forState:UIControlStateNormal];
+            [self.buttonStartChat setTitle:NSLocalizedString(@"Resume", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
+            [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
+        }
+        else
+        {
+            [self.buttonIgnore setTitle:nil forState:UIControlStateNormal];
+            [self.buttonStartChat setTitle:nil forState:UIControlStateNormal];
+            [self.labelLocked setText:nil];
+        }
+    }
+    
+    //update locked view
+    self.viewBottomLocked.hidden = !(locked || expired);
 }
 
 #pragma mark -

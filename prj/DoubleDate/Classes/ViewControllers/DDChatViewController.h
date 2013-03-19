@@ -60,6 +60,7 @@
 @property(nonatomic, retain) IBOutlet UIView *viewBottomLocked;
 @property(nonatomic, retain) IBOutlet UIButton *buttonIgnore;
 @property(nonatomic, retain) IBOutlet UIButton *buttonStartChat;
+@property(nonatomic, retain) IBOutlet UILabel *labelLocked;
 
 - (IBAction)sendTouched:(id)sender;
 - (IBAction)ignoreTouched:(id)sender;
