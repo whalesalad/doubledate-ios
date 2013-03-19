@@ -176,11 +176,7 @@
     //customize buttons
     [self.buttonIgnore setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonIgnore backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    
-    //customize
-#warning customize locked label
-    [self.labelLocked setTextColor:[UIColor redColor]];
-    
+        
     //add users
     [shortUsers_ removeAllObjects];
     [shortUsers_ addObject:self.doubleDate.user];
@@ -508,7 +504,7 @@
         {
             [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
             [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
-            [self.labelLocked setText:NSLocalizedString(@"This chat is locked.", @"Chat page locked label while engagement is locked")];
+            [self.labelLocked setText:NSLocalizedString(@"Unlock this chat to reply", @"Chat page locked label while engagement is locked")];
         }
         else if (expired)
         {
@@ -525,6 +521,22 @@
     }
     
     //update locked view
+    CAGradientLayer *bottomLockedGradient = [CAGradientLayer layer];
+    bottomLockedGradient.frame = self.viewBottomLocked.bounds;
+    bottomLockedGradient.colors = [NSArray arrayWithObjects: (id)[[UIColor colorWithRed:77/255.0f green:77/255.0f blue:77/255.0f alpha:1.0f] CGColor],
+                                                             (id)[[UIColor colorWithRed:44/255.0f green:44/255.0f blue:44/255.0f alpha:1.0f] CGColor], nil];
+
+    [self.viewBottomLocked.layer insertSublayer:bottomLockedGradient atIndex:0];
+    
+    CALayer *bottomLockedUpperLine = [CALayer layer];
+    CGRect bottomLockedUpperLineFrame = self.viewBottomLocked.bounds;
+    bottomLockedUpperLineFrame.size.height = 1.0f;
+    bottomLockedUpperLine.frame = bottomLockedUpperLineFrame;
+    bottomLockedUpperLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.15f].CGColor;
+    
+    // Add the border to the scrollview
+    [self.viewBottomLocked.layer insertSublayer:bottomLockedUpperLine atIndex:1];
+    
     self.viewBottomLocked.hidden = !(locked || expired);
 }
 
