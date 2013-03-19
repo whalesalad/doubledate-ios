@@ -44,7 +44,8 @@
             self.photos = [NSArray arrayWithArray:photosObjArray];
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
         self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
-        self.dialog = [DDDialog objectWithDictionary:[dictionary objectForKey:@"dialog"]];
+        if ([dictionary objectForKey:@"dialog"])
+            self.dialog = [DDDialog objectWithDictionary:[dictionary objectForKey:@"dialog"]];
     }
     return self;
 }

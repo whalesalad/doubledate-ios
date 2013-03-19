@@ -20,8 +20,11 @@
 #import "DDChatViewController.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDAPIObject.h"
+#import "DDDialogAlertView.h"
+#import "DDDialog.h"
+#import "DDImage.h"
 
-@interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate, DDDialogAlertViewDelegate>
 
 @property(nonatomic, retain) DDEngagement *selectedEngagement;
 @property(nonatomic, retain) DDNotification *selectedNotification;
@@ -171,8 +174,16 @@
     //save selected notification
     self.selectedNotification = [[self notifications] objectAtIndex:indexPath.row];
     
-    //check api path
-    if ([self.selectedNotification callbackUrl])
+    //check for dialog
+    if ([self.selectedNotification dialog])
+    {
+        DDDialogAlertView *alertView = [[[DDDialogAlertView alloc] initWithDialog:[self.selectedNotification dialog]] autorelease];
+        alertView.dialogDelegate = self;
+        if ([[self.selectedNotification photos] count] == 1)
+            alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[[self.selectedNotification photos] objectAtIndex:0] mediumUrl]];
+        [alertView show];
+    }
+    else if ([self.selectedNotification callbackUrl])
     {
         DDAPNSPayload *payload = [[[DDAPNSPayload alloc] init] autorelease];
         payload.callbackUrl = [self.selectedNotification callbackUrl];
@@ -278,6 +289,18 @@
     
     //apply
     [self markNotificationAsSelected:notificationToApply];
+}
+
+#pragma mark DDDialogAlertViewDelegate
+
+- (void)dialogAlertViewDidConfirm:(DDDialogAlertView*)alertView
+{
+    
+}
+
+- (void)dialogAlertViewDidCancel:(DDDialogAlertView*)alertView
+{
+    
 }
 
 @end

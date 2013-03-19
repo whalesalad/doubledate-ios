@@ -9,6 +9,7 @@
 #import "DDCustomizableAlertView.h"
 
 @class DDDialogAlertView;
+@class DDDialog;
 
 @protocol DDDialogAlertViewDelegate <NSObject>
 
@@ -19,8 +20,13 @@
 
 @interface DDDialogAlertView : DDCustomizableAlertView
 {
+    DDDialog *dialog_;
 }
 
 @property(nonatomic, assign) id<DDDialogAlertViewDelegate> dialogDelegate;
+
+@property(nonatomic, retain) NSURL *imageUrl;
+
+- (id)initWithDialog:(DDDialog*)dialog;
 
 @end
