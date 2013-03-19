@@ -36,6 +36,8 @@
 - (void)presentPopoverWithUser:(DDShortUser*)user;
 
 - (void)updateLockedView;
+- (void)updateWarningView;
+- (void)animateWarningView;
 
 @end
 
@@ -71,6 +73,7 @@
 @synthesize labelTextFieldPlaceholder;
 @synthesize viewWarning;
 @synthesize labelWarning;
+@synthesize viewWarningAnimation;
 
 @synthesize viewLocked;
 
@@ -211,7 +214,7 @@
     }
     
     //set warning
-    self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%@ to chat!", @"Chat page: warning - remaining time to chat"), self.engagement.timeRemaining];
+    self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d days to chat!", @"Chat page: warning - remaining time to chat"), [self.engagement.daysRemaining intValue]];
 
     //customize text view
     self.textViewInput.delegate = self;
@@ -257,9 +260,24 @@
     //update locked view
     [self updateLockedView];
     
+    //update warning view
+    [self updateWarningView];
+    
     //add touch recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     [self.view addGestureRecognizer:tapRecognizer];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //animate warning view
+    if (!warningAnimated_)
+    {
+        [self animateWarningView];
+        warningAnimated_ = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -357,6 +375,7 @@
     [labelTextFieldPlaceholder release];
     [viewWarning release];
     [labelWarning release];
+    [viewWarningAnimation release];
     [viewLocked release];
     [labelMessageReceived release];
     [viewBottomLocked release];
@@ -409,7 +428,7 @@
 
 - (IBAction)closeWarningTouched:(id)sender
 {
-    self.viewWarning.hidden = YES;
+    [self hideWarningView];
 }
 
 - (IBAction)user1Touched:(id)sender
@@ -485,6 +504,153 @@
     
     //present user bubble
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentUserBubbleForUser:userToSelect fromUsers:usersInBubble];
+}
+
+- (NSString*)engagementsKey
+{
+    return @"engagements";
+}
+
+- (NSDictionary*)saveEngagementsDictionary
+{
+    return [[NSUserDefaults standardUserDefaults] dictionaryForKey:[self engagementsKey]];
+}
+
+- (NSString*)engagementKey
+{
+    return [NSString stringWithFormat:@"%d_%d", [self.engagement.identifier intValue], [self.engagement.daysRemaining intValue]];
+}
+
+- (NSDictionary*)engagementDictionary
+{
+    return [[self saveEngagementsDictionary] objectForKey:[self engagementKey]];
+}
+
+- (NSString*)shownKey
+{
+    return @"shown";
+}
+
+- (NSString*)hiddenKey
+{
+    return @"hidden";
+}
+
+- (BOOL)isWarningShown
+{
+    return [[[self engagementDictionary] objectForKey:[self shownKey]] boolValue];
+}
+
+- (BOOL)isWarningHidden
+{
+    return [[[self engagementDictionary] objectForKey:[self hiddenKey]] boolValue];
+}
+
+- (void)saveThatWarningAlreadyShown
+{
+    //set current dictionary
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self engagementDictionary]];
+    [dic setObject:[NSNumber numberWithBool:YES] forKey:[self shownKey]];
+    
+    //set engagements dictionary
+    NSMutableDictionary *dics = [NSMutableDictionary dictionary];
+    [dics setObject:dic forKey:[self engagementKey]];
+    
+    //save engagements
+    [[NSUserDefaults standardUserDefaults] setObject:dics forKey:[self engagementsKey]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)saveThatWarningAlreadyHidden
+{
+    //set current dictionary
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self engagementDictionary]];
+    [dic setObject:[NSNumber numberWithBool:YES] forKey:[self hiddenKey]];
+    
+    //set engagements dictionary
+    NSMutableDictionary *dics = [NSMutableDictionary dictionary];
+    [dics setObject:dic forKey:[self engagementKey]];
+    
+    //save engagements
+    [[NSUserDefaults standardUserDefaults] setObject:dics forKey:[self engagementsKey]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)updateWarningView
+{
+    //check if warning view is exist
+    if (self.viewWarning.hidden)
+        return;
+    
+    //hide initially
+    self.viewWarning.alpha = 0;
+    
+    //check the number of days to left
+    if ([self.engagement.daysRemaining intValue] == 5 ||
+        [self.engagement.daysRemaining intValue] == 3 ||
+        [self.engagement.daysRemaining intValue] == 1)
+        self.viewWarning.hidden = NO;
+    else
+        self.viewWarning.hidden = YES;
+    
+    //don't show once hidden warning
+    BOOL alreadyHidden = [self isWarningHidden];
+    if (alreadyHidden)
+        self.viewWarning.hidden = YES;
+    
+    //don't show once shown warning
+//    BOOL alreadyShown = [self isWarningShown];
+//    if (alreadyShown)
+//        self.viewWarning.hidden = YES;
+}
+
+- (void)animateWarningView
+{
+    //check if warning is not hidden
+    if (!self.viewWarning.hidden)
+    {
+        //save that shown
+        [self saveThatWarningAlreadyShown];
+        
+        //don't show out of the bouns
+        self.viewWarning.clipsToBounds = YES;
+        
+        //save the frame
+        CGRect warningFrame = self.viewWarningAnimation.frame;
+        
+        //change the height to 0
+        self.viewWarningAnimation.frame = CGRectMake(0, warningFrame.size.height, warningFrame.size.width, warningFrame.size.height);
+        
+        //animate
+        [UIView animateWithDuration:0.2f animations:^{
+            self.viewWarningAnimation.frame = warningFrame;
+            self.viewWarning.alpha = 1;
+        }];
+    }
+}
+
+- (void)hideWarningView
+{
+    //check if warning is not hidden
+    if (!self.viewWarning.hidden)
+    {
+        //save that shown
+        [self saveThatWarningAlreadyHidden];
+        
+        //disable user interaction
+        self.viewWarning.userInteractionEnabled = NO;
+        
+        //save the frame
+        CGRect warningFrame = self.viewWarningAnimation.frame;
+        
+        //animate
+        [UIView animateWithDuration:0.2f animations:^{
+            self.viewWarningAnimation.frame = CGRectMake(0, warningFrame.size.height, warningFrame.size.width, warningFrame.size.height);
+            self.viewWarning.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.viewWarning.hidden = YES;
+        }];
+    }
 }
 
 - (void)updateLockedView
