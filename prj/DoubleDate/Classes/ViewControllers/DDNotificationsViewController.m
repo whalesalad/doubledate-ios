@@ -178,11 +178,18 @@
     //check for dialog
     if ([self.selectedNotification dialog])
     {
+        //present dialog
         DDDialogAlertView *alertView = [[[DDDialogAlertView alloc] initWithDialog:[self.selectedNotification dialog]] autorelease];
         alertView.dialogDelegate = self;
         if ([[self.selectedNotification photos] count] == 1)
             alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[[self.selectedNotification photos] objectAtIndex:0] mediumUrl]];
         [alertView show];
+        
+        //mark notification as read
+        [self markNotificationAsSelected:self.selectedNotification];
+        
+        //reload the table
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
     else if ([self.selectedNotification callbackUrl])
     {
@@ -303,21 +310,6 @@
         NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:self.selectedNotification.dialog.confirmUrl];
         RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
         request.method = RKRequestMethodPOST;
-        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
-        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
-        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-        
-        //send request
-        [[DDRequestsController sharedDummyController] startRequest:request];
-    }
-    
-    //send delete for selected notification
-    if (self.selectedNotification)
-    {
-        //create request
-        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"/me/notifications/%d", self.selectedNotification.identifier.intValue]];
-        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
-        request.method = RKRequestMethodDELETE;
         NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
         NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
         request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
