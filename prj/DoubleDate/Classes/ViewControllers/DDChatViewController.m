@@ -397,7 +397,7 @@
     alertView.delegate = self;
     alertView.title = NSLocalizedString(@"UNLOCK CHAT THREAD", nil);
     alertView.price = kUnlockCost;
-    alertView.message = NSLocalizedString(@"Would you like to start this chat and reply? ", nil);
+    alertView.message = NSLocalizedString(@"Would you like to unlock\nthis chat and reply?", nil);
     [alertView show];
 }
 

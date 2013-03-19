@@ -71,7 +71,7 @@
     CGFloat buttonsAreaSizeBefore = core_.viewButtonsArea.frame.size.height;
     
     //set title
-    core_.labelTitle.text = self.title;
+    core_.labelTitle.text = [self.title uppercaseString];
     
     //set coins
     core_.labelCoins.text = [NSString stringWithFormat:@"%d", self.coins];
