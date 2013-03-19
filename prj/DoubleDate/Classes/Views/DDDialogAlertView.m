@@ -122,12 +122,12 @@
     button.frame = CGRectMake(20, 8 + 50 * index, [self coreSize].width-40, 38);
     
     button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
-
-#warning none of these text color changes seem to work
-//    button.titleLabel.textColor = [UIColor colorWithRed:43.0f/255.0f green:42.0f/255.0f blue:43.0f/255.0f alpha:1.0f];
-    button.titleLabel.textColor = [UIColor redColor];
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 2, 0);
     
-//    [button setFontOfName:@"HelveticaNeue-Bold" fontSize:17 textColor:[UIColor colorWithRed:43.0f/255.0f green:42.0f/255.0f blue:43.0f/255.0f alpha:1.0f] shadowOffset:CGSizeMake(0, 1) shadowColor:[UIColor blackColor]];
+    [button setTitleColor:[UIColor colorWithWhite:0.17f alpha:1.0f] forState:UIControlStateNormal];
+    [button setTitleShadowColor:[UIColor colorWithWhite:1 alpha:0.3f] forState:UIControlStateNormal];
+    [[button titleLabel] setShadowOffset:CGSizeMake(0, 1)];
+    
     [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:dismissButton?@"unlock-btn-cancel.png":@"unlock-btn-confirm.png"]] forState:UIControlStateNormal];
     [button setTitle:dismissButton?dialog_.dismissText:dialog_.confirmText forState:UIControlStateNormal];
     [button addTarget:self action:dismissButton?@selector(cancelTouched:):@selector(confirmTouched:) forControlEvents:UIControlEventTouchUpInside];
