@@ -86,7 +86,7 @@
             if ([[excludedUser identifier] intValue] == [[user identifier] intValue])
                 existInExcludedUsers = YES;
         }
-        if (!existInExcludedUsers)
+        if (!existInExcludedUsers && [user.approved boolValue])
             [ret addObject:user];
     }
     return ret;
