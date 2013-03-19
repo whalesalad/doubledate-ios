@@ -10,6 +10,7 @@
 #import "DDTools.h"
 #import "DDDialog.h"
 #import "DDImageView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDDialogAlertView ()<DDCustomizableAlertViewDelegate>
 
@@ -97,6 +98,15 @@
         imageView.backgroundColor = [UIColor clearColor];
         imageView.frame = CGRectMake(10, 0, [self coreSize].width-20, 150);
         [imageView reloadFromUrl:self.imageUrl];
+        
+        imageView.layer.borderWidth = 1.0f;
+        imageView.layer.borderColor = [UIColor blackColor].CGColor;
+
+        imageView.layer.shadowColor = [UIColor whiteColor].CGColor;
+        imageView.layer.shadowOffset = CGSizeMake(0, 1);
+        imageView.layer.shadowOpacity = 0.1f;
+        imageView.layer.shadowRadius = 0;
+
         return imageView;
     }
     return nil;
