@@ -10,6 +10,7 @@
 
 extern NSString *DDEngagementStatusLocked;
 extern NSString *DDEngagementStatusUnlocked;
+extern NSString *DDEngagementStatusExpired;
 
 @class DDShortUser;
 

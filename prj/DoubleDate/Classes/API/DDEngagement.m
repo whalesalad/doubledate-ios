@@ -11,6 +11,7 @@
 
 NSString *DDEngagementStatusLocked = @"locked";
 NSString *DDEngagementStatusUnlocked = @"unlocked";
+NSString *DDEngagementStatusExpired = @"expired";
 
 @implementation DDEngagement
 
