@@ -669,8 +669,8 @@
         if (locked)
         {
             [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
-            [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
-            [self.labelLocked setText:NSLocalizedString(@"Unlock this chat to reply", @"Chat page locked label while engagement is locked")];
+            [self.buttonStartChat setTitle:NSLocalizedString(@"Unlock", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
+            [self.labelLocked setText:NSLocalizedString(@"Unlock to start chatting.", @"Chat page locked label while engagement is locked")];
         }
         else if (expired)
         {
