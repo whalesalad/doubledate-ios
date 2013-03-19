@@ -23,6 +23,7 @@
 #import "DDDialogAlertView.h"
 #import "DDDialog.h"
 #import "DDImage.h"
+#import "DDTools.h"
 
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate, DDDialogAlertViewDelegate>
 
@@ -295,7 +296,44 @@
 
 - (void)dialogAlertViewDidConfirm:(DDDialogAlertView*)alertView
 {
+    //send post on confirmation url
+    if (self.selectedNotification.dialog.confirmUrl)
+    {
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:self.selectedNotification.dialog.confirmUrl];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodPOST;
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
     
+    //send delete for selected notification
+    if (self.selectedNotification)
+    {
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"/me/notifications/%d", self.selectedNotification.identifier.intValue]];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodDELETE;
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
+    
+    //remove notification from the list
+    [notifications_ removeObject:self.selectedNotification];
+    
+    //reload the table
+    [self.tableView reloadData];
+    
+    //unset selected notification
+    self.selectedNotification = nil;
 }
 
 - (void)dialogAlertViewDidCancel:(DDDialogAlertView*)alertView
