@@ -8,6 +8,7 @@
 
 #import "DDNotification.h"
 #import "DDImage.h"
+#import "DDDialog.h"
 
 @implementation DDNotification
 
@@ -20,6 +21,7 @@
 @synthesize photos;
 @synthesize createdAt;
 @synthesize createdAtAgo;
+@synthesize dialog;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -42,6 +44,8 @@
             self.photos = [NSArray arrayWithArray:photosObjArray];
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
         self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
+        if ([dictionary objectForKey:@"dialog"])
+            self.dialog = [DDDialog objectWithDictionary:[dictionary objectForKey:@"dialog"]];
     }
     return self;
 }
@@ -72,6 +76,7 @@
 {
     DDNotification *ret = [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
     ret.photos = self.photos;
+    ret.dialog = self.dialog;
     return ret;
 }
 
@@ -96,6 +101,7 @@
     [photos release];
     [createdAt release];
     [createdAtAgo release];
+    [dialog release];
     [super dealloc];
 }
 

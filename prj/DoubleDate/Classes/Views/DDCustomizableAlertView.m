@@ -17,6 +17,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UILabel *labelCoins;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewCoins;
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewBackground;
 
 @end
 
@@ -38,6 +39,17 @@
 @synthesize labelTitle;
 @synthesize labelCoins;
 @synthesize imageViewCoins;
+@synthesize imageViewBackground;
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    //customize background
+    UIImage *image = self.imageViewBackground.image;
+    image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(125, image.size.width/2, 50, image.size.width/2)];
+    self.imageViewBackground.image = image;
+}
 
 - (void)show
 {
@@ -135,6 +147,7 @@
     [labelTitle release];
     [labelCoins release];
     [imageViewCoins release];
+    [imageViewBackground release];
     [super dealloc];
 }
 

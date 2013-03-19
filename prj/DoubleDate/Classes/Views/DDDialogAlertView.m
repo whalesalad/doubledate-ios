@@ -8,6 +8,8 @@
 
 #import "DDDialogAlertView.h"
 #import "DDTools.h"
+#import "DDDialog.h"
+#import "DDImageView.h"
 
 @interface DDDialogAlertView ()<DDCustomizableAlertViewDelegate>
 
@@ -18,6 +20,16 @@
 }
 
 @synthesize dialogDelegate;
+@synthesize imageUrl;
+
+- (id)initWithDialog:(DDDialog*)dialog
+{
+    if ((self = [super init]))
+    {
+        dialog_ = [dialog retain];
+    }
+    return self;
+}
 
 - (CGSize)coreSize
 {
@@ -34,12 +46,19 @@
     //set delegate to self
     self.delegate = self;
     
+    //customize self
+    self.message = dialog_.description;
+    self.title = dialog_.upperText;
+    self.coins = [dialog_.coins intValue];
+    
     //make super
     [super show];
 }
 
 - (void)dealloc
 {
+    [dialog_ release];
+    [imageUrl release];
     [super dealloc];
 }
 
@@ -55,51 +74,59 @@
     [self.dialogDelegate dialogAlertViewDidCancel:self];
 }
 
+- (BOOL)containsAllButtons
+{
+    return [dialog_.confirmText length] > 0;
+}
+
 #pragma mark DDCustomizableAlertViewDelegate
 
 - (NSInteger)heightForCustomAreaOfAlert:(DDCustomizableAlertView*)alert
 {
-    return 150;
+    if (self.imageUrl)
+        return 150;
+    return 0;
 }
 
 - (UIView*)viewForCustomAreaOfAlert:(DDCustomizableAlertView *)alert
 {
-    //add thumbnail view
-    UIImageView *imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"unlock-btn-confirm.png"]] autorelease];
-    imageView.backgroundColor = [UIColor blueColor];
-    imageView.frame = CGRectMake(10, 0, [self coreSize].width-20, 150);
-    return imageView;
+    if (self.imageUrl)
+    {
+        //add thumbnail view
+        DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
+        imageView.backgroundColor = [UIColor clearColor];
+        imageView.frame = CGRectMake(10, 0, [self coreSize].width-20, 150);
+        [imageView reloadFromUrl:self.imageUrl];
+        return imageView;
+    }
+    return nil;
 }
 
 - (NSInteger)heightForButtonsAreaOfAlert:(DDCustomizableAlertView*)alert
 {
-    return 100;
+    return [self containsAllButtons]?100:50;
 }
 
 - (NSInteger)numberOfButtonsOfAlert:(DDCustomizableAlertView*)alert
 {
-    return 2;
+    return [self containsAllButtons]?2:1;
 }
 
 - (UIButton*)buttonWithIndex:(NSInteger)index ofAlert:(DDCustomizableAlertView*)alert
 {
-    if (index == 0)
-    {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(20, 6, [self coreSize].width-40, 38);
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"unlock-btn-confirm.png"]] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(confirmTouched:) forControlEvents:UIControlEventTouchUpInside];
-        return button;
-    }
-    else if (index == 1)
-    {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(20, 100-6 - 38, [self coreSize].width-40, 38);
-        [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"unlock-btn-cancel.png"]] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(cancelTouched:) forControlEvents:UIControlEventTouchUpInside];
-        return button;
-    }
-    return nil;
+    //save dismiss flag
+    BOOL dismissButton = ![self containsAllButtons] || (index == 1);
+    
+#warning customize button of the dialogs
+    
+    //add button
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(20, 8 + 50 * index, [self coreSize].width-40, 38);
+    [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:dismissButton?@"unlock-btn-cancel.png":@"unlock-btn-confirm.png"]] forState:UIControlStateNormal];
+    [button setTitle:dismissButton?dialog_.dismissText:dialog_.confirmText forState:UIControlStateNormal];
+    [button addTarget:self action:dismissButton?@selector(cancelTouched:):@selector(confirmTouched:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
 }
 
 @end

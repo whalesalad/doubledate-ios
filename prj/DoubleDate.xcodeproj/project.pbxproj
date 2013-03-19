@@ -553,6 +553,7 @@
 		96E7F1E315F788A900200E1F /* DDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1E215F788A900200E1F /* DDViewController.m */; };
 		96E7F1E515F78D0200200E1F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7F1E415F78D0200200E1F /* libsqlite3.dylib */; };
 		96E7F20515F7A06000200E1F /* DDFacebookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F20415F7A06000200E1F /* DDFacebookController.m */; };
+		96E935ED16F894D500E5512B /* DDDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E935EC16F894D500E5512B /* DDDialog.m */; };
 		96EA06AE1689D36F009F09BC /* DDObjectsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06AD1689D36F009F09BC /* DDObjectsController.m */; };
 		96EA06C51689D9DB009F09BC /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06B11689D9DB009F09BC /* MKAnnotationView+WebCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		96EA06C61689D9DB009F09BC /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06B31689D9DB009F09BC /* SDImageCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1288,6 +1289,8 @@
 		96E7F1E415F78D0200200E1F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		96E7F20315F7A06000200E1F /* DDFacebookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookController.h; sourceTree = "<group>"; };
 		96E7F20415F7A06000200E1F /* DDFacebookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookController.m; sourceTree = "<group>"; };
+		96E935EB16F894D500E5512B /* DDDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDialog.h; sourceTree = "<group>"; };
+		96E935EC16F894D500E5512B /* DDDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDialog.m; sourceTree = "<group>"; };
 		96EA06AC1689D36F009F09BC /* DDObjectsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDObjectsController.h; sourceTree = "<group>"; };
 		96EA06AD1689D36F009F09BC /* DDObjectsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDObjectsController.m; sourceTree = "<group>"; };
 		96EA06B01689D9DB009F09BC /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -2078,6 +2081,8 @@
 		964A6EF615F89FDE0077AAF1 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				96E935EB16F894D500E5512B /* DDDialog.h */,
+				96E935EC16F894D500E5512B /* DDDialog.m */,
 				9615C8A816E4EE3A00F5D0AC /* DDInAppProduct.h */,
 				9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */,
 				964220CD16DB567900840733 /* DDMaxActivitiesPayload.h */,
@@ -3158,6 +3163,7 @@
 				70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */,
 				70F0DA1316F5221F00FE01F4 /* DDCustomizableAlertView.m in Sources */,
 				70F0DA1F16F6532C00FE01F4 /* DDDialogAlertView.m in Sources */,
+				96E935ED16F894D500E5512B /* DDDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
