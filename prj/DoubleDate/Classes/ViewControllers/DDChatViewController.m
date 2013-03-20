@@ -216,9 +216,9 @@
     
     //set warning
     if ([self.engagement.daysRemaining intValue] == 1)
-        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d day to chat!", @"Chat page: warning - remaining time to chat"), [self.engagement.daysRemaining intValue]];
+        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d day to chat remaining", @"Chat page: warning - remaining time to chat (singular)"), [self.engagement.daysRemaining intValue]];
     else
-        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d days to chat!", @"Chat page: warning - remaining time to chat"), [self.engagement.daysRemaining intValue]];
+        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d days to chat remaining", @"Chat page: warning - remaining time to chat (plural)"), [self.engagement.daysRemaining intValue]];
 
     //customize text view
     self.textViewInput.delegate = self;
@@ -716,6 +716,11 @@
     bottomLockedUpperLineFrame.size.height = 1.0f;
     bottomLockedUpperLine.frame = bottomLockedUpperLineFrame;
     bottomLockedUpperLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.15f].CGColor;
+    
+    viewBottomLocked.layer.shadowRadius = 2.0f;
+    viewBottomLocked.layer.shadowColor = [UIColor blackColor].CGColor;
+    viewBottomLocked.layer.shadowOpacity = 0.8f;
+    viewBottomLocked.layer.shadowOffset = CGSizeMake(0, -1);
     
     // Add the border to the scrollview
     [self.viewBottomLocked.layer insertSublayer:bottomLockedUpperLine atIndex:1];

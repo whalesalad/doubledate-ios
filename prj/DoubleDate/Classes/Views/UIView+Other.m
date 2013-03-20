@@ -79,6 +79,11 @@
     
     //add label
     [self addSubview:upperView];
+    
+    // Center the label if there is no image (simple style, like no notifications)
+    if (!image) {
+        upperView.center = self.center;
+    }
 
     UIView *lowerView = [[UIView alloc] initWithFrame:CGRectMake(20, self.frame.size.height - 160, 280, 120)];
     
