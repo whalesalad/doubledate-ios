@@ -30,6 +30,9 @@
 #define kTagUnlockAlert 213
 #define kUnlockCost 50
 
+#define kTagProposeActionSheet 532
+#define kTagConfirmActionSheet 533
+
 @interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, DDUnlockAlertViewDelegate, UIActionSheetDelegate>
 
 @property(nonatomic, retain) UIView *popover;
@@ -306,6 +309,7 @@
 - (void)editTouched:(id)sender
 {
     UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"End Chat", nil), nil] autorelease];
+    actionSheet.tag = kTagProposeActionSheet;
     [actionSheet showInView:self.view];
 }
 
@@ -424,11 +428,7 @@
 
 - (IBAction)ignoreTouched:(id)sender
 {
-    //show hud
-    [self showHudWithText:NSLocalizedString(@"Deleting...", @"Deleting engagement on chat page") animated:YES];
-    
-    //request delete engagement
-    [self.apiController requestDeleteEngagement:self.engagement];
+    [self stopChatWithMessage:NSLocalizedString(@"Are you sure you want to stop this chat?", @"Stopping chat from ignore button")];
 }
 
 - (IBAction)startChatTouched:(id)sender
@@ -441,6 +441,22 @@
     alertView.price = kUnlockCost;
     alertView.message = NSLocalizedString(@"Would you like to unlock\nthis chat and reply?", nil);
     [alertView show];
+}
+
+- (void)stopChatWithMessage:(NSString*)message
+{
+    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:message delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Yes", @"Confirm chat stop button in action sheet"), nil] autorelease];
+    actionSheet.tag = kTagConfirmActionSheet;
+    [actionSheet showInView:self.view];
+}
+
+- (void)stopChat
+{
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Deleting...", @"Deleting engagement on chat page") animated:YES];
+    
+    //request delete engagement
+    [self.apiController requestDeleteEngagement:self.engagement];
 }
 
 - (IBAction)closeWarningTouched:(id)sender
@@ -977,9 +993,17 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    //check end chat button
-    if (buttonIndex == 0)
-        [self ignoreTouched:self];
+    //check end chat butto
+    if (actionSheet.tag == kTagProposeActionSheet)
+    {
+        if (buttonIndex == 0)
+            [self stopChatWithMessage:NSLocalizedString(@"Are you sure you want to end this chat?", @"Stopping chat from gear button")];
+    }
+    else if (actionSheet.tag == kTagConfirmActionSheet)
+    {
+        if (buttonIndex == 0)
+            [self stopChat];
+    }
 }
 
 @end
