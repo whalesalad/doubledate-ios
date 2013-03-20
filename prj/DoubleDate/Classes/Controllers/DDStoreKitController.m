@@ -10,7 +10,7 @@
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
 #import "DDRequestsController.h"
-#import <SBJson/SBJson.h>
+#import <SBJson.h>
 #import <RestKit/NSData+Base64.h>
 #import <RestKit/RestKit.h>
 
