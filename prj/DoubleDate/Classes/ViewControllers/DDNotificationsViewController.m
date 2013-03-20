@@ -24,6 +24,7 @@
 #import "DDDialog.h"
 #import "DDImage.h"
 #import "DDTools.h"
+#import "UIView+Other.h"
 
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate, DDDialogAlertViewDelegate>
 
@@ -56,6 +57,11 @@
     return self;
 }
 
+- (void)customizeNoDataView
+{
+    [self.viewNoData applyNoDataWithImage:nil title:NSLocalizedString(@"No Notifications", nil) addButtonTitle:nil addButtonTarget:nil addButtonAction:nil addButtonEdgeInsets:UIEdgeInsetsZero detailed:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -68,6 +74,9 @@
     
     // Push the table view down slightly to make sides and top even.
     self.tableView.contentInset = UIEdgeInsetsMake(2,0,0,0);
+    
+    //customize no data view
+    [self customizeNoDataView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -323,6 +332,9 @@
     
     //reload the table
     [self.tableView reloadData];
+    
+    //update no data view
+    [self updateNoDataView];
     
     //unset selected notification
     self.selectedNotification = nil;

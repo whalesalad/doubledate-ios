@@ -83,26 +83,30 @@
     UIView *lowerView = [[UIView alloc] initWithFrame:CGRectMake(20, self.frame.size.height - 160, 280, 120)];
     
     // add create date button
-    UIImage *imageButton = [UIImage imageNamed:@"btn-blue-create.png"];
-    UIButton *button = [self baseButtonWithImage:imageButton];
-    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    [button setTitle:buttonTitle forState:UIControlStateNormal];
-    [lowerView addSubview:button];
-    
-    //add gradient background
-    UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
-    gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
-    gradientView.center = CGPointMake(button.center.x, button.center.y + 30);
-    [lowerView insertSubview:gradientView belowSubview:button];
+    if (buttonTitle && target && action)
+    {
+        UIImage *imageButton = [UIImage imageNamed:@"btn-blue-create.png"];
+        UIButton *button = [self baseButtonWithImage:imageButton];
+        [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+        [button setTitle:buttonTitle forState:UIControlStateNormal];
+        [lowerView addSubview:button];
         
-    //add label
-    UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
-    labelBottom.center = CGPointMake(button.center.x, button.center.y + 55);
-    labelBottom.numberOfLines = 2;
-    labelBottom.text = detailed;
-    [self customizeGenericLabel:labelBottom];
-    
-    [lowerView addSubview:labelBottom];
+        //add gradient background
+        UIImageView *gradientView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg-no-dates-centered.png"]] autorelease];
+        gradientView.frame = CGRectMake(0, 0, 320, gradientView.image.size.height);
+        gradientView.center = CGPointMake(button.center.x, button.center.y + 30);
+        [lowerView insertSubview:gradientView belowSubview:button];
+        
+        //add label
+        UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 60)] autorelease];
+        labelBottom.center = CGPointMake(button.center.x, button.center.y + 55);
+        labelBottom.numberOfLines = 2;
+        labelBottom.text = detailed;
+        [self customizeGenericLabel:labelBottom];
+        
+        [lowerView addSubview:labelBottom];
+
+    }
     
     [self addSubview:lowerView];
     
