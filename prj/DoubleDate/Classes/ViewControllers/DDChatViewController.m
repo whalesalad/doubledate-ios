@@ -280,6 +280,19 @@
     {
         self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
     }
+    
+    //hide ignore button for wing
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [self.doubleDate.wing.identifier intValue] ||
+        [[[DDAuthenticationController currentUser] userId] intValue] == [self.engagement.wing.identifier intValue])
+    {
+        //hide ignore button
+        self.buttonIgnore.hidden = YES;
+        
+        //stretch start chat button
+        self.buttonStartChat.frame = CGRectMake(self.buttonIgnore.frame.origin.x, self.buttonStartChat.frame.origin.y, self.buttonStartChat.frame.origin.x + self.buttonStartChat.frame.size.width - self.buttonIgnore.frame.origin.x, self.buttonStartChat.frame.size.height);
+        
+        
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
