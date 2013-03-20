@@ -359,6 +359,32 @@
     }
 }
 
+- (UIImageView*)updateCell:(DDTableViewCell*)cell withIcon:(UIImage*)icon loadedFromUrl:(NSURL*)url
+{
+    //unset default image
+    cell.imageView.image = [DDTools clearImageOfSize:CGSizeMake(8, 8)];
+    
+    //set center of image view
+    CGPoint center = CGPointMake(14, cell.contentView.frame.size.height/2+2);
+    
+    //add image view
+    UIImageView *imageView = [[[UIImageView alloc] initWithImage:icon] autorelease];
+    if (url)
+        [imageView setImageWithURL:url placeholderImage:icon completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            if (!error)
+            {
+                imageView.image = image;
+                imageView.highlightedImage = image;
+                imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+                imageView.center = center;
+            }
+        }];
+    imageView.backgroundColor = [UIColor redColor];
+    imageView.center = center;
+    [cell.contentView addSubview:imageView];
+    return imageView;
+}
+
 - (void)updateLocationCell:(DDTableViewCell*)cell
 {
     //enable/disable touch
@@ -368,7 +394,7 @@
     if (self.location)
     {
         //apply blank image by default
-        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
+        [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-location-icon.png"] loadedFromUrl:nil];
         
         //set location text
         cell.textLabel.text = [location name];
@@ -399,8 +425,8 @@
     else
     {
         //apply blank image by default
-        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
-        
+        [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-location-icon.png"] loadedFromUrl:nil];
+
         //set location text
         cell.textLabel.text = NSLocalizedString(@"Choose a location", nil);
         
@@ -415,8 +441,7 @@
     if (self.optionalLocation)
     {
         //apply blank image by default
-        if ([self.optionalLocation.icon length])
-            [cell.imageView setImageWithURL:[NSURL URLWithString:self.optionalLocation.icon] placeholderImage:[DDTools clearImageOfSize:CGSizeMake(32, 32)]];
+        [self updateCell:cell withIcon:[DDTools clearImageOfSize:CGSizeMake(32, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.icon]];
         
         //set location text
         cell.textLabel.text = [self.optionalLocation name];
@@ -444,10 +469,10 @@
     else
     {
         //apply blank image by default
-        cell.imageView.image = [UIImage imageNamed:@"plus-icon.png"];
+        UIImageView *imageView = [self updateCell:cell withIcon:[UIImage imageNamed:@"plus-icon.png"] loadedFromUrl:nil];
         
         //set alpha for blank image
-        cell.imageView.alpha = 0.5f;
+        imageView.alpha = 0.5f;
         
         //set location text
         cell.textLabel.text = NSLocalizedString(@"Add an Optional Venue", nil);
