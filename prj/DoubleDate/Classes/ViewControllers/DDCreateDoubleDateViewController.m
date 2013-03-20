@@ -25,6 +25,7 @@
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
 #import "DDAppDelegate+WingsMenu.h"
+#import "DDTools.h"
 
 #define kTagCancelActionSheet 1
 
@@ -414,7 +415,8 @@
     if (self.optionalLocation)
     {
         //apply blank image by default
-        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
+        if ([self.optionalLocation.icon length])
+            [cell.imageView setImageWithURL:[NSURL URLWithString:self.optionalLocation.icon] placeholderImage:[DDTools clearImageOfSize:CGSizeMake(32, 32)]];
         
         //set location text
         cell.textLabel.text = [self.optionalLocation name];
@@ -443,6 +445,9 @@
     {
         //apply blank image by default
         cell.imageView.image = [UIImage imageNamed:@"plus-icon.png"];
+        
+        //set alpha for blank image
+        cell.imageView.alpha = 0.5f;
         
         //set location text
         cell.textLabel.text = NSLocalizedString(@"Add an Optional Venue", nil);

@@ -26,6 +26,8 @@ NSString *DDPlacemarkTypeVenue = @"venue";
 @synthesize country;
 @synthesize type;
 @synthesize locationName;
+@synthesize iconRetina;
+@synthesize icon;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -44,6 +46,8 @@ NSString *DDPlacemarkTypeVenue = @"venue";
         self.country = [DDAPIObject stringForObject:[dictionary objectForKey:@"country"]];
         self.type = [DDAPIObject stringForObject:[dictionary objectForKey:@"type"]];
         self.locationName = [DDAPIObject stringForObject:[dictionary objectForKey:@"location_name"]];
+        self.iconRetina = [DDAPIObject stringForObject:[dictionary objectForKey:@"icon_retina"]];
+        self.icon = [DDAPIObject stringForObject:[dictionary objectForKey:@"icon"]];
     }
     return self;
 }
@@ -77,6 +81,10 @@ NSString *DDPlacemarkTypeVenue = @"venue";
         [dictionary setObject:self.type forKey:@"type"];
     if (self.locationName)
         [dictionary setObject:self.locationName forKey:@"location_name"];
+    if (self.iconRetina)
+        [dictionary setObject:self.iconRetina forKey:@"icon_retina"];
+    if (self.icon)
+        [dictionary setObject:self.icon forKey:@"icon"];
     return dictionary;
 }
 
@@ -105,6 +113,8 @@ NSString *DDPlacemarkTypeVenue = @"venue";
     [country release];
     [type release];
     [locationName release];
+    [iconRetina release];
+    [icon release];
     [super dealloc];
 }
 

@@ -26,5 +26,7 @@ extern NSString *DDPlacemarkTypeVenue;
 @property(nonatomic, retain) NSString *country;
 @property(nonatomic, retain) NSString *type;
 @property(nonatomic, retain) NSString *locationName;
+@property(nonatomic, retain) NSString *iconRetina;
+@property(nonatomic, retain) NSString *icon;
 
 @end
