@@ -148,6 +148,11 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
         //make api request
         NSString *path = payload.callbackUrl;
         path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
+        if ([path rangeOfString:@"messages"].location != NSNotFound)
+        {
+            path = [path stringByDeletingLastPathComponent];
+            path = [path stringByDeletingLastPathComponent];
+        }
         DDAPIControllerMethodType requestType = -1;
         if ([path rangeOfString:@"users"].location != NSNotFound)
             requestType = DDAPIControllerMethodTypeGetUser;
