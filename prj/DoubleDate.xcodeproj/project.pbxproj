@@ -555,6 +555,8 @@
 		96E7F1E315F788A900200E1F /* DDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F1E215F788A900200E1F /* DDViewController.m */; };
 		96E7F1E515F78D0200200E1F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E7F1E415F78D0200200E1F /* libsqlite3.dylib */; };
 		96E7F20515F7A06000200E1F /* DDFacebookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E7F20415F7A06000200E1F /* DDFacebookController.m */; };
+		96E8D87616FA0DAB00CF4639 /* plus-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E8D87416FA0DAB00CF4639 /* plus-icon.png */; };
+		96E8D87716FA0DAB00CF4639 /* plus-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96E8D87516FA0DAB00CF4639 /* plus-icon@2x.png */; };
 		96E935ED16F894D500E5512B /* DDDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 96E935EC16F894D500E5512B /* DDDialog.m */; };
 		96EA06AE1689D36F009F09BC /* DDObjectsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06AD1689D36F009F09BC /* DDObjectsController.m */; };
 		96EA06C51689D9DB009F09BC /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06B11689D9DB009F09BC /* MKAnnotationView+WebCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1293,6 +1295,8 @@
 		96E7F1E415F78D0200200E1F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		96E7F20315F7A06000200E1F /* DDFacebookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookController.h; sourceTree = "<group>"; };
 		96E7F20415F7A06000200E1F /* DDFacebookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookController.m; sourceTree = "<group>"; };
+		96E8D87416FA0DAB00CF4639 /* plus-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-icon.png"; sourceTree = "<group>"; };
+		96E8D87516FA0DAB00CF4639 /* plus-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-icon@2x.png"; sourceTree = "<group>"; };
 		96E935EB16F894D500E5512B /* DDDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDialog.h; sourceTree = "<group>"; };
 		96E935EC16F894D500E5512B /* DDDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDialog.m; sourceTree = "<group>"; };
 		96EA06AC1689D36F009F09BC /* DDObjectsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDObjectsController.h; sourceTree = "<group>"; };
@@ -1364,6 +1368,7 @@
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				96E8D87316FA0DAB00CF4639 /* plus-icon */,
 				965F0A3B16F8DDA400AF363D /* unlock-notice-bar */,
 				70F0DA1416F5228100FE01F4 /* resizable-dialog */,
 				708A059716EFC91000852CE1 /* wing-selection */,
@@ -2443,6 +2448,15 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		96E8D87316FA0DAB00CF4639 /* plus-icon */ = {
+			isa = PBXGroup;
+			children = (
+				96E8D87416FA0DAB00CF4639 /* plus-icon.png */,
+				96E8D87516FA0DAB00CF4639 /* plus-icon@2x.png */,
+			);
+			path = "plus-icon";
+			sourceTree = "<group>";
+		};
 		96EA06AF1689D9DB009F09BC /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -3040,6 +3054,8 @@
 				70F0DA1A16F5232000FE01F4 /* DDCustomizableAlertView.xib in Resources */,
 				965F0A3E16F8DDA400AF363D /* unlock-notice-bar.png in Resources */,
 				965F0A3F16F8DDA400AF363D /* unlock-notice-bar@2x.png in Resources */,
+				96E8D87616FA0DAB00CF4639 /* plus-icon.png in Resources */,
+				96E8D87716FA0DAB00CF4639 /* plus-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

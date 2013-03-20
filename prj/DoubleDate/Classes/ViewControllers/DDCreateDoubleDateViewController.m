@@ -32,6 +32,7 @@
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
+@property(nonatomic, retain) DDPlacemark *optionalLocation;
 @property(nonatomic, retain) NSError *locationError;
 
 @property(nonatomic, retain) NSString *day;
@@ -40,12 +41,15 @@
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *details;
 
+@property(nonatomic, assign) BOOL selectingVenue;
+
 @end
 
 @implementation DDCreateDoubleDateViewController
 
 @synthesize wing;
 @synthesize location;
+@synthesize optionalLocation;
 @synthesize locationError;
 @synthesize doubleDatesViewController;
 @synthesize day;
@@ -55,6 +59,7 @@
 @synthesize buttonCreate;
 @synthesize title;
 @synthesize details;
+@synthesize selectingVenue;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -129,6 +134,7 @@
     [locationController_ release];
     [wing release];
     [location release];
+    [optionalLocation release];
     [locationError release];
     [doubleDatesViewController release];
     [day release];
@@ -196,12 +202,6 @@
         [location release];
         location = [v retain];
     }
-    
-    //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self locationIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
-        
-    //update navigation button
-    [self updateNavigationBar];
 }
 
 - (void)setLocationError:(NSError *)v
@@ -248,7 +248,26 @@
 
 - (void)resetLocationTouched:(id)sender
 {
+    //update the location
     self.location = [DDAuthenticationController currentUser].location;
+
+    //clear optional location
+    self.optionalLocation = nil;
+    
+    //update cell
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+    
+    //update navigation button
+    [self updateNavigationBar];
+}
+
+- (void)resetOptionalLocationTouched:(id)sender
+{
+    //clear optional location
+    self.optionalLocation = nil;
+    
+    //update cell
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)postTouched:(id)sender
@@ -262,7 +281,10 @@
     doubleDate.user = [[[DDShortUser alloc] init] autorelease];
     doubleDate.user.identifier = [[DDAuthenticationController currentUser] userId];
     doubleDate.location = [[[DDPlacemark alloc] init] autorelease];
-    doubleDate.location.identifier = self.location.identifier;
+    if (self.optionalLocation)
+        doubleDate.location.identifier = self.optionalLocation.identifier;
+    else
+        doubleDate.location.identifier = self.location.identifier;
     doubleDate.dayPref = self.day;
     doubleDate.timePref = self.time;
     
@@ -360,7 +382,7 @@
     else if (locationError)
     {
         //apply style
-        cell.textLabel.textColor = [UIColor redColor];
+        cell.textLabel.textColor = [UIColor grayColor];
         
         //set text
         cell.textLabel.text = NSLocalizedString(@"Failed to find location", nil);
@@ -372,6 +394,50 @@
         
         //set location text
         cell.textLabel.text = NSLocalizedString(@"Choose a location", nil);
+        
+        //apply style
+        cell.textLabel.textColor = [UIColor grayColor];
+    }
+}
+
+- (void)updateOptionalLocationCell:(DDTableViewCell*)cell
+{
+    //check exist location
+    if (self.optionalLocation)
+    {
+        //apply blank image by default
+        cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
+        
+        //set location text
+        cell.textLabel.text = [self.optionalLocation name];
+        
+        //apply style
+        cell.textLabel.textColor = [UIColor whiteColor];
+        
+        //add reset button
+        UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = [UIColor clearColor];
+        button.frame = CGRectMake(0, 0, 30, 30);
+        cell.accessoryView = button;
+        [button setImage:cancelImage forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(resetOptionalLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else if (!self.location)
+    {
+        //apply style
+        cell.textLabel.textColor = [UIColor grayColor];
+        
+        //set text
+        cell.textLabel.text = NSLocalizedString(@"Failed to find location", nil);
+    }
+    else
+    {
+        //apply blank image by default
+        cell.imageView.image = [UIImage imageNamed:@"plus-icon.png"];
+        
+        //set location text
+        cell.textLabel.text = NSLocalizedString(@"Add an Optional Venue", nil);
         
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
@@ -424,6 +490,11 @@
     return [NSIndexPath indexPathForRow:0 inSection:2];
 }
 
+- (NSIndexPath*)optionalLocationIndexPath
+{
+    return [NSIndexPath indexPathForRow:1 inSection:2];
+}
+
 - (NSIndexPath*)dayTimeIndexPath
 {
     return [NSIndexPath indexPathForRow:0 inSection:3];
@@ -454,8 +525,28 @@
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
-    //set location
-    [self setLocation:[placemarks objectAtIndex:0]];
+    if (!self.selectingVenue)
+    {
+        //set location
+        self.location = [placemarks objectAtIndex:0];
+    
+        //clear optional location
+        self.optionalLocation = nil;
+    
+        //update cell
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+    
+        //update navigation button
+        [self updateNavigationBar];
+    }
+    else
+    {
+        //set optional location
+        self.optionalLocation = [placemarks objectAtIndex:0];
+        
+        //reload only one cell
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
+    }
     
     //pop view controller
     [self.navigationController popViewControllerAnimated:YES];
@@ -612,12 +703,22 @@
     }
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
     {
+        self.selectingVenue = NO;
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
         if ([[self.location identifier] intValue] != [[[[DDAuthenticationController currentUser] location] identifier] intValue])
             locationChooserViewController.ddLocation = self.location;
         else
             locationChooserViewController.clLocation = locationController_.location;
+        locationChooserViewController.options = DDLocationSearchOptionsCities;
+        [self.navigationController pushViewController:locationChooserViewController animated:YES];
+    }
+    else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+    {
+        self.selectingVenue = YES;
+        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
+        locationChooserViewController.delegate = self;
+        locationChooserViewController.ddLocation = self.location;
         locationChooserViewController.options = DDLocationSearchOptionsVenues;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
@@ -649,7 +750,7 @@
     else if (section == 1)
         return 2;
     else if (section == 2)
-        return 1;
+        return 2;
     else if (section == 3)
         return 1;
     return 0;
@@ -665,7 +766,7 @@
     if (!cell)
     {
         //create icon table view cell
-        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
+        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         //create text field table view cell
         else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
@@ -683,6 +784,8 @@
         [self updateWingCell:cell];
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         [self updateLocationCell:cell];
+    else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+        [self updateOptionalLocationCell:cell];
     else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
         [self updateDayTimeCell:cell];
     else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
