@@ -290,8 +290,6 @@
         
         //stretch start chat button
         self.buttonStartChat.frame = CGRectMake(self.buttonIgnore.frame.origin.x, self.buttonStartChat.frame.origin.y, self.buttonStartChat.frame.origin.x + self.buttonStartChat.frame.size.width - self.buttonIgnore.frame.origin.x, self.buttonStartChat.frame.size.height);
-        
-        
     }
 }
 
