@@ -336,7 +336,6 @@
         
         //add image view
         DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-        imageView.backgroundColor = [UIColor redColor];
         imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
         imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
@@ -362,10 +361,10 @@
 - (UIImageView*)updateCell:(DDTableViewCell*)cell withIcon:(UIImage*)icon loadedFromUrl:(NSURL*)url
 {
     //unset default image
-    cell.imageView.image = [DDTools clearImageOfSize:CGSizeMake(8, 8)];
+    cell.imageView.image = [DDTools clearImageOfSize:CGSizeMake(28, 32)];
     
     //set center of image view
-    CGPoint center = CGPointMake(18, cell.contentView.frame.size.height/2+2);
+    CGPoint center = CGPointMake(20, cell.contentView.frame.size.height/2+2);
     
     //add image view
     UIImageView *imageView = [[[UIImageView alloc] initWithImage:icon] autorelease];
@@ -379,7 +378,6 @@
                 imageView.center = center;
             }
         }];
-//    imageView.backgroundColor = [UIColor redColor];
     imageView.center = center;
     [cell.contentView addSubview:imageView];
     return imageView;
@@ -441,10 +439,14 @@
     if (self.optionalLocation)
     {
         //apply blank image by default
-        [self updateCell:cell withIcon:[DDTools clearImageOfSize:CGSizeMake(32, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.icon]];
+        [self updateCell:cell withIcon:[DDTools clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.icon]];
         
         //set location text
-        cell.textLabel.text = [self.optionalLocation name];
+        if ([self.optionalLocation address]){
+            cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [self.optionalLocation name], [self.optionalLocation address]];
+        } else {
+            cell.textLabel.text = [self.optionalLocation name];
+        }
         
         //apply style
         cell.textLabel.textColor = [UIColor whiteColor];
@@ -485,10 +487,13 @@
 - (void)updateDayTimeCell:(DDTableViewCell*)cell
 {
     //apply blank image by default
-    cell.imageView.image = [UIImage imageNamed:@"create-date-time-icon.png"];
+//    cell.imageView.image = [UIImage imageNamed:@"create-date-time-icon.png"];
+    UIImageView *imageView = [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-time-icon.png"] loadedFromUrl:nil];
+    imageView.center = CGPointMake(20, cell.contentView.frame.size.height/2);
     
     //set text
     cell.textLabel.text = [DDCreateDoubleDateViewController titleForDDDay:self.day ddTime:self.time];
+
 }
 
 - (void)updateTitleCell:(DDTextFieldTableViewCell*)cell
