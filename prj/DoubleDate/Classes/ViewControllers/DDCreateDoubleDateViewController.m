@@ -365,7 +365,7 @@
     cell.imageView.image = [DDTools clearImageOfSize:CGSizeMake(8, 8)];
     
     //set center of image view
-    CGPoint center = CGPointMake(14, cell.contentView.frame.size.height/2+2);
+    CGPoint center = CGPointMake(18, cell.contentView.frame.size.height/2+2);
     
     //add image view
     UIImageView *imageView = [[[UIImageView alloc] initWithImage:icon] autorelease];
@@ -379,7 +379,7 @@
                 imageView.center = center;
             }
         }];
-    imageView.backgroundColor = [UIColor redColor];
+//    imageView.backgroundColor = [UIColor redColor];
     imageView.center = center;
     [cell.contentView addSubview:imageView];
     return imageView;
