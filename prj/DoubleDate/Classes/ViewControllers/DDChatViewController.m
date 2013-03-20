@@ -24,12 +24,13 @@
 #import "DDDoubleDateViewController.h"
 #import "DDBarButtonItem.h"
 #import "DDUnlockAlertView.h"
+#import "DDEngagementsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
 #define kUnlockCost 50
 
-@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, DDUnlockAlertViewDelegate>
+@interface DDChatViewController ()<UITextViewDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, HPGrowingTextViewDelegate, DDUnlockAlertViewDelegate, UIActionSheetDelegate>
 
 @property(nonatomic, retain) UIView *popover;
 
@@ -269,6 +270,13 @@
     //add touch recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     [self.view addGestureRecognizer:tapRecognizer];
+    
+    //add end chat functionality
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [self.doubleDate.user.identifier intValue] ||
+        [[[DDAuthenticationController currentUser] userId] intValue] == [self.engagement.user.identifier intValue])
+    {
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -293,6 +301,12 @@
     
     //save that view already appeared
     alreadyAppeared_ = YES;
+}
+
+- (void)editTouched:(id)sender
+{
+    UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"End Chat", nil), nil] autorelease];
+    [actionSheet showInView:self.view];
 }
 
 #pragma mark -
@@ -920,6 +934,10 @@
     //show completed hud
     [self showCompletedHudWithText:NSLocalizedString(@"Done", @"Complete message after deleting chat view")];
     
+    //remove from previous view controller
+    if ([self.weakParentViewController isKindOfClass:[DDEngagementsViewController class]])
+        [(DDEngagementsViewController*)self.weakParentViewController removeEngagement:self.engagement];
+    
     //go back
     if (self.navigationController.presentedViewController == self)
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
@@ -947,6 +965,16 @@
     
     //send request
     [self.apiController unlockEngagement:self.engagement];
+}
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //check end chat button
+    if (buttonIndex == 0)
+        [self ignoreTouched:self];
 }
 
 @end

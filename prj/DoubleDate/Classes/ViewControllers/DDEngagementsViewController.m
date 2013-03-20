@@ -113,6 +113,13 @@
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
 }
 
+- (void)removeEngagement:(DDEngagement*)engagement
+{
+    [engagements_ removeObject:engagement];
+    [self.tableView reloadData];
+    [self updateNoDataView];
+}
+
 - (void)dealloc
 {
     [engagements_ release];

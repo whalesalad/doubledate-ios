@@ -21,4 +21,6 @@
 
 - (void)applyNoDataLabelStyle:(UILabel*)label;
 
+- (void)removeEngagement:(DDEngagement*)engagement;
+
 @end
