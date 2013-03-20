@@ -214,7 +214,10 @@
     }
     
     //set warning
-    self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d days to chat!", @"Chat page: warning - remaining time to chat"), [self.engagement.daysRemaining intValue]];
+    if ([self.engagement.daysRemaining intValue] == 1)
+        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d day to chat!", @"Chat page: warning - remaining time to chat"), [self.engagement.daysRemaining intValue]];
+    else
+        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d days to chat!", @"Chat page: warning - remaining time to chat"), [self.engagement.daysRemaining intValue]];
 
     //customize text view
     self.textViewInput.delegate = self;
