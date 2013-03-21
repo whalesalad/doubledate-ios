@@ -220,7 +220,7 @@ static DDAuthenticationController *_sharedInstance = nil;
     else
     {
         //save error message
-        NSString *errorMessage = NSLocalizedString(@"Internal server error", nil);
+        NSString *errorMessage = NSLocalizedString(@"Oops. An unfortunate DoubleDate error has occurred.", nil);
         NSString *responseMessage = [DDTools errorMessageFromResponseData:response.body];
         if (responseMessage)
             errorMessage = responseMessage;

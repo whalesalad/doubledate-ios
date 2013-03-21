@@ -439,7 +439,7 @@
     if (self.optionalLocation)
     {
         //apply blank image by default
-        [self updateCell:cell withIcon:[DDTools clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.icon]];
+        [self updateCell:cell withIcon:[DDTools clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.iconRetina]];
         
         //set location text
         if ([self.optionalLocation address]){
