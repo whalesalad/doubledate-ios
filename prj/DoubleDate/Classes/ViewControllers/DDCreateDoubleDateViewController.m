@@ -418,7 +418,7 @@
         cell.textLabel.textColor = [UIColor grayColor];
         
         //set text
-        cell.textLabel.text = NSLocalizedString(@"Failed to find location", nil);
+        cell.textLabel.text = NSLocalizedString(@"Please enable location services.", nil);
     }
     else
     {
@@ -466,7 +466,7 @@
         cell.textLabel.textColor = [UIColor grayColor];
         
         //set text
-        cell.textLabel.text = NSLocalizedString(@"Failed to find location", nil);
+        cell.textLabel.text = NSLocalizedString(@"Please enable location services.", nil);
     }
     else
     {

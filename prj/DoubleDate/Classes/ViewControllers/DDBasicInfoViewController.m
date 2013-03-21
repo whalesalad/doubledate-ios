@@ -384,7 +384,7 @@
     self.buttonLocation.selectedIcon = nil;
     
     //updat text
-    self.buttonLocation.placeholder = NSLocalizedString(@"Failed to find location", nil);
+    self.buttonLocation.placeholder = NSLocalizedString(@"Please enable location services.", nil);
     
     //disable button
     self.buttonLocation.enabled = NO;
