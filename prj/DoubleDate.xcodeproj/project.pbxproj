@@ -1252,12 +1252,10 @@
 		96C6D6C8165296FD00DAC219 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
 		96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		96CDD64716E5F0D7006B6937 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		96CDD64916E5F18E006B6937 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96D585451684607800CFB9A3 /* DDDoubleDateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDDoubleDateViewController.xib; sourceTree = "<group>"; };
 		96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationChooserViewController.h; sourceTree = "<group>"; };
 		96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationChooserViewController.m; sourceTree = "<group>"; };
 		96D968D216E78090009801A3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		96DCD2B116F20D7000E6EFF8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96E2620A16D650E60041FD26 /* blue-icon-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-icon-button.png"; sourceTree = "<group>"; };
 		96E2620B16D650E60041FD26 /* blue-icon-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-icon-button@2x.png"; sourceTree = "<group>"; };
 		96E2620C16D650E60041FD26 /* edit-profile-location-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-profile-location-icon.png"; sourceTree = "<group>"; };
@@ -3206,8 +3204,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				96CDD64716E5F0D7006B6937 /* en */,
-				96CDD64916E5F18E006B6937 /* sv */,
-				96DCD2B116F20D7000E6EFF8 /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
