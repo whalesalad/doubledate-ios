@@ -212,7 +212,8 @@
     {
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
-        locationChooserViewController.query = [[filter_.location.name componentsSeparatedByString:@","] objectAtIndex:0];
+        // Removing this query, but leaving the code. Not needed.
+        // locationChooserViewController.query = [[filter_.location.name componentsSeparatedByString:@","] objectAtIndex:0];
         locationChooserViewController.options = DDLocationSearchOptionsCities;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }

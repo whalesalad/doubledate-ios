@@ -477,7 +477,7 @@
         imageView.alpha = 0.5f;
         
         //set location text
-        cell.textLabel.text = NSLocalizedString(@"Add an Optional Venue", nil);
+        cell.textLabel.text = NSLocalizedString(@"Add an Optional Place", nil);
         
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
