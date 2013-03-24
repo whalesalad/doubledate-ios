@@ -60,7 +60,7 @@
     //animate
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
-        [viewDim setAlpha:0.5f];
+        [viewDim setAlpha:0.8f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
         [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + table.frame.size.height - [DDNavigationMenuTableViewCell height])];
     } completion:^(BOOL finished) {

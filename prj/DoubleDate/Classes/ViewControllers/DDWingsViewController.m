@@ -35,7 +35,7 @@
 #define kTagConfirmDeleteFriendAlert 5
 #define kTagActionSheetInvite 6
 
-#define kMoneyForFriend 10
+#define kMoneyForFriend 50
 
 @interface DDWingsViewControllerAlertView : UIAlertView
 @property(nonatomic, retain) DDShortUser *shortUser;
@@ -81,7 +81,7 @@
 
 - (void)customizeNoDataView
 {
-    [self.viewNoData applyNoDataWithImage:[UIImage imageNamed:@"no-wings.png"] title:NSLocalizedString(@"Add some of your closest\nfriends to get started", nil) addButtonTitle:NSLocalizedString(@"Add a Wing", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend]];
+    [self.viewNoData applyNoDataWithImage:[UIImage imageNamed:@"no-wings.png"] title:NSLocalizedString(@"Add some of your friends to start using DoubleDate.", @"No wings view title text.") addButtonTitle:NSLocalizedString(@"Add a Wing", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 12, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"For each friend you add,\nyou'll both earn %d coins!", nil), kMoneyForFriend]];
 }
 
 - (void)viewDidLoad
