@@ -59,7 +59,7 @@
 
 - (void)customizeNoDataView
 {
-    [self.viewNoData applyNoDataWithImage:nil title:NSLocalizedString(@"No Notifications", nil) addButtonTitle:nil addButtonTarget:nil addButtonAction:nil addButtonEdgeInsets:UIEdgeInsetsZero detailed:nil];
+    [self.viewNoData applyNoDataWithImage:nil title:NSLocalizedString(@"You don't have any\nrecent notifications", nil) addButtonTitle:nil addButtonTarget:nil addButtonAction:nil addButtonEdgeInsets:UIEdgeInsetsZero detailed:nil];
 }
 
 - (void)viewDidLoad

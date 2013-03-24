@@ -395,7 +395,7 @@
         [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-location-icon.png"] loadedFromUrl:nil];
         
         //set location text
-        cell.textLabel.text = [location name];
+        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Near %@", @"The city location when creating a DoubleDate."), location.name];
         
         //apply style
         cell.textLabel.textColor = [UIColor whiteColor];

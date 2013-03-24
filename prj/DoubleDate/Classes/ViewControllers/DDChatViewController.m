@@ -446,11 +446,11 @@
 {
     //add full-screen alert
     DDUnlockAlertViewFullScreen *alertView = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
-    alertView.unlockButtonText = NSLocalizedString(@"Yes! Chat", nil);
+    alertView.unlockButtonText = NSLocalizedString(@"Yes! Reply", @"Unlock engagement dialog confirm button text");
     alertView.delegate = self;
-    alertView.title = NSLocalizedString(@"UNLOCK CHAT THREAD", nil);
+    alertView.title = NSLocalizedString(@"START CHAT", @"Unlock engagement dialog title.");
     alertView.price = kUnlockCost;
-    alertView.message = NSLocalizedString(@"Would you like to unlock\nthis chat and reply?", nil);
+    alertView.message = NSLocalizedString(@"Would you like to start\nthis chat and reply?", @"Unlock engagement dialog message text");
     [alertView show];
 }
 
