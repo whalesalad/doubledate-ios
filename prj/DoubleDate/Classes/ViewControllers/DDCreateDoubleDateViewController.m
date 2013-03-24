@@ -471,7 +471,7 @@
     else
     {
         //apply blank image by default
-        UIImageView *imageView = [self updateCell:cell withIcon:[UIImage imageNamed:@"plus-icon.png"] loadedFromUrl:nil];
+        UIImageView *imageView = [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-plus-icon.png"] loadedFromUrl:nil];
         
         //set alpha for blank image
         imageView.alpha = 0.5f;
