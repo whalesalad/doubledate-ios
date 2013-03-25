@@ -374,7 +374,7 @@
             {
                 imageView.image = image;
                 imageView.highlightedImage = image;
-                imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+                imageView.frame = CGRectMake(0, 0, 32, 32);
                 imageView.center = center;
             }
         }];
