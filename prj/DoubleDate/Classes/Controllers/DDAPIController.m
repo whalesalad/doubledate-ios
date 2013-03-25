@@ -333,7 +333,7 @@
     
     //add distance if needed
     if (distance > 0)
-        params = [NSString stringWithFormat:@"%@%@distance=%d", params, [params length]?@"&":@"", distance];
+        params = [NSString stringWithFormat:@"%@%@distance=%dkm", params, [params length]?@"&":@"", distance];
     
     //add query if needed
     if ([query length])
