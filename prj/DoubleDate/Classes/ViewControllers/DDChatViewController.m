@@ -702,32 +702,29 @@
     //save locked/expired flags
     BOOL locked = NO;
     BOOL expired = NO;
-    if ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
-        [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing])
+    
+    //save flags
+    locked = [engagement.status isEqualToString:DDEngagementStatusLocked];
+    expired = [engagement.status isEqualToString:DDEngagementStatusExpired];
+    
+    //switch between different titles
+    if (locked)
     {
-        //save flags
-        locked = [engagement.status isEqualToString:DDEngagementStatusLocked];
-        expired = [engagement.status isEqualToString:DDEngagementStatusExpired];
-        
-        //switch between different titles
-        if (locked)
-        {
-            [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
-            [self.buttonStartChat setTitle:NSLocalizedString(@"Unlock", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
-            [self.labelLocked setText:NSLocalizedString(@"Unlock to start chatting.", @"Chat page locked label while engagement is locked")];
-        }
-        else if (expired)
-        {
-            [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is expired") forState:UIControlStateNormal];
-            [self.buttonStartChat setTitle:NSLocalizedString(@"Resume", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
-            [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
-        }
-        else
-        {
-            [self.buttonIgnore setTitle:nil forState:UIControlStateNormal];
-            [self.buttonStartChat setTitle:nil forState:UIControlStateNormal];
-            [self.labelLocked setText:nil];
-        }
+        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Unlock", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
+        [self.labelLocked setText:NSLocalizedString(@"Unlock to start chatting.", @"Chat page locked label while engagement is locked")];
+    }
+    else if (expired)
+    {
+        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is expired") forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
+        [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
+    }
+    else
+    {
+        [self.buttonIgnore setTitle:nil forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:nil forState:UIControlStateNormal];
+        [self.labelLocked setText:nil];
     }
     
     //update locked view
