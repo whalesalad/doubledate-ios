@@ -28,6 +28,7 @@
 @synthesize options;
 @synthesize allowsMultiplyChoice;
 @synthesize query;
+@synthesize distance;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -303,7 +304,7 @@
         queryToRequest = self.searchBar.text;
     if (queryToRequest == nil)
         queryToRequest = self.query;
-    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude query:queryToRequest options:self.options];
+    [self.apiController searchPlacemarksForLatitude:latitude longitude:longitude query:queryToRequest options:self.options distance:self.distance];
 }
 
 @end

@@ -319,12 +319,21 @@
 
 - (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options
 {
+    return [self searchPlacemarksForLatitude:latitude longitude:longitude query:query options:options distance:0];
+}
+
+- (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options distance:(NSInteger)distance
+{
     //set parameters
     NSString *params = [NSString string];
     
     //check for valid values
     if (latitude != 0 && longitude != 0)
         params = [NSString stringWithFormat:@"latitude=%f&longitude=%f", latitude, longitude];
+    
+    //add distance if needed
+    if (distance > 0)
+        params = [NSString stringWithFormat:@"%@%@distance=%d", params, [params length]?@"&":@"", distance];
     
     //add query if needed
     if ([query length])

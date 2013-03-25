@@ -754,6 +754,7 @@
         else
             locationChooserViewController.clLocation = locationController_.location;
         locationChooserViewController.options = DDLocationSearchOptionsCities;
+        locationChooserViewController.distance = 200;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
     else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
