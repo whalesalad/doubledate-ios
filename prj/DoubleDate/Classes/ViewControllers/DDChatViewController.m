@@ -704,7 +704,8 @@
     BOOL expired = NO;
     
     //save flags
-    locked = [engagement.status isEqualToString:DDEngagementStatusLocked];
+    locked = [engagement.status isEqualToString:DDEngagementStatusLocked] && ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
+                                                                              [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing]);
     expired = [engagement.status isEqualToString:DDEngagementStatusExpired];
     
     //switch between different titles
