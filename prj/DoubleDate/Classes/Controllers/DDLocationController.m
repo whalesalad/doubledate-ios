@@ -58,6 +58,7 @@
 
 - (void)forceSearchPlacemarksForLocation:(CLLocation*)location
 {
+    [apiController_ cancelRequest:requestId_];
     requestId_ = [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
 }
 
