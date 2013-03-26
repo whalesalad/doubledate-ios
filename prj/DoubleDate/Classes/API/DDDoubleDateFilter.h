@@ -11,7 +11,7 @@
 extern NSString *DDDoubleDateFilterHappeningWeekday;
 extern NSString *DDDoubleDateFilterHappeningWeekend;
 
-@interface DDDoubleDateFilter : NSObject
+@interface DDDoubleDateFilter : NSObject<NSCopying>
 {
 }
 

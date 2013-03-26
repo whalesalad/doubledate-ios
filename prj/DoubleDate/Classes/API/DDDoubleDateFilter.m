@@ -39,6 +39,17 @@ NSString *DDDoubleDateFilterHappeningWeekend = @"weekend";
     return ret;
 }
 
+- (id)copyWithZone:(NSZone*)zone
+{
+    DDDoubleDateFilter *ret = [[[self class] allocWithZone:zone] init];
+    ret.happening = self.happening;
+    ret.minAge = self.minAge;
+    ret.maxAge = self.maxAge;
+    ret.query = self.query;
+    ret.location = self.location;
+    return ret;
+}
+
 - (void)dealloc
 {
     [happening release];
