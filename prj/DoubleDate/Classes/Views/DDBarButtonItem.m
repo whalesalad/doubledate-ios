@@ -247,7 +247,7 @@
             imageViewBadge.tag = tagBadge;
             imageViewBadge.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
             imageViewBadge.frame = CGRectMake(0, 0, label.frame.size.width + 12, imageBubble.size.height);
-            imageViewBadge.center = CGPointMake(self.customView.frame.size.width + 4, self.customView.frame.size.height/2);
+            imageViewBadge.center = CGPointMake(self.customView.frame.size.width, self.customView.frame.size.height/2);
             [self.customView addSubview:imageViewBadge];
             
             //hide application badge number if it's not more than 0
