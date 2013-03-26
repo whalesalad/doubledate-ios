@@ -19,6 +19,7 @@
 @class DDMessage;
 @class DDNotification;
 @class DDMaxActivitiesPayload;
+@class DDPlacemark;
 
 typedef enum
 {
@@ -37,6 +38,7 @@ typedef enum
     DDAPIControllerMethodTypeCreateUser,
     DDAPIControllerMethodTypeRequestFBUser,
     DDAPIControllerMethodTypeSearchPlacemarks,
+    DDAPIControllerMethodTypeGetCurrentPlacemark,
     DDAPIControllerMethodTypeRequestAvailableInterests,
     DDAPIControllerMethodTypeGetFriends,
     DDAPIControllerMethodTypeRequestApproveFriendshipForFriend,
@@ -99,6 +101,9 @@ typedef int DDRequestId;
 
 - (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString*)query;
 - (void)searchPlacemarksDidFailedWithError:(NSError*)error;
+
+- (void)getCurrentPlacemarkSucceed:(DDPlacemark*)placemark;
+- (void)getCurrentPlacemarkDidFailedWithError:(NSError*)error;
 
 - (void)requestAvailableInterestsSucceed:(NSArray*)interests;
 - (void)requestAvailableInterestsDidFailedWithError:(NSError*)error;
@@ -218,6 +223,7 @@ typedef int DDRequestId;
 - (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude options:(DDLocationSearchOptions)options;
 - (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options;
 - (DDRequestId)searchPlacemarksForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude query:(NSString*)query options:(DDLocationSearchOptions)options distance:(NSInteger)distance;
+- (DDRequestId)getCurrentPlacemarkForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude;
 
 - (DDRequestId)requestAvailableInterests;
 - (DDRequestId)requestAvailableInterestsWithQuery:(NSString*)query;

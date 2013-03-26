@@ -379,6 +379,27 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)getCurrentPlacemarkForLatitude:(CGFloat)latitude longitude:(CGFloat)longitude
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"locations/current?latitude=%f&longitude=%f", latitude, longitude]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetCurrentPlacemark;
+    userData.succeedSel = @selector(getCurrentPlacemarkSucceed:);
+    userData.failedSel = @selector(getCurrentPlacemarkDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)requestAvailableInterests
 {
     return [self requestAvailableInterestsWithQuery:nil];
@@ -1054,6 +1075,18 @@
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:placemarks withObject:userData.userData];
+        }
+        else if (userData.method == DDAPIControllerMethodTypeGetCurrentPlacemark)
+        {
+            //create object
+            DDPlacemark *placemark = [DDPlacemark objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];
+            
+            //notify objects controller
+            [DDObjectsController updateObject:placemark withMethod:request.method cachePath:nil];
+            
+            //inform delegate
+            if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
+                [self.delegate performSelector:userData.succeedSel withObject:placemark withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeRequestAvailableInterests)
         {
