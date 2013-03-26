@@ -34,5 +34,7 @@
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewBioBackground;
 @property(nonatomic, retain) IBOutlet UIView *coinBarContainer;
+@property(nonatomic, retain) IBOutlet UIView *doubleDateBarContainer;
+@property(nonatomic, retain) IBOutlet UIButton *buttonDoubleDate;
 
 @end

@@ -15,7 +15,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DDTextView.h"
 #import "DDDoubleDate.h"
-#import "DDDoubleDatesViewController.h"
 #import "DDCreateDoubleDateViewControllerChooseDate.h"
 #import "DDBarButtonItem.h"
 #import "DDIconTableViewCell.h"
@@ -31,7 +30,6 @@
 
 @interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, DDChooseWingViewDelegate>
 
-@property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
 @property(nonatomic, retain) DDPlacemark *optionalLocation;
 
@@ -50,7 +48,6 @@
 @synthesize wing;
 @synthesize location;
 @synthesize optionalLocation;
-@synthesize doubleDatesViewController;
 @synthesize day;
 @synthesize time;
 @synthesize tableView;
@@ -134,7 +131,6 @@
     [wing release];
     [location release];
     [optionalLocation release];
-    [doubleDatesViewController release];
     [day release];
     [time release];
     [tableView release];

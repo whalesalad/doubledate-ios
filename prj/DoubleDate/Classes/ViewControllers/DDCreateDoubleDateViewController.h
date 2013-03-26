@@ -16,7 +16,7 @@
 {
 }
 
-@property(nonatomic, retain) DDDoubleDatesViewController *doubleDatesViewController;
+@property(nonatomic, retain) DDShortUser *wing;
 
 @property(nonatomic, retain) IBOutlet UITableView *tableView;
 

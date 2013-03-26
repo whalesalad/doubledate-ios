@@ -25,6 +25,8 @@
 #import "DDCoinsBar.h"
 #import "DDPurchaseViewController.h"
 #import "DDAppDelegate+Purchase.h"
+#import "DDCreateDoubleDateViewController.h"
+#import "DDShortUser.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -59,6 +61,8 @@
 @synthesize coinBarContainer;
 @synthesize textViewBioGradient;
 @synthesize bottomBorder;
+@synthesize doubleDateBarContainer;
+@synthesize buttonDoubleDate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -87,6 +91,7 @@
     
     //localize
     labelInterests.text = NSLocalizedString(@"ICE BREAKERS", nil);
+    [buttonDoubleDate setTitle:[NSString stringWithFormat:NSLocalizedString(@"DoubleDate with %@", @"Doubledate button on wing's profile page"), self.user.firstName] forState:UIControlStateNormal];
     
     //add coin bar
     [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
@@ -95,8 +100,13 @@
     self.coinBarContainer.layer.shadowOpacity = 0.5f;
     self.coinBarContainer.layer.shadowColor = [UIColor blackColor].CGColor;
     
+    [self.buttonDoubleDate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonDoubleDate backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    
     //add handler
     [[self coinBar] addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //add handler
+    [self.buttonDoubleDate addTarget:self action:@selector(doubleDateTouched:) forControlEvents:UIControlEventTouchUpInside];
     
     //apply mask
     [self.imageViewPoster applyMask:[UIImage imageNamed:@"bg-me-photo-mask.png"]];
@@ -120,6 +130,12 @@
         self.coinBarContainer.hidden = true;
         self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height+self.coinBarContainer.frame.size.height);
         
+        //show doubledate bar
+        if (1)
+        {
+            self.doubleDateBarContainer.hidden = NO;
+            self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height-self.doubleDateBarContainer.frame.size.height);
+        }
     }
     
     //set title
@@ -266,6 +282,8 @@
     [imageViewGender release];
     [imageViewBioBackground release];
     [coinBarContainer release];
+    [doubleDateBarContainer release];
+    [buttonDoubleDate release];
     [textViewBioGradient release];
     [bottomBorder release];
     [super dealloc];
@@ -292,6 +310,21 @@
 - (void)moreCoinsTouched:(id)sender
 {
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentPurchaseScreen];
+}
+
+- (void)doubleDateTouched:(id)sender
+{
+    //fill user data
+    DDShortUser *wing = [[[DDShortUser alloc] init] autorelease];
+    wing.identifier = self.user.userId;
+    wing.photo = self.user.photo;
+    wing.fullName = [NSString stringWithFormat:@"%@ %@", self.user.firstName, self.user.lastName];
+    
+    //create view controller
+    DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
+    viewController.wing = wing;
+    [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
+    }];
 }
 
 - (void)editProfileTouched
