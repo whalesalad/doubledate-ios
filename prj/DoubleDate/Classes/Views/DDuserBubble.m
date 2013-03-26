@@ -122,10 +122,11 @@
     while ([[viewController_.viewInterests subviews] count])
         [[[viewController_.viewInterests subviews] lastObject] removeFromSuperview];
     CGRect oldInterestsFrame = viewController_.viewInterests.frame;
-    CGFloat newInterestsHeight = [viewController_.viewInterests applyInterests:self.user.interests
-                                                                   bubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item.png"]
-                                                            matchedBubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item-matched.png"]
-                                                         custmomizationHandler:^(UILabel *bubbleLabel)
+    CGFloat newInterestsHeight = [viewController_.viewInterests applyInterestsForUser:self.user
+                                  
+                                                                          bubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item.png"]
+                                                                   matchedBubbleImage:[UIImage imageNamed:@"dd-user-bubble-interest-item-matched.png"]
+                                                                custmomizationHandler:^(UILabel *bubbleLabel)
                                   {
                                       bubbleLabel.lineBreakMode = NSLineBreakByWordWrapping;
                                       DD_F_INTEREST_TEXT(bubbleLabel);
@@ -178,7 +179,7 @@
     viewController_.viewMain.layer.cornerRadius = 5;
     
     [viewController_.viewEffects setFrame:CGRectMake(-1, -1, self.frame.size.width+2, self.height+2)];
-
+    
     viewController_.viewEffects.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewController_.viewEffects.bounds] CGPath];
     
     viewController_.viewEffects.layer.masksToBounds = NO;

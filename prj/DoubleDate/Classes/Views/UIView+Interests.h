@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class DDUser;
+
 @interface UIView (Interests)
 
-- (CGFloat)applyInterests:(NSArray*)interests bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler;
+- (CGFloat)applyInterestsForUser:(DDUser*)user bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler;
 
 @end

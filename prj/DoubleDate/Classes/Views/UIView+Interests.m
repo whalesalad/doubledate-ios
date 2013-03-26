@@ -9,6 +9,7 @@
 #import "UIView+Interests.h"
 #import "DDInterest.h"
 #import "DDTools.h"
+#import "DDUser.h"
 
 @interface DDInterestViewInternal : UIImageView
 @end
@@ -18,7 +19,7 @@
 
 @implementation UIView (Interests)
 
-- (CGFloat)applyInterests:(NSArray*)interests bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler
+- (CGFloat)applyInterestsForUser:(DDUser*)user bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler
 {
     //remove all interests
     NSMutableArray *viewsToRemove = [NSMutableArray array];
@@ -37,6 +38,9 @@
     //initial parameters
     CGFloat outHorPadding = 4;
     CGFloat outVerPadding = 6;
+    
+    //save interests
+    NSArray *interests = user.interests;
     
     //check if interests are exist
     if ([interests count])
@@ -109,9 +113,7 @@
         
         //add label
         UILabel *label = [[[UILabel alloc] initWithFrame:mainView.bounds] autorelease];
-        label.text = NSLocalizedString(@"No interests", @"Label of no interests in Ice Breakers");
-        if (custmomizationHandler)
-            custmomizationHandler(label);
+        label.text = [NSString stringWithFormat:NSLocalizedString(@"%@ does not have any ice breakers.", @"Label of no interests in Ice Breakers"), user.firstName];
         [mainView addSubview:label];
         
         return mainView.frame.size.height;
