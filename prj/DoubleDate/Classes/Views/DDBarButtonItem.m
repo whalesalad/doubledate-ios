@@ -227,18 +227,8 @@
         //check if we need to show the label
         if (v)
         {
-            //add badge
-            UIImageView *imageViewBadge = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-bubble.png"]] autorelease];
-            imageViewBadge.tag = tagBadge;
-            imageViewBadge.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-            imageViewBadge.center = CGPointMake(self.customView.frame.size.width + 4, self.customView.frame.size.height/2);
-            [self.customView addSubview:imageViewBadge];
-            
-            //hide application badge number if it's not more than 0
-            imageViewBadge.hidden = [[UIApplication sharedApplication] applicationIconBadgeNumber] <= 0;
-            
-            //add label
-            UILabel *label = [[[UILabel alloc] initWithFrame:imageViewBadge.bounds] autorelease];
+            //create label
+            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
             label.textColor = [UIColor whiteColor];
             label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
             label.shadowOffset = CGSizeMake(0, 1);
@@ -246,6 +236,23 @@
             label.backgroundColor = [UIColor clearColor];
             label.text = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
             label.textAlignment = NSTextAlignmentCenter;
+            [label sizeToFit];
+            
+            //add badge
+            UIImage *imageBubble = [UIImage imageNamed:@"notification-bubble.png"];
+            imageBubble = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+            UIImageView *imageViewBadge = [[[UIImageView alloc] initWithImage:imageBubble] autorelease];
+            imageViewBadge.tag = tagBadge;
+            imageViewBadge.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            imageViewBadge.frame = CGRectMake(0, 0, label.frame.size.width + 8, imageBubble.size.height);
+            imageViewBadge.center = CGPointMake(self.customView.frame.size.width + 4, self.customView.frame.size.height/2);
+            [self.customView addSubview:imageViewBadge];
+            
+            //hide application badge number if it's not more than 0
+            imageViewBadge.hidden = [[UIApplication sharedApplication] applicationIconBadgeNumber] <= 0;
+            
+            //add label
+            label.center = CGPointMake(imageViewBadge.bounds.size.width/2, imageViewBadge.bounds.size.height/2);
             [imageViewBadge addSubview:label];
         }
     }
