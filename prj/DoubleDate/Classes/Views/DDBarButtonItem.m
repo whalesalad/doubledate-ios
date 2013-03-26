@@ -9,6 +9,7 @@
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
 #import "DDAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DDBarButtonItem
 
@@ -88,7 +89,7 @@
     [button setTitleColor:[[button titleColorForState:UIControlStateNormal] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];
     [button setImage:titleImage forState:UIControlStateNormal];
     [button setContentEdgeInsets:contentEdgeInsets];
-
+    
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     DDBarButtonItem *barButtonItem = [[[DDBarButtonItem alloc] initWithCustomView:button] autorelease];
     [barButtonItem setButton:button];
@@ -227,10 +228,25 @@
         //check if we need to show the label
         if (v)
         {
+            //create label
+            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+            label.textColor = [UIColor whiteColor];
+            label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+            label.shadowOffset = CGSizeMake(0, 1);
+            label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
+            label.backgroundColor = [UIColor clearColor];
+            label.text = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
+            label.textAlignment = NSTextAlignmentCenter;
+            [label sizeToFit];
+            
             //add badge
-            UIImageView *imageViewBadge = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-bubble.png"]] autorelease];
+            UIImage *imageBubble = [UIImage imageNamed:@"notification-bubble.png"];
+            imageBubble = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+            
+            UIImageView *imageViewBadge = [[[UIImageView alloc] initWithImage:imageBubble] autorelease];
             imageViewBadge.tag = tagBadge;
             imageViewBadge.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            imageViewBadge.frame = CGRectMake(0, 0, label.frame.size.width + 12, imageBubble.size.height);
             imageViewBadge.center = CGPointMake(self.customView.frame.size.width + 4, self.customView.frame.size.height/2);
             [self.customView addSubview:imageViewBadge];
             
@@ -238,14 +254,7 @@
             imageViewBadge.hidden = [[UIApplication sharedApplication] applicationIconBadgeNumber] <= 0;
             
             //add label
-            UILabel *label = [[[UILabel alloc] initWithFrame:imageViewBadge.bounds] autorelease];
-            label.textColor = [UIColor whiteColor];
-            label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
-            label.shadowOffset = CGSizeMake(0, 1);
-            label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.3f];
-            label.backgroundColor = [UIColor clearColor];
-            label.text = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
-            label.textAlignment = NSTextAlignmentCenter;
+            label.center = CGPointMake(imageViewBadge.bounds.size.width/2, imageViewBadge.bounds.size.height/2-1);
             [imageViewBadge addSubview:label];
         }
     }
