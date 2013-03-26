@@ -215,6 +215,12 @@
         // Removing this query, but leaving the code. Not needed.
         // locationChooserViewController.query = [[filter_.location.name componentsSeparatedByString:@","] objectAtIndex:0];
         locationChooserViewController.options = DDLocationSearchOptionsCities;
+
+        if ([[filter_.location identifier] intValue] != [[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue])
+            locationChooserViewController.ddLocation = filter_.location;
+        else
+            locationChooserViewController.clLocation = [DDLocationController currentLocationController].lastLocation;
+
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
     
