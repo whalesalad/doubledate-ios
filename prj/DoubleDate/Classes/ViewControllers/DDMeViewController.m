@@ -180,9 +180,6 @@
     interestsWrapperFrame.origin.y = textViewBioWrapper.frame.size.height + textViewBioWrapper.frame.origin.y + textInterestSpacing;
     self.interestsWrapper.frame = interestsWrapperFrame;
     
-    // Hide interests if there aren't any
-    self.interestsWrapper.hidden = [self.user.interests count] == 0;
-    
     //save old frame
     CGRect oldInterestsFrame = viewInterests.frame;
     
