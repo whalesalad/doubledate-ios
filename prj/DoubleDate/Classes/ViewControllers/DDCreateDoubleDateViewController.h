@@ -14,7 +14,6 @@
 
 @interface DDCreateDoubleDateViewController : DDViewController
 {
-    DDLocationController *locationController_;
 }
 
 @property(nonatomic, retain) DDDoubleDatesViewController *doubleDatesViewController;

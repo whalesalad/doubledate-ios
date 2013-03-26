@@ -29,12 +29,11 @@
 
 #define kTagCancelActionSheet 1
 
-@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, DDLocationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, DDChooseWingViewDelegate>
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, DDChooseWingViewDelegate>
 
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
 @property(nonatomic, retain) DDPlacemark *optionalLocation;
-@property(nonatomic, retain) NSError *locationError;
 
 @property(nonatomic, retain) NSString *day;
 @property(nonatomic, retain) NSString *time;
@@ -51,7 +50,6 @@
 @synthesize wing;
 @synthesize location;
 @synthesize optionalLocation;
-@synthesize locationError;
 @synthesize doubleDatesViewController;
 @synthesize day;
 @synthesize time;
@@ -67,9 +65,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        locationController_ = [[DDLocationController alloc] init];
-        locationController_.delegate = self;
-        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
@@ -115,7 +110,7 @@
     
     //apply user location if no location exist
     if (!self.location)
-        self.location = [DDAuthenticationController currentUser].location;
+        self.location = [DDLocationController currentLocationController].lastPlacemark;
     
     //update navigation bar
     [self updateNavigationBar];
@@ -136,12 +131,9 @@
 
 - (void)dealloc
 {
-    locationController_.delegate = nil;
-    [locationController_ release];
     [wing release];
     [location release];
     [optionalLocation release];
-    [locationError release];
     [doubleDatesViewController release];
     [day release];
     [time release];
@@ -210,22 +202,6 @@
     }
 }
 
-- (void)setLocationError:(NSError *)v
-{
-    //update value
-    if (locationError != v)
-    {
-        [locationError release];
-        locationError = [v retain];
-    }
-    
-    //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self locationIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
-    
-    //update navigation button
-    [self updateNavigationBar];
-}
-
 - (void)setDay:(NSString *)v
 {
     //save value
@@ -255,7 +231,7 @@
 - (void)resetLocationTouched:(id)sender
 {
     //update the location
-    self.location = [DDAuthenticationController currentUser].location;
+    self.location = [DDLocationController currentLocationController].lastPlacemark;
 
     //clear optional location
     self.optionalLocation = nil;
@@ -383,7 +359,7 @@
 - (void)updateLocationCell:(DDTableViewCell*)cell
 {
     //enable/disable touch
-    cell.userInteractionEnabled = locationError == nil;
+    cell.userInteractionEnabled = self.location != nil;
     
     //check exist location
     if (self.location)
@@ -398,7 +374,7 @@
         cell.textLabel.textColor = [UIColor whiteColor];
         
         //check if we need to add reset button
-        if ([[[[DDAuthenticationController currentUser] location] identifier] intValue] != [[self.location identifier] intValue])
+        if ([[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue] != [[self.location identifier] intValue])
         {
             UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -409,7 +385,7 @@
             [button addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
         }
     }
-    else if (locationError)
+    else if ([DDLocationController currentLocationController].errorPlacemark)
     {
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
@@ -597,29 +573,6 @@
 }
 
 #pragma mark -
-#pragma mark DDLocationControllerDlegate
-
-- (void)locationManagerDidFoundLocation:(CLLocation*)location
-{
-    
-}
-
-- (void)locationManagerDidFailedWithError:(NSError*)error
-{
-    //save location error
-    self.locationError = error;
-}
-
-- (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location
-{
-    return NO;
-}
-
-- (void)locationManagerDidFoundPlacemark:(DDPlacemark*)placemark
-{
-}
-
-#pragma mark -
 #pragma mark API
 
 - (void)createDoubleDateSucceed:(DDDoubleDate*)doubleDate
@@ -746,10 +699,10 @@
         self.selectingVenue = NO;
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
-        if ([[self.location identifier] intValue] != [[[[DDAuthenticationController currentUser] location] identifier] intValue])
+        if ([[self.location identifier] intValue] != [[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue])
             locationChooserViewController.ddLocation = self.location;
         else
-            locationChooserViewController.clLocation = locationController_.lastLocation;
+            locationChooserViewController.clLocation = [DDLocationController currentLocationController].lastLocation;
         locationChooserViewController.options = DDLocationSearchOptionsCities;
         locationChooserViewController.distance = 200;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
