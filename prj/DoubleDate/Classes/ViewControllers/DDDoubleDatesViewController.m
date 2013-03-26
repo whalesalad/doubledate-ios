@@ -765,8 +765,15 @@ typedef enum
 
 - (void)onRefresh
 {
+    //apply current location if search location is not set up
+    DDDoubleDateFilter *filter = [[self.searchFilter copy] autorelease];
+    if (!filter)
+        filter = [[[DDDoubleDateFilter alloc] init] autorelease];
+    if (!filter.location)
+        filter.location = [DDLocationController currentLocationController].lastPlacemark;
+    
     //request doubledates
-    requestDoubleDatesAll_ = [self.apiController getDoubleDatesWithFilter:self.searchFilter];
+    requestDoubleDatesAll_ = [self.apiController getDoubleDatesWithFilter:filter];
     requestDoubleDatesMine_ = [self.apiController getMyDoubleDates];
     requestMeUnlockMaxActivities_ = [self.apiController getMeUnlockMaxActivities];
 }
