@@ -204,7 +204,8 @@
     {
         DDAPNSPayload *payload = [[[DDAPNSPayload alloc] init] autorelease];
         payload.callbackUrl = [self.selectedNotification callbackUrl];
-        payload.notificationId = [DDAPIObject stringForObject:[self.selectedNotification identifier]];
+        payload.notificationId = [self.selectedNotification identifier];
+        payload.hasDialog = self.selectedNotification.dialog?[NSNumber numberWithBool:YES]:[NSNumber numberWithBool:NO];
         [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] handleNotificationPayload:payload];
     }
 }
@@ -313,10 +314,10 @@
 - (void)dialogAlertViewDidConfirm:(DDDialogAlertView*)alertView
 {
     //send post on confirmation url
-    if (self.selectedNotification.dialog.confirmUrl)
+    if (alertView.dialog.confirmUrl)
     {
         //create request
-        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:self.selectedNotification.dialog.confirmUrl];
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:alertView.dialog.confirmUrl];
         RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
         request.method = RKRequestMethodPOST;
         NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];

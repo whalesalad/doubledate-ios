@@ -18,6 +18,10 @@
 #import "DDEngagement.h"
 #import "DDChatViewController.h"
 #import "DDBarButtonItem.h"
+#import "DDNotification.h"
+#import "DDDialogAlertView.h"
+#import "DDImage.h"
+#import "DDDialog.h"
 #import <RestKit/RestKit.h>
 #import <SBJson.h>
 
@@ -37,6 +41,9 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     [super dealloc];
 }
 
+@end
+
+@interface DDAppDelegate (APNSHidden) <DDDialogAlertViewDelegate>
 @end
 
 @implementation DDAppDelegate (APNS)
@@ -78,8 +85,9 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     {
         //set payload
         DDAPNSPayload *p = [[[DDAPNSPayload alloc] init] autorelease];
-        p.callbackUrl = [DDAPIObject stringForObject:[userInfo objectForKey:APNS_CALLBACK_URL_KEY]];
-        p.notificationId = [DDAPIObject stringForObject:[userInfo objectForKey:APNS_NOTIFICATION_ID_KEY]];
+        p.callbackUrl = [userInfo objectForKey:APNS_CALLBACK_URL_KEY];
+        p.notificationId = [userInfo objectForKey:APNS_NOTIFICATION_ID_KEY];
+        p.hasDialog = [userInfo objectForKey:APNS_HAS_DIALOG_KEY];
         if (p.callbackUrl && p.notificationId)
             [self handleNotificationPayload:p];
     }
@@ -145,23 +153,33 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
         //save callback url to open
         self.openedPayload = payload;
         
-        //make api request
-        NSString *path = payload.callbackUrl;
-        path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
-        if ([path rangeOfString:@"messages"].location != NSNotFound)
+        //check if dialog exists
+        if ([payload.hasDialog boolValue])
         {
-            path = [path stringByDeletingLastPathComponent];
-            path = [path stringByDeletingLastPathComponent];
+            DDNotification *notification = [[[DDNotification alloc] init] autorelease];
+            notification.identifier = payload.notificationId;
+            [self.apiController getNotification:notification];
         }
-        DDAPIControllerMethodType requestType = -1;
-        if ([path rangeOfString:@"users"].location != NSNotFound)
-            requestType = DDAPIControllerMethodTypeGetUser;
-        else if ([path rangeOfString:@"engagements"].location != NSNotFound)
-            requestType = DDAPIControllerMethodTypeGetEngagement;
-        else if ([path rangeOfString:@"activities"].location != NSNotFound)
-            requestType = DDAPIControllerMethodTypeGetDoubleDate;
-        if (requestType != -1)
-            [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
+        else
+        {
+            //make api request
+            NSString *path = payload.callbackUrl;
+            path = [path stringByReplacingOccurrencesOfString:@"dbld8://" withString:@""];
+            if ([path rangeOfString:@"messages"].location != NSNotFound)
+            {
+                path = [path stringByDeletingLastPathComponent];
+                path = [path stringByDeletingLastPathComponent];
+            }
+            DDAPIControllerMethodType requestType = -1;
+            if ([path rangeOfString:@"users"].location != NSNotFound)
+                requestType = DDAPIControllerMethodTypeGetUser;
+            else if ([path rangeOfString:@"engagements"].location != NSNotFound)
+                requestType = DDAPIControllerMethodTypeGetEngagement;
+            else if ([path rangeOfString:@"activities"].location != NSNotFound)
+                requestType = DDAPIControllerMethodTypeGetDoubleDate;
+            if (requestType != -1)
+                [self.apiController requestForPath:path withMethod:RKRequestMethodGET ofType:requestType];
+        }
     }
     else
         self.payload = payload;
@@ -230,6 +248,53 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getNotificationSucceed:(DDNotification *)notification
+{
+    //hide hud
+    [self.window.rootViewController hideHud:YES];
+    
+    //create dialog
+    DDDialogAlertView *alertView = [[[DDDialogAlertView alloc] initWithDialog:[notification dialog]] autorelease];
+    alertView.dialogDelegate = self;
+    if ([[notification photos] count] == 1)
+        alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[[notification photos] objectAtIndex:0] mediumUrl]];
+    [alertView show];
+}
+
+- (void)getNotificationDidFailedWithError:(NSError *)error
+{
+    //hide hud
+    [self.window.rootViewController hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark DDDialogAlertViewDelegate
+
+- (void)dialogAlertViewDidConfirm:(DDDialogAlertView*)alertView
+{
+    //send post on confirmation url
+    if (alertView.dialog.confirmUrl)
+    {
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:alertView.dialog.confirmUrl];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodPOST;
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
+}
+
+- (void)dialogAlertViewDidCancel:(DDDialogAlertView*)alertView
+{
+    
 }
 
 @end

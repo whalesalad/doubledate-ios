@@ -17,4 +17,5 @@
 
 #define APNS_CALLBACK_URL_KEY @"callback_url"
 #define APNS_NOTIFICATION_ID_KEY @"nid"
+#define APNS_HAS_DIALOG_KEY @"has_dialog"
 
