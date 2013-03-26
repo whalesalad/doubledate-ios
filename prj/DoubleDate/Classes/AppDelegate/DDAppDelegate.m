@@ -121,13 +121,15 @@
     //check if opened from remote notification
     if ([[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] isKindOfClass:[NSDictionary class]])
     {
-        NSString *paramCallbackUrl = [DDAPIObject stringForObject:[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_CALLBACK_URL_KEY]];
-        NSString *paramCallbackNotificationId = [DDAPIObject stringForObject:[[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_NOTIFICATION_ID_KEY]];
-        if (paramCallbackUrl && paramCallbackNotificationId)
+        NSString *paramCallbackUrl = [[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_CALLBACK_URL_KEY];
+        NSNumber *paramNotificationId = [[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_NOTIFICATION_ID_KEY];
+        NSNumber *paramHasDialog = [[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey] objectForKey:APNS_HAS_DIALOG_KEY];
+        if (paramCallbackUrl && paramNotificationId)
         {
             DDAPNSPayload *p = [[[DDAPNSPayload alloc] init] autorelease];
             p.callbackUrl = paramCallbackUrl;
-            p.notificationId = paramCallbackNotificationId;
+            p.notificationId = paramNotificationId;
+            p.hasDialog = paramHasDialog;
             [self handleNotificationPayload:p];
         }
     }

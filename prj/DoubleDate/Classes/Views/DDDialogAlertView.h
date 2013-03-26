@@ -27,6 +27,8 @@
 
 @property(nonatomic, retain) NSURL *imageUrl;
 
+@property(nonatomic, readonly) DDDialog *dialog;
+
 - (id)initWithDialog:(DDDialog*)dialog;
 
 @end

@@ -15,7 +15,8 @@ extern NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification;
 @interface DDAPNSPayload : NSObject
 
 @property(nonatomic, retain) NSString *callbackUrl;
-@property(nonatomic, retain) NSString *notificationId;
+@property(nonatomic, retain) NSNumber *notificationId;
+@property(nonatomic, retain) NSNumber *hasDialog;
 
 @end
 

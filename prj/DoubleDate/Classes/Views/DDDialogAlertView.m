@@ -22,6 +22,7 @@
 
 @synthesize dialogDelegate;
 @synthesize imageUrl;
+@synthesize dialog=dialog_;
 
 - (id)initWithDialog:(DDDialog*)dialog
 {
