@@ -234,6 +234,9 @@
             imageViewBadge.center = CGPointMake(self.customView.frame.size.width + 4, self.customView.frame.size.height/2);
             [self.customView addSubview:imageViewBadge];
             
+            //hide application badge number if it's not more than 0
+            imageViewBadge.hidden = [[UIApplication sharedApplication] applicationIconBadgeNumber] <= 0;
+            
             //add label
             UILabel *label = [[[UILabel alloc] initWithFrame:imageViewBadge.bounds] autorelease];
             label.textColor = [UIColor whiteColor];
