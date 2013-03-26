@@ -237,7 +237,9 @@
             //add label
             UILabel *label = [[[UILabel alloc] initWithFrame:imageViewBadge.bounds] autorelease];
             label.textColor = [UIColor whiteColor];
-            label.font = [UIFont boldSystemFontOfSize:11];
+            label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
+            label.shadowOffset = CGSizeMake(0, 1);
+            label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
             label.backgroundColor = [UIColor clearColor];
             label.text = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
             label.textAlignment = NSTextAlignmentCenter;
