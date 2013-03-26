@@ -104,14 +104,16 @@
     {
         //add background view
         DDInterestViewInternal *mainView = [[[DDInterestViewInternal alloc] initWithFrame:CGRectMake(0, outVerPadding, self.frame.size.width, 30)] autorelease];
-        mainView.backgroundColor = [UIColor redColor];
         [self addSubview:mainView];
         
         //add label
-        UILabel *label = [[[UILabel alloc] initWithFrame:mainView.bounds] autorelease];
-        label.text = NSLocalizedString(@"No interests", @"Label of no interests in Ice Breakers");
-        if (custmomizationHandler)
-            custmomizationHandler(label);
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectInset(mainView.bounds, 5, 0)] autorelease];
+        label.text = [NSString stringWithFormat:NSLocalizedString(@"%@ doesn't have any ice breakers.", @"Text for when a user/wing doesn't have ice breakers"), @"UserFirstName"];
+        label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+        label.textColor = [UIColor lightGrayColor];
+        label.backgroundColor = [UIColor clearColor];
+        label.shadowColor = [UIColor blackColor];
+        label.shadowOffset = CGSizeMake(0, -1);
         [mainView addSubview:label];
         
         return mainView.frame.size.height;
