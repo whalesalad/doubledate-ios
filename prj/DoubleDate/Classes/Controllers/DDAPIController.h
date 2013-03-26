@@ -18,7 +18,6 @@
 @class DDEngagement;
 @class DDMessage;
 @class DDNotification;
-@class DDMaxActivitiesPayload;
 @class DDPlacemark;
 
 typedef enum
@@ -62,8 +61,6 @@ typedef enum
     DDAPIControllerMethodTypeGetNotifications,
     DDAPIControllerMethodTypeGetNotification,
     DDAPIControllerMethodTypeUpdateNotification,
-    DDAPIControllerMethodTypeGetMeUnlockMaxActivities,
-    DDAPIControllerMethodTypeUnlockMeMaxActivities,
     DDAPIControllerMethodTypeGetInAppProducts,
     DDAPIControllerMethodTypeRequestConnectFriends,
     DDAPIControllerMethodTypeRequestInviteFriend,
@@ -174,12 +171,6 @@ typedef int DDRequestId;
 - (void)updateNotificationSucceed:(DDNotification*)notification;
 - (void)updateNotificationDidFailedWithError:(NSError*)error;
 
-- (void)getMeUnlockMaxActivitiesSucceed:(DDMaxActivitiesPayload*)payload;
-- (void)getMeUnlockMaxActivitiesDidFailedWithError:(NSError*)error;
-
-- (void)unlockMeMaxActivitiesSucceed:(DDMaxActivitiesPayload*)payload;
-- (void)unlockMeMaxActivitiesDidFailedWithError:(NSError*)error;
-
 - (void)getInAppProductsSucceed:(NSArray*)products;
 - (void)getInAppProductsDidFailedWithError:(NSError*)error;
 
@@ -271,10 +262,6 @@ typedef int DDRequestId;
 - (DDRequestId)getNotification:(DDNotification*)notification;
 
 - (DDRequestId)updateNotification:(DDNotification*)notification;
-
-- (DDRequestId)getMeUnlockMaxActivities;
-
-- (DDRequestId)unlockMeMaxActivities:(DDMaxActivitiesPayload*)payload;
 
 - (DDRequestId)getInAppProducts;
 

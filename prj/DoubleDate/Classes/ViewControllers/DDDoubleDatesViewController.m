@@ -23,15 +23,12 @@
 #import "DDObjectsController.h"
 #import "DDTools.h"
 #import "DDAPIController.h"
-#import "DDMaxActivitiesPayload.h"
 #import "DDUnlockAlertView.h"
 #import "DDAppDelegate.h"
 #import "DDAuthenticationController.h"
 #import "DDObjectsController.h"
 #import "UIView+Other.h"
 #import <QuartzCore/QuartzCore.h>
-
-#define kTableViewContentInset UIEdgeInsetsMake(0, 0, 3, 0)
 
 #define kEarnCost 50
 
@@ -46,24 +43,18 @@ typedef enum
     DDDoubleDatesViewControllerFilterAttending,
 } DDDoubleDatesViewControllerFilter;
 
-@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate, DDUnlockAlertViewDelegate>
-
-@property(nonatomic, retain) UIView *unlockTopView;
-@property(nonatomic, retain) DDMaxActivitiesPayload *maxActivitiesPayload;
-@property(nonatomic, assign) NSInteger unlockCost;
+@interface DDDoubleDatesViewController () <UITableViewDataSource, UITableViewDelegate, DDDoubleDateFilterViewControllerDelegate>
 
 - (NSArray*)doubleDatesForSection:(NSInteger)section;
 - (void)onDataRefreshed;
 - (void)removeDoubleDate:(DDDoubleDate*)doubleDate;
 - (void)updateNavigationBar;
 - (void)updateSearchBar;
-- (void)updateUnlockView;
 
 @end
 
 @implementation DDDoubleDatesViewController
 
-@synthesize unlockTopView;
 @synthesize searchFilter;
 @synthesize mode = mode_;
 
@@ -80,22 +71,11 @@ typedef enum
 
 - (void)reloadData
 {
-    //show/hide unlock view
-    [self updateUnlockView];
-    
     //reload table
     [self.tableView reloadData];
     
     //update no data view
     [self updateNoDataView];
-}
-
-- (UIButton*)newUnlockButton
-{
-    UIImage *image = [UIImage imageNamed:@"btn-yellow-unlock.png"];
-    UIButton *ret = [self.view baseButtonWithImage:image];
-    [ret addTarget:self action:@selector(unlockTouched:) forControlEvents:UIControlEventTouchUpInside];
-    return ret;
 }
 
 - (UIButton*)newAddButton
@@ -141,17 +121,6 @@ typedef enum
     //customize separators
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    //add slight padding to end of view.
-    self.tableView.contentInset = kTableViewContentInset;
-    
-    //add unlock view to the top
-    self.unlockTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, -88, 320, 88)] autorelease];
-    self.unlockTopView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-doubledates-upper.png"]];
-    
-    //    self.unlockTopView
-    self.unlockTopView.hidden = YES;
-    [self.tableView addSubview:self.unlockTopView];
-    
     //update navigation bar
     [self updateNavigationBar];
     
@@ -172,7 +141,7 @@ typedef enum
     [super viewDidAppear:animated];
     
     //check for first time
-    if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_ && !requestMeUnlockMaxActivities_)
+    if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_)
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
 }
 
@@ -191,16 +160,6 @@ typedef enum
 
 #pragma mark -
 #pragma mark other
-
-- (void)unlockTouched:(id)sender
-{
-    DDUnlockAlertViewFullScreen *alert = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
-    alert.price = abs([self.maxActivitiesPayload.cost intValue]);
-    alert.title = [self.maxActivitiesPayload title];
-    alert.message = [self.maxActivitiesPayload description];
-    alert.delegate = self;
-    [alert show];
-}
 
 - (void)plusTouched:(id)sender
 {
@@ -315,7 +274,7 @@ typedef enum
 - (void)onDataRefreshed
 {
     //check for both data
-    if (![self.apiController isRequestExist:requestDoubleDatesAll_] && ![self.apiController isRequestExist:requestDoubleDatesMine_] && ![self.apiController isRequestExist:requestMeUnlockMaxActivities_])
+    if (![self.apiController isRequestExist:requestDoubleDatesAll_] && ![self.apiController isRequestExist:requestDoubleDatesMine_])
     {
         //hide hud
         [self hideHud:YES];
@@ -360,7 +319,7 @@ typedef enum
     //check current mode
     if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"create-date-plus-icon.png"] target:self action:@selector(plusTouched:)];
     }
     else
     {
@@ -405,75 +364,6 @@ typedef enum
     else
     {
         self.tableView.tableHeaderView = nil;
-    }
-}
-
-- (void)updateUnlockView
-{
-    //update visibility of unlock view
-    self.unlockTopView.hidden = (mode_ == DDDoubleDatesViewControllerModeAll) || ([doubleDatesMine_ count] == 0) || (self.maxActivitiesPayload == nil);
-    UIEdgeInsets contentInsetBefore = self.tableView.contentInset;
-    self.tableView.contentInset = UIEdgeInsetsMake(kTableViewContentInset.top+self.unlockTopView.hidden?0:self.unlockTopView.frame.size.height, kTableViewContentInset.left, kTableViewContentInset.bottom, kTableViewContentInset.right);
-    self.tableView.contentOffset = CGPointMake(self.tableView.contentOffset.x, self.tableView.contentOffset.y - self.tableView.contentInset.top + contentInsetBefore.top);
-    [self scrollViewDidScroll:self.tableView];
-    
-    //check if no hidden
-    if (!self.unlockTopView.hidden)
-    {
-        //customize view
-        while ([[self.unlockTopView subviews] count])
-            [[[self.unlockTopView subviews] lastObject] removeFromSuperview];
-        
-        //add label
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 8, 320, 24)] autorelease];
-        [self.view customizeGenericLabel:label];
-        
-        //add button
-        UIButton *button = nil;
-        
-        //we are able to add new activity here
-        BOOL unlockRequiredFromAPI = [self.maxActivitiesPayload.unlockRequired boolValue];
-        BOOL lessThanAllowedCountOfActivities = self.maxActivitiesPayload.activitiesAllowed && ([doubleDatesMine_ count] < [self.maxActivitiesPayload.activitiesAllowed intValue]);
-        if (!unlockRequiredFromAPI || lessThanAllowedCountOfActivities)
-        {
-            //set text
-            //            if (unlockRequiredFromAPI)
-            //            {
-            //                NSString *format = NSLocalizedString(@"Post up to %d dates at the same time", nil);
-            //                label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
-            //            }
-            //            else
-            //            {
-            //                label.text = NSLocalizedString(@"Post a date", nil);
-            //            }
-            NSString *format = NSLocalizedString(@"Post up to %d dates at the same time.", nil);
-            label.text = [NSString stringWithFormat:format, [self.maxActivitiesPayload.activitiesAllowed intValue]];
-            
-            //set button
-            button = [self newAddButton];
-            button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+16);
-        }
-        else
-        {
-            //set text
-            NSString *textFormat = NSLocalizedString(@"You've posted your maximum of %d dates!", nil);
-            label.text = [NSString stringWithFormat:textFormat, [self.maxActivitiesPayload.activitiesAllowed intValue]];
-            label.textColor = [UIColor colorWithRed:236.0f/255.0f green:165.0f/255.0f blue:26.0f/255.0f alpha:1];
-            
-            //set button
-            button = [self newUnlockButton];
-            NSString *buttonFormat = NSLocalizedString(@"Unlock %d DoubleDates", nil);
-            [button setTitle:[NSString stringWithFormat:buttonFormat, [self.maxActivitiesPayload.maxActivities intValue]] forState:UIControlStateNormal];
-            button.center = CGPointMake(self.unlockTopView.frame.size.width/2, self.unlockTopView.frame.size.height/2+15);
-        }
-        
-        //add views
-        if (button)
-            [self.unlockTopView addSubview:button];
-        
-        if (label)
-            [self.unlockTopView addSubview:label];
-        
     }
 }
 
@@ -528,7 +418,6 @@ typedef enum
             //refresh
             requestDoubleDatesAll_ = 0;
             requestDoubleDatesMine_ = 0;
-            requestMeUnlockMaxActivities_ = 0;
         }
     }
 }
@@ -698,27 +587,6 @@ typedef enum
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
 }
 
-- (void)getMeUnlockMaxActivitiesSucceed:(DDMaxActivitiesPayload *)payload
-{
-    //save data
-    self.maxActivitiesPayload = payload;
-    
-    //inform about completion
-    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
-}
-
-- (void)getMeUnlockMaxActivitiesDidFailedWithError:(NSError *)error
-{
-    //save data
-    self.maxActivitiesPayload = nil;
-    
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-    
-    //inform about completion
-    [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
-}
-
 - (void)requestDeleteDoubleDateSucceed
 {
 }
@@ -727,34 +595,6 @@ typedef enum
 {
     //refresh
     [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
-    
-    //show error
-    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-}
-
-- (void)unlockMeMaxActivitiesSucceed:(DDMaxActivitiesPayload*)payload
-{
-    //hide hud
-    [self hideHud:YES];
-    
-    //update total coins
-    NSInteger totalCoins = [[[DDAuthenticationController currentUser] totalCoins] intValue] + self.unlockCost;
-    [[DDAuthenticationController currentUser] setTotalCoins:[NSNumber numberWithInt:totalCoins]];
-    
-    //inform about change
-    [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
-    
-    //update payload
-    self.maxActivitiesPayload = payload;
-    
-    //update unlock view
-    [self updateUnlockView];
-}
-
-- (void)unlockMeMaxActivitiesDidFailedWithError:(NSError*)error
-{
-    //hide hud
-    [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
@@ -775,7 +615,6 @@ typedef enum
     //request doubledates
     requestDoubleDatesAll_ = [self.apiController getDoubleDatesWithFilter:filter];
     requestDoubleDatesMine_ = [self.apiController getMyDoubleDates];
-    requestMeUnlockMaxActivities_ = [self.apiController getMeUnlockMaxActivities];
 }
 
 #pragma mark -
@@ -783,14 +622,6 @@ typedef enum
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y < -self.unlockTopView.frame.size.height)
-    {
-        self.unlockTopView.frame = CGRectMake(0, -self.unlockTopView.frame.size.height, self.unlockTopView.frame.size.width, self.unlockTopView.frame.size.height);
-    }
-    else
-    {
-        self.unlockTopView.frame = CGRectMake(0, scrollView.contentOffset.y, self.unlockTopView.frame.size.width, self.unlockTopView.frame.size.height);
-    }
 }
 
 #pragma mark -
@@ -808,25 +639,6 @@ typedef enum
     [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
-}
-
-#pragma mark -
-#pragma mark DDUnlockAlertViewDelegate
-
-- (void)unlockAlertViewDidCancel:(DDUnlockAlertView*)sender
-{
-}
-
-- (void)unlockAlertViewDidUnlock:(DDUnlockAlertView*)sender
-{
-    //show loading
-    [self showHudWithText:NSLocalizedString(@"Unlocking", nil) animated:YES];
-    
-    //save cost of unlock
-    self.unlockCost = [self.maxActivitiesPayload.cost intValue];
-    
-    //unlock
-    [self.apiController unlockMeMaxActivities:self.maxActivitiesPayload];
 }
 
 @end

@@ -446,7 +446,6 @@
 		962DEA6B16DCBE94007B1603 /* unlock-icon-coin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962DEA5B16DCBE94007B1603 /* unlock-icon-coin@2x.png */; };
 		96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963672FF167094C800D3D8D3 /* DDPhotoView.m */; };
 		963A67A316A3FA1D002F4791 /* DDEngagementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */; };
-		964220CF16DB567900840733 /* DDMaxActivitiesPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 964220CE16DB567900840733 /* DDMaxActivitiesPayload.m */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -1114,8 +1113,6 @@
 		963672FE167094C800D3D8D3 /* DDPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPhotoView.h; sourceTree = "<group>"; };
 		963672FF167094C800D3D8D3 /* DDPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPhotoView.m; sourceTree = "<group>"; };
 		963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDEngagementTableViewCell.xib; sourceTree = "<group>"; };
-		964220CD16DB567900840733 /* DDMaxActivitiesPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMaxActivitiesPayload.h; sourceTree = "<group>"; };
-		964220CE16DB567900840733 /* DDMaxActivitiesPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMaxActivitiesPayload.m; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -2034,8 +2031,6 @@
 				96E935EC16F894D500E5512B /* DDDialog.m */,
 				9615C8A816E4EE3A00F5D0AC /* DDInAppProduct.h */,
 				9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */,
-				964220CD16DB567900840733 /* DDMaxActivitiesPayload.h */,
-				964220CE16DB567900840733 /* DDMaxActivitiesPayload.m */,
 				706EFAA616C9B5D300DD5791 /* DDNotification.h */,
 				706EFAA716C9B5D300DD5791 /* DDNotification.m */,
 				7025E53D168274B100FE3FBE /* DDMessage.h */,
@@ -3085,7 +3080,6 @@
 				706EFAAB16C9B9B200DD5791 /* DDNotificationTableViewCell.m in Sources */,
 				96F12DC816D4BAB0009127AF /* JBKenBurnsView.m in Sources */,
 				96E2623616D651140041FD26 /* DDEditProfileViewController.m in Sources */,
-				964220CF16DB567900840733 /* DDMaxActivitiesPayload.m in Sources */,
 				7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */,
 				964F742D16DE69E90095DBED /* DDCoinsBar.m in Sources */,
 				964F743B16DE7C260095DBED /* DDUnlockAlertView.m in Sources */,
@@ -3130,7 +3124,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Marcus Tybell (SCTJRY9MZ7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -3149,7 +3143,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "B3E1F63A-CBC3-4609-9F89-055C864ED09F";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -3161,7 +3155,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Marcus Tybell";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3174,7 +3168,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PROVISIONING_PROFILE = "79E419E0-4FE0-434E-BD7E-84AAC7645A66";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3183,7 +3177,7 @@
 		960A02E715F7371D00BA9EB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Marcus Tybell (SCTJRY9MZ7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
@@ -3199,7 +3193,7 @@
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B3E1F63A-CBC3-4609-9F89-055C864ED09F";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3207,7 +3201,7 @@
 		960A02E815F7371D00BA9EB0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Marcus Tybell";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
@@ -3223,7 +3217,7 @@
 				INFOPLIST_FILE = "DoubleDate/DoubleDate-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "79E419E0-4FE0-434E-BD7E-84AAC7645A66";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
