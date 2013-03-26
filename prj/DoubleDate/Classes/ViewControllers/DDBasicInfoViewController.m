@@ -46,7 +46,6 @@
     if (self)
     {
         locationController_ = [[DDLocationController alloc] init];
-        locationController_.options = DDLocationSearchOptionsCities;
         locationController_.delegate = self;
     }
     return self;
@@ -153,7 +152,7 @@
     self.userLocation = self.userLocation;
     
     //force location update
-    [locationController_ forceSearchPlacemarks];
+    [locationController_ forceSearchPlacemark];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -322,7 +321,7 @@
             self.userLocation = nil;
             
             //try to decode location
-            [locationController_ forceSearchPlacemarksForLocation:placemark.location];
+            [locationController_ forceSearchPlacemarkForLocation:placemark.location];
         }
         else if ([[placemarks lastObject] isKindOfClass:[DDPlacemark class]])
         {
@@ -395,13 +394,10 @@
     return self.userLocation == nil;
 }
 
-- (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks
+- (void)locationManagerDidFoundPlacemark:(DDPlacemark*)placemark
 {
     if (!self.userLocation)
-    {
-        if ([placemarks count] > 0)
-            self.userLocation = [placemarks objectAtIndex:0];
-    }
+        self.userLocation = placemark;
 }
 
 #pragma mark -

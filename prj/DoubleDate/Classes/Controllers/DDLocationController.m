@@ -7,6 +7,7 @@
 //
 
 #import "DDLocationController.h"
+#import "DDPlacemark.h"
 
 @interface DDLocationController ()<CLLocationManagerDelegate, DDAPIControllerDelegate>
 
@@ -15,7 +16,34 @@
 @implementation DDLocationController
 
 @synthesize delegate;
-@synthesize options;
+@synthesize lastLocation = location_;
+@synthesize errorLocation = errorLocation_;
+@synthesize lastPlacemark = placemark_;
+@synthesize errorPlacemark = errorPlacemark_;
+
+static DDLocationController *_sharedLocationController = nil;
+
++ (DDLocationController*)currentLocationController
+{
+    return _sharedLocationController;
+}
+
++ (void)startCurrentLocationHandling
+{
+    if (!_sharedLocationController)
+        _sharedLocationController = [[DDLocationController alloc] init];
+}
+
++ (void)updateCurrentLocation
+{
+    [_sharedLocationController forceSearchPlacemark];
+}
+
++ (void)stopCurrentLocationHandling
+{
+    [_sharedLocationController release];
+    _sharedLocationController = nil;
+}
 
 - (id)init
 {
@@ -30,9 +58,6 @@
         //api controller
         apiController_ = [[DDAPIController alloc] init];
         apiController_.delegate = self;
-        
-        //set search options
-        options = DDLocationSearchOptionsBoth;
     }
     return self;
 }
@@ -51,20 +76,15 @@
     [super dealloc];
 }
 
-- (void)forceSearchPlacemarks
+- (void)forceSearchPlacemark
 {
-    [self forceSearchPlacemarksForLocation:locationManager_.location];
+    [self forceSearchPlacemarkForLocation:locationManager_.location];
 }
 
-- (void)forceSearchPlacemarksForLocation:(CLLocation*)location
+- (void)forceSearchPlacemarkForLocation:(CLLocation*)location
 {
     [apiController_ cancelRequest:requestId_];
-    requestId_ = [apiController_ searchPlacemarksForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude options:self.options];
-}
-
-- (CLLocation*)location
-{
-    return locationManager_.location;
+    requestId_ = [apiController_ getCurrentPlacemarkForLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
 }
 
 #pragma mark -
@@ -74,32 +94,57 @@
 	didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    if ([self.delegate locationManagerShouldGeoDecodeLocation:newLocation])
-    {
-        if (![apiController_ isRequestExist:requestId_])
-            [self forceSearchPlacemarks];
-    }
+    //unset error
+    [errorLocation_ release];
+    errorLocation_ = nil;
+    
+    //update location
+    [location_ release];
+    location_ = [newLocation retain];
+    
+    //check for geodecoding
+    if ([self.delegate locationManagerShouldGeoDecodeLocation:location_])
+        [self forceSearchPlacemark];
     else
-        [self.delegate locationManagerDidFoundLocation:newLocation];
+        [self.delegate locationManagerDidFoundLocation:location_];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
+    //save error
+    [errorLocation_ release];
+    errorLocation_ = [error retain];
+    
+    //update delegate
     [self.delegate locationManagerDidFailedWithError:error];
 }
 
 #pragma mark -
 #pragma mark DDAPIControllerDelegate
 
-- (void)searchPlacemarksSucceed:(NSArray*)placemarks forQuery:(NSString *)query
+- (void)getCurrentPlacemarkSucceed:(DDPlacemark *)placemark
 {
-    [self.delegate locationManagerDidFoundPlacemarks:placemarks];
+    //unset error
+    [errorPlacemark_ release];
+    errorPlacemark_ = nil;
+    
+    //save placemark
+    [placemark_ release];
+    placemark_ = [placemark retain];
+    
+    //update delegate
+    [self.delegate locationManagerDidFoundPlacemark:placemark];
 }
 
-- (void)searchPlacemarksDidFailedWithError:(NSError*)error
+- (void)getCurrentPlacemarkDidFailedWithError:(NSError *)error
 {
+    //save error
+    [errorPlacemark_ release];
+    errorPlacemark_ = [error retain];
     
+    //update delegate
+    [self.delegate locationManagerDidFailedWithError:error];
 }
 
 @end

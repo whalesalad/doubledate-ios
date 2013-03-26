@@ -15,7 +15,7 @@
 - (void)locationManagerDidFoundLocation:(CLLocation*)location;
 - (void)locationManagerDidFailedWithError:(NSError*)error;
 - (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location;
-- (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks;
+- (void)locationManagerDidFoundPlacemark:(DDPlacemark*)placemark;
 
 @end
 
@@ -24,15 +24,26 @@
     CLLocationManager *locationManager_;
     DDAPIController *apiController_;
     DDRequestId requestId_;
+    CLLocation *location_;
+    NSError *errorLocation_;
+    DDPlacemark *placemark_;
+    NSError *errorPlacemark_;
 }
-
-@property(nonatomic, assign) DDLocationSearchOptions options;
 
 @property(nonatomic, assign) id<DDLocationControllerDelegate> delegate;
 
-@property(nonatomic, readonly) CLLocation *location;
+@property(nonatomic, readonly) CLLocation *lastLocation;
+@property(nonatomic, readonly) NSError *errorLocation;
 
-- (void)forceSearchPlacemarks;
-- (void)forceSearchPlacemarksForLocation:(CLLocation*)location;
+@property(nonatomic, readonly) DDPlacemark *lastPlacemark;
+@property(nonatomic, readonly) NSError *errorPlacemark;
+
++ (DDLocationController*)currentLocationController;
++ (void)startCurrentLocationHandling;
++ (void)updateCurrentLocation;
++ (void)stopCurrentLocationHandling;
+
+- (void)forceSearchPlacemark;
+- (void)forceSearchPlacemarkForLocation:(CLLocation*)location;
 
 @end

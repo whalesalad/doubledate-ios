@@ -17,6 +17,7 @@
 #import "DDAuthenticationController.h"
 #import "DDUser.h"
 #import "DDAPIObject.h"
+#import "DDLocationController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -145,6 +146,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [self sendMyDevice];
+    [DDLocationController updateCurrentLocation];
     [DDAuthenticationController updateCurrentUser];
 }
 

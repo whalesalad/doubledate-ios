@@ -615,7 +615,7 @@
     return NO;
 }
 
-- (void)locationManagerDidFoundPlacemarks:(NSArray*)placemarks
+- (void)locationManagerDidFoundPlacemark:(DDPlacemark*)placemark
 {
 }
 
@@ -749,7 +749,7 @@
         if ([[self.location identifier] intValue] != [[[[DDAuthenticationController currentUser] location] identifier] intValue])
             locationChooserViewController.ddLocation = self.location;
         else
-            locationChooserViewController.clLocation = locationController_.location;
+            locationChooserViewController.clLocation = locationController_.lastLocation;
         locationChooserViewController.options = DDLocationSearchOptionsCities;
         locationChooserViewController.distance = 200;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];

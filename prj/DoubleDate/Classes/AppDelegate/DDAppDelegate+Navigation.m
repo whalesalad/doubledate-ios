@@ -16,6 +16,7 @@
 #import "DDNotificationsViewController.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDAuthenticationController.h"
+#import "DDLocationController.h"
 
 @implementation DDAppDelegate (Navigation)
 
@@ -23,6 +24,10 @@
 {
     //save current user
     [DDAuthenticationController setCurrentUser:user];
+    
+    //start searching location
+    [DDLocationController startCurrentLocationHandling];
+    [DDLocationController updateCurrentLocation];
     
     //set notifications view controller
     DDNotificationsViewController *notificationsViewController = [[[DDNotificationsViewController alloc] init] autorelease];
@@ -99,8 +104,16 @@
 
 - (void)logout
 {
+    //logout on authentication
     [DDAuthenticationController logout];
+    
+    //logout on facebook
     [[DDFacebookController sharedController] logout];
+    
+    //finish location updating
+    [DDLocationController stopCurrentLocationHandling];
+    
+    //dismiss ui
     [self.viewController dismissViewControllerAnimated:YES completion:^{
     }];
 }
