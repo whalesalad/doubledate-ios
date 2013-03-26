@@ -41,6 +41,7 @@ static DDLocationController *_sharedLocationController = nil;
 
 + (void)stopCurrentLocationHandling
 {
+    _sharedLocationController.delegate = nil;
     [_sharedLocationController release];
     _sharedLocationController = nil;
 }
