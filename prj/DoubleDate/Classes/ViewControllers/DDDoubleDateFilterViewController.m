@@ -12,13 +12,13 @@
 #import "DDBarButtonItem.h"
 #import "DDDoubleDateFilter.h"
 #import "DDSegmentedControlTableViewCell.h"
-#import "DDAuthenticationController.h"
 #import "DDUser.h"
 #import "DDShortUser.h"
 #import "DDLocationChooserViewController.h"
 #import "DDPlacemark.h"
 #import "DDLabelTableViewCell.h"
 #import "DDLabel.h"
+#import "DDLocationController.h"
 
 #define kMinAge 17
 #define kMaxAge 50
@@ -76,7 +76,7 @@
     
     //check for default value
     if (filter_.location == nil)
-        filter_.location = [[DDAuthenticationController currentUser] location];
+        filter_.location = [[DDLocationController currentLocationController] lastPlacemark];
     
     //check for default min/max values
     if (filter_.minAge == nil)
@@ -106,7 +106,7 @@
 - (void)applyTouched:(id)sender
 {
     //check for nil location
-    if ([[filter_.location identifier] intValue] == [[[[DDAuthenticationController currentUser] location] identifier] intValue])
+    if ([[filter_.location identifier] intValue] == [[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue])
         filter_.location = nil;
     
     //apply filter
@@ -136,7 +136,7 @@
         cell.textLabel.textColor = [UIColor whiteColor];
         
         //check if we need to add reset button
-        if ([[[[DDAuthenticationController currentUser] location] identifier] intValue] != [[filter_.location identifier] intValue])
+        if ([[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue] != [[filter_.location identifier] intValue])
         {
             UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -168,7 +168,7 @@
 - (void)resetLocationTouched:(id)sender
 {
     //set location
-    filter_.location = [DDAuthenticationController currentUser].location;
+    filter_.location = [DDLocationController currentLocationController].lastPlacemark;
     
     //update cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
