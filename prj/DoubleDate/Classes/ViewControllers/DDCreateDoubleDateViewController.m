@@ -117,9 +117,6 @@
     if (!self.location)
         self.location = [DDAuthenticationController currentUser].location;
     
-    //force location update
-    [locationController_ forceSearchPlacemarks];
-    
     //update navigation bar
     [self updateNavigationBar];
 }
