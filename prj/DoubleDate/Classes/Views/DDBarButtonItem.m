@@ -8,8 +8,11 @@
 
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
+#import "DDAppDelegate.h"
 
 @implementation DDBarButtonItem
+
+@synthesize showsApplicationBadgeNumber;
 
 - (void)setButton:(UIButton*)button
 {
@@ -189,8 +192,63 @@
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES padding:0];
 }
 
+- (id)initWithCustomView:(UIView *)customView
+{
+    if ((self = [super initWithCustomView:customView]))
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateApplicationBadgeNumber) name:DDAppDelegateApplicationBadgeNumberUpdatedNotification object:nil];
+    }
+    return self;
+}
+
+- (void)updateApplicationBadgeNumber
+{
+    if (self.showsApplicationBadgeNumber)
+    {
+        self.showsApplicationBadgeNumber = NO;
+        self.showsApplicationBadgeNumber = YES;
+    }
+}
+
+- (void)setShowsApplicationBadgeNumber:(BOOL)v
+{
+    //check for new value
+    if (v != self.showsApplicationBadgeNumber)
+    {
+        //update value
+        showsApplicationBadgeNumber = v;
+        
+        //set tag
+        NSInteger tagBadge = 2134;
+        
+        //remove previous badge
+        [[self.customView viewWithTag:tagBadge] removeFromSuperview];
+        
+        //check if we need to show the label
+        if (v)
+        {
+            //add badge
+            UIImageView *imageViewBadge = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"notification-bubble.png"]] autorelease];
+            imageViewBadge.tag = tagBadge;
+            imageViewBadge.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+            imageViewBadge.center = CGPointMake(self.customView.frame.size.width + 4, self.customView.frame.size.height/2);
+            [self.customView addSubview:imageViewBadge];
+            
+            //add label
+            UILabel *label = [[[UILabel alloc] initWithFrame:imageViewBadge.bounds] autorelease];
+            label.textColor = [UIColor whiteColor];
+            label.font = [UIFont boldSystemFontOfSize:11];
+            label.backgroundColor = [UIColor clearColor];
+            label.text = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
+            label.textAlignment = NSTextAlignmentCenter;
+            [imageViewBadge addSubview:label];
+        }
+    }
+}
+
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [normalImage_ release];
     [highlightedImage_ release];
     [disabledImage_ release];

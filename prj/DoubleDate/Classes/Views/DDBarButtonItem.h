@@ -16,6 +16,8 @@
     UIButton *button_;
 }
 
+@property(nonatomic, assign) BOOL showsApplicationBadgeNumber;
+
 - (UIButton*)button;
 
 - (UIImage*)normalImage;

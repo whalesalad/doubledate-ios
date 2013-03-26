@@ -21,6 +21,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
+NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelegateApplicationBadgeNumberUpdatedNotification";
+
 @implementation DDAppDelegate
 
 @synthesize userPopover;
@@ -90,8 +92,17 @@
 
 - (void)updateApplicationBadge
 {
+    //get current user
     DDUser *currentUser = [DDAuthenticationController currentUser];
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[currentUser.unreadNotificationsCount intValue]+[currentUser.unreadMessagesCount intValue]+[currentUser.pendingWingsCount intValue]];
+    
+    //get the number of unread badge
+    NSInteger badgeNumber = [currentUser.unreadNotificationsCount intValue]+[currentUser.unreadMessagesCount intValue]+[currentUser.pendingWingsCount intValue];
+    
+    //update application badge
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
+    
+    //send notification
+    [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateApplicationBadgeNumberUpdatedNotification object:[NSNumber numberWithInt:badgeNumber]];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
