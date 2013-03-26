@@ -76,7 +76,8 @@
     
     //check for default value
     if (filter_.location == nil)
-        filter_.location = [[DDLocationController currentLocationController] lastPlacemark];
+        filter_.location = [DDLocationController currentLocationController].lastPlacemark;
+
     
     //check for default min/max values
     if (filter_.minAge == nil)
@@ -153,7 +154,7 @@
         cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
         
         //set location text
-        cell.textLabel.text = NSLocalizedString(@"Choose a location", nil);
+        cell.textLabel.text = NSLocalizedString(@"Choose a nearby city...", @"Label for no city chosen in filter menu.");
         
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
