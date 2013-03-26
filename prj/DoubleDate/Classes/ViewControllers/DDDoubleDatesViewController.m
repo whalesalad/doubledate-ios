@@ -429,11 +429,11 @@ typedef enum
     //get double date
     DDDoubleDate *doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
     
-    //open view controller
-    DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
-    viewController.doubleDate = doubleDate;
-    viewController.backButtonTitle = self.navigationItem.title;
-    [self.navigationController pushViewController:viewController animated:YES];
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //get full information
+    [self.apiController getDoubleDate:doubleDate];
 }
 
 - (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
@@ -594,6 +594,27 @@ typedef enum
 {
     //refresh
     [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getDoubleDateSucceed:(DDDoubleDate*)doubleDate
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //open view controller
+    DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
+    viewController.doubleDate = doubleDate;
+    viewController.backButtonTitle = self.navigationItem.title;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)getDoubleDateDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

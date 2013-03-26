@@ -9,6 +9,7 @@
 #import "DDDoubleDate.h"
 #import "DDShortUser.h"
 #import "DDPlacemark.h"
+#import "DDEngagement.h"
 
 NSString *DDDoubleDateDayPrefWeekday = @"weekday";
 NSString *DDDoubleDateDayPrefWeekend = @"weekend";
@@ -34,6 +35,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 @synthesize user;
 @synthesize wing;
 @synthesize location;
+@synthesize engagement;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -52,6 +54,8 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
         self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
+        if ([dictionary objectForKey:@"engagement"])
+            self.engagement = [DDEngagement objectWithDictionary:[dictionary objectForKey:@"engagement"]];
     }
     return self;
 }
@@ -94,6 +98,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     ret.user = self.user;
     ret.wing = self.wing;
     ret.location = self.location;
+    ret.engagement = self.engagement;
     return ret;
 }
 
@@ -122,6 +127,7 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     [user release];
     [wing release];
     [location release];
+    [engagement release];
     [super dealloc];
 }
 

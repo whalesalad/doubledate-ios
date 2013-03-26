@@ -10,6 +10,7 @@
 
 @class DDShortUser;
 @class DDPlacemark;
+@class DDEngagement;
 
 extern NSString *DDDoubleDateDayPrefWeekday;
 extern NSString *DDDoubleDateDayPrefWeekend;
@@ -37,5 +38,6 @@ extern NSString *DDDoubleDateRelationshipEngaged;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) DDPlacemark *location;
+@property(nonatomic, retain) DDEngagement *engagement;
 
 @end

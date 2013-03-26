@@ -16,6 +16,7 @@
 @interface DDDoubleDateViewController : DDViewController
 {
     BOOL messageSent_;
+    BOOL messageSentAnimated_;
 }
 
 @property(nonatomic, retain) DDDoubleDate *doubleDate;
@@ -51,8 +52,13 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelInterested;
 
+@property(nonatomic, retain) IBOutlet UIView *sentView;
+@property(nonatomic, retain) IBOutlet UIView *sentViewAnimation;
+@property(nonatomic, retain) IBOutlet UILabel *labelMessageSent;
+
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;
 - (IBAction)interestedTouched:(id)sender;
+- (IBAction)closeWarningTouched:(id)sender;
 
 @end

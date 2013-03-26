@@ -34,6 +34,7 @@ NSString *DDEngagementStatusExpired = @"expired";
 @synthesize daysRemaining;
 @synthesize user;
 @synthesize wing;
+@synthesize displayName;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -58,6 +59,7 @@ NSString *DDEngagementStatusExpired = @"expired";
         self.daysRemaining = [DDAPIObject numberForObject:[dictionary objectForKey:@"days_remaining"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
         self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
+        self.displayName = [DDAPIObject stringForObject:[dictionary objectForKey:@"display_name"]];
     }
     return self;
 }
@@ -91,6 +93,8 @@ NSString *DDEngagementStatusExpired = @"expired";
         [dictionary setObject:self.timeRemaining forKey:@"time_remaining"];
     if (self.daysRemaining)
         [dictionary setObject:self.daysRemaining forKey:@"days_remaining"];
+    if (self.displayName)
+        [dictionary setObject:self.displayName forKey:@"display_name"];
     return dictionary;
 }
 
@@ -135,6 +139,7 @@ NSString *DDEngagementStatusExpired = @"expired";
     [daysRemaining release];
     [user release];
     [wing release];
+    [displayName release];
     [super dealloc];
 }
 

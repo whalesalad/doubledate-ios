@@ -37,5 +37,6 @@ extern NSString *DDEngagementStatusExpired;
 @property(nonatomic, retain) NSNumber *daysRemaining;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
+@property(nonatomic, retain) NSString *displayName;
 
 @end

@@ -81,6 +81,10 @@
 
 @synthesize labelInterested;
 
+@synthesize sentView;
+@synthesize sentViewAnimation;
+@synthesize labelMessageSent;
+
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
     self = [super initWithNibName:nil bundle:nil];
@@ -88,6 +92,75 @@
     {
     }
     return self;
+}
+
+- (void)updateSentMessage
+{
+    if (self.doubleDate.engagement)
+    {
+        //set text
+        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"%@ sent a message to %@ & %@ %@ ago.", @"Doubledate page - floating view that message already sent"), self.doubleDate.engagement.displayName, self.doubleDate.user.firstName, self.doubleDate.wing.firstName, self.doubleDate.engagement.createdAtAgo];
+        
+        //apply label text
+        labelMessageSent.text = text;
+        
+        //update label size according to content
+        CGSize newLabelSize = [text sizeWithFont:labelMessageSent.font constrainedToSize:CGSizeMake(labelMessageSent.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        //update the number of label lines
+        labelMessageSent.numberOfLines = newLabelSize.height / labelMessageSent.font.pointSize;
+        
+        //hide if not needed
+        self.sentView.hidden = NO;
+        
+        //update alfa
+        self.sentView.alpha = 0;
+    }
+    else
+        self.sentView.hidden = YES;
+}
+
+- (void)animateWarningView
+{
+    //check if warning is not hidden
+    if (!self.sentView.hidden)
+    {
+        //don't show out of the bouns
+        self.sentView.clipsToBounds = YES;
+        
+        //save the frame
+        CGRect warningFrame = self.sentViewAnimation.frame;
+        
+        //change the height to 0
+        self.sentViewAnimation.frame = CGRectMake(0, warningFrame.size.height, warningFrame.size.width, warningFrame.size.height);
+        
+        //animate
+        [UIView animateWithDuration:0.2f animations:^{
+            self.sentViewAnimation.frame = warningFrame;
+            self.sentView.alpha = 1;
+        }];
+    }
+}
+
+- (void)hideWarningView
+{
+    //check if warning is not hidden
+    if (!self.sentView.hidden)
+    {
+        //disable user interaction
+        self.sentView.userInteractionEnabled = NO;
+        
+        //save the frame
+        CGRect warningFrame = self.sentViewAnimation.frame;
+        
+        //animate
+        [UIView animateWithDuration:0.2f animations:^{
+            self.sentViewAnimation.frame = CGRectMake(0, warningFrame.size.height, warningFrame.size.width, warningFrame.size.height);
+            self.sentView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.sentView.hidden = YES;
+        }];
+    }
 }
 
 - (void)viewDidLoad
@@ -167,6 +240,27 @@
     
     //switch to needed mode
     [self switchToNeededMode];
+    
+    //update sent message view
+    [self updateSentMessage];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //animate warning view
+    if (!messageSentAnimated_)
+    {
+        if (self.doubleDate.engagement)
+        {
+            if (!messageSent_)
+                [self animateWarningView];
+            else
+                [self performSelector:@selector(animateWarningView) withObject:nil afterDelay:2];
+            messageSentAnimated_ = YES;
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -199,6 +293,9 @@
     [leftView release];
     [rightView release];
     [labelInterested release];
+    [sentView release];
+    [sentViewAnimation release];
+    [labelMessageSent release];
     [super dealloc];
 }
 
@@ -224,6 +321,11 @@
     vc.delegate = self;
     [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:vc] autorelease] animated:YES completion:^{
     }];
+}
+
+- (IBAction)closeWarningTouched:(id)sender
+{
+    [self hideWarningView];
 }
 
 #pragma mark -
@@ -358,6 +460,9 @@
 {
     //save that we sent a message
     messageSent_ = YES;
+    
+    //add engagment into the double date
+    self.doubleDate.engagement = engagement;
     
     //add overlay
     UIView *overlay = [[[UIView alloc] initWithFrame:self.navigationController.view.bounds] autorelease];
