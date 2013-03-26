@@ -9,6 +9,7 @@
 #import "UIView+Interests.h"
 #import "DDInterest.h"
 #import "DDTools.h"
+#import "DDUser.h"
 
 @interface DDInterestViewInternal : UIImageView
 @end
@@ -18,7 +19,7 @@
 
 @implementation UIView (Interests)
 
-- (CGFloat)applyInterests:(NSArray*)interests bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler
+- (CGFloat)applyInterestsForUser:(DDUser*)user bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler
 {
     //remove all interests
     NSMutableArray *viewsToRemove = [NSMutableArray array];
@@ -37,6 +38,9 @@
     //initial parameters
     CGFloat outHorPadding = 4;
     CGFloat outVerPadding = 6;
+    
+    //save interests
+    NSArray *interests = user.interests;
     
     //check if interests are exist
     if ([interests count])
@@ -108,7 +112,7 @@
         
         //add label
         UILabel *label = [[[UILabel alloc] initWithFrame:CGRectInset(mainView.bounds, 5, 0)] autorelease];
-        label.text = [NSString stringWithFormat:NSLocalizedString(@"%@ doesn't have any ice breakers.", @"Text for when a user/wing doesn't have ice breakers"), @"UserFirstName"];
+        label.text = [NSString stringWithFormat:NSLocalizedString(@"%@ doesn't have any ice breakers.", @"Text for when a user/wing doesn't have ice breakers"), user.firstName];
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
         label.textColor = [UIColor lightGrayColor];
         label.backgroundColor = [UIColor clearColor];
