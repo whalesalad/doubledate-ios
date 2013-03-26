@@ -113,6 +113,19 @@
 #pragma mark -
 #pragma mark other
 
+- (void)updateBadge
+{
+    //update current user
+    NSInteger unreadNotificationsCount = 0;
+    for (DDNotification *n in notifications_)
+    {
+        if ([[n unread] boolValue])
+            unreadNotificationsCount++;
+    }
+    [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:unreadNotificationsCount];
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
+}
+
 - (void)markNotificationAsSelected:(DDNotification*)notification
 {
     //check if unread
@@ -121,20 +134,13 @@
         //mark as read
         notification.unread = [NSNumber numberWithBool:NO];
         
+        //update badge
+        [self updateBadge];
+        
         //make api call
         DDNotification *notificationToSend = [[[DDNotification alloc] init] autorelease];
         notificationToSend.identifier = [notification identifier];
         [self.apiController getNotification:notificationToSend];
-        
-        //update current user
-        NSInteger unreadNotificationsCount = 0;
-        for (DDNotification *n in notifications_)
-        {
-            if ([[n unread] boolValue])
-                unreadNotificationsCount++;
-        }
-        [DDAuthenticationController currentUser].unreadNotificationsCount = [NSNumber numberWithInt:unreadNotificationsCount];
-        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
     }
 }
 
@@ -257,6 +263,9 @@
         if (self.lastReadCallbackNotificationId && ([notification.identifier intValue] == [self.lastReadCallbackNotificationId intValue]))
             [self markNotificationAsSelected:notification];
     }
+    
+    //update badge number
+    [self updateBadge];
     
     //inform about reloaded data
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
