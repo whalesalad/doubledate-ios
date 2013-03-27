@@ -291,7 +291,10 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.tableView == scrollView)
+    {
         [self updateNoDataPercentage];
+        self.viewNoData.frame = CGRectMake(self.viewNoData.frame.origin.x, scrollView.contentOffset.y, self.viewNoData.frame.size.width, self.viewNoData.frame.size.height);
+    }
 }
 
 @end
