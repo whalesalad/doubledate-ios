@@ -82,7 +82,7 @@
 
 - (void)customizeNoDataView
 {
-    [self.viewNoData applyNoDataWithMainText:NSLocalizedString(@"Add some of your friends to\nstart using DoubleDate", @"Main text of no data in WINGS page") infoText:[NSString stringWithFormat:NSLocalizedString(@"For every wing you add, you'll\nboth earn %d coins!", @"Detailed text of no data in WINGS page"), kMoneyForFriend]];
+    [self.viewNoData applyNoDataWithMainText:NSLocalizedString(@"Add some of your friends to\nstart using DoubleDate.", @"Main text of no data in WINGS page") infoText:[NSString stringWithFormat:NSLocalizedString(@"For every wing you add, you'll\nboth earn %d coins!", @"Detailed text of no data in WINGS page"), kMoneyForFriend]];
 }
 
 - (void)viewDidLoad
