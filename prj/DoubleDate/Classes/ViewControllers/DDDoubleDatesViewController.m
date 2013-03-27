@@ -642,13 +642,6 @@ typedef enum
 }
 
 #pragma mark -
-#pragma mark UIScrollViewDelegate
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-}
-
-#pragma mark -
 #pragma mark DDDoubleDateFilterViewControllerDelegate
 
 - (void)doubleDateFilterViewControllerDidCancel

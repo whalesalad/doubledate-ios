@@ -161,8 +161,9 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
 - (void)updateNoDataView
 {
     NSInteger totalNumberOfRows = 0;
-    for (int i = 0; i < [self.tableView numberOfSections]; i++)
-        totalNumberOfRows += [self.tableView numberOfRowsInSection:i];
+    for (int i = 0; i < [self numberOfSectionsInTableView:self.tableView]; i++)
+        totalNumberOfRows += [self tableView:self.tableView numberOfRowsInSection:i];
+    self.viewNoData.hidden = !(totalNumberOfRows == 0 && [self.searchTerm length] == 0);
 //    self.tableView.scrollEnabled = totalNumberOfRows > 0;
     if (previousSearchBar_ && totalNumberOfRows > 0)
     {
@@ -176,7 +177,6 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
         previousSearchBar_ = [self.searchBar retain];
         self.tableView.tableHeaderView = nil;
     }
-    self.viewNoData.hidden = !(totalNumberOfRows == 0 && [self.searchTerm length] == 0);
 }
 
 - (void)updateNoDataPercentage
@@ -283,6 +283,15 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
         self.view.center = CGPointMake(self.view.center.x, self.view.center.y + (keyBoardSize.height - self.tabBarController.tabBar.frame.size.height));
         [UIView commitAnimations];
     }
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.tableView == scrollView)
+        [self updateNoDataPercentage];
 }
 
 @end

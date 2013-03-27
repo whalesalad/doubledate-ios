@@ -43,6 +43,5 @@
 - (void)setupSearchBar;
 
 - (void)updateNoDataView;
-- (void)updateNoDataPercentage;
 
 @end
