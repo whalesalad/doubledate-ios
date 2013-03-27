@@ -98,8 +98,8 @@ typedef enum
         [self.viewNoData addSubview:viewMine];
         
         //customize
-#warning Michael update here
-        [viewMine applyNoDataWithMainText:NSLocalizedString(@"There aren't any DoubleDates nearby.", @"Main text of no data in MINE dates") infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate and earn ", @"Detailed text of no data in MINE dates"), kEarnCost]];
+        [viewMine applyNoDataWithMainText:NSLocalizedString(@"You haven't created any\nDoubleDates.", @"Main text of no data in MINE dates")
+                                 infoText:nil];
     }
     
     //explore
@@ -111,8 +111,8 @@ typedef enum
         [self.viewNoData addSubview:viewExplore];
         
         //customize
-#warning Michael update here
-        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any DoubleDates nearby.", @"Main text of no data in EXPLORE dates") infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate and earn ", @"Detailed text of no data in EXPLORE dates"), kEarnCost]];
+        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any\nDoubleDates nearby.", @"Main text of no data in EXPLORE dates")
+                                    infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate\nin %@ and earn %d coins.", @"Detailed text of no data in EXPLORE dates"), @"CITY", kEarnCost]];
     }
 }
 

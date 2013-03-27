@@ -139,28 +139,30 @@
     
     [self addSubview:labelMain];
     
-    //create detailed label
-    UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)] autorelease];
-
-    labelDetailed.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3f];
-    labelDetailed.text = infoText;
-    labelDetailed.textAlignment = NSTextAlignmentCenter;
-    
-    labelDetailed.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
-    labelDetailed.textColor = [UIColor lightGrayColor];
-    
-    CGSize newLabelDetailedSize = [infoText sizeWithFont:labelDetailed.font
-                                       constrainedToSize:CGSizeMake(labelDetailed.frame.size.width - 20, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-    
-    newLabelDetailedSize.height += 20;
-    
-    labelDetailed.numberOfLines = newLabelDetailedSize.height / labelDetailed.font.pointSize;
-    labelDetailed.frame = CGRectMake(0, 0, self.bounds.size.width - 40, newLabelDetailedSize.height);
-    labelDetailed.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height * 0.75 - newLabelDetailedSize.height/2);
-    
-    labelDetailed.layer.cornerRadius = newLabelDetailedSize.height / 2;
-    
-    [self addSubview:labelDetailed];
+    if (infoText) {
+        //create detailed label
+        UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)] autorelease];
+        
+        labelDetailed.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3f];
+        labelDetailed.text = infoText;
+        labelDetailed.textAlignment = NSTextAlignmentCenter;
+        
+        labelDetailed.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+        labelDetailed.textColor = [UIColor lightGrayColor];
+        
+        CGSize newLabelDetailedSize = [infoText sizeWithFont:labelDetailed.font
+                                           constrainedToSize:CGSizeMake(labelDetailed.frame.size.width - 20, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        
+        newLabelDetailedSize.height += 20;
+        
+        labelDetailed.numberOfLines = newLabelDetailedSize.height / labelDetailed.font.pointSize;
+        labelDetailed.frame = CGRectMake(0, 0, self.bounds.size.width - 40, newLabelDetailedSize.height);
+        labelDetailed.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height * 0.75 - newLabelDetailedSize.height/2);
+        
+        labelDetailed.layer.cornerRadius = newLabelDetailedSize.height / 2;
+        
+        [self addSubview:labelDetailed];
+    }
 }
 
 @end
