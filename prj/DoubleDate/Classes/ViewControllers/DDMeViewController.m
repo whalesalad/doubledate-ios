@@ -29,6 +29,7 @@
 #import "DDShortUser.h"
 #import "DDDialogAlertView.h"
 #import "DDDialog.h"
+#import "DDAppDelegate+NavigationMenu.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -327,6 +328,8 @@
 
 - (void)editTouched:(id)sender
 {
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
+    
     UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Edit Profile", nil), NSLocalizedString(@"Change Photo", nil), NSLocalizedString(@"Logout", nil), nil] autorelease];
     actionSheet.tag = kTagActionSheetEdit;
     [actionSheet showInView:self.view];

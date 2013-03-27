@@ -28,6 +28,7 @@
 #import "UIView+Other.h"
 #import "DDObjectsController.h"
 #import "DDSearchBar.h"
+#import "DDAppDelegate+NavigationMenu.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -198,6 +199,8 @@
 
 - (void)plusTouched:(id)sender
 {
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
+    
     //check facebook user
     if ([DDAuthenticationController currentUser].facebookId)
     {

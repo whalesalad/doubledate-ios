@@ -25,6 +25,7 @@
 #import "DDBarButtonItem.h"
 #import "DDUnlockAlertView.h"
 #import "DDEngagementsViewController.h"
+#import "DDAppDelegate+NavigationMenu.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
@@ -319,6 +320,8 @@
 
 - (void)editTouched:(id)sender
 {
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
+    
     UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"End Chat", nil), nil] autorelease];
     actionSheet.tag = kTagProposeActionSheet;
     [actionSheet showInView:self.view];
