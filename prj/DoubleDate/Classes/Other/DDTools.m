@@ -12,7 +12,7 @@
 #import <RestKit/RKISO8601DateFormatter.h>
 
 //#define API_URL @"http://localhost:3000"
-#define API_URL @"http://api.dbld8.com"
+#define API_URL @"https://api.dbld8.com"
 #define SERVER_URL @"http://dbld8.com"
 
 NSString *DDErrorDomain = @"DDErrorDomain";
