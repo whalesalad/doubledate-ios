@@ -446,11 +446,11 @@
 {
     //add full-screen alert
     DDUnlockAlertViewFullScreen *alertView = [[[DDUnlockAlertViewFullScreen alloc] init] autorelease];
-    alertView.unlockButtonText = NSLocalizedString(@"Yes! Reply", @"Unlock engagement dialog confirm button text");
+    alertView.unlockButtonText = NSLocalizedString(@"Yes, Start", @"Unlock engagement dialog confirm button text");
     alertView.delegate = self;
     alertView.title = NSLocalizedString(@"START CHAT", @"Unlock engagement dialog title.");
     alertView.price = kUnlockCost;
-    alertView.message = NSLocalizedString(@"Would you like to start\nthis chat and reply?", @"Unlock engagement dialog message text");
+    alertView.message = [NSString stringWithFormat:NSLocalizedString(@"Would you like to start\nthis chat for @% coins?", @"Unlock engagement dialog message text"), kUnlockCost];
     [alertView show];
 }
 
@@ -712,13 +712,13 @@
     if (locked)
     {
         [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Unlock", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
-        [self.labelLocked setText:NSLocalizedString(@"Unlock to start chatting.", @"Chat page locked label while engagement is locked")];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
+        [self.labelLocked setText:NSLocalizedString(@"This chat hasn't started yet.", @"Chat page locked label while engagement is locked")];
     }
     else if (expired)
     {
         [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is expired") forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume Chat", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
         [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
     }
     else
