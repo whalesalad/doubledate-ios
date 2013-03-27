@@ -201,11 +201,8 @@
         //hide loading
         [self finishRefresh];
         
-        //reload the table
-        [self.tableView reloadData];
-        
-        //update no messages
-        [self updateNoDataView];
+        //reload data
+        [self reloadData];
     }
 }
 
@@ -226,6 +223,35 @@
     }
 }
 
+- (void)updateBadgeNumber
+{
+    //calculate the number of unapproved friends
+    NSInteger badgeNumber = 0;
+    for (DDShortUser *shortUser in [self allFriends])
+    {
+        if (![shortUser.approved boolValue])
+            badgeNumber++;
+    }
+    
+    //unset number of unread wings
+    [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:badgeNumber];
+    
+    //update application badge
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
+}
+
+- (void)reloadData
+{
+    //update badge number
+    [self updateBadgeNumber];
+    
+    //reload the table
+    [self.tableView reloadData];
+    
+    //update no data view
+    [self updateBadgeNumber];
+}
+
 - (void)inviteTouched:(UIButton*)sender
 {
     DDInvitationTableViewCell *cell = (DDInvitationTableViewCell*)sender.superview;
@@ -237,14 +263,8 @@
         //move friend from friendship
         friend.approved = [NSNumber numberWithBool:YES];
         
-        //unset number of unread wings
-        [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:[[self pendingInvitations] count]];
-        
-        //update application badge
-        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
-        
-        //reload the table
-        [self.tableView reloadData];
+        //reload data
+        [self reloadData];
         
         //update invite
         [self.apiController requestApproveFriendshipForFriend:friend];
@@ -526,17 +546,8 @@
             [friends_ removeObject:friend];
             [invitedFriends_ removeObject:friend];
             
-            //unset number of unread wings
-            [DDAuthenticationController currentUser].pendingWingsCount = [NSNumber numberWithInt:[[self pendingInvitations] count]];
-            
-            //update application badge
-            [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
-            
-            //reload the table
-            [self.tableView reloadData];
-            
-            //update no data view
-            [self updateNoDataView];
+            //reload data
+            [self reloadData];
             
             //send request
             [self.apiController requestDenyFriendshipForFriend:friend];
@@ -554,11 +565,8 @@
             [friends_ removeObject:shortuser];
             [invitedFriends_ removeObject:shortuser];
             
-            //reload the table
-            [self.tableView reloadData];
-            
-            //update no data view
-            [self updateNoDataView];
+            //reload data
+            [self reloadData];
             
             //send request
             [self.apiController requestDeleteFriend:shortuser];
@@ -631,10 +639,7 @@
             [invitedFriends_ addObject:friendToAdd];
             
             //reload data
-            [self.tableView reloadData];
-            
-            //update no data view
-            [self updateNoDataView];
+            [self reloadData];
         }
     }
 }
