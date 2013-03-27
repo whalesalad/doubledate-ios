@@ -558,7 +558,7 @@ typedef enum
 {
     //save doubledates
     [doubleDatesAll_ release];
-    doubleDatesAll_ = [[NSMutableArray array] retain];
+    doubleDatesAll_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
     
     //inform about completion
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
