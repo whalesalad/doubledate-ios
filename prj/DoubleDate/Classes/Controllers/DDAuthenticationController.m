@@ -28,6 +28,7 @@ NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthen
 
 @property(nonatomic, retain) NSObject *token;
 @property(nonatomic, retain) NSObject *user;
+@property(nonatomic, retain) NSNumber *isNewUser;
 
 - (void)authenticateWithFbToken:(NSString*)fbToken email:(NSString*)email password:(NSString*)password delegate:(id)delegate;
 
@@ -39,12 +40,18 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 @synthesize token;
 @synthesize user;
+@synthesize isNewUser;
 
 + (DDAuthenticationController*)sharedController
 {
     if (!_sharedInstance)
         _sharedInstance = [[DDAuthenticationController alloc] init];
     return _sharedInstance;
+}
+
++ (BOOL)isNewUser
+{
+    return [[[DDAuthenticationController sharedController] isNewUser] boolValue];
 }
 
 + (NSString*)token
@@ -205,6 +212,7 @@ static DDAuthenticationController *_sharedInstance = nil;
         //save data
         NSDictionary *dictionary = [[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body];
         [[DDAuthenticationController sharedController] setToken:[dictionary objectForKey:@"token"]];
+        [[DDAuthenticationController sharedController] setIsNewUser:[dictionary objectForKey:@"new_user"]];
         
         //register for remote notifications
         [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] registerForRemoteNotifications];

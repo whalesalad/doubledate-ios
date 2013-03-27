@@ -31,6 +31,8 @@ extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
     DDRequestsController *controller_;
 }
 
++ (BOOL)isNewUser;
+
 + (NSString*)token;
 + (void)clearToken;
 
