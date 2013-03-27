@@ -103,8 +103,8 @@ static DDLocationController *_sharedLocationController = nil;
     [location_ release];
     location_ = [newLocation retain];
     
-    //check for geodecoding
-    if ([self.delegate locationManagerShouldGeoDecodeLocation:location_])
+    //check for geodecoding or first call
+    if ([self.delegate locationManagerShouldGeoDecodeLocation:location_] || oldLocation == nil)
         [self forceSearchPlacemark];
     else
         [self.delegate locationManagerDidFoundLocation:location_];
