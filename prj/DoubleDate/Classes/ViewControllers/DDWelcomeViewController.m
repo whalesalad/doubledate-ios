@@ -396,17 +396,39 @@
 
     //animate
     [UIView animateWithDuration:0.2f animations:^{
+        
+        //show building overlay
         self.buildingOverlay.alpha = 1;
+        
+        //hide own views
+        self.fadeView.alpha = 0;
+        self.bottomView.alpha = 0;
+        self.logoImageView.alpha = 0;
     }];
 }
 
 - (void)hideBuildingOverlay
 {
     [UIView animateWithDuration:0.2f animations:^{
+        
+        //fade building
         self.buildingOverlay.alpha = 0;
+        
+        //show own views
+        self.fadeView.alpha = 1;
+        self.bottomView.alpha = 1;
+        self.logoImageView.alpha = 1;
+        
     } completion:^(BOOL finished) {
+        
+        //remove building overlay
         [self.buildingOverlay removeFromSuperview];
         self.buildingOverlay = nil;
+        
+        //finish fading
+        self.fadeView.alpha = 1;
+        self.bottomView.alpha = 1;
+        self.logoImageView.alpha = 1;
     }];
 }
 
