@@ -359,7 +359,7 @@
     //add overlay
     UIView *dim = [[[UIView alloc] initWithFrame:self.buildingOverlay.bounds] autorelease];
     dim.backgroundColor = [UIColor blackColor];
-    dim.alpha = 0.9f;
+    dim.alpha = 0.8f;
     [self.buildingOverlay addSubview:dim];
     
     //add image
@@ -385,7 +385,7 @@
     //add label top
     UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, self.buildingOverlay.bounds.size.height/2 + 80, self.buildingOverlay.bounds.size.width, 32)] autorelease];
     labelTop.textAlignment = NSTextAlignmentCenter;
-    labelTop.text = NSLocalizedString(@"We're building your profile", nil);
+    labelTop.text = NSLocalizedString(@"We're building your profile", @"Building profile view, title text");
     labelTop.textColor = [UIColor whiteColor];
     labelTop.backgroundColor = [UIColor clearColor];
     labelTop.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:19];
@@ -394,7 +394,7 @@
     //add bottom top
     UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, labelTop.frame.origin.y + labelTop.frame.size.height - 5, self.buildingOverlay.bounds.size.width, 32)] autorelease];
     labelBottom.textAlignment = NSTextAlignmentCenter;
-    labelBottom.text = NSLocalizedString(@"It'll only take a moment", nil);
+    labelBottom.text = NSLocalizedString(@"It'll only take a moment", @"Building profile view, smaller detail text");
     labelBottom.textColor = [UIColor lightGrayColor];
     labelBottom.backgroundColor = [UIColor clearColor];
     labelBottom.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];

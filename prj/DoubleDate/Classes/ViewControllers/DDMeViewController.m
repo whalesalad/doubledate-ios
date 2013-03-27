@@ -193,10 +193,10 @@
             {
                 //create fake dialog
                 DDDialog *dialog = [[[DDDialog alloc] init] autorelease];
-                dialog.upperText = NSLocalizedString(@"Welcome to DoubleDate!", nil);
-                dialog.description = NSLocalizedString(@"Here's 500 Coins for joining! Now go invite some wings,\npost some DoubleDates,\nand have fun!", nil);
+                dialog.upperText = NSLocalizedString(@"Welcome to DoubleDate!", @"Welcome dialog title");
+                dialog.description = NSLocalizedString(@"Here's 500 Coins for joining! Now go invite some wings,\npost some DoubleDates,\nand have fun!", @"Welcome dialog description");
                 dialog.coins = [NSNumber numberWithInt:500];
-                dialog.dismissText = NSLocalizedString(@"Cool!", nil);
+                dialog.dismissText = NSLocalizedString(@"Get Started", @"Welcome dialog button text");
                 
                 //create alert
                 [[[[DDDialogAlertView alloc] initWithDialog:dialog] autorelease] show];
