@@ -7,6 +7,7 @@
 //
 
 #import "UIView+Other.h"
+#import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation UIView (Other)
@@ -119,7 +120,27 @@
 
 - (void)applyNoDataWithMainText:(NSString*)mainText infoText:(NSString*)infoText
 {
+    //create main label
+    UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)] autorelease];
+    labelMain.backgroundColor = [UIColor redColor];
+    labelMain.text = mainText;
+    labelMain.textAlignment = NSTextAlignmentCenter;
+    CGSize newLabelMainSize = [mainText sizeWithFont:labelMain.font constrainedToSize:CGSizeMake(labelMain.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    labelMain.numberOfLines = newLabelMainSize.height / labelMain.font.pointSize;
+    labelMain.frame = CGRectMake(0, 0, newLabelMainSize.width, newLabelMainSize.height);
+    labelMain.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    [self addSubview:labelMain];
     
+    //create detailed label
+    UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)] autorelease];
+    labelDetailed.backgroundColor = [UIColor greenColor];
+    labelDetailed.text = infoText;
+    labelDetailed.textAlignment = NSTextAlignmentCenter;
+    CGSize newLabelDetailedSize = [infoText sizeWithFont:labelDetailed.font constrainedToSize:CGSizeMake(labelDetailed.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    labelDetailed.numberOfLines = newLabelDetailedSize.height / labelDetailed.font.pointSize;
+    labelDetailed.frame = CGRectMake(0, 0, newLabelDetailedSize.width, newLabelDetailedSize.height);
+    labelDetailed.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2 + [DDTools isiPhone5Device]?120:80);
+    [self addSubview:labelDetailed];
 }
 
 @end
