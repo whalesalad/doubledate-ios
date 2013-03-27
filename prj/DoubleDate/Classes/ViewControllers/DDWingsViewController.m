@@ -239,7 +239,7 @@
     [self.tableView reloadData];
     
     //update no data view
-    [self updateBadgeNumber];
+    [self updateNoDataView];
 }
 
 - (void)inviteTouched:(UIButton*)sender
