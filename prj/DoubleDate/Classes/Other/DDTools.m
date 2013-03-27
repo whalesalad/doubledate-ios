@@ -11,9 +11,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import <RestKit/RKISO8601DateFormatter.h>
 
-//#define API_URL @"http://localhost:3000"
+#if DEBUG
+#define API_URL @"http://api.dbld8.com"
+#define SERVER_URL @"http://dbld8.com"
+#else
 #define API_URL @"https://api.dbld8.com"
 #define SERVER_URL @"http://dbld8.com"
+#endif
 
 NSString *DDErrorDomain = @"DDErrorDomain";
 
