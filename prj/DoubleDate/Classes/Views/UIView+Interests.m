@@ -111,16 +111,16 @@
         [self addSubview:mainView];
         
         //add label
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectInset(mainView.bounds, 5, 0)] autorelease];
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectInset(mainView.bounds, 4, 0)] autorelease];
         label.text = [NSString stringWithFormat:NSLocalizedString(@"%@ doesn't have any ice breakers.", @"Text for when a user/wing doesn't have ice breakers"), user.firstName];
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
         label.textColor = [UIColor lightGrayColor];
         label.backgroundColor = [UIColor clearColor];
-        label.shadowColor = [UIColor blackColor];
-        label.shadowOffset = CGSizeMake(0, -1);
+//        label.shadowColor = [UIColor blackColor];
+//        label.shadowOffset = CGSizeMake(0, -1);
         [mainView addSubview:label];
         
-        return mainView.frame.size.height;
+        return mainView.frame.size.height + 14;
     }
 }
 
