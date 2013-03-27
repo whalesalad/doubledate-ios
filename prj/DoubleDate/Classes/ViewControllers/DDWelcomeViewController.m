@@ -383,15 +383,21 @@
     [imageView2.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     
     //add label top
-    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, self.buildingOverlay.bounds.size.height/2 - 100, self.buildingOverlay.bounds.size.width, 32)] autorelease];
+    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, self.buildingOverlay.bounds.size.height/2 + 80, self.buildingOverlay.bounds.size.width, 32)] autorelease];
     labelTop.textAlignment = NSTextAlignmentCenter;
-    labelTop.text = NSLocalizedString(@"Building label top", nil);
+    labelTop.text = NSLocalizedString(@"We're building your profile", nil);
+    labelTop.textColor = [UIColor whiteColor];
+    labelTop.backgroundColor = [UIColor clearColor];
+    labelTop.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:19];
     [self.buildingOverlay addSubview:labelTop];
     
     //add bottom top
-    UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, self.buildingOverlay.bounds.size.height/2 + 100, self.buildingOverlay.bounds.size.width, 32)] autorelease];
+    UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, labelTop.frame.origin.y + labelTop.frame.size.height - 5, self.buildingOverlay.bounds.size.width, 32)] autorelease];
     labelBottom.textAlignment = NSTextAlignmentCenter;
-    labelBottom.text = NSLocalizedString(@"Building label bottom", nil);
+    labelBottom.text = NSLocalizedString(@"It'll only take a moment", nil);
+    labelBottom.textColor = [UIColor lightGrayColor];
+    labelBottom.backgroundColor = [UIColor clearColor];
+    labelBottom.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
     [self.buildingOverlay addSubview:labelBottom];
 
     //animate
