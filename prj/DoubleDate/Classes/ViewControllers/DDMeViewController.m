@@ -27,6 +27,8 @@
 #import "DDAppDelegate+Purchase.h"
 #import "DDCreateDoubleDateViewController.h"
 #import "DDShortUser.h"
+#import "DDDialogAlertView.h"
+#import "DDDialog.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -170,6 +172,37 @@
     labelInterests.backgroundColor = [UIColor clearColor];
     interestsWrapper.backgroundColor = [UIColor clearColor];
     imageViewGender.backgroundColor = [UIColor clearColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //check the same user
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
+    {
+        //show welcome dialog only once
+        static BOOL welcomeDialogShown = NO;
+        if (!welcomeDialogShown)
+        {
+            //set flag
+            welcomeDialogShown = YES;
+            
+            //check for new user
+            if ([DDAuthenticationController isNewUser])
+            {
+                //create fake dialog
+                DDDialog *dialog = [[[DDDialog alloc] init] autorelease];
+                dialog.upperText = NSLocalizedString(@"UPPER TEXT", nil);
+                dialog.description = NSLocalizedString(@"DESCRIPTION", nil);
+                dialog.coins = [NSNumber numberWithInt:500];
+                dialog.dismissText = NSLocalizedString(@"DISMISS", nil);
+                
+                //create alert
+                [[[[DDDialogAlertView alloc] initWithDialog:dialog] autorelease] show];
+            }
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
