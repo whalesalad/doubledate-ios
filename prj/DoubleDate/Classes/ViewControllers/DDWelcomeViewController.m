@@ -127,6 +127,7 @@
     
     //add images
     NSMutableArray *images = [NSMutableArray array];
+    [images addObject:[UIImage imageNamed:@"samira.jpg"]];
     [images addObject:[UIImage imageNamed:@"bar.jpg"]];
     [images addObject:[UIImage imageNamed:@"beach.jpg"]];
     [images addObject:[UIImage imageNamed:@"boat.jpg"]];
