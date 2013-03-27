@@ -10,7 +10,9 @@
 
 @interface UIView (Other)
 
-- (void)applyNoDataWithImage:(UIImage*)image title:(NSString*)title addButtonTitle:(NSString*)title addButtonTarget:(id)target addButtonAction:(SEL)action addButtonEdgeInsets:(UIEdgeInsets)insets detailed:(NSString*)detailed;
+- (void)applyNoDataWithImage:(UIImage*)image title:(NSString*)title addButtonTitle:(NSString*)title addButtonTarget:(id)target addButtonAction:(SEL)action addButtonEdgeInsets:(UIEdgeInsets)insets detailed:(NSString*)detailed DEPRECATED_ATTRIBUTE;
+
+- (void)applyNoDataWithMainText:(NSString*)mainText infoText:(NSString*)infoText;
 
 - (UIButton*)baseButtonWithImage:(UIImage*)image;
 

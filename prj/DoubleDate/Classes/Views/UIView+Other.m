@@ -117,4 +117,9 @@
     
 }
 
+- (void)applyNoDataWithMainText:(NSString*)mainText infoText:(NSString*)infoText
+{
+    
+}
+
 @end
