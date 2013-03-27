@@ -489,7 +489,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Have any extra details?", nil);
+    cell.textView.placeholder = NSLocalizedString(@"Add some extra details...", nil);
 }
 
 - (NSIndexPath*)wingIndexPath
