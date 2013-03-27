@@ -122,24 +122,44 @@
 {
     //create main label
     UILabel *labelMain = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)] autorelease];
-    labelMain.backgroundColor = [UIColor redColor];
+    
+    labelMain.backgroundColor = [UIColor clearColor];
     labelMain.text = mainText;
     labelMain.textAlignment = NSTextAlignmentCenter;
-    CGSize newLabelMainSize = [mainText sizeWithFont:labelMain.font constrainedToSize:CGSizeMake(labelMain.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    [self customizeTitleLabel:labelMain];
+    
+    CGSize newLabelMainSize = [mainText sizeWithFont:labelMain.font
+                                   constrainedToSize:CGSizeMake(labelMain.frame.size.width, FLT_MAX)
+                                       lineBreakMode:NSLineBreakByWordWrapping];
+
     labelMain.numberOfLines = newLabelMainSize.height / labelMain.font.pointSize;
     labelMain.frame = CGRectMake(0, 0, newLabelMainSize.width, newLabelMainSize.height);
-    labelMain.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+    labelMain.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2 - newLabelMainSize.height/2);
+    
     [self addSubview:labelMain];
     
     //create detailed label
     UILabel *labelDetailed = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 0)] autorelease];
-    labelDetailed.backgroundColor = [UIColor greenColor];
+
+    labelDetailed.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3f];
     labelDetailed.text = infoText;
     labelDetailed.textAlignment = NSTextAlignmentCenter;
-    CGSize newLabelDetailedSize = [infoText sizeWithFont:labelDetailed.font constrainedToSize:CGSizeMake(labelDetailed.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    labelDetailed.font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:14];
+    labelDetailed.textColor = [UIColor lightGrayColor];
+    
+    CGSize newLabelDetailedSize = [infoText sizeWithFont:labelDetailed.font
+                                       constrainedToSize:CGSizeMake(labelDetailed.frame.size.width - 20, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    newLabelDetailedSize.height += 20;
+    
     labelDetailed.numberOfLines = newLabelDetailedSize.height / labelDetailed.font.pointSize;
-    labelDetailed.frame = CGRectMake(0, 0, newLabelDetailedSize.width, newLabelDetailedSize.height);
-    labelDetailed.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2 + [DDTools isiPhone5Device]?120:80);
+    labelDetailed.frame = CGRectMake(0, 0, self.bounds.size.width - 40, newLabelDetailedSize.height);
+    labelDetailed.center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height * 0.75 - newLabelDetailedSize.height/2);
+    
+    labelDetailed.layer.cornerRadius = newLabelDetailedSize.height / 2;
+    
     [self addSubview:labelDetailed];
 }
 
