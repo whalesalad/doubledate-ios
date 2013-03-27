@@ -179,6 +179,17 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     self.viewNoData.hidden = !(totalNumberOfRows == 0 && [self.searchTerm length] == 0);
 }
 
+- (void)updateNoDataPercentage
+{
+    if (self.refreshControl)
+    {
+        CGFloat alpha = -self.tableView.contentOffset.y / self.refreshControl.frame.size.height;
+        self.viewNoData.alpha = 1.0f - MAX(MIN(alpha, 1), 0);
+    }
+    else
+        self.viewNoData.alpha = 1;
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
