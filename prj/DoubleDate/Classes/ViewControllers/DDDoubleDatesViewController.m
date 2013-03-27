@@ -98,7 +98,8 @@ typedef enum
         [self.viewNoData addSubview:viewMine];
         
         //customize
-        [viewMine applyNoDataWithImage:nil title:NSLocalizedString(@"You haven't created any dates\nWhat are you waiting for?", nil) addButtonTitle:NSLocalizedString(@"Create a DoubleDate", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"Earn %d coins every time you post.", nil), kEarnCost]];
+#warning Michael update here
+        [viewMine applyNoDataWithMainText:NSLocalizedString(@"There aren't any DoubleDates nearby.", @"Main text of no data in MINE dates") infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate and earn ", @"Detailed text of no data in MINE dates"), kEarnCost]];
     }
     
     //explore
@@ -110,7 +111,8 @@ typedef enum
         [self.viewNoData addSubview:viewExplore];
         
         //customize
-        [viewExplore applyNoDataWithImage:[UIImage imageNamed:@"no-explore-dates.png"] title:NSLocalizedString(@"It looks like there aren't any\nDoubleDates nearby.", nil) addButtonTitle:NSLocalizedString(@"Create a DoubleDate", nil) addButtonTarget:self addButtonAction:@selector(plusTouched:) addButtonEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 0) detailed:[NSString stringWithFormat:NSLocalizedString(@"Be the first to create a date in your\narea and earn %d extra coins.", nil), kEarnCost]];
+#warning Michael update here
+        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any DoubleDates nearby.", @"Main text of no data in EXPLORE dates") infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate and earn ", @"Detailed text of no data in EXPLORE dates"), kEarnCost]];
     }
 }
 

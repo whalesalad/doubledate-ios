@@ -59,7 +59,8 @@
 
 - (void)customizeNoDataView
 {
-    [self.viewNoData applyNoDataWithImage:nil title:NSLocalizedString(@"You don't have any\nrecent notifications", nil) addButtonTitle:nil addButtonTarget:nil addButtonAction:nil addButtonEdgeInsets:UIEdgeInsetsZero detailed:nil];
+#warning Michael update here
+    [self.viewNoData applyNoDataWithMainText:NSLocalizedString(@"There aren't any Notifications.", @"Main text of no data in notifications list") infoText:NSLocalizedString(@"Detailed notifications text", @"Detailed text of no data in MINE dates")];
 }
 
 - (void)viewDidLoad
