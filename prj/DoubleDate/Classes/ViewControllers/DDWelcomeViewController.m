@@ -32,6 +32,8 @@
 
 @interface DDWelcomeViewController ()<UIActionSheetDelegate, DDAPIControllerDelegate>
 
+@property(nonatomic, retain) UIView *buildingOverlay;
+
 - (void)joinWithEmail;
 - (void)loginWithEmail;
 
@@ -45,6 +47,8 @@
 @end
 
 @implementation DDWelcomeViewController
+
+@synthesize buildingOverlay;
 
 @synthesize privacyShown;
 
@@ -236,6 +240,7 @@
     [animateView release];
     [labelGrabAFriend release];
     [buttonLoginWithFacebook release];
+    [buildingOverlay release];
     [super dealloc];
 }
 
@@ -337,6 +342,74 @@
     }];
 }
 
+- (void)showBuildingOverlay
+{
+    //remove previous one
+    [self.buildingOverlay removeFromSuperview];
+    
+    //save window
+    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
+    
+    //create new one
+    self.buildingOverlay = [[[UIView alloc] initWithFrame:window.bounds] autorelease];
+    self.buildingOverlay.backgroundColor = [UIColor clearColor];
+    self.buildingOverlay.alpha = 0;
+    [window addSubview:self.buildingOverlay];
+    
+    //add overlay
+    UIView *dim = [[[UIView alloc] initWithFrame:self.buildingOverlay.bounds] autorelease];
+    dim.backgroundColor = [UIColor blackColor];
+    dim.alpha = 0.9f;
+    [self.buildingOverlay addSubview:dim];
+    
+    //add image
+    UIImageView *imageView1 = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"smiling-profile.png"]] autorelease];
+    imageView1.center = CGPointMake(self.buildingOverlay.bounds.size.width/2, self.buildingOverlay.bounds.size.height/2);
+    [self.buildingOverlay addSubview:imageView1];
+    
+    //add image
+    UIImageView *imageView2 = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-spinner.png"]] autorelease];
+    imageView2.center = CGPointMake(imageView1.center.x + imageView1.frame.size.width/2 - 8, imageView1.center.y - imageView1.frame.size.height/2 + 8);
+    [self.buildingOverlay addSubview:imageView2];
+    
+    //animate rotation
+    CGFloat duration = 10;
+    CGFloat repeatCount = 1;
+    CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 * duration * repeatCount];
+    rotationAnimation.duration = 10;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = repeatCount;
+    [imageView2.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    
+    //add label top
+    UILabel *labelTop = [[[UILabel alloc] initWithFrame:CGRectMake(0, self.buildingOverlay.bounds.size.height/2 - 100, self.buildingOverlay.bounds.size.width, 32)] autorelease];
+    labelTop.textAlignment = NSTextAlignmentCenter;
+    labelTop.text = NSLocalizedString(@"Building label top", nil);
+    [self.buildingOverlay addSubview:labelTop];
+    
+    //add bottom top
+    UILabel *labelBottom = [[[UILabel alloc] initWithFrame:CGRectMake(0, self.buildingOverlay.bounds.size.height/2 + 100, self.buildingOverlay.bounds.size.width, 32)] autorelease];
+    labelBottom.textAlignment = NSTextAlignmentCenter;
+    labelBottom.text = NSLocalizedString(@"Building label bottom", nil);
+    [self.buildingOverlay addSubview:labelBottom];
+
+    //animate
+    [UIView animateWithDuration:0.2f animations:^{
+        self.buildingOverlay.alpha = 1;
+    }];
+}
+
+- (void)hideBuildingOverlay
+{
+    [UIView animateWithDuration:0.2f animations:^{
+        self.buildingOverlay.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.buildingOverlay removeFromSuperview];
+        self.buildingOverlay = nil;
+    }];
+}
+
 #pragma mark -
 #pragma mark Facebook
 
@@ -366,9 +439,15 @@
     //check for delegate
     if ([notification.userInfo objectForKey:DDAuthenticationControllerAuthenticateUserInfoDelegateKey] == self)
     {
-        //hide hud
-        [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
-    
+        //show overlay
+        if ([DDAuthenticationController isNewUser])
+        {
+            [self hideHud:YES];
+            [self showBuildingOverlay];
+        }
+        else
+            [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:NO];
+        
         //extract information about me
         [self.apiController getMe];
     }
@@ -408,17 +487,29 @@
 
 - (void)getMeDidSucceed:(DDUser*)me
 {
-    //hide hude
-    [self hideHud:YES];
+    //set fake delay
+    CGFloat delay = [DDAuthenticationController isNewUser]?10:0;
     
-    //start with user
-    [self startWithUser:me animated:YES];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+        
+        //hide hud
+        [self hideHud:YES];
+        
+        //hide building overlay
+        [self hideBuildingOverlay];
+        
+        //start with user
+        [self startWithUser:me animated:YES];
+    });
 }
 
 - (void)getMeDidFailedWithError:(NSError*)error
 {
     //hide hude
     [self hideHud:YES];
+    
+    //hide building overlay
+    [self hideBuildingOverlay];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];

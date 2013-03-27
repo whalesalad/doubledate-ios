@@ -371,6 +371,10 @@
 		708E247017022FE9001E8C77 /* notification-bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E246E17022FE9001E8C77 /* notification-bubble@2x.png */; };
 		708E2488170252DE001E8C77 /* message-sent-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E2486170252DE001E8C77 /* message-sent-bar.png */; };
 		708E2489170252DE001E8C77 /* message-sent-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E2487170252DE001E8C77 /* message-sent-bar@2x.png */; };
+		708E2493170387C8001E8C77 /* profile-spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E248F170387C8001E8C77 /* profile-spinner.png */; };
+		708E2494170387C8001E8C77 /* profile-spinner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E2490170387C8001E8C77 /* profile-spinner@2x.png */; };
+		708E2495170387C8001E8C77 /* smiling-profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E2491170387C8001E8C77 /* smiling-profile.png */; };
+		708E2496170387C8001E8C77 /* smiling-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E2492170387C8001E8C77 /* smiling-profile@2x.png */; };
 		70927FAA169E097C00052C9F /* DDWingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */; };
 		70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FAC169E099D00052C9F /* DDWingTableViewCell.m */; };
 		70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */; };
@@ -1012,6 +1016,10 @@
 		708E246E17022FE9001E8C77 /* notification-bubble@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-bubble@2x.png"; sourceTree = "<group>"; };
 		708E2486170252DE001E8C77 /* message-sent-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-sent-bar.png"; sourceTree = "<group>"; };
 		708E2487170252DE001E8C77 /* message-sent-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message-sent-bar@2x.png"; sourceTree = "<group>"; };
+		708E248F170387C8001E8C77 /* profile-spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-spinner.png"; sourceTree = "<group>"; };
+		708E2490170387C8001E8C77 /* profile-spinner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-spinner@2x.png"; sourceTree = "<group>"; };
+		708E2491170387C8001E8C77 /* smiling-profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiling-profile.png"; sourceTree = "<group>"; };
+		708E2492170387C8001E8C77 /* smiling-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smiling-profile@2x.png"; sourceTree = "<group>"; };
 		70927FA9169E097C00052C9F /* DDWingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDWingTableViewCell.xib; sourceTree = "<group>"; };
 		70927FAB169E099D00052C9F /* DDWingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingTableViewCell.h; sourceTree = "<group>"; };
 		70927FAC169E099D00052C9F /* DDWingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingTableViewCell.m; sourceTree = "<group>"; };
@@ -1729,6 +1737,10 @@
 		4C3633E416D519F7001BBFE7 /* welcome */ = {
 			isa = PBXGroup;
 			children = (
+				708E248F170387C8001E8C77 /* profile-spinner.png */,
+				708E2490170387C8001E8C77 /* profile-spinner@2x.png */,
+				708E2491170387C8001E8C77 /* smiling-profile.png */,
+				708E2492170387C8001E8C77 /* smiling-profile@2x.png */,
 				4C3633E516D519F7001BBFE7 /* scrolling */,
 				4C3633F816D519F7001BBFE7 /* welcome-dd-logo.png */,
 				4C3633F916D519F7001BBFE7 /* welcome-dd-logo@2x.png */,
@@ -2977,6 +2989,10 @@
 				708E247017022FE9001E8C77 /* notification-bubble@2x.png in Resources */,
 				708E2488170252DE001E8C77 /* message-sent-bar.png in Resources */,
 				708E2489170252DE001E8C77 /* message-sent-bar@2x.png in Resources */,
+				708E2493170387C8001E8C77 /* profile-spinner.png in Resources */,
+				708E2494170387C8001E8C77 /* profile-spinner@2x.png in Resources */,
+				708E2495170387C8001E8C77 /* smiling-profile.png in Resources */,
+				708E2496170387C8001E8C77 /* smiling-profile@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
