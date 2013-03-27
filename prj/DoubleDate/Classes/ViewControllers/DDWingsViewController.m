@@ -105,16 +105,6 @@
     [self customizeNoDataView];
 }
 
-- (void)applyNoDataLabelStyle:(UILabel*)label {
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
-    label.textColor = [UIColor colorWithRed:93.0f/255.0f green:93.0f/255.0f blue:93.0f/255.0f alpha:1.0];
-    label.layer.shadowOffset = CGSizeMake(0, 1);
-    label.layer.shadowOpacity = 1.0f;
-    label.layer.shadowColor = [UIColor blackColor].CGColor;
-    label.layer.shadowRadius = 1;
-    label.layer.masksToBounds = NO;
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];

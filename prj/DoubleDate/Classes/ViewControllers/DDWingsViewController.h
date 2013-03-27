@@ -27,6 +27,4 @@
 
 @property(nonatomic, assign) BOOL isSelectingMode;
 
-- (void)applyNoDataLabelStyle:(UILabel*)label;
-
 @end

@@ -110,7 +110,8 @@ typedef enum
         [self.viewNoData addSubview:viewExplore];
         
         //customize
-        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any\nDoubleDates nearby.", @"Main text of no data in EXPLORE dates") infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate\nin %@ and earn %d coins.", @"Detailed text of no data in EXPLORE dates"), [[[self filterToApply].location.name componentsSeparatedByString:@","] objectAtIndex:0], kEarnCost]];
+        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any\nDoubleDates nearby.", @"Main text of no data in EXPLORE dates")
+                                    infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate\nnearby and earn %d coins.", @"Detailed text of no data in EXPLORE dates"), kEarnCost]];
     }
 }
 
