@@ -213,8 +213,6 @@
     {
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
-        // Removing this query, but leaving the code. Not needed.
-        // locationChooserViewController.query = [[filter_.location.name componentsSeparatedByString:@","] objectAtIndex:0];
         locationChooserViewController.options = DDLocationSearchOptionsCities;
 
         if ([[filter_.location identifier] intValue] != [[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue])

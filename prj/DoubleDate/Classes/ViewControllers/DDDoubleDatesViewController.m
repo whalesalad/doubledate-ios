@@ -98,8 +98,7 @@ typedef enum
         [self.viewNoData addSubview:viewMine];
         
         //customize
-        [viewMine applyNoDataWithMainText:NSLocalizedString(@"You haven't created any\nDoubleDates.", @"Main text of no data in MINE dates")
-                                 infoText:nil];
+        [viewMine applyNoDataWithMainText:NSLocalizedString(@"You haven't created any\nDoubleDates.", @"Main text of no data in MINE dates") infoText:nil];
     }
     
     //explore
@@ -111,8 +110,7 @@ typedef enum
         [self.viewNoData addSubview:viewExplore];
         
         //customize
-        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any\nDoubleDates nearby.", @"Main text of no data in EXPLORE dates")
-                                    infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate\nin %@ and earn %d coins.", @"Detailed text of no data in EXPLORE dates"), @"CITY", kEarnCost]];
+        [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any\nDoubleDates nearby.", @"Main text of no data in EXPLORE dates") infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate\nin %@ and earn %d coins.", @"Detailed text of no data in EXPLORE dates"), [[[self filterToApply].location.name componentsSeparatedByString:@","] objectAtIndex:0], kEarnCost]];
     }
 }
 
@@ -423,6 +421,16 @@ typedef enum
     }
 }
 
+- (DDDoubleDateFilter*)filterToApply
+{
+    DDDoubleDateFilter *filter = [[self.searchFilter copy] autorelease];
+    if (!filter)
+        filter = [[[DDDoubleDateFilter alloc] init] autorelease];
+    if (!filter.location)
+        filter.location = [DDLocationController currentLocationController].lastPlacemark;
+    return filter;
+}
+
 #pragma mark -
 #pragma mark UITableViewDelegate
 
@@ -550,7 +558,7 @@ typedef enum
 {
     //save doubledates
     [doubleDatesAll_ release];
-    doubleDatesAll_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
+    doubleDatesAll_ = [[NSMutableArray array] retain];
     
     //inform about completion
     [self performSelector:@selector(onDataRefreshed) withObject:nil afterDelay:0];
@@ -632,11 +640,7 @@ typedef enum
 - (void)onRefresh
 {
     //apply current location if search location is not set up
-    DDDoubleDateFilter *filter = [[self.searchFilter copy] autorelease];
-    if (!filter)
-        filter = [[[DDDoubleDateFilter alloc] init] autorelease];
-    if (!filter.location)
-        filter.location = [DDLocationController currentLocationController].lastPlacemark;
+    DDDoubleDateFilter *filter = [self filterToApply];
     
     //request doubledates
     requestDoubleDatesAll_ = [self.apiController getDoubleDatesWithFilter:filter];
