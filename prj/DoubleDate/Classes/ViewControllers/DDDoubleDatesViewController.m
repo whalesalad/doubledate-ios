@@ -426,6 +426,10 @@ typedef enum
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //hide search
+    if ([self.searchBar.textField isFirstResponder])
+        [self.searchBar.textField resignFirstResponder];
+    
     //get double date
     DDDoubleDate *doubleDate = [[self doubleDatesForSection:indexPath.section] objectAtIndex:indexPath.row];
     

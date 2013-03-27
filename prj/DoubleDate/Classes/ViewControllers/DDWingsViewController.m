@@ -27,6 +27,7 @@
 #import "DDAppDelegate.h"
 #import "UIView+Other.h"
 #import "DDObjectsController.h"
+#import "DDSearchBar.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -305,6 +306,10 @@
     //check if we need expand
     if (!self.isSelectingMode)
     {
+        //hide search
+        if ([self.searchBar.textField isFirstResponder])
+            [self.searchBar.textField resignFirstResponder];
+        
         //show hud
         [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
         
