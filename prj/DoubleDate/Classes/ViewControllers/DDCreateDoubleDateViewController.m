@@ -284,9 +284,11 @@
 {
     //update right button
     BOOL rightButtonEnabled = YES;
-    if ([self.title length] == 0)
+    NSString *titleToCheck = [self.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([titleToCheck length] == 0)
         rightButtonEnabled = NO;
-    if ([self.details length] == 0)
+    NSString *detailsToCheck = [self.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([detailsToCheck length] == 0)
         rightButtonEnabled = NO;
     if (!self.location)
         rightButtonEnabled = NO;

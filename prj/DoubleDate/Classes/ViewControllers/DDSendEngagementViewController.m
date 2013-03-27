@@ -146,7 +146,8 @@
 {
     //update right button
     BOOL rightButtonEnabled = YES;
-    if ([self.details length] == 0)
+    NSString *detailsToCheck = [self.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([detailsToCheck length] == 0)
         rightButtonEnabled = NO;
     if (!self.wing)
         rightButtonEnabled = NO;
