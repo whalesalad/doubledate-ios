@@ -55,14 +55,30 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Location", nil);
+//    self.navigationItem.title = NSLocalizedString(@"Location", nil);
+    self.navigationItem.title = [self textForTitle];
     
     //set header as search bar
-    [[self searchBar] setPlaceholder:NSLocalizedString(@"Search Location…", nil)];
+    [[self searchBar] setPlaceholder:[NSString stringWithFormat:NSLocalizedString(@"Search %@…", nil), self.navigationItem.title]];
     
     //customize keyboard
     self.searchBar.textField.enablesReturnKeyAutomatically = NO;
     self.searchBar.textField.returnKeyType = UIReturnKeyDone;
+}
+
+- (NSString*)textForTitle {
+    if ([self options] == DDLocationSearchOptionsCities)
+    {
+        return NSLocalizedString(@"Cities", nil);
+    }
+    else if ([self options] == DDLocationSearchOptionsVenues)
+    {
+        return NSLocalizedString(@"Venues", nil);
+    }
+    else
+    {
+        return NSLocalizedString(@"Locations", nil);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -195,11 +211,11 @@
     
     if ([self optionForSection:section] == DDLocationSearchOptionsCities)
     {
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"CITIES", nil) detailedText:nil];
+        return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Cities", nil) uppercaseString] detailedText:nil];
     }
     else if ([self optionForSection:section] == DDLocationSearchOptionsVenues)
     {
-        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"VENUES", nil) detailedText:NSLocalizedString(@"POWERED BY FOURSQUARE", nil)];
+        return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Venues", nil) uppercaseString] detailedText:NSLocalizedString(@"Powered by Foursquare", nil)];
     }
     
     return nil;
