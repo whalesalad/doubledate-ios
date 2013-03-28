@@ -65,6 +65,14 @@
     self.searchBar.textField.returnKeyType = UIReturnKeyDone;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //set initial offset of locations search page
+    self.tableView.contentOffset = CGPointMake(0, -self.searchBar.frame.size.height);
+}
+
 - (void)setDdLocation:(DDPlacemark *)v
 {
     if (v != ddLocation)
