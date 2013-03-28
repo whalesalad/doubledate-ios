@@ -453,7 +453,7 @@
     alertView.delegate = self;
     alertView.title = NSLocalizedString(@"START CHAT", @"Unlock engagement dialog title.");
     alertView.price = kUnlockCost;
-    alertView.message = [NSString stringWithFormat:NSLocalizedString(@"Would you like to start\nthis chat for @% coins?", @"Unlock engagement dialog message text"), kUnlockCost];
+    alertView.message = [NSString stringWithFormat:NSLocalizedString(@"Would you like to start\nthis chat for %d coins?", @"Unlock engagement dialog message text"), kUnlockCost];
     [alertView show];
 }
 
