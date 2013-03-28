@@ -55,7 +55,6 @@
     [super viewDidLoad];
     
     //set title
-//    self.navigationItem.title = NSLocalizedString(@"Location", nil);
     self.navigationItem.title = [self textForTitle];
     
     //set header as search bar
