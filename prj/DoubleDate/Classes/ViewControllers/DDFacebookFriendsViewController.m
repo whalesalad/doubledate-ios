@@ -448,7 +448,7 @@
     [self hideHud:YES];
     
     //show succeed message
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Great! We've invited %d of your friends.", nil), [friendsToInvite_ count]];
+    NSString *message = NSLocalizedString(@"Invites Sent", @"Invites sent hud message.");
     
     //show completed hud
     [self showCompletedHudWithText:message];

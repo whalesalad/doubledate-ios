@@ -99,7 +99,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
 {
     //add hud
     MBProgressHUD *hud = [[[MBProgressHUD alloc] initWithView:[self viewForHud]] autorelease];
-    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
+    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"large-checkmark.png"]] autorelease];
     hud.mode = MBProgressHUDModeCustomView;
     hud.labelText = text;
     [[self viewForHud] addSubview:hud];
