@@ -59,7 +59,7 @@
     self.navigationItem.title = [self textForTitle];
     
     //set header as search bar
-    [[self searchBar] setPlaceholder:[NSString stringWithFormat:NSLocalizedString(@"Search %@…", nil), self.navigationItem.title]];
+    [[self searchBar] setPlaceholder:[NSString stringWithFormat:NSLocalizedString(@"Search %@…", nil), [self textForTitle]]];
     
     //customize keyboard
     self.searchBar.textField.enablesReturnKeyAutomatically = NO;
