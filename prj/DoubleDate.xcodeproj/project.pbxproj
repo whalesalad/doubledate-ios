@@ -382,8 +382,6 @@
 		70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FAC169E099D00052C9F /* DDWingTableViewCell.m */; };
 		70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */; };
 		70927FBF169E171000052C9F /* DDInvitationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */; };
-		7099628716E7E3BB000E3F72 /* no-explore-dates.png in Resources */ = {isa = PBXBuildFile; fileRef = 7099628516E7E3BB000E3F72 /* no-explore-dates.png */; };
-		7099628816E7E3BB000E3F72 /* no-explore-dates@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7099628616E7E3BB000E3F72 /* no-explore-dates@2x.png */; };
 		7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AB163BE2B800594BAA /* DDTextView.m */; };
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
@@ -1032,8 +1030,6 @@
 		70927FBB169E16C800052C9F /* DDInvitationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInvitationTableViewCell.h; sourceTree = "<group>"; };
 		70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInvitationTableViewCell.m; sourceTree = "<group>"; };
 		70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInvitationTableViewCell.xib; sourceTree = "<group>"; };
-		7099628516E7E3BB000E3F72 /* no-explore-dates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-explore-dates.png"; sourceTree = "<group>"; };
-		7099628616E7E3BB000E3F72 /* no-explore-dates@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no-explore-dates@2x.png"; sourceTree = "<group>"; };
 		7099E8AA163BE2B800594BAA /* DDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextView.h; sourceTree = "<group>"; };
 		7099E8AB163BE2B800594BAA /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 		7099E8AD163BF1D100594BAA /* DDDoubleDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDate.h; sourceTree = "<group>"; };
@@ -1346,7 +1342,6 @@
 				965F0A3B16F8DDA400AF363D /* unlock-notice-bar */,
 				70F0DA1416F5228100FE01F4 /* resizable-dialog */,
 				708A059716EFC91000852CE1 /* wing-selection */,
-				7099628416E7E3BB000E3F72 /* no-explore-dates */,
 				70E1A26D16E3823A008979FD /* purchase-coins-assets */,
 				962DEA4B16DCBE94007B1603 /* date-stages */,
 				96E2620916D650E60041FD26 /* edit-profile-assets */,
@@ -1869,15 +1864,6 @@
 				708E2487170252DE001E8C77 /* message-sent-bar@2x.png */,
 			);
 			path = "message-sent-bar";
-			sourceTree = "<group>";
-		};
-		7099628416E7E3BB000E3F72 /* no-explore-dates */ = {
-			isa = PBXGroup;
-			children = (
-				7099628516E7E3BB000E3F72 /* no-explore-dates.png */,
-				7099628616E7E3BB000E3F72 /* no-explore-dates@2x.png */,
-			);
-			path = "no-explore-dates";
 			sourceTree = "<group>";
 		};
 		70E1A26D16E3823A008979FD /* purchase-coins-assets */ = {
@@ -2959,8 +2945,6 @@
 				70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */,
 				7041769216E3A047003B6B24 /* DDInAppProductTableViewCell.xib in Resources */,
 				96CDD64616E5F0D7006B6937 /* Localizable.strings in Resources */,
-				7099628716E7E3BB000E3F72 /* no-explore-dates.png in Resources */,
-				7099628816E7E3BB000E3F72 /* no-explore-dates@2x.png in Resources */,
 				70C519B816EE615200FE2026 /* DDChooseWingView.xib in Resources */,
 				70C519C016EE7D1500FE2026 /* DDChooseWingTableViewCell.xib in Resources */,
 				4CCFEB3116EF3A9F00F0D5DA /* wing-slideout-bg.png in Resources */,

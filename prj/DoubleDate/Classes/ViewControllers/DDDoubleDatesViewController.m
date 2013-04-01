@@ -324,7 +324,7 @@ typedef enum
     //check current mode
     if (mode_ == DDDoubleDatesViewControllerModeMine)
     {
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"create-date-plus-icon.png"] target:self action:@selector(plusTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"dd-button-add-icon.png"] target:self action:@selector(plusTouched:)];
     }
     else
     {
