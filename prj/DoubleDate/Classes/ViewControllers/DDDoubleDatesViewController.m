@@ -182,24 +182,6 @@ typedef enum
     }];
 }
 
-- (void)segmentedControlTouched:(UISegmentedControl*)sender
-{
-    //update mode
-    if (sender.selectedSegmentIndex == 0)
-        mode_ = DDDoubleDatesViewControllerModeAll;
-    else
-        mode_ = DDDoubleDatesViewControllerModeMine;
-    
-    //reload data
-    [self reloadData];
-    
-    //update navigation bar
-    [self updateNavigationBar];
-    
-    //update search bar
-    [self updateSearchBar];
-}
-
 - (NSArray*)filteredDoubleDates:(NSArray*)doubleDates filter:(DDDoubleDatesViewControllerFilter)filter
 {
     NSMutableArray *ret = [NSMutableArray array];
@@ -334,22 +316,6 @@ typedef enum
     //set names for segmented control items
     NSString *exploreName = NSLocalizedString(@"Explore", nil);
     NSString *myDatesName = NSLocalizedString(@"My Dates", nil);
-    
-    //create segmented control
-    if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
-    {
-        //add segmeneted control
-        NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:exploreName width:0]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:myDatesName width:0]];
-        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleSmall] autorelease];
-        self.navigationItem.titleView = segmentedControl;
-        segmentedControl.selectedSegmentIndex = 0;
-        [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
-    }
-    
-    //update mode
-    [(UISegmentedControl*)self.navigationItem.titleView setSelectedSegmentIndex:(mode_ == DDDoubleDatesViewControllerModeMine)?1:0];
     
     //update navigation item
     self.navigationItem.title = (mode_ == DDDoubleDatesViewControllerModeMine)?myDatesName:exploreName;

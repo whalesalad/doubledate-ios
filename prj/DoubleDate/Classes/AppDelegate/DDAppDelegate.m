@@ -18,6 +18,7 @@
 #import "DDUser.h"
 #import "DDAPIObject.h"
 #import "DDLocationController.h"
+#import "BCTabBarController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -68,9 +69,9 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
             UINavigationController *ncToCheck = (UINavigationController*)vc;
             nc = ncToCheck;
         }
-        if (!nc && [vc isKindOfClass:[UITabBarController class]])
+        if (!nc && [vc isKindOfClass:[BCTabBarController class]])
         {
-            UITabBarController *tbcToCheck = (UITabBarController*)vc;
+            BCTabBarController *tbcToCheck = (BCTabBarController*)vc;
             UIViewController *vcToCheck = [tbcToCheck selectedViewController];
             if (vcToCheck.navigationController)
                 nc = vcToCheck.navigationController;
