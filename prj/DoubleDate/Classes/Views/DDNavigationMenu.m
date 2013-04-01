@@ -14,6 +14,7 @@
 #import "UIViewController+Extensions.h"
 #import "DDAppDelegate+NavigationMenu.h"
 #import "BCTabBarController.h"
+#import "DDDoubleDatesViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
@@ -118,7 +119,7 @@
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-explore.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Explore", nil);
+            cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore title with city"), [DDDoubleDatesViewController filterCityName]];
             cell.labelBadge.text = nil;
             break;
         case 5:

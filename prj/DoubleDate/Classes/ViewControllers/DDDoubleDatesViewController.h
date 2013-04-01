@@ -30,4 +30,6 @@ typedef enum
 
 @property(nonatomic, retain) DDDoubleDateFilter *searchFilter;
 
++ (NSString*)filterCityName;
+
 @end

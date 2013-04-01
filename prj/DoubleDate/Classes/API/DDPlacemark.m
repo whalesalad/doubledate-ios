@@ -98,14 +98,6 @@ NSString *DDPlacemarkTypeVenue = @"venue";
     return @"id";
 }
 
-- (NSString*)city
-{
-    NSArray *components = [self.name componentsSeparatedByString:@","];
-    if ([components count])
-        return [components objectAtIndex:0];
-    return nil;
-}
-
 - (void)dealloc
 {
     [activitiesCount release];
