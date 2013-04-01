@@ -3,7 +3,7 @@
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/17/12.
-//  Copyright (c) 2012 Gennadii Ivanov. All rights reserved.
+//  Copyright (c) 2012-2013 Belluba. All rights reserved.
 //
 
 #import "DDTextField.h"
