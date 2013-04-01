@@ -136,6 +136,9 @@ typedef enum
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    //update navigation bar
+    [self updateNavigationBar];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -314,8 +317,11 @@ typedef enum
     }
     
     //set names for segmented control items
-    NSString *exploreName = NSLocalizedString(@"Explore", nil);
-    NSString *myDatesName = NSLocalizedString(@"My Dates", nil);
+    NSString *city = self.searchFilter.location.city;
+    if (!city)
+        city = [DDLocationController currentLocationController].lastPlacemark.city;
+    NSString *exploreName = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore navigation bar of dates view"), city?city:@""];
+    NSString *myDatesName = NSLocalizedString(@"My Dates", @"My dates navigation bar of dates view");
     
     //update navigation item
     self.navigationItem.title = (mode_ == DDDoubleDatesViewControllerModeMine)?myDatesName:exploreName;
