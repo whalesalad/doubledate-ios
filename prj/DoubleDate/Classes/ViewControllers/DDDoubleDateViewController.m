@@ -26,6 +26,7 @@
 #import "DDChatViewController.h"
 #import "DDObjectsController.h"
 #import "DDAppDelegate+UserBubble.h"
+#import "DDBarButtonItem.h"
 
 @interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
 
@@ -171,6 +172,8 @@
     labelInterested.text = NSLocalizedString(@"Interested in this DoubleDate?", nil);
     [buttonInterested setTitle:NSLocalizedString(@"Send a Message", nil) forState:UIControlStateNormal];
     
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:@"Back" target:self action:@selector(backTouched:)];
+    
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
     
@@ -188,7 +191,6 @@
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];
     self.labelLocationDetailed.text = [DDLocationTableViewCell detailedTitleForLocation:self.doubleDate.location];
     self.labelDayTime.text = [DDCreateDoubleDateViewController titleForDDDay:self.doubleDate.dayPref ddTime:self.doubleDate.timePref];
-//    self.labelDayTimeDetailed.text = [NSString stringWithFormat:NSLocalizedString(@"Created %@", @"skip"), [DDTools stringFromDate:[self.doubleDate createdAt]]];
     
     //set text
     self.textView.text = [self.doubleDate details];

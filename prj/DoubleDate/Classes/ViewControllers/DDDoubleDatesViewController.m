@@ -335,7 +335,7 @@ typedef enum
     //set names for segmented control items
     NSString *city = [[self class] filterCityName];
     NSString *exploreName = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore navigation bar of dates view"), city?city:@""];
-    NSString *myDatesName = NSLocalizedString(@"My Dates", @"My dates navigation bar of dates view");
+    NSString *myDatesName = NSLocalizedString(@"DoubleDates", @"My dates navigation bar of dates view");
     
     //update navigation item
     self.navigationItem.title = (mode_ == DDDoubleDatesViewControllerModeMine)?myDatesName:exploreName;
