@@ -15,7 +15,9 @@
 
 #import "NSObject+DD.h"
 
+#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
 #define APNS_CALLBACK_URL_KEY @"callback_url"
 #define APNS_NOTIFICATION_ID_KEY @"nid"
 #define APNS_HAS_DIALOG_KEY @"has_dialog"
-
