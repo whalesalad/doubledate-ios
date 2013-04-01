@@ -36,6 +36,9 @@
 #define kTagNoDataExplore 1
 #define kTagNoDataMine 2
 
+#define kGetFilterLocationNotification @"gfln"
+#define kCurrentFilterPlacemarkObject @"location_object"
+
 typedef enum
 {
     DDDoubleDatesViewControllerFilterNone,
@@ -59,6 +62,18 @@ typedef enum
 @synthesize searchFilter;
 @synthesize mode = mode_;
 
++ (NSString*)filterCityName
+{
+    DDPlacemark *placemark = [DDLocationController currentLocationController].lastPlacemark;
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGetFilterLocationNotification object:nil userInfo:userInfo];
+    if ([[userInfo objectForKey:kCurrentFilterPlacemarkObject] isKindOfClass:[DDPlacemark class]])
+        placemark = (DDPlacemark*)[userInfo objectForKey:kCurrentFilterPlacemarkObject];
+    if (placemark)
+        return placemark.locality;
+    return @"";
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -66,6 +81,7 @@ typedef enum
     {
         mode_ = DDDoubleDatesViewControllerModeAll;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(objectUpdatedNotification:) name:DDObjectsControllerDidUpdateObjectNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getFilterLocationNotification:) name:kGetFilterLocationNotification object:nil];
     }
     return self;
 }
@@ -136,6 +152,9 @@ typedef enum
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    //update navigation bar
+    [self updateNavigationBar];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -180,24 +199,6 @@ typedef enum
     viewController.delegate = self;
     [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
     }];
-}
-
-- (void)segmentedControlTouched:(UISegmentedControl*)sender
-{
-    //update mode
-    if (sender.selectedSegmentIndex == 0)
-        mode_ = DDDoubleDatesViewControllerModeAll;
-    else
-        mode_ = DDDoubleDatesViewControllerModeMine;
-    
-    //reload data
-    [self reloadData];
-    
-    //update navigation bar
-    [self updateNavigationBar];
-    
-    //update search bar
-    [self updateSearchBar];
 }
 
 - (NSArray*)filteredDoubleDates:(NSArray*)doubleDates filter:(DDDoubleDatesViewControllerFilter)filter
@@ -332,24 +333,9 @@ typedef enum
     }
     
     //set names for segmented control items
-    NSString *exploreName = NSLocalizedString(@"Explore", nil);
-    NSString *myDatesName = NSLocalizedString(@"My Dates", nil);
-    
-    //create segmented control
-    if (![self.navigationItem.titleView isKindOfClass:[UISegmentedControl class]])
-    {
-        //add segmeneted control
-        NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:exploreName width:0]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:myDatesName width:0]];
-        DDSegmentedControl *segmentedControl = [[[DDSegmentedControl alloc] initWithItems:items style:DDSegmentedControlStyleSmall] autorelease];
-        self.navigationItem.titleView = segmentedControl;
-        segmentedControl.selectedSegmentIndex = 0;
-        [segmentedControl addTarget:self action:@selector(segmentedControlTouched:) forControlEvents:UIControlEventValueChanged];
-    }
-    
-    //update mode
-    [(UISegmentedControl*)self.navigationItem.titleView setSelectedSegmentIndex:(mode_ == DDDoubleDatesViewControllerModeMine)?1:0];
+    NSString *city = [[self class] filterCityName];
+    NSString *exploreName = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore navigation bar of dates view"), city?city:@""];
+    NSString *myDatesName = NSLocalizedString(@"My Dates", @"My dates navigation bar of dates view");
     
     //update navigation item
     self.navigationItem.title = (mode_ == DDDoubleDatesViewControllerModeMine)?myDatesName:exploreName;
@@ -423,6 +409,17 @@ typedef enum
             //refresh
             requestDoubleDatesAll_ = 0;
             requestDoubleDatesMine_ = 0;
+        }
+    }
+}
+
+- (void)getFilterLocationNotification:(NSNotification*)notification
+{
+    if (mode_ == DDDoubleDatesViewControllerModeAll)
+    {
+        if ([notification.userInfo isKindOfClass:[NSMutableDictionary class]])
+        {
+            [(NSMutableDictionary*)notification.userInfo setObject:[self filterToApply].location forKey:kCurrentFilterPlacemarkObject];
         }
     }
 }

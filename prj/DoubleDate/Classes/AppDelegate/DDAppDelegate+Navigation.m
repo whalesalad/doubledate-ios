@@ -17,6 +17,8 @@
 #import "DDAppDelegate+APNS.h"
 #import "DDAuthenticationController.h"
 #import "DDLocationController.h"
+#import "BCTabBarController.h"
+#import "BCTabBarView.h"
 
 @implementation DDAppDelegate (Navigation)
 
@@ -51,6 +53,12 @@
     browseViewController.hidesBottomBarWhenPushed = YES;
     browseViewController.shouldShowNavigationMenu = YES;
     
+    //set date view controller
+    DDDoubleDatesViewController *myDatesViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
+    myDatesViewController.mode = DDDoubleDatesViewControllerModeMine;
+    myDatesViewController.hidesBottomBarWhenPushed = YES;
+    myDatesViewController.shouldShowNavigationMenu = YES;
+    
     //add messages view controller
     DDEngagementsViewController *messagesViewController = [[[DDEngagementsViewController alloc] init] autorelease];
     messagesViewController.weakParentViewController = messagesViewController;
@@ -58,12 +66,13 @@
     messagesViewController.shouldShowNavigationMenu = YES;
     
     //create tab bar controller
-    UITabBarController *tabBarController = [[[UITabBarController alloc] init] autorelease];
+    BCTabBarController *tabBarController = [[[BCTabBarController alloc] init] autorelease];
     NSMutableArray *viewControllers = [NSMutableArray array];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:notificationsViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:wingsViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
+    [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:myDatesViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:messagesViewController] autorelease]];
     tabBarController.viewControllers = viewControllers;
     
@@ -98,7 +107,7 @@
 
 - (void)switchToWingsTab
 {
-    UITabBarController *tabBarController = (UITabBarController*)[self.viewController viewControllerForClass:[UITabBarController class]];
+    BCTabBarController *tabBarController = (BCTabBarController*)[self.viewController viewControllerForClass:[BCTabBarController class]];
     [tabBarController setSelectedIndex:2];
 }
 

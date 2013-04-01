@@ -430,6 +430,12 @@
 		960F9FF716A00E3F00258CA7 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF616A00E3F00258CA7 /* MobileCoreServices.framework */; };
 		960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 960F9FF816A00E6300258CA7 /* Social.framework */; };
 		960FB54C16413964003563FD /* DDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 960FB54B16413964003563FD /* DDTableViewCell.m */; };
+		96135FB41709636F001C1C8E /* BCTab.m in Sources */ = {isa = PBXBuildFile; fileRef = 96135FA91709636F001C1C8E /* BCTab.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96135FB51709636F001C1C8E /* BCTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96135FAB1709636F001C1C8E /* BCTabBar.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96135FB61709636F001C1C8E /* BCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96135FAD1709636F001C1C8E /* BCTabBarController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96135FB71709636F001C1C8E /* BCTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96135FAF1709636F001C1C8E /* BCTabBarView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96135FB81709636F001C1C8E /* UINavigationController+icons.m in Sources */ = {isa = PBXBuildFile; fileRef = 96135FB11709636F001C1C8E /* UINavigationController+icons.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96135FB91709636F001C1C8E /* UIViewController+iconImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96135FB31709636F001C1C8E /* UIViewController+iconImage.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */; };
 		9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */; };
 		96187E2516CA4676007D61E8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96187E2416CA4676007D61E8 /* CoreText.framework */; };
@@ -1101,6 +1107,18 @@
 		960F9FF816A00E6300258CA7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		960FB54A16413964003563FD /* DDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTableViewCell.h; sourceTree = "<group>"; };
 		960FB54B16413964003563FD /* DDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTableViewCell.m; sourceTree = "<group>"; };
+		96135FA81709636F001C1C8E /* BCTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCTab.h; sourceTree = "<group>"; };
+		96135FA91709636F001C1C8E /* BCTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCTab.m; sourceTree = "<group>"; };
+		96135FAA1709636F001C1C8E /* BCTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCTabBar.h; sourceTree = "<group>"; };
+		96135FAB1709636F001C1C8E /* BCTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCTabBar.m; sourceTree = "<group>"; };
+		96135FAC1709636F001C1C8E /* BCTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCTabBarController.h; sourceTree = "<group>"; };
+		96135FAD1709636F001C1C8E /* BCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCTabBarController.m; sourceTree = "<group>"; };
+		96135FAE1709636F001C1C8E /* BCTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BCTabBarView.h; sourceTree = "<group>"; };
+		96135FAF1709636F001C1C8E /* BCTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BCTabBarView.m; sourceTree = "<group>"; };
+		96135FB01709636F001C1C8E /* UINavigationController+icons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+icons.h"; sourceTree = "<group>"; };
+		96135FB11709636F001C1C8E /* UINavigationController+icons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+icons.m"; sourceTree = "<group>"; };
+		96135FB21709636F001C1C8E /* UIViewController+iconImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+iconImage.h"; sourceTree = "<group>"; };
+		96135FB31709636F001C1C8E /* UIViewController+iconImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+iconImage.m"; sourceTree = "<group>"; };
 		9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateViewController.h; sourceTree = "<group>"; };
 		9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateViewController.m; sourceTree = "<group>"; };
 		9615C8A816E4EE3A00F5D0AC /* DDInAppProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInAppProduct.h; sourceTree = "<group>"; };
@@ -1972,6 +1990,25 @@
 			path = JSTokenField;
 			sourceTree = "<group>";
 		};
+		96135FA51709636F001C1C8E /* BCTabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				96135FA81709636F001C1C8E /* BCTab.h */,
+				96135FA91709636F001C1C8E /* BCTab.m */,
+				96135FAA1709636F001C1C8E /* BCTabBar.h */,
+				96135FAB1709636F001C1C8E /* BCTabBar.m */,
+				96135FAC1709636F001C1C8E /* BCTabBarController.h */,
+				96135FAD1709636F001C1C8E /* BCTabBarController.m */,
+				96135FAE1709636F001C1C8E /* BCTabBarView.h */,
+				96135FAF1709636F001C1C8E /* BCTabBarView.m */,
+				96135FB01709636F001C1C8E /* UINavigationController+icons.h */,
+				96135FB11709636F001C1C8E /* UINavigationController+icons.m */,
+				96135FB21709636F001C1C8E /* UIViewController+iconImage.h */,
+				96135FB31709636F001C1C8E /* UIViewController+iconImage.m */,
+			);
+			path = BCTabBarController;
+			sourceTree = "<group>";
+		};
 		962DEA4B16DCBE94007B1603 /* date-stages */ = {
 			isa = PBXGroup;
 			children = (
@@ -2352,6 +2389,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				96135FA51709636F001C1C8E /* BCTabBarController */,
 				96F12DC516D4BAB0009127AF /* KenBurns */,
 				9662892B16B68521002E0AD1 /* HPGrowingTextView */,
 				96EA06AF1689D9DB009F09BC /* SDWebImage */,
@@ -3128,6 +3166,12 @@
 				70F0DA1316F5221F00FE01F4 /* DDCustomizableAlertView.m in Sources */,
 				70F0DA1F16F6532C00FE01F4 /* DDDialogAlertView.m in Sources */,
 				96E935ED16F894D500E5512B /* DDDialog.m in Sources */,
+				96135FB41709636F001C1C8E /* BCTab.m in Sources */,
+				96135FB51709636F001C1C8E /* BCTabBar.m in Sources */,
+				96135FB61709636F001C1C8E /* BCTabBarController.m in Sources */,
+				96135FB71709636F001C1C8E /* BCTabBarView.m in Sources */,
+				96135FB81709636F001C1C8E /* UINavigationController+icons.m in Sources */,
+				96135FB91709636F001C1C8E /* UIViewController+iconImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

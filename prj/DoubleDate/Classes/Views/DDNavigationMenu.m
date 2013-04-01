@@ -13,6 +13,8 @@
 #import "DDUser.h"
 #import "UIViewController+Extensions.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "BCTabBarController.h"
+#import "DDDoubleDatesViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
@@ -23,7 +25,7 @@
 
 - (id)init
 {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 6 * [DDNavigationMenuTableViewCell height])];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 7 * [DDNavigationMenuTableViewCell height])];
     if (self)
     {
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bg.png"]];
@@ -53,17 +55,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DDAppDelegate *appDelegate = (DDAppDelegate*)[[UIApplication sharedApplication] delegate];
-    UITabBarController *tabBarController = nil;
+    BCTabBarController *tabBarController = nil;
     if ([appDelegate.viewController isKindOfClass:[UINavigationController class]])
     {
         NSArray *viewControllers = [(UINavigationController*)appDelegate.viewController viewControllers];
-        for (UITabBarController *c in viewControllers)
+        for (BCTabBarController *c in viewControllers)
         {
-            if ([c isKindOfClass:[UITabBarController class]] && [viewControllers indexOfObject:c] == 1)
+            if ([c isKindOfClass:[BCTabBarController class]] && [viewControllers indexOfObject:c] == 1)
                 tabBarController = c;
         }
-        if ([appDelegate.viewController.presentedViewController isKindOfClass:[UITabBarController class]])
-            tabBarController = (UITabBarController*)appDelegate.viewController.presentedViewController;
+        if ([appDelegate.viewController.presentedViewController isKindOfClass:[BCTabBarController class]])
+            tabBarController = (BCTabBarController*)appDelegate.viewController.presentedViewController;
     }
     NSInteger realIndex = indexPath.row - 1;
     if (realIndex >= 0 && realIndex < [tabBarController.viewControllers count])
@@ -78,7 +80,7 @@
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,11 +118,16 @@
             cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].pendingWingsCount intValue]];
             break;
         case 4:
+            cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-explore.png"];
+            cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore title with city"), [DDDoubleDatesViewController filterCityName]];
+            cell.labelBadge.text = nil;
+            break;
+        case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
             cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
             cell.labelBadge.text = nil;
             break;
-        case 5:
+        case 6:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
             cell.labelTitle.text = NSLocalizedString(@"Messages", nil);
             cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadMessagesCount intValue]];
