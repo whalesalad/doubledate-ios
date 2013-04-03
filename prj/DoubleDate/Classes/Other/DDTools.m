@@ -127,7 +127,7 @@ NSString *DDErrorDomain = @"DDErrorDomain";
 + (NSString*)stringFromDate:(NSDate*)date
 {
     NSDateFormatter *dateFormatterTo = [[[NSDateFormatter alloc] init] autorelease];
-    [dateFormatterTo setDateFormat:@"MMMM dd 'at' hh:mma"];
+    [dateFormatterTo setDateFormat:@"d MMM yyyy, hh:mm"];
     return [dateFormatterTo stringFromDate:date];
 }
 
