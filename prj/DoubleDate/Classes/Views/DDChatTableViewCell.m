@@ -13,7 +13,7 @@
 
 @implementation DDChatTableViewCell
 
-@synthesize textView;
+@synthesize label;
 @synthesize imageViewBubble;
 @synthesize labelTime;
 @synthesize labelName;
@@ -39,37 +39,47 @@
     //unset text view background
     self.labelName.backgroundColor = [UIColor clearColor];
     self.labelTime.backgroundColor = [UIColor clearColor];
-    self.textView.backgroundColor = [UIColor clearColor];
+    self.label.backgroundColor = [UIColor clearColor];
     
-    self.textView.layer.shadowColor = [[UIColor whiteColor] CGColor];
-    self.textView.layer.shadowOffset = CGSizeMake(0, 1);
-    self.textView.layer.shadowOpacity = 0.3f;
-    self.textView.layer.shadowRadius = 0;
+    self.label.layer.shadowColor = [[UIColor whiteColor] CGColor];
+    self.label.layer.shadowOffset = CGSizeMake(0, 1);
+    self.label.layer.shadowOpacity = 0.3f;
+    self.label.layer.shadowRadius = 0;
     
     //save initial position
     rightPositionOfLastLabel_ = self.labelTime.frame.origin.x + self.labelTime.frame.size.width;
     labelsGap_ = self.labelTime.frame.origin.x - self.labelName.frame.origin.x - self.labelName.frame.size.width;
-    textViewWidth_ = self.textView.frame.size.width;
+    labelWidth_ = self.label.frame.size.width;
     
     //update text view color
-    self.textView.textColor = [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
-    
-    //disable user interaction for text view
-    self.textView.userInteractionEnabled = NO;
+    self.label.textColor = [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
 }
 
 + (CGFloat)heightForText:(NSString*)text
 {
     DDChatTableViewCell *cell = (DDChatTableViewCell*)[[[UINib nibWithNibName:@"DDChatTableViewCell" bundle:nil] instantiateWithOwner:nil options:nil] objectAtIndex:0];
     CGFloat minHeight = cell.frame.size.height;
-    cell.textView.text = text;
-    return MAX(cell.frame.size.height - cell.textView.frame.size.height + cell.textView.contentSize.height + cell.textView.contentInset.top + cell.textView.contentInset.bottom, minHeight);
+    CGSize size = [text sizeWithFont:cell.label.font constrainedToSize:CGSizeMake(cell.label.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    return MAX(cell.frame.size.height - cell.label.frame.size.height + size.height, minHeight);
 }
 
-- (void)applyBubbleAlignment
+- (void)alignBubble
 {
-    //new size
     
+    
+    
+}
+
+- (void)customizeBubble
+{
+    //save label size
+    CGSize newLabelSize = [self.message.message sizeWithFont:self.label.font constrainedToSize:CGSizeMake(self.label.frame.size.width, FLT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+    
+    //update the number of label lines
+    self.label.numberOfLines = newLabelSize.height / self.label.font.pointSize;
+    
+    //apply bubble alignment
+    [self alignBubble];
 }
 
 - (void)alignLabels
@@ -125,7 +135,10 @@
         message = [v retain];
         
         //set message
-        self.textView.text = v.message;
+        self.label.text = v.message;
+        
+        //customize bubble
+        [self customizeBubble];
         
         //apply labels alignment
         [self customizeLabels];
@@ -157,12 +170,13 @@
     
     //update alignment
     [self alignLabels];
+    [self alignBubble];
 }
 
 - (void)dealloc
 {
     [message release];
-    [textView release];
+    [label release];
     [imageViewBubble release];
     [labelTime release];
     [labelName release];
