@@ -31,4 +31,6 @@ extern NSString *DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey;
 - (void)logout;
 - (void)requestMe;
 
+- (BOOL)isAutoLogin;
+
 @end

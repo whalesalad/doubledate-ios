@@ -36,9 +36,6 @@ static DDFacebookController *_sharedInstance = nil;
 
 - (void)login
 {
-    //unset flag
-    __block BOOL alreadyLoggedIn = NO;
-
     //save permissions
     NSMutableArray *permissions = [NSMutableArray array];
     [permissions addObject:@"email"];
@@ -59,9 +56,8 @@ static DDFacebookController *_sharedInstance = nil;
     [session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (!error)
         {
-            if (status == FBSessionStateOpen && !alreadyLoggedIn)
+            if (FB_ISSESSIONOPENWITHSTATE(status))
             {
-                alreadyLoggedIn = YES;
                 [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidLoginNotification object:self];
             }
         }
@@ -96,65 +92,16 @@ static DDFacebookController *_sharedInstance = nil;
     }];
 }
 
-/**
- * Attempts to silently open the Facebook session if we have a valid token loaded (that perhaps needs a behind the scenes refresh).
- * After that attempt, we defer to the basic concept of the session being in one of the valid authorized states.
- */
-- (BOOL)isLoggedInAfterOpenAttempt {
-    NSLog(@"FBSession.activeSession: %@", FBSession.activeSession);
-
-    // If we don't have a cached token, a call to open here would cause UX for login to
-    // occur; we don't want that to happen unless the user clicks the login button over in Settings, and so
-    // we check here to make sure we have a token before calling open
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        NSLog(@"We have a cached token, so we're going to re-establish the login for the user.");
-        // Even though we had a cached token, we need to login to make the session usable:
-        [FBSession.activeSession openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-            NSLog(@"Finished opening login session, with state: %d", status);
-        }];
-    }
-    else
+- (BOOL)isAutoLogin
+{
+    __block BOOL autoLogin = NO;
+    if ([FBSession activeSession] && FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded)
     {
-        NSLog(@"Active session state is not 'FBSessionStateCreatedTokenLoaded', it's: %d", FBSession.activeSession.state);
-    }
-    
-    return [self isLoggedIn];
-}
-
-- (BOOL)isLoggedIn {
-    FBSession *activeSession = [FBSession activeSession];
-    FBSessionState state = activeSession.state;
-    
-    BOOL isLoggedIn = activeSession && [self isSessionStateEffectivelyLoggedIn:state];
-    
-    NSLog(@"Facebook active session state: %d; logged in conclusion: %@", state, (isLoggedIn ? @"YES" : @"NO"));
-    
-    return isLoggedIn;
-}
-
-- (BOOL)isSessionStateEffectivelyLoggedIn:(FBSessionState)state {
-    BOOL effectivelyLoggedIn;
-    
-    switch (state) {
-        case FBSessionStateOpen:
-            NSLog(@"Facebook session state: FBSessionStateOpen");
-            effectivelyLoggedIn = YES;
-            break;
-        case FBSessionStateCreatedTokenLoaded:
-            NSLog(@"Facebook session state: FBSessionStateCreatedTokenLoaded");
-            effectivelyLoggedIn = YES;
-            break;
-        case FBSessionStateOpenTokenExtended:
-            NSLog(@"Facebook session state: FBSessionStateOpenTokenExtended");
-            effectivelyLoggedIn = YES;
-            break;
-        default:
-            NSLog(@"Facebook session state: not of one of the open or openable types.");
-            effectivelyLoggedIn = NO;
-            break;
-    }
-    
-    return effectivelyLoggedIn;
+        [[FBSession activeSession] openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+            autoLogin = FB_ISSESSIONOPENWITHSTATE(status);
+        }];
+    };
+    return autoLogin;
 }
 
 @end

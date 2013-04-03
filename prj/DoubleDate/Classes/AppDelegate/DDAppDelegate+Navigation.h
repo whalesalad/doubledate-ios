@@ -12,7 +12,7 @@
 
 @interface DDAppDelegate (Navigation)
 
-- (void)loginUser:(DDUser*)user;
+- (void)loginUser:(DDUser*)user animated:(BOOL)animated;
 - (void)switchToWingsTab;
 - (void)logout;
 

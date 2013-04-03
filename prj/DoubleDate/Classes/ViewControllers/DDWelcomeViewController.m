@@ -575,7 +575,7 @@
     }];
     
     //login user
-    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] loginUser:user];
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] loginUser:user animated:YES];
 }
 
 - (void)startWithUser:(DDUser *)user

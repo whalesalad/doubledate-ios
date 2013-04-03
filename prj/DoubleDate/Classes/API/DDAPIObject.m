@@ -77,7 +77,7 @@
         return nil;
     if ((self = [self init]))
     {
-        
+        dictionary_ = [dictionary retain];
     }
     return self;
 }
@@ -92,5 +92,15 @@
     return [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
 }
 
+- (NSDictionary*)source
+{
+    return dictionary_;
+}
+
+- (void)dealloc
+{
+    [dictionary_ release];
+    [super dealloc];
+}
 
 @end

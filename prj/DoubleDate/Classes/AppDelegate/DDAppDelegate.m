@@ -19,6 +19,7 @@
 #import "DDAPIObject.h"
 #import "DDLocationController.h"
 #import "BCTabBarController.h"
+#import "DDFacebookController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -106,6 +107,20 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
     [[NSNotificationCenter defaultCenter] postNotificationName:DDAppDelegateApplicationBadgeNumberUpdatedNotification object:[NSNumber numberWithInt:badgeNumber]];
 }
 
+- (void)autoLogin
+{
+    //try to auto-login on facebook
+    if ([[DDFacebookController sharedController] isAutoLogin])
+    {
+        //try to auto-login on dd
+        if ([DDAuthenticationController isAutoLogin])
+        {
+            //switch to user
+            [self loginUser:[DDAuthenticationController currentUser] animated:NO];
+        }
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //init crash reporting
@@ -145,6 +160,9 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
             [self handleNotificationPayload:p];
         }
     }
+    
+    //try to auto-login
+    [self autoLogin];
     
     return YES;
 }

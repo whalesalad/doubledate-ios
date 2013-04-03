@@ -44,4 +44,6 @@ extern NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey;
 + (DDUser*)currentUser;
 + (void)updateCurrentUser;
 
++ (BOOL)isAutoLogin;
+
 @end

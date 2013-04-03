@@ -24,6 +24,11 @@ NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoCodeKey = @"DDA
 NSString *DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey = @"DDAuthenticationControllerAuthenticateDidFailedUserInfoResponseCodeKey";
 NSString *DDAuthenticationControllerAuthenticateUserInfoDelegateKey = @"DDAuthenticationControllerAuthenticateUserInfoDelegateKey";
 
+#define kLastLoggedInUser @"last_credential"
+#define kLastLoggedInUserFacebookTokenKey @"fb_token"
+#define kLastLoggedInUserDDTokenKey @"dd_token"
+#define kLastLoggedInUserDataKey @"data"
+
 @interface DDAuthenticationController ()<RKRequestDelegate>
 
 @property(nonatomic, retain) NSObject *token;
@@ -70,9 +75,54 @@ static DDAuthenticationController *_sharedInstance = nil;
     [[DDAuthenticationController sharedController] setToken:nil];
 }
 
++ (BOOL)isAutoLogin
+{
+    //get last object data
+    NSDictionary *userData = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kLastLoggedInUser];
+    
+    //check exist user
+    if (userData)
+    {
+        //extract data
+        NSString *ddToken = [userData objectForKey:kLastLoggedInUserDDTokenKey];
+        NSString *facebookToken = [userData objectForKey:kLastLoggedInUserFacebookTokenKey];
+        NSDictionary *source = [userData objectForKey:kLastLoggedInUserDataKey];
+        if ([DDFacebookController token] && [facebookToken isEqualToString:[DDFacebookController token]])
+        {
+            //check own data
+            if (ddToken && source)
+            {
+                //save data
+                [[DDAuthenticationController sharedController] setToken:ddToken];
+                [[DDAuthenticationController sharedController] setIsNewUser:[NSNumber numberWithBool:NO]];
+                [[DDAuthenticationController sharedController] setUser:[DDUser objectWithDictionary:source]];
+                
+                //inform about success
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
 + (void)setCurrentUser:(DDUser*)user
 {
+    //check if source object is exist
+    if (user.source && [self token] && [DDFacebookController token])
+    {
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setObject:user.source forKey:kLastLoggedInUserDataKey];
+        [dictionary setObject:[self token] forKey:kLastLoggedInUserDDTokenKey];
+        [dictionary setObject:[DDFacebookController token] forKey:kLastLoggedInUserFacebookTokenKey];
+        [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:kLastLoggedInUser];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    //update object
     [[DDAuthenticationController sharedController] setUser:user];
+    
+    //update application badge
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
 }
 
@@ -157,6 +207,10 @@ static DDAuthenticationController *_sharedInstance = nil;
     
     //unset current user
     [DDAuthenticationController setCurrentUser:nil];
+    
+    //clear cached data
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kLastLoggedInUser];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)heartbeat:(id)sender

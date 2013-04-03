@@ -22,7 +22,7 @@
 
 @implementation DDAppDelegate (Navigation)
 
-- (void)loginUser:(DDUser*)user
+- (void)loginUser:(DDUser*)user animated:(BOOL)animated
 {
     //save current user
     [DDAuthenticationController setCurrentUser:user];
@@ -87,7 +87,7 @@
     tabBarController.selectedIndex = 1;
         
     //go to next view controller
-    [self.viewController presentViewController:tabBarController animated:YES completion:^{
+    [self.viewController presentViewController:tabBarController animated:animated completion:^{
         [self performSelector:@selector(checkAndShowCallbackPayload) withObject:nil afterDelay:0];
     }];
 }

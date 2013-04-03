@@ -10,6 +10,7 @@
 
 @interface DDAPIObject : NSObject<NSCopying>
 {
+    NSDictionary *dictionary_;
 }
 
 @property(nonatomic, readonly) NSString *uniqueKey;
@@ -28,5 +29,7 @@
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 
 - (NSDictionary*)dictionaryRepresentation;
+
+- (NSDictionary*)source;
 
 @end
