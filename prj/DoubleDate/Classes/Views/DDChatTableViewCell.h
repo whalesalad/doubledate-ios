@@ -20,6 +20,7 @@ typedef enum
 {
     CGFloat rightPositionOfLastLabel_;
     CGFloat labelsGap_;
+    CGFloat textViewWidth_;
 }
 
 @property(nonatomic, retain) IBOutlet UITextView *textView;

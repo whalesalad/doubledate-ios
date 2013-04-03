@@ -49,6 +49,13 @@
     //save initial position
     rightPositionOfLastLabel_ = self.labelTime.frame.origin.x + self.labelTime.frame.size.width;
     labelsGap_ = self.labelTime.frame.origin.x - self.labelName.frame.origin.x - self.labelName.frame.size.width;
+    textViewWidth_ = self.textView.frame.size.width;
+    
+    //update text view color
+    self.textView.textColor = [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
+    
+    //disable user interaction for text view
+    self.textView.userInteractionEnabled = NO;
 }
 
 + (CGFloat)heightForText:(NSString*)text
@@ -59,29 +66,53 @@
     return MAX(cell.frame.size.height - cell.textView.frame.size.height + cell.textView.contentSize.height + cell.textView.contentInset.top + cell.textView.contentInset.bottom, minHeight);
 }
 
-- (void)applyLabelsAlignment
+- (void)applyBubbleAlignment
 {
+    //new size
+    
+}
+
+- (void)alignLabels
+{
+    //save sizes
+    CGSize newLabelTimeSize = [self.labelTime frame].size;
+    CGSize newLabelNameSize = [self.labelName frame].size;
+    
     //check style
     if (self.style == DDChatTableViewCellStyleMe)
     {
         //update frame
-        CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
         self.labelTime.frame = CGRectMake(rightPositionOfLastLabel_ - newLabelTimeSize.width, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
         
         //update frame
-        CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
         self.labelName.frame = CGRectMake(self.labelTime.frame.origin.x - labelsGap_ - newLabelNameSize.width, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
     }
     else
     {
         //update frame
-        CGSize newLabelNameSize = [self.labelName sizeThatFits:self.labelName.bounds.size];
         self.labelName.frame = CGRectMake(320 - rightPositionOfLastLabel_, self.labelName.frame.origin.y, newLabelNameSize.width, self.labelName.frame.size.height);
         
         //update frame
-        CGSize newLabelTimeSize = [self.labelTime sizeThatFits:self.labelTime.bounds.size];
         self.labelTime.frame = CGRectMake(320 - rightPositionOfLastLabel_ + newLabelNameSize.width + labelsGap_, self.labelTime.frame.origin.y, newLabelTimeSize.width, self.labelTime.frame.size.height);
     }
+}
+
+- (void)customizeLabels
+{
+    //update time
+    NSString *time = [NSString stringWithFormat:@"%@ ago", self.message.createdAtAgo];
+    CGSize newLabelTimeSize = [time sizeWithFont:self.labelTime.font constrainedToSize:CGSizeMake(FLT_MAX, 0) lineBreakMode:self.labelTime.lineBreakMode];
+    self.labelTime.text = time;
+    self.labelTime.frame = CGRectMake(self.labelTime.frame.origin.x, self.labelTime.frame.origin.y, newLabelTimeSize.width, newLabelTimeSize.height);
+    
+    //set values
+    NSString *name = self.message.firstName;
+    CGSize newLabelNameSize = [name sizeWithFont:self.labelName.font constrainedToSize:CGSizeMake(FLT_MAX, 0) lineBreakMode:self.labelName.lineBreakMode];
+    self.labelName.text = name;
+    self.labelName.frame = CGRectMake(self.labelName.frame.origin.x, self.labelName.frame.origin.y, newLabelNameSize.width, newLabelNameSize.height);
+    
+    //align labels
+    [self alignLabels];
 }
 
 - (void)setMessage:(DDMessage *)v
@@ -96,17 +127,8 @@
         //set message
         self.textView.text = v.message;
         
-        //disable user interaction for text view
-        self.textView.userInteractionEnabled = NO;
-        
-        //set time
-        self.labelTime.text = [NSString stringWithFormat:@"%@ ago", v.createdAtAgo];
-        
-        //set name
-        self.labelName.text = v.firstName;
-        
         //apply labels alignment
-        [self applyLabelsAlignment];
+        [self customizeLabels];
     }
 }
 
@@ -117,27 +139,24 @@
     
     //update bubble
     UIImage *imageBubble = [UIImage imageNamed:(v==DDChatTableViewCellStyleMe)?@"message-bubble-blue.png":@"message-bubble-gray.png"];
-//    self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(imageBubble.size.height/2-4, imageBubble.size.width/2, imageBubble.size.height/2+4, imageBubble.size.width/2)];
-
     self.imageViewBubble.image = [imageBubble resizableImageWithCapInsets:UIEdgeInsetsMake(14, imageBubble.size.width/2, 26, imageBubble.size.width/2)];
     
-    //apply needed alignment
-    [self applyLabelsAlignment];
-    
-    
-    UIColor *softBlueTextColor = [UIColor colorWithRed:153.0f/255.0f green:212.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
-    
+    //update colors
     if (v == DDChatTableViewCellStyleMe)
     {
-        self.labelName.textColor = softBlueTextColor;
-        self.labelTime.textColor = softBlueTextColor;
+        UIColor *color = [UIColor colorWithRed:153.0f/255.0f green:212.0f/255.0f blue:235.0f/255.0f alpha:1.0f];
+        self.labelName.textColor = color;
+        self.labelTime.textColor = color;
     }
     else
     {
-        self.textView.textColor = [UIColor colorWithRed:50.0f/255.0f green:50.0f/255.0f blue:50.0f/255.0f alpha:1.0f];
-        self.labelName.textColor = [UIColor grayColor];
-        self.labelTime.textColor = [UIColor grayColor];
+        UIColor *color = [UIColor grayColor];
+        self.labelName.textColor = color;
+        self.labelTime.textColor = color;
     }
+    
+    //update alignment
+    [self alignLabels];
 }
 
 - (void)dealloc
