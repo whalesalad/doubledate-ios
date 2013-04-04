@@ -76,12 +76,21 @@
     label.layer.masksToBounds = NO;
 }
 
+- (void)reloadData
+{
+    //reload data
+    [self.tableView reloadData];
+    
+    //update no data view
+    [self updateNoDataView];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
     //reload the table as we updated the number unread messages
-    [self.tableView reloadData];
+    [self reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,8 +125,7 @@
 - (void)removeEngagement:(DDEngagement*)engagement
 {
     [engagements_ removeObject:engagement];
-    [self.tableView reloadData];
-    [self updateNoDataView];
+    [self reloadData];
 }
 
 - (void)dealloc
@@ -132,10 +140,6 @@
 
 - (void)onRefresh
 {
-    //unset old values
-    [engagements_ release];
-    engagements_ = nil;
-    
     //request friends
     [self.apiController getEngagements];
 }
@@ -156,10 +160,7 @@
     [self finishRefresh];
     
     //reload data
-    [self.tableView reloadData];
-    
-    //update no messages
-    [self updateNoDataView];
+    [self reloadData];
 }
 
 - (void)getEngagementsDidFailedWithError:(NSError*)error
