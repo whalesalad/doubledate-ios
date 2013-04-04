@@ -20,7 +20,8 @@ typedef enum
 {
     CGFloat rightPositionOfLastLabel_;
     CGFloat labelsGap_;
-    CGFloat labelWidth_;
+    CGRect labelFrame_;
+    CGRect imageViewFrame_;
 }
 
 @property(nonatomic, retain) IBOutlet UILabel *label;
