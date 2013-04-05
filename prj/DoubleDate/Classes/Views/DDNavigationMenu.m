@@ -92,53 +92,51 @@
     DDNavigationMenuTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[cellClass description]];
     if (!cell)
         cell = [[[UINib nibWithNibName:[cellClass description] bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
-    
+        
     //save center of the icon
     CGPoint iconCenter = cell.imageViewIcon.center;
+    
+    //save badge number
+    NSInteger badgeNumber = 0;
         
     switch (indexPath.row) {
         case 0:
             cell.imageViewIcon.image = nil;
             cell.labelTitle.text = nil;
-            cell.labelBadge.text = nil;
             break;
         case 1:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-notifications.png"];
             cell.labelTitle.text = NSLocalizedString(@"Notifications", nil);
-            cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadNotificationsCount intValue]];
+            badgeNumber = [[DDAuthenticationController currentUser].unreadNotificationsCount intValue];
             break;
         case 2:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-profile.png"];
             cell.labelTitle.text = NSLocalizedString(@"Profile", nil);
-            cell.labelBadge.text = nil;
             break;
         case 3:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-wings.png"];
             cell.labelTitle.text = NSLocalizedString(@"Wings", nil);
-            cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].pendingWingsCount intValue]];
+            badgeNumber = [[DDAuthenticationController currentUser].pendingWingsCount intValue];
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-explore.png"];
             cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore title with city"), [DDDoubleDatesViewController filterCityName]];
-            cell.labelBadge.text = nil;
             break;
         case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
             cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
-            cell.labelBadge.text = nil;
             break;
         case 6:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
             cell.labelTitle.text = NSLocalizedString(@"Messages", nil);
-            cell.labelBadge.text = [NSString stringWithFormat:@"%d", [[DDAuthenticationController currentUser].unreadMessagesCount intValue]];
+            badgeNumber = [[DDAuthenticationController currentUser].unreadMessagesCount intValue];
             break;
         default:
             break;
     }
     
     //hide badge image view if no text
-    cell.imageViewBadge.hidden = [cell.labelBadge.text intValue] == 0;
-    cell.labelBadge.hidden = cell.imageViewBadge.hidden;
+    cell.badgeNumber = badgeNumber;
     
     //restore center of the icon
     cell.imageViewIcon.frame = CGRectMake(0, 0, cell.imageViewIcon.image.size.width, cell.imageViewIcon.image.size.height);

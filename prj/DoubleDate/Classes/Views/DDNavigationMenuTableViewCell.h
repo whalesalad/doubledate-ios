@@ -10,14 +10,16 @@
 
 @interface DDNavigationMenuTableViewCell : UITableViewCell
 {
+    CGRect labelRect_;
+    CGRect imageViewRect_;
 }
 
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewIcon;
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
-@property(nonatomic, retain) IBOutlet UILabel *labelBadge;
 
 @property(nonatomic, retain) UIView *highlightLine;
+
+@property(nonatomic, assign) NSInteger badgeNumber;
 
 - (void)drawShadowForView:(UIView *)aView;
 

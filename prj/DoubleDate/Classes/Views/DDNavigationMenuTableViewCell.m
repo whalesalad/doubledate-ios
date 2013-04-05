@@ -9,6 +9,13 @@
 #import "DDNavigationMenuTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface DDNavigationMenuTableViewCell()
+
+@property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
+@property(nonatomic, retain) IBOutlet UILabel *labelBadge;
+
+@end
+
 @implementation DDNavigationMenuTableViewCell
 
 @synthesize imageViewIcon;
@@ -16,6 +23,7 @@
 @synthesize imageViewBadge;
 @synthesize labelBadge;
 @synthesize highlightLine;
+@synthesize badgeNumber;
 
 + (CGFloat)height
 {
@@ -36,6 +44,9 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
+    labelRect_ = self.labelTitle.frame;
+    imageViewRect_ = self.imageViewBadge.frame;
     
     // customize highlight line
     self.highlightLine.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
@@ -74,6 +85,18 @@
         self.labelTitle.layer.opacity = 1.0f;
         self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
     }
+}
+
+- (void)setBadgeNumber:(NSInteger)v
+{
+    badgeNumber = v;
+    self.imageViewBadge.hidden = badgeNumber <= 0;
+    self.labelBadge.hidden = self.imageViewBadge.hidden;
+    self.labelBadge.text = [NSString stringWithFormat:@"%d", v];
+    if (self.labelBadge.hidden)
+        self.labelTitle.frame = CGRectMake(labelRect_.origin.x, labelRect_.origin.y, CGRectGetMaxX(imageViewRect_) - labelRect_.origin.x, labelRect_.size.height);
+    else
+        self.labelTitle.frame = labelRect_;
 }
 
 - (void)dealloc
