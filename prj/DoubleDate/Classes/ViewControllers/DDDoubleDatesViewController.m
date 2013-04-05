@@ -419,7 +419,9 @@ typedef enum
     {
         if ([notification.userInfo isKindOfClass:[NSMutableDictionary class]])
         {
-            [(NSMutableDictionary*)notification.userInfo setObject:[self filterToApply].location forKey:kCurrentFilterPlacemarkObject];
+            DDPlacemark *location = [self filterToApply].location;
+            if (location)
+                [(NSMutableDictionary*)notification.userInfo setObject:location forKey:kCurrentFilterPlacemarkObject];
         }
     }
 }
