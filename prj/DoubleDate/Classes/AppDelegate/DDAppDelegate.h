@@ -46,6 +46,8 @@ extern NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification;
 
 @property (retain, nonatomic) NSArray *products;
 
+@property (retain, nonatomic, strong) NSDate *startTime;
+
 - (void)updateApplicationBadge;
 
 @end

@@ -43,6 +43,7 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 {
     [_window release];
     [_viewController release];
+    [_startTime release];
     [userPopover release];
     [deviceToken release];
     [navigationMenu release];
@@ -173,6 +174,8 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    NSNumber *seconds = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceDate:self.startTime]];
+    [[Mixpanel sharedInstance] track:@"Session" properties:[NSDictionary dictionaryWithObject:seconds forKey:@"Length"]];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -188,6 +191,7 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    self.startTime = [NSDate date];
     [[FBSession activeSession] handleDidBecomeActive];
 }
 

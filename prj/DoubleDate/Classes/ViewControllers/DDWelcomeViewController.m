@@ -27,6 +27,7 @@
 #import "DDEngagementsViewController.h"
 #import "DDAppDelegate+Navigation.h"
 #import "JBKenBurnsView.h"
+#import "Mixpanel.h"
 
 #define kTagEmailActionSheet 1
 
@@ -172,6 +173,8 @@
 {
     [super viewDidLoad];
     
+    [[Mixpanel sharedInstance] track:@"Welcome View Displayed"];
+    
     //localize
     labelGrabAFriend.text = NSLocalizedString(@"GRAB A FRIEND • GO OUT • HAVE FUN", nil);
     [buttonLoginWithFacebook setTitle:NSLocalizedString(@"Login with Facebook", nil) forState:UIControlStateNormal];
@@ -257,12 +260,14 @@
 - (IBAction)whyFacebookTouched:(id)sender
 {
     self.privacyShown = !self.privacyShown;
+    [[Mixpanel sharedInstance] track:@"Welcome View, Why FB? Tapped"];
 }
 
 - (IBAction)facebookTouched:(id)sender
 {
     //start facebook
     [[DDFacebookController sharedController] login];
+    [[Mixpanel sharedInstance] track:@"Welcome View, Login Tapped"];
 }
 
 - (IBAction)emailTouched:(id)sender
