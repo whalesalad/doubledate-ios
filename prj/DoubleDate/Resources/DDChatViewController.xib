@@ -410,7 +410,7 @@
 									<object class="IBUILabel" id="621340402">
 										<reference key="NSNextResponder" ref="676825601"/>
 										<int key="NSvFlags">272</int>
-										<string key="NSFrame">{{15, 11}, {235, 21}}</string>
+										<string key="NSFrame">{{15, 10}, {235, 21}}</string>
 										<reference key="NSSuperview" ref="676825601"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="716070606"/>
@@ -426,6 +426,12 @@
 											<bytes key="NSRGB">MC4yOTgwMzkyMjc3IDAuMjk4MDM5MjI3NyAwLjI5ODAzOTIyNzcAA</bytes>
 										</object>
 										<nil key="IBUIHighlightedColor"/>
+										<object class="NSColor" key="IBUIShadowColor">
+											<int key="NSColorSpace">1</int>
+											<bytes key="NSRGB">MC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEgMC45Njg2Mjc0NTEAA</bytes>
+											<string key="IBUIColorCocoaTouchKeyPath">tableCellGroupedBackgroundColor</string>
+										</object>
+										<string key="IBUIShadowOffset">{0, 1}</string>
 										<int key="IBUIBaselineAdjustment">0</int>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<string key="name">HelveticaNeue</string>
@@ -446,7 +452,6 @@
 										<string key="NSFrame">{{254, 7}, {60, 27}}</string>
 										<reference key="NSSuperview" ref="676825601"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
