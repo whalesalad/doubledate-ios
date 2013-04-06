@@ -15,6 +15,7 @@
 #import "DDAppDelegate.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDUser.h"
+#import "Mixpanel.h"
 
 NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAuthenticationControllerAuthenticateDidSucceesNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
@@ -124,6 +125,11 @@ static DDAuthenticationController *_sharedInstance = nil;
     
     //update application badge
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    mixpanel.nameTag = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
+    [mixpanel registerSuperProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.uuid, @"username", nil]];
+    
 }
 
 + (DDUser*)currentUser

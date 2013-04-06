@@ -29,6 +29,7 @@
 #import "DDObjectsController.h"
 #import "DDSearchBar.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "Mixpanel.h"
 
 #define kTagMainLabel 1
 #define kTagDetailedLabel 2
@@ -201,6 +202,9 @@
 {
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
     
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Tapped Add Wings"];
+    
     //check facebook user
     if ([DDAuthenticationController currentUser].facebookId)
     {
@@ -283,6 +287,9 @@
 
 - (void)inviteBySms
 {
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Started SMS/iMessage Invite"];
+    
     if ([MFMessageComposeViewController canSendText])
     {
         MFMessageComposeViewController *messageComposer = [[[MFMessageComposeViewController alloc] init] autorelease];
@@ -300,6 +307,9 @@
 
 - (void)inviteByFacebook
 {
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Started Facebook Invite"];
+    
     DDFacebookFriendsViewController *viewController = [[[DDFacebookFriendsViewController alloc] init] autorelease];
     [self.navigationController pushViewController:viewController animated:YES];
 }

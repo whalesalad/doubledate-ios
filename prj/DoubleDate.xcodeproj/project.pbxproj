@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0105CD17102149007A0401 /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105C317102148007A0401 /* MPCJSONDataSerializer.m */; };
+		4C0105CE17102149007A0401 /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105C517102148007A0401 /* MPCJSONSerializer.m */; };
+		4C0105CF17102149007A0401 /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105C717102148007A0401 /* MPCSerializedJSONData.m */; };
+		4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105CA17102149007A0401 /* NSData+MPBase64.m */; };
+		4C0105D117102149007A0401 /* Mixpanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105CC17102149007A0401 /* Mixpanel.m */; };
+		4C0105D317102170007A0401 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0105D217102170007A0401 /* CoreTelephony.framework */; };
 		4C35AE4816CE59F800AD75CE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C35AE4716CE59F800AD75CE /* Crashlytics.framework */; };
 		4C36342216D519F7001BBFE7 /* lower-button-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3632D116D519F6001BBFE7 /* lower-button-blue.png */; };
 		4C36342316D519F7001BBFE7 /* lower-button-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3632D216D519F6001BBFE7 /* lower-button-blue@2x.png */; };
@@ -637,6 +643,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C0105C217102148007A0401 /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
+		4C0105C317102148007A0401 /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
+		4C0105C417102148007A0401 /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
+		4C0105C517102148007A0401 /* MPCJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONSerializer.m; sourceTree = "<group>"; };
+		4C0105C617102148007A0401 /* MPCSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSerializedJSONData.h; sourceTree = "<group>"; };
+		4C0105C717102148007A0401 /* MPCSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSerializedJSONData.m; sourceTree = "<group>"; };
+		4C0105C917102149007A0401 /* NSData+MPBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MPBase64.h"; sourceTree = "<group>"; };
+		4C0105CA17102149007A0401 /* NSData+MPBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MPBase64.m"; sourceTree = "<group>"; };
+		4C0105CB17102149007A0401 /* Mixpanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mixpanel.h; sourceTree = "<group>"; };
+		4C0105CC17102149007A0401 /* Mixpanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mixpanel.m; sourceTree = "<group>"; };
+		4C0105D217102170007A0401 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		4C35AE4716CE59F800AD75CE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = DoubleDate/Third/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
 		4C3632D116D519F6001BBFE7 /* lower-button-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-blue.png"; sourceTree = "<group>"; };
 		4C3632D216D519F6001BBFE7 /* lower-button-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-blue@2x.png"; sourceTree = "<group>"; };
@@ -1327,6 +1344,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C0105D317102170007A0401 /* CoreTelephony.framework in Frameworks */,
 				7086FFBA16E546B10051F95A /* StoreKit.framework in Frameworks */,
 				96187E2516CA4676007D61E8 /* CoreText.framework in Frameworks */,
 				960F9FF916A00E6300258CA7 /* Social.framework in Frameworks */,
@@ -1356,6 +1374,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C0105BF17102148007A0401 /* Mixpanel */ = {
+			isa = PBXGroup;
+			children = (
+				4C0105C017102148007A0401 /* Library */,
+				4C0105CB17102149007A0401 /* Mixpanel.h */,
+				4C0105CC17102149007A0401 /* Mixpanel.m */,
+			);
+			path = Mixpanel;
+			sourceTree = "<group>";
+		};
+		4C0105C017102148007A0401 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				4C0105C117102148007A0401 /* JSON */,
+				4C0105C817102149007A0401 /* NSData_Base64 */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		4C0105C117102148007A0401 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				4C0105C217102148007A0401 /* MPCJSONDataSerializer.h */,
+				4C0105C317102148007A0401 /* MPCJSONDataSerializer.m */,
+				4C0105C417102148007A0401 /* MPCJSONSerializer.h */,
+				4C0105C517102148007A0401 /* MPCJSONSerializer.m */,
+				4C0105C617102148007A0401 /* MPCSerializedJSONData.h */,
+				4C0105C717102148007A0401 /* MPCSerializedJSONData.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		4C0105C817102149007A0401 /* NSData_Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				4C0105C917102149007A0401 /* NSData+MPBase64.h */,
+				4C0105CA17102149007A0401 /* NSData+MPBase64.m */,
+			);
+			path = NSData_Base64;
+			sourceTree = "<group>";
+		};
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1933,6 +1992,7 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C0105D217102170007A0401 /* CoreTelephony.framework */,
 				7086FFB916E546B10051F95A /* StoreKit.framework */,
 				4C35AE4716CE59F800AD75CE /* Crashlytics.framework */,
 				96187E2416CA4676007D61E8 /* CoreText.framework */,
@@ -2395,6 +2455,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				4C0105BF17102148007A0401 /* Mixpanel */,
 				96135FA51709636F001C1C8E /* BCTabBarController */,
 				96F12DC516D4BAB0009127AF /* KenBurns */,
 				9662892B16B68521002E0AD1 /* HPGrowingTextView */,
@@ -3180,6 +3241,11 @@
 				96135FB71709636F001C1C8E /* BCTabBarView.m in Sources */,
 				96135FB81709636F001C1C8E /* UINavigationController+icons.m in Sources */,
 				96135FB91709636F001C1C8E /* UIViewController+iconImage.m in Sources */,
+				4C0105CD17102149007A0401 /* MPCJSONDataSerializer.m in Sources */,
+				4C0105CE17102149007A0401 /* MPCJSONSerializer.m in Sources */,
+				4C0105CF17102149007A0401 /* MPCSerializedJSONData.m in Sources */,
+				4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */,
+				4C0105D117102149007A0401 /* Mixpanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

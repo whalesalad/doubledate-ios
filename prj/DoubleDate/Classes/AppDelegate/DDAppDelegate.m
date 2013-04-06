@@ -22,6 +22,7 @@
 #import "DDFacebookController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
+#import "Mixpanel.h"
 
 NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelegateApplicationBadgeNumberUpdatedNotification";
 
@@ -123,8 +124,11 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //init crash reporting
+    // Initialize crash reporting
     [Crashlytics startWithAPIKey:@"8f1d9834293a48fdf632da59507bdd08f2842fde"];
+    
+    // Initialize mixpanel for analytics/tracking
+    [Mixpanel sharedInstanceWithToken:@"e3c54d5bdd57b7d06e543e3156e0f6d2"];
     
     //create api controller
     self.apiController = [[[DDAPIController alloc] init] autorelease];

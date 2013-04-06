@@ -18,6 +18,7 @@
 #import "DDWingTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "Mixpanel.h"
 
 #define kFriendsOnDoubleDateTitle NSLocalizedString(@"Friends on DoubleDate", nil)
 
@@ -246,6 +247,9 @@
     
     //show facebook dialog
     [self showInvitationForFacebookUsers:fbIds ddUsers:ddIds];
+    
+    Mixpanel *mixpanel = [Mixpanel sharedInstance];
+    [mixpanel track:@"Tapped Invite from FB Friend List"];
 }
 
 - (void)cancelTouched:(id)sender

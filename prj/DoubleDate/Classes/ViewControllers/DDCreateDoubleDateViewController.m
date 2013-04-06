@@ -25,6 +25,7 @@
 #import "DDTools.h"
 #import "DDAppDelegate+WingsMenu.h"
 #import "DDTools.h"
+#import "Mixpanel.h"
 
 #define kTagCancelActionSheet 1
 
@@ -70,6 +71,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[Mixpanel sharedInstance] track:@"Create DoubleDate Started"];
     
     //localize
     [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
@@ -271,6 +274,8 @@
     
     //request friends
     [self.apiController createDoubleDate:doubleDate];
+    
+    [[Mixpanel sharedInstance] track:@"Create DoubleDate, Complete"];
 }
 
 - (void)backTouched:(id)sender
@@ -318,6 +323,8 @@
                 
         //update image view
         [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].smallUrl]];
+        
+        [[Mixpanel sharedInstance] track:@"Create DoubleDate, Chose Wing"];
     }
     else
     {
@@ -795,6 +802,7 @@
 {
     if (actionSheet.tag == kTagCancelActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            [[Mixpanel sharedInstance] track:@"Create DoubleDate, Cancelled"];
         }];
 }
 
