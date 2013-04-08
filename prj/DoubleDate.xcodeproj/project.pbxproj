@@ -467,6 +467,7 @@
 		962DEA6B16DCBE94007B1603 /* unlock-icon-coin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962DEA5B16DCBE94007B1603 /* unlock-icon-coin@2x.png */; };
 		96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963672FF167094C800D3D8D3 /* DDPhotoView.m */; };
 		963A67A316A3FA1D002F4791 /* DDEngagementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */; };
+		9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9645F5D21712F23C00100213 /* DDImageEditDialogView.m */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -1166,6 +1167,8 @@
 		963672FE167094C800D3D8D3 /* DDPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPhotoView.h; sourceTree = "<group>"; };
 		963672FF167094C800D3D8D3 /* DDPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPhotoView.m; sourceTree = "<group>"; };
 		963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDEngagementTableViewCell.xib; sourceTree = "<group>"; };
+		9645F5D11712F23C00100213 /* DDImageEditDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageEditDialogView.h; sourceTree = "<group>"; };
+		9645F5D21712F23C00100213 /* DDImageEditDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageEditDialogView.m; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -2212,6 +2215,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9645F5D11712F23C00100213 /* DDImageEditDialogView.h */,
+				9645F5D21712F23C00100213 /* DDImageEditDialogView.m */,
 				70F0DA1D16F6532C00FE01F4 /* DDDialogAlertView.h */,
 				70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */,
 				70F0DA1116F5221F00FE01F4 /* DDCustomizableAlertView.h */,
@@ -3246,6 +3251,7 @@
 				4C0105CF17102149007A0401 /* MPCSerializedJSONData.m in Sources */,
 				4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */,
 				4C0105D117102149007A0401 /* Mixpanel.m in Sources */,
+				9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
