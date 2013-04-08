@@ -715,13 +715,13 @@
     if (locked)
     {
         [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Start", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
         [self.labelLocked setText:NSLocalizedString(@"This chat hasn't started yet.", @"Chat page locked label while engagement is locked")];
     }
     else if (expired)
     {
         [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is expired") forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume Chat", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
         [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
     }
     else
@@ -747,7 +747,7 @@
     
     viewBottomLocked.layer.shadowRadius = 2.0f;
     viewBottomLocked.layer.shadowColor = [UIColor blackColor].CGColor;
-    viewBottomLocked.layer.shadowOpacity = 0.8f;
+    viewBottomLocked.layer.shadowOpacity = 0.5f;
     viewBottomLocked.layer.shadowOffset = CGSizeMake(0, -1);
     
     // Add the border to the scrollview

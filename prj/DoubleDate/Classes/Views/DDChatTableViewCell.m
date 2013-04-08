@@ -11,7 +11,7 @@
 #import "DDMessage.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kMinTextViewWidth 36
+#define kMinTextViewWidth 25
 #define kMaxTextViewWidth 200
 
 @implementation DDChatTableViewCell

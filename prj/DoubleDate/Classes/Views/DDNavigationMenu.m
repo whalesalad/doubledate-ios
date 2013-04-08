@@ -111,7 +111,7 @@
             break;
         case 2:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-profile.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Profile", nil);
+            cell.labelTitle.text = [[DDAuthenticationController currentUser] firstName];
             break;
         case 3:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-wings.png"];
