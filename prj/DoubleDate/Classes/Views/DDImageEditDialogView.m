@@ -235,21 +235,9 @@
     }];
 }
 
-- (CGRect)scaledImageViewRect
-{
-    //save offset
-    CGPoint offset = CGPointMake(self.cropView.bounds.size.width / 2 - self.imageView.center.x, self.cropView.bounds.size.height / 2 - self.imageView.center.y);
-    
-    //save new size
-    CGFloat newWidth = self.imageView.frame.size.width * self.currentScale;
-    CGFloat newHeight = self.imageView.frame.size.height * self.currentScale;
-    
-    return CGRectMake(self.imageView.center.x - newWidth / 2 - offset.x * self.currentScale, self.imageView.center.y - newHeight / 2 - offset.y * self.currentScale, newWidth, newHeight);
-}
-
 - (BOOL)isImageViewInsideCrop
 {
-    return CGRectEqualToRect(CGRectIntersection([self scaledImageViewRect], self.cropView.bounds), self.cropView.bounds);
+    return CGRectEqualToRect(CGRectIntersection(self.imageView.frame, self.cropView.bounds), self.cropView.bounds);
 }
 
 - (BOOL)applyChangeOnPoint:(CGPoint)offset
@@ -279,18 +267,21 @@
         CGPoint initialDiff = CGPointMake(v.x - currentOffset.x, v.y - currentOffset.y);
         
         //number of steps
-        NSInteger stepsCount = 10;
+        NSInteger stepsCount = 20;
         
         //apply offset
         if ([self applyChangeOnPoint:CGPointMake(currentOffset.x + initialDiff.x, currentOffset.y)])
             currentOffset = CGPointMake(currentOffset.x + initialDiff.x, currentOffset.y);
         else
         {
-            for (int i = 0; i < stepsCount; i++)
+            for (int i = 1; i < stepsCount; i++)
             {
-                CGPoint diff = CGPointMake(initialDiff.x * i / 10, 0);
+                CGPoint diff = CGPointMake(initialDiff.x * i / stepsCount, 0);
                 if ([self applyChangeOnPoint:CGPointMake(currentOffset.x + diff.x, currentOffset.y + diff.y)])
+                {
+                    currentOffset = CGPointMake(currentOffset.x + diff.x, currentOffset.y + diff.y);
                     break;
+                }
             }
         }
         
@@ -299,14 +290,35 @@
             currentOffset = CGPointMake(currentOffset.x, currentOffset.y + initialDiff.y);
         else
         {
-            for (int i = 0; i < stepsCount; i++)
+            for (int i = 1; i < stepsCount; i++)
             {
-                CGPoint diff = CGPointMake(0, initialDiff.y * i / 10);
+                CGPoint diff = CGPointMake(0, initialDiff.y * i / stepsCount);
                 if ([self applyChangeOnPoint:CGPointMake(currentOffset.x + diff.x, currentOffset.y + diff.y)])
+                {
+                    currentOffset = CGPointMake(currentOffset.x + diff.x, currentOffset.y + diff.y);
                     break;
+                }
             }
         }
     }
+}
+
+- (BOOL)applyChangeOnScale:(CGFloat)scale
+{
+    //save image view transform
+    CGAffineTransform imageViewTransform = self.imageView.transform;
+    
+    //apply new transform
+    self.imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+    
+    //check if the image view is inside the crop rect
+    if ([self isImageViewInsideCrop])
+        return YES;
+    
+    //restore center
+    self.imageView.transform = imageViewTransform;
+    
+    return NO;
 }
 
 - (void)setCurrentScale:(CGFloat)v
@@ -314,20 +326,30 @@
     //check if image exist
     if (initialImage_)
     {
-        //save old value
-        CGFloat oldValue = currentScale;
-        
         //set limits
-        v = MIN(MAX(v, 1), 2);
+        v = MIN(MAX(v, 1), 3);
         
-        //update value
-        currentScale = v;
+        //check difference
+        CGFloat initialDiff = v - currentScale;
         
-        //check for new frame adn restore it
-        if ([self isImageViewInsideCrop])
-            self.imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, currentScale, currentScale);
+        //number of steps
+        NSInteger stepsCount = 20;
+        
+        //apply offset
+        if ([self applyChangeOnScale:currentScale + initialDiff])
+            currentScale = currentScale + initialDiff;
         else
-            currentScale = oldValue;
+        {
+            for (int i = 1; i < stepsCount; i++)
+            {
+                CGFloat diff = initialDiff * i / stepsCount;
+                if ([self applyChangeOnScale:currentScale + diff])
+                {
+                    currentScale = currentScale + diff;
+                    break;
+                }
+            }
+        }
     }
 }
 
@@ -340,7 +362,7 @@
         CGSize size = initialImage_.size;
         
         //get rects
-        CGRect imageViewRect = [self scaledImageViewRect];
+        CGRect imageViewRect = self.imageView.frame;
         CGRect cropRect = self.cropView.bounds;
         
         //set parameters
