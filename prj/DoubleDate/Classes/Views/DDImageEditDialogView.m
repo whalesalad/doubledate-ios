@@ -235,18 +235,21 @@
     }];
 }
 
-- (BOOL)isImageViewInsideCrop
+- (CGRect)scaledImageViewRect
 {
     //save offset
     CGPoint offset = CGPointMake(self.cropView.bounds.size.width / 2 - self.imageView.center.x, self.cropView.bounds.size.height / 2 - self.imageView.center.y);
-
-    //save rect
+    
+    //save new size
     CGFloat newWidth = self.imageView.frame.size.width * self.currentScale;
     CGFloat newHeight = self.imageView.frame.size.height * self.currentScale;
-    CGRect imageViewRect = CGRectMake(self.imageView.center.x - newWidth / 2 - offset.x * self.currentScale, self.imageView.center.y - newHeight / 2 - offset.y * self.currentScale, newWidth, newHeight);
     
-    //check intersection
-    return CGRectEqualToRect(CGRectIntersection(imageViewRect, self.cropView.bounds), self.cropView.bounds);
+    return CGRectMake(self.imageView.center.x - newWidth / 2 - offset.x * self.currentScale, self.imageView.center.y - newHeight / 2 - offset.y * self.currentScale, newWidth, newHeight);
+}
+
+- (BOOL)isImageViewInsideCrop
+{
+    return CGRectEqualToRect(CGRectIntersection([self scaledImageViewRect], self.cropView.bounds), self.cropView.bounds);
 }
 
 - (BOOL)applyChangeOnPoint:(CGPoint)offset
@@ -328,6 +331,40 @@
     }
 }
 
+- (CGRect)currentImageRectFromInitialImage
+{
+    //check initial image
+    if (initialImage_)
+    {
+        //save initial image size
+        CGSize size = initialImage_.size;
+        
+        //get rects
+        CGRect imageViewRect = [self scaledImageViewRect];
+        CGRect cropRect = self.cropView.bounds;
+        
+        //set parameters
+        CGFloat xMin = CGRectGetMinX(imageViewRect);
+        CGFloat xMax = CGRectGetMaxX(imageViewRect);
+        CGFloat yMin = CGRectGetMinY(imageViewRect);
+        CGFloat yMax = CGRectGetMaxY(imageViewRect);
+        CGFloat xMinCrop = CGRectGetMinX(cropRect);
+        CGFloat xMaxCrop = CGRectGetMaxX(cropRect);
+        CGFloat yMinCrop = CGRectGetMinY(cropRect);
+        CGFloat yMaxCrop = CGRectGetMaxY(cropRect);
+        
+        //get relative values
+        CGFloat rx1 = (xMinCrop - xMin) / (xMax - xMin);
+        CGFloat rx2 = (xMaxCrop - xMin) / (xMax - xMin);
+        CGFloat ry1 = (yMinCrop - yMin) / (yMax - yMin);
+        CGFloat ry2 = (yMaxCrop - yMin) / (yMax - yMin);
+        
+        return CGRectMake(size.width * rx1, size.height * ry1, size.width * (rx2 - rx1), size.height * (ry2 - ry1));
+    }
+    
+    return CGRectZero;
+}
+
 - (void)dealloc
 {
     [baseImageView_ release];
@@ -362,9 +399,9 @@
 }
 
 - (void)saveTouched:(id)sender
-{
+{    
     //inform delegate
-    [self.delegate imageEditDialogView:self didCutImage:initialImage_ inRect:CGRectMake(0, 0, initialImage_.size.width, initialImage_.size.height)];
+    [self.delegate imageEditDialogView:self didCutImage:initialImage_ inRect:[self currentImageRectFromInitialImage]];
     
     //dismiss
     [self dismiss];
