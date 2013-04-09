@@ -16,6 +16,10 @@
 
 @interface DDImageEditDialogView ()<UIGestureRecognizerDelegate>
 
+@property(nonatomic, retain) UIView *topLeftCornerView;
+@property(nonatomic, retain) UIView *topRightCornerView;
+@property(nonatomic, retain) UIView *bottomLeftCornerView;
+@property(nonatomic, retain) UIView *bottomRightCornerView;
 @property(nonatomic, retain) UIView *bottomView;
 @property(nonatomic, retain) UIView *dimView;
 @property(nonatomic, retain) UINavigationBar *navigationBar;
@@ -38,6 +42,10 @@
 
 @synthesize delegate;
 
+@synthesize topLeftCornerView;
+@synthesize topRightCornerView;
+@synthesize bottomLeftCornerView;
+@synthesize bottomRightCornerView;
 @synthesize bottomView;
 @synthesize dimView;
 @synthesize navigationBar;
@@ -88,6 +96,48 @@
     
     //update value
     self.lastScale = [sender scale];
+}
+
+- (CGPoint)offsetForView:(UIView*)view
+{
+    CGFloat offset = 12;
+    if (view == self.topLeftCornerView)
+        return CGPointMake(offset, offset);
+    else if (view == self.topRightCornerView)
+        return CGPointMake(-offset, offset);
+    if (view == self.bottomLeftCornerView)
+        return CGPointMake(offset, -offset);
+    else if (view == self.bottomRightCornerView)
+        return CGPointMake(-offset, -offset);
+    return CGPointZero;
+}
+
+- (CGFloat)cornerAnimationDuration
+{
+    return 1;
+}
+
+- (CGFloat)cornerAnimationDelay
+{
+    return 0;
+}
+
+- (void)animateCornersOut:(UIView*)view
+{
+    [self performSelector:@selector(animateCornersIn:) withObject:view afterDelay:[self cornerAnimationDelay] + [self cornerAnimationDuration]];
+    [UIView animateWithDuration:[self cornerAnimationDuration] animations:^{
+        view.center = CGPointMake(view.center.x - [self offsetForView:view].x, view.center.y - [self offsetForView:view].y);
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)animateCornersIn:(UIView*)view
+{
+    [self performSelector:@selector(animateCornersOut:) withObject:view afterDelay:[self cornerAnimationDelay] + [self cornerAnimationDuration]];
+    [UIView animateWithDuration:[self cornerAnimationDuration] animations:^{
+        view.center = CGPointMake(view.center.x + [self offsetForView:view].x, view.center.y + [self offsetForView:view].y);
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)show
@@ -169,6 +219,53 @@
             }
         }];
         [self.cropView addSubview:self.imageView];
+        
+        //add corners
+        {
+            {
+                //add image view
+                self.topLeftCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upper-left.png"]] autorelease];
+                self.topLeftCornerView.center = CGPointMake(self.topLeftCornerView.center.x, self.topLeftCornerView.center.y);
+                self.topLeftCornerView.alpha = 0;
+                [self.cropView addSubview:self.topLeftCornerView];
+                
+                //add animation
+                [self animateCornersIn:self.topLeftCornerView];
+            }
+            
+            {
+                //add image view
+                self.topRightCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upper-right.png"]] autorelease];
+                self.topRightCornerView.center = CGPointMake(self.topRightCornerView.center.x + self.cropView.bounds.size.width - self.topRightCornerView.frame.size.width, self.topRightCornerView.center.y);
+                self.topRightCornerView.alpha = 0;
+                [self.cropView addSubview:self.topRightCornerView];
+                
+                //add animation
+                [self animateCornersIn:self.topRightCornerView];
+            }
+            
+            {
+                //add image view
+                self.bottomLeftCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lower-left.png"]] autorelease];
+                self.bottomLeftCornerView.center = CGPointMake(self.bottomLeftCornerView.center.x, self.bottomLeftCornerView.center.y + self.cropView.bounds.size.height - self.topRightCornerView.frame.size.height);
+                self.bottomLeftCornerView.alpha = 0;
+                [self.cropView addSubview:self.bottomLeftCornerView];
+                
+                //add animation
+                [self animateCornersIn:self.bottomLeftCornerView];
+            }
+            
+            {
+                //add image view
+                self.bottomRightCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lower-right.png"]] autorelease];
+                self.bottomRightCornerView.center = CGPointMake(self.bottomRightCornerView.center.x + self.cropView.bounds.size.width - self.bottomRightCornerView.frame.size.width, self.bottomRightCornerView.center.y + self.cropView.bounds.size.height - self.bottomRightCornerView.frame.size.height);
+                self.bottomRightCornerView.alpha = 0;
+                [self.cropView addSubview:self.bottomRightCornerView];
+                
+                //add animation
+                [self animateCornersIn:self.bottomRightCornerView];
+            }
+        }
     }
     
     {
@@ -208,6 +305,10 @@
         self.navigationBar.alpha = 1;
         self.cropView.alpha = 1;
         self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - self.bottomView.frame.size.height);
+        self.topLeftCornerView.alpha = 1;
+        self.topRightCornerView.alpha = 1;
+        self.bottomLeftCornerView.alpha = 1;
+        self.bottomRightCornerView.alpha = 1;
     } completion:^(BOOL finished) {
     }];
 }
@@ -224,12 +325,19 @@
     //disable user interaction
     self.userInteractionEnabled = NO;
     
+    //cancel previous selectors
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
     //animate
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.dimView.alpha = 0;
         self.navigationBar.alpha = 0;
         self.cropView.alpha = 0;
         self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y + self.bottomView.frame.size.height);
+        self.topLeftCornerView.alpha = 0;
+        self.topRightCornerView.alpha = 0;
+        self.bottomLeftCornerView.alpha = 0;
+        self.bottomRightCornerView.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
@@ -392,6 +500,10 @@
     [baseImageView_ release];
     [image_ release];
     [initialImage_ release];
+    [topLeftCornerView release];
+    [topRightCornerView release];
+    [bottomLeftCornerView release];
+    [bottomRightCornerView release];
     [bottomView release];
     [dimView release];
     [navigationBar release];
