@@ -9,10 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @class DDImage;
+@class DDImageEditDialogView;
+
+@protocol DDImageEditDialogViewDelegate <NSObject>
+
+- (void)imageEditDialogViewDidCancel:(DDImageEditDialogView*)sender;
+- (void)imageEditDialogView:(DDImageEditDialogView*)sender didCutImage:(UIImage*)image inRect:(CGRect)rect;
+
+@end
 
 @interface DDImageEditDialogView : UIView
 
-- (id)initWithImage:(DDImage*)image inImageView:(UIImageView*)imageView ofView:(UIView*)view;
+@property(nonatomic, assign) id<DDImageEditDialogViewDelegate> delegate;
+
+- (id)initWithImage:(DDImage*)image inImageView:(UIImageView*)imageView;
 
 - (void)show;
 - (void)dismiss;

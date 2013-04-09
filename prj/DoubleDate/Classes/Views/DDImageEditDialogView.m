@@ -9,10 +9,16 @@
 #import "DDImageEditDialogView.h"
 #import "DDImage.h"
 #import "DDImageView.h"
+#import "DDAppDelegate.h"
+#import "DDBarButtonItem.h"
+#import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDImageEditDialogView ()<UIGestureRecognizerDelegate>
 
+@property(nonatomic, retain) UIView *bottomView;
+@property(nonatomic, retain) UIView *dimView;
+@property(nonatomic, retain) UINavigationBar *navigationBar;
 @property(nonatomic, retain) UIView *cropView;
 @property(nonatomic, retain) DDImageView *imageView;
 @property(nonatomic, assign) CGPoint startOffset;
@@ -25,12 +31,16 @@
 @implementation DDImageEditDialogView
 {
     UIImageView *baseImageView_;
-    UIView *parentView_;
     DDImage *image_;
     UIImage *initialImage_;
     BOOL shown_;
 }
 
+@synthesize delegate;
+
+@synthesize bottomView;
+@synthesize dimView;
+@synthesize navigationBar;
 @synthesize cropView;
 @synthesize imageView;
 @synthesize startOffset;
@@ -38,15 +48,12 @@
 @synthesize lastScale;
 @synthesize currentScale;
 
-- (id)initWithImage:(DDImage*)image inImageView:(UIImageView*)referenceImageView ofView:(UIView*)view
+- (id)initWithImage:(DDImage*)image inImageView:(UIImageView*)referenceImageView
 {
-    if ((self = [super initWithFrame:view.bounds]))
+    if ((self = [super init]))
     {
         //save reference image view
         baseImageView_ = [referenceImageView retain];
-        
-        //save parent window
-        parentView_ = [view retain];
         
         //save image
         image_ = [image retain];
@@ -92,54 +99,117 @@
     //set shown flag
     shown_ = YES;
     
-    //set background color
-    self.backgroundColor = [UIColor blackColor];
+    //save window
+    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
     
     //set frame
-    self.frame = [parentView_ bounds];
+    self.frame = [window bounds];
     
     //set autoresizing mask
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     //add self to parent
-    [parentView_ addSubview:self];
+    [window addSubview:self];
     
-    //add crop view
-    self.cropView = [[[UIView alloc] initWithFrame:[baseImageView_ convertRect:baseImageView_.frame toView:parentView_]] autorelease];
-    self.cropView.backgroundColor = [UIColor clearColor];
-    self.cropView.clipsToBounds = YES;
-    [parentView_ addSubview:self.cropView];
+    //set background color
+    self.backgroundColor = [UIColor clearColor];
     
-    //add gesture recognizers
-    UIPanGestureRecognizer *panRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)] autorelease];
-    [panRecognizer setMinimumNumberOfTouches:1];
-    [panRecognizer setMaximumNumberOfTouches:1];
-    panRecognizer.delegate = self;
-    [self.cropView addGestureRecognizer:panRecognizer];
+    {
+        //add dim view
+        self.dimView = [[[UIView alloc] initWithFrame:self.bounds] autorelease];
+        self.dimView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8f];
+        self.dimView.alpha = 0;
+        [self addSubview:self.dimView];
+    }
     
-    //add gesture recognizer
-    UIPinchGestureRecognizer *pinchRecognizer = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)] autorelease];
-    pinchRecognizer.delegate = self;
-    [self.cropView addGestureRecognizer:pinchRecognizer];
+    {
+        //add fake navigation bar
+        self.navigationBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, self.window.frame.size.width, 44)] autorelease];
+        self.navigationBar.alpha = 0;
+        [self.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
+        [self addSubview:self.navigationBar];
+        [self.navigationBar pushNavigationItem:[[[UINavigationItem alloc] initWithTitle:NSLocalizedString(@"Resize & Position", nil)] autorelease] animated:NO];
+    }
     
-    //add image view
-    self.imageView = [[[DDImageView alloc] initWithImage:baseImageView_.image] autorelease];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    self.imageView.frame = self.cropView.bounds;
-    [self.imageView setImageWithURL:[NSURL URLWithString:image_.originalUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if (!error)
-        {
-            //save initial image
-            [initialImage_ release];
-            initialImage_ = [image retain];
-            
-            //update frame
-            CGPoint imageViewCenter = self.imageView.center;
-            self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.width * initialImage_.size.height / initialImage_.size.width);
-            self.imageView.center = imageViewCenter;
-        }
+    {
+        //add crop view
+        self.cropView = [[[UIView alloc] initWithFrame:[baseImageView_ convertRect:baseImageView_.frame toView:window]] autorelease];
+        self.cropView.backgroundColor = [UIColor clearColor];
+        self.cropView.alpha = 0;
+        self.cropView.clipsToBounds = YES;
+        [self addSubview:self.cropView];
+        
+        //add gesture recognizers
+        UIPanGestureRecognizer *panRecognizer = [[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)] autorelease];
+        [panRecognizer setMinimumNumberOfTouches:1];
+        [panRecognizer setMaximumNumberOfTouches:1];
+        panRecognizer.delegate = self;
+        [self.cropView addGestureRecognizer:panRecognizer];
+        
+        //add gesture recognizer
+        UIPinchGestureRecognizer *pinchRecognizer = [[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)] autorelease];
+        pinchRecognizer.delegate = self;
+        [self.cropView addGestureRecognizer:pinchRecognizer];
+        
+        //add image view
+        self.imageView = [[[DDImageView alloc] initWithImage:baseImageView_.image] autorelease];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.frame = self.cropView.bounds;
+        [self.imageView setImageWithURL:[NSURL URLWithString:image_.originalUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            if (!error)
+            {
+                //save initial image
+                [initialImage_ release];
+                initialImage_ = [image retain];
+                
+                //update frame
+                CGPoint imageViewCenter = self.imageView.center;
+                self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.width * initialImage_.size.height / initialImage_.size.width);
+                self.imageView.center = imageViewCenter;
+            }
+        }];
+        [self.cropView addSubview:self.imageView];
+    }
+    
+    {
+        //add background
+        UIImageView *background = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lower-button-bar-bg.png"]] autorelease];
+        background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, window.bounds.size.width, background.frame.size.height);
+        
+        //add bottom view
+        self.bottomView = [[[UIView alloc] initWithFrame:CGRectMake(0, window.bounds.size.height, window.bounds.size.width, background.frame.size.height)] autorelease];
+        [self.bottomView addSubview:background];
+        [self addSubview:self.bottomView];
+        
+        //add button
+        UIImage *cancelImage = [UIImage imageNamed:@"lower-button-gray.png"];
+        UIButton *buttonCancel = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.bottomView addSubview:buttonCancel];
+        [buttonCancel addTarget:self action:@selector(cancelTouched:) forControlEvents:UIControlEventTouchUpInside];
+        buttonCancel.frame = CGRectMake(0, 0, 100, cancelImage.size.height);
+        [buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:cancelImage] forState:UIControlStateNormal];
+        buttonCancel.center = CGPointMake(60, self.bottomView.frame.size.height/2);
+        [buttonCancel setTitle:NSLocalizedString(@"Cancel", @"Cancel button of crop image UI") forState:UIControlStateNormal];
+        
+        //add button
+        UIImage *saveImage = [UIImage imageNamed:@"lower-button-blue.png"];
+        UIButton *buttonSave = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.bottomView addSubview:buttonSave];
+        [buttonSave addTarget:self action:@selector(saveTouched:) forControlEvents:UIControlEventTouchUpInside];
+        buttonSave.frame = CGRectMake(0, 0, 100, saveImage.size.height);
+        [buttonSave setBackgroundImage:[DDTools resizableImageFromImage:saveImage] forState:UIControlStateNormal];
+        buttonSave.center = CGPointMake(320-60, self.bottomView.frame.size.height/2);
+        [buttonSave setTitle:NSLocalizedString(@"Save", @"Save button of crop image UI") forState:UIControlStateNormal];
+    }
+    
+    //animate
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+        self.dimView.alpha = 1;
+        self.navigationBar.alpha = 1;
+        self.cropView.alpha = 1;
+        self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - self.bottomView.frame.size.height);
+    } completion:^(BOOL finished) {
     }];
-    [self.cropView addSubview:self.imageView];
 }
 
 - (void)dismiss
@@ -150,6 +220,19 @@
     
     //unset shown flag
     shown_ = NO;
+    
+    //disable user interaction
+    self.userInteractionEnabled = NO;
+    
+    //animate
+    [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+        self.dimView.alpha = 0;
+        self.navigationBar.alpha = 0;
+        self.cropView.alpha = 0;
+        self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y + self.bottomView.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 - (BOOL)isImageViewInsideCrop
@@ -248,9 +331,11 @@
 - (void)dealloc
 {
     [baseImageView_ release];
-    [parentView_ release];
     [image_ release];
     [initialImage_ release];
+    [bottomView release];
+    [dimView release];
+    [navigationBar release];
     [cropView release];
     [imageView release];
     [super dealloc];
@@ -262,6 +347,27 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
+}
+
+#pragma mark -
+#pragma mark handlers
+
+- (void)cancelTouched:(id)sender
+{
+    //inform delegate
+    [self.delegate imageEditDialogViewDidCancel:self];
+    
+    //dismiss
+    [self dismiss];
+}
+
+- (void)saveTouched:(id)sender
+{
+    //inform delegate
+    [self.delegate imageEditDialogView:self didCutImage:initialImage_ inRect:CGRectMake(0, 0, initialImage_.size.width, initialImage_.size.height)];
+    
+    //dismiss
+    [self dismiss];
 }
 
 @end
