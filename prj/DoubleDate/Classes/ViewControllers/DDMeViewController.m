@@ -30,13 +30,14 @@
 #import "DDDialogAlertView.h"
 #import "DDDialog.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "DDImageEditDialogView.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
 #define kTagActionSheetChangePhoto 2
 #define kTagLoadingSpinner 3
 
-@interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DDImageEditDialogViewDelegate>
 
 - (void)setAvatarShown:(BOOL)shown;
 - (void)updateAvatarWithImage:(UIImage*)image;
@@ -382,6 +383,7 @@
 {
     UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Choose Existing Photo", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Edit Photo", nil)];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Take New Photo", nil)];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Pull Facebook Photo", nil)];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
@@ -414,6 +416,23 @@
 - (void)changePhotoChooseTouched
 {
     [self loadImageFromSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+}
+
+- (void)changePhotoEditTouched
+{
+    //no need to do anything if original photo is not exist
+    if (!self.user.photo.originalUrl)
+    {
+        //show error
+        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Original photo is not exist!", @"Error when we don't have original photo url from api while tryign to edit photo") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+        
+        return;
+    }
+    
+    //create edit dialog
+    DDImageEditDialogView *dialogView = [[[DDImageEditDialogView alloc] initWithImage:self.user.photo inImageView:self.imageViewPoster] autorelease];
+    dialogView.delegate = self;
+    [dialogView show];
 }
 
 - (void)changePhotoCreateTouched
@@ -507,9 +526,12 @@
                 [self changePhotoChooseTouched];
                 break;
             case 1:
-                [self changePhotoCreateTouched];
+                [self changePhotoEditTouched];
                 break;
             case 2:
+                [self changePhotoCreateTouched];
+                break;
+            case 3:
                 [self changePhotoPullTouched];
                 break;
             default:
@@ -601,6 +623,23 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark DDImageEditDialogViewDelegate
+
+- (void)imageEditDialogViewDidCancel:(DDImageEditDialogView*)sender
+{
+    
+}
+
+- (void)imageEditDialogView:(DDImageEditDialogView*)sender didCutImage:(UIImage*)image inRect:(CGRect)rect
+{
+    //cut image
+    UIImage *cutImage = [DDTools cutImageFromImage:image withRect:rect];
+    
+    //update poster
+    self.imageViewPoster.image = cutImage;
 }
 
 @end
