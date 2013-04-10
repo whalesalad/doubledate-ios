@@ -392,6 +392,7 @@
 		70927FBF169E171000052C9F /* DDInvitationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */; };
 		7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AB163BE2B800594BAA /* DDTextView.m */; };
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
+		709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 709F069F1716146200E0ECA6 /* UIImage+DD.m */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		70C519AD16EE60A200FE2026 /* DDChooseWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C519AC16EE60A200FE2026 /* DDChooseWingView.m */; };
@@ -1070,6 +1071,8 @@
 		7099E8AB163BE2B800594BAA /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 		7099E8AD163BF1D100594BAA /* DDDoubleDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDate.h; sourceTree = "<group>"; };
 		7099E8AE163BF1D100594BAA /* DDDoubleDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDate.m; sourceTree = "<group>"; };
+		709F069E1716146200E0ECA6 /* UIImage+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DD.h"; sourceTree = "<group>"; };
+		709F069F1716146200E0ECA6 /* UIImage+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DD.m"; sourceTree = "<group>"; };
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
 		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
@@ -2141,6 +2144,8 @@
 		964A6EDE15F883E90077AAF1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				709F069E1716146200E0ECA6 /* UIImage+DD.h */,
+				709F069F1716146200E0ECA6 /* UIImage+DD.m */,
 				708C09E31651922D00A40FD9 /* NSObject+DD.h */,
 				708C09E41651922D00A40FD9 /* NSObject+DD.m */,
 				964A6EDF15F883E90077AAF1 /* DDTools.h */,
@@ -3292,6 +3297,7 @@
 				4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */,
 				4C0105D117102149007A0401 /* Mixpanel.m in Sources */,
 				9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */,
+				709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

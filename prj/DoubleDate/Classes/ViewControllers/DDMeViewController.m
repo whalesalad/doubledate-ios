@@ -32,6 +32,7 @@
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDImageEditDialogView.h"
 #import "SBJson.h"
+#import "UIImage+DD.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -574,6 +575,10 @@
             image = [info objectForKey:UIImagePickerControllerEditedImage];
         else if ([info objectForKey:UIImagePickerControllerOriginalImage])
             image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        //fix orientation
+        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
+            image = [image fixOrientation];
         
         //show crop
         if (image)
