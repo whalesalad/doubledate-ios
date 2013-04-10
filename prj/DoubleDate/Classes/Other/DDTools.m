@@ -98,6 +98,15 @@ NSString *DDErrorDomain = @"DDErrorDomain";
     return ret;
 }
 
++ (UIImage*)cutImageFromImage:(UIImage*)image withRect:(CGRect)rect
+{
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    [image drawInRect:CGRectMake(-rect.origin.x, -rect.origin.y, image.size.width, image.size.height)];
+    UIImage *ret = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return ret;
+}
+
 + (UIImage*)clearImage
 {
     return [self clearImageOfSize:CGSizeMake(1, 1)];

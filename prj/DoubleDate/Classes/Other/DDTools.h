@@ -35,6 +35,8 @@ extern NSString *DDErrorDomain;
 
 + (UIImage*)scaledImageFromImage:(UIImage*)image ofSize:(CGSize)size;
 
++ (UIImage*)cutImageFromImage:(UIImage*)image withRect:(CGRect)rect;
+
 + (UIImage*)clearImage;
 + (UIImage*)clearImageOfSize:(CGSize)size;
 
