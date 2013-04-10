@@ -31,6 +31,7 @@
 #import "DDDialog.h"
 #import "DDAppDelegate+NavigationMenu.h"
 #import "DDImageEditDialogView.h"
+#import "SBJson.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #define kTagActionSheetEdit 1
@@ -640,6 +641,28 @@
     
     //update poster
     self.imageViewPoster.image = cutImage;
+    
+    //make api call
+    {
+        //set dictionary
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        [dictionary setObject:[NSNumber numberWithFloat:rect.origin.x] forKey:@"crop_x"];
+        [dictionary setObject:[NSNumber numberWithFloat:rect.origin.y] forKey:@"crop_y"];
+        [dictionary setObject:[NSNumber numberWithFloat:rect.size.width] forKey:@"crop_w"];
+        [dictionary setObject:[NSNumber numberWithFloat:rect.size.height] forKey:@"crop_h"];
+        
+        //create request
+        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me/photo"];
+        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+        request.method = RKRequestMethodPUT;
+        request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+        
+        //send request
+        [[DDRequestsController sharedDummyController] startRequest:request];
+    }
 }
 
 @end
