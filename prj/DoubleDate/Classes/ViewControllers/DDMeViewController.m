@@ -260,9 +260,7 @@
     textViewBio.text = user.bio;
     
     // watch for text view change
-    CGRect textViewBioFrame = textViewBioWrapper.frame;
-    textViewBioFrame.size.height = self.imageViewPoster.frame.size.height + textViewBio.contentSize.height + 10;
-    textViewBioWrapper.frame = textViewBioFrame;
+    textViewBioWrapper.frame = CGRectMake(0, 0, textViewBioWrapper.frame.size.width, self.imageViewPoster.frame.size.height + textViewBio.contentSize.height + 10);
     
     //remove old one
     [self.textViewBioGradient removeFromSuperlayer];

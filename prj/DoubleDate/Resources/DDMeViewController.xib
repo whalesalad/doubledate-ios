@@ -45,7 +45,7 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIView" id="316150704">
 								<reference key="NSNextResponder" ref="877541446"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">292</int>
 								<array class="NSMutableArray" key="NSSubviews">
 									<object class="IBUIImageView" id="872843684">
 										<reference key="NSNextResponder" ref="316150704"/>
@@ -274,7 +274,6 @@
 						<string key="NSFrameSize">{320, 454}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -292,7 +291,6 @@
 						<string key="NSFrame">{{0, 454}, {320, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -685,7 +683,6 @@
 					<string key="className">DDMeViewController</string>
 					<string key="superclassName">DDViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="blackBackgroundView">UIView</string>
 						<string key="buttonDoubleDate">UIButton</string>
 						<string key="coinBarContainer">UIView</string>
 						<string key="doubleDateBarContainer">UIView</string>
@@ -702,10 +699,6 @@
 						<string key="viewInterests">UIView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="blackBackgroundView">
-							<string key="name">blackBackgroundView</string>
-							<string key="candidateClassName">UIView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="buttonDoubleDate">
 							<string key="name">buttonDoubleDate</string>
 							<string key="candidateClassName">UIButton</string>
