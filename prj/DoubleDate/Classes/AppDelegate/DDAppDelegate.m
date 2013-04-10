@@ -119,6 +119,9 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
         {
             //switch to user
             [self loginUser:[DDAuthenticationController currentUser] animated:NO];
+            
+            //update me
+            [DDAuthenticationController updateCurrentUser];
         }
     }
 }

@@ -392,6 +392,7 @@
 		70927FBF169E171000052C9F /* DDInvitationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */; };
 		7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AB163BE2B800594BAA /* DDTextView.m */; };
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
+		709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 709F069F1716146200E0ECA6 /* UIImage+DD.m */; };
 		70C0835115FE9314000A7E8C /* DDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C0835015FE9314000A7E8C /* DDLoginViewController.m */; };
 		70C0835315FE9338000A7E8C /* DDLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70C0835215FE9338000A7E8C /* DDLoginViewController.xib */; };
 		70C519AD16EE60A200FE2026 /* DDChooseWingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70C519AC16EE60A200FE2026 /* DDChooseWingView.m */; };
@@ -467,6 +468,7 @@
 		962DEA6B16DCBE94007B1603 /* unlock-icon-coin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 962DEA5B16DCBE94007B1603 /* unlock-icon-coin@2x.png */; };
 		96367300167094C800D3D8D3 /* DDPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 963672FF167094C800D3D8D3 /* DDPhotoView.m */; };
 		963A67A316A3FA1D002F4791 /* DDEngagementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */; };
+		9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9645F5D21712F23C00100213 /* DDImageEditDialogView.m */; };
 		964A6E7915F7E88F0077AAF1 /* DDBasicInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */; };
 		964A6E7B15F7E89B0077AAF1 /* DDBasicInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */; };
 		964A6E9215F812A10077AAF1 /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 964A6E8915F808B90077AAF1 /* libRestKit.a */; };
@@ -517,6 +519,14 @@
 		9695DD2D1647A94700A80922 /* DDBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9695DD2C1647A94700A80922 /* DDBarButtonItem.m */; };
 		9695DD301647AECC00A80922 /* Avenir.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 9695DD2F1647AECC00A80922 /* Avenir.ttc */; };
 		96AF0738163AAAF300C1940F /* DDButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AF0737163AAAF300C1940F /* DDButton.m */; };
+		96AF63731714482F0081C518 /* lower-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF636B1714482F0081C518 /* lower-left.png */; };
+		96AF6374171448300081C518 /* lower-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF636C1714482F0081C518 /* lower-left@2x.png */; };
+		96AF6375171448300081C518 /* lower-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF636D1714482F0081C518 /* lower-right.png */; };
+		96AF6376171448300081C518 /* lower-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF636E1714482F0081C518 /* lower-right@2x.png */; };
+		96AF6377171448300081C518 /* upper-left.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF636F1714482F0081C518 /* upper-left.png */; };
+		96AF6378171448300081C518 /* upper-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF63701714482F0081C518 /* upper-left@2x.png */; };
+		96AF6379171448300081C518 /* upper-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF63711714482F0081C518 /* upper-right.png */; };
+		96AF637A171448300081C518 /* upper-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 96AF63721714482F0081C518 /* upper-right@2x.png */; };
 		96B1F99C169C7F21009FD842 /* DDTabBarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B1F99B169C7F21009FD842 /* DDTabBarBackgroundView.m */; };
 		96B3A499164AA03F00048385 /* DDLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B3A498164AA03F00048385 /* DDLocationTableViewCell.m */; };
 		96B59E161607185A00CFDA1C /* DDImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 96B59E151607185A00CFDA1C /* DDImage.m */; };
@@ -1061,6 +1071,8 @@
 		7099E8AB163BE2B800594BAA /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 		7099E8AD163BF1D100594BAA /* DDDoubleDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDate.h; sourceTree = "<group>"; };
 		7099E8AE163BF1D100594BAA /* DDDoubleDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDate.m; sourceTree = "<group>"; };
+		709F069E1716146200E0ECA6 /* UIImage+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DD.h"; sourceTree = "<group>"; };
+		709F069F1716146200E0ECA6 /* UIImage+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DD.m"; sourceTree = "<group>"; };
 		70C0834F15FE9314000A7E8C /* DDLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLoginViewController.h; sourceTree = "<group>"; };
 		70C0835015FE9314000A7E8C /* DDLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLoginViewController.m; sourceTree = "<group>"; };
 		70C0835215FE9338000A7E8C /* DDLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDLoginViewController.xib; sourceTree = "<group>"; };
@@ -1166,6 +1178,8 @@
 		963672FE167094C800D3D8D3 /* DDPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPhotoView.h; sourceTree = "<group>"; };
 		963672FF167094C800D3D8D3 /* DDPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPhotoView.m; sourceTree = "<group>"; };
 		963A67A216A3FA1D002F4791 /* DDEngagementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDEngagementTableViewCell.xib; sourceTree = "<group>"; };
+		9645F5D11712F23C00100213 /* DDImageEditDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDImageEditDialogView.h; sourceTree = "<group>"; };
+		9645F5D21712F23C00100213 /* DDImageEditDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDImageEditDialogView.m; sourceTree = "<group>"; };
 		964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBasicInfoViewController.h; sourceTree = "<group>"; };
 		964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBasicInfoViewController.m; sourceTree = "<group>"; };
 		964A6E7A15F7E89B0077AAF1 /* DDBasicInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDBasicInfoViewController.xib; sourceTree = "<group>"; };
@@ -1247,6 +1261,14 @@
 		9695DD2F1647AECC00A80922 /* Avenir.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Avenir.ttc; sourceTree = "<group>"; };
 		96AF0736163AAAF300C1940F /* DDButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDButton.h; sourceTree = "<group>"; };
 		96AF0737163AAAF300C1940F /* DDButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDButton.m; sourceTree = "<group>"; };
+		96AF636B1714482F0081C518 /* lower-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-left.png"; sourceTree = "<group>"; };
+		96AF636C1714482F0081C518 /* lower-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-left@2x.png"; sourceTree = "<group>"; };
+		96AF636D1714482F0081C518 /* lower-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-right.png"; sourceTree = "<group>"; };
+		96AF636E1714482F0081C518 /* lower-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-right@2x.png"; sourceTree = "<group>"; };
+		96AF636F1714482F0081C518 /* upper-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-left.png"; sourceTree = "<group>"; };
+		96AF63701714482F0081C518 /* upper-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-left@2x.png"; sourceTree = "<group>"; };
+		96AF63711714482F0081C518 /* upper-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-right.png"; sourceTree = "<group>"; };
+		96AF63721714482F0081C518 /* upper-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "upper-right@2x.png"; sourceTree = "<group>"; };
 		96B1F99A169C7F21009FD842 /* DDTabBarBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTabBarBackgroundView.h; sourceTree = "<group>"; };
 		96B1F99B169C7F21009FD842 /* DDTabBarBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTabBarBackgroundView.m; sourceTree = "<group>"; };
 		96B3A497164AA03F00048385 /* DDLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationTableViewCell.h; sourceTree = "<group>"; };
@@ -1418,6 +1440,7 @@
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				96AF636A1714482E0081C518 /* photo-crop-assets */,
 				708E2485170252DE001E8C77 /* message-sent-bar */,
 				708E246C17022FE9001E8C77 /* notification-counter */,
 				965F0A3B16F8DDA400AF363D /* unlock-notice-bar */,
@@ -2121,6 +2144,8 @@
 		964A6EDE15F883E90077AAF1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				709F069E1716146200E0ECA6 /* UIImage+DD.h */,
+				709F069F1716146200E0ECA6 /* UIImage+DD.m */,
 				708C09E31651922D00A40FD9 /* NSObject+DD.h */,
 				708C09E41651922D00A40FD9 /* NSObject+DD.m */,
 				964A6EDF15F883E90077AAF1 /* DDTools.h */,
@@ -2209,9 +2234,26 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		96AF636A1714482E0081C518 /* photo-crop-assets */ = {
+			isa = PBXGroup;
+			children = (
+				96AF636B1714482F0081C518 /* lower-left.png */,
+				96AF636C1714482F0081C518 /* lower-left@2x.png */,
+				96AF636D1714482F0081C518 /* lower-right.png */,
+				96AF636E1714482F0081C518 /* lower-right@2x.png */,
+				96AF636F1714482F0081C518 /* upper-left.png */,
+				96AF63701714482F0081C518 /* upper-left@2x.png */,
+				96AF63711714482F0081C518 /* upper-right.png */,
+				96AF63721714482F0081C518 /* upper-right@2x.png */,
+			);
+			path = "photo-crop-assets";
+			sourceTree = "<group>";
+		};
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9645F5D11712F23C00100213 /* DDImageEditDialogView.h */,
+				9645F5D21712F23C00100213 /* DDImageEditDialogView.m */,
 				70F0DA1D16F6532C00FE01F4 /* DDDialogAlertView.h */,
 				70F0DA1E16F6532C00FE01F4 /* DDDialogAlertView.m */,
 				70F0DA1116F5221F00FE01F4 /* DDCustomizableAlertView.h */,
@@ -3096,6 +3138,14 @@
 				4CE493171704795800D43D0A /* large-checkmark@2x.png in Resources */,
 				703D03C4170CCDF800C1E39F /* doubledate-navigation-logo.png in Resources */,
 				703D03C5170CCDF800C1E39F /* doubledate-navigation-logo@2x.png in Resources */,
+				96AF63731714482F0081C518 /* lower-left.png in Resources */,
+				96AF6374171448300081C518 /* lower-left@2x.png in Resources */,
+				96AF6375171448300081C518 /* lower-right.png in Resources */,
+				96AF6376171448300081C518 /* lower-right@2x.png in Resources */,
+				96AF6377171448300081C518 /* upper-left.png in Resources */,
+				96AF6378171448300081C518 /* upper-left@2x.png in Resources */,
+				96AF6379171448300081C518 /* upper-right.png in Resources */,
+				96AF637A171448300081C518 /* upper-right@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3246,6 +3296,8 @@
 				4C0105CF17102149007A0401 /* MPCSerializedJSONData.m in Sources */,
 				4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */,
 				4C0105D117102149007A0401 /* Mixpanel.m in Sources */,
+				9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */,
+				709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

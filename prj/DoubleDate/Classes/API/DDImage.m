@@ -14,6 +14,7 @@
 @synthesize smallUrl;
 @synthesize mediumUrl;
 @synthesize largeUrl;
+@synthesize originalUrl;
 @synthesize uploadImage;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
@@ -24,6 +25,7 @@
         self.smallUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"small"]];
         self.mediumUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"medium"]];
         self.largeUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"large"]];
+        self.originalUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"original"]];
     }
     return self;
 }
@@ -39,6 +41,8 @@
         [dictionary setObject:self.mediumUrl forKey:@"medium"];
     if (self.largeUrl)
         [dictionary setObject:self.largeUrl forKey:@"large"];
+    if (self.originalUrl)
+        [dictionary setObject:self.originalUrl forKey:@"original"];
     return dictionary;
 }
 
@@ -65,6 +69,7 @@
     [smallUrl release];
     [mediumUrl release];
     [largeUrl release];
+    [originalUrl release];
     [uploadImage release];
     [super dealloc];
 }
