@@ -105,6 +105,39 @@
     self.currentOffset = CGPointMake(self.startOffset.x + translatedPoint.x, self.startOffset.y + translatedPoint.y);
 }
 
+- (void)moveImageViewToFitTheCrop
+{
+    //check if we need to animate
+    if (![self isImageViewInsideCrop])
+    {
+        //save intersection rect
+        CGRect intersection = CGRectIntersection(self.cropView.frame, self.imageView.frame);
+
+        //save differences
+        CGFloat dx = 0;
+        if (CGRectGetMinX(intersection) > CGRectGetMinX(self.cropView.frame))
+            dx = CGRectGetMinX(intersection) - CGRectGetMinX(self.cropView.frame);
+        else if (CGRectGetMaxX(intersection) < CGRectGetMaxX(self.cropView.frame))
+            dx = CGRectGetMaxX(intersection) - CGRectGetMaxX(self.cropView.frame);
+        CGFloat dy = 0;
+        if (CGRectGetMinY(intersection) > CGRectGetMinY(self.cropView.frame))
+            dy = CGRectGetMinY(intersection) - CGRectGetMinY(self.cropView.frame);
+        else if (CGRectGetMaxY(intersection) < CGRectGetMaxY(self.cropView.frame))
+            dy = CGRectGetMaxY(intersection) - CGRectGetMaxY(self.cropView.frame);
+        
+        //move
+        CGPoint newCenter = CGPointMake(self.imageView.center.x - dx, self.imageView.center.y - dy);
+        [UIView animateWithDuration:0.2f animations:^{
+            self.imageView.center = newCenter;
+        } completion:^(BOOL finished) {
+            self.imageView.center = newCenter;
+        }];
+        
+        //set current offset
+        currentOffset = CGPointMake(newCenter.x - self.cropView.bounds.size.width / 2, newCenter.y - self.cropView.bounds.size.height / 2);
+    }
+}
+
 - (void)scale:(UIPinchGestureRecognizer*)sender
 {
     //save initial scale
@@ -116,6 +149,10 @@
     
     //update value
     self.lastScale = [sender scale];
+    
+    //apply final animation
+    if ([sender state] == UIGestureRecognizerStateEnded)
+        [self moveImageViewToFitTheCrop];
 }
 
 - (CGPoint)offsetForView:(UIView*)view
@@ -498,29 +535,10 @@
     if (initialImage_)
     {
         //set limits
-        v = MIN(MAX(v, 1), 3);
-        
-        //check difference
-        CGFloat initialDiff = v - currentScale;
-        
-        //number of steps
-        NSInteger stepsCount = 20;
-        
-        //apply offset
-        if ([self applyChangeOnScale:currentScale + initialDiff])
-            currentScale = currentScale + initialDiff;
-        else
-        {
-            for (int i = 1; i < stepsCount; i++)
-            {
-                CGFloat diff = initialDiff * i / stepsCount;
-                if ([self applyChangeOnScale:currentScale + diff])
-                {
-                    currentScale = currentScale + diff;
-                    break;
-                }
-            }
-        }
+        currentScale = MIN(MAX(v, 1), 3);
+    
+        //just apply the scale
+        self.imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, currentScale, currentScale);
     }
 }
 
