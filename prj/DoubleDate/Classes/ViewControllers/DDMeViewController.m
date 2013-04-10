@@ -55,7 +55,6 @@
 @synthesize scrollView;
 @synthesize labelTitle;
 @synthesize imageViewPoster;
-@synthesize blackBackgroundView;
 @synthesize labelLocation;
 @synthesize textViewBio;
 @synthesize textViewBioWrapper;
@@ -259,11 +258,8 @@
     
     // watch for text view change
     CGRect textViewBioFrame = textViewBioWrapper.frame;
-    textViewBioFrame.size.height = textViewBio.contentSize.height + 10;
+    textViewBioFrame.size.height = self.imageViewPoster.frame.size.height + textViewBio.contentSize.height + 10;
     textViewBioWrapper.frame = textViewBioFrame;
-    
-    // Make the black background view only as tall as the bottom of text view
-    blackBackgroundView.frame = CGRectMake(0, 0, blackBackgroundView.frame.size.width, MIN(textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, scrollView.frame.size.height/2));
     
     //remove old one
     [self.textViewBioGradient removeFromSuperlayer];
@@ -308,7 +304,6 @@
     [scrollView release];
     [labelTitle release];
     [imageViewPoster release];
-    [blackBackgroundView release];
     [labelLocation release];
     [textViewBio release];
     [textViewBioWrapper release];
