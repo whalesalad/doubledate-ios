@@ -414,7 +414,7 @@
 
 - (void)changePhotoChooseTouched
 {
-    [self loadImageFromSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    [self loadImageFromSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
 - (void)changePhotoCreateTouched
