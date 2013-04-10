@@ -1308,7 +1308,7 @@
     else
     {
         //save error message
-        NSString *errorMessage = NSLocalizedString(@"Oops. An unfortunate DoubleDate error has occurred.", nil);
+        NSString *errorMessage = NSLocalizedString(@"Oops! DoubleDate has encountered an error.", nil);
         NSString *responseMessage = [DDTools errorMessageFromResponseData:response.body];
         if (responseMessage)
             errorMessage = responseMessage;
