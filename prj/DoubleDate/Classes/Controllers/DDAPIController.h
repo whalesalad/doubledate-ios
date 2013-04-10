@@ -33,6 +33,7 @@ typedef enum
     DDAPIControllerMethodTypeGetUser,
     DDAPIControllerMethodTypeUpdateMe,
     DDAPIControllerMethodTypeUpdatePhotoForMe,
+    DDAPIControllerMethodTypeGetPhotoForMeFromFacebook,
     DDAPIControllerMethodTypeUpdatePhotoForMeFromFacebook,
     DDAPIControllerMethodTypeCreateUser,
     DDAPIControllerMethodTypeRequestFBUser,
@@ -86,6 +87,9 @@ typedef int DDRequestId;
 
 - (void)updatePhotoForMeSucceed:(DDImage*)photo;
 - (void)updatePhotoForMeDidFailedWithError:(NSError*)error;
+
+- (void)getPhotoForMeFromFacebookSucceed:(DDImage*)photo;
+- (void)getPhotoForMeFromFacebookDidFailedWithError:(NSError*)error;
 
 - (void)updatePhotoForMeFromFacebookSucceed:(DDImage*)photo;
 - (void)updatePhotoForMeFromFacebookDidFailedWithError:(NSError*)error;
@@ -204,7 +208,10 @@ typedef int DDRequestId;
 - (DDRequestId)updatePhotoForMe:(UIImage*)photo;
 - (DDRequestId)updatePhotoForMe:(UIImage*)photo cropRect:(CGRect)cropRect;
 
+- (DDRequestId)getPhotoForMeFromFacebook;
+
 - (DDRequestId)updatePhotoForMeFromFacebook;
+- (DDRequestId)updatePhotoForMeFromFacebookWithCropRect:(CGRect)cropRect;
 
 - (DDRequestId)createUser:(DDUser*)user;
 

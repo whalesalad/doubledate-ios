@@ -27,6 +27,9 @@
 
 @property(nonatomic, assign) id<DDImageEditDialogViewDelegate> delegate;
 
+@property(nonatomic, readonly) DDImage *ddImage;
+@property(nonatomic, readonly) UIImage *uiImage;
+
 - (id)initWithDDImage:(DDImage*)image inImageView:(UIImageView*)imageView;
 - (id)initWithUIImage:(UIImage*)image inImageView:(UIImageView*)imageView;
 

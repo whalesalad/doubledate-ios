@@ -431,7 +431,7 @@
     [self.apiController cancelRequest:updatePhotoRequest_];
     
     //create new request
-    updatePhotoRequest_ = [self.apiController updatePhotoForMeFromFacebook];
+    [self.apiController getPhotoForMeFromFacebook];
 }
 
 - (void)setAvatarShown:(BOOL)shown
@@ -449,7 +449,10 @@
     
     //stop animating before fading
     if (shown)
-        [loadingView stopAnimating];
+    {
+        [loadingView removeFromSuperview];
+        loadingView = nil;
+    }
     
     //hide or show avatar
     [UIView animateWithDuration:0.5f animations:^{
@@ -460,7 +463,10 @@
         
         //start animating after fading
         if (!shown)
+        {
+            UIActivityIndicatorView *loadingView = (UIActivityIndicatorView*)[self.imageViewPoster.superview viewWithTag:kTagLoadingSpinner];
             [loadingView startAnimating];
+        }
     }];
 }
 
@@ -606,26 +612,34 @@
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
 }
 
-- (void)updatePhotoForMeFromFacebookSucceed:(DDImage*)photo
+- (void)getPhotoForMeFromFacebookSucceed:(DDImage*)photo
 {
-    //update url
-    [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.mediumUrl]];
+    //create edit dialog
+    DDImageEditDialogView *dialogView = [[[DDImageEditDialogView alloc] initWithDDImage:photo inImageView:self.imageViewPoster] autorelease];
+    dialogView.delegate = self;
+    [dialogView showInView:self.view];
     
-    //update object
-    self.user.photo = photo;
-    
-    //update shared values
-    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
-        [DDAuthenticationController setCurrentUser:self.user];
+    //show avatar
+    [self setAvatarShown:YES];
 }
 
-- (void)updatePhotoForMeFromFacebookDidFailedWithError:(NSError*)error
+- (void)getPhotoForMeFromFacebookDidFailedWithError:(NSError*)error
 {
     //show avatar
     [self setAvatarShown:YES];
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)updatePhotoForMeFromFacebookSucceed:(DDImage*)photo
+{
+    [self updatePhotoForMeSucceed:photo];
+}
+
+- (void)updatePhotoForMeFromFacebookDidFailedWithError:(NSError*)error
+{
+    [self updatePhotoForMeDidFailedWithError:error];
 }
 
 #pragma mark -
@@ -645,7 +659,10 @@
     self.imageViewPoster.image = cutImage;
     
     //update photo
-    [self.apiController updatePhotoForMe:image cropRect:rect];
+    if (sender.uiImage)
+        [self.apiController updatePhotoForMe:image cropRect:rect];
+    else if (sender.ddImage)
+        [self.apiController updatePhotoForMeFromFacebookWithCropRect:rect];
 }
 
 - (void)imageEditDialogViewWillShow:(DDImageEditDialogView*)sender

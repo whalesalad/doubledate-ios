@@ -242,7 +242,33 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)getPhotoForMeFromFacebook
+{
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo/facebook"];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodGET;
+    NSArray *keys = [NSArray arrayWithObjects:@"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeGetPhotoForMeFromFacebook;
+    userData.succeedSel = @selector(getPhotoForMeFromFacebookSucceed:);
+    userData.failedSel = @selector(getPhotoForMeFromFacebookDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 - (DDRequestId)updatePhotoForMeFromFacebook
+{
+    return [self updatePhotoForMeFromFacebookWithCropRect:CGRectZero];
+}
+
+- (DDRequestId)updatePhotoForMeFromFacebookWithCropRect:(CGRect)cropRect
 {
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo/pull_facebook"];
@@ -251,6 +277,20 @@
     NSArray *keys = [NSArray arrayWithObjects:@"Authorization", nil];
     NSArray *objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //add crop params
+    if (!CGRectEqualToRect(cropRect, CGRectZero))
+    {
+        RKParams *params = [RKParams params];
+        request.params = params;
+        if (!CGRectEqualToRect(cropRect, CGRectZero))
+        {
+            [params setValue:[NSNumber numberWithFloat:cropRect.origin.x] forParam:@"crop_x"];
+            [params setValue:[NSNumber numberWithFloat:cropRect.origin.y] forParam:@"crop_y"];
+            [params setValue:[NSNumber numberWithFloat:cropRect.size.width] forParam:@"crop_w"];
+            [params setValue:[NSNumber numberWithFloat:cropRect.size.height] forParam:@"crop_h"];
+        }
+    }
     
     //create user data
     DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
@@ -1074,7 +1114,8 @@
                 [self.delegate performSelector:userData.succeedSel withObject:interests withObject:userData.userData];
         }
         else if (userData.method == DDAPIControllerMethodTypeUpdatePhotoForMe ||
-                 userData.method == DDAPIControllerMethodTypeUpdatePhotoForMeFromFacebook)
+                 userData.method == DDAPIControllerMethodTypeUpdatePhotoForMeFromFacebook ||
+                 userData.method == DDAPIControllerMethodTypeGetPhotoForMeFromFacebook)
         {
             //create photo object
             DDImage *photo = [DDImage objectWithDictionary:[[[[SBJsonParser alloc] init] autorelease] objectWithData:response.body]];

@@ -57,6 +57,9 @@
 @synthesize lastScale;
 @synthesize currentScale;
 
+@synthesize ddImage = ddImage_;
+@synthesize uiImage = uiImage_;
+
 - (id)initWithDDImage:(DDImage*)image inImageView:(UIImageView*)referenceImageView
 {
     if ((self = [super init]))
@@ -231,7 +234,7 @@
         [self.cropView addGestureRecognizer:pinchRecognizer];
         
         //add image view
-        self.imageView = [[[DDImageView alloc] initWithImage:baseImageView_.image] autorelease];
+        self.imageView = [[[DDImageView alloc] initWithImage:nil] autorelease];
         self.imageView.contentMode = baseImageView_.contentMode;
         self.imageView.frame = self.cropView.bounds;
         if (ddImage_)
