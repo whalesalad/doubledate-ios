@@ -403,7 +403,6 @@
     {
         UIImagePickerController *imagePicker = [[[UIImagePickerController alloc] init] autorelease];
         imagePicker.delegate = self;
-        imagePicker.allowsEditing = YES;
         imagePicker.sourceType = type;
         imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
         [self.navigationController presentViewController:imagePicker animated:YES completion:^{
