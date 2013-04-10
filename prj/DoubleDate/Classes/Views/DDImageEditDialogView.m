@@ -24,6 +24,7 @@
 @property(nonatomic, retain) UIView *dimView;
 @property(nonatomic, retain) UINavigationBar *navigationBar;
 @property(nonatomic, retain) UIView *cropView;
+@property(nonatomic, retain) UIView *blackView;
 @property(nonatomic, retain) UIImageView *imageView;
 @property(nonatomic, assign) CGPoint startOffset;
 @property(nonatomic, assign) CGPoint currentOffset;
@@ -51,6 +52,7 @@
 @synthesize dimView;
 @synthesize navigationBar;
 @synthesize cropView;
+@synthesize blackView;
 @synthesize imageView;
 @synthesize startOffset;
 @synthesize currentOffset;
@@ -364,6 +366,14 @@
     }
     
     {
+        //add black background under the crop
+        self.blackView = [[[UIView alloc] initWithFrame:self.cropView.frame] autorelease];
+        self.blackView.backgroundColor = [UIColor blackColor];
+        self.blackView.alpha = 0;
+        [self.cropView.superview insertSubview:self.blackView belowSubview:self.cropView];
+    }
+    
+    {
         //add background
         UIImageView *background = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lower-button-bar-bg.png"]] autorelease];
         background.frame = CGRectMake(background.frame.origin.x, background.frame.origin.y, window.bounds.size.width, background.frame.size.height);
@@ -402,6 +412,7 @@
         self.dimView.alpha = 1;
         self.navigationBar.alpha = 1;
         self.cropView.alpha = 1;
+        self.blackView.alpha = 1;
         self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - self.bottomView.frame.size.height);
         self.topLeftCornerView.alpha = 1;
         self.topRightCornerView.alpha = 1;
@@ -437,6 +448,7 @@
         self.dimView.alpha = 0;
         self.navigationBar.alpha = 0;
         self.cropView.alpha = 0;
+        self.blackView.alpha = 0;
         self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y + self.bottomView.frame.size.height);
         self.topLeftCornerView.alpha = 0;
         self.topRightCornerView.alpha = 0;
@@ -599,6 +611,7 @@
     [dimView release];
     [navigationBar release];
     [cropView release];
+    [blackView release];
     [imageView release];
     [super dealloc];
 }
