@@ -307,13 +307,13 @@
         }
         [self.cropView addSubview:self.imageView];
         
-        #warning mask is here.
+        //apply masking layer to the whole crop view
         UIImage *maskingImage = [UIImage imageNamed:@"bg-me-photo-mask.png"];
         CALayer *maskingLayer = [CALayer layer];
         maskingLayer.frame = CGRectMake(0, 0, maskingImage.size.width, maskingImage.size.height);
         [maskingLayer setContents:(id)[maskingImage CGImage]];
-        [self.imageView.layer setMask:maskingLayer];
-        self.imageView.layer.masksToBounds = YES;
+        [self.cropView.layer setMask:maskingLayer];
+        self.cropView.layer.masksToBounds = YES;
         
         //add corners
         {
@@ -322,7 +322,7 @@
                 self.topLeftCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upper-left.png"]] autorelease];
                 self.topLeftCornerView.center = CGPointMake(self.topLeftCornerView.center.x + self.cornerPadding, self.topLeftCornerView.center.y + self.cornerPadding);
                 self.topLeftCornerView.alpha = 0;
-                [self.cropView addSubview:self.topLeftCornerView];
+                [self.cropView.superview addSubview:self.topLeftCornerView];
                 
                 //add animation
                 [self animateCornersIn:self.topLeftCornerView];
@@ -333,7 +333,7 @@
                 self.topRightCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"upper-right.png"]] autorelease];
                 self.topRightCornerView.center = CGPointMake(self.topRightCornerView.center.x + self.cropView.bounds.size.width - self.topRightCornerView.frame.size.width - self.cornerPadding, self.topRightCornerView.center.y + self.cornerPadding);
                 self.topRightCornerView.alpha = 0;
-                [self.cropView addSubview:self.topRightCornerView];
+                [self.cropView.superview addSubview:self.topRightCornerView];
                 
                 //add animation
                 [self animateCornersIn:self.topRightCornerView];
@@ -344,7 +344,7 @@
                 self.bottomLeftCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lower-left.png"]] autorelease];
                 self.bottomLeftCornerView.center = CGPointMake(self.bottomLeftCornerView.center.x + self.cornerPadding, self.bottomLeftCornerView.center.y + self.cropView.bounds.size.height - self.topRightCornerView.frame.size.height - self.cornerPadding);
                 self.bottomLeftCornerView.alpha = 0;
-                [self.cropView addSubview:self.bottomLeftCornerView];
+                [self.cropView.superview addSubview:self.bottomLeftCornerView];
                 
                 //add animation
                 [self animateCornersIn:self.bottomLeftCornerView];
@@ -355,7 +355,7 @@
                 self.bottomRightCornerView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"lower-right.png"]] autorelease];
                 self.bottomRightCornerView.center = CGPointMake(self.bottomRightCornerView.center.x + self.cropView.bounds.size.width - self.bottomRightCornerView.frame.size.width - self.cornerPadding, self.bottomRightCornerView.center.y + self.cropView.bounds.size.height - self.bottomRightCornerView.frame.size.height - self.cornerPadding);
                 self.bottomRightCornerView.alpha = 0;
-                [self.cropView addSubview:self.bottomRightCornerView];
+                [self.cropView.superview addSubview:self.bottomRightCornerView];
                 
                 //add animation
                 [self animateCornersIn:self.bottomRightCornerView];
