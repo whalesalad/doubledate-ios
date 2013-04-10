@@ -274,6 +274,7 @@
         self.imageView = [[[DDImageView alloc] initWithImage:nil] autorelease];
         self.imageView.contentMode = baseImageView_.contentMode;
         self.imageView.frame = self.cropView.bounds;
+        
         if (ddImage_)
         {
             [self.imageView setImageWithURL:[NSURL URLWithString:ddImage_.originalUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
@@ -305,6 +306,14 @@
             self.imageView.center = imageViewCenter;
         }
         [self.cropView addSubview:self.imageView];
+        
+        #warning mask is here.
+        UIImage *maskingImage = [UIImage imageNamed:@"bg-me-photo-mask.png"];
+        CALayer *maskingLayer = [CALayer layer];
+        maskingLayer.frame = CGRectMake(0, 0, maskingImage.size.width, maskingImage.size.height);
+        [maskingLayer setContents:(id)[maskingImage CGImage]];
+        [self.imageView.layer setMask:maskingLayer];
+        self.imageView.layer.masksToBounds = YES;
         
         //add corners
         {
