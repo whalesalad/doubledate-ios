@@ -202,6 +202,7 @@ typedef int DDRequestId;
 - (DDRequestId)updateMe:(DDUser*)user;
 
 - (DDRequestId)updatePhotoForMe:(UIImage*)photo;
+- (DDRequestId)updatePhotoForMe:(UIImage*)photo cropRect:(CGRect)cropRect;
 
 - (DDRequestId)updatePhotoForMeFromFacebook;
 

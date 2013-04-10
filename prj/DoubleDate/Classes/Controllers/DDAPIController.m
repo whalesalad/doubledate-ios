@@ -207,6 +207,11 @@
 
 - (DDRequestId)updatePhotoForMe:(UIImage*)photo
 {
+    return [self updatePhotoForMe:photo cropRect:CGRectZero];
+}
+
+- (DDRequestId)updatePhotoForMe:(UIImage*)photo cropRect:(CGRect)cropRect
+{
     //create request
     NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:@"me/photo"];
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
@@ -215,6 +220,13 @@
     RKParamsAttachment *attachement = [params setData:UIImagePNGRepresentation(photo) MIMEType:@"image/png" forParam:@"image"];
     attachement.fileName = @"image.png";
     request.params = params;
+    if (!CGRectEqualToRect(cropRect, CGRectZero))
+    {
+        [params setValue:[NSNumber numberWithFloat:cropRect.origin.x] forParam:@"crop_x"];
+        [params setValue:[NSNumber numberWithFloat:cropRect.origin.y] forParam:@"crop_y"];
+        [params setValue:[NSNumber numberWithFloat:cropRect.size.width] forParam:@"crop_w"];
+        [params setValue:[NSNumber numberWithFloat:cropRect.size.height] forParam:@"crop_h"];
+    }
     NSArray *keys = [NSArray arrayWithObjects:@"Authorization", nil];
     NSArray *objects = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
     request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];

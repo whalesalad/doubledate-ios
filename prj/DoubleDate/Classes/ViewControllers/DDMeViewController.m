@@ -40,6 +40,7 @@
 
 @interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DDImageEditDialogViewDelegate>
 
+- (void)setMeNavigationItemTitle;
 - (void)setAvatarShown:(BOOL)shown;
 - (void)updateAvatarWithImage:(UIImage*)image;
 
@@ -120,7 +121,7 @@
     if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
     {
         //set title
-        self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
+        [self setMeNavigationItemTitle];
         
         //add right button
         self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
@@ -136,11 +137,10 @@
         self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height+self.coinBarContainer.frame.size.height);
         
         //show doubledate bar
-        if (1)
-        {
-            self.doubleDateBarContainer.hidden = NO;
-            self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height-self.doubleDateBarContainer.frame.size.height);
-        }
+        self.doubleDateBarContainer.hidden = NO;
+        
+        //update scroll bar
+        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height-self.doubleDateBarContainer.frame.size.height);
     }
     
     //set title
@@ -384,7 +384,6 @@
 {
     UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Choose Existing Photo", nil)];
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Edit Photo", nil)];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Take New Photo", nil)];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Pull Facebook Photo", nil)];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
@@ -417,23 +416,6 @@
 - (void)changePhotoChooseTouched
 {
     [self loadImageFromSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
-}
-
-- (void)changePhotoEditTouched
-{
-    //no need to do anything if original photo is not exist
-    if (!self.user.photo.originalUrl)
-    {
-        //show error
-        [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Original photo is not exist!", @"Error when we don't have original photo url from api while tryign to edit photo") delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-        
-        return;
-    }
-    
-    //create edit dialog
-    DDImageEditDialogView *dialogView = [[[DDImageEditDialogView alloc] initWithImage:self.user.photo inImageView:self.imageViewPoster] autorelease];
-    dialogView.delegate = self;
-    [dialogView show];
 }
 
 - (void)changePhotoCreateTouched
@@ -483,6 +465,11 @@
     }];
 }
 
+- (void)setMeNavigationItemTitle
+{
+    self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
+}
+
 - (void)updateAvatarWithImage:(UIImage*)image
 {
     //check new image
@@ -497,6 +484,14 @@
     
     //create new request
     updatePhotoRequest_ = [self.apiController updatePhotoForMe:image];
+}
+
+- (void)presentCropUIForImage:(UIImage*)image
+{
+    //create edit dialog
+    DDImageEditDialogView *dialogView = [[[DDImageEditDialogView alloc] initWithUIImage:image inImageView:self.imageViewPoster] autorelease];
+    dialogView.delegate = self;
+    [dialogView showInView:self.view];
 }
 
 #pragma mark -
@@ -525,14 +520,10 @@
         switch (buttonIndex) {
             case 0:
                 [self changePhotoChooseTouched];
-                break;
             case 1:
-                [self changePhotoEditTouched];
-                break;
-            case 2:
                 [self changePhotoCreateTouched];
                 break;
-            case 3:
+            case 2:
                 [self changePhotoPullTouched];
                 break;
             default:
@@ -562,18 +553,21 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    //save image
+    UIImage *image = nil;
+    
     //check for image
     if (CFStringCompare((CFStringRef)[info objectForKey:UIImagePickerControllerMediaType], kUTTypeImage, 0) == kCFCompareEqualTo)
     {
         //save image
-        UIImage *image = nil;
         if ([info objectForKey:UIImagePickerControllerEditedImage])
             image = [info objectForKey:UIImagePickerControllerEditedImage];
         else if ([info objectForKey:UIImagePickerControllerOriginalImage])
             image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
-        //check image
-        [self updateAvatarWithImage:image];
+        //show crop
+        if (image)
+            [self presentCropUIForImage:image];
     }
     
     //dismiss view controller
@@ -592,11 +586,16 @@
 
 - (void)updatePhotoForMeSucceed:(DDImage*)photo
 {
-    //update url
-    [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.mediumUrl]];
-    
+    //update url only if updated not after cropping
+    if ([self.apiController isRequestExist:updatePhotoRequest_])
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.mediumUrl]];
+        
     //update object
     self.user.photo = photo;
+    
+    //update shared values
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
+        [DDAuthenticationController setCurrentUser:self.user];
 }
 
 - (void)updatePhotoForMeDidFailedWithError:(NSError*)error
@@ -615,6 +614,10 @@
     
     //update object
     self.user.photo = photo;
+    
+    //update shared values
+    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
+        [DDAuthenticationController setCurrentUser:self.user];
 }
 
 - (void)updatePhotoForMeFromFacebookDidFailedWithError:(NSError*)error
@@ -642,27 +645,26 @@
     //update poster
     self.imageViewPoster.image = cutImage;
     
-    //make api call
-    {
-        //set dictionary
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        [dictionary setObject:[NSNumber numberWithFloat:rect.origin.x] forKey:@"crop_x"];
-        [dictionary setObject:[NSNumber numberWithFloat:rect.origin.y] forKey:@"crop_y"];
-        [dictionary setObject:[NSNumber numberWithFloat:rect.size.width] forKey:@"crop_w"];
-        [dictionary setObject:[NSNumber numberWithFloat:rect.size.height] forKey:@"crop_h"];
-        
-        //create request
-        NSString *requestPath = [[DDTools authUrlPath] stringByAppendingPathComponent:@"/me/photo"];
-        RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
-        request.method = RKRequestMethodPUT;
-        request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
-        NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
-        NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
-        request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
-        
-        //send request
-        [[DDRequestsController sharedDummyController] startRequest:request];
-    }
+    //update photo
+    [self.apiController updatePhotoForMe:image cropRect:rect];
+}
+
+- (void)imageEditDialogViewWillShow:(DDImageEditDialogView*)sender
+{
+    self.navigationItem.title = NSLocalizedString(@"Resize & Position", nil);
+}
+
+- (void)imageEditDialogViewDidShow:(DDImageEditDialogView*)sender
+{
+}
+
+- (void)imageEditDialogViewWillHide:(DDImageEditDialogView*)sender
+{
+    [self setMeNavigationItemTitle];
+}
+
+- (void)imageEditDialogViewDidHide:(DDImageEditDialogView*)sender
+{
 }
 
 @end

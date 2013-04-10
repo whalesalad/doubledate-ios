@@ -24,7 +24,7 @@
 @property(nonatomic, retain) UIView *dimView;
 @property(nonatomic, retain) UINavigationBar *navigationBar;
 @property(nonatomic, retain) UIView *cropView;
-@property(nonatomic, retain) DDImageView *imageView;
+@property(nonatomic, retain) UIImageView *imageView;
 @property(nonatomic, assign) CGPoint startOffset;
 @property(nonatomic, assign) CGPoint currentOffset;
 @property(nonatomic, assign) CGFloat lastScale;
@@ -35,7 +35,8 @@
 @implementation DDImageEditDialogView
 {
     UIImageView *baseImageView_;
-    DDImage *image_;
+    DDImage *ddImage_;
+    UIImage *uiImage_;
     UIImage *initialImage_;
     BOOL shown_;
 }
@@ -56,7 +57,7 @@
 @synthesize lastScale;
 @synthesize currentScale;
 
-- (id)initWithImage:(DDImage*)image inImageView:(UIImageView*)referenceImageView
+- (id)initWithDDImage:(DDImage*)image inImageView:(UIImageView*)referenceImageView
 {
     if ((self = [super init]))
     {
@@ -64,7 +65,23 @@
         baseImageView_ = [referenceImageView retain];
         
         //save image
-        image_ = [image retain];
+        ddImage_ = [image retain];
+        
+        //save current offset
+        currentScale = 1;
+    }
+    return self;
+}
+
+- (id)initWithUIImage:(UIImage*)image inImageView:(UIImageView*)referenceImageView
+{
+    if ((self = [super init]))
+    {
+        //save reference image view
+        baseImageView_ = [referenceImageView retain];
+        
+        //save image
+        uiImage_ = [image retain];
         
         //save current offset
         currentScale = 1;
@@ -142,15 +159,21 @@
 
 - (void)show
 {
+    //save window
+    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
+    
+    //show in window
+    [self showInView:window];
+}
+
+- (void)showInView:(UIView*)window
+{
     //check if already shown
     if (shown_)
         return;
     
     //set shown flag
     shown_ = YES;
-    
-    //save window
-    UIWindow *window = [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] window];
     
     //set frame
     self.frame = [window bounds];
@@ -172,6 +195,7 @@
         [self addSubview:self.dimView];
     }
     
+    if ([window isKindOfClass:[UIWindow class]])
     {
         //add fake navigation bar
         self.navigationBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, self.window.frame.size.width, 44)] autorelease];
@@ -203,21 +227,38 @@
         
         //add image view
         self.imageView = [[[DDImageView alloc] initWithImage:baseImageView_.image] autorelease];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageView.contentMode = baseImageView_.contentMode;
         self.imageView.frame = self.cropView.bounds;
-        [self.imageView setImageWithURL:[NSURL URLWithString:image_.originalUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            if (!error)
-            {
-                //save initial image
-                [initialImage_ release];
-                initialImage_ = [image retain];
-                
-                //update frame
-                CGPoint imageViewCenter = self.imageView.center;
-                self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.width * initialImage_.size.height / initialImage_.size.width);
-                self.imageView.center = imageViewCenter;
-            }
-        }];
+        if (ddImage_)
+        {
+            [self.imageView setImageWithURL:[NSURL URLWithString:ddImage_.originalUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                if (!error)
+                {
+                    //save initial image
+                    [initialImage_ release];
+                    initialImage_ = [image retain];
+                    
+                    //update frame
+                    CGPoint imageViewCenter = self.imageView.center;
+                    self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.width * initialImage_.size.height / initialImage_.size.width);
+                    self.imageView.center = imageViewCenter;
+                }
+            }];
+        }
+        else if (uiImage_)
+        {
+            //set image
+            self.imageView.image = uiImage_;
+            
+            //save initial image
+            [initialImage_ release];
+            initialImage_ = [uiImage_ retain];
+            
+            //update frame
+            CGPoint imageViewCenter = self.imageView.center;
+            self.imageView.frame = CGRectMake(self.imageView.frame.origin.x, imageView.frame.origin.y, self.imageView.frame.size.width, self.imageView.frame.size.width * initialImage_.size.height / initialImage_.size.width);
+            self.imageView.center = imageViewCenter;
+        }
         [self.cropView addSubview:self.imageView];
         
         //add corners
@@ -299,6 +340,9 @@
         [buttonSave setTitle:NSLocalizedString(@"Save", @"Save button of crop image UI") forState:UIControlStateNormal];
     }
     
+    //inform delegate
+    [self.delegate imageEditDialogViewWillShow:self];
+    
     //animate
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.dimView.alpha = 1;
@@ -310,6 +354,9 @@
         self.bottomLeftCornerView.alpha = 1;
         self.bottomRightCornerView.alpha = 1;
     } completion:^(BOOL finished) {
+        
+        //inform delegate
+        [self.delegate imageEditDialogViewDidShow:self];
     }];
 }
 
@@ -328,6 +375,9 @@
     //cancel previous selectors
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     
+    //inform delegate
+    [self.delegate imageEditDialogViewWillHide:self];
+    
     //animate
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.dimView.alpha = 0;
@@ -339,6 +389,11 @@
         self.bottomLeftCornerView.alpha = 0;
         self.bottomRightCornerView.alpha = 0;
     } completion:^(BOOL finished) {
+        
+        //inform delegate
+        [self.delegate imageEditDialogViewDidHide:self];
+        
+        //remove from superview
         [self removeFromSuperview];
     }];
 }
@@ -498,7 +553,8 @@
 - (void)dealloc
 {
     [baseImageView_ release];
-    [image_ release];
+    [ddImage_ release];
+    [uiImage_ release];
     [initialImage_ release];
     [topLeftCornerView release];
     [topRightCornerView release];

@@ -13,6 +13,11 @@
 
 @protocol DDImageEditDialogViewDelegate <NSObject>
 
+- (void)imageEditDialogViewWillShow:(DDImageEditDialogView*)sender;
+- (void)imageEditDialogViewDidShow:(DDImageEditDialogView*)sender;
+- (void)imageEditDialogViewWillHide:(DDImageEditDialogView*)sender;
+- (void)imageEditDialogViewDidHide:(DDImageEditDialogView*)sender;
+
 - (void)imageEditDialogViewDidCancel:(DDImageEditDialogView*)sender;
 - (void)imageEditDialogView:(DDImageEditDialogView*)sender didCutImage:(UIImage*)image inRect:(CGRect)rect;
 
@@ -22,9 +27,11 @@
 
 @property(nonatomic, assign) id<DDImageEditDialogViewDelegate> delegate;
 
-- (id)initWithImage:(DDImage*)image inImageView:(UIImageView*)imageView;
+- (id)initWithDDImage:(DDImage*)image inImageView:(UIImageView*)imageView;
+- (id)initWithUIImage:(UIImage*)image inImageView:(UIImageView*)imageView;
 
 - (void)show;
+- (void)showInView:(UIView*)view;
 - (void)dismiss;
 
 @end
