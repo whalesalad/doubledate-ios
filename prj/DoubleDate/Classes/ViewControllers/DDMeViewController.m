@@ -46,6 +46,7 @@
 
 @property(nonatomic, retain) CAGradientLayer *textViewBioGradient;
 @property(nonatomic, retain) CALayer *bottomBorder;
+@property(nonatomic, retain) DDImageEditDialogView *imageEditView;
 
 @end
 
@@ -69,6 +70,7 @@
 @synthesize bottomBorder;
 @synthesize doubleDateBarContainer;
 @synthesize buttonDoubleDate;
+@synthesize imageEditView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -211,6 +213,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    if ([DDTools isiPhone5Device])
+        self.view.frame = CGRectMake(0, 0, 320, 578-64);
+    else
+        self.view.frame = CGRectMake(0, 0, 320, 480-64);
     [self reinitBio];
     [self reinitInterests];
     [self reinitLocation];
@@ -322,6 +328,7 @@
     [buttonDoubleDate release];
     [textViewBioGradient release];
     [bottomBorder release];
+    [imageEditView release];
     [super dealloc];
 }
 
@@ -493,10 +500,13 @@
 
 - (void)presentCropUIForImage:(UIImage*)image
 {
+    //dismiss old one
+    [self.imageEditView dismiss];
+    
     //create edit dialog
-    DDImageEditDialogView *dialogView = [[[DDImageEditDialogView alloc] initWithUIImage:image inImageView:self.imageViewPoster] autorelease];
-    dialogView.delegate = self;
-    [dialogView showInView:self.view];
+    self.imageEditView = [[[DDImageEditDialogView alloc] initWithUIImage:image inImageView:self.imageViewPoster] autorelease];
+    self.imageEditView.delegate = self;
+    [self.imageEditView showInView:self.view];
 }
 
 #pragma mark -
@@ -524,11 +534,15 @@
     {
         switch (buttonIndex) {
             case 0:
+                [self.imageEditView dismiss];
                 [self changePhotoChooseTouched];
+                break;
             case 1:
+                [self.imageEditView dismiss];
                 [self changePhotoCreateTouched];
                 break;
             case 2:
+                [self.imageEditView dismiss];
                 [self changePhotoPullTouched];
                 break;
             default:
@@ -614,10 +628,13 @@
 
 - (void)getPhotoForMeFromFacebookSucceed:(DDImage*)photo
 {
+    //dismiss previous one
+    [self.imageEditView dismiss];
+    
     //create edit dialog
-    DDImageEditDialogView *dialogView = [[[DDImageEditDialogView alloc] initWithDDImage:photo inImageView:self.imageViewPoster] autorelease];
-    dialogView.delegate = self;
-    [dialogView showInView:self.view];
+    self.imageEditView = [[[DDImageEditDialogView alloc] initWithDDImage:photo inImageView:self.imageViewPoster] autorelease];
+    self.imageEditView.delegate = self;
+    [self.imageEditView showInView:self.view];
     
     //show avatar
     [self setAvatarShown:YES];
@@ -681,6 +698,8 @@
 
 - (void)imageEditDialogViewDidHide:(DDImageEditDialogView*)sender
 {
+    if (sender == self.imageEditView)
+        self.imageEditView = nil;
 }
 
 @end
