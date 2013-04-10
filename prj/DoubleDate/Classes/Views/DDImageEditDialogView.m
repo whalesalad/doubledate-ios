@@ -555,11 +555,21 @@
     //check if image exist
     if (initialImage_)
     {
+        //save old transform
+        CGFloat oldScale = currentScale;
+        
         //set limits
         currentScale = MIN(MAX(v, 1), 3);
-    
+        
         //just apply the scale
         self.imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, currentScale, currentScale);
+        
+        //check if out of the crop
+        if (!CGRectIntersectsRect(self.imageView.frame, self.cropView.frame))
+        {
+            currentScale = oldScale;
+            self.imageView.transform = CGAffineTransformScale(CGAffineTransformIdentity, currentScale, currentScale);
+        }
     }
 }
 
