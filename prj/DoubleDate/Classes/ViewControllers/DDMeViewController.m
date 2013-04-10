@@ -212,10 +212,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if ([DDTools isiPhone5Device])
-        self.view.frame = CGRectMake(0, 0, 320, 578-64);
-    else
-        self.view.frame = CGRectMake(0, 0, 320, 480-64);
     [self reinitBio];
     [self reinitInterests];
     [self reinitLocation];
