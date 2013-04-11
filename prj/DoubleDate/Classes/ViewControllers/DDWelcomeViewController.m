@@ -522,9 +522,15 @@
 - (void)getMeDidSucceed:(DDUser*)me
 {
     //set fake delay
-    CGFloat delay = [DDAuthenticationController isNewUser]?10:0;
+    CGFloat delay = [DDAuthenticationController isNewUser]?6:0;
+    
+    //show fake loading animation
+    [DDRequestsController setActiveRequestsCount:[DDRequestsController activeRequestsCount]+1];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+        
+        //hide fake loading animation
+        [DDRequestsController setActiveRequestsCount:[DDRequestsController activeRequestsCount]-1];
         
         //hide hud
         [self hideHud:YES];
