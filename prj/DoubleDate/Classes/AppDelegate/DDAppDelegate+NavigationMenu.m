@@ -10,6 +10,7 @@
 #import "DDNavigationMenu.h"
 #import "DDNavigationMenuTableViewCell.h"
 #import "DDBarButtonItem.h"
+#import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagNavigationMenuBar 1
@@ -64,7 +65,7 @@
         //add dim
         UIView *dim = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, mainView.frame.size.width, mainView.frame.size.height)] autorelease];
         dim.tag = kTagNavigationMenuDim;
-        dim.backgroundColor = [UIColor blackColor];
+        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
         dim.alpha = 0;
         [mainView addSubview:dim];
         
@@ -85,6 +86,22 @@
         UIImageView *shadow = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-menu-inner-shadow.png"]] autorelease];
         shadow.frame = CGRectMake(0, 0, shadow.frame.size.width, shadow.frame.size.height);
         [mainView addSubview:shadow];
+        
+        // add fake button for sending feedback
+        UIButton *feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *feedbackButtonImage = [UIImage imageNamed:@"feedback-button.png"];
+        
+        [feedbackButton setTitle:NSLocalizedString(@"Send Us Feedback", @"Feedback button text") forState:UIControlStateNormal];
+        feedbackButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
+        feedbackButton.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5f];
+        feedbackButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        feedbackButton.titleEdgeInsets = UIEdgeInsetsMake(1, 40, 0, 0);
+        
+        [feedbackButton setBackgroundImage:[DDTools resizableImageFromImage:feedbackButtonImage] forState:UIControlStateNormal];
+
+        feedbackButton.frame = CGRectMake(0, 0, feedbackButtonImage.size.width, feedbackButtonImage.size.height);
+        [dim addSubview:feedbackButton];
+        feedbackButton.center = CGPointMake(dim.frame.size.width/2, dim.frame.size.height - 40);
     }
     
     //animate
@@ -92,7 +109,7 @@
         UIView *viewBar = [self.navigationMenu viewWithTag:kTagNavigationMenuBar];
         viewBar.alpha = 1;
         UIView *viewDim = [self.navigationMenu viewWithTag:kTagNavigationMenuDim];
-        [viewDim setAlpha:0.8f];
+        [viewDim setAlpha:1.0f];
         UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
         [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + viewTable.frame.size.height - [DDNavigationMenuTableViewCell height])];
     } completion:^(BOOL finished) {

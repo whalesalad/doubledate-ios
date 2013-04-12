@@ -13,6 +13,8 @@
 		4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105CA17102149007A0401 /* NSData+MPBase64.m */; };
 		4C0105D117102149007A0401 /* Mixpanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105CC17102149007A0401 /* Mixpanel.m */; };
 		4C0105D317102170007A0401 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0105D217102170007A0401 /* CoreTelephony.framework */; };
+		4C3584531718224E00241412 /* feedback-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3584511718224E00241412 /* feedback-button.png */; };
+		4C3584541718224E00241412 /* feedback-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3584521718224E00241412 /* feedback-button@2x.png */; };
 		4C35AE4816CE59F800AD75CE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C35AE4716CE59F800AD75CE /* Crashlytics.framework */; };
 		4C36342216D519F7001BBFE7 /* lower-button-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3632D116D519F6001BBFE7 /* lower-button-blue.png */; };
 		4C36342316D519F7001BBFE7 /* lower-button-blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3632D216D519F6001BBFE7 /* lower-button-blue@2x.png */; };
@@ -664,6 +666,8 @@
 		4C0105CB17102149007A0401 /* Mixpanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mixpanel.h; sourceTree = "<group>"; };
 		4C0105CC17102149007A0401 /* Mixpanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mixpanel.m; sourceTree = "<group>"; };
 		4C0105D217102170007A0401 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		4C3584511718224E00241412 /* feedback-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback-button.png"; sourceTree = "<group>"; };
+		4C3584521718224E00241412 /* feedback-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback-button@2x.png"; sourceTree = "<group>"; };
 		4C35AE4716CE59F800AD75CE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = DoubleDate/Third/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
 		4C3632D116D519F6001BBFE7 /* lower-button-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-blue.png"; sourceTree = "<group>"; };
 		4C3632D216D519F6001BBFE7 /* lower-button-blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lower-button-blue@2x.png"; sourceTree = "<group>"; };
@@ -1474,6 +1478,8 @@
 		4C3632D016D519F6001BBFE7 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
+				4C3584511718224E00241412 /* feedback-button.png */,
+				4C3584521718224E00241412 /* feedback-button@2x.png */,
 				4C3632D116D519F6001BBFE7 /* lower-button-blue.png */,
 				4C3632D216D519F6001BBFE7 /* lower-button-blue@2x.png */,
 				4C3632D316D519F6001BBFE7 /* lower-button-gray.png */,
@@ -3146,6 +3152,8 @@
 				96AF6378171448300081C518 /* upper-left@2x.png in Resources */,
 				96AF6379171448300081C518 /* upper-right.png in Resources */,
 				96AF637A171448300081C518 /* upper-right@2x.png in Resources */,
+				4C3584531718224E00241412 /* feedback-button.png in Resources */,
+				4C3584541718224E00241412 /* feedback-button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
