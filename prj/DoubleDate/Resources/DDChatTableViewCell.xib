@@ -170,7 +170,7 @@
 						<double key="preferredMaxLayoutWidth">57</double>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 60}</string>
+				<string key="NSFrameSize">{320, 52}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1004212731"/>

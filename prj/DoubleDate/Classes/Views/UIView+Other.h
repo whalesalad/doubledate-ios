@@ -18,4 +18,8 @@
 
 - (void)customizeGenericLabel:(UILabel*)label;
 
+- (UIButton*)lowerButtonWithTitle:(NSString*)title backgroundImage:(UIImage*)background;
+- (UIButton*)lowerGrayButtonWithTitle:(NSString*)title;
+- (UIButton*)lowerBlueButtonWithTitle:(NSString*)title;
+
 @end

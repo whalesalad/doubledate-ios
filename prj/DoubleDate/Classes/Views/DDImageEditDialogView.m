@@ -12,6 +12,7 @@
 #import "DDAppDelegate.h"
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
+#import "UIView+Other.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDImageEditDialogView ()<UIGestureRecognizerDelegate>
@@ -383,25 +384,21 @@
         [self.bottomView addSubview:background];
         [self addSubview:self.bottomView];
         
-        //add button
-        UIImage *cancelImage = [UIImage imageNamed:@"lower-button-gray.png"];
-        UIButton *buttonCancel = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.bottomView addSubview:buttonCancel];
-        [buttonCancel addTarget:self action:@selector(cancelTouched:) forControlEvents:UIControlEventTouchUpInside];
-        buttonCancel.frame = CGRectMake(0, 0, 100, cancelImage.size.height);
-        [buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:cancelImage] forState:UIControlStateNormal];
-        buttonCancel.center = CGPointMake(60, self.bottomView.frame.size.height/2);
-        [buttonCancel setTitle:NSLocalizedString(@"Cancel", @"Cancel button of crop image UI") forState:UIControlStateNormal];
+
+        // Width of buttons
+        CGFloat buttonWidth = (self.bottomView.frame.size.width - 30) * 0.5;
         
-        //add button
-        UIImage *saveImage = [UIImage imageNamed:@"lower-button-blue.png"];
-        UIButton *buttonSave = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.bottomView addSubview:buttonSave];
+        // Add the cancel button
+        UIButton *buttonCancel = [self lowerGrayButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel button of crop image UI")];
+        buttonCancel.frame = CGRectMake(10, 9, buttonWidth, buttonCancel.frame.size.height);
+        [buttonCancel addTarget:self action:@selector(cancelTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [self.bottomView addSubview:buttonCancel];
+        
+        //add the save button
+        UIButton *buttonSave = [self lowerBlueButtonWithTitle:NSLocalizedString(@"Save", @"Save button of crop image UI")];
+        buttonSave.frame = CGRectMake(buttonCancel.frame.size.width + 20, 9, buttonWidth, buttonSave.frame.size.height);
         [buttonSave addTarget:self action:@selector(saveTouched:) forControlEvents:UIControlEventTouchUpInside];
-        buttonSave.frame = CGRectMake(0, 0, 100, saveImage.size.height);
-        [buttonSave setBackgroundImage:[DDTools resizableImageFromImage:saveImage] forState:UIControlStateNormal];
-        buttonSave.center = CGPointMake(320-60, self.bottomView.frame.size.height/2);
-        [buttonSave setTitle:NSLocalizedString(@"Save", @"Save button of crop image UI") forState:UIControlStateNormal];
+        [self.bottomView addSubview:buttonSave];
     }
     
     //inform delegate

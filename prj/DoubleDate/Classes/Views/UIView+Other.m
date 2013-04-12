@@ -165,4 +165,35 @@
     }
 }
 
+- (UIButton*)lowerButtonWithTitle:(NSString*)title backgroundImage:(UIImage*)background
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+
+    // Set title
+    [button setTitle:title forState:UIControlStateNormal];
+    
+    // Customize title
+    button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
+    button.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5f];
+    button.titleLabel.shadowOffset = CGSizeMake(0, -1);
+
+    // Set background
+    button.frame = CGRectMake(0, 0, 100, background.size.height);
+    [button setBackgroundImage:[DDTools resizableImageFromImage:background] forState:UIControlStateNormal];
+
+    return button;
+}
+
+- (UIButton*)lowerGrayButtonWithTitle:(NSString*)title
+{
+    return [self lowerButtonWithTitle:title
+                      backgroundImage:[UIImage imageNamed:@"lower-button-gray.png"]];
+}
+
+- (UIButton*)lowerBlueButtonWithTitle:(NSString*)title
+{
+    return [self lowerButtonWithTitle:title
+                      backgroundImage:[UIImage imageNamed:@"lower-button-blue.png"]];
+}
+
 @end
