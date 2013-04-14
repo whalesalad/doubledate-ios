@@ -1025,6 +1025,31 @@
     return [self startRequest:request];
 }
 
+- (DDRequestId)sendFeedback:(NSString*)feedback
+{
+    //set parameters
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:feedback forKey:@"message"];
+    
+    //create request
+    NSString *requestPath = [[DDTools apiUrlPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"me/feedback"]];
+    RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
+    request.method = RKRequestMethodPOST;
+    request.HTTPBody = [[[[SBJsonWriter alloc] init] autorelease] dataWithObject:dictionary];
+    NSArray *keys = [NSArray arrayWithObjects:@"Accept", @"Content-Type", @"Authorization", nil];
+    NSArray *objects = [NSArray arrayWithObjects:@"application/json", @"application/json", [NSString stringWithFormat:@"Token token=%@", [DDAuthenticationController token]], nil];
+    request.additionalHTTPHeaders = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    
+    //create user data
+    DDAPIControllerUserData *userData = [[[DDAPIControllerUserData alloc] init] autorelease];
+    userData.method = DDAPIControllerMethodTypeSendFeedback;
+    userData.succeedSel = @selector(sendFeedbackSucceed);
+    userData.failedSel = @selector(sendFeedbackDidFailedWithError:);
+    request.userData = userData;
+    
+    //send request
+    return [self startRequest:request];
+}
+
 #pragma mark -
 #pragma mark RKRequestDelegate
 
@@ -1148,7 +1173,6 @@
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])
                 [self.delegate performSelector:userData.succeedSel withObject:users withObject:userData.userData];
         }
-        
         else if (userData.method == DDAPIControllerMethodTypeRequestApproveFriendshipForFriend ||
                  userData.method == DDAPIControllerMethodTypeRequestInviteFriend)
         {
@@ -1166,7 +1190,8 @@
                  userData.method == DDAPIControllerMethodTypeRequestDeleteFriend ||
                  userData.method == DDAPIControllerMethodTypeRequestInvitations ||
                  userData.method == DDAPIControllerMethodTypeRequestDeleteDoubleDate ||
-                 userData.method == DDAPIControllerMethodTypeRequestDeleteEngagement)
+                 userData.method == DDAPIControllerMethodTypeRequestDeleteEngagement ||
+                 userData.method == DDAPIControllerMethodTypeSendFeedback)
         {
             //inform delegate
             if (userData.succeedSel && [self.delegate respondsToSelector:userData.succeedSel])

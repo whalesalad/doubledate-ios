@@ -11,6 +11,7 @@
 #import "DDNavigationMenuTableViewCell.h"
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
+#import "DDFeedbackViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagNavigationMenuBar 1
@@ -102,6 +103,8 @@
         feedbackButton.frame = CGRectMake(0, 0, feedbackButtonImage.size.width, feedbackButtonImage.size.height);
         [dim addSubview:feedbackButton];
         feedbackButton.center = CGPointMake(dim.frame.size.width/2, dim.frame.size.height - 40);
+        
+        [feedbackButton addTarget:self action:@selector(feedbackTouched) forControlEvents:UIControlEventTouchUpInside];
     }
     
     //animate
@@ -146,6 +149,22 @@
 - (BOOL)isNavigationMenuExist
 {
     return self.navigationMenuExist;
+}
+
+- (void)feedbackTouched
+{
+    //dismiss menu
+    [self dismissNavigationMenu];
+    
+    //create feedback view controller
+    DDFeedbackViewController *vc = [[[DDFeedbackViewController alloc] init] autorelease];
+    
+    //wrap view controller into the navigaton controller
+    UINavigationController *nc = [[[DDNavigationController alloc] initWithRootViewController:vc] autorelease];
+    
+    //present view controller
+    [self.topNavigationController presentViewController:nc animated:YES completion:^{
+    }];
 }
 
 #pragma mark -

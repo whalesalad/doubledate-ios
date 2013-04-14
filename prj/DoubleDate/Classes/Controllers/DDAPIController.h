@@ -65,6 +65,7 @@ typedef enum
     DDAPIControllerMethodTypeGetInAppProducts,
     DDAPIControllerMethodTypeRequestConnectFriends,
     DDAPIControllerMethodTypeRequestInviteFriend,
+    DDAPIControllerMethodTypeSendFeedback,
 } DDAPIControllerMethodType;
 
 typedef int DDRequestId;
@@ -184,6 +185,9 @@ typedef int DDRequestId;
 - (void)requestInviteFriendSucceed:(DDShortUser*)friendUser;
 - (void)requestInviteFriendDidFailedWithError:(NSError*)error;
 
+- (void)sendFeedbackSucceed;
+- (void)sendFeedbackDidFailedWithError:(NSError*)error;
+
 @end
 
 @interface DDAPIController : NSObject
@@ -276,5 +280,7 @@ typedef int DDRequestId;
 - (DDRequestId)requestConnectFriends:(NSString*)fbFriends;
 
 - (DDRequestId)requestInviteFriend:(NSString*)slug;
+
+- (DDRequestId)sendFeedback:(NSString*)feedback;
 
 @end
