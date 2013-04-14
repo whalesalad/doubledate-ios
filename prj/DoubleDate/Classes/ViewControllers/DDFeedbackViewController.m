@@ -132,7 +132,7 @@
     [self hideHud:YES];
     
     //show succeed message
-    NSString *message = NSLocalizedString(@"Done", nil);
+    NSString *message = NSLocalizedString(@"Thank You!", @"Thanks message after feedback sending");
     
     //show completed hud
     [self showCompletedHudWithText:message];
