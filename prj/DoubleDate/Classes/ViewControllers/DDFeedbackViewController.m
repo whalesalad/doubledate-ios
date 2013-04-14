@@ -7,6 +7,8 @@
 //
 
 #import "DDFeedbackViewController.h"
+#import "DDAuthenticationController.h"
+#import "DDUser.h"
 #import "DDBarButtonItem.h"
 #import "DDTableViewController+Refresh.h"
 #import "DDTextViewTableViewCell.h"
@@ -87,7 +89,7 @@
 
 - (UIView *)tableView:(UITableView *)aTableView viewForHeaderInSection:(NSInteger)section
 {
-    return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"We'd love your feedback!", @"Feedback title on feedback page") detailedText:nil];
+    return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Your Comments", @"Feedback title on feedback page") detailedText:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,7 +116,7 @@
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Please, enter the feedback", @"Feedback placeholder");
+    cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"%@, let us know what you think. Your feedback will help us improve DoubleDate.", @"Feedback placeholder"), [[DDAuthenticationController currentUser] firstName]];
     
     cell.textView.textView.delegate = self;
     
