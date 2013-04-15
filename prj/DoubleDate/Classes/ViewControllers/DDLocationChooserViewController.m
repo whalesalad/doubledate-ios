@@ -72,7 +72,7 @@
     }
     else if ([self options] == DDLocationSearchOptionsVenues)
     {
-        return NSLocalizedString(@"Venues", nil);
+        return NSLocalizedString(@"Nearby Venues", nil);
     }
     else
     {

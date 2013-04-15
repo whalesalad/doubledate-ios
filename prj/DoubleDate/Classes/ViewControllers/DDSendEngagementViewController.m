@@ -63,7 +63,7 @@
     
     //localize
     [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
-    [buttonCreate setTitle:NSLocalizedString(@"Create", nil) forState:UIControlStateNormal];
+    [buttonCreate setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     
     //set title
     self.navigationItem.title = NSLocalizedString(@"Send a Message", nil);

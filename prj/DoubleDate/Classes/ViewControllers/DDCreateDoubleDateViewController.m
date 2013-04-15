@@ -455,7 +455,7 @@
         imageView.alpha = 0.5f;
         
         //set location text
-        cell.textLabel.text = NSLocalizedString(@"Add an Optional Place", nil);
+        cell.textLabel.text = NSLocalizedString(@"Add an Optional Venue", nil);
         
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
@@ -486,7 +486,7 @@
     cell.textField.returnKeyType = UIReturnKeyNext;
     
     //set placeholder
-    cell.textField.placeholder = NSLocalizedString(@"Title", nil);
+    cell.textField.placeholder = NSLocalizedString(@"Write a creative title...", nil);
 }
 
 - (void)updateDetailsCell:(DDTextViewTableViewCell*)cell
@@ -498,7 +498,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Add some extra details...", nil);
+    cell.textView.placeholder = NSLocalizedString(@"Explain your DoubleDate. Be creative!", nil);
 }
 
 - (NSIndexPath*)wingIndexPath
