@@ -184,7 +184,8 @@
     //customize buttons
     [self.buttonIgnore setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonIgnore backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
     [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-        
+    [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateDisabled]] forState:UIControlStateDisabled];
+    
     //add users
     [shortUsers_ removeAllObjects];
     [shortUsers_ addObject:self.doubleDate.user];
