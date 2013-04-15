@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12C3006</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -42,6 +42,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrameSize">{320, 394}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="198195314"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -69,6 +70,7 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrameSize">{320, 66}</string>
 								<reference key="NSSuperview" ref="198195314"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="847993161"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -81,8 +83,9 @@
 							<object class="IBUIButton" id="847993161">
 								<reference key="NSNextResponder" ref="198195314"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 9}, {146, 47}}</string>
+								<string key="NSFrame">{{10, 10}, {146, 46}}</string>
 								<reference key="NSSuperview" ref="198195314"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="817151130"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -131,8 +134,9 @@
 							<object class="IBUIButton" id="817151130">
 								<reference key="NSNextResponder" ref="198195314"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{164, 9}, {146, 47}}</string>
+								<string key="NSFrame">{{164, 10}, {146, 46}}</string>
 								<reference key="NSSuperview" ref="198195314"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -140,12 +144,12 @@
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<int key="IBUIButtonType">1</int>
-								<string key="IBUITitleShadowOffset">{0, -1}</string>
+								<string key="IBUITitleShadowOffset">{0, 1}</string>
 								<string key="IBUINormalTitle">Create</string>
 								<reference key="IBUIHighlightedTitleColor" ref="881137113"/>
 								<object class="NSColor" key="IBUIDisabledTitleColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MSAwLjMAA</bytes>
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAgMC4yAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUINormalTitleColor">
 									<int key="NSColorSpace">1</int>
@@ -153,11 +157,15 @@
 								</object>
 								<object class="NSColor" key="IBUIDisabledTitleShadowColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAgMC4xAA</bytes>
+									<bytes key="NSRGB">MSAxIDEgMC4wNAA</bytes>
 								</object>
 								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAgMC41AA</bytes>
+									<bytes key="NSRGB">MCAwIDAgMC4zAA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUIDisabledBackgroundImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">lower-button-blue-disabled.png</string>
 								</object>
 								<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 									<string key="NSClassName">NSImage</string>
@@ -169,6 +177,7 @@
 						</array>
 						<string key="NSFrame">{{0, 394}, {320, 66}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="376465990"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -180,6 +189,7 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="932992991"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -368,8 +378,9 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="lower-button-bar-bg.png">{1, 66}</string>
-			<string key="lower-button-blue.png">{30, 47}</string>
-			<string key="lower-button-gray.png">{30, 47}</string>
+			<string key="lower-button-blue-disabled.png">{30, 46}</string>
+			<string key="lower-button-blue.png">{30, 46}</string>
+			<string key="lower-button-gray.png">{30, 46}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
