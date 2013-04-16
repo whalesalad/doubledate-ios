@@ -488,6 +488,9 @@
     
     //set placeholder
     cell.textField.placeholder = NSLocalizedString(@"Write a creative title...", nil);
+    
+    //remove clear button
+    cell.textField.rightView = nil;
 }
 
 - (void)updateDetailsCell:(DDTextViewTableViewCell*)cell
