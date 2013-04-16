@@ -158,29 +158,22 @@
 
 - (void)updateLeftCharacters
 {
-    self.labelLeftCharacters.text = [NSString stringWithFormat:@"%d/%d", [self.details length], kMaxDetailsLength];
+    self.labelLeftCharacters.text = [NSString stringWithFormat:@"%d / %d", [self.details length], kMaxDetailsLength];
 }
 
 - (void)updateWingCell:(DDTableViewCell*)cell
 {
+    //add image view
+    DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
+    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 75, 0, 75, 45);
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
     //check if we need to update the wing
     if (self.wing)
     {
         //set wing label
         cell.textLabel.text = [wing fullName];
         
-        //add image view
-        DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-        imageView.backgroundColor = [UIColor redColor];
-        imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
-        [cell.contentView addSubview:imageView];
-        
-        //add overlay
-        UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
-        [imageView addSubview:overlay];
-                
         //update image view
         [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].smallUrl]];
     }
@@ -191,7 +184,20 @@
         
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
+        
+        //set image to placeholder image
+        [imageView setImage:[UIImage imageNamed:@"wing-tablecell-placeholder.png"]];
     }
+    
+    // apply the mask
+    [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
+    
+    //add overlay
+    UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
+    [imageView addSubview:overlay];
+    
+    // add subview
+    [cell.contentView addSubview:imageView];
 }
 
 - (void)updateDetailsCell:(DDTextViewTableViewCell*)cell
@@ -296,7 +302,7 @@
     if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         return 160;
     else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
-        return 45;
+        return 46;
     return [DDTableViewCell height];
 }
 

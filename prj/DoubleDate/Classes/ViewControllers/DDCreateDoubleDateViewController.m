@@ -278,7 +278,7 @@
     doubleDate.timePref = self.time;
     
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Creating", nil) animated:YES];
+    [self showHudWithText:NSLocalizedString(@"Creating", @"DoubleDate is being created hud/status text") animated:YES];
     
     //request friends
     [self.apiController createDoubleDate:doubleDate];
@@ -288,7 +288,11 @@
 
 - (void)backTouched:(id)sender
 {
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"Oops, Continue", nil) destructiveButtonTitle:NSLocalizedString(@"Yes, Stop Creating Date", nil) otherButtonTitles:nil, nil] autorelease];
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure?", nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"No, Continue", @"Cancel date menu, continue creating date")
+                                          destructiveButtonTitle:NSLocalizedString(@"Yes, Cancel", @"Cancel date menu, actually cancel")
+                                               otherButtonTitles:nil, nil] autorelease];
     sheet.tag = kTagCancelActionSheet;
     [sheet showInView:self.view];
 }

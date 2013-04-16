@@ -92,7 +92,7 @@
         UIButton *feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
         UIImage *feedbackButtonImage = [UIImage imageNamed:@"feedback-button.png"];
         
-        [feedbackButton setTitle:NSLocalizedString(@"Send Us Feedback", @"Feedback button text") forState:UIControlStateNormal];
+        [feedbackButton setTitle:NSLocalizedString(@"Send Us Feedback", @"Text for Send Feedback button below menu") forState:UIControlStateNormal];
         feedbackButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
         feedbackButton.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5f];
         feedbackButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
