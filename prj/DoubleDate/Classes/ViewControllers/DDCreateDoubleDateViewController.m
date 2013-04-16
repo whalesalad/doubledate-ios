@@ -339,6 +339,13 @@
         
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
+        
+        //add image view
+        DDImageView *imageView = [[[DDImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-placeholder.png"]] autorelease];
+        imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
+        [cell.contentView addSubview:imageView];
     }
 }
 
