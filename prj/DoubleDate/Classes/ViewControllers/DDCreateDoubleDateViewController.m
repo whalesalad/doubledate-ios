@@ -329,7 +329,7 @@
     else
     {
         //set placeholder
-        cell.textLabel.text = NSLocalizedString(@"Choose a Wing", nil);
+        cell.textLabel.text = NSLocalizedString(@"Select your Wing...", nil);
         
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
@@ -498,7 +498,7 @@
     cell.textField.returnKeyType = UIReturnKeyNext;
     
     //set placeholder
-    cell.textField.placeholder = NSLocalizedString(@"A catchy title...", @"Placeholder text for title of new DoubleDate.");
+    cell.textField.placeholder = NSLocalizedString(@"Write a catchy title...", @"Placeholder text for title of new DoubleDate.");
     
     //remove clear button
     cell.textField.rightView = nil;

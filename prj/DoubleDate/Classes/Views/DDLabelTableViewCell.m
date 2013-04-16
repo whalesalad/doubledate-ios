@@ -21,6 +21,7 @@
         label_.backgroundColor = [UIColor clearColor];
         label_.contentMode = UIControlContentVerticalAlignmentCenter;
         label_.textColor = [UIColor whiteColor];
+        DD_F_TABLE_CELL_MAIN(label_);
         [self.contentView addSubview:label_];
     }
     return self;

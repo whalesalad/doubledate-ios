@@ -329,7 +329,7 @@ typedef enum
     }
     else
     {
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", nil) target:self action:@selector(filterTouched:)];
+        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Filter", @"Text for filter doubledates button") target:self action:@selector(filterTouched:)];
     }
     
     //set names for segmented control items

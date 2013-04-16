@@ -380,9 +380,9 @@
 - (void)changePhotoTouched
 {
     UIActionSheet *actionSheet = [[[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil] autorelease];
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Choose Existing Photo", nil)];
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Take New Photo", nil)];
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Pull Facebook Photo", nil)];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Choose a Photo", @"Choose photo from library.")];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Take a Photo", @"Take photo with camera.")];
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Pull Facebook Photo", @"Get users current FB photo.")];
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     [actionSheet setCancelButtonIndex:[actionSheet numberOfButtons]-1];
     actionSheet.tag = kTagActionSheetChangePhoto;
@@ -469,7 +469,7 @@
 
 - (void)setMeNavigationItemTitle
 {
-    self.navigationItem.title = [NSString localizedStringWithFormat:@"Hi %@!", user.firstName];
+    self.navigationItem.title = [NSString stringWithFormat:NSLocalizedString(@"Hi %@!", @"Hi NAME! on users own profile view."), user.firstName];
 }
 
 - (void)updateAvatarWithImage:(UIImage*)image

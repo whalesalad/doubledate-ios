@@ -205,19 +205,13 @@
     Mixpanel *mixpanel = [Mixpanel sharedInstance];
     [mixpanel track:@"Tapped Add Wings"];
     
-    //check facebook user
-    if ([DDAuthenticationController currentUser].facebookId)
-    {
-        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Add a Wing", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"SMS / iMessage", nil), NSLocalizedString(@"Facebook Friends", nil), nil] autorelease];
-        sheet.tag = kTagActionSheetInvite;
-        [sheet showInView:self.view];
-    }
-    else
-    {
-        UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Add a Wing", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"SMS / iMessage", nil), nil] autorelease];
-        sheet.tag = kTagActionSheetInvite;
-        [sheet showInView:self.view];
-    }
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"How do you want to add add a Wing?", nil)
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                          destructiveButtonTitle:nil
+                                               otherButtonTitles:NSLocalizedString(@"By SMS or iMessage", @"Add wing action sheet button"), NSLocalizedString(@"From Facebook Friends", @"Add wing action sheet button"), nil] autorelease];
+    sheet.tag = kTagActionSheetInvite;
+    [sheet showInView:self.view];
 }
 
 - (void)updateBadgeNumber

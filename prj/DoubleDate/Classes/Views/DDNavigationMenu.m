@@ -106,7 +106,7 @@
             break;
         case 1:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-notifications.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Notifications", nil);
+            cell.labelTitle.text = NSLocalizedString(@"Notifications", @"Notifications primary navigation item");
             badgeNumber = [[DDAuthenticationController currentUser].unreadNotificationsCount intValue];
             break;
         case 2:
@@ -115,20 +115,20 @@
             break;
         case 3:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-wings.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Wings", nil);
+            cell.labelTitle.text = NSLocalizedString(@"Wings", @"Wings primary navigation item");
             badgeNumber = [[DDAuthenticationController currentUser].pendingWingsCount intValue];
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-explore.png"];
-            cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore title with city"), [DDDoubleDatesViewController filterCityName]];
+            cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore title with city name"), [DDDoubleDatesViewController filterCityName]];
             break;
         case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
-            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
+            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", @"Doubledates (users dates) primary navigation item");
             break;
         case 6:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Messages", nil);
+            cell.labelTitle.text = NSLocalizedString(@"Messages", @"Messages primary navigation item");
             badgeNumber = [[DDAuthenticationController currentUser].unreadMessagesCount intValue];
             break;
         default:

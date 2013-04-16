@@ -54,7 +54,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = NSLocalizedString(@"Filter Results", nil);
+    self.navigationItem.title = NSLocalizedString(@"Filter Results", @"Title for filter doubledates view");
     
     //remove search
     self.tableView.tableHeaderView = nil;
@@ -163,7 +163,7 @@
 
 - (NSString*)ageTitle
 {
-    return [NSString stringWithFormat:@"%d - %d", [filter_.minAge intValue], [filter_.maxAge intValue]];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d to %d", @"AGE to AGE label."), [filter_.minAge intValue], [filter_.maxAge intValue]];
 }
 
 - (void)resetLocationTouched:(id)sender
@@ -198,11 +198,11 @@
 {
     UIView *headerView = nil;
     if (section == 0)
-        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Timeframe", nil) detailedText:nil];
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Timeframe", @"Filter header for segment buttons to choose timeframe") detailedText:nil];
     else if (section == 1)
-        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Near", nil) detailedText:nil];
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Near", @"Filter header for choosing nearby city") detailedText:nil];
     else if (section == 2)
-        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Age Range", nil) detailedText:nil];
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Age Range", @"Filter header for choosing range of ages") detailedText:nil];
     [headerView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)] autorelease]];
     return headerView;
 }
