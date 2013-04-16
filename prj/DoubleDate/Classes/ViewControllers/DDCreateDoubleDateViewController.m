@@ -190,6 +190,8 @@
         wing = [v retain];
     }
     
+    [[Mixpanel sharedInstance] track:@"Create DoubleDate, Chose Wing"];
+    
     //update cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
     
@@ -310,27 +312,19 @@
 
 - (void)updateWingCell:(DDTableViewCell*)cell
 {
+    //add image view
+    DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
+    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 75, 0, 75, 45);
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    
     //check if we need to update the wing
     if (self.wing)
     {
         //set wing label
         cell.textLabel.text = [wing fullName];
-        
-        //add image view
-        DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-        imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
-        [cell.contentView addSubview:imageView];
-        
-        //add overlay
-        UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
-        [imageView addSubview:overlay];
-                
+
         //update image view
         [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].smallUrl]];
-        
-        [[Mixpanel sharedInstance] track:@"Create DoubleDate, Chose Wing"];
     }
     else
     {
@@ -340,13 +334,19 @@
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
         
-        //add image view
-        DDImageView *imageView = [[[DDImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-placeholder.png"]] autorelease];
-        imageView.frame = CGRectMake(cell.contentView.frame.size.width - 76, 0, 76, 45);
-        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
-        [cell.contentView addSubview:imageView];
+        //set image to placeholder image
+        [imageView setImage:[UIImage imageNamed:@"wing-tablecell-placeholder.png"]];
     }
+
+    // apply the mask
+    [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
+
+    //add overlay
+    UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
+    [imageView addSubview:overlay];
+    
+    // add subview
+    [cell.contentView addSubview:imageView];
 }
 
 - (UIImageView*)updateCell:(DDTableViewCell*)cell withIcon:(UIImage*)icon loadedFromUrl:(NSURL*)url
@@ -721,7 +721,7 @@
     else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
         return 45;
     else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
-        return 45;
+        return 46;
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         return 45;
     else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
