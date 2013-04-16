@@ -754,7 +754,14 @@
     // Add the border to the scrollview
     [self.viewBottomLocked.layer insertSublayer:bottomLockedUpperLine atIndex:1];
     
+    //hide/show locked view
     self.viewBottomLocked.hidden = !(locked || expired);
+    
+    //change frame accordingly
+    if (!self.viewBottomLocked.hidden)
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 58, 0);
+    else
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
 }
 
 - (void)tap:(UITapGestureRecognizer*)sender
