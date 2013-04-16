@@ -143,7 +143,6 @@
     [images addObject:[UIImage imageNamed:@"lounge.jpg"]];
     [images addObject:[UIImage imageNamed:@"lunch.jpg"]];
     [images addObject:[UIImage imageNamed:@"park.jpg"]];
-    [images addObject:[UIImage imageNamed:@"skiing.jpg"]];
     [images addObject:[UIImage imageNamed:@"snorkel.jpg"]];
     [images addObject:[UIImage imageNamed:@"speedboat.jpg"]];
     [images addObject:[UIImage imageNamed:@"yoga.jpg"]];
@@ -178,7 +177,7 @@
     //localize
     labelGrabAFriend.text = NSLocalizedString(@"GRAB A FRIEND • GO OUT • HAVE FUN", nil);
     [buttonLoginWithFacebook setTitle:NSLocalizedString(@"Login with Facebook", nil) forState:UIControlStateNormal];
-    [whyFacebookButton setTitle:NSLocalizedString(@"WHY FACEBOOK?", nil) forState:UIControlStateNormal];
+    [whyFacebookButton setTitle:[NSLocalizedString(@"Why Facebook?", nil) uppercaseString] forState:UIControlStateNormal];
     
     //as XIB set up with iPhone 5 resolution then apply change for usual iPhone
     if (![DDTools isiPhone5Device])

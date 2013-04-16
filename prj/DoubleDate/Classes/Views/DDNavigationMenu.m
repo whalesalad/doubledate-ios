@@ -120,11 +120,11 @@
             break;
         case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-explore.png"];
-            cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", @"Explore title with city name"), [DDDoubleDatesViewController filterCityName]];
+            cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", nil), [DDDoubleDatesViewController filterCityName]];
             break;
         case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
-            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", @"Doubledates (users dates) primary navigation item");
+            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
             break;
         case 6:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];

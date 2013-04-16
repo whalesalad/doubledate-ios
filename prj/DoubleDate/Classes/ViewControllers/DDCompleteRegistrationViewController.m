@@ -43,10 +43,10 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Almost Done!", @"skip");
+    self.navigationItem.title = @"Almost Done!";
     
     //add right button
-    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Finish", nil) target:self action:@selector(finishTouched:)];
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:@"Finish" target:self action:@selector(finishTouched:)];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

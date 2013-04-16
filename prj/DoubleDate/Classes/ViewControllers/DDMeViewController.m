@@ -98,7 +98,7 @@
     [super viewDidLoad];
     
     //localize
-    labelInterests.text = NSLocalizedString(@"ICE BREAKERS", nil);
+    labelInterests.text = [NSLocalizedString(@"Ice Breakers", nil) uppercaseString];
     [buttonDoubleDate setTitle:[NSString stringWithFormat:NSLocalizedString(@"DoubleDate with %@", @"Doubledate button on wing's profile page"), self.user.firstName] forState:UIControlStateNormal];
     
     //add coin bar

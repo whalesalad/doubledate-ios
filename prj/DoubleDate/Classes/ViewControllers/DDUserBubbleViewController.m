@@ -41,7 +41,7 @@
     [super viewDidLoad];
     
     //localize
-    labelIceBreakers.text = NSLocalizedString(@"ICE BREAKERS", nil);
+    labelIceBreakers.text = [NSLocalizedString(@"Ice Breakers", nil) uppercaseString];
     
     //unset all backgrounds
     self.labelTitle.backgroundColor = [UIColor clearColor];

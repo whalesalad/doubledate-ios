@@ -715,14 +715,14 @@
     //switch between different titles
     if (locked)
     {
-        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is locked") forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Start", @"Chat page start chat button while engagement is locked") forState:UIControlStateNormal];
+        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", nil) forState:UIControlStateNormal];
         [self.labelLocked setText:NSLocalizedString(@"This chat hasn't started yet.", @"Chat page locked label while engagement is locked")];
     }
     else if (expired)
     {
-        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", @"Chat page ignore button while engagement is expired") forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume", @"Chat page resume button while engagement is expired") forState:UIControlStateNormal];
+        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
+        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume Chat", nil) forState:UIControlStateNormal];
         [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
     }
     else
@@ -758,10 +758,14 @@
     self.viewBottomLocked.hidden = !(locked || expired);
     
     //change frame accordingly
-    if (!self.viewBottomLocked.hidden)
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 58, 0);
-    else
+    if (!self.viewBottomLocked.hidden) {
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 55, 0);
+    } else {
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+    }
+    
 }
 
 - (void)tap:(UITapGestureRecognizer*)sender

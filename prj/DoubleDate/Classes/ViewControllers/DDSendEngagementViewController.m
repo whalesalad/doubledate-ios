@@ -294,7 +294,7 @@
     if (section == 0)
         return nil;
     
-    return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"YOUR MESSAGE", nil) detailedText:nil];
+    return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Your Message", nil) uppercaseString] detailedText:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
