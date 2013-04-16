@@ -498,7 +498,7 @@
     cell.textField.returnKeyType = UIReturnKeyNext;
     
     //set placeholder
-    cell.textField.placeholder = NSLocalizedString(@"Write a creative title...", nil);
+    cell.textField.placeholder = NSLocalizedString(@"A catchy title...", @"Placeholder text for title of new DoubleDate.");
     
     //remove clear button
     cell.textField.rightView = nil;
@@ -513,7 +513,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Explain your DoubleDate. Be creative!", nil);
+    cell.textView.placeholder = NSLocalizedString(@"Explain the details...", @"Placeholder text for details of new DoubleDate.");
     
     //set return button on post details
     cell.textView.textView.returnKeyType = UIReturnKeyDone;
