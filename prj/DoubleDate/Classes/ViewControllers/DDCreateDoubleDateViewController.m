@@ -29,7 +29,7 @@
 
 #define kTagCancelActionSheet 1
 
-@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, DDChooseWingViewDelegate>
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, DDChooseWingViewDelegate, UIGestureRecognizerDelegate>
 
 @property(nonatomic, retain) DDPlacemark *location;
 @property(nonatomic, retain) DDPlacemark *optionalLocation;
@@ -115,6 +115,11 @@
     
     //update navigation bar
     [self updateNavigationBar];
+    
+    //add tap recognizer
+    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
+    tapRecognizer.delegate = self;
+    [self.tableView addGestureRecognizer:tapRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -466,7 +471,6 @@
 - (void)updateDayTimeCell:(DDTableViewCell*)cell
 {
     //apply blank image by default
-//    cell.imageView.image = [UIImage imageNamed:@"create-date-time-icon.png"];
     UIImageView *imageView = [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-time-icon.png"] loadedFromUrl:nil];
     imageView.center = CGPointMake(20, cell.contentView.frame.size.height/2);
     
@@ -503,6 +507,9 @@
     
     //set placeholder
     cell.textView.placeholder = NSLocalizedString(@"Explain your DoubleDate. Be creative!", nil);
+    
+    //set return button on post details
+    cell.textView.textView.returnKeyType = UIReturnKeyDone;
 }
 
 - (NSIndexPath*)wingIndexPath
@@ -543,6 +550,22 @@
 - (DDTextView*)textViewDetails
 {
     return [(DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[self detailsIndexPath]] textView];
+}
+
+- (void)dismissKeyboard
+{
+    UIResponder *responder = nil;
+    responder = [[self textViewDetails] textView];
+    if ([responder isFirstResponder])
+        [responder resignFirstResponder];
+    responder = [self textFieldTitle];
+    if ([responder isFirstResponder])
+        [responder resignFirstResponder];
+}
+
+- (void)tap:(UITapGestureRecognizer*)tapRecognizer
+{
+    [self dismissKeyboard];
 }
 
 #pragma mark -
@@ -642,6 +665,18 @@
     [self updateNavigationBar];
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    //check for pressed done button
+    if ( [text isEqualToString:@"\n"] )
+    {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark -
 #pragma mark DDCreateDoubleDateViewControllerChooseDateDelegate
 
@@ -669,10 +704,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (scrollView == self.tableView)
-    {
-        if ([[[self textViewDetails] textView] isFirstResponder])
-            [[[self textViewDetails] textView] resignFirstResponder];
-    }
+        [self dismissKeyboard];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -695,12 +727,7 @@
     //check pressed cell
     if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
     {
-        DDTextFieldTableViewCell *textFieldCell = (DDTextFieldTableViewCell*)[aTableView cellForRowAtIndexPath:[self titleIndexPath]];
-        if ([textFieldCell isKindOfClass:[DDTextFieldTableViewCell class]] && [textFieldCell.textField isFirstResponder])
-            [textFieldCell.textField resignFirstResponder];
-        DDTextViewTableViewCell *textViewCell = (DDTextViewTableViewCell*)[aTableView cellForRowAtIndexPath:[self detailsIndexPath]];
-        if ([textViewCell isKindOfClass:[DDTextFieldTableViewCell class]] && [textViewCell.textView.textView isFirstResponder])
-            [textViewCell.textView.textView resignFirstResponder];
+        [self dismissKeyboard];
         [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentWingsMenuWithDelegate:self excludedUsers:nil];
     }
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
@@ -823,6 +850,15 @@
     
     //update the cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark -
+#pragma mark UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:[gestureRecognizer locationInView:self.tableView]];
+    return (indexPath == nil);
 }
 
 @end
