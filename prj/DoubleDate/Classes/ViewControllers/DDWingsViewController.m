@@ -288,7 +288,7 @@
     {
         MFMessageComposeViewController *messageComposer = [[[MFMessageComposeViewController alloc] init] autorelease];
         messageComposer.messageComposeDelegate = self;
-        messageComposer.body = [NSString stringWithFormat:@"Become my wing on DoubleDate! %@%@", [DDTools serverUrlPath], [DDAuthenticationController currentUser].invitePath];
+        messageComposer.body = [NSString stringWithFormat:@"%@ %@%@", NSLocalizedString(@"Let's go out and have some fun. Become my wing on DoubleDate!", nil), [DDTools serverUrlPath], [DDAuthenticationController currentUser].invitePath];
         [self.navigationController presentViewController:messageComposer animated:YES completion:^{
         }];
     }
