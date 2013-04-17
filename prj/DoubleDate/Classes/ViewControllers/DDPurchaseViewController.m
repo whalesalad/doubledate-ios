@@ -186,7 +186,7 @@
     if (indexPath.section == 0)
         return 55;
     else if (indexPath.section == 1)
-        return 60;
+        return 65;
     else if (indexPath.section == 2)
         return [DDInAppProductTableViewCell height];
     return 0;
