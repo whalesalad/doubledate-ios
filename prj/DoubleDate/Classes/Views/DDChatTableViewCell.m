@@ -144,7 +144,7 @@
 - (void)customizeLabels
 {
     //update time
-    NSString *time = [NSString stringWithFormat:NSLocalizedString(@"%@ ago", @"Chat time ago"), self.message.createdAtAgo];
+    NSString *time = [NSString stringWithFormat:NSLocalizedString(@"%@ ago", @"Time ago"), self.message.createdAtAgo];
     CGSize newLabelTimeSize = [time sizeWithFont:self.labelTime.font constrainedToSize:CGSizeMake(FLT_MAX, 0) lineBreakMode:self.labelTime.lineBreakMode];
     self.labelTime.text = time;
     self.labelTime.frame = CGRectMake(self.labelTime.frame.origin.x, self.labelTime.frame.origin.y, newLabelTimeSize.width, newLabelTimeSize.height);

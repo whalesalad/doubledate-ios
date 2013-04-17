@@ -37,9 +37,9 @@
 + (void)cutomizeTextView:(UITextView*)textView withNotification:(DDNotification*)notification
 {
     //apply text
-    NSString *createdAtString = [NSString stringWithFormat:@" %@ ago", notification.createdAtAgo];
+    NSString *createdAtString = [NSString stringWithFormat:NSLocalizedString(@"%@ ago", @"Time ago"), notification.createdAtAgo];
     
-    NSMutableAttributedString *attributedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@", notification.notification, createdAtString]] autorelease];
+    NSMutableAttributedString *attributedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@  %@", notification.notification, createdAtString]] autorelease];
     
     NSString *mainFontName = ([notification.unread boolValue]) ? @"HelveticaNeue-Bold" : @"HelveticaNeue";
     
