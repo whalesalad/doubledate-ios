@@ -116,7 +116,7 @@
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
     
     //set placeholder
-    cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"%@, let us know what you think. Your feedback will help us improve DoubleDate.", @"Feedback placeholder"), [[DDAuthenticationController currentUser] firstName]];
+    cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"%@, your feedback will help us improve DoubleDate. What do you love? What do you hate?", @"Feedback placeholder"), [[DDAuthenticationController currentUser] firstName]];
     
     cell.textView.textView.delegate = self;
     
