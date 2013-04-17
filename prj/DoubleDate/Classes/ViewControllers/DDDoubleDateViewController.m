@@ -172,7 +172,7 @@
     labelInterested.text = NSLocalizedString(@"Interested in this DoubleDate?", nil);
     [buttonInterested setTitle:NSLocalizedString(@"Send a Message", nil) forState:UIControlStateNormal];
     
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:@"Back" target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
     
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
