@@ -999,6 +999,7 @@
 		4CE493141704795800D43D0A /* large-checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-checkmark.png"; sourceTree = "<group>"; };
 		4CE493151704795800D43D0A /* large-checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "large-checkmark@2x.png"; sourceTree = "<group>"; };
 		4CF4511F1703A484003C9343 /* samira.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = samira.jpg; sourceTree = "<group>"; };
+		701311E0171F2F2B005BCD4B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		701D770516C99C9A00EE2229 /* DDAppDelegate+Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+Navigation.h"; sourceTree = "<group>"; };
 		701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+Navigation.m"; sourceTree = "<group>"; };
 		7025E53D168274B100FE3FBE /* DDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMessage.h; sourceTree = "<group>"; };
@@ -3340,6 +3341,7 @@
 			children = (
 				96CDD64716E5F0D7006B6937 /* en */,
 				4CA4D0E7171EE08700B02A0C /* sv */,
+				701311E0171F2F2B005BCD4B /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
