@@ -111,7 +111,7 @@
     
     //localize
     labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
-    [buttonSend setTitle:NSLocalizedString(@"SEND", nil) forState:UIControlStateNormal];
+    [buttonSend setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     labelMessageReceived.text = NSLocalizedString(@"Message received. We'll let you know when they reply.", nil);
     
     //check if authenticated user is in activity
