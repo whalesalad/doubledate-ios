@@ -334,7 +334,7 @@ typedef enum
     
     //set names for segmented control items
     NSString *city = [[self class] filterCityName];
-    NSString *exploreName = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", nil), city?city:@""];
+    NSString *exploreName = [NSString stringWithFormat:NSLocalizedString(@"%@", nil), city?city:@""];
     NSString *myDatesName = NSLocalizedString(@"DoubleDates", nil);
     
     //update navigation item
