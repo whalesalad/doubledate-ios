@@ -217,8 +217,8 @@
     RKRequest *request = [[[RKRequest alloc] initWithURL:[NSURL URLWithString:requestPath]] autorelease];
     request.method = RKRequestMethodPOST;
     RKParams *params = [RKParams params];
-    RKParamsAttachment *attachement = [params setData:UIImagePNGRepresentation(photo) MIMEType:@"image/png" forParam:@"image"];
-    attachement.fileName = @"image.png";
+    RKParamsAttachment *attachement = [params setData:UIImageJPEGRepresentation(photo, 0.8f) MIMEType:@"image/jpeg" forParam:@"image"];
+    attachement.fileName = @"image.jpeg";
     request.params = params;
     if (!CGRectEqualToRect(cropRect, CGRectZero))
     {
