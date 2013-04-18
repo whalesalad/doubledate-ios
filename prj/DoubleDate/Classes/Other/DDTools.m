@@ -15,12 +15,8 @@
 #define API_URL @"http://staging.dbld8.com"
 #define SERVER_URL @"http://staging.dbld8.com"
 #else
-////////////////////////////////////////////////////////////////////////////////////////////
-//     /!\ Using staging now to test the new translation stuff for testflight builds      //
-////////////////////////////////////////////////////////////////////////////////////////////
-#warning /!\ Return to api.dbld8 before app store release!
-#define API_URL @"https://staging.dbld8.com"
-#define SERVER_URL @"http://staging.dbld8.com"
+#define API_URL @"https://api.dbld8.com"
+#define SERVER_URL @"http://dbld8.com"
 #endif
 
 NSString *DDErrorDomain = @"DDErrorDomain";
