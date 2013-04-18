@@ -175,7 +175,7 @@
     cell.textView.text = user_.bio;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Enter the bio", nil);
+    cell.textView.placeholder = NSLocalizedString(@"Tell us about yourself :)", nil);
     
     //handle change of the text
     cell.textView.textView.delegate = self;
