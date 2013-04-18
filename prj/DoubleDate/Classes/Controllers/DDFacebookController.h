@@ -23,7 +23,7 @@ extern NSString *DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey;
 {
 }
 
-+ (void)registerService;
++ (void)registerServiceWithCompletionBlock:(void (^)(BOOL granted, NSError *error))completionBlock;
 
 + (DDFacebookController*)sharedController;
 

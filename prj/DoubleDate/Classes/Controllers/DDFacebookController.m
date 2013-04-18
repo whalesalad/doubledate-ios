@@ -52,13 +52,15 @@ static DDFacebookController *_sharedInstance = nil;
     return permissions;
 }
 
-+ (void)registerService
++ (void)registerServiceWithCompletionBlock:(void (^)(BOOL granted, NSError *error))completionBlock
 {
     ACAccountStore *accountStore = [[[ACAccountStore alloc] init] autorelease];
     NSMutableDictionary *options = [NSMutableDictionary dictionary];
     [options setObject:[self permissions] forKey:ACFacebookPermissionsKey];
     [options setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"] forKey:ACFacebookAppIdKey];
     [accountStore requestAccessToAccountsWithType:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook] options:options completion:^(BOOL granted, NSError *error) {
+        if (completionBlock)
+            completionBlock(granted, error);
     }];
 }
 

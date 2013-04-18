@@ -169,9 +169,6 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
         }
     }
     
-    //register facebook service
-    [DDFacebookController registerService];
-    
     //try to auto-login
     [self autoLogin];
     
