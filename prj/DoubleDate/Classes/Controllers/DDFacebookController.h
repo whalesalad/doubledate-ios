@@ -23,6 +23,8 @@ extern NSString *DDFacebookControllerSessionDidNotGetMeUserInfoErrorKey;
 {
 }
 
++ (void)registerService;
+
 + (DDFacebookController*)sharedController;
 
 + (NSString*)token;

@@ -34,9 +34,8 @@ static DDFacebookController *_sharedInstance = nil;
     return [[[FBSession activeSession] accessTokenData] accessToken];
 }
 
-- (void)login
++ (NSArray*)permissions
 {
-    //save permissions
     NSMutableArray *permissions = [NSMutableArray array];
     [permissions addObject:@"email"];
     [permissions addObject:@"user_about_me"];
@@ -50,9 +49,23 @@ static DDFacebookController *_sharedInstance = nil;
     [permissions addObject:@"user_relationship_details"];
     [permissions addObject:@"friends_status"];
     [permissions addObject:@"friends_location"];
+    return permissions;
+}
 
++ (void)registerService
+{
+    ACAccountStore *accountStore = [[[ACAccountStore alloc] init] autorelease];
+    NSMutableDictionary *options = [NSMutableDictionary dictionary];
+    [options setObject:[self permissions] forKey:ACFacebookPermissionsKey];
+    [options setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"] forKey:ACFacebookAppIdKey];
+    [accountStore requestAccessToAccountsWithType:[accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook] options:options completion:^(BOOL granted, NSError *error) {
+    }];
+}
+
+- (void)login
+{
     //open session
-    FBSession *session = [[[FBSession alloc] initWithPermissions:permissions] autorelease];
+    FBSession *session = [[[FBSession alloc] initWithPermissions:[DDFacebookController permissions]] autorelease];
     [session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         if (!error)
         {
