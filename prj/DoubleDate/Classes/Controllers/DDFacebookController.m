@@ -47,7 +47,6 @@ static DDFacebookController *_sharedInstance = nil;
     [permissions addObject:@"user_photos"];
     [permissions addObject:@"user_relationships"];
     [permissions addObject:@"user_relationship_details"];
-    [permissions addObject:@"friends_status"];
     [permissions addObject:@"friends_location"];
     return permissions;
 }
