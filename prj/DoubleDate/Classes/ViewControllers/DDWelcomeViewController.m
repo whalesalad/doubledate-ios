@@ -267,12 +267,8 @@
     //track
     [[Mixpanel sharedInstance] track:@"Welcome View, Login Tapped"];
     
-    //register facebook service and start using it
-    [DDFacebookController registerServiceWithCompletionBlock:^(BOOL granted, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[DDFacebookController sharedController] login];
-        });
-    }];
+    //just make a facebook login
+    [[DDFacebookController sharedController] login];
 }
 
 - (IBAction)emailTouched:(id)sender
