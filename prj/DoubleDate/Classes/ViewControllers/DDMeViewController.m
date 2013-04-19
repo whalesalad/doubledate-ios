@@ -671,7 +671,7 @@
     
     //update photo
     if (sender.uiImage)
-        [self.apiController updatePhotoForMe:image cropRect:rect];
+        [self.apiController updatePhotoForMe:cutImage];
     else if (sender.ddImage)
         [self.apiController updatePhotoForMeFromFacebookWithCropRect:rect];
 }
