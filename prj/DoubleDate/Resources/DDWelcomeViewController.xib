@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">11G63</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -46,7 +46,7 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="273872440"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
-						<object class="NSColor" key="IBUIBackgroundColor">
+						<object class="NSColor" key="IBUIBackgroundColor" id="276009056">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
 						</object>
@@ -159,7 +159,7 @@
 								<string key="NSFrameSize">{320, 110}</string>
 								<reference key="NSSuperview" ref="673114541"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="809733197"/>
+								<reference key="NSNextKeyView" ref="129020728"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -170,11 +170,11 @@
 							</object>
 							<object class="IBUIImageView" id="809733197">
 								<reference key="NSNextResponder" ref="673114541"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{320, 263}</string>
+								<int key="NSvFlags">264</int>
+								<string key="NSFrame">{{0, -163}, {320, 263}}</string>
 								<reference key="NSSuperview" ref="673114541"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="129020728"/>
+								<reference key="NSNextKeyView" ref="1002669417"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -186,7 +186,7 @@
 							<object class="IBUIButton" id="129020728">
 								<reference key="NSNextResponder" ref="673114541"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{320, 115}</string>
+								<string key="NSFrameSize">{320, 100}</string>
 								<reference key="NSSuperview" ref="673114541"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="957190574"/>
@@ -228,14 +228,11 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<double key="IBUITitleEdgeInsets.top">0.0</double>
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
-								<double key="IBUITitleEdgeInsets.left">54</double>
-								<double key="IBUITitleEdgeInsets.right">14</double>
+								<double key="IBUITitleEdgeInsets.left">40</double>
+								<double key="IBUITitleEdgeInsets.right">0.0</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Login with Facebook</string>
-								<object class="NSColor" key="IBUIHighlightedTitleColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MSAwLjUAA</bytes>
-								</object>
+								<reference key="IBUIHighlightedTitleColor" ref="829774310"/>
 								<reference key="IBUINormalTitleColor" ref="829774310"/>
 								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">1</int>
@@ -263,7 +260,6 @@
 								<string key="NSFrame">{{80, 71}, {160, 24}}</string>
 								<reference key="NSSuperview" ref="673114541"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -286,7 +282,7 @@
 							<object class="IBUITextView" id="459942655">
 								<reference key="NSNextResponder" ref="673114541"/>
 								<int key="NSvFlags">272</int>
-								<string key="NSFrame">{{20, 77}, {280, 18}}</string>
+								<string key="NSFrame">{{20, 77}, {280, 3}}</string>
 								<reference key="NSSuperview" ref="673114541"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="139177162"/>
@@ -314,11 +310,12 @@
 								</object>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 448}, {320, 115}}</string>
+						<string key="NSFrame">{{0, 448}, {320, 100}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1002669417"/>
+						<reference key="NSNextKeyView" ref="809733197"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<reference key="IBUIBackgroundColor" ref="276009056"/>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
@@ -580,7 +577,6 @@
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<real value="1" key="18.IBUIButtonInspectorSelectedEdgeInsetMetadataKey"/>
-				<real value="1" key="18.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
