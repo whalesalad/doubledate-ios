@@ -72,11 +72,6 @@
     
     //update navigation bar
     [self updateNavifationBar];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     //check if we need to make a request
     if (!friends_)

@@ -34,10 +34,10 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     //make for supper
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     //check if we need to make a request
     if (!wings_)

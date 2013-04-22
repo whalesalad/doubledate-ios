@@ -107,9 +107,9 @@
     [self customizeNoDataView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
     //check if we need to make a request
     if (!friends_)

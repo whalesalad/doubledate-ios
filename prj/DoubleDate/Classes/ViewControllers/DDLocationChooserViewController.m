@@ -40,10 +40,13 @@
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     //make for supper
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
+    
+    //set initial offset of locations search page
+    self.tableView.contentOffset = CGPointMake(0, -self.searchBar.frame.size.height);
     
     //check if we need to make a request
     if (!placemarks_)
@@ -78,14 +81,6 @@
     {
         return NSLocalizedString(@"Locations", nil);
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    //set initial offset of locations search page
-    self.tableView.contentOffset = CGPointMake(0, -self.searchBar.frame.size.height);
 }
 
 - (void)setDdLocation:(DDPlacemark *)v

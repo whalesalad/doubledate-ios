@@ -155,11 +155,6 @@ typedef enum
     
     //update navigation bar
     [self updateNavigationBar];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     //check for first time
     if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_)

@@ -86,11 +86,6 @@
     
     //reload the table as we updated the number unread messages
     [self.tableView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     //check if we need to make a request
     if (!notifications_)
