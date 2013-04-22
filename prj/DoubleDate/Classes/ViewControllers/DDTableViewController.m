@@ -163,7 +163,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     NSInteger totalNumberOfRows = 0;
     for (int i = 0; i < [self numberOfSectionsInTableView:self.tableView]; i++)
         totalNumberOfRows += [self tableView:self.tableView numberOfRowsInSection:i];
-    self.viewNoData.hidden = !(totalNumberOfRows == 0 && [self.searchTerm length] == 0);
+    self.viewNoData.hidden = !(totalNumberOfRows == 0 && [self.searchTerm length] == 0 && ![self isRefreshing]);
 //    self.tableView.scrollEnabled = totalNumberOfRows > 0;
     if (previousSearchBar_ && totalNumberOfRows > 0)
     {

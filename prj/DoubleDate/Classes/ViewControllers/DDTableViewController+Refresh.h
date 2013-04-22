@@ -16,5 +16,6 @@
 - (void)startRefreshWithText:(NSString*)text;
 - (void)onRefresh;
 - (void)finishRefresh;
+- (BOOL)isRefreshing;
 
 @end

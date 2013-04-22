@@ -115,4 +115,9 @@
         [self hideHud:YES];
 }
 
+- (BOOL)isRefreshing
+{
+    return [[self sharedRefreshControl] isRefreshing];
+}
+
 @end
