@@ -179,6 +179,9 @@
     [buttonLoginWithFacebook setTitle:NSLocalizedString(@"Login with Facebook", nil) forState:UIControlStateNormal];
     [whyFacebookButton setTitle:[NSLocalizedString(@"Why Facebook?", nil) uppercaseString] forState:UIControlStateNormal];
     
+    //fit the label font into size
+    buttonLoginWithFacebook.titleLabel.adjustsFontSizeToFitWidth = YES;
+    
     //as XIB set up with iPhone 5 resolution then apply change for usual iPhone
     if (![DDTools isiPhone5Device])
         self.bottomView.center = CGPointMake(self.bottomView.center.x, self.bottomView.center.y - (548-460));

@@ -228,8 +228,8 @@
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<double key="IBUITitleEdgeInsets.top">0.0</double>
 								<double key="IBUITitleEdgeInsets.bottom">0.0</double>
-								<double key="IBUITitleEdgeInsets.left">40</double>
-								<double key="IBUITitleEdgeInsets.right">0.0</double>
+								<double key="IBUITitleEdgeInsets.left">50</double>
+								<double key="IBUITitleEdgeInsets.right">10</double>
 								<string key="IBUITitleShadowOffset">{0, -1}</string>
 								<string key="IBUINormalTitle">Login with Facebook</string>
 								<reference key="IBUIHighlightedTitleColor" ref="829774310"/>
@@ -260,6 +260,7 @@
 								<string key="NSFrame">{{80, 71}, {160, 24}}</string>
 								<reference key="NSSuperview" ref="673114541"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -630,7 +631,6 @@
 						<string key="animateView">UIView</string>
 						<string key="bottomView">UIView</string>
 						<string key="buttonLoginWithFacebook">UIButton</string>
-						<string key="buttonWhyFacebook">UIButton</string>
 						<string key="fadeView">UIView</string>
 						<string key="labelGrabAFriend">UILabel</string>
 						<string key="logoImageView">UIImageView</string>
@@ -648,10 +648,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="buttonLoginWithFacebook">
 							<string key="name">buttonLoginWithFacebook</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="buttonWhyFacebook">
-							<string key="name">buttonWhyFacebook</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="fadeView">
