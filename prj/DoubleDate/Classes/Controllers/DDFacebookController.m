@@ -66,8 +66,11 @@ static DDFacebookController *_sharedInstance = nil;
 - (void)login
 {
     //open session
-    FBSession *session = [[[FBSession alloc] initWithPermissions:[DDFacebookController permissions]] autorelease];
-    [session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+    // FBSession *session = [[[FBSession alloc] initWithPermissions:[DDFacebookController permissions]] autorelease];
+    [FBSession openActiveSessionWithReadPermissions:[DDFacebookController permissions]
+                                       allowLoginUI:YES
+                                  completionHandler:^(FBSession *session, FBSessionState status, NSError *error)
+    {
         if (!error)
         {
             if (FB_ISSESSIONOPENWITHSTATE(status))
@@ -81,13 +84,11 @@ static DDFacebookController *_sharedInstance = nil;
             [[NSNotificationCenter defaultCenter] postNotificationName:DDFacebookControllerSessionDidNotLoginNotification object:self userInfo:userInfo];
         }
     }];
-    [FBSession setActiveSession:session];
 }
 
 - (void)logout
 {
     [[FBSession activeSession] closeAndClearTokenInformation];
-    [FBSession setActiveSession:nil];
 }
 
 - (void)requestMe
