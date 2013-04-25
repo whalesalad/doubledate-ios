@@ -20,7 +20,6 @@
 #import "DDLoginViewController.h"
 #import "DDUser.h"
 #import "DDMeViewController.h"
-#import "DDWingsViewController.h"
 #import "DDDoubleDatesViewController.h"
 #import "DDTabBarBackgroundView.h"
 #import "DDAppDelegate+NavigationMenu.h"

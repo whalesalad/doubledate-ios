@@ -8,7 +8,6 @@
 
 #import "DDAppDelegate+Navigation.h"
 #import "DDMeViewController.h"
-#import "DDWingsViewController.h"
 #import "DDDoubleDatesViewController.h"
 #import "DDEngagementsViewController.h"
 #import "DDAppDelegate+NavigationMenu.h"
@@ -42,11 +41,6 @@
     meViewController.hidesBottomBarWhenPushed = YES;
     meViewController.shouldShowNavigationMenu = YES;
     
-    //set wingman view controller
-    DDWingsViewController *wingsViewController = [[[DDWingsViewController alloc] initWithStyle:UITableViewStylePlain] autorelease];
-    wingsViewController.hidesBottomBarWhenPushed = YES;
-    wingsViewController.shouldShowNavigationMenu = YES;
-    
     //set browse view controller
     DDDoubleDatesViewController *browseViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
     browseViewController.mode = DDDoubleDatesViewControllerModeAll;
@@ -70,7 +64,6 @@
     NSMutableArray *viewControllers = [NSMutableArray array];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:notificationsViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease]];
-    [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:wingsViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:myDatesViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:messagesViewController] autorelease]];

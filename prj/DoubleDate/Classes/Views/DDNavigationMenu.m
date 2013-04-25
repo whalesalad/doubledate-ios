@@ -25,7 +25,7 @@
 
 - (id)init
 {
-    self = [super initWithFrame:CGRectMake(0, 0, 320, 7 * [DDNavigationMenuTableViewCell height])];
+    self = [super initWithFrame:CGRectMake(0, 0, 320, 6 * [DDNavigationMenuTableViewCell height])];
     if (self)
     {
         self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bg.png"]];
@@ -80,7 +80,7 @@
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -114,19 +114,14 @@
             cell.labelTitle.text = [[DDAuthenticationController currentUser] firstName];
             break;
         case 3:
-            cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-wings.png"];
-            cell.labelTitle.text = NSLocalizedString(@"Wings", @"Wings primary navigation item");
-            badgeNumber = [[DDAuthenticationController currentUser].pendingWingsCount intValue];
-            break;
-        case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-explore.png"];
             cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", nil), [DDDoubleDatesViewController filterCityName]];
             break;
-        case 5:
+        case 4:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
             cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
             break;
-        case 6:
+        case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
             cell.labelTitle.text = NSLocalizedString(@"Messages", @"Messages primary navigation item");
             badgeNumber = [[DDAuthenticationController currentUser].unreadMessagesCount intValue];

@@ -15,7 +15,6 @@
 #import "DDInterest.h"
 #import "DDAuthenticationController.h"
 #import "DDBarButtonItem.h"
-#import "DDWingsViewController.h"
 #import "DDTools.h"
 #import "UIView+Interests.h"
 #import "DDWingTableViewCell.h"

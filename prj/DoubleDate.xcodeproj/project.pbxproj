@@ -342,7 +342,6 @@
 		4CF451201703A484003C9343 /* samira.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4CF4511F1703A484003C9343 /* samira.jpg */; };
 		701D770716C99C9A00EE2229 /* DDAppDelegate+Navigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */; };
 		7025E53F168274B100FE3FBE /* DDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7025E53E168274B100FE3FBE /* DDMessage.m */; };
-		702846A81623638100693673 /* DDWingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846A61623638100693673 /* DDWingsViewController.m */; };
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
 		7037655F16F47F3C00870D1C /* DDLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7037655E16F47F3C00870D1C /* DDLabel.m */; };
 		7037656B16F4856B00870D1C /* DDLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7037656A16F4856B00870D1C /* DDLabelTableViewCell.m */; };
@@ -1004,8 +1003,6 @@
 		701D770616C99C9A00EE2229 /* DDAppDelegate+Navigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+Navigation.m"; sourceTree = "<group>"; };
 		7025E53D168274B100FE3FBE /* DDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMessage.h; sourceTree = "<group>"; };
 		7025E53E168274B100FE3FBE /* DDMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMessage.m; sourceTree = "<group>"; };
-		702846A51623638100693673 /* DDWingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDWingsViewController.h; sourceTree = "<group>"; };
-		702846A61623638100693673 /* DDWingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDWingsViewController.m; sourceTree = "<group>"; };
 		702846C416238AB800693673 /* DDShortUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDShortUser.h; sourceTree = "<group>"; };
 		702846C516238AB900693673 /* DDShortUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDShortUser.m; sourceTree = "<group>"; };
 		7037655D16F47F3C00870D1C /* DDLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLabel.h; sourceTree = "<group>"; };
@@ -2451,8 +2448,6 @@
 				969353D416392E08007376AA /* DDDoubleDatesViewController.m */,
 				70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */,
 				70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */,
-				702846A51623638100693673 /* DDWingsViewController.h */,
-				702846A61623638100693673 /* DDWingsViewController.m */,
 				96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */,
 				96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */,
 				96892D4915FF61770054C108 /* DDLocationPickerViewController.h */,
@@ -3231,7 +3226,6 @@
 				708AB15E160904CA009817FC /* DDLocationController.m in Sources */,
 				96D77FE316108CE200E65D91 /* DDLocationChooserViewController.m in Sources */,
 				70803B161610FF3400BFDE8B /* TITokenField.m in Sources */,
-				702846A81623638100693673 /* DDWingsViewController.m in Sources */,
 				702846C616238AB900693673 /* DDShortUser.m in Sources */,
 				70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */,
 				969353D616392E08007376AA /* DDDoubleDatesViewController.m in Sources */,
