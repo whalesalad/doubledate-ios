@@ -45,24 +45,28 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
 
 - (void)reloadFromUrl:(NSURL*)url
 {
-    //show loading
-    [activityIndicatorView_ startAnimating];
-    
     //unset image
     self.image = nil;
     
-    //load from url
-    [self setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+    //check url
+    if (url)
+    {
+        //show loading
+        [activityIndicatorView_ startAnimating];
         
-        //stop animating
-        [activityIndicatorView_ stopAnimating];
-        
-        //apply new image
-        self.image = image;
-        
-        //notify about change
-        [[NSNotificationCenter defaultCenter] postNotificationName:DDImageViewUpdateNotification object:self];
-    }];
+        //load from url
+        [self setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            
+            //stop animating
+            [activityIndicatorView_ stopAnimating];
+            
+            //apply new image
+            self.image = image;
+            
+            //notify about change
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDImageViewUpdateNotification object:self];
+        }];
+    }
 }
 
 - (void)applyMask:(UIImage*)mask
