@@ -27,7 +27,7 @@
     {
         self.gender = [DDAPIObject stringForObject:[dictionary objectForKey:@"gender"]];
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
-        self.facebookId = [DDAPIObject stringForObject:[dictionary objectForKey:@"facebook_id"]];
+        self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
         self.fullName = [DDAPIObject stringForObject:[dictionary objectForKey:@"full_name"]];
         self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
         self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
@@ -90,4 +90,7 @@
     [super dealloc];
 }
 
+@end
+
+@implementation DDShortGhost
 @end

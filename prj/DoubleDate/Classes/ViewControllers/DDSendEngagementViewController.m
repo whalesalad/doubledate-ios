@@ -16,12 +16,12 @@
 #import "DDTextViewTableViewCell.h"
 #import "DDTextField.h"
 #import "DDTextView.h"
-#import "DDAppDelegate+WingsMenu.h"
+#import "DDFacebookFriendsViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kMaxDetailsLength 250
 
-@interface DDSendEngagementViewController () <UITextFieldDelegate, UITextViewDelegate, DDChooseWingViewDelegate>
+@interface DDSendEngagementViewController () <UITextFieldDelegate, UITextViewDelegate, DDSelectFacebookFriendViewControllerDelegate>
 
 @property(nonatomic, retain) NSString *details;
 
@@ -133,7 +133,10 @@
         //request api
         DDEngagement *engagement = [[[DDEngagement alloc] init] autorelease];
         engagement.activityId = self.doubleDate.identifier;
-        engagement.wingId = self.wing.identifier;
+        if (self.wing.identifier)
+            engagement.wingId = self.wing.identifier;
+        else if (self.wing.facebookId)
+            engagement.ghostId = self.wing.facebookId;
         engagement.message = self.details;
         [self.apiController createEngagement:engagement];
     }
@@ -311,10 +314,16 @@
     //check pressed cell
     if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
     {
+        //hide keyboard
         DDTextViewTableViewCell *textViewCell = (DDTextViewTableViewCell*)[aTableView cellForRowAtIndexPath:[self detailsIndexPath]];
         if ([textViewCell isKindOfClass:[DDTextFieldTableViewCell class]] && [textViewCell.textView.textView isFirstResponder])
             [textViewCell.textView.textView resignFirstResponder];
-        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentWingsMenuWithDelegate:self excludedUsers:[NSArray arrayWithObjects:self.doubleDate.wing, self.doubleDate.user, nil]];
+        
+        //open view controller
+        DDSelectFacebookFriendViewController *viewController = [[[DDSelectFacebookFriendViewController alloc] init] autorelease];
+        viewController.delegate = self;
+        viewController.exludeUsers = [NSArray arrayWithObjects:self.doubleDate.wing, self.doubleDate.user, nil];
+        [self.navigationController pushViewController:viewController animated:YES];
     }
     
     //unselect row
@@ -364,9 +373,9 @@
 }
 
 #pragma mark -
-#pragma mark DDChooseWingViewDelegate
+#pragma mark DDSelectFacebookFriendViewControllerDelegate
 
-- (void)chooseWingViewDidSelectUser:(DDShortUser*)user
+- (void)selectFacebookFriendViewControllerDidSelectWing:(DDShortUser*)user
 {
     //set wing
     self.wing = user;
@@ -376,6 +385,9 @@
     
     //update the cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -23,13 +23,13 @@
 #import "DDTextViewTableViewCell.h"
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
-#import "DDAppDelegate+WingsMenu.h"
 #import "DDTools.h"
 #import "Mixpanel.h"
+#import "DDFacebookFriendsViewController.h"
 
 #define kTagCancelActionSheet 1
 
-@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, DDChooseWingViewDelegate, UIGestureRecognizerDelegate>
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
 
 @property(nonatomic, retain) DDPlacemark *location;
 @property(nonatomic, retain) DDPlacemark *optionalLocation;
@@ -266,7 +266,10 @@
     doubleDate.title = self.title;
     doubleDate.details = self.details;
     doubleDate.wing = [[[DDShortUser alloc] init] autorelease];
-    doubleDate.wing.identifier = self.wing.identifier;
+    if (self.wing.identifier)
+        doubleDate.wing.identifier = self.wing.identifier;
+    else if (self.wing.facebookId)
+        doubleDate.wing.facebookId = self.wing.facebookId;
     doubleDate.user = [[[DDShortUser alloc] init] autorelease];
     doubleDate.user.identifier = [[DDAuthenticationController currentUser] userId];
     doubleDate.location = [[[DDPlacemark alloc] init] autorelease];
@@ -738,8 +741,13 @@
     //check pressed cell
     if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
     {
+        //dismiss keyboard
         [self dismissKeyboard];
-        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentWingsMenuWithDelegate:self excludedUsers:nil];
+        
+        //open view controller
+        DDSelectFacebookFriendViewController *viewController = [[[DDSelectFacebookFriendViewController alloc] init] autorelease];
+        viewController.delegate = self;
+        [self.navigationController pushViewController:viewController animated:YES];
     }
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
     {
@@ -849,9 +857,18 @@
 }
 
 #pragma mark -
-#pragma mark DDChooseWingViewDelegate
+#pragma mark UIGestureRecognizerDelegate
 
-- (void)chooseWingViewDidSelectUser:(DDShortUser*)user
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:[gestureRecognizer locationInView:self.tableView]];
+    return (indexPath == nil);
+}
+
+#pragma mark -
+#pragma mark DDSelectFacebookFriendViewControllerDelegate
+
+- (void)selectFacebookFriendViewControllerDidSelectWing:(DDShortUser*)user
 {
     //set wing
     self.wing = user;
@@ -861,15 +878,9 @@
     
     //update the cell
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-#pragma mark -
-#pragma mark UIGestureRecognizerDelegate
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:[gestureRecognizer locationInView:self.tableView]];
-    return (indexPath == nil);
+    
+    //pop view controller
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

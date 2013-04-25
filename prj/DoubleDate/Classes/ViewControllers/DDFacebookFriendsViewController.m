@@ -493,3 +493,62 @@
 }
 
 @end
+
+@implementation DDSelectFacebookFriendViewController
+
+@synthesize delegate;
+@synthesize exludeUsers;
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //set title
+    self.navigationItem.title = NSLocalizedString(@"Choose you friend", @"Title of choose friend view controller");
+    
+    //remove right bar button
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)updateNavifationBar
+{
+}
+
+- (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //make super
+    [super tableView:aTableView didSelectRowAtIndexPath:indexPath];
+    
+    //inform delegate
+    [self.delegate selectFacebookFriendViewControllerDidSelectWing:[friendsToInvite_ lastObject]];
+}
+
+- (NSArray*)friendsForTableView:(UITableView*)aTableView
+{
+    //save friends
+    NSArray *friends = [super friendsForTableView:aTableView];
+    
+    //check each friend
+    NSMutableArray *ret = [NSMutableArray array];
+    for (DDShortUser *friend in friends)
+    {
+        BOOL exist = NO;
+        for (DDShortUser *friendToCheck in self.exludeUsers)
+        {
+            if ([[friendToCheck identifier] intValue] == [[friend identifier] intValue])
+                exist = YES;
+        }
+        if (!exist)
+            [ret addObject:friend];
+    }
+    
+    return ret;
+}
+
+- (void)dealloc
+{
+    [exludeUsers release];
+    [super dealloc];
+}
+
+@end

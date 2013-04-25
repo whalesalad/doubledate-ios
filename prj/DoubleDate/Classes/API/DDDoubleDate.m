@@ -52,7 +52,10 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         self.myEngagementId = [DDAPIObject numberForObject:[dictionary objectForKey:@"my_engagement_id"]];
         self.unreadCount = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread_count"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
-        self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
+        if ([dictionary objectForKey:@"wing"])
+            self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
+        else if ([dictionary objectForKey:@"ghost"])
+            self.wing = [DDShortGhost objectWithDictionary:[dictionary objectForKey:@"ghost"]];
         self.location = [DDPlacemark objectWithDictionary:[dictionary objectForKey:@"location"]];
         if ([dictionary objectForKey:@"engagement"])
             self.engagement = [DDEngagement objectWithDictionary:[dictionary objectForKey:@"engagement"]];
@@ -85,6 +88,8 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         [dictionary setObject:self.unreadCount forKey:@"unread_count"];
     if (self.user.identifier)
         [dictionary setObject:self.user.identifier forKey:@"user_id"];
+    if (self.wing.facebookId)
+        [dictionary setObject:self.wing.facebookId forKey:@"facebook_id"];
     if (self.wing.identifier)
         [dictionary setObject:self.wing.identifier forKey:@"wing_id"];
     if (self.location.identifier)

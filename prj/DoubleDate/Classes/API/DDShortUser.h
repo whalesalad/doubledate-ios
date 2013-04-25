@@ -13,7 +13,7 @@
 
 @property(nonatomic, retain) NSString *gender;
 @property(nonatomic, retain) NSNumber *identifier;
-@property(nonatomic, retain) NSString *facebookId;
+@property(nonatomic, retain) NSNumber *facebookId;
 @property(nonatomic, retain) NSString *fullName;
 @property(nonatomic, retain) NSString *firstName;
 @property(nonatomic, retain) NSString *name;
@@ -22,4 +22,7 @@
 @property(nonatomic, retain) DDImage *photo;
 @property(nonatomic, retain) NSNumber *approved;
 
+@end
+
+@interface DDShortGhost : DDShortUser
 @end

@@ -15,3 +15,16 @@
 }
 
 @end
+
+@protocol DDSelectFacebookFriendViewControllerDelegate <NSObject>
+
+- (void)selectFacebookFriendViewControllerDidSelectWing:(DDShortUser*)user;
+
+@end
+
+@interface DDSelectFacebookFriendViewController : DDFacebookFriendsViewController
+
+@property(nonatomic, assign) id<DDSelectFacebookFriendViewControllerDelegate> delegate;
+@property(nonatomic, retain) NSArray *exludeUsers;
+
+@end
