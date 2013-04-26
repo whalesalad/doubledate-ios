@@ -211,7 +211,21 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    //make super
     [super viewWillAppear:animated];
+    
+    //switch to crop mode if needed
+    if (!cropModeInited_)
+    {
+        //save that we showed a crop mode
+        cropModeInited_ = YES;
+        
+        //make the same like we received the facebook photo
+        if ([[self.user.photo facebookPhoto] boolValue])
+            [self getPhotoForMeFromFacebookSucceed:self.user.photo];
+    }
+
+    //reinit fields
     [self reinitBio];
     [self reinitInterests];
     [self reinitLocation];

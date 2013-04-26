@@ -16,6 +16,7 @@
 @interface DDMeViewController : DDViewController
 {
     DDRequestId updatePhotoRequest_;
+    BOOL cropModeInited_;
 }
 
 @property(nonatomic, retain) DDUser *user;
