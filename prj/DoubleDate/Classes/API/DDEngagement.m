@@ -22,7 +22,7 @@ NSString *DDEngagementStatusExpired = @"expired";
 @synthesize activityWing;
 @synthesize userId;
 @synthesize wingId;
-@synthesize ghostId;
+@synthesize facebookId;
 @synthesize message;
 @synthesize primaryMessage;
 @synthesize status;
@@ -48,7 +48,7 @@ NSString *DDEngagementStatusExpired = @"expired";
         self.activityWing = [DDShortUser objectWithDictionary:[[dictionary objectForKey:@"activity"] objectForKey:@"wing"]];
         self.userId = [DDAPIObject numberForObject:[dictionary objectForKey:@"user_id"]];
         self.wingId = [DDAPIObject numberForObject:[dictionary objectForKey:@"wing_id"]];
-        self.ghostId = [DDAPIObject numberForObject:[dictionary objectForKey:@"ghost_id"]];
+        self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
         self.message = [DDAPIObject stringForObject:[dictionary objectForKey:@"message"]];
         self.primaryMessage = [DDAPIObject stringForObject:[dictionary objectForKey:@"primary_message"]];
         self.status = [DDAPIObject stringForObject:[dictionary objectForKey:@"status"]];
@@ -60,10 +60,7 @@ NSString *DDEngagementStatusExpired = @"expired";
         self.timeRemaining = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_remaining"]];
         self.daysRemaining = [DDAPIObject numberForObject:[dictionary objectForKey:@"days_remaining"]];
         self.user = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"user"]];
-        if ([dictionary objectForKey:@"wing"])
-            self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
-        else if ([dictionary objectForKey:@"ghost"])
-            self.wing = [DDShortGhost objectWithDictionary:[dictionary objectForKey:@"ghost"]];
+        self.wing = [DDShortUser objectWithDictionary:[dictionary objectForKey:@"wing"]];
         self.displayName = [DDAPIObject stringForObject:[dictionary objectForKey:@"display_name"]];
     }
     return self;
@@ -82,8 +79,8 @@ NSString *DDEngagementStatusExpired = @"expired";
         [dictionary setObject:self.userId forKey:@"user_id"];
     if (self.wingId)
         [dictionary setObject:self.wingId forKey:@"wing_id"];
-    if (self.ghostId)
-        [dictionary setObject:self.ghostId forKey:@"ghost_id"];
+    if (self.facebookId)
+        [dictionary setObject:self.facebookId forKey:@"facebook_id"];
     if (self.message)
         [dictionary setObject:self.message forKey:@"message"];
     if (self.primaryMessage)
@@ -136,7 +133,7 @@ NSString *DDEngagementStatusExpired = @"expired";
     [activityWing release];
     [userId release];
     [wingId release];
-    [ghostId release];
+    [facebookId release];
     [message release];
     [primaryMessage release];
     [status release];

@@ -25,7 +25,7 @@ extern NSString *DDEngagementStatusExpired;
 @property(nonatomic, retain) DDShortUser *activityWing;
 @property(nonatomic, retain) NSNumber *userId;
 @property(nonatomic, retain) NSNumber *wingId;
-@property(nonatomic, retain) NSNumber *ghostId;
+@property(nonatomic, retain) NSNumber *facebookId;
 @property(nonatomic, retain) NSString *message;
 @property(nonatomic, retain) NSString *primaryMessage;
 @property(nonatomic, retain) NSString *status;

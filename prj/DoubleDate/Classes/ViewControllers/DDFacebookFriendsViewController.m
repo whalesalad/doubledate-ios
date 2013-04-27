@@ -497,7 +497,7 @@
 @implementation DDSelectFacebookFriendViewController
 
 @synthesize delegate;
-@synthesize exludeUsers;
+@synthesize excludeUsers;
 
 - (void)viewDidLoad
 {
@@ -533,7 +533,7 @@
     for (DDShortUser *friend in friends)
     {
         BOOL exist = NO;
-        for (DDShortUser *friendToCheck in self.exludeUsers)
+        for (DDShortUser *friendToCheck in self.excludeUsers)
         {
             if ([[friendToCheck identifier] intValue] == [[friend identifier] intValue])
                 exist = YES;
@@ -547,7 +547,7 @@
 
 - (void)dealloc
 {
-    [exludeUsers release];
+    [excludeUsers release];
     [super dealloc];
 }
 

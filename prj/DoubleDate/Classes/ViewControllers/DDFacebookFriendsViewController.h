@@ -25,6 +25,6 @@
 @interface DDSelectFacebookFriendViewController : DDFacebookFriendsViewController
 
 @property(nonatomic, assign) id<DDSelectFacebookFriendViewControllerDelegate> delegate;
-@property(nonatomic, retain) NSArray *exludeUsers;
+@property(nonatomic, retain) NSArray *excludeUsers;
 
 @end

@@ -136,7 +136,7 @@
         if (self.wing.identifier)
             engagement.wingId = self.wing.identifier;
         else if (self.wing.facebookId)
-            engagement.ghostId = self.wing.facebookId;
+            engagement.facebookId = self.wing.facebookId;
         engagement.message = self.details;
         [self.apiController createEngagement:engagement];
     }
@@ -322,7 +322,7 @@
         //open view controller
         DDSelectFacebookFriendViewController *viewController = [[[DDSelectFacebookFriendViewController alloc] init] autorelease];
         viewController.delegate = self;
-        viewController.exludeUsers = [NSArray arrayWithObjects:self.doubleDate.wing, self.doubleDate.user, nil];
+        viewController.excludeUsers = [NSArray arrayWithObjects:self.doubleDate.wing, self.doubleDate.user, nil];
         [self.navigationController pushViewController:viewController animated:YES];
     }
     
