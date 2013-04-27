@@ -257,6 +257,10 @@
 #pragma mark -
 #pragma mark UITextViewDelegate
 
+- (void)textFieldTextDidChange:(NSNotification*)notification
+{
+}
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     //update details
