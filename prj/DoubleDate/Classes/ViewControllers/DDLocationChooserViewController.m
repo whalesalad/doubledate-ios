@@ -294,10 +294,6 @@
 
 - (void)onChangedSearchTerm
 {
-    //clear the list
-    [placemarks_ release];
-    placemarks_ = nil;
-    
     //refresh
     [self onRefresh];
 }
