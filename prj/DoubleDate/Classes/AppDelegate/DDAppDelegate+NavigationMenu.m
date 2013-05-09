@@ -2,7 +2,7 @@
 //  DDAppDelegate+NavigationMenu.m
 //  DoubleDate
 //
-//  Created by Gennadii Ivanov 
+//  Created by Gennadii Ivanov
 //  Copyright (c) 2012-2013 Belluba. All rights reserved.
 //
 
@@ -25,7 +25,7 @@
     //check if already exist
     if (self.navigationMenuExist)
         return;
-        
+    
     //set flag
     self.navigationMenuExist = YES;
     
@@ -35,6 +35,11 @@
     self.navigationMenu.backgroundColor = [UIColor clearColor];
     [self.window addSubview:self.navigationMenu];
     
+    //blur the view controller under and save previous values
+    self.navigationUnderViewShouldRasterize = self.topNavigationController.view.layer.shouldRasterize;
+    self.navigationUnderViewRasterizationScale = self.topNavigationController.view.layer.rasterizationScale;
+    self.topNavigationController.view.layer.shouldRasterize = YES;
+    self.topNavigationController.view.layer.rasterizationScale = self.topNavigationController.view.layer.rasterizationScale * 0.5f;
     
     {
         //add fake navigation bar
@@ -99,7 +104,7 @@
         feedbackButton.titleEdgeInsets = UIEdgeInsetsMake(1, 40, 0, 0);
         
         [feedbackButton setBackgroundImage:[DDTools resizableImageFromImage:feedbackButtonImage] forState:UIControlStateNormal];
-
+        
         feedbackButton.frame = CGRectMake(0, 0, feedbackButtonImage.size.width, feedbackButtonImage.size.height);
         [dim addSubview:feedbackButton];
         feedbackButton.center = CGPointMake(dim.frame.size.width/2, dim.frame.size.height - 40);
@@ -127,6 +132,10 @@
     
     //unset flag
     self.navigationMenuExist = NO;
+    
+    //unblur the view controller
+    self.topNavigationController.view.layer.shouldRasterize = self.navigationUnderViewShouldRasterize;
+    self.topNavigationController.view.layer.rasterizationScale = self.navigationUnderViewRasterizationScale;
     
     //animate
     UIView *viewBar = [self.navigationMenu viewWithTag:kTagNavigationMenuBar];

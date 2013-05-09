@@ -32,6 +32,8 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 @synthesize deviceToken;
 @synthesize navigationMenu;
 @synthesize navigationMenuExist;
+@synthesize navigationUnderViewShouldRasterize;
+@synthesize navigationUnderViewRasterizationScale;
 @synthesize apiController;
 @synthesize selectedEngagement;
 @synthesize topNavigationController;

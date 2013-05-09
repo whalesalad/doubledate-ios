@@ -2,7 +2,7 @@
 //  DDAppDelegate.h
 //  DoubleDate
 //
-//  Created by Gennadii Ivanov 
+//  Created by Gennadii Ivanov
 //  Copyright (c) 2012-2013 Belluba. All rights reserved.
 //
 
@@ -29,6 +29,10 @@ extern NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification;
 @property (retain, nonatomic) UIView *navigationMenu;
 
 @property (assign, nonatomic) BOOL navigationMenuExist;
+
+@property (assign, nonatomic) BOOL navigationUnderViewShouldRasterize;
+
+@property (assign, nonatomic) CGFloat navigationUnderViewRasterizationScale;
 
 @property (retain, nonatomic) UIView *wingsMenu;
 
