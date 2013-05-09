@@ -15,6 +15,7 @@
 #import "DDAppDelegate+NavigationMenu.h"
 #import "BCTabBarController.h"
 #import "DDDoubleDatesViewController.h"
+#import "DDCreateDoubleDateViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDNavigationMenu () <UITableViewDataSource, UITableViewDelegate>
@@ -73,6 +74,13 @@
         [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
         tabBarController.selectedIndex = realIndex;
     }
+    else if (realIndex == 4)
+    {
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
+        DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
+        [[(DDAppDelegate*)[[UIApplication sharedApplication] delegate] topNavigationController] presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
+        }];
+    }
 }
 
 #pragma mark -
@@ -98,6 +106,9 @@
     
     //save badge number
     NSInteger badgeNumber = 0;
+    
+    //save blue style
+    BOOL blueStyle = NO;
         
     switch (indexPath.row) {
         case 0:
@@ -118,13 +129,14 @@
             cell.labelTitle.text = [NSString stringWithFormat:NSLocalizedString(@"Explore %@", nil), [DDDoubleDatesViewController filterCityName]];
             break;
         case 4:
-            cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-doubledates.png"];
-            cell.labelTitle.text = NSLocalizedString(@"DoubleDates", nil);
-            break;
-        case 5:
             cell.imageViewIcon.image = [UIImage imageNamed:@"nav-icon-messages.png"];
             cell.labelTitle.text = NSLocalizedString(@"Messages", @"Messages primary navigation item");
             badgeNumber = [[DDAuthenticationController currentUser].unreadMessagesCount intValue];
+            break;
+        case 5:
+            cell.imageViewIcon.image = nil;
+            cell.labelTitle.text = NSLocalizedString(@"New DoubleDate", @"New DoubleDate primary navigation item");
+            blueStyle = YES;
             break;
         default:
             break;
@@ -133,6 +145,9 @@
     //hide badge image view if no text
     cell.badgeNumber = badgeNumber;
     
+    //set blue style
+    cell.blueStyle = blueStyle;
+        
     //restore center of the icon
     cell.imageViewIcon.frame = CGRectMake(0, 0, cell.imageViewIcon.image.size.width, cell.imageViewIcon.image.size.height);
     cell.imageViewIcon.center = iconCenter;

@@ -21,6 +21,8 @@
 
 @property(nonatomic, assign) NSInteger badgeNumber;
 
+@property(nonatomic, assign) BOOL blueStyle;
+
 - (void)drawShadowForView:(UIView *)aView;
 
 + (CGFloat)height;

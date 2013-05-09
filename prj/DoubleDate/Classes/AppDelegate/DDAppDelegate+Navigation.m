@@ -47,12 +47,6 @@
     browseViewController.hidesBottomBarWhenPushed = YES;
     browseViewController.shouldShowNavigationMenu = YES;
     
-    //set date view controller
-    DDDoubleDatesViewController *myDatesViewController = [[[DDDoubleDatesViewController alloc] init] autorelease];
-    myDatesViewController.mode = DDDoubleDatesViewControllerModeMine;
-    myDatesViewController.hidesBottomBarWhenPushed = YES;
-    myDatesViewController.shouldShowNavigationMenu = YES;
-    
     //add messages view controller
     DDEngagementsViewController *messagesViewController = [[[DDEngagementsViewController alloc] init] autorelease];
     messagesViewController.weakParentViewController = messagesViewController;
@@ -65,7 +59,6 @@
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:notificationsViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:meViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:browseViewController] autorelease]];
-    [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:myDatesViewController] autorelease]];
     [viewControllers addObject:[[[UINavigationController alloc] initWithRootViewController:messagesViewController] autorelease]];
     tabBarController.viewControllers = viewControllers;
     
@@ -93,7 +86,7 @@
         //handle url
         [self handleNotificationPayload:self.payload];
         
-        //unset callbacl url
+        //unset callback url
         self.payload = nil;
     }
 }

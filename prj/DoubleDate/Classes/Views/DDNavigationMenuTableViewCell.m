@@ -24,6 +24,7 @@
 @synthesize labelBadge;
 @synthesize highlightLine;
 @synthesize badgeNumber;
+@synthesize blueStyle;
 
 + (CGFloat)height
 {
@@ -74,16 +75,33 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
-    if (highlighted) {
-        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
-        self.imageViewIcon.layer.opacity = 0.8f;
-        self.labelTitle.layer.opacity = 0.8f;
-        self.highlightLine.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
-    } else {
-        self.backgroundColor = [UIColor clearColor];
-        self.imageViewIcon.layer.opacity = 1.0f;
-        self.labelTitle.layer.opacity = 1.0f;
-        self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
+    if (self.blueStyle)
+    {
+        if (highlighted) {
+            self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.8f];
+            self.imageViewIcon.layer.opacity = 0.8f;
+            self.labelTitle.layer.opacity = 0.8f;
+            self.highlightLine.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
+        } else {
+            self.backgroundColor = [UIColor blueColor];
+            self.imageViewIcon.layer.opacity = 1.0f;
+            self.labelTitle.layer.opacity = 1.0f;
+            self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
+        }
+    }
+    else
+    {
+        if (highlighted) {
+            self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.4f];
+            self.imageViewIcon.layer.opacity = 0.8f;
+            self.labelTitle.layer.opacity = 0.8f;
+            self.highlightLine.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
+        } else {
+            self.backgroundColor = [UIColor clearColor];
+            self.imageViewIcon.layer.opacity = 1.0f;
+            self.labelTitle.layer.opacity = 1.0f;
+            self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
+        }
     }
 }
 
