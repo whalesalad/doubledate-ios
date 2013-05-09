@@ -134,7 +134,7 @@
             badgeNumber = [[DDAuthenticationController currentUser].unreadMessagesCount intValue];
             break;
         case 5:
-            cell.imageViewIcon.image = nil;
+            cell.imageViewIcon.image = [UIImage imageNamed:@"create-date-plus-icon.png"];
             cell.labelTitle.text = NSLocalizedString(@"New DoubleDate", @"New DoubleDate primary navigation item");
             blueStyle = YES;
             break;
