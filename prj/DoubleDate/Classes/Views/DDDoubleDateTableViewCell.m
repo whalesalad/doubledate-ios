@@ -80,7 +80,7 @@
     [imageViewWing reloadFromUrl:[NSURL URLWithString:doubleDate.wing.photo.smallUrl]];
     
     //apply text
-    labelTitle.text = [v title];
+    labelTitle.text = [v details];
     
     //apply location
     labelLocation.text = [DDDoubleDateTableViewCell detailedTitleForLocation:v.location];

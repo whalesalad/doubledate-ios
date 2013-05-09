@@ -22,7 +22,6 @@ extern NSString *DDDoubleDateRelationshipEngaged;
 
 @property(nonatomic, retain) NSNumber *identifier;
 @property(nonatomic, retain) NSString *relationship;
-@property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *details;
 @property(nonatomic, retain) NSDate *updatedAt;
 @property(nonatomic, retain) NSDate *createdAt;

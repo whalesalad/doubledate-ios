@@ -207,8 +207,6 @@ typedef enum
         BOOL existInSearch = [self.searchTerm length] == 0;
         if (self.searchTerm)
         {
-            if (dd.title && [dd.title rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
-                existInSearch = YES;
             if (dd.details && [dd.details rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
             if (dd.location.name && [dd.location.name rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)

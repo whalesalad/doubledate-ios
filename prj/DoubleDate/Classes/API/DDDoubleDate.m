@@ -20,7 +20,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 
 @synthesize identifier;
 @synthesize relationship;
-@synthesize title;
 @synthesize details;
 @synthesize updatedAt;
 @synthesize createdAt;
@@ -37,7 +36,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     {
         self.identifier = [DDAPIObject numberForObject:[dictionary objectForKey:@"id"]];
         self.relationship = [DDAPIObject stringForObject:[dictionary objectForKey:@"relationship"]];
-        self.title = [DDAPIObject stringForObject:[dictionary objectForKey:@"title"]];
         self.details = [DDAPIObject stringForObject:[dictionary objectForKey:@"details"]];
         self.updatedAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"updated_at"]];
         self.createdAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"created_at"]];
@@ -62,8 +60,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         [dictionary setObject:self.identifier forKey:@"id"];
     if (self.relationship)
         [dictionary setObject:self.relationship forKey:@"relationship"];
-    if (self.title)
-        [dictionary setObject:self.title forKey:@"title"];
     if (self.details)
         [dictionary setObject:self.details forKey:@"details"];
     if (self.updatedAt)
@@ -109,7 +105,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 {
     [identifier release];
     [relationship release];
-    [title release];
     [details release];
     [updatedAt release];
     [createdAt release];

@@ -176,7 +176,7 @@
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
     
     //set title label
-    self.labelTitle.text = [self.doubleDate title];
+    self.labelTitle.text = [self.doubleDate details];
     
     //customize text
     DD_F_TEXT(self.textView);

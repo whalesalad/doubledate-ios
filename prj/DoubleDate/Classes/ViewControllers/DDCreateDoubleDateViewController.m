@@ -17,8 +17,6 @@
 #import "DDDoubleDate.h"
 #import "DDBarButtonItem.h"
 #import "DDIconTableViewCell.h"
-#import "DDTextFieldTableViewCell.h"
-#import "DDTextField.h"
 #import "DDTextViewTableViewCell.h"
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
@@ -28,12 +26,11 @@
 
 #define kTagCancelActionSheet 1
 
-@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
 
 @property(nonatomic, retain) DDPlacemark *location;
 @property(nonatomic, retain) DDPlacemark *optionalLocation;
 
-@property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *details;
 
 @property(nonatomic, assign) BOOL selectingVenue;
@@ -48,7 +45,6 @@
 @synthesize tableView;
 @synthesize buttonCancel;
 @synthesize buttonCreate;
-@synthesize title;
 @synthesize details;
 @synthesize selectingVenue;
 
@@ -57,7 +53,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     }
     return self;
 }
@@ -131,7 +126,6 @@
     [tableView release];
     [buttonCancel release];
     [buttonCreate release];
-    [title release];
     [details release];
     [super dealloc];
 }
@@ -195,7 +189,6 @@
 {
     //set up double date
     DDDoubleDate *doubleDate = [[[DDDoubleDate alloc] init] autorelease];
-    doubleDate.title = self.title;
     doubleDate.details = self.details;
     doubleDate.wing = [[[DDShortUser alloc] init] autorelease];
     if (self.wing.identifier)
@@ -234,9 +227,6 @@
 {
     //update right button
     BOOL rightButtonEnabled = YES;
-    NSString *titleToCheck = [self.title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([titleToCheck length] == 0)
-        rightButtonEnabled = NO;
     NSString *detailsToCheck = [self.details stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([detailsToCheck length] == 0)
         rightButtonEnabled = NO;
@@ -412,24 +402,6 @@
     }
 }
 
-- (void)updateTitleCell:(DDTextFieldTableViewCell*)cell
-{
-    //apply title
-    cell.textField.text = self.title;
-    
-    //update delegate
-    cell.textField.delegate = self;
-    
-    //set next button
-    cell.textField.returnKeyType = UIReturnKeyNext;
-    
-    //set placeholder
-    cell.textField.placeholder = NSLocalizedString(@"Write a catchy title...", @"Placeholder text for title of new DoubleDate.");
-    
-    //remove clear button
-    cell.textField.rightView = nil;
-}
-
 - (void)updateDetailsCell:(DDTextViewTableViewCell*)cell
 {
     //apply title
@@ -460,19 +432,9 @@
     return [NSIndexPath indexPathForRow:1 inSection:2];
 }
 
-- (NSIndexPath*)titleIndexPath
-{
-    return [NSIndexPath indexPathForRow:0 inSection:1];
-}
-
 - (NSIndexPath*)detailsIndexPath
 {
-    return [NSIndexPath indexPathForRow:1 inSection:1];
-}
-
-- (DDTextField*)textFieldTitle
-{
-    return [(DDTextFieldTableViewCell*)[self.tableView cellForRowAtIndexPath:[self titleIndexPath]] textField];
+    return [NSIndexPath indexPathForRow:0 inSection:1];
 }
 
 - (DDTextView*)textViewDetails
@@ -484,9 +446,6 @@
 {
     UIResponder *responder = nil;
     responder = [[self textViewDetails] textView];
-    if ([responder isFirstResponder])
-        [responder resignFirstResponder];
-    responder = [self textFieldTitle];
     if ([responder isFirstResponder])
         [responder resignFirstResponder];
 }
@@ -561,27 +520,6 @@
 }
 
 #pragma mark -
-#pragma mark UITextFieldDelegate
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [[[self textViewDetails] textView] becomeFirstResponder];
-    return YES;
-}
-
-- (void)textFieldTextDidChange:(NSNotification*)notification
-{
-    if ([notification object] == [self textFieldTitle])
-    {
-        //update title
-        self.title = [[self textFieldTitle] text];
-        
-        //update navigation bar
-        [self updateNavigationBar];
-    }
-}
-
-#pragma mark -
 #pragma mark UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -630,8 +568,6 @@
 {
     if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         return 100;
-    else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
-        return 45;
     else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
         return 46;
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
@@ -692,7 +628,7 @@
     if (section == 0)
         return 1;
     else if (section == 1)
-        return 2;
+        return 1;
     else if (section == 2)
         return 2;
     return 0;
@@ -710,9 +646,6 @@
         //create icon table view cell
         if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        //create text field table view cell
-        else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
-            cell = [[[DDTextFieldTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         //create text view table view cell
         else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
             cell = [[[DDTextViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
@@ -728,8 +661,6 @@
         [self updateLocationCell:cell];
     else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
         [self updateOptionalLocationCell:cell];
-    else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
-        [self updateTitleCell:(DDTextFieldTableViewCell*)cell];
     else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         [self updateDetailsCell:(DDTextViewTableViewCell*)cell];
     
