@@ -9,12 +9,8 @@
 #import "DDDoubleDateFilter.h"
 #import "DDPlacemark.h"
 
-NSString *DDDoubleDateFilterHappeningWeekday = @"weekday";
-NSString *DDDoubleDateFilterHappeningWeekend = @"weekend";
-
 @implementation DDDoubleDateFilter
 
-@synthesize happening;
 @synthesize minAge;
 @synthesize maxAge;
 @synthesize query;
@@ -23,8 +19,6 @@ NSString *DDDoubleDateFilterHappeningWeekend = @"weekend";
 - (NSString*)queryString
 {
     NSMutableString *ret = [NSMutableString string];
-    if (self.happening)
-        [ret appendFormat:@"%@happening=%@", [ret length]?@"&":@"", self.happening];
     if (self.minAge)
         [ret appendFormat:@"%@min_age=%d", [ret length]?@"&":@"", [self.minAge intValue]];
     if (self.maxAge)
@@ -42,7 +36,6 @@ NSString *DDDoubleDateFilterHappeningWeekend = @"weekend";
 - (id)copyWithZone:(NSZone*)zone
 {
     DDDoubleDateFilter *ret = [[[self class] allocWithZone:zone] init];
-    ret.happening = self.happening;
     ret.minAge = self.minAge;
     ret.maxAge = self.maxAge;
     ret.query = self.query;
@@ -52,7 +45,6 @@ NSString *DDDoubleDateFilterHappeningWeekend = @"weekend";
 
 - (void)dealloc
 {
-    [happening release];
     [minAge release];
     [maxAge release];
     [query release];

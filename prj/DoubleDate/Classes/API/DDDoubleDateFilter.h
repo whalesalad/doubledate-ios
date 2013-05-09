@@ -8,14 +8,10 @@
 
 @class DDPlacemark;
 
-extern NSString *DDDoubleDateFilterHappeningWeekday;
-extern NSString *DDDoubleDateFilterHappeningWeekend;
-
 @interface DDDoubleDateFilter : NSObject<NSCopying>
 {
 }
 
-@property(nonatomic, retain) NSString *happening;
 @property(nonatomic, retain) NSNumber *minAge;
 @property(nonatomic, retain) NSNumber *maxAge;
 @property(nonatomic, retain) NSString *query;

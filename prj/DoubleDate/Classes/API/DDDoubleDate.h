@@ -11,10 +11,6 @@
 @class DDPlacemark;
 @class DDEngagement;
 
-extern NSString *DDDoubleDateDayPrefWeekday;
-extern NSString *DDDoubleDateDayPrefWeekend;
-extern NSString *DDDoubleDateTimePrefDaytime;
-extern NSString *DDDoubleDateTimePrefNighttime;
 extern NSString *DDDoubleDateRelationshipOpen;
 extern NSString *DDDoubleDateRelationshipOwner;
 extern NSString *DDDoubleDateRelationshipWing;
@@ -28,8 +24,6 @@ extern NSString *DDDoubleDateRelationshipEngaged;
 @property(nonatomic, retain) NSString *relationship;
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *details;
-@property(nonatomic, retain) NSString *dayPref;
-@property(nonatomic, retain) NSString *timePref;
 @property(nonatomic, retain) NSDate *updatedAt;
 @property(nonatomic, retain) NSDate *createdAt;
 @property(nonatomic, retain) NSNumber *myEngagementId;

@@ -11,10 +11,6 @@
 #import "DDPlacemark.h"
 #import "DDEngagement.h"
 
-NSString *DDDoubleDateDayPrefWeekday = @"weekday";
-NSString *DDDoubleDateDayPrefWeekend = @"weekend";
-NSString *DDDoubleDateTimePrefDaytime = @"day";
-NSString *DDDoubleDateTimePrefNighttime = @"night";
 NSString *DDDoubleDateRelationshipOpen = @"open";
 NSString *DDDoubleDateRelationshipOwner = @"owner";
 NSString *DDDoubleDateRelationshipWing = @"wing";
@@ -26,8 +22,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
 @synthesize relationship;
 @synthesize title;
 @synthesize details;
-@synthesize dayPref;
-@synthesize timePref;
 @synthesize updatedAt;
 @synthesize createdAt;
 @synthesize myEngagementId;
@@ -45,8 +39,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         self.relationship = [DDAPIObject stringForObject:[dictionary objectForKey:@"relationship"]];
         self.title = [DDAPIObject stringForObject:[dictionary objectForKey:@"title"]];
         self.details = [DDAPIObject stringForObject:[dictionary objectForKey:@"details"]];
-        self.dayPref = [DDAPIObject stringForObject:[dictionary objectForKey:@"day_pref"]];
-        self.timePref = [DDAPIObject stringForObject:[dictionary objectForKey:@"time_pref"]];
         self.updatedAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"updated_at"]];
         self.createdAt = [DDAPIObject dateForObject:[dictionary objectForKey:@"created_at"]];
         self.myEngagementId = [DDAPIObject numberForObject:[dictionary objectForKey:@"my_engagement_id"]];
@@ -74,10 +66,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
         [dictionary setObject:self.title forKey:@"title"];
     if (self.details)
         [dictionary setObject:self.details forKey:@"details"];
-    if (self.dayPref)
-        [dictionary setObject:self.dayPref forKey:@"day_pref"];
-    if (self.timePref)
-        [dictionary setObject:self.timePref forKey:@"time_pref"];
     if (self.updatedAt)
         [dictionary setObject:self.updatedAt forKey:@"updated_at"];
     if (self.createdAt)
@@ -123,8 +111,6 @@ NSString *DDDoubleDateRelationshipEngaged = @"engaged";
     [relationship release];
     [title release];
     [details release];
-    [dayPref release];
-    [timePref release];
     [updatedAt release];
     [createdAt release];
     [myEngagementId release];

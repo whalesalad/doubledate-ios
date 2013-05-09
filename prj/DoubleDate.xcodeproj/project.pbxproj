@@ -358,7 +358,6 @@
 		706EFAA816C9B5D300DD5791 /* DDNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 706EFAA716C9B5D300DD5791 /* DDNotification.m */; };
 		706EFAAB16C9B9B200DD5791 /* DDNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 706EFAAA16C9B9B200DD5791 /* DDNotificationTableViewCell.m */; };
 		706EFAAD16C9B9BC00DD5791 /* DDNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 706EFAAC16C9B9BC00DD5791 /* DDNotificationTableViewCell.xib */; };
-		7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */; };
 		70803B161610FF3400BFDE8B /* TITokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 70803B151610FF3400BFDE8B /* TITokenField.m */; };
 		7085EBFF16DBF30B00186088 /* DDSelectInterestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */; };
 		7086D9F216B54E3D003310D1 /* DDAppDelegate+APNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7086D9F116B54E3D003310D1 /* DDAppDelegate+APNS.m */; };
@@ -1027,8 +1026,6 @@
 		706EFAA916C9B9B200DD5791 /* DDNotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNotificationTableViewCell.h; sourceTree = "<group>"; };
 		706EFAAA16C9B9B200DD5791 /* DDNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNotificationTableViewCell.m; sourceTree = "<group>"; };
 		706EFAAC16C9B9BC00DD5791 /* DDNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDNotificationTableViewCell.xib; sourceTree = "<group>"; };
-		7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCreateDoubleDateViewControllerChooseDate.h; sourceTree = "<group>"; };
-		7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDCreateDoubleDateViewControllerChooseDate.m; sourceTree = "<group>"; };
 		70803B141610FF3400BFDE8B /* TITokenField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TITokenField.h; sourceTree = "<group>"; };
 		70803B151610FF3400BFDE8B /* TITokenField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TITokenField.m; sourceTree = "<group>"; };
 		7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSelectInterestsViewController.h; sourceTree = "<group>"; };
@@ -2428,8 +2425,6 @@
 				9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */,
 				96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */,
 				96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */,
-				7071F73D163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.h */,
-				7071F73E163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m */,
 				969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */,
 				969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */,
 				969353D316392E08007376AA /* DDDoubleDatesViewController.h */,
@@ -3219,7 +3214,6 @@
 				96AF0738163AAAF300C1940F /* DDButton.m in Sources */,
 				7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */,
 				7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */,
-				7071F73F163D9B3600D0AF3F /* DDCreateDoubleDateViewControllerChooseDate.m in Sources */,
 				960FB54C16413964003563FD /* DDTableViewCell.m in Sources */,
 				9695DD2D1647A94700A80922 /* DDBarButtonItem.m in Sources */,
 				96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */,
