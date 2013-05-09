@@ -83,10 +83,19 @@
         
         //add table view
         DDNavigationMenu *table = [[[DDNavigationMenu alloc] init] autorelease];
-        table.tag = kTagNavigationMenuTable;
         table.center = CGPointMake(table.center.x, table.center.y - table.frame.size.height);
-        [mainView addSubview:table];
-        table.layer.cornerRadius = 6;
+                
+        //add view under table
+        UIView *viewUnderTable = [[[UIView alloc] initWithFrame:table.frame] autorelease];
+        viewUnderTable.tag = kTagNavigationMenuTable;
+        viewUnderTable.backgroundColor = [UIColor clearColor];
+        viewUnderTable.layer.cornerRadius = 6;
+        viewUnderTable.clipsToBounds = YES;
+        [mainView addSubview:viewUnderTable];
+        
+        //re-layout table
+        table.frame = viewUnderTable.bounds;
+        [viewUnderTable addSubview:table];
         
         //add shadow
         UIImageView *shadow = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nav-menu-inner-shadow.png"]] autorelease];
