@@ -11,7 +11,6 @@
 #import "DDButton.h"
 #import "DDBarButtonItem.h"
 #import "DDDoubleDateFilter.h"
-#import "DDSegmentedControlTableViewCell.h"
 #import "DDUser.h"
 #import "DDShortUser.h"
 #import "DDLocationChooserViewController.h"
@@ -23,7 +22,7 @@
 #define kMinAge 17
 #define kMaxAge 50
 
-@interface DDDoubleDateFilterViewController () <DDSegmentedControlTableViewCellDelegate, DDLocationPickerViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface DDDoubleDateFilterViewController () <DDLocationPickerViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property(nonatomic, retain) UILabel *labelAge;
 
@@ -41,7 +40,6 @@
     if (self)
     {
         filter_ = [[DDDoubleDateFilter alloc] init];
-        filter_.happening = filter.happening;
         filter_.minAge = filter.minAge;
         filter_.maxAge = filter.maxAge;
         filter_.query = filter.query;
@@ -92,6 +90,16 @@
     
     //show navigation bar
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //open age picker view
+    DDLabelTableViewCell *cell = (DDLabelTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    if ([cell isKindOfClass:[DDLabelTableViewCell class]])
+        [cell.label becomeFirstResponder];
 }
 
 - (void)dealloc
@@ -198,10 +206,8 @@
 {
     UIView *headerView = nil;
     if (section == 0)
-        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Timeframe", @"Filter header for segment buttons to choose timeframe") detailedText:nil];
-    else if (section == 1)
         headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Near", @"Filter header for choosing nearby city") detailedText:nil];
-    else if (section == 2)
+    else if (section == 1)
         headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Age Range", @"Filter header for choosing range of ages") detailedText:nil];
     [headerView addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)] autorelease]];
     return headerView;
@@ -209,7 +215,7 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([indexPath section] == 1)
+    if ([indexPath section] == 0)
     {
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
@@ -232,7 +238,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -242,28 +248,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //check timeframe section
     if (indexPath.section == 0)
-    {
-        //set segmented control
-        NSInteger itemWidth = 100;
-        NSMutableArray *items = [NSMutableArray array];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Anytime", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekday", nil) width:itemWidth]];
-        [items addObject:[DDSegmentedControlItem itemWithTitle:NSLocalizedString(@"Weekend", nil) width:itemWidth]];
-        
-        //create cell
-        DDSegmentedControlTableViewCell *cell = [[[DDSegmentedControlTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil items:items segmentedContolStyle:DDSegmentedControlStyleLarge] autorelease];
-        
-        //set delegate
-        cell.delegate = self;
-        
-        //set selected segment index
-        cell.selectedSegmentIndex = [filter_.happening isEqualToString:DDDoubleDateFilterHappeningWeekday]?1:([filter_.happening isEqualToString:DDDoubleDateFilterHappeningWeekend]?2:0);
-
-        return cell;
-    }
-    else if (indexPath.section == 1)
     {
         //create cell
         DDTableViewCell *cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
@@ -276,7 +261,7 @@
         
         return cell;
     }
-    else if (indexPath.section == 2)
+    else if (indexPath.section == 1)
     {
         //create cell
         DDLabelTableViewCell *cell = [[[DDLabelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
@@ -311,23 +296,6 @@
     }
     
     return nil;
-}
-
-#pragma mark DDSegmentedControlTableViewCellDelegate
-
-- (void)segmentedControlTableViewCellValueChanged:(DDSegmentedControlTableViewCell*)sender
-{
-    filter_.happening = nil;
-    switch (sender.selectedSegmentIndex) {
-        case 1:
-            filter_.happening = DDDoubleDateFilterHappeningWeekday;
-            break;
-        case 2:
-            filter_.happening = DDDoubleDateFilterHappeningWeekend;
-            break;
-        default:
-            break;
-    }
 }
 
 #pragma mark DDLocationPickerViewControllerDelegate

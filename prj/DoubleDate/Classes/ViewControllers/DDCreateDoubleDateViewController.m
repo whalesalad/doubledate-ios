@@ -15,7 +15,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DDTextView.h"
 #import "DDDoubleDate.h"
-#import "DDCreateDoubleDateViewControllerChooseDate.h"
 #import "DDBarButtonItem.h"
 #import "DDIconTableViewCell.h"
 #import "DDTextFieldTableViewCell.h"
@@ -29,13 +28,10 @@
 
 #define kTagCancelActionSheet 1
 
-@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DDCreateDoubleDateViewControllerChooseDateDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
+@interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
 
 @property(nonatomic, retain) DDPlacemark *location;
 @property(nonatomic, retain) DDPlacemark *optionalLocation;
-
-@property(nonatomic, retain) NSString *day;
-@property(nonatomic, retain) NSString *time;
 
 @property(nonatomic, retain) NSString *title;
 @property(nonatomic, retain) NSString *details;
@@ -49,8 +45,6 @@
 @synthesize wing;
 @synthesize location;
 @synthesize optionalLocation;
-@synthesize day;
-@synthesize time;
 @synthesize tableView;
 @synthesize buttonCancel;
 @synthesize buttonCreate;
@@ -97,12 +91,6 @@
     [self.buttonCancel addTarget:self action:@selector(backTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonCreate addTarget:self action:@selector(postTouched:) forControlEvents:UIControlEventTouchUpInside];
     
-    //apply day
-    self.day = self.day;
-    
-    //apply time
-    self.time = self.time;
-    
     //apply wing
     self.wing = self.wing;
     
@@ -140,8 +128,6 @@
     [wing release];
     [location release];
     [optionalLocation release];
-    [day release];
-    [time release];
     [tableView release];
     [buttonCancel release];
     [buttonCreate release];
@@ -152,34 +138,6 @@
 
 #pragma mark -
 #pragma mark other
-
-+ (NSString*)titleForDDDoubleDateProperty:(NSString*)property
-{
-    if ([property isEqualToString:DDDoubleDateDayPrefWeekday])
-        return NSLocalizedString(@"Weekday", nil);
-    else if ([property isEqualToString:DDDoubleDateDayPrefWeekend])
-        return NSLocalizedString(@"Weekend", nil);
-    else if ([property isEqualToString:DDDoubleDateTimePrefDaytime])
-        return NSLocalizedString(@"During the Day", nil);
-    else if ([property isEqualToString:DDDoubleDateTimePrefNighttime])
-        return NSLocalizedString(@"At Night", nil);
-    return NSLocalizedString(@"Anytime", nil);
-}
-
-+ (NSString*)titleForDDDay:(NSString*)day ddTime:(NSString*)time
-{
-    if (day && time)
-    {
-        return [NSString stringWithFormat:@"%@, %@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:day], [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:time]];
-    }
-    else if (day)
-        return [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:day]];
-    else if (time)
-        return [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:time]];
-    else
-        return [NSString stringWithFormat:@"%@", [DDCreateDoubleDateViewController titleForDDDoubleDateProperty:nil]];
-    return nil;
-}
 
 - (void)setWing:(DDShortUser *)v
 {
@@ -207,32 +165,6 @@
         [location release];
         location = [v retain];
     }
-}
-
-- (void)setDay:(NSString *)v
-{
-    //save value
-    if (day != v)
-    {
-        [day release];
-        day = [v retain];
-    }
-    
-    //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self dayTimeIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
-}
-
-- (void)setTime:(NSString *)v
-{
-    //save value
-    if (time != v)
-    {
-        [time release];
-        time = [v retain];
-    }
-    
-    //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self dayTimeIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)resetLocationTouched:(id)sender
@@ -277,8 +209,6 @@
         doubleDate.location.identifier = self.optionalLocation.identifier;
     else
         doubleDate.location.identifier = self.location.identifier;
-    doubleDate.dayPref = self.day;
-    doubleDate.timePref = self.time;
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", @"DoubleDate is being created hud/status text") animated:YES];
@@ -482,17 +412,6 @@
     }
 }
 
-- (void)updateDayTimeCell:(DDTableViewCell*)cell
-{
-    //apply blank image by default
-    UIImageView *imageView = [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-time-icon.png"] loadedFromUrl:nil];
-    imageView.center = CGPointMake(20, cell.contentView.frame.size.height/2);
-    
-    //set text
-    cell.textLabel.text = [DDCreateDoubleDateViewController titleForDDDay:self.day ddTime:self.time];
-
-}
-
 - (void)updateTitleCell:(DDTextFieldTableViewCell*)cell
 {
     //apply title
@@ -539,11 +458,6 @@
 - (NSIndexPath*)optionalLocationIndexPath
 {
     return [NSIndexPath indexPathForRow:1 inSection:2];
-}
-
-- (NSIndexPath*)dayTimeIndexPath
-{
-    return [NSIndexPath indexPathForRow:0 inSection:3];
 }
 
 - (NSIndexPath*)titleIndexPath
@@ -692,15 +606,6 @@
 }
 
 #pragma mark -
-#pragma mark DDCreateDoubleDateViewControllerChooseDateDelegate
-
-- (void)createDoubleDateViewControllerChooseDateUpdatedDayTime:(id)sender
-{
-    self.day = [(DDCreateDoubleDateViewControllerChooseDate*)sender day];
-    self.time = [(DDCreateDoubleDateViewControllerChooseDate*)sender time];
-}
-
-#pragma mark -
 #pragma mark DDCreateDoubleDateViewControllerChooseWingDelegate
 
 - (void)createDoubleDateViewControllerChooseWingUpdatedWing:(id)sender
@@ -730,8 +635,6 @@
     else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
         return 46;
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
-        return 45;
-    else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
         return 45;
     return [DDTableViewCell height];
 }
@@ -771,14 +674,6 @@
         locationChooserViewController.options = DDLocationSearchOptionsVenues;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
-    else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
-    {
-        DDCreateDoubleDateViewControllerChooseDate *viewController = [[[DDCreateDoubleDateViewControllerChooseDate alloc] init] autorelease];
-        viewController.day = self.day;
-        viewController.time = self.time;
-        viewController.delegate = self;
-        [self.navigationController pushViewController:viewController animated:YES];
-    }
     
     //unselect row
     [aTableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -789,7 +684,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
@@ -800,8 +695,6 @@
         return 2;
     else if (section == 2)
         return 2;
-    else if (section == 3)
-        return 1;
     return 0;
 }
 
@@ -815,7 +708,7 @@
     if (!cell)
     {
         //create icon table view cell
-        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         //create text field table view cell
         else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
@@ -835,8 +728,6 @@
         [self updateLocationCell:cell];
     else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
         [self updateOptionalLocationCell:cell];
-    else if ([indexPath compare:[self dayTimeIndexPath]] == NSOrderedSame)
-        [self updateDayTimeCell:cell];
     else if ([indexPath compare:[self titleIndexPath]] == NSOrderedSame)
         [self updateTitleCell:(DDTextFieldTableViewCell*)cell];
     else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
