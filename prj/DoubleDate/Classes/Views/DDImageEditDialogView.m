@@ -280,7 +280,7 @@
         
         if (ddImage_)
         {
-            [self.imageView setImageWithURL:[NSURL URLWithString:ddImage_.originalUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            [self.imageView setImageWithURL:[NSURL URLWithString:ddImage_.squareUrl] placeholderImage:baseImageView_.image completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                 if (!error)
                 {
                     //save initial image

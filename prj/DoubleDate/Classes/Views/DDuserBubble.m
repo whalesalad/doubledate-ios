@@ -158,7 +158,7 @@
     viewController_.imageViewGender.center = CGPointMake(viewController_.labelTitle.frame.origin.x+viewController_.labelTitle.frame.size.width+genderOffset, centerGender.y);
     
     //apply photo
-    [viewController_.photoView reloadFromUrl:[NSURL URLWithString:self.user.photo.mediumUrl]];
+    [viewController_.photoView reloadFromUrl:[NSURL URLWithString:self.user.photo.squareUrl]];
     
     //apply bio
     CGSize textViewSizeBefore = viewController_.textView.frame.size;

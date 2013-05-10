@@ -193,7 +193,7 @@
         DDDialogAlertView *alertView = [[[DDDialogAlertView alloc] initWithDialog:[self.selectedNotification dialog]] autorelease];
         alertView.dialogDelegate = self;
         if ([[self.selectedNotification photos] count] == 1)
-            alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[[self.selectedNotification photos] objectAtIndex:0] mediumUrl]];
+            alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[[self.selectedNotification photos] objectAtIndex:0] squareUrl]];
         [alertView show];
         
         //mark notification as read

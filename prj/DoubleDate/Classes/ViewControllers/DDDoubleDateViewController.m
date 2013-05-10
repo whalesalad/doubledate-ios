@@ -193,10 +193,10 @@
     self.textView.text = [self.doubleDate details];
 
     //customize photo views
-    if (self.doubleDate.user.photo.smallUrl)
-        [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.smallUrl]];
-    if (self.doubleDate.wing.photo.smallUrl)
-        [self.imageViewRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.smallUrl]];
+    if (self.doubleDate.user.photo.thumbUrl)
+        [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.thumbUrl]];
+    if (self.doubleDate.wing.photo.thumbUrl)
+        [self.imageViewRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.thumbUrl]];
 
     //set name
     self.labelLeftUser.text = [self.doubleDate.user.firstName uppercaseString];

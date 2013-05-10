@@ -178,7 +178,7 @@
         cell.textLabel.text = [wing fullName];
         
         //update image view
-        [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].smallUrl]];
+        [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].thumbUrl]];
     }
     else
     {

@@ -63,8 +63,8 @@
     
     //update ui
     imageViewPoster.image = nil;
-    if (v.photo.mediumUrl && [NSURL URLWithString:v.photo.mediumUrl])
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:v.photo.mediumUrl]];
+    if (v.photo.squareUrl && [NSURL URLWithString:v.photo.squareUrl])
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:v.photo.squareUrl]];
     labelTitle.text = [DDWingTableViewCell titleForShortUser:v];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
     labelLocation.text = v.location;

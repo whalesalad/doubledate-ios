@@ -156,8 +156,8 @@
     imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x+labelTitle.frame.size.width+4, labelTitle.center.y-imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
     
     //set poster
-    if (user.photo.mediumUrl)
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.mediumUrl]];
+    if (user.photo.squareUrl)
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.squareUrl]];
     
     //reinit bio
     [self reinitBio];
@@ -614,7 +614,7 @@
 {
     //update url only if updated not after cropping
     if ([self.apiController isRequestExist:updatePhotoRequest_])
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.mediumUrl]];
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.squareUrl]];
         
     //update object
     self.user.photo = photo;

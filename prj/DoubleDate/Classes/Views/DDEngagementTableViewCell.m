@@ -115,8 +115,8 @@
             self.labelDetailed.text = [NSString stringWithFormat:format, userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
             
             //apply genders
-            [self.imageViewUser reloadFromUrl:[NSURL URLWithString:userToShow.photo.smallUrl]];
-            [self.imageViewWing reloadFromUrl:[NSURL URLWithString:wingToShow.photo.smallUrl]];
+            [self.imageViewUser reloadFromUrl:[NSURL URLWithString:userToShow.photo.thumbUrl]];
+            [self.imageViewWing reloadFromUrl:[NSURL URLWithString:wingToShow.photo.thumbUrl]];
             
             //apply unread count
             self.imageViewBadge.hidden = [engagement.unreadCount intValue] == 0;

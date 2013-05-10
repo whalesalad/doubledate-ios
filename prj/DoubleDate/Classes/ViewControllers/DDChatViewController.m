@@ -198,7 +198,7 @@
     for (int i = 0; i < 4; i++)
     {
         DDImageView *imageView = [tempImageViews objectAtIndex:i];
-        NSString *url = [[(DDShortUser*)[shortUsers_ objectAtIndex:i] photo] smallUrl];
+        NSString *url = [[(DDShortUser*)[shortUsers_ objectAtIndex:i] photo] thumbUrl];
         if (url)
             [imageView reloadFromUrl:[NSURL URLWithString:url]];
     }

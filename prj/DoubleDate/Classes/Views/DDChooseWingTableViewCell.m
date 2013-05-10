@@ -113,7 +113,7 @@
     }
     
     //set image view
-    [self.imageViewUser reloadFromUrl:[NSURL URLWithString:shortUser.photo.smallUrl]];
+    [self.imageViewUser reloadFromUrl:[NSURL URLWithString:shortUser.photo.thumbUrl]];
     
     //set label
     self.labelName.text = shortUser.firstName;

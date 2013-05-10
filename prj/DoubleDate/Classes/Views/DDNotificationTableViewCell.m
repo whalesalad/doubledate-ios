@@ -209,12 +209,12 @@
         imageViewRight.hidden = [notification.photos count] != 2;
         if ([notification.photos count] == 2)
         {
-            [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] smallUrl]]];
-            [self.imageViewRight reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:1] smallUrl]]];
+            [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] thumbUrl]]];
+            [self.imageViewRight reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:1] thumbUrl]]];
         }
         else if ([notification.photos count] == 1)
         {
-            [self.imageViewFull reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] mediumUrl]]];
+            [self.imageViewFull reloadFromUrl:[NSURL URLWithString:[[notification.photos objectAtIndex:0] squareUrl]]];
         }
         
         // Show unread styles

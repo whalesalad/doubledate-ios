@@ -14,10 +14,7 @@
 
 @property(nonatomic, retain) NSString *identifier;
 @property(nonatomic, retain) NSString *thumbUrl;
-@property(nonatomic, retain) NSString *smallUrl;
-@property(nonatomic, retain) NSString *mediumUrl;
-@property(nonatomic, retain) NSString *largeUrl;
-@property(nonatomic, retain) NSString *originalUrl;
+@property(nonatomic, retain) NSString *squareUrl;
 @property(nonatomic, retain) NSNumber *facebookPhoto;
 @property(nonatomic, retain) UIImage *uploadImage;
 

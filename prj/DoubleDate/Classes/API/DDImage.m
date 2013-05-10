@@ -12,10 +12,7 @@
 
 @synthesize identifier;
 @synthesize thumbUrl;
-@synthesize smallUrl;
-@synthesize mediumUrl;
-@synthesize largeUrl;
-@synthesize originalUrl;
+@synthesize squareUrl;
 @synthesize facebookPhoto;
 @synthesize uploadImage;
 
@@ -25,10 +22,7 @@
     {
         self.identifier = [DDAPIObject stringForObject:[dictionary objectForKey:@"id"]];
         self.thumbUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"thumb"]];
-        self.smallUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"small"]];
-        self.mediumUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"medium"]];
-        self.largeUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"large"]];
-        self.originalUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"original"]];
+        self.squareUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"square"]];
         self.facebookPhoto = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_photo"]];
     }
     return self;
@@ -41,14 +35,8 @@
         [dictionary setObject:self.identifier forKey:@"id"];
     if (self.thumbUrl)
         [dictionary setObject:self.thumbUrl forKey:@"thumb"];
-    if (self.smallUrl)
-        [dictionary setObject:self.smallUrl forKey:@"small"];
-    if (self.mediumUrl)
-        [dictionary setObject:self.mediumUrl forKey:@"medium"];
-    if (self.largeUrl)
-        [dictionary setObject:self.largeUrl forKey:@"large"];
-    if (self.originalUrl)
-        [dictionary setObject:self.originalUrl forKey:@"original"];
+    if (self.squareUrl)
+        [dictionary setObject:self.squareUrl forKey:@"square"];
     if (self.facebookPhoto)
         [dictionary setObject:self.facebookPhoto forKey:@"facebook_photo"];
     return dictionary;
@@ -75,10 +63,7 @@
 {
     [identifier release];
     [thumbUrl release];
-    [smallUrl release];
-    [mediumUrl release];
-    [largeUrl release];
-    [originalUrl release];
+    [squareUrl release];
     [facebookPhoto release];
     [uploadImage release];
     [super dealloc];
