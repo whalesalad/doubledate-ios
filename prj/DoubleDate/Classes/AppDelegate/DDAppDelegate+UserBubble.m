@@ -55,12 +55,15 @@
     CGFloat maxBubbleHeight = FLT_MIN;
     
     //add bubbles
-    CGRect bubbleRect = CGRectMake(25, 40, 270, 0);
+    CGRect bubbleRect = CGRectMake(25, 40, 250, 0);
     for (int i = 0; i < [users count]; i++)
     {
+        DDUser *u = [users objectAtIndex:i];
+        if (i == 1)
+            u.bio = nil;
         //create bubble
         DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
-        bubble.users = [NSArray arrayWithObject:[users objectAtIndex:i]];
+        bubble.users = [NSArray arrayWithObject:u];
         bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
         bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2+[UIScreen mainScreen].bounds.size.width*i, [UIScreen mainScreen].bounds.size.height/2);
         [sv addSubview:bubble];
@@ -70,9 +73,9 @@
         maxBubbleHeight = MAX(maxBubbleHeight, bubble.height);
     }
     
-    //move bubbles to top
-    for (DDUserBubble *bubble in bubbles)
-        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
+//    //move bubbles to top
+//    for (DDUserBubble *bubble in bubbles)
+//        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
     
     //set needed current page
     pageControl.currentPage = [users indexOfObject:user];
