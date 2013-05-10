@@ -28,7 +28,7 @@
 
 + (CGFloat)height
 {
-    return 50;
+    return 48;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -51,7 +51,7 @@
     
     // customize highlight line
     self.highlightLine.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];
+    self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.05f];
     self.highlightLine.hidden = true;
     
     self.backgroundColor = [UIColor clearColor];
@@ -67,9 +67,9 @@
 - (void)drawShadowForView:(UIView *)aView
 {
     aView.layer.shadowColor = [UIColor blackColor].CGColor;
-    aView.layer.shadowOffset = CGSizeMake(0, 1.0f);
-    aView.layer.shadowOpacity = 0.7f;
-    aView.layer.shadowRadius = 1.0f;
+    aView.layer.shadowOffset = CGSizeMake(0, -1);
+    aView.layer.shadowOpacity = 0.4f;
+    aView.layer.shadowRadius = 0;
     aView.clipsToBounds = NO;
 }
 
@@ -78,12 +78,12 @@
     if (self.blueStyle)
     {
         if (highlighted) {
-            self.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.8f];
+            self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-btn-doubledate-highlighted.png"]];
             self.imageViewIcon.layer.opacity = 0.8f;
             self.labelTitle.layer.opacity = 0.8f;
             self.highlightLine.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
         } else {
-            self.backgroundColor = [UIColor blueColor];
+            self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-btn-doubledate.png"]];
             self.imageViewIcon.layer.opacity = 1.0f;
             self.labelTitle.layer.opacity = 1.0f;
             self.highlightLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f];

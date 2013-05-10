@@ -36,10 +36,10 @@
     [self.window addSubview:self.navigationMenu];
     
     //blur the view controller under and save previous values
-    self.navigationUnderViewShouldRasterize = self.topNavigationController.view.layer.shouldRasterize;
-    self.navigationUnderViewRasterizationScale = self.topNavigationController.view.layer.rasterizationScale;
-    self.topNavigationController.view.layer.shouldRasterize = YES;
-    self.topNavigationController.view.layer.rasterizationScale = self.topNavigationController.view.layer.rasterizationScale * 0.5f;
+//    self.navigationUnderViewShouldRasterize = self.topNavigationController.view.layer.shouldRasterize;
+//    self.navigationUnderViewRasterizationScale = self.topNavigationController.view.layer.rasterizationScale;
+//    self.topNavigationController.view.layer.shouldRasterize = YES;
+//    self.topNavigationController.view.layer.rasterizationScale = self.topNavigationController.view.layer.rasterizationScale * 0.5f;
     
     {
         //add fake navigation bar
@@ -71,7 +71,7 @@
         //add dim
         UIView *dim = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, mainView.frame.size.width, mainView.frame.size.height)] autorelease];
         dim.tag = kTagNavigationMenuDim;
-        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
+        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f];
         dim.alpha = 0;
         [mainView addSubview:dim];
         

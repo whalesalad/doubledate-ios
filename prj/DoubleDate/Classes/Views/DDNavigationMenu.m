@@ -29,7 +29,7 @@
     self = [super initWithFrame:CGRectMake(0, 0, 320, 6 * [DDNavigationMenuTableViewCell height])];
     if (self)
     {
-        self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"nav-bg.png"]];
+        self.backgroundColor = [UIColor colorWithRed:51/255.0f green:51/255.0f blue:51/255.0f alpha:0.7f];
         self.separatorColor = [UIColor colorWithWhite:0.0f alpha:0.2f];
         self.delegate = self;
         self.dataSource = self;
