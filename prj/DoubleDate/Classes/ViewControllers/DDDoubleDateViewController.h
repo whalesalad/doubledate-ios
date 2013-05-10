@@ -12,6 +12,7 @@
 @class DDWEImageView;
 @class DDUser;
 @class DDImageView;
+@class DDUserView;
 
 @interface DDDoubleDateViewController : DDViewController
 {
@@ -24,9 +25,6 @@
 @property(nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property(nonatomic, retain) IBOutlet UIView *bottomView;
 
-@property(nonatomic, retain) IBOutlet DDImageView *imageViewLeft;
-@property(nonatomic, retain) IBOutlet DDImageView *imageViewRight;
-
 @property(nonatomic, retain) IBOutlet UIButton *buttonInterested;
 
 @property(nonatomic, retain) IBOutlet UIView *scrollTopView;
@@ -36,14 +34,7 @@
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationMain;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationDetailed;
 
-@property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UITextView *textView;
-
-@property(nonatomic, retain) IBOutlet UILabel *labelLeftUser;
-@property(nonatomic, retain) IBOutlet UILabel *labelRightUser;
-
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewLeftUserGender;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewRightUserGender;
 
 @property(nonatomic, retain) IBOutlet UIView *leftView;
 @property(nonatomic, retain) IBOutlet UIView *rightView;
@@ -53,6 +44,9 @@
 @property(nonatomic, retain) IBOutlet UIView *sentView;
 @property(nonatomic, retain) IBOutlet UIView *sentViewAnimation;
 @property(nonatomic, retain) IBOutlet UILabel *labelMessageSent;
+
+@property(nonatomic, retain) IBOutlet UIView *leftUserView;
+@property(nonatomic, retain) IBOutlet UIView *rightUserView;
 
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;

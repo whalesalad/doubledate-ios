@@ -27,6 +27,7 @@
 #import "DDObjectsController.h"
 #import "DDAppDelegate+UserBubble.h"
 #import "DDBarButtonItem.h"
+#import "DDUserView.h"
 
 @interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
 
@@ -54,9 +55,6 @@
 @synthesize scrollView;
 @synthesize bottomView;
 
-@synthesize imageViewLeft;
-@synthesize imageViewRight;
-
 @synthesize buttonInterested;
 
 @synthesize scrollTopView;
@@ -66,14 +64,7 @@
 @synthesize labelLocationMain;
 @synthesize labelLocationDetailed;
 
-@synthesize labelTitle;
 @synthesize textView;
-
-@synthesize labelLeftUser;
-@synthesize labelRightUser;
-
-@synthesize imageViewLeftUserGender;
-@synthesize imageViewRightUserGender;
 
 @synthesize leftView;
 @synthesize rightView;
@@ -83,6 +74,9 @@
 @synthesize sentView;
 @synthesize sentViewAnimation;
 @synthesize labelMessageSent;
+
+@synthesize leftUserView;
+@synthesize rightUserView;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -175,9 +169,6 @@
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
     
-    //set title label
-    self.labelTitle.text = [self.doubleDate details];
-    
     //customize text
     DD_F_TEXT(self.textView);
     
@@ -192,31 +183,15 @@
     //set text
     self.textView.text = [self.doubleDate details];
 
-    //customize photo views
-    if (self.doubleDate.user.photo.thumbUrl)
-        [self.imageViewLeft reloadFromUrl:[NSURL URLWithString:self.doubleDate.user.photo.thumbUrl]];
-    if (self.doubleDate.wing.photo.thumbUrl)
-        [self.imageViewRight reloadFromUrl:[NSURL URLWithString:self.doubleDate.wing.photo.thumbUrl]];
-
-    //set name
-    self.labelLeftUser.text = [self.doubleDate.user.firstName uppercaseString];
-    [self.labelLeftUser sizeToFit];
-    self.labelLeftUser.center = CGPointMake(80-8, self.labelLeftUser.center.y);
-    self.labelRightUser.text = [self.doubleDate.wing.firstName uppercaseString];
-    [self.labelRightUser sizeToFit];
-    self.labelRightUser.center = CGPointMake(240-8, self.labelRightUser.center.y);
-    
-    //set gender
-    if ([[self.doubleDate.user gender] isEqualToString:DDUserGenderFemale])
-        self.imageViewLeftUserGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
-    else
-        self.imageViewLeftUserGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
-    imageViewLeftUserGender.frame = CGRectMake(labelLeftUser.frame.origin.x+labelLeftUser.frame.size.width+4, labelLeftUser.center.y-imageViewLeftUserGender.image.size.height/2, imageViewLeftUserGender.image.size.width, imageViewLeftUserGender.image.size.height);
-    if ([[self.doubleDate.wing gender] isEqualToString:DDUserGenderFemale])
-        self.imageViewRightUserGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
-    else
-        self.imageViewRightUserGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
-    imageViewRightUserGender.frame = CGRectMake(labelRightUser.frame.origin.x+labelRightUser.frame.size.width+4, labelLeftUser.center.y-imageViewRightUserGender.image.size.height/2, imageViewRightUserGender.image.size.width, imageViewRightUserGender.image.size.height);
+    //customize user views
+    DDUserView *userView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
+    userView.frame = self.leftUserView.bounds;
+    userView.shortUser = self.doubleDate.user;
+    [self.leftUserView addSubview:userView];
+    DDUserView *wingView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
+    wingView.frame = self.rightUserView.bounds;
+    wingView.shortUser = self.doubleDate.wing;
+    [self.rightUserView addSubview:wingView];
     
     //request information
     if (!self.user && self.doubleDate.user)
@@ -273,26 +248,21 @@
     [popover release];
     [scrollView release];
     [bottomView release];
-    [imageViewLeft release];
-    [imageViewRight release];
     [buttonInterested release];
     [scrollTopView release];
     [scrollCenterView release];
     [scrollBottomView release];
     [labelLocationMain release];
     [labelLocationDetailed release];
-    [labelTitle release];
     [textView release];
-    [labelLeftUser release];
-    [labelRightUser release];
-    [imageViewLeftUserGender release];
-    [imageViewRightUserGender release];
     [leftView release];
     [rightView release];
     [labelInterested release];
     [sentView release];
     [sentViewAnimation release];
     [labelMessageSent release];
+    [leftUserView release];
+    [rightUserView release];
     [super dealloc];
 }
 
@@ -428,9 +398,9 @@
     {
 #pragma warning left/right arrow offsets
         if ([u.userId intValue] == [self.doubleDate.user.identifier intValue])
-            [self presentPopoverWithUser:u inView:self.imageViewLeft];
+            [self presentPopoverWithUser:u inView:self.leftUserView];
         else
-            [self presentPopoverWithUser:u inView:self.imageViewRight];
+            [self presentPopoverWithUser:u inView:self.rightUserView];
     }
 }
 
