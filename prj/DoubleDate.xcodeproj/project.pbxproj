@@ -384,6 +384,8 @@
 		708A05B816EFD43F00852CE1 /* dd-tableview-cell-top-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708A05B016EFD43F00852CE1 /* dd-tableview-cell-top-highlighted@2x.png */; };
 		708AB15B1608FC50009817FC /* DDInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15A1608FC50009817FC /* DDInterest.m */; };
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
+		708BFA30173D8DA900F8D5AF /* DDUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 708BFA2F173D8DA900F8D5AF /* DDUserView.m */; };
+		708BFA3B173D8DE300F8D5AF /* DDUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 708BFA3A173D8DE300F8D5AF /* DDUserView.xib */; };
 		708C09E51651922D00A40FD9 /* NSObject+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 708C09E41651922D00A40FD9 /* NSObject+DD.m */; };
 		708E246F17022FE9001E8C77 /* notification-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E246D17022FE9001E8C77 /* notification-bubble.png */; };
 		708E247017022FE9001E8C77 /* notification-bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E246E17022FE9001E8C77 /* notification-bubble@2x.png */; };
@@ -1065,6 +1067,9 @@
 		708AB15A1608FC50009817FC /* DDInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInterest.m; sourceTree = "<group>"; };
 		708AB15C160904CA009817FC /* DDLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLocationController.h; sourceTree = "<group>"; };
 		708AB15D160904CA009817FC /* DDLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLocationController.m; sourceTree = "<group>"; };
+		708BFA2E173D8DA900F8D5AF /* DDUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserView.h; sourceTree = "<group>"; };
+		708BFA2F173D8DA900F8D5AF /* DDUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserView.m; sourceTree = "<group>"; };
+		708BFA3A173D8DE300F8D5AF /* DDUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserView.xib; sourceTree = "<group>"; };
 		708C09E31651922D00A40FD9 /* NSObject+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DD.h"; sourceTree = "<group>"; };
 		708C09E41651922D00A40FD9 /* NSObject+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DD.m"; sourceTree = "<group>"; };
 		708E246D17022FE9001E8C77 /* notification-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-bubble.png"; sourceTree = "<group>"; };
@@ -2273,6 +2278,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				708BFA2E173D8DA900F8D5AF /* DDUserView.h */,
+				708BFA2F173D8DA900F8D5AF /* DDUserView.m */,
 				70F0DA0516F5058800FE01F4 /* DDAlertView.h */,
 				70F0DA0616F5058800FE01F4 /* DDAlertView.m */,
 				9695DD2B1647A94700A80922 /* DDBarButtonItem.h */,
@@ -2476,6 +2483,7 @@
 		96E7F1B115F738CA00200E1F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				708BFA3A173D8DE300F8D5AF /* DDUserView.xib */,
 				70F0DA1916F5232000FE01F4 /* DDCustomizableAlertView.xib */,
 				70C519BF16EE7D1500FE2026 /* DDChooseWingTableViewCell.xib */,
 				7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */,
@@ -3169,6 +3177,7 @@
 				4C104147173D10B600411FA5 /* nav-btn-doubledate@2x.png in Resources */,
 				4C104153173D11D000411FA5 /* nav-btn-doubledate-highlighted.png in Resources */,
 				4C104154173D11D000411FA5 /* nav-btn-doubledate-highlighted@2x.png in Resources */,
+				708BFA3B173D8DE300F8D5AF /* DDUserView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3318,6 +3327,7 @@
 				9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */,
 				709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */,
 				70674F9D171B286200555B31 /* DDFeedbackViewController.m in Sources */,
+				708BFA30173D8DA900F8D5AF /* DDUserView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

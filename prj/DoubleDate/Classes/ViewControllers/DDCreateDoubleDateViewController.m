@@ -23,6 +23,7 @@
 #import "DDTools.h"
 #import "Mixpanel.h"
 #import "DDFacebookFriendsViewController.h"
+#import "DDUserView.h"
 
 #define kTagCancelActionSheet 1
 
@@ -99,6 +100,9 @@
     //update navigation bar
     [self updateNavigationBar];
     
+    //update header
+    [self updateHeader];
+    
     //add tap recognizer
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     tapRecognizer.delegate = self;
@@ -144,8 +148,8 @@
     
     [[Mixpanel sharedInstance] track:@"Create DoubleDate, Chose Wing"];
     
-    //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationNone];
+    //update header
+    [self updateHeader];
     
     //update navigation button
     [self updateNavigationBar];
@@ -237,43 +241,47 @@
     self.buttonCreate.enabled = rightButtonEnabled;
 }
 
-- (void)updateWingCell:(DDTableViewCell*)cell
+- (void)updateHeader
 {
-    //add image view
-    DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 75, 0, 75, 45);
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    //the value of user viwe from xib
+    CGFloat height = 176;
     
-    //check if we need to update the wing
+    //create header view
+    UIView *mainView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, height)] autorelease];
+    mainView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableHeaderView = mainView;
+    
+    //add me
+    DDUserView *meView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
+    meView.frame = CGRectMake(5, 5, 150, height);
+    meView.user = [DDAuthenticationController currentUser];
+    meView.customTitle = NSLocalizedString(@"You", @"Title under mine photo");
+    [mainView addSubview:meView];
+    
+    //add wing if needed
     if (self.wing)
     {
-        //set wing label
-        cell.textLabel.text = [wing fullName];
-
-        //update image view
-        [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].thumbUrl]];
+        //add user view
+        DDUserView *wingView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
+        wingView.frame = CGRectMake(165, 5, 150, height);
+        wingView.shortUser = self.wing;
+        [mainView addSubview:wingView];
+        
+        //add transparent button
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.frame = CGRectMake(0, 0, wingView.frame.size.width, wingView.frame.size.height);
+        [button addTarget:self action:@selector(chooseWingTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [wingView addSubview:button];
     }
     else
     {
-        //set placeholder
-        cell.textLabel.text = NSLocalizedString(@"Select your Wing...", nil);
-        
-        //set text color
-        cell.textLabel.textColor = [UIColor grayColor];
-        
-        //set image to placeholder image
-        [imageView setImage:[UIImage imageNamed:@"wing-tablecell-placeholder.png"]];
+        //add transparent button
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = [UIColor blueColor];
+        button.frame = CGRectMake(165, 5, 150, 150);
+        [button addTarget:self action:@selector(chooseWingTouched:) forControlEvents:UIControlEventTouchUpInside];
+        [mainView addSubview:button];
     }
-
-    // apply the mask
-    [imageView applyMask:[UIImage imageNamed:@"wing-tablecell-item-mask.png"]];
-
-    //add overlay
-    UIImageView *overlay = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wing-tablecell-item-overlay.png"]] autorelease];
-    [imageView addSubview:overlay];
-    
-    // add subview
-    [cell.contentView addSubview:imageView];
 }
 
 - (UIImageView*)updateCell:(DDTableViewCell*)cell withIcon:(UIImage*)icon loadedFromUrl:(NSURL*)url
@@ -417,24 +425,19 @@
     cell.textView.textView.returnKeyType = UIReturnKeyDone;
 }
 
-- (NSIndexPath*)wingIndexPath
-{
-    return [NSIndexPath indexPathForRow:0 inSection:0];
-}
-
 - (NSIndexPath*)locationIndexPath
 {
-    return [NSIndexPath indexPathForRow:0 inSection:2];
+    return [NSIndexPath indexPathForRow:0 inSection:1];
 }
 
 - (NSIndexPath*)optionalLocationIndexPath
 {
-    return [NSIndexPath indexPathForRow:1 inSection:2];
+    return [NSIndexPath indexPathForRow:1 inSection:1];
 }
 
 - (NSIndexPath*)detailsIndexPath
 {
-    return [NSIndexPath indexPathForRow:0 inSection:1];
+    return [NSIndexPath indexPathForRow:0 inSection:0];
 }
 
 - (DDTextView*)textViewDetails
@@ -453,6 +456,14 @@
 - (void)tap:(UITapGestureRecognizer*)tapRecognizer
 {
     [self dismissKeyboard];
+}
+
+- (void)chooseWingTouched:(id)sender
+{
+    //open view controller
+    DDSelectFacebookFriendViewController *viewController = [[[DDSelectFacebookFriendViewController alloc] init] autorelease];
+    viewController.delegate = self;
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -
@@ -568,8 +579,6 @@
 {
     if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         return 100;
-    else if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
-        return 46;
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         return 45;
     return [DDTableViewCell height];
@@ -578,17 +587,7 @@
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //check pressed cell
-    if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
-    {
-        //dismiss keyboard
-        [self dismissKeyboard];
-        
-        //open view controller
-        DDSelectFacebookFriendViewController *viewController = [[[DDSelectFacebookFriendViewController alloc] init] autorelease];
-        viewController.delegate = self;
-        [self.navigationController pushViewController:viewController animated:YES];
-    }
-    else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
+    if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
     {
         self.selectingVenue = NO;
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
@@ -620,7 +619,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
@@ -628,8 +627,6 @@
     if (section == 0)
         return 1;
     else if (section == 1)
-        return 1;
-    else if (section == 2)
         return 2;
     return 0;
 }
@@ -644,7 +641,7 @@
     if (!cell)
     {
         //create icon table view cell
-        if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame || [indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+        if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
         //create text view table view cell
         else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
@@ -655,9 +652,7 @@
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
     
     //check index path
-    if ([indexPath compare:[self wingIndexPath]] == NSOrderedSame)
-        [self updateWingCell:cell];
-    else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
+    if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         [self updateLocationCell:cell];
     else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
         [self updateOptionalLocationCell:cell];
@@ -694,12 +689,6 @@
 {
     //set wing
     self.wing = user;
-    
-    //update
-    [self updateNavigationBar];
-    
-    //update the cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[self wingIndexPath]] withRowAnimation:UITableViewRowAnimationAutomatic];
     
     //pop view controller
     [self.navigationController popViewControllerAnimated:YES];

@@ -70,7 +70,7 @@
         maxBubbleHeight = MAX(maxBubbleHeight, bubble.height);
     }
     
-//    //move bubbles to top
+    //move bubbles to top
     for (DDUserBubble *bubble in bubbles)
         bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
     
