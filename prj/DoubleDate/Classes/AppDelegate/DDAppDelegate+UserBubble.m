@@ -55,7 +55,7 @@
     CGFloat maxBubbleHeight = FLT_MIN;
     
     //add bubbles
-    CGRect bubbleRect = CGRectMake(25, 40, 270, 0);
+    CGRect bubbleRect = CGRectMake(25, 40, 250, 0);
     for (int i = 0; i < [users count]; i++)
     {
         //create bubble
@@ -70,9 +70,9 @@
         maxBubbleHeight = MAX(maxBubbleHeight, bubble.height);
     }
     
-    //move bubbles to top
-    for (DDUserBubble *bubble in bubbles)
-        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
+//    //move bubbles to top
+//    for (DDUserBubble *bubble in bubbles)
+//        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
     
     //set needed current page
     pageControl.currentPage = [users indexOfObject:user];

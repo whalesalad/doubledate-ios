@@ -52,6 +52,7 @@
         
         //add left bar button
         DDBarButtonItem *menuButton = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(dismissNavigationMenu)];
+        menuButton.showsApplicationBadgeNumber = YES;
         CGRect menuButtonFrame = menuButton.button.frame;
         menuButtonFrame.size.width += 10;
         menuButton.button.frame = menuButtonFrame;
