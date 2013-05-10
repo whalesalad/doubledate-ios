@@ -386,6 +386,7 @@
 		708AB15E160904CA009817FC /* DDLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 708AB15D160904CA009817FC /* DDLocationController.m */; };
 		708BFA30173D8DA900F8D5AF /* DDUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 708BFA2F173D8DA900F8D5AF /* DDUserView.m */; };
 		708BFA3B173D8DE300F8D5AF /* DDUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 708BFA3A173D8DE300F8D5AF /* DDUserView.xib */; };
+		708BFA3D173DAC2B00F8D5AF /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 708BFA3C173DAC2B00F8D5AF /* CoreImage.framework */; };
 		708C09E51651922D00A40FD9 /* NSObject+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 708C09E41651922D00A40FD9 /* NSObject+DD.m */; };
 		708E246F17022FE9001E8C77 /* notification-bubble.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E246D17022FE9001E8C77 /* notification-bubble.png */; };
 		708E247017022FE9001E8C77 /* notification-bubble@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 708E246E17022FE9001E8C77 /* notification-bubble@2x.png */; };
@@ -1070,6 +1071,7 @@
 		708BFA2E173D8DA900F8D5AF /* DDUserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDUserView.h; sourceTree = "<group>"; };
 		708BFA2F173D8DA900F8D5AF /* DDUserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDUserView.m; sourceTree = "<group>"; };
 		708BFA3A173D8DE300F8D5AF /* DDUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDUserView.xib; sourceTree = "<group>"; };
+		708BFA3C173DAC2B00F8D5AF /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		708C09E31651922D00A40FD9 /* NSObject+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DD.h"; sourceTree = "<group>"; };
 		708C09E41651922D00A40FD9 /* NSObject+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DD.m"; sourceTree = "<group>"; };
 		708E246D17022FE9001E8C77 /* notification-bubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification-bubble.png"; sourceTree = "<group>"; };
@@ -1382,6 +1384,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				708BFA3D173DAC2B00F8D5AF /* CoreImage.framework in Frameworks */,
 				4C0105D317102170007A0401 /* CoreTelephony.framework in Frameworks */,
 				7086FFBA16E546B10051F95A /* StoreKit.framework in Frameworks */,
 				96187E2516CA4676007D61E8 /* CoreText.framework in Frameworks */,
@@ -2021,6 +2024,7 @@
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
+				708BFA3C173DAC2B00F8D5AF /* CoreImage.framework */,
 				4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */,
 				4CA80EDD16521236004A4BE9 /* app-icon@2x.png */,
 				4CA80EDB16521233004A4BE9 /* app-icon.png */,
