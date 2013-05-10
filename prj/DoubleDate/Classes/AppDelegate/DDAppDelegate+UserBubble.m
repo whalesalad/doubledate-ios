@@ -8,7 +8,7 @@
 
 #import "DDAppDelegate+UserBubble.h"
 #import "DDUser.h"
-#import "DDuserBubble.h"
+#import "DDUserBubble.h"
 
 @implementation DDAppDelegate (UserBubble)
 
@@ -71,8 +71,8 @@
     }
     
 //    //move bubbles to top
-//    for (DDUserBubble *bubble in bubbles)
-//        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
+    for (DDUserBubble *bubble in bubbles)
+        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
     
     //set needed current page
     pageControl.currentPage = [users indexOfObject:user];

@@ -140,7 +140,7 @@
     
     //apply bio
     viewController_.textView.text = self.user.bio;
-    viewController_.textView.frame = CGRectMake(viewController_.textView.frame.origin.x, viewController_.textView.frame.origin.y, viewController_.textView.contentSize.width, MAX(viewController_.textView.contentSize.height, 60));
+    viewController_.textView.frame = CGRectMake(viewController_.textView.frame.origin.x, viewController_.textView.frame.origin.y, viewController_.textView.contentSize.width, MAX(viewController_.textView.contentSize.height + 10, 60));
     
     //update bottom position
     viewController_.viewBottom.frame = CGRectMake(viewController_.viewBottom.frame.origin.x, viewController_.textView.frame.origin.y + viewController_.textView.frame.size.height, viewController_.viewBottom.frame.size.width, viewController_.viewBottom.frame.size.height);

@@ -14,7 +14,7 @@
 #import "DDImageView.h"
 #import "DDShortUser.h"
 #import "DDUser.h"
-#import "DDuserBubble.h"
+#import "DDUserBubble.h"
 #import "DDAppDelegate+UserBubble.h"
 #import "DDTools.h"
 #import "DDTextView.h"
