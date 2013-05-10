@@ -105,9 +105,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     if ([self shouldShowNavigationMenu])
     {
         DDBarButtonItem *menuButton = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"nav-menu-btn.png"] target:self action:@selector(menuTouched:)];
-        
         menuButton.showsApplicationBadgeNumber = YES;
-        
         CGRect menuButtonFrame = menuButton.button.frame;
         menuButtonFrame.size.width += 10;
         menuButton.button.frame = menuButtonFrame;
