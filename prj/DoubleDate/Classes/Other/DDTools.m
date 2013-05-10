@@ -81,6 +81,18 @@ NSString *DDErrorDomain = @"DDErrorDomain";
     return [UIImage imageWithCGImage:image.CGImage scale:[[UIScreen mainScreen] scale] orientation:UIImageOrientationUp];
 }
 
++ (UIImage*)blurFromImage:(UIImage*)image
+{
+#warning Michael uncomment this line to see the problem
+//    return image;
+    CIImage *imageToBlur = [CIImage imageWithCGImage:image.CGImage];
+    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [gaussianBlurFilter setValue:imageToBlur forKey: @"inputImage"];
+    [gaussianBlurFilter setValue:[NSNumber numberWithFloat:10] forKey:@"inputRadius"];
+    CIImage *resultImage = [gaussianBlurFilter valueForKey:@"outputImage"];
+    return [[[UIImage alloc] initWithCIImage:resultImage] autorelease];
+}
+
 + (UIImage*)resizableImageFromImage:(UIImage*)image
 {
     return [image resizableImageWithCapInsets:UIEdgeInsetsMake(image.size.height/2, image.size.width/2, image.size.height/2, image.size.width/2)];

@@ -69,6 +69,11 @@
         mainView.clipsToBounds = YES;
         [self.navigationMenu addSubview:mainView];
         
+        //add blur
+        UIImageView *blur = [[[UIImageView alloc] initWithImage:[DDTools blurFromImage:[DDTools imageFromView:self.topNavigationController.view]]] autorelease];
+        blur.center = CGPointMake(blur.center.x, blur.center.y - 44);
+        [mainView addSubview:blur];
+        
         //add dim
         UIView *dim = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, mainView.frame.size.width, mainView.frame.size.height)] autorelease];
         dim.tag = kTagNavigationMenuDim;

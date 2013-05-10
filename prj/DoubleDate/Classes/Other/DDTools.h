@@ -31,6 +31,8 @@ extern NSString *DDErrorDomain;
 
 + (UIImage*)imageFromView:(UIView*)view;
 
++ (UIImage*)blurFromImage:(UIImage*)image;
+
 + (UIImage*)resizableImageFromImage:(UIImage*)image;
 
 + (UIImage*)scaledImageFromImage:(UIImage*)image ofSize:(CGSize)size;
