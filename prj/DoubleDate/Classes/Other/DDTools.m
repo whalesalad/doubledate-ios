@@ -10,6 +10,7 @@
 #import "SBJson.h"
 #import <QuartzCore/QuartzCore.h>
 #import <RestKit/RKISO8601DateFormatter.h>
+#import "UIImage+StackBlur.h"
 
 #if DEBUG
 #define API_URL @"http://staging.dbld8.com"
@@ -83,14 +84,26 @@ NSString *DDErrorDomain = @"DDErrorDomain";
 
 + (UIImage*)blurFromImage:(UIImage*)image
 {
-#warning Michael uncomment this line to see the problem
-//    return image;
-    CIImage *imageToBlur = [CIImage imageWithCGImage:image.CGImage];
-    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
-    [gaussianBlurFilter setValue:imageToBlur forKey: @"inputImage"];
-    [gaussianBlurFilter setValue:[NSNumber numberWithFloat:10] forKey:@"inputRadius"];
-    CIImage *resultImage = [gaussianBlurFilter valueForKey:@"outputImage"];
-    return [[[UIImage alloc] initWithCIImage:resultImage] autorelease];
+#warning The commented code uses the native CIGaussianBlur and looks good but performs badly
+//    CIContext *context = [CIContext contextWithOptions:nil];
+//
+//    CIImage *imageToBlur = [CIImage imageWithCGImage:image.CGImage];
+//    
+//    CIFilter *gaussianBlurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+//    [gaussianBlurFilter setDefaults];
+//    [gaussianBlurFilter setValue:imageToBlur forKey:@"inputImage"];
+//    [gaussianBlurFilter setValue:[NSNumber numberWithFloat:10.0f] forKey:@"inputRadius"];
+//
+//    CIImage *blurredImage = [gaussianBlurFilter outputImage];
+//    
+//    CGImageRef resultImage = [context createCGImage:blurredImage fromRect:[imageToBlur extent]];
+//    
+//    UIImage *output = [UIImage imageWithCGImage:resultImage scale:[[UIScreen mainScreen] scale] orientation:UIImageOrientationUp];
+    
+//    return output;
+#warning the stackBlur stuff looks the same and happens very quickly! =)
+    UIImage *blurredImage = [UIImage imageWithCGImage:[[image stackBlur:10.0f] CGImage] scale:[[UIScreen mainScreen] scale] orientation:UIImageOrientationUp];
+    return blurredImage;
 }
 
 + (UIImage*)resizableImageFromImage:(UIImage*)image

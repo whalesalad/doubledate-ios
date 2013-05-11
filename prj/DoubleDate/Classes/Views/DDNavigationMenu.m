@@ -34,12 +34,8 @@
         self.delegate = self;
         self.dataSource = self;
         self.scrollEnabled = NO;
-        
-        self.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.layer.shadowOffset = CGSizeMake(0, 2.0f);
-        self.layer.shadowOpacity = 0.7f;
-        self.layer.shadowRadius = 4.0f;
-        self.clipsToBounds = NO;
+        self.clipsToBounds = YES;
+        self.layer.cornerRadius = 6.0f;
         
     }
     return self;

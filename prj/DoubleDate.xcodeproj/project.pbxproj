@@ -17,6 +17,7 @@
 		4C104147173D10B600411FA5 /* nav-btn-doubledate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C104145173D10B600411FA5 /* nav-btn-doubledate@2x.png */; };
 		4C104153173D11D000411FA5 /* nav-btn-doubledate-highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C104151173D11D000411FA5 /* nav-btn-doubledate-highlighted.png */; };
 		4C104154173D11D000411FA5 /* nav-btn-doubledate-highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C104152173D11D000411FA5 /* nav-btn-doubledate-highlighted@2x.png */; };
+		4C10415B173DD3A100411FA5 /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C10415A173DD3A100411FA5 /* UIImage+StackBlur.m */; };
 		4C3584531718224E00241412 /* feedback-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3584511718224E00241412 /* feedback-button.png */; };
 		4C3584541718224E00241412 /* feedback-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C3584521718224E00241412 /* feedback-button@2x.png */; };
 		4C35AE4816CE59F800AD75CE /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C35AE4716CE59F800AD75CE /* Crashlytics.framework */; };
@@ -677,6 +678,8 @@
 		4C104145173D10B600411FA5 /* nav-btn-doubledate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-btn-doubledate@2x.png"; sourceTree = "<group>"; };
 		4C104151173D11D000411FA5 /* nav-btn-doubledate-highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-btn-doubledate-highlighted.png"; sourceTree = "<group>"; };
 		4C104152173D11D000411FA5 /* nav-btn-doubledate-highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav-btn-doubledate-highlighted@2x.png"; sourceTree = "<group>"; };
+		4C104159173DD3A100411FA5 /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StackBlur.h"; sourceTree = "<group>"; };
+		4C10415A173DD3A100411FA5 /* UIImage+StackBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StackBlur.m"; sourceTree = "<group>"; };
 		4C3584511718224E00241412 /* feedback-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback-button.png"; sourceTree = "<group>"; };
 		4C3584521718224E00241412 /* feedback-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback-button@2x.png"; sourceTree = "<group>"; };
 		4C35AE4716CE59F800AD75CE /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = DoubleDate/Third/Crashlytics/Crashlytics.framework; sourceTree = "<group>"; };
@@ -2180,6 +2183,8 @@
 				708C09E41651922D00A40FD9 /* NSObject+DD.m */,
 				964A6EDF15F883E90077AAF1 /* DDTools.h */,
 				964A6EE015F883E90077AAF1 /* DDTools.m */,
+				4C104159173DD3A100411FA5 /* UIImage+StackBlur.h */,
+				4C10415A173DD3A100411FA5 /* UIImage+StackBlur.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -3332,6 +3337,7 @@
 				709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */,
 				70674F9D171B286200555B31 /* DDFeedbackViewController.m in Sources */,
 				708BFA30173D8DA900F8D5AF /* DDUserView.m in Sources */,
+				4C10415B173DD3A100411FA5 /* UIImage+StackBlur.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
