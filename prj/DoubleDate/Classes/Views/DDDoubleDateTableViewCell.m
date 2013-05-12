@@ -76,8 +76,8 @@
     }
     
     //apply photos
-    [imageViewUser reloadFromUrl:[NSURL URLWithString:doubleDate.user.photo.thumbUrl]];
-    [imageViewWing reloadFromUrl:[NSURL URLWithString:doubleDate.wing.photo.thumbUrl]];
+    [imageViewUser reloadFromUrl:[NSURL URLWithString:doubleDate.user.photo.squareUrl]];
+    [imageViewWing reloadFromUrl:[NSURL URLWithString:doubleDate.wing.photo.squareUrl]];
     
     //apply text
     labelTitle.text = [v details];
