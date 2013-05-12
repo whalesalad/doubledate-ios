@@ -34,7 +34,7 @@
 
 + (CGFloat)height
 {
-    return 108;
+    return 162;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -108,10 +108,10 @@
             DDShortUser *wingToShow = authenticatedUserIsInActivity?engagement.wing:engagement.activityWing;
             
             //apply text
-            self.labelTitle.text = [NSString stringWithFormat:@"%@", engagement.activityTitle];
+            self.labelTitle.text = engagement.activityTitle;
             
             //update users label
-            NSString *format = NSLocalizedString(@"%@ & %@ — %@ ago", @"detail text for engagement list item");
+            NSString *format = NSLocalizedString(@"From %@ & %@ — %@ ago", @"detail text for engagement list item");
             self.labelDetailed.text = [NSString stringWithFormat:format, userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
             
             //apply genders

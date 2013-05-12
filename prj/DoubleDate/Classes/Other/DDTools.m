@@ -20,6 +20,8 @@
 #define SERVER_URL @"http://dbld8.com"
 #endif
 
+#define API_URL @"http://localhost:3000"
+
 NSString *DDErrorDomain = @"DDErrorDomain";
 
 @implementation DDTools

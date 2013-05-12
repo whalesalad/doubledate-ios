@@ -28,7 +28,7 @@
 
 + (CGFloat)height
 {
-    return 108;
+    return 162;
 }
 
 + (NSString*)detailedTitleForLocation:(DDPlacemark*)location
