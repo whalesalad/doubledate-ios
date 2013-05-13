@@ -60,7 +60,7 @@
 							<object class="IBUILabel" id="375362878">
 								<reference key="NSNextResponder" ref="1022274273"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrame">{{17, 255}, {109, 22}}</string>
+								<string key="NSFrame">{{14, 257}, {109, 22}}</string>
 								<reference key="NSSuperview" ref="1022274273"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="413190077"/>
@@ -92,11 +92,11 @@
 									<string key="name">HelveticaNeue-Bold</string>
 									<string key="family">Helvetica Neue</string>
 									<int key="traits">2</int>
-									<double key="pointSize">20</double>
+									<double key="pointSize">16</double>
 								</object>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">HelveticaNeue-Bold</string>
-									<double key="NSSize">20</double>
+									<double key="NSSize">16</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
@@ -104,7 +104,7 @@
 							<object class="IBUILabel" id="413190077">
 								<reference key="NSNextResponder" ref="1022274273"/>
 								<int key="NSvFlags">291</int>
-								<string key="NSFrame">{{129, 255}, {121, 22}}</string>
+								<string key="NSFrame">{{129, 260}, {121, 20}}</string>
 								<reference key="NSSuperview" ref="1022274273"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1068325700"/>
@@ -144,7 +144,7 @@
 							<object class="IBUIImageView" id="385440706">
 								<reference key="NSNextResponder" ref="1022274273"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{0, 258}, {15, 15}}</string>
+								<string key="NSFrame">{{0, 264}, {9, 10}}</string>
 								<reference key="NSSuperview" ref="1022274273"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="375362878"/>
@@ -157,7 +157,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">icon-gender-male.png</string>
+									<string key="NSResourceName">male-indicator-small.png</string>
 								</object>
 							</object>
 							<object class="IBUITextView" id="1068325700">
@@ -223,7 +223,6 @@
 								<string key="NSFrame">{{116, 4}, {38, 36}}</string>
 								<reference key="NSSuperview" ref="663670022"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -499,8 +498,8 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">icon-gender-male.png</string>
-			<string key="NS.object.0">{15, 15}</string>
+			<string key="NS.key.0">male-indicator-small.png</string>
+			<string key="NS.object.0">{9, 10}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

@@ -28,6 +28,7 @@
 #import "DDAppDelegate+UserBubble.h"
 #import "DDBarButtonItem.h"
 #import "DDUserView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
 
@@ -65,9 +66,6 @@
 @synthesize labelLocationDetailed;
 
 @synthesize textView;
-
-@synthesize leftView;
-@synthesize rightView;
 
 @synthesize labelInterested;
 
@@ -160,18 +158,40 @@
 {
     [super viewDidLoad];
     
+    // style scrolltopview (user photo container view)
+    {
+        self.scrollTopView.layer.shadowColor = [UIColor whiteColor].CGColor;
+        self.scrollTopView.layer.shadowOpacity = 0.05f;
+        self.scrollTopView.layer.shadowOffset = CGSizeMake(0, 1);
+        self.scrollTopView.layer.shadowRadius = 0;
+        
+        CAGradientLayer *topViewGradient = [CAGradientLayer layer];
+        topViewGradient.frame = self.scrollTopView.bounds;
+        topViewGradient.colors = [NSArray arrayWithObjects:
+                                  (id)[[UIColor colorWithWhite:0 alpha:0.5f] CGColor],
+                                  (id)[[UIColor clearColor] CGColor], nil];
+        
+        [self.scrollTopView.layer insertSublayer:topViewGradient atIndex:0];
+        
+        CALayer *topViewInnerStroke = [CALayer layer];
+        CGRect topViewInnerStrokeFrame = self.scrollTopView.bounds;
+        topViewInnerStrokeFrame.origin.y = topViewInnerStrokeFrame.size.height - 1;
+        topViewInnerStrokeFrame.size.height = 1.0f;
+        topViewInnerStroke.frame = topViewInnerStrokeFrame;
+        topViewInnerStroke.backgroundColor = [UIColor colorWithWhite:0.09f alpha:1.0f].CGColor;
+        
+        [self.scrollTopView.layer insertSublayer:topViewInnerStroke atIndex:1];
+    }
+
+    
     //localize
     labelInterested.text = NSLocalizedString(@"Interested in this DoubleDate?", nil);
-    [buttonInterested setTitle:NSLocalizedString(@"Send a Message", nil) forState:UIControlStateNormal];
     
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
     
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
-    
-    //customize text
-    DD_F_TEXT(self.textView);
-    
+        
     //customize intereseted button
     [self.buttonInterested setTitle:NSLocalizedString(@"Send a Message", nil) forState:UIControlStateNormal];
     [self.buttonInterested setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonInterested backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
@@ -255,8 +275,6 @@
     [labelLocationMain release];
     [labelLocationDetailed release];
     [textView release];
-    [leftView release];
-    [rightView release];
     [labelInterested release];
     [sentView release];
     [sentViewAnimation release];
@@ -307,24 +325,24 @@
     self.bottomView.hidden = !bottomVisible;
     
     //change frame
-    CGFloat yb = bottomVisible ? self.bottomView.frame.origin.y + 4 : self.bottomView.frame.origin.y + self.bottomView.frame.size.height - 8;
+//    CGFloat yb = bottomVisible ? self.bottomView.frame.origin.y + 4 : self.bottomView.frame.origin.y + self.bottomView.frame.size.height - 8;
 
-    self.scrollView.frame = CGRectMake(0, 0, 320, yb);
+//    self.scrollView.frame = CGRectMake(0, 0, 320, yb);
     
     //this is a difference from xib
     //XXX customization of text view from xib
-    CGFloat diffBetweenTextViewAndCenterView = 142 - 86;
-    CGFloat neededHeightOfTextField = [self.textView sizeThatFits:self.textView.contentSize].height;
-    CGFloat neededHeightOfCenterView = MAX(neededHeightOfTextField + diffBetweenTextViewAndCenterView, 142);
+//    CGFloat diffBetweenTextViewAndCenterView = 142 - 86;
+//    CGFloat neededHeightOfTextField = [self.textView sizeThatFits:self.textView.contentSize].height;
+//    CGFloat neededHeightOfCenterView = MAX(neededHeightOfTextField + diffBetweenTextViewAndCenterView, 142);
 
     //change center view frame
-    self.scrollCenterView.frame = CGRectMake(0, self.scrollTopView.frame.origin.y+self.scrollTopView.frame.size.height, 320, neededHeightOfCenterView);
+//    self.scrollCenterView.frame = CGRectMake(0, self.scrollTopView.frame.origin.y+self.scrollTopView.frame.size.height, 320, neededHeightOfCenterView);
     
     //change content size
-    self.scrollView.contentSize = CGSizeMake(320, self.scrollTopView.frame.size.height + self.scrollCenterView.frame.size.height + self.scrollBottomView.frame.size.height);
+//    self.scrollView.contentSize = CGSizeMake(320, self.scrollTopView.frame.size.height + self.scrollCenterView.frame.size.height + self.scrollBottomView.frame.size.height);
     
     //set bottom view frame
-    self.scrollBottomView.frame = CGRectMake(self.scrollBottomView.frame.origin.x, self.scrollCenterView.frame.origin.y+scrollCenterView.frame.size.height, self.scrollBottomView.frame.size.width, self.scrollBottomView.frame.size.height);
+//    self.scrollBottomView.frame = CGRectMake(self.scrollBottomView.frame.origin.x, self.scrollCenterView.frame.origin.y+scrollCenterView.frame.size.height, self.scrollBottomView.frame.size.width, self.scrollBottomView.frame.size.height);
 }
 
 - (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView

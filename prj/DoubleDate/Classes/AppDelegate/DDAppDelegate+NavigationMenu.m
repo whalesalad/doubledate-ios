@@ -80,7 +80,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(0, 0, dim.frame.size.width, dim.frame.size.height);
         [button addTarget:self action:@selector(dismissNavigationMenu) forControlEvents:UIControlEventTouchUpInside];
-        [blur addSubview:button];
+        [mainView addSubview:button];
         
         //add table view
         DDNavigationMenu *table = [[[DDNavigationMenu alloc] init] autorelease];

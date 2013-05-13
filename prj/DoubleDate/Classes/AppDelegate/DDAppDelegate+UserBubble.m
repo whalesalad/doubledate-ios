@@ -20,10 +20,6 @@
     [self.userPopover removeFromSuperview];
     
     //add view
-//    self.userPopover = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dd-popup-darkness.png"]] autorelease];
-//    self.userPopover.userInteractionEnabled = YES;
-//    self.userPopover.alpha = 0;
-    
     self.userPopover = [[[UIImageView alloc] initWithImage:[DDTools blurFromImage:[DDTools imageFromView:self.window]]] autorelease];
     self.userPopover.userInteractionEnabled = YES;
     self.userPopover.alpha = 0;
@@ -35,8 +31,6 @@
     [self.userPopover.layer addSublayer:dim];
     
     [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:self.userPopover];
-    
-//    [mainView addSubview:blur];
     
     //add scroll view
     UIScrollView *sv = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.userPopover.bounds.size.width, self.userPopover.bounds.size.height)] autorelease];

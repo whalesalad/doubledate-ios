@@ -68,6 +68,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    self.backgroundColor = [UIColor clearColor];
     self.imageViewPhoto.layer.cornerRadius = 6;
     self.imageViewPhoto.clipsToBounds = YES;
 }
@@ -79,7 +80,7 @@
     [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:[self photoUrl]]];
     
     //update gender
-    self.imageViewGender.image = [UIImage imageNamed:[[self gender] isEqualToString:DDUserGenderFemale]?@"icon-gender-female.png":@"icon-gender-male.png"];
+    self.imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", self.gender]];
     
     //make correct positioning
     CGFloat dx = CGRectGetMinX(self.labelTitle.frame) - CGRectGetMaxX(self.imageViewGender.frame);

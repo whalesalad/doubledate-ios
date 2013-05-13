@@ -133,7 +133,7 @@
     viewController_.textView.text = self.user.bio;
     
     //apply gender
-    viewController_.imageViewGender.image = [UIImage imageNamed:[self.user.gender isEqualToString:DDUserGenderFemale]?@"icon-gender-female.png":@"icon-gender-male.png"];
+    viewController_.imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", self.user.gender]];
     
     //apply photo
     [viewController_.photoView reloadFromUrl:[NSURL URLWithString:self.user.photo.squareUrl]];
