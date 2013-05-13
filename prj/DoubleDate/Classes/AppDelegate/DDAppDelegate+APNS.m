@@ -258,8 +258,8 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
     //create dialog
     DDDialogAlertView *alertView = [[[DDDialogAlertView alloc] initWithDialog:[notification dialog]] autorelease];
     alertView.dialogDelegate = self;
-    if ([[notification photos] count] == 1)
-        alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[[notification photos] objectAtIndex:0] squareUrl]];
+    if ([notification photo])
+        alertView.imageUrl = [NSURL URLWithString:[(DDImage*)[notification photo] squareUrl]];
     [alertView show];
 }
 
