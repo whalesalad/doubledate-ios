@@ -12,6 +12,7 @@
 #import "DDUserBubble.h"
 #import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
+#import "GPUImage.h"
 
 @implementation DDAppDelegate (UserBubble)
 
@@ -21,9 +22,22 @@
     [self.userPopover removeFromSuperview];
     
     //add view
-    UIImage *blurImage = [DDTools imageFromView:self.window];
+//    UIImage *blurImage = [DDTools imageFromView:self.window];
 //    blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/8, blurImage.size.height/8)];
-    blurImage = [blurImage blurImage];
+//    blurImage = [blurImage blurImage];
+    
+    GPUImagePicture *sourcePicture = [[GPUImagePicture alloc] initWithImage:[DDTools imageFromView:self.window]];
+    GPUImageBoxBlurFilter *blurFilter = [[GPUImageBoxBlurFilter alloc] init];
+    
+    [sourcePicture addTarget:blurFilter];
+    [sourcePicture processImage];
+    
+    UIImage *blurImage = [blurFilter imageFromCurrentlyProcessedOutput];
+    
+    [blurFilter release];
+    [sourcePicture removeAllTargets];
+    [sourcePicture release];
+    
     self.userPopover = [[[UIImageView alloc] initWithFrame:self.window.bounds] autorelease];
     ((UIImageView*)self.userPopover).image = blurImage;
     self.userPopover.userInteractionEnabled = YES;

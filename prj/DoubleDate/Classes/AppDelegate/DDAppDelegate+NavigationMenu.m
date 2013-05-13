@@ -14,6 +14,7 @@
 #import "DDFeedbackViewController.h"
 #import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
+#import "GPUImage.h"
 
 #define kTagNavigationMenuBar 1
 #define kTagNavigationMenuBlur 2
@@ -65,12 +66,25 @@
         [self.navigationMenu addSubview:mainView];
         
         //add blur
-        UIImage *blurImage = [DDTools imageFromView:self.topNavigationController.view];
+//        UIImage *blurImage = [DDTools imageFromView:self.topNavigationController.view];
 //        blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/2, blurImage.size.height/2)];
-        blurImage = [blurImage blurImage];
+//        blurImage = [blurImage blurImage];
+
+        GPUImagePicture *sourcePicture = [[GPUImagePicture alloc] initWithImage:[DDTools imageFromView:self.topNavigationController.view]];
+        GPUImageBoxBlurFilter *blurFilter = [[GPUImageBoxBlurFilter alloc] init];
+        
+        [sourcePicture addTarget:blurFilter];
+        [sourcePicture processImage];
+        
+        UIImage *blurImage = [blurFilter imageFromCurrentlyProcessedOutput];
+        
+        [blurFilter release];
+        [sourcePicture removeAllTargets];
+        [sourcePicture release];
+        
         UIImageView *blur = [[[UIImageView alloc] initWithFrame:self.topNavigationController.view.bounds] autorelease];
         blur.image = blurImage;
-        blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2-20);
+        blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2-22);
         blur.tag = kTagNavigationMenuBlur;
         blur.alpha = 0;
         [mainView addSubview:blur];
