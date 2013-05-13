@@ -1,5 +1,5 @@
 //
-//  UIView+Other.h
+//  UIView+DD.h
 //  DoubleDate
 //
 //  Created by Gennadii Ivanov on 9/17/12.
@@ -7,6 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+
+@class DDUser;
+
+@interface UIView (Interests)
+
+- (CGFloat)applyInterestsForUser:(DDUser*)user bubbleImage:(UIImage*)bubbleImage matchedBubbleImage:(UIImage*)matchedBubbleImage custmomizationHandler:(void (^)(UILabel *bubbleLabel))custmomizationHandler DEPRECATED_ATTRIBUTE;
+
+@end
 
 @interface UIView (Other)
 

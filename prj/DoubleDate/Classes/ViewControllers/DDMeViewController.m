@@ -8,68 +8,60 @@
 
 #import "DDMeViewController.h"
 #import "DDUser.h"
-#import "DDImage.h"
-#import "DDImageView.h"
-#import <QuartzCore/QuartzCore.h>
-#import "DDPlacemark.h"
-#import "DDInterest.h"
 #import "DDAuthenticationController.h"
-#import "DDBarButtonItem.h"
-#import "DDTools.h"
-#import "UIView+Interests.h"
-#import "DDWingTableViewCell.h"
+#import "DDDialog.h"
+#import "DDDialogAlertView.h"
+#import "DDImageView.h"
+#import "DDObjectsController.h"
+#import "DDAppDelegate+NavigationMenu.h"
 #import "DDAppDelegate+Navigation.h"
 #import "DDEditProfileViewController.h"
-#import "DDObjectsController.h"
-#import "DDCoinsBar.h"
-#import "DDPurchaseViewController.h"
-#import "DDAppDelegate+Purchase.h"
-#import "DDCreateDoubleDateViewController.h"
-#import "DDShortUser.h"
-#import "DDDialogAlertView.h"
-#import "DDDialog.h"
-#import "DDAppDelegate+NavigationMenu.h"
+#import "DDBarButtonItem.h"
 #import "DDImageEditDialogView.h"
-#import "SBJson.h"
+#import "DDImage.h"
 #import "UIImage+DD.h"
+#import "DDImageView.h"
+#import "DDWingTableViewCell.h"
+#import "DDCreateDoubleDateViewController.h"
+#import "DDDoubleDateTableViewCell.h"
+#import "DDDoubleDateViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <QuartzCore/QuartzCore.h>
 
 #define kTagActionSheetEdit 1
 #define kTagActionSheetChangePhoto 2
 #define kTagLoadingSpinner 3
 
-@interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DDImageEditDialogViewDelegate>
+@interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DDImageEditDialogViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
-- (void)setMeNavigationItemTitle;
-- (void)setAvatarShown:(BOOL)shown;
-- (void)updateAvatarWithImage:(UIImage*)image;
-
-@property(nonatomic, retain) CAGradientLayer *textViewBioGradient;
-@property(nonatomic, retain) CALayer *bottomBorder;
 @property(nonatomic, retain) DDImageEditDialogView *imageEditView;
+
+@property(nonatomic, assign) BOOL isDatesViewFullScreen;
 
 @end
 
 @implementation DDMeViewController
 
 @synthesize user;
-@synthesize scrollView;
-@synthesize labelTitle;
+
+@synthesize tableView;
+@synthesize textView;
+@synthesize viewTop;
+@synthesize viewBottom;
 @synthesize imageViewPoster;
+@synthesize labelTitle;
 @synthesize labelLocation;
-@synthesize textViewBio;
-@synthesize textViewBioWrapper;
-@synthesize viewInterests;
-@synthesize labelInterests;
-@synthesize interestsWrapper;
 @synthesize imageViewGender;
-@synthesize imageViewBioBackground;
-@synthesize coinBarContainer;
-@synthesize textViewBioGradient;
-@synthesize bottomBorder;
-@synthesize doubleDateBarContainer;
-@synthesize buttonDoubleDate;
+@synthesize buttonEditProfile;
+@synthesize buttonEditPhoto;
+@synthesize barYourDates;
+@synthesize labelYourDates;
+@synthesize buttonYourDates;
+@synthesize viewNoDates;
+@synthesize viewNoBio;
+
 @synthesize imageEditView;
+@synthesize isDatesViewFullScreen;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -82,100 +74,39 @@
     return self;
 }
 
-- (DDCoinsBar*)coinBar
-{
-    for (DDCoinsBar *v in [self.coinBarContainer subviews])
-    {
-        if ([v isKindOfClass:[DDCoinsBar class]])
-            return v;
-    }
-    return nil;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     //localize
-    labelInterests.text = [NSLocalizedString(@"Ice Breakers", nil) uppercaseString];
-    [buttonDoubleDate setTitle:[NSString stringWithFormat:NSLocalizedString(@"DoubleDate with %@", @"Doubledate button on wing's profile page"), self.user.firstName] forState:UIControlStateNormal];
+    [self.viewNoBio setTitle:NSLocalizedString(@"Your bio is empty, tap to edit", @"Account Profile: No bio button") forState:UIControlStateNormal];
+    self.viewNoDates.text = NSLocalizedString(@"You haven't posted any yet", @"Account Profile: No dates label");
+    [self.buttonEditProfile setTitle:NSLocalizedString(@"Edit Profile", @"Account Profile: Edit profile button") forState:UIControlStateNormal];
     
-    //add coin bar
-    [self.coinBarContainer addSubview:[[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDCoinsBar class]) owner:self options:nil] objectAtIndex:0]];
+    //add right button
+    self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
     
-    self.coinBarContainer.layer.shadowOffset = CGSizeMake(0, -1);
-    self.coinBarContainer.layer.shadowOpacity = 0.5f;
-    self.coinBarContainer.layer.shadowColor = [UIColor blackColor].CGColor;
+    //apply image view styling
+    self.imageViewPoster.clipsToBounds = YES;
+    self.imageViewPoster.layer.cornerRadius = 6.0f;
+    [self.imageViewPoster applyBorderStyling];
     
-    [self.buttonDoubleDate setBackgroundImage:[[self.buttonDoubleDate backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    //apply table view
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
-    //add handler
-    [[self coinBar] addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
+    //unset colors
+    self.labelTitle.backgroundColor = [UIColor clearColor];
+    self.labelLocation.backgroundColor = [UIColor clearColor];
+    self.viewTop.backgroundColor = [UIColor clearColor];
+    self.viewBottom.backgroundColor = [UIColor blackColor];
+    self.viewNoBio.backgroundColor = [UIColor clearColor];
+    self.viewNoDates.backgroundColor = [UIColor clearColor];
     
-    //add handler
-    [self.buttonDoubleDate addTarget:self action:@selector(doubleDateTouched:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //apply mask
-    [self.imageViewPoster applyMask:[UIImage imageNamed:@"bg-me-photo-mask.png"]];
-    
-    //we can edit only yourself
-    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
-    {
-        //set title
-        [self setMeNavigationItemTitle];
-        
-        //add right button
-        self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
-    }
-    else
-    {
-        //set title
-        self.navigationItem.title = [user.firstName capitalizedString];
-        
-        // Temporarily hide the coinbar for users that are not you,
-        // until bubble is integrated for wings
-        self.coinBarContainer.hidden = true;
-        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height+self.coinBarContainer.frame.size.height);
-        
-        //show doubledate bar
-        self.doubleDateBarContainer.hidden = NO;
-        
-        //update scroll bar
-        self.scrollView.frame = CGRectMake(self.scrollView.frame.origin.x, self.scrollView.frame.origin.y, self.scrollView.frame.size.width, self.scrollView.frame.size.height-self.doubleDateBarContainer.frame.size.height);
-    }
-    
-    //set title
-    labelTitle.text = [DDWingTableViewCell titleForUser:user];
-    labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
-    
-    //set gender
-    if ([[user gender] isEqualToString:DDUserGenderFemale])
-        imageViewGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
-    else
-        imageViewGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
-    imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x+labelTitle.frame.size.width+4, labelTitle.center.y-imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
-    
-    //set poster
-    if (user.photo.squareUrl)
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.squareUrl]];
-    
-    //reinit bio
-    [self reinitBio];
-    
-    //reinit location
-    [self reinitLocation];
-    
-    //reinit coins
-    [self reinitCoins];
-    
-    //make background clear
-    labelTitle.backgroundColor = [UIColor clearColor];
-    imageViewPoster.backgroundColor = [UIColor clearColor];
-    labelLocation.backgroundColor = [UIColor clearColor];
-    viewInterests.backgroundColor = [UIColor clearColor];
-    labelInterests.backgroundColor = [UIColor clearColor];
-    interestsWrapper.backgroundColor = [UIColor clearColor];
-    imageViewGender.backgroundColor = [UIColor clearColor];
+    //add button handlers
+    [self.buttonEditProfile addTarget:self action:@selector(editProfileTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonEditPhoto addTarget:self action:@selector(changePhotoTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.buttonYourDates addTarget:self action:@selector(addDateTouched) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -214,97 +145,77 @@
     //make super
     [super viewWillAppear:animated];
     
-    //switch to crop mode if needed
-    if (!cropModeInited_)
-    {
-        //save that we showed a crop mode
-        cropModeInited_ = YES;
-        
-        //make the same like we received the facebook photo
-        if ([[self.user.photo facebookPhoto] boolValue])
-            [self getPhotoForMeFromFacebookSucceed:self.user.photo];
-    }
+    //request new dates
+    [self.apiController getMyDoubleDates];
 
     //reinit fields
+    [self reinitTitle];
+    [self reinitPoster];
     [self reinitBio];
-    [self reinitInterests];
     [self reinitLocation];
-    [self reinitCoins];
+    [self reinitDates];
 }
 
-- (void)reinitCoins
+- (void)reinitTitle
 {
-    [[self coinBar] setValue:[[user totalCoins] intValue]];
+    //update navigation title
+    [self setMeNavigationItemTitle];
+    
+    //update gender
+    self.imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", self.user.gender]];
+    
+    //make correct positioning
+    CGFloat dx = CGRectGetMinX(self.imageViewGender.frame) - CGRectGetMaxX(self.labelTitle.frame);
+    
+    //update name
+    CGFloat labelWidth = MIN([[DDWingTableViewCell titleForUser:user] sizeWithFont:self.labelTitle.font].width, 160);
+    self.labelTitle.frame = CGRectMake(self.labelTitle.frame.origin.x, self.labelTitle.frame.origin.y, labelWidth, self.labelTitle.frame.size.height);
+    self.labelTitle.text = [DDWingTableViewCell titleForUser:user];
+    
+    //layout gender
+    self.imageViewGender.frame = CGRectMake( CGRectGetMaxX(self.labelTitle.frame) + dx, self.imageViewGender.frame.origin.y, self.imageViewGender.frame.size.width, self.imageViewGender.frame.size.height);
 }
 
-- (void)reinitInterests
+- (void)reinitPoster
 {
-    // space between textViewBio and interestsWrapper
-    CGFloat textInterestSpacing = 12.0f;
-    
-    // resize interest wrapper view
-    CGRect interestsWrapperFrame = self.interestsWrapper.frame;
-    interestsWrapperFrame.origin.y = textViewBioWrapper.frame.size.height + textViewBioWrapper.frame.origin.y + textInterestSpacing;
-    self.interestsWrapper.frame = interestsWrapperFrame;
-    
-    //save old frame
-    CGRect oldInterestsFrame = viewInterests.frame;
-    
-    //apply interests
-    CGFloat newInterestsHeight = [viewInterests applyInterestsForUser:self.user
-                                                          bubbleImage:[UIImage imageNamed:@"bg-me-interest.png"]
-                                                   matchedBubbleImage:[UIImage imageNamed:@"bg-me-interest.png"]
-                                                custmomizationHandler:^(UILabel *bubbleLabel) {
-                                                    DD_F_INTEREST_TEXT(bubbleLabel);
-                                                    bubbleLabel.textColor = [UIColor whiteColor];
-                                                    bubbleLabel.backgroundColor = [UIColor clearColor];
-                                                }];
-    
-    //change frame
-    viewInterests.frame = CGRectMake(oldInterestsFrame.origin.x, oldInterestsFrame.origin.y, oldInterestsFrame.size.width, newInterestsHeight);
-    
-    //apply needed content size
-    self.scrollView.contentSize = CGSizeMake(320, viewInterests.frame.origin.y+interestsWrapper.frame.origin.y+viewInterests.frame.size.height);
+    //set poster
+    if (user.photo.squareUrl)
+        [imageViewPoster reloadFromUrl:[NSURL URLWithString:user.photo.squareUrl]];
 }
 
 - (void)reinitBio
-{
-    //set biography
-    textViewBio.text = user.bio;
+{    
+    //update visibility
+    self.viewNoBio.hidden = [self.user.bio length] > 0;
+    self.textView.hidden = !self.viewNoBio.hidden;
     
-    // watch for text view change
-    textViewBioWrapper.frame = CGRectMake(0, 0, textViewBioWrapper.frame.size.width, self.imageViewPoster.frame.size.height + textViewBio.contentSize.height + 10);
+    //change the text
+    self.textView.text = self.user.bio;
     
-    //remove old one
-    [self.textViewBioGradient removeFromSuperlayer];
-    self.textViewBioGradient = nil;
+    //change the geometry
+    CGFloat neededHeightOfTextView = [self.textView sizeThatFits:self.textView.contentSize].height;
+    CGFloat realHeightOfTextView = self.textView.frame.size.height;
+    CGFloat dy = neededHeightOfTextView - realHeightOfTextView;
     
-    // Create inner gradient for bio
-    self.textViewBioGradient = [CAGradientLayer layer];
-    self.textViewBioGradient.frame = textViewBioWrapper.bounds;
-    self.textViewBioGradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                       (id)[[UIColor colorWithWhite:1.0f alpha:0.1f] CGColor], nil];
-    
-    // Add the gradient to the back of the text view
-    [textViewBioWrapper.layer insertSublayer:self.textViewBioGradient atIndex:0];
-    
-    //remove old one
-    [self.bottomBorder removeFromSuperlayer];
-    self.bottomBorder = nil;
-    
-    // Create transparent white line to add below bio view.
-    self.bottomBorder = [CALayer layer];
-    self.bottomBorder.frame = CGRectMake(0.0f, textViewBioWrapper.frame.origin.y + textViewBioWrapper.frame.size.height, 320, 1.0f);
-    self.bottomBorder.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.03f].CGColor;
-    
-    // Add the border to the scrollview
-    [scrollView.layer addSublayer:self.bottomBorder];
+    //change the frame of top view
+    self.viewTop.frame = CGRectMake(self.viewTop.frame.origin.x, self.viewTop.frame.origin.y, self.viewTop.frame.size.width, self.viewTop.frame.size.height + dy);
+    self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x, self.isDatesViewFullScreen?0:CGRectGetMaxY(self.viewTop.frame), self.viewBottom.frame.size.width, self.isDatesViewFullScreen?self.view.bounds.size.height:self.view.bounds.size.height-CGRectGetMaxY(self.viewTop.frame));
 }
 
 - (void)reinitLocation
 {
     //set location
-    labelLocation.text = [[user location] name];
+    self.labelLocation.text = [[user location] name];
+}
+
+- (void)reinitDates
+{
+    //update table view
+    [self.tableView reloadData];
+    
+    //update visibility
+    self.viewNoDates.hidden = !((doubleDatesMine_ != nil) && ([doubleDatesMine_ count] == 0));
+    self.tableView.hidden = !([doubleDatesMine_ count] > 0);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -315,23 +226,23 @@
 - (void)dealloc
 {
     [user release];
-    [scrollView release];
-    [labelTitle release];
+    [tableView release];
+    [textView release];
+    [viewTop release];
+    [viewBottom release];
     [imageViewPoster release];
+    [labelTitle release];
     [labelLocation release];
-    [textViewBio release];
-    [textViewBioWrapper release];
-    [viewInterests release];
-    [labelInterests release];
-    [interestsWrapper release];
     [imageViewGender release];
-    [imageViewBioBackground release];
-    [coinBarContainer release];
-    [doubleDateBarContainer release];
-    [buttonDoubleDate release];
-    [textViewBioGradient release];
-    [bottomBorder release];
+    [buttonEditProfile release];
+    [buttonEditPhoto release];
+    [barYourDates release];
+    [labelYourDates release];
+    [buttonYourDates release];
+    [viewNoDates release];
+    [viewNoBio release];
     [imageEditView release];
+    [doubleDatesMine_ release];
     [super dealloc];
 }
 
@@ -347,31 +258,11 @@
     [actionSheet showInView:self.view];
 }
 
-- (void)backTouched:(id)sender
+- (void)addDateTouched
 {
-    if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
-        [self.tabBarController.navigationController popViewControllerAnimated:YES];
-    else
-        [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)moreCoinsTouched:(id)sender
-{
-    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentPurchaseScreen];
-}
-
-- (void)doubleDateTouched:(id)sender
-{
-    //fill user data
-    DDShortUser *wing = [[[DDShortUser alloc] init] autorelease];
-    wing.identifier = self.user.userId;
-    wing.photo = self.user.photo;
-    wing.fullName = [NSString stringWithFormat:@"%@ %@", self.user.firstName, self.user.lastName];
-    
-    //create view controller
+    [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] dismissNavigationMenu];
     DDCreateDoubleDateViewController *viewController = [[[DDCreateDoubleDateViewController alloc] init] autorelease];
-    viewController.wing = wing;
-    [self.navigationController presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
+    [[(DDAppDelegate*)[[UIApplication sharedApplication] delegate] topNavigationController] presentViewController:[[[UINavigationController alloc] initWithRootViewController:viewController] autorelease] animated:YES completion:^{
     }];
 }
 
@@ -562,11 +453,26 @@
 
 - (void)objectUpdatedNotification:(NSNotification*)notification
 {
+    //save request method
+    RKRequestMethod method = [[[notification userInfo] objectForKey:DDObjectsControllerDidUpdateObjectRestKitMethodUserInfoKey] intValue];
+    
+    //check object
     if ([[notification object] isKindOfClass:[DDUser class]])
     {
         DDUser *userToUpdate = (DDUser*)[notification object];
         if ([[userToUpdate userId] intValue] == [self.user.userId intValue])
             self.user = userToUpdate;
+    }
+    else if ([[notification object] isKindOfClass:[DDDoubleDate class]])
+    {
+        if (method == RKRequestMethodPOST)
+        {
+            //add object
+            [doubleDatesMine_ addObject:[notification object]];
+            
+            //reload the whole data
+            [self reinitDates];
+        }
     }
 }
 
@@ -614,7 +520,7 @@
 {
     //update url only if updated not after cropping
     if ([self.apiController isRequestExist:updatePhotoRequest_])
-        [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.squareUrl]];
+        [self.imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.squareUrl]];
         
     //update object
     self.user.photo = photo;
@@ -707,6 +613,193 @@
 {
     if (sender == self.imageEditView)
         self.imageEditView = nil;
+}
+
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //get double date
+    DDDoubleDate *doubleDate = [doubleDatesMine_ objectAtIndex:indexPath.row];
+    
+    //show hud
+    [self showHudWithText:NSLocalizedString(@"Loading", nil) animated:YES];
+    
+    //get full information
+    [self.apiController getDoubleDate:doubleDate];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DDDoubleDateTableViewCell height];
+}
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    return [doubleDatesMine_ count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //save class
+    Class cellClass = [DDDoubleDateTableViewCell class];
+    
+    //create cell
+    DDDoubleDateTableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:[cellClass description]];
+    if (!cell)
+        cell = [[[UINib nibWithNibName:[cellClass description] bundle:nil] instantiateWithOwner:aTableView options:nil] objectAtIndex:0];
+    
+    //apply data
+    if (indexPath.row < [doubleDatesMine_ count])
+        cell.doubleDate = [doubleDatesMine_ objectAtIndex:indexPath.row];
+    else
+        cell.doubleDate = nil;
+    
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        //get doubledate
+        DDDoubleDate *doubleDate = [[doubleDatesMine_ objectAtIndex:indexPath.row] retain];
+        
+        //remove sliently
+        [doubleDatesMine_ removeObject:doubleDate];
+        
+        //reload data
+        [self reinitDates];
+        
+        //request delete doubledate
+        [self.apiController requestDeleteDoubleDate:doubleDate];
+        
+        //release object
+        [doubleDate release];
+    }
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    contentOffset_ = scrollView.contentOffset;
+}
+
+- (void)applyScrollViewContentOffsetChange:(UIScrollView *)scrollView
+{
+    CGFloat dh = scrollView.contentOffset.y - contentOffset_.y;
+#warning Michael customize drag distance here
+    CGFloat dragDistance = 50;
+    if (self.isDatesViewFullScreen)
+    {
+        if (dh < -dragDistance)
+            self.isDatesViewFullScreen = NO;
+    }
+    else
+    {
+        //check if we don't have enough frame for table
+        if (self.tableView.frame.size.height < [doubleDatesMine_ count] * [DDDoubleDateTableViewCell height])
+        {
+            if (dh > dragDistance)
+                self.isDatesViewFullScreen = YES;
+        }
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.isDragging)
+        [self applyScrollViewContentOffsetChange:scrollView];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    [self applyScrollViewContentOffsetChange:scrollView];
+}
+
+#pragma mark -
+#pragma mark api
+
+- (void)getMyDoubleDatesSucceed:(NSArray*)doubleDates
+{
+    //save doubledates
+    [doubleDatesMine_ release];
+    doubleDatesMine_ = [[NSMutableArray arrayWithArray:doubleDates] retain];
+    
+    //inform about completion
+    [self reinitDates];
+}
+
+- (void)getMyDoubleDatesDidFailedWithError:(NSError*)error
+{
+    //save friends
+    [doubleDatesMine_ release];
+    doubleDatesMine_ = [[NSMutableArray alloc] init];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+    
+    //inform about completion
+    [self reinitDates];
+}
+
+- (void)requestDeleteDoubleDateSucceed
+{
+}
+
+- (void)requestDeleteDoubleDateDidFailedWithError:(NSError*)error
+{
+    //refresh
+    [self.apiController getMyDoubleDates];
+}
+
+- (void)getDoubleDateSucceed:(DDDoubleDate*)doubleDate
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //open view controller
+    DDDoubleDateViewController *viewController = [[[DDDoubleDateViewController alloc] init] autorelease];
+    viewController.doubleDate = doubleDate;
+    viewController.backButtonTitle = self.navigationItem.title;
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)getDoubleDateDidFailedWithError:(NSError*)error
+{
+    //hide hud
+    [self hideHud:YES];
+    
+    //show error
+    [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+#pragma mark -
+#pragma mark animation
+
+- (void)setIsDatesViewFullScreen:(BOOL)v
+{
+    if (isDatesViewFullScreen != v)
+    {
+        isDatesViewFullScreen = v;
+#warning Michael customize animation parameters here
+        [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x, self.isDatesViewFullScreen?0:CGRectGetMaxY(self.viewTop.frame), self.viewBottom.frame.size.width, self.isDatesViewFullScreen?self.view.bounds.size.height:self.view.bounds.size.height-CGRectGetMaxY(self.viewTop.frame));
+
+        } completion:^(BOOL finished) {
+        }];
+    }
 }
 
 @end

@@ -24,7 +24,7 @@
 #import "DDDialog.h"
 #import "DDImage.h"
 #import "DDTools.h"
-#import "UIView+Other.h"
+#import "UIView+DD.h"
 
 @interface DDNotificationsViewController () <UITableViewDataSource, UITableViewDelegate, DDDialogAlertViewDelegate>
 

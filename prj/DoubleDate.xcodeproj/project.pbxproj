@@ -354,6 +354,7 @@
 		702846C616238AB900693673 /* DDShortUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 702846C516238AB900693673 /* DDShortUser.m */; };
 		7037655F16F47F3C00870D1C /* DDLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7037655E16F47F3C00870D1C /* DDLabel.m */; };
 		7037656B16F4856B00870D1C /* DDLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7037656A16F4856B00870D1C /* DDLabelTableViewCell.m */; };
+		703950AD1741768A005B9575 /* UIView+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 703950AC1741768A005B9575 /* UIView+DD.m */; };
 		703D03C4170CCDF800C1E39F /* doubledate-navigation-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 703D03C2170CCDF800C1E39F /* doubledate-navigation-logo.png */; };
 		703D03C5170CCDF800C1E39F /* doubledate-navigation-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 703D03C3170CCDF800C1E39F /* doubledate-navigation-logo@2x.png */; };
 		7041769216E3A047003B6B24 /* DDInAppProductTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */; };
@@ -418,7 +419,6 @@
 		70E1A27516E3823A008979FD /* most-popular-badge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A27116E3823A008979FD /* most-popular-badge@2x.png */; };
 		70E1A28516E38437008979FD /* DDPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E1A28416E38437008979FD /* DDPurchaseViewController.xib */; };
 		70E6721A1627546D004D14CA /* DDFacebookFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */; };
-		70ECEE3216E7EC8900E5EB89 /* UIView+Other.m in Sources */ = {isa = PBXBuildFile; fileRef = 70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */; };
 		70F0DA0716F5058800FE01F4 /* DDAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA0616F5058800FE01F4 /* DDAlertView.m */; };
 		70F0DA1316F5221F00FE01F4 /* DDCustomizableAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 70F0DA1216F5221F00FE01F4 /* DDCustomizableAlertView.m */; };
 		70F0DA1716F5228100FE01F4 /* resizable-dialog-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 70F0DA1516F5228100FE01F4 /* resizable-dialog-bg.png */; };
@@ -513,7 +513,6 @@
 		96701CF016490E6000E4436A /* DDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 96701CEF16490E6000E4436A /* DDSegmentedControl.m */; };
 		967A65E116F089F300E59D03 /* DDDoubleDateFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */; };
 		967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */; };
-		968312A0169DB354007C14ED /* UIView+Interests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683129F169DB354007C14ED /* UIView+Interests.m */; };
 		9683B732165145D40043350E /* DDDoubleDateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */; };
 		968875F1171D45AF00A607DA /* wing-tablecell-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 968875EF171D45AF00A607DA /* wing-tablecell-placeholder.png */; };
 		968875F2171D45AF00A607DA /* wing-tablecell-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 968875F0171D45AF00A607DA /* wing-tablecell-placeholder@2x.png */; };
@@ -1041,6 +1040,8 @@
 		7037655E16F47F3C00870D1C /* DDLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLabel.m; sourceTree = "<group>"; };
 		7037656916F4856A00870D1C /* DDLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLabelTableViewCell.h; sourceTree = "<group>"; };
 		7037656A16F4856B00870D1C /* DDLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLabelTableViewCell.m; sourceTree = "<group>"; };
+		703950AB1741768A005B9575 /* UIView+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DD.h"; sourceTree = "<group>"; };
+		703950AC1741768A005B9575 /* UIView+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DD.m"; sourceTree = "<group>"; };
 		703D03C2170CCDF800C1E39F /* doubledate-navigation-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doubledate-navigation-logo.png"; sourceTree = "<group>"; };
 		703D03C3170CCDF800C1E39F /* doubledate-navigation-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doubledate-navigation-logo@2x.png"; sourceTree = "<group>"; };
 		7041769116E3A047003B6B24 /* DDInAppProductTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInAppProductTableViewCell.xib; sourceTree = "<group>"; };
@@ -1132,8 +1133,6 @@
 		70E1A28416E38437008979FD /* DDPurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDPurchaseViewController.xib; sourceTree = "<group>"; };
 		70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFacebookFriendsViewController.h; sourceTree = "<group>"; };
 		70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFacebookFriendsViewController.m; sourceTree = "<group>"; };
-		70ECEE3016E7EC8900E5EB89 /* UIView+Other.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Other.h"; sourceTree = "<group>"; };
-		70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Other.m"; sourceTree = "<group>"; };
 		70F0DA0516F5058800FE01F4 /* DDAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAlertView.h; sourceTree = "<group>"; };
 		70F0DA0616F5058800FE01F4 /* DDAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAlertView.m; sourceTree = "<group>"; };
 		70F0DA1116F5221F00FE01F4 /* DDCustomizableAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDCustomizableAlertView.h; sourceTree = "<group>"; };
@@ -1273,8 +1272,6 @@
 		967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateFilterViewController.m; sourceTree = "<group>"; };
 		967A65EB16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDSegmentedControlTableViewCell.m; sourceTree = "<group>"; };
 		967A65EC16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDSegmentedControlTableViewCell.h; sourceTree = "<group>"; };
-		9683129E169DB354007C14ED /* UIView+Interests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Interests.h"; sourceTree = "<group>"; };
-		9683129F169DB354007C14ED /* UIView+Interests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Interests.m"; sourceTree = "<group>"; };
 		9683B730165145D40043350E /* DDDoubleDateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDateTableViewCell.h; sourceTree = "<group>"; };
 		9683B731165145D40043350E /* DDDoubleDateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDoubleDateTableViewCell.m; sourceTree = "<group>"; };
 		968875EF171D45AF00A607DA /* wing-tablecell-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-tablecell-placeholder.png"; sourceTree = "<group>"; };
@@ -2236,6 +2233,8 @@
 		964A6EDE15F883E90077AAF1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				703950AB1741768A005B9575 /* UIView+DD.h */,
+				703950AC1741768A005B9575 /* UIView+DD.m */,
 				709F069E1716146200E0ECA6 /* UIImage+DD.h */,
 				709F069F1716146200E0ECA6 /* UIImage+DD.m */,
 				708C09E31651922D00A40FD9 /* NSObject+DD.h */,
@@ -2416,10 +2415,6 @@
 				965AF0351688A74E00A014D1 /* DDUserBubble.m */,
 				70927FAB169E099D00052C9F /* DDWingTableViewCell.h */,
 				70927FAC169E099D00052C9F /* DDWingTableViewCell.m */,
-				9683129E169DB354007C14ED /* UIView+Interests.h */,
-				9683129F169DB354007C14ED /* UIView+Interests.m */,
-				70ECEE3016E7EC8900E5EB89 /* UIView+Other.h */,
-				70ECEE3116E7EC8900E5EB89 /* UIView+Other.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3362,7 +3357,6 @@
 				96EA06CD1689D9DB009F09BC /* UIButton+WebCache.m in Sources */,
 				96EA06CE1689D9DB009F09BC /* UIImageView+WebCache.m in Sources */,
 				96B1F99C169C7F21009FD842 /* DDTabBarBackgroundView.m in Sources */,
-				968312A0169DB354007C14ED /* UIView+Interests.m in Sources */,
 				70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */,
 				70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */,
 				960C9A7F16A1578B006B6CDC /* DDShortUserTableViewCell.m in Sources */,
@@ -3389,7 +3383,6 @@
 				9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */,
 				7086FFAC16E543310051F95A /* DDAppDelegate+Purchase.m in Sources */,
 				7086FFB816E545360051F95A /* DDStoreKitController.m in Sources */,
-				70ECEE3216E7EC8900E5EB89 /* UIView+Other.m in Sources */,
 				70C519BE16EE7CAD00FE2026 /* DDChooseWingTableViewCell.m in Sources */,
 				967A65E116F089F300E59D03 /* DDDoubleDateFilterViewController.m in Sources */,
 				967A65ED16F08C4E00E59D03 /* DDSegmentedControlTableViewCell.m in Sources */,
@@ -3415,6 +3408,7 @@
 				70674F9D171B286200555B31 /* DDFeedbackViewController.m in Sources */,
 				708BFA30173D8DA900F8D5AF /* DDUserView.m in Sources */,
 				962C2F031740E2E800624145 /* UIImage+StackBlur.m in Sources */,
+				703950AD1741768A005B9575 /* UIView+DD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

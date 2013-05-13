@@ -27,7 +27,7 @@
 #import "DDAppDelegate.h"
 #import "DDAuthenticationController.h"
 #import "DDObjectsController.h"
-#import "UIView+Other.h"
+#import "UIView+DD.h"
 #import "DDAppDelegate+NavigationMenu.h"
 #import <QuartzCore/QuartzCore.h>
 

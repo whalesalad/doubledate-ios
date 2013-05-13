@@ -12,7 +12,7 @@
 #import "DDAppDelegate.h"
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
-#import "UIView+Other.h"
+#import "UIView+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDImageEditDialogView ()<UIGestureRecognizerDelegate>

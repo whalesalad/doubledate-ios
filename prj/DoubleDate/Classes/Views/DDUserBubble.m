@@ -13,7 +13,7 @@
 #import "DDPhotoView.h"
 #import "DDInterest.h"
 #import "DDTools.h"
-#import "UIView+Interests.h"
+#import "UIView+DD.h"
 #import "DDImageView.h"
 #import "DDImage.h"
 #import <QuartzCore/QuartzCore.h>
