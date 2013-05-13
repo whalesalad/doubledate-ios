@@ -2,7 +2,7 @@
 //  DDAppDelegate+UserBubble.m
 //  DoubleDate
 //
-//  Created by Gennadii Ivanov 
+//  Created by Gennadii Ivanov
 //  Copyright (c) 2012-2013 Belluba. All rights reserved.
 //
 
@@ -12,7 +12,6 @@
 #import "DDUserBubble.h"
 #import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
-#import "GPUImage.h"
 
 @implementation DDAppDelegate (UserBubble)
 
@@ -21,23 +20,8 @@
     //remove old
     [self.userPopover removeFromSuperview];
     
-    //add view
-//    UIImage *blurImage = [DDTools imageFromView:self.window];
-//    blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/8, blurImage.size.height/8)];
-//    blurImage = [blurImage blurImage];
-    
-    GPUImagePicture *sourcePicture = [[GPUImagePicture alloc] initWithImage:[DDTools imageFromView:self.window]];
-    GPUImageBoxBlurFilter *blurFilter = [[GPUImageBoxBlurFilter alloc] init];
-    
-    [sourcePicture addTarget:blurFilter];
-    [sourcePicture processImage];
-    
-    UIImage *blurImage = [blurFilter imageFromCurrentlyProcessedOutput];
-    
-    [blurFilter release];
-    [sourcePicture removeAllTargets];
-    [sourcePicture release];
-    
+    //add user popover
+    UIImage *blurImage = [[DDTools imageFromView:self.window] blurImage];
     self.userPopover = [[[UIImageView alloc] initWithFrame:self.window.bounds] autorelease];
     ((UIImageView*)self.userPopover).image = blurImage;
     self.userPopover.userInteractionEnabled = YES;

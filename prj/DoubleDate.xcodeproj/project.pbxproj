@@ -2002,6 +2002,14 @@
 			path = "wing-slideout";
 			sourceTree = "<group>";
 		};
+		703950A4174162F4005B9575 /* GPUImage */ = {
+			isa = PBXGroup;
+			children = (
+				4CC627EF17415454005D889A /* GPUImage.xcodeproj */,
+			);
+			name = GPUImage;
+			sourceTree = "<group>";
+		};
 		70803B131610FF3400BFDE8B /* TITokenField */ = {
 			isa = PBXGroup;
 			children = (
@@ -2065,7 +2073,6 @@
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
-				4CC627FA17415696005D889A /* CoreVideo.framework */,
 				4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */,
 				4CA80EDD16521236004A4BE9 /* app-icon@2x.png */,
 				4CA80EDB16521233004A4BE9 /* app-icon.png */,
@@ -2086,6 +2093,7 @@
 		960A02CB15F7371C00BA9EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4CC627FA17415696005D889A /* CoreVideo.framework */,
 				4CC627E31741523C005D889A /* AVFoundation.framework */,
 				4CC627E117415235005D889A /* OpenGLES.framework */,
 				4CC627DF1741522D005D889A /* CoreMedia.framework */,
@@ -2577,7 +2585,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
-				4CC627EF17415454005D889A /* GPUImage.xcodeproj */,
+				703950A4174162F4005B9575 /* GPUImage */,
 				962C2F001740E2E800624145 /* StackBlur */,
 				4C0105BF17102148007A0401 /* Mixpanel */,
 				96135FA51709636F001C1C8E /* BCTabBarController */,

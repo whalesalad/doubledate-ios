@@ -7,7 +7,7 @@
 //
 
 #import "NSObject+DD.h"
-#import "UIImage+StackBlur.h"
+#import "GPUImage.h"
 
 @implementation UIImage (DD)
 
@@ -101,7 +101,11 @@
 
 - (UIImage*)blurImage
 {
-    return [UIImage imageWithCGImage:[[self stackBlur:10.0f] CGImage] scale:[[UIScreen mainScreen] scale] orientation:UIImageOrientationUp];
+    GPUImagePicture *sourcePicture = [[[GPUImagePicture alloc] initWithImage:self] autorelease];
+    GPUImageBoxBlurFilter *blurFilter = [[[GPUImageBoxBlurFilter alloc] init] autorelease];
+    [sourcePicture addTarget:blurFilter];
+    [sourcePicture processImage];
+    return [blurFilter imageFromCurrentlyProcessedOutput];
 }
 
 - (UIImage*)resizableImage

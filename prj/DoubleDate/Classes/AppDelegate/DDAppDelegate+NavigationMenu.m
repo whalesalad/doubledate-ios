@@ -66,22 +66,7 @@
         [self.navigationMenu addSubview:mainView];
         
         //add blur
-//        UIImage *blurImage = [DDTools imageFromView:self.topNavigationController.view];
-//        blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/2, blurImage.size.height/2)];
-//        blurImage = [blurImage blurImage];
-
-        GPUImagePicture *sourcePicture = [[GPUImagePicture alloc] initWithImage:[DDTools imageFromView:self.topNavigationController.view]];
-        GPUImageBoxBlurFilter *blurFilter = [[GPUImageBoxBlurFilter alloc] init];
-        
-        [sourcePicture addTarget:blurFilter];
-        [sourcePicture processImage];
-        
-        UIImage *blurImage = [blurFilter imageFromCurrentlyProcessedOutput];
-        
-        [blurFilter release];
-        [sourcePicture removeAllTargets];
-        [sourcePicture release];
-        
+        UIImage *blurImage = [[DDTools imageFromView:self.topNavigationController.view] blurImage];
         UIImageView *blur = [[[UIImageView alloc] initWithFrame:self.topNavigationController.view.bounds] autorelease];
         blur.image = blurImage;
         blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2-22);
