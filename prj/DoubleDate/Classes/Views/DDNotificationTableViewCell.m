@@ -16,7 +16,8 @@
 
 @interface DDNotificationTableViewCell ()
 
-@property(nonatomic, retain) CAGradientLayer *innerShadowLayer;
+@property(nonatomic, retain) CAGradientLayer *innerGradientLayer;
+//@property(nonatomic, retain) CALayer *upperSeperator;
 
 @end
 
@@ -92,7 +93,7 @@
 {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    self.innerShadowLayer.frame = self.bounds;
+    self.innerGradientLayer.frame = self.bounds;
     [CATransaction commit];
     [super layoutSubviews];
 }
@@ -106,51 +107,70 @@
     self.textViewContent.layer.shadowOpacity = 1;
     self.textViewContent.backgroundColor = [UIColor clearColor];
     
-    //
-    self.imageViewWrapper.layer.borderColor = [UIColor blackColor].CGColor;
-    self.imageViewWrapper.layer.borderWidth = 1.0f;
-    self.imageViewWrapper.layer.cornerRadius = 6.0f;
-    
-    self.imageViewWrapper.layer.shadowOpacity = 0.3f;
-    self.imageViewWrapper.layer.shadowRadius = 2.0f;
-    self.imageViewWrapper.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.imageViewWrapper.layer.shadowOffset = CGSizeMake(0, 1);
-    
-    self.imageView.layer.masksToBounds = YES;
-    self.imageView.layer.cornerRadius = 7;
-    
-    // Inner white border
-    CALayer *innerGlowLayer = [CALayer layer];
-    innerGlowLayer.frame = CGRectInset(self.imageView.bounds, 1, 1);
-    innerGlowLayer.cornerRadius = 5;
-    innerGlowLayer.borderWidth = 1;
-    innerGlowLayer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
-    
-    [self.imageViewWrapper.layer insertSublayer:innerGlowLayer atIndex:1];
+    // style user photo with border/inner-glow
+    {
+        self.imageViewWrapper.layer.borderColor = [UIColor blackColor].CGColor;
+        self.imageViewWrapper.layer.borderWidth = 1.0f;
+        self.imageViewWrapper.layer.cornerRadius = 6.0f;
+        
+        self.imageViewWrapper.layer.shadowOpacity = 0.3f;
+        self.imageViewWrapper.layer.shadowRadius = 2.0f;
+        self.imageViewWrapper.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.imageViewWrapper.layer.shadowOffset = CGSizeMake(0, 1);
+        
+        self.imageView.layer.masksToBounds = YES;
+        self.imageView.layer.cornerRadius = 7;
+        
+        // Inner white border on photo
+        CALayer *innerGlowLayer = [CALayer layer];
+        innerGlowLayer.frame = CGRectInset(self.imageView.bounds, 1, 1);
+        innerGlowLayer.cornerRadius = 5;
+        innerGlowLayer.borderWidth = 1;
+        innerGlowLayer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+        
+        [self.imageViewWrapper.layer insertSublayer:innerGlowLayer atIndex:1];
+    }
 
-    //
-    
-    [self drawInnerShadow];
+    // draw inner gradient
+    [self drawInnerGradient];
+
+    // [self drawInnerSeperators];
     
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
 
 }
 
-- (void)drawInnerShadow
+- (void)drawInnerGradient
 {
-    if (!self.innerShadowLayer)
+    if (!self.innerGradientLayer)
     {
-        self.innerShadowLayer = [CAGradientLayer layer];
+        self.innerGradientLayer = [CAGradientLayer layer];
         
-        self.innerShadowLayer.opacity = 0.5f;
+        self.innerGradientLayer.opacity = 0.5f;
         
-        self.innerShadowLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
+        self.innerGradientLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
                                                                  (id)[[UIColor blackColor] CGColor], nil];
         
-        [self.layer insertSublayer:self.innerShadowLayer atIndex:0];
+        [self.layer insertSublayer:self.innerGradientLayer atIndex:0];
     }
 }
+
+//- (void)drawInnerSeperators
+//{
+//    if (!self.upperSeperator)
+//    {
+//        self.upperSeperator = [CALayer layer];
+//        self.upperSeperator.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+//
+//        CGRect seperatorFrame = self.bounds;
+//        seperatorFrame.size.height = 1;
+//        
+//        self.upperSeperator.frame = seperatorFrame;
+//        [self.layer insertSublayer:self.upperSeperator above:self.innerShadowLayer];
+//    }
+//    
+//}
 
 - (void)setNotification:(DDNotification *)v
 {
@@ -187,7 +207,8 @@
     [imageView release];
     [imageViewWrapper release];
     [textViewContent release];
-    [_innerShadowLayer release];
+    [_innerGradientLayer release];
+//    [_upperSeperator release];
     [super dealloc];
 }
 

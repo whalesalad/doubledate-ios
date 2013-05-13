@@ -24,6 +24,7 @@
     UIImage *blurImage = [[DDTools imageFromView:self.window] blurImage];
     self.userPopover = [[[UIImageView alloc] initWithFrame:self.window.bounds] autorelease];
     ((UIImageView*)self.userPopover).image = blurImage;
+    
     self.userPopover.userInteractionEnabled = YES;
     self.userPopover.alpha = 0;
     [self.window addSubview:self.userPopover];

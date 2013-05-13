@@ -23,6 +23,6 @@
 
 + (CGFloat)heightForNotification:(DDNotification*)notification;
 
-- (void)drawInnerShadow;
+- (void)drawInnerGradient;
 
 @end
