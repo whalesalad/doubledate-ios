@@ -129,16 +129,16 @@
     {
         switch (style) {
             case DDTableViewCellStyleGroupedTop:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-top-bg.png"] blurImage]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-top-bg.png"] resizableImage]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedBottom:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bottom-bg.png"] blurImage]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bottom-bg.png"] resizableImage]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedCenter:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bg.png"] blurImage]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bg.png"] resizableImage]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedSolid:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bg.png"] blurImage]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bg.png"] resizableImage]] autorelease];
                 break;
             default:
                 break;

@@ -66,8 +66,8 @@
         
         //add blur
         UIImage *blurImage = [DDTools imageFromView:self.topNavigationController.view];
-        blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/8, blurImage.size.height/8)];
-        //        blurImage = [blurImage blurImage];
+//        blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/2, blurImage.size.height/2)];
+        blurImage = [blurImage blurImage];
         UIImageView *blur = [[[UIImageView alloc] initWithFrame:self.topNavigationController.view.bounds] autorelease];
         blur.image = blurImage;
         blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2-20);

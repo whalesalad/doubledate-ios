@@ -63,8 +63,8 @@
     [self.buttonUnlock setTitle:NSLocalizedString(@"Yes! Unlock", nil) forState:UIControlStateNormal];
     self.unlockButtonText = [self.buttonUnlock titleForState:UIControlStateNormal];
     self.cancelButtonText = [self.buttonCancel titleForState:UIControlStateNormal];
-    [self.buttonUnlock setBackgroundImage:[[self.buttonUnlock backgroundImageForState:UIControlStateNormal] blurImage] forState:UIControlStateNormal];
-    [self.buttonCancel setBackgroundImage:[[self.buttonCancel backgroundImageForState:UIControlStateNormal] blurImage] forState:UIControlStateNormal];
+    [self.buttonUnlock setBackgroundImage:[[self.buttonUnlock backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    [self.buttonCancel setBackgroundImage:[[self.buttonCancel backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
     imageViewBackground.image = [imageViewBackground.image resizableImage];
 }
 
