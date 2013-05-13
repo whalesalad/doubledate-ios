@@ -19,4 +19,6 @@ extern NSString *const DDImageViewUpdateNotification;
 
 - (void)applyMask:(UIImage*)mask;
 
+- (void)applyBorderStyling;
+
 @end

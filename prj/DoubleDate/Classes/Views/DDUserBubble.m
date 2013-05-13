@@ -137,6 +137,7 @@
     
     //apply photo
     [viewController_.photoView reloadFromUrl:[NSURL URLWithString:self.user.photo.squareUrl]];
+    [viewController_.photoView applyBorderStyling];
     
     //apply bio
     viewController_.textView.text = self.user.bio;
