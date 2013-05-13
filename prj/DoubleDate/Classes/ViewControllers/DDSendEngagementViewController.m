@@ -7,7 +7,7 @@
 //
 
 #import "DDSendEngagementViewController.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDShortUser.h"
 #import "DDEngagement.h"
 #import "DDTableViewCell.h"
@@ -76,10 +76,10 @@
     self.tableView.backgroundView = nil;
     
     //update images of the buttons
-    [self.buttonCreate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCreate backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    [self.buttonCreate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCreate backgroundImageForState:UIControlStateDisabled]] forState:UIControlStateDisabled];
+    [self.buttonCreate setBackgroundImage:[[self.buttonCreate backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    [self.buttonCreate setBackgroundImage:[[self.buttonCreate backgroundImageForState:UIControlStateDisabled] resizableImage] forState:UIControlStateDisabled];
     
-    [self.buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCancel backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonCancel setBackgroundImage:[[self.buttonCancel backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
     
     //set handlers for button
     [self.buttonCancel addTarget:self action:@selector(backTouched:) forControlEvents:UIControlEventTouchUpInside];

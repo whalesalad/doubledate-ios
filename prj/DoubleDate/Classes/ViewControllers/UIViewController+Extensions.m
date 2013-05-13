@@ -9,7 +9,7 @@
 #import "UIViewController+Extensions.h"
 #import "MBProgressHUD.h"
 #import "DDAPIController.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDAppDelegate+NavigationMenu.h"
 
 DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
@@ -207,7 +207,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
 - (UIView*)viewForHeaderWithMainText:(NSString*)mainText detailedText:(NSString*)detailedText
 {
     //set general view
-    UIImage *backgroundImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dark-tableview-header.png"]];
+    UIImage *backgroundImage = [[UIImage imageNamed:@"dark-tableview-header.png"] resizableImage];
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, backgroundImage.size.height)] autorelease];
     view.backgroundColor = [UIColor colorWithPatternImage:backgroundImage];
     

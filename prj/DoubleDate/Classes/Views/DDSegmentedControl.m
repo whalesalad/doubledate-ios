@@ -7,7 +7,7 @@
 //
 
 #import "DDSegmentedControl.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDBarButtonItem.h"
 
 @implementation DDSegmentedControlItem
@@ -170,7 +170,7 @@
         }
         
         //apply clear background
-        [self setBackgroundImage:[DDTools clearImageOfSize:CGSizeMake(1, [self dividerImageForLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault].size.height)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [self setBackgroundImage:[UIImage clearImageOfSize:CGSizeMake(1, [self dividerImageForLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault].size.height)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
         
         //update items
         [self updateItems];

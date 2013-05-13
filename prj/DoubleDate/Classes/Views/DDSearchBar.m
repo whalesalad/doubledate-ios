@@ -7,7 +7,7 @@
 //
 
 #import "DDSearchBar.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDSearchBar
@@ -45,8 +45,8 @@
     [[self button] setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
     //set cancel button
-    [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateNormal];
-    [[self button] setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-cancel-button.png"]] forState:UIControlStateHighlighted];
+    [[self button] setBackgroundImage:[[UIImage imageNamed:@"search-cancel-button.png"] resizableImage] forState:UIControlStateNormal];
+    [[self button] setBackgroundImage:[[UIImage imageNamed:@"search-cancel-button.png"] resizableImage] forState:UIControlStateHighlighted];
     
     //change button frame
     if (self.showsCancelButton)
@@ -59,7 +59,7 @@
     [self setBackgroundImage:[UIImage imageNamed:@"search-background"]];
     
     //set background image color
-    [self setSearchFieldBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"search-input-background.png"]] forState:UIControlStateNormal];
+    [self setSearchFieldBackgroundImage:[[UIImage imageNamed:@"search-input-background.png"] resizableImage] forState:UIControlStateNormal];
     
     //set search icon
     [self setImage:[UIImage imageNamed:@"search-icon.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];

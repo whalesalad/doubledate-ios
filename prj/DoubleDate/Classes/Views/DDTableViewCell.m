@@ -7,7 +7,7 @@
 //
 
 #import "DDTableViewCell.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDImageView.h"
 
 @implementation DDTableViewCell
@@ -111,7 +111,7 @@
     //check background image name
     if (backgroundImageName)
     {
-        self.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:backgroundImageName]]] autorelease];
+        self.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:backgroundImageName] resizableImage]] autorelease];
     }
     else
         self.backgroundView = nil;
@@ -119,7 +119,7 @@
     //check selected background image name
     if (selectedBackgroundImageName)
     {
-        self.selectedBackgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:selectedBackgroundImageName]]] autorelease];
+        self.selectedBackgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:selectedBackgroundImageName] resizableImage]] autorelease];
     }
     else
         self.selectedBackgroundView = nil;
@@ -152,7 +152,7 @@
         }
         
         //set needed size
-        self.imageView.image = [DDTools clearImageOfSize:ddImageView.frame.size];
+        self.imageView.image = [UIImage clearImageOfSize:ddImageView.frame.size];
         
         //applt needed frame
         ddImageView.frame = CGRectMake(0, 0, ddImageView.frame.size.width, ddImageView.frame.size.height);

@@ -10,6 +10,18 @@
 
 @interface UIImage (DD)
 
-- (UIImage *)fixOrientation;
+- (UIImage*)fixOrientation;
+
+- (UIImage*)imageOfSize:(CGSize)size;
+
+- (UIImage*)blurImage;
+
+- (UIImage*)resizableImage;
+
+- (UIImage*)cutImageWithRect:(CGRect)rect;
+
++ (UIImage*)clearImage;
+
++ (UIImage*)clearImageOfSize:(CGSize)size;
 
 @end

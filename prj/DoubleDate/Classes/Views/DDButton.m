@@ -7,7 +7,7 @@
 //
 
 #import "DDButton.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDButtonDeprecated
@@ -280,7 +280,7 @@
 
 - (void)applyBottomBarDesignWithTitle:(NSString*)title icon:(UIImage*)icon background:(UIImage*)background
 {
-    [self setBackgroundImage:[DDTools resizableImageFromImage:background] forState:UIControlStateNormal];
+    [self setBackgroundImage:[background resizableImage] forState:UIControlStateNormal];
     [self setTitle:title forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitleColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5f] forState:UIControlStateDisabled];

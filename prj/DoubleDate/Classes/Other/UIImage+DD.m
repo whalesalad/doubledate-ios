@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+DD.h"
+#import "UIImage+StackBlur.h"
 
 @implementation UIImage (DD)
 
@@ -87,6 +88,51 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
+- (UIImage*)imageOfSize:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *ret = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return ret;
+}
+
+- (UIImage*)blurImage
+{
+    return [UIImage imageWithCGImage:[[self stackBlur:10.0f] CGImage] scale:[[UIScreen mainScreen] scale] orientation:UIImageOrientationUp];
+}
+
+- (UIImage*)resizableImage
+{
+    return [self resizableImageWithCapInsets:UIEdgeInsetsMake(self.size.height/2, self.size.width/2, self.size.height/2, self.size.width/2)];
+}
+
+- (UIImage*)cutImageWithRect:(CGRect)rect
+{
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+    [self drawInRect:CGRectMake(-rect.origin.x, -rect.origin.y, self.size.width, self.size.height)];
+    UIImage *ret = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return ret;
+}
+
++ (UIImage*)clearImage
+{
+    return [self clearImageOfSize:CGSizeMake(1, 1)];
+}
+
++ (UIImage*)clearImageOfSize:(CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGRect fillRect = CGRectMake(0, 0, size.width, size.height);
+    CGContextSetFillColorWithColor(currentContext, [UIColor clearColor].CGColor);
+    CGContextFillRect(currentContext, fillRect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 @end

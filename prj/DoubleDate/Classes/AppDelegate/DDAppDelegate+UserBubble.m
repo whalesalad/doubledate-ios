@@ -10,6 +10,7 @@
 #import "DDTools.h"
 #import "DDUser.h"
 #import "DDUserBubble.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDAppDelegate (UserBubble)
@@ -20,17 +21,19 @@
     [self.userPopover removeFromSuperview];
     
     //add view
-    self.userPopover = [[[UIImageView alloc] initWithImage:[DDTools blurFromImage:[DDTools imageFromView:self.window]]] autorelease];
+    UIImage *blurImage = [DDTools imageFromView:self.window];
+    blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/8, blurImage.size.height/8)];
+    //        blurImage = [blurImage blurImage];
+    self.userPopover = [[[UIImageView alloc] initWithFrame:self.window.bounds] autorelease];
+    ((UIImageView*)self.userPopover).image = blurImage;
     self.userPopover.userInteractionEnabled = YES;
     self.userPopover.alpha = 0;
+    [self.window addSubview:self.userPopover];
     
-    // Add darkness to blurred image.
-    CALayer *dim = [CALayer layer];
-    dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f].CGColor;
-    dim.frame = self.userPopover.bounds;
-    [self.userPopover.layer addSublayer:dim];
-    
-    [[[[UIApplication sharedApplication] windows] objectAtIndex:0] addSubview:self.userPopover];
+    //add dim
+    UIView *dim = [[[UIView alloc] initWithFrame:self.userPopover.bounds] autorelease];
+    dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f];
+    [self.userPopover addSubview:dim];
     
     //add scroll view
     UIScrollView *sv = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.userPopover.bounds.size.width, self.userPopover.bounds.size.height)] autorelease];

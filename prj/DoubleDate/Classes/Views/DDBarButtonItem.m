@@ -7,8 +7,9 @@
 //
 
 #import "DDBarButtonItem.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDAppDelegate.h"
+#import "DDTools.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDBarButtonItem
@@ -112,25 +113,25 @@
 
 + (id)barButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
-    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn-highlight.png"]];
-    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
+    UIImage *normalImage = [[UIImage imageNamed:@"nav-btn.png"] resizableImage];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"nav-btn-highlight.png"] resizableImage];
+    UIImage *disabledImage = [[UIImage imageNamed:@"nav-btn.png"] resizableImage];
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
 + (id)barButtonItemWithImage:(UIImage*)image target:(id)target action:(SEL)action
 {
-    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
-    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn-highlight.png"]];
-    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"nav-btn.png"]];
+    UIImage *normalImage = [[UIImage imageNamed:@"nav-btn.png"] resizableImage];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"nav-btn-highlight.png"] resizableImage];
+    UIImage *disabledImage = [[UIImage imageNamed:@"nav-btn.png"] resizableImage];
     return [self barButtonItemWithTitle:nil normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:image size:0 largeButtonFont:NO padding:0];
 }
 
 + (id)largeBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]];
-    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button-highlight.png"]];
-    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-button.png"]];
+    UIImage *normalImage = [[UIImage imageNamed:@"large-button.png"] resizableImage];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"large-button-highlight.png"] resizableImage];
+    UIImage *disabledImage = [[UIImage imageNamed:@"large-button.png"] resizableImage];
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero];
 }
 
@@ -145,9 +146,9 @@
 
 + (id)leftBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn.png"]];
-    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn-highlight.png"]];
-    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-left-btn-disabled.png"]];
+    UIImage *normalImage = [[UIImage imageNamed:@"dd-segmented-left-btn.png"] resizableImage];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"dd-segmented-left-btn-highlight.png"] resizableImage];
+    UIImage *disabledImage = [[UIImage imageNamed:@"dd-segmented-left-btn-disabled.png"] resizableImage];
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:0 largeButtonFont:NO padding:4];
 }
 
@@ -178,9 +179,9 @@
 
 + (id)rightBarButtonItemWithTitle:(NSString*)title target:(id)target action:(SEL)action
 {
-    UIImage *normalImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn.png"]];
-    UIImage *highlightedImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn-highlight.png"]];
-    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"dd-segmented-right-btn-disabled.png"]];
+    UIImage *normalImage = [[UIImage imageNamed:@"dd-segmented-right-btn.png"] resizableImage];
+    UIImage *highlightedImage = [[UIImage imageNamed:@"dd-segmented-right-btn-highlight.png"] resizableImage];
+    UIImage *disabledImage = [[UIImage imageNamed:@"dd-segmented-right-btn-disabled.png"] resizableImage];
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:0 largeButtonFont:NO padding:4];
 }
 
@@ -189,7 +190,7 @@
     UIEdgeInsets imageInsets = UIEdgeInsetsMake(23, 3, 23, 12);
     UIImage *normalImage = [[UIImage imageNamed:@"large-segment-right.png"] resizableImageWithCapInsets:imageInsets];
     UIImage *highlightedImage = [[UIImage imageNamed:@"large-segment-right-selected.png"] resizableImageWithCapInsets:imageInsets];
-    UIImage *disabledImage = [DDTools resizableImageFromImage:[UIImage imageNamed:@"large-segment-right.png"]];
+    UIImage *disabledImage = [[UIImage imageNamed:@"large-segment-right.png"] resizableImage];
     return [self barButtonItemWithTitle:title normalImage:normalImage highlightedImage:highlightedImage disabledImage:disabledImage target:target action:action contentEdgeInsets:UIEdgeInsetsZero titleImage:nil size:size largeButtonFont:YES padding:0];
 }
 

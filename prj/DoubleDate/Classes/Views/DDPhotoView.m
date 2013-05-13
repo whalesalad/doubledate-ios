@@ -10,6 +10,7 @@
 #import "DDImageView.h"
 #import "DDImage.h"
 #import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDPhotoViewContainer : NSObject
@@ -73,7 +74,7 @@
     UIImage *mask = [UIImage imageNamed:@"dd-user-photo-mask.png"];
     CGFloat scale = [self scale];
     CGSize newSize = CGSizeMake(mask.size.width * scale, mask.size.height * scale);
-    mask = [DDTools scaledImageFromImage:mask ofSize:newSize];
+    mask = [mask imageOfSize:newSize];
     [imageView_ applyMask:mask];
 }
 

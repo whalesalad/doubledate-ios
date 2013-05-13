@@ -7,7 +7,7 @@
 //
 
 #import "DDCoinsBar.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 
 @interface DDCoinsBar()
 
@@ -33,7 +33,7 @@
     [self.buttonMoreCoins setTitle:NSLocalizedString(@"Get More Coins", @"Text for get more coins button in coinbar.") forState:UIControlStateNormal];
     
     //update more coins button
-    [self.buttonMoreCoins setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonMoreCoins backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonMoreCoins setBackgroundImage:[[self.buttonMoreCoins backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
 }
 
 - (void)layoutSubviews

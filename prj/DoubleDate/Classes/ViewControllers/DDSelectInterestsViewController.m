@@ -12,6 +12,7 @@
 #import "DDTableViewCell.h"
 #import "DDInterest.h"
 #import "DDSearchBar.h"
+#import "UIImage+DD.h"
 #import "DDTools.h"
 
 @interface DDSelectInterestsViewController ()<UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
@@ -64,7 +65,7 @@
     [self.view addSubview:self.tableView];
     
     //set table view properties
-    [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
+    [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[UIImage clearImage]] autorelease]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setSeparatorColor:[UIColor clearColor]];
 }

@@ -26,6 +26,7 @@
 #import "DDUnlockAlertView.h"
 #import "DDEngagementsViewController.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagUnlockAlert 213
@@ -133,7 +134,7 @@
         
         //add button
         UIButton *buttonHeader = [[[UIButton alloc] initWithFrame:CGRectMake(10, 12, 300, 36)] autorelease];
-        [buttonHeader setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"upper-chat-button.png"]] forState:UIControlStateNormal];
+        [buttonHeader setBackgroundImage:[[UIImage imageNamed:@"upper-chat-button.png"] resizableImage] forState:UIControlStateNormal];
         [buttonHeader setTitle:NSLocalizedString(@"View DoubleDate", nil) forState:UIControlStateNormal];
         [headerView addSubview:buttonHeader];
         [buttonHeader addTarget:self action:@selector(doubleDateTouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -170,21 +171,21 @@
     self.textViewInput.contentInset = UIEdgeInsetsZero;
     
     //set background for text view
-    imageViewTextFieldBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-textfield.png"]];
+    imageViewTextFieldBackground.image = [[UIImage imageNamed:@"bg-textfield.png"] resizableImage];
     
     //set placeholder
     self.labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
     
     //set background for chat bar
-    self.imageViewChatBarBackground.image = [DDTools resizableImageFromImage:[UIImage imageNamed:@"bg-chatbar.png"]];
+    self.imageViewChatBarBackground.image = [[UIImage imageNamed:@"bg-chatbar.png"] resizableImage];
     
     //customize send button
-    [self.buttonSend setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"button-send.png"]] forState:UIControlStateNormal];
+    [self.buttonSend setBackgroundImage:[[UIImage imageNamed:@"button-send.png"] resizableImage] forState:UIControlStateNormal];
     
     //customize buttons
-    [self.buttonIgnore setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonIgnore backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    [self.buttonStartChat setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonStartChat backgroundImageForState:UIControlStateDisabled]] forState:UIControlStateDisabled];
+    [self.buttonIgnore setBackgroundImage:[[self.buttonIgnore backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    [self.buttonStartChat setBackgroundImage:[[self.buttonStartChat backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    [self.buttonStartChat setBackgroundImage:[[self.buttonStartChat backgroundImageForState:UIControlStateDisabled] resizableImage] forState:UIControlStateDisabled];
     
     //add users
     [shortUsers_ removeAllObjects];

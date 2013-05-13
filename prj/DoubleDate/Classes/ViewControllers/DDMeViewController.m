@@ -107,7 +107,7 @@
     self.coinBarContainer.layer.shadowOpacity = 0.5f;
     self.coinBarContainer.layer.shadowColor = [UIColor blackColor].CGColor;
     
-    [self.buttonDoubleDate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonDoubleDate backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonDoubleDate setBackgroundImage:[[self.buttonDoubleDate backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
     
     //add handler
     [[self coinBar] addTarget:self action:@selector(moreCoinsTouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -677,7 +677,7 @@
 - (void)imageEditDialogView:(DDImageEditDialogView*)sender didCutImage:(UIImage*)image inRect:(CGRect)rect
 {
     //cut image
-    UIImage *cutImage = [DDTools cutImageFromImage:image withRect:rect];
+    UIImage *cutImage = [image cutImageWithRect:rect];
     
     //update poster
     self.imageViewPoster.image = cutImage;

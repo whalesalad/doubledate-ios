@@ -28,6 +28,7 @@
 #import "DDAppDelegate+UserBubble.h"
 #import "DDBarButtonItem.h"
 #import "DDUserView.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
@@ -171,7 +172,7 @@
         
     //customize intereseted button
     [self.buttonInterested setTitle:NSLocalizedString(@"Send a Message", nil) forState:UIControlStateNormal];
-    [self.buttonInterested setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonInterested backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonInterested setBackgroundImage:[[self.buttonInterested backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
     
     //fill data
     self.labelLocationMain.text = [DDLocationTableViewCell mainTitleForLocation:self.doubleDate.location];

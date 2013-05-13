@@ -8,7 +8,7 @@
 
 #import "UIView+Interests.h"
 #import "DDInterest.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDUser.h"
 
 @interface DDInterestViewInternal : UIImageView
@@ -70,7 +70,7 @@
             //create background image
             UIImage *labelBackgroundImage = [[interest matched] boolValue]?matchedBubbleImage:bubbleImage;
             UIImageView *labelBackground = [[[DDInterestViewInternal alloc] initWithFrame:CGRectMake(curX, curY, label.frame.size.width+2*inEdgePadding, labelBackgroundImage.size.height)] autorelease];
-            labelBackground.image = [DDTools resizableImageFromImage:labelBackgroundImage];
+            labelBackground.image = [labelBackgroundImage resizableImage];
             
             //add label
             label.center = CGPointMake(labelBackground.frame.size.width/2, labelBackground.frame.size.height/2 - 1);

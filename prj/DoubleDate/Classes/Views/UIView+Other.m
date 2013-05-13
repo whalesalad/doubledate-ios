@@ -7,7 +7,7 @@
 //
 
 #import "UIView+Other.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation UIView (Other)
@@ -179,7 +179,7 @@
 
     // Set background
     button.frame = CGRectMake(0, 0, 100, background.size.height);
-    [button setBackgroundImage:[DDTools resizableImageFromImage:background] forState:UIControlStateNormal];
+    [button setBackgroundImage:[background resizableImage] forState:UIControlStateNormal];
 
     return button;
 }

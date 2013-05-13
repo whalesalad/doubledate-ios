@@ -7,7 +7,7 @@
 //
 
 #import "DDDialogAlertView.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "DDDialog.h"
 #import "DDImageView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -139,7 +139,7 @@
     [button setTitleShadowColor:[UIColor colorWithWhite:1 alpha:0.3f] forState:UIControlStateNormal];
     [[button titleLabel] setShadowOffset:CGSizeMake(0, 1)];
     
-    [button setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:dismissButton?@"unlock-btn-cancel.png":@"unlock-btn-confirm.png"]] forState:UIControlStateNormal];
+    [button setBackgroundImage:[[UIImage imageNamed:dismissButton?@"unlock-btn-cancel.png":@"unlock-btn-confirm.png"] resizableImage] forState:UIControlStateNormal];
     [button setTitle:dismissButton?dialog_.dismissText:dialog_.confirmText forState:UIControlStateNormal];
     [button addTarget:self action:dismissButton?@selector(cancelTouched:):@selector(confirmTouched:) forControlEvents:UIControlEventTouchUpInside];
     

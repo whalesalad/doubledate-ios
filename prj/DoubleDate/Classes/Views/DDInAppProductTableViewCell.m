@@ -7,7 +7,7 @@
 //
 
 #import "DDInAppProductTableViewCell.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDInAppProductTableViewCell
@@ -38,7 +38,7 @@
     
     self.labelPopular.text = NSLocalizedString(@"POPULAR!", nil);
     
-    self.imageViewPopular.image = [DDTools resizableImageFromImage:self.imageViewPopular.image];
+    self.imageViewPopular.image = [self.imageViewPopular.image resizableImage];
 }
 
 - (void)dealloc

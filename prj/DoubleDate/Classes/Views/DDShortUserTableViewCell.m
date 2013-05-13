@@ -11,7 +11,7 @@
 #import "DDImageView.h"
 #import "DDWingTableViewCell.h"
 #import "DDUser.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDShortUserTableViewCell ()
@@ -51,7 +51,7 @@
 - (void)customize
 {    
     //set background view
-    self.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"dark-tableview-bg.png"]]] autorelease];
+    self.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"dark-tableview-bg.png"] resizableImage]] autorelease];
     
     //hide checkmark
     imageViewCheckmark.hidden = YES;

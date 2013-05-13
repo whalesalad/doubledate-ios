@@ -17,6 +17,7 @@
 #import "DDTools.h"
 #import "DDPurchaseViewController.h"
 #import "DDAppDelegate+Purchase.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DDUnlockAlertView () <DDUnlockAlertViewDelegate>
@@ -62,9 +63,9 @@
     [self.buttonUnlock setTitle:NSLocalizedString(@"Yes! Unlock", nil) forState:UIControlStateNormal];
     self.unlockButtonText = [self.buttonUnlock titleForState:UIControlStateNormal];
     self.cancelButtonText = [self.buttonCancel titleForState:UIControlStateNormal];
-    [self.buttonUnlock setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonUnlock backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    [self.buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCancel backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
+    [self.buttonUnlock setBackgroundImage:[[self.buttonUnlock backgroundImageForState:UIControlStateNormal] blurImage] forState:UIControlStateNormal];
+    [self.buttonCancel setBackgroundImage:[[self.buttonCancel backgroundImageForState:UIControlStateNormal] blurImage] forState:UIControlStateNormal];
+    imageViewBackground.image = [imageViewBackground.image resizableImage];
 }
 
 - (IBAction)cancelTouched:(id)sender

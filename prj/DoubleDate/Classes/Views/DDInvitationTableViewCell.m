@@ -7,7 +7,7 @@
 //
 
 #import "DDInvitationTableViewCell.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDInvitationTableViewCell
@@ -20,8 +20,8 @@
     [self.buttonAccept setTitle:NSLocalizedString(@"Accept", nil) forState:UIControlStateNormal];
     [self.buttonDeny setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
     
-    [self.buttonAccept setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"accept-button.png"]] forState:UIControlStateNormal];
-    [self.buttonDeny setBackgroundImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"deny-button.png"]] forState:UIControlStateNormal];
+    [self.buttonAccept setBackgroundImage:[[UIImage imageNamed:@"accept-button.png"] resizableImage] forState:UIControlStateNormal];
+    [self.buttonDeny setBackgroundImage:[[UIImage imageNamed:@"deny-button.png"] resizableImage] forState:UIControlStateNormal];
 
     [self applyShadowToButton:self.buttonAccept];
     [self applyShadowToButton:self.buttonDeny];

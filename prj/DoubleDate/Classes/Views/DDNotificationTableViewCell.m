@@ -10,7 +10,7 @@
 #import "DDNotification.h"
 #import "DDShortUser.h"
 #import "DDImageView.h"
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 #import <CoreText/CoreText.h>
 
@@ -115,7 +115,7 @@
     self.textViewContent.layer.shadowOpacity = 1;
     
     self.textViewContent.backgroundColor = [UIColor clearColor];
-    self.imageViewBackground.image = [DDTools resizableImageFromImage:imageViewBackground.image];
+    self.imageViewBackground.image = [imageViewBackground.image resizableImage];
     
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;

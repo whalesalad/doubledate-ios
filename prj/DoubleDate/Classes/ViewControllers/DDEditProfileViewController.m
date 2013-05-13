@@ -21,6 +21,7 @@
 #import "UIViewController+Extensions.h"
 #import "DDAuthenticationController.h"
 #import "DDSelectInterestsViewController.h"
+#import "UIImage+DD.h"
 
 #define kMaxBioLength 250
 #define kMaxInterestsCount 10
@@ -128,16 +129,16 @@
     {
         switch (style) {
             case DDTableViewCellStyleGroupedTop:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-top-bg.png"]]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-top-bg.png"] blurImage]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedBottom:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bottom-bg.png"]]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bottom-bg.png"] blurImage]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedCenter:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bg.png"] blurImage]] autorelease];
                 break;
             case DDTableViewCellStyleGroupedSolid:
-                cell.backgroundView = [[[UIImageView alloc] initWithImage:[DDTools resizableImageFromImage:[UIImage imageNamed:@"interest-tablecell-bg.png"]]] autorelease];
+                cell.backgroundView = [[[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"interest-tablecell-bg.png"] blurImage]] autorelease];
                 break;
             default:
                 break;

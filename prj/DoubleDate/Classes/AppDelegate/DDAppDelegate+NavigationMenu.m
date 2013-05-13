@@ -12,6 +12,7 @@
 #import "DDBarButtonItem.h"
 #import "DDTools.h"
 #import "DDFeedbackViewController.h"
+#import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kTagNavigationMenuBar 1
@@ -34,7 +35,7 @@
     self.navigationMenu = [[[UIView alloc] initWithFrame:self.window.bounds] autorelease];
     self.navigationMenu.backgroundColor = [UIColor clearColor];
     [self.window addSubview:self.navigationMenu];
-        
+    
     {
         //add fake navigation bar
         UINavigationBar *navigationBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, self.window.frame.size.width, 44)] autorelease];
@@ -64,28 +65,31 @@
         [self.navigationMenu addSubview:mainView];
         
         //add blur
-        UIImageView *blur = [[[UIImageView alloc] initWithImage:[DDTools blurFromImage:[DDTools imageFromView:self.topNavigationController.view]]] autorelease];
-        
-        blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2 - 21);
+        UIImage *blurImage = [DDTools imageFromView:self.topNavigationController.view];
+        blurImage = [blurImage imageOfSize:CGSizeMake(blurImage.size.width/8, blurImage.size.height/8)];
+        //        blurImage = [blurImage blurImage];
+        UIImageView *blur = [[[UIImageView alloc] initWithFrame:self.topNavigationController.view.bounds] autorelease];
+        blur.image = blurImage;
+        blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2-20);
         blur.tag = kTagNavigationMenuBlur;
         blur.alpha = 0;
         [mainView addSubview:blur];
         
-        CALayer *dim = [CALayer layer];
-        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f].CGColor;
-        dim.frame = self.window.bounds;
-        [blur.layer addSublayer:dim];
+        //add dim
+        UIView *dim = [[[UIView alloc] initWithFrame:blur.bounds] autorelease];
+        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f];
+        [blur addSubview:dim];
         
         //add button under table view
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, dim.frame.size.width, dim.frame.size.height);
+        button.frame = mainView.bounds;
         [button addTarget:self action:@selector(dismissNavigationMenu) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
         
         //add table view
         DDNavigationMenu *table = [[[DDNavigationMenu alloc] init] autorelease];
         table.center = CGPointMake(table.center.x, table.center.y - table.frame.size.height);
-                
+        
         //add view under table
         UIView *viewUnderTable = [[[UIView alloc] initWithFrame:table.frame] autorelease];
         viewUnderTable.tag = kTagNavigationMenuTable;
@@ -110,22 +114,22 @@
         [mainView addSubview:shadow];
         
         // add fake button for sending feedback
-//        UIButton *feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        UIImage *feedbackButtonImage = [UIImage imageNamed:@"feedback-button.png"];
-//        
-//        [feedbackButton setTitle:NSLocalizedString(@"Send Us Feedback", @"Text for Send Feedback button below menu") forState:UIControlStateNormal];
-//        feedbackButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
-//        feedbackButton.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5f];
-//        feedbackButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
-//        feedbackButton.titleEdgeInsets = UIEdgeInsetsMake(1, 40, 0, 0);
-//        
-//        [feedbackButton setBackgroundImage:[DDTools resizableImageFromImage:feedbackButtonImage] forState:UIControlStateNormal];
-//        
-//        feedbackButton.frame = CGRectMake(0, 0, feedbackButtonImage.size.width, feedbackButtonImage.size.height);
-//        [blur addSubview:feedbackButton];
-//        feedbackButton.center = CGPointMake(blur.frame.size.width/2, blur.frame.size.height - 40);
-//        
-//        [feedbackButton addTarget:self action:@selector(feedbackTouched) forControlEvents:UIControlEventTouchUpInside];
+        //        UIButton *feedbackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        //        UIImage *feedbackButtonImage = [UIImage imageNamed:@"feedback-button.png"];
+        //
+        //        [feedbackButton setTitle:NSLocalizedString(@"Send Us Feedback", @"Text for Send Feedback button below menu") forState:UIControlStateNormal];
+        //        feedbackButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
+        //        feedbackButton.titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.5f];
+        //        feedbackButton.titleLabel.shadowOffset = CGSizeMake(0, -1);
+        //        feedbackButton.titleEdgeInsets = UIEdgeInsetsMake(1, 40, 0, 0);
+        //
+        //        [feedbackButton setBackgroundImage:[DDTools resizableImageFromImage:feedbackButtonImage] forState:UIControlStateNormal];
+        //
+        //        feedbackButton.frame = CGRectMake(0, 0, feedbackButtonImage.size.width, feedbackButtonImage.size.height);
+        //        [blur addSubview:feedbackButton];
+        //        feedbackButton.center = CGPointMake(blur.frame.size.width/2, blur.frame.size.height - 40);
+        //
+        //        [feedbackButton addTarget:self action:@selector(feedbackTouched) forControlEvents:UIControlEventTouchUpInside];
     }
     
     //animate
@@ -153,7 +157,7 @@
     UIView *viewBar = [self.navigationMenu viewWithTag:kTagNavigationMenuBar];
     UIView *viewBlur = [self.navigationMenu viewWithTag:kTagNavigationMenuBlur];
     UIView *viewTable = [self.navigationMenu viewWithTag:kTagNavigationMenuTable];
-
+    
     [UIView animateWithDuration:0.1f animations:^{
         [viewTable setCenter:CGPointMake(viewTable.center.x, viewTable.center.y + 10)];
     } completion:^(BOOL finished) {

@@ -24,6 +24,7 @@
 #import "Mixpanel.h"
 #import "DDFacebookFriendsViewController.h"
 #import "DDUserView.h"
+#import "UIImage+DD.h"
 
 #define kTagCancelActionSheet 1
 
@@ -79,9 +80,9 @@
     self.tableView.backgroundView = nil;
     
     //update images of the buttons
-    [self.buttonCreate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCreate backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
-    [self.buttonCreate setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCreate backgroundImageForState:UIControlStateDisabled]] forState:UIControlStateDisabled];
-    [self.buttonCancel setBackgroundImage:[DDTools resizableImageFromImage:[self.buttonCancel backgroundImageForState:UIControlStateNormal]] forState:UIControlStateNormal];
+    [self.buttonCreate setBackgroundImage:[[self.buttonCreate backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    [self.buttonCreate setBackgroundImage:[[self.buttonCreate backgroundImageForState:UIControlStateDisabled] resizableImage] forState:UIControlStateDisabled];
+    [self.buttonCancel setBackgroundImage:[[self.buttonCancel backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
     
     //set handlers for button
     [self.buttonCancel addTarget:self action:@selector(backTouched:) forControlEvents:UIControlEventTouchUpInside];
@@ -300,7 +301,7 @@
 - (UIImageView*)updateCell:(DDTableViewCell*)cell withIcon:(UIImage*)icon loadedFromUrl:(NSURL*)url
 {
     //unset default image
-    cell.imageView.image = [DDTools clearImageOfSize:CGSizeMake(28, 32)];
+    cell.imageView.image = [UIImage clearImageOfSize:CGSizeMake(28, 32)];
     
     //set center of image view
     CGPoint center = CGPointMake(20, cell.contentView.frame.size.height/2+2);
@@ -378,7 +379,7 @@
     if (self.optionalLocation)
     {
         //apply blank image by default
-        [self updateCell:cell withIcon:[DDTools clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.iconRetina]];
+        [self updateCell:cell withIcon:[UIImage clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.iconRetina]];
         
         //set location text
         if ([self.optionalLocation address]){

@@ -12,7 +12,7 @@
 #import "DDAPIController.h"
 #import "DDBarButtonItem.h"
 #import <QuartzCore/QuartzCore.h>
-#import "DDTools.h"
+#import "UIImage+DD.h"
 #import "UIViewController+Extensions.h"
 #import "DDTableViewController+Refresh.h"
 #import "DDSearchBar.h"
@@ -88,7 +88,7 @@ DECLARE_BUFFER_WITH_PROPERTY(DDTableViewController, buffer_)
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
     
     //set table view properties
-    [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[DDTools clearImage]] autorelease]];
+    [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[UIImage clearImage]] autorelease]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setSeparatorColor:[UIColor clearColor]];
     
