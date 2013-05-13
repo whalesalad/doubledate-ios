@@ -9,6 +9,7 @@
 #import "DDAPIObject.h"
 
 @class DDDialog;
+@class DDImage;
 
 @interface DDNotification : DDAPIObject
 {
@@ -20,7 +21,7 @@
 @property(nonatomic, retain) NSNumber *push;
 @property(nonatomic, retain) NSNumber *unread;
 @property(nonatomic, retain) NSString *callbackUrl;
-@property(nonatomic, retain) NSArray *photos;
+@property(nonatomic, retain) DDImage *photo;
 @property(nonatomic, retain) NSString *createdAt;
 @property(nonatomic, retain) NSString *createdAtAgo;
 @property(nonatomic, retain) DDDialog *dialog;
