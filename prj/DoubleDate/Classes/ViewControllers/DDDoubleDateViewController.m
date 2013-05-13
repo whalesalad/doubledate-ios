@@ -323,6 +323,7 @@
     
     //change visibility
     self.bottomView.hidden = !bottomVisible;
+//    self.bottomView.hidden = FALSE;
     
     //change frame
 //    CGFloat yb = bottomVisible ? self.bottomView.frame.origin.y + 4 : self.bottomView.frame.origin.y + self.bottomView.frame.size.height - 8;
