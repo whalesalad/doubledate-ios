@@ -159,30 +159,7 @@
     [super viewDidLoad];
     
     // style scrolltopview (user photo container view)
-    {
-        self.scrollTopView.layer.shadowColor = [UIColor whiteColor].CGColor;
-        self.scrollTopView.layer.shadowOpacity = 0.05f;
-        self.scrollTopView.layer.shadowOffset = CGSizeMake(0, 1);
-        self.scrollTopView.layer.shadowRadius = 0;
-        
-        CAGradientLayer *topViewGradient = [CAGradientLayer layer];
-        topViewGradient.frame = self.scrollTopView.bounds;
-        topViewGradient.colors = [NSArray arrayWithObjects:
-                                  (id)[[UIColor colorWithWhite:0 alpha:0.5f] CGColor],
-                                  (id)[[UIColor clearColor] CGColor], nil];
-        
-        [self.scrollTopView.layer insertSublayer:topViewGradient atIndex:0];
-        
-        CALayer *topViewInnerStroke = [CALayer layer];
-        CGRect topViewInnerStrokeFrame = self.scrollTopView.bounds;
-        topViewInnerStrokeFrame.origin.y = topViewInnerStrokeFrame.size.height - 1;
-        topViewInnerStrokeFrame.size.height = 1.0f;
-        topViewInnerStroke.frame = topViewInnerStrokeFrame;
-        topViewInnerStroke.backgroundColor = [UIColor colorWithWhite:0.09f alpha:1.0f].CGColor;
-        
-        [self.scrollTopView.layer insertSublayer:topViewInnerStroke atIndex:1];
-    }
-
+    [DDTools styleDualUserView:self.scrollTopView];
     
     //localize
     labelInterested.text = NSLocalizedString(@"Interested in this DoubleDate?", nil);

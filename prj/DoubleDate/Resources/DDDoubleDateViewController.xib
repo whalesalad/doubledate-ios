@@ -179,25 +179,10 @@
 								<reference key="NSNextResponder" ref="693475908"/>
 								<int key="NSvFlags">269</int>
 								<array class="NSMutableArray" key="NSSubviews">
-									<object class="IBUIImageView" id="211013894">
-										<reference key="NSNextResponder" ref="257368905"/>
-										<int key="NSvFlags">292</int>
-										<string key="NSFrame">{{0, 11}, {28, 29}}</string>
-										<reference key="NSSuperview" ref="257368905"/>
-										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="185132798"/>
-										<string key="NSReuseIdentifierKey">_NS:9</string>
-										<bool key="IBUIUserInteractionEnabled">NO</bool>
-										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-										<object class="NSCustomResource" key="IBUIImage">
-											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">dd-location-icon.png</string>
-										</object>
-									</object>
 									<object class="IBUILabel" id="185132798">
 										<reference key="NSNextResponder" ref="257368905"/>
 										<int key="NSvFlags">294</int>
-										<string key="NSFrame">{{40, 8}, {200, 20}}</string>
+										<string key="NSFrame">{{0, 6}, {200, 20}}</string>
 										<reference key="NSSuperview" ref="257368905"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="146709020"/>
@@ -240,7 +225,7 @@
 									<object class="IBUILabel" id="146709020">
 										<reference key="NSNextResponder" ref="257368905"/>
 										<int key="NSvFlags">294</int>
-										<string key="NSFrame">{{40, 27}, {201, 16}}</string>
+										<string key="NSFrame">{{0, 25}, {201, 16}}</string>
 										<reference key="NSSuperview" ref="257368905"/>
 										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="591897486"/>
@@ -274,10 +259,10 @@
 										</object>
 									</object>
 								</array>
-								<string key="NSFrame">{{40, 301}, {240, 48}}</string>
+								<string key="NSFrame">{{20, 302}, {280, 48}}</string>
 								<reference key="NSSuperview" ref="693475908"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="211013894"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="326894588"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -731,17 +716,11 @@
 						<int key="objectID">124</int>
 						<reference key="object" ref="257368905"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="146709020"/>
 							<reference ref="185132798"/>
-							<reference ref="211013894"/>
+							<reference ref="146709020"/>
 						</array>
 						<reference key="parent" ref="693475908"/>
 						<string key="objectName">Lower Date Details</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">127</int>
-						<reference key="object" ref="211013894"/>
-						<reference key="parent" ref="257368905"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">129</int>
@@ -864,7 +843,6 @@
 				<real value="1" key="105.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="108.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="124.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="127.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="128.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="129.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="134.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1024,7 +1002,6 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="dd-location-icon.png">{28, 29}</string>
 			<string key="lower-button-bar-large-bg.png">{1, 94}</string>
 			<string key="lower-button-blue.png">{30, 46}</string>
 			<string key="message-sent-bar.png">{320, 50}</string>

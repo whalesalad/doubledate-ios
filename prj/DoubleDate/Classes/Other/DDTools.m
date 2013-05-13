@@ -167,4 +167,30 @@ NSString *DDErrorDomain = @"DDErrorDomain";
     return [dateFormatterTo stringFromDate:date];
 }
 
++ (void)styleDualUserView:(UIView*)view
+{
+    view.backgroundColor = [UIColor colorWithWhite:0.110f alpha:1.0f];
+    view.layer.shadowColor = [UIColor whiteColor].CGColor;
+    view.layer.shadowOpacity = 0.05f;
+    view.layer.shadowOffset = CGSizeMake(0, 1);
+    view.layer.shadowRadius = 0;
+    
+    CAGradientLayer *topViewGradient = [CAGradientLayer layer];
+    topViewGradient.frame = view.bounds;
+    topViewGradient.colors = [NSArray arrayWithObjects:
+                              (id)[[UIColor colorWithWhite:0 alpha:0.5f] CGColor],
+                              (id)[[UIColor clearColor] CGColor], nil];
+    
+    [view.layer insertSublayer:topViewGradient atIndex:0];
+    
+    CALayer *topViewInnerStroke = [CALayer layer];
+    CGRect topViewInnerStrokeFrame = view.bounds;
+    topViewInnerStrokeFrame.origin.y = topViewInnerStrokeFrame.size.height - 1;
+    topViewInnerStrokeFrame.size.height = 1.0f;
+    topViewInnerStroke.frame = topViewInnerStrokeFrame;
+    topViewInnerStroke.backgroundColor = [UIColor colorWithWhite:0.09f alpha:1.0f].CGColor;
+    
+    [view.layer insertSublayer:topViewInnerStroke atIndex:1];
+}
+
 @end

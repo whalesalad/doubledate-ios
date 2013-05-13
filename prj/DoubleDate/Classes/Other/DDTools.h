@@ -47,4 +47,6 @@ extern NSString *DDErrorDomain;
 + (NSDate*)dateFromString:(NSString*)string;
 + (NSString*)stringFromDate:(NSDate*)date;
 
++ (void)styleDualUserView:(UIView*)view;
+
 @end

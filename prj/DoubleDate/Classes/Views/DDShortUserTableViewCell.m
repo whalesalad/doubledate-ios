@@ -105,10 +105,8 @@
     
     labelLocation.text = v.location;
     
-    if ([[v gender] isEqualToString:DDUserGenderFemale])
-        imageViewGender.image = [UIImage imageNamed:@"icon-gender-female.png"];
-    else
-        imageViewGender.image = [UIImage imageNamed:@"icon-gender-male.png"];
+    imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", v.gender]];
+
     imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x+labelTitle.frame.size.width+4, labelTitle.center.y-imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
 }
 

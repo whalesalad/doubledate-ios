@@ -244,16 +244,16 @@
 - (void)updateHeader
 {
     //the value of user viwe from xib
-    CGFloat height = 176;
+    CGFloat height = 186;
     
     //create header view
     UIView *mainView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, height)] autorelease];
-    mainView.backgroundColor = [UIColor clearColor];
+    [DDTools styleDualUserView:mainView];
     self.tableView.tableHeaderView = mainView;
     
     //add me
     DDUserView *meView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
-    meView.frame = CGRectMake(5, 5, 150, height);
+    meView.frame = CGRectMake(15, 10, 140, height - 10);
     meView.user = [DDAuthenticationController currentUser];
     meView.customTitle = NSLocalizedString(@"You", @"Title under mine photo");
     [mainView addSubview:meView];
@@ -263,7 +263,7 @@
     {
         //add user view
         DDUserView *wingView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
-        wingView.frame = CGRectMake(165, 5, 150, height);
+        wingView.frame = CGRectMake(165, 10, 140, height - 10);
         wingView.shortUser = self.wing;
         [mainView addSubview:wingView];
         
@@ -277,8 +277,21 @@
     {
         //add transparent button
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = [UIColor blueColor];
-        button.frame = CGRectMake(165, 5, 150, 150);
+        button.backgroundColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.2f];
+        button.layer.cornerRadius = 10.0f;
+        
+        // add blue border
+        button.layer.borderWidth = 2.0f;
+        button.layer.borderColor = [UIColor colorWithRed:19/255.0f green:197/255.0f blue:255/255.0f alpha:1.0].CGColor;
+        
+        // add outer glow
+        button.layer.shadowOffset = CGSizeMake(0,0);
+        button.layer.shadowColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:1.0].CGColor;
+        button.layer.shadowRadius = 3.0f;
+        button.layer.shadowOpacity = 0.5f;
+
+        button.frame = CGRectMake(150+12, 7, 146, 146);
+        
         [button addTarget:self action:@selector(chooseWingTouched:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
     }
