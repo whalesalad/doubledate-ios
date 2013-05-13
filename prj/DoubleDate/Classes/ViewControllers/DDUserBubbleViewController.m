@@ -53,6 +53,9 @@
     self.textView.layer.cornerRadius = 6;
     self.photoView.layer.cornerRadius = 6;
     self.photoView.clipsToBounds = YES;
+    
+    self.view.layer.shouldRasterize = YES;
+    self.view.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 }
 
 - (void)didReceiveMemoryWarning

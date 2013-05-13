@@ -18,7 +18,7 @@
 @synthesize push;
 @synthesize unread;
 @synthesize callbackUrl;
-@synthesize photos;
+@synthesize photo;
 @synthesize createdAt;
 @synthesize createdAtAgo;
 @synthesize dialog;
@@ -33,15 +33,7 @@
         self.push = [DDAPIObject numberForObject:[dictionary objectForKey:@"push"]];
         self.unread = [DDAPIObject numberForObject:[dictionary objectForKey:@"unread"]];
         self.callbackUrl = [DDAPIObject stringForObject:[dictionary objectForKey:@"callback_url"]];
-        NSArray *photosDicArray = [DDAPIObject arrayForObject:[dictionary objectForKey:@"photos"]];
-        NSMutableArray *photosObjArray = [NSMutableArray array];
-        for (NSDictionary *photoDic in photosDicArray)
-        {
-            DDImage *photo = [DDImage objectWithDictionary:photoDic];
-            [photosObjArray addObject:photo];
-        }
-        if ([photosObjArray count])
-            self.photos = [NSArray arrayWithArray:photosObjArray];
+        self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
         self.createdAt = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at"]];
         self.createdAtAgo = [DDAPIObject stringForObject:[dictionary objectForKey:@"created_at_ago"]];
         if ([dictionary objectForKey:@"dialog"])
@@ -75,7 +67,7 @@
 - (id)copyWithZone:(NSZone*)zone
 {
     DDNotification *ret = [[[self class] allocWithZone:zone] initWithDictionary:[self dictionaryRepresentation]];
-    ret.photos = self.photos;
+    ret.photo = [[self.photo copy] autorelease];
     ret.dialog = self.dialog;
     return ret;
 }
@@ -98,7 +90,7 @@
     [push release];
     [unread release];
     [callbackUrl release];
-    [photos release];
+    [photo release];
     [createdAt release];
     [createdAtAgo release];
     [dialog release];

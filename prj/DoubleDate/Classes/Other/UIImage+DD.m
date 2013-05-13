@@ -102,9 +102,17 @@
 - (UIImage*)blurImage
 {
     GPUImagePicture *sourcePicture = [[[GPUImagePicture alloc] initWithImage:self] autorelease];
-    GPUImageBoxBlurFilter *blurFilter = [[[GPUImageBoxBlurFilter alloc] init] autorelease];
+    
+    GPUImageFastBlurFilter *blurFilter = [[[GPUImageFastBlurFilter alloc] init] autorelease];
+    
+    [blurFilter setBlurPasses:3.0f];
     [sourcePicture addTarget:blurFilter];
+    
+//    GPUImageGrayscaleFilter *grayscaleFilter = [[[GPUImageGrayscaleFilter alloc] init] autorelease];
+//    [blurFilter addTarget:grayscaleFilter];
+
     [sourcePicture processImage];
+    
     return [blurFilter imageFromCurrentlyProcessedOutput];
 }
 

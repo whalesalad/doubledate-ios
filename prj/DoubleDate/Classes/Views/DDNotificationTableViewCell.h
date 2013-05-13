@@ -17,19 +17,12 @@
 
 @property(nonatomic, retain) DDNotification *notification;
 
-@property(nonatomic, retain) IBOutlet DDImageView *imageViewLeft;
-@property(nonatomic, retain) IBOutlet DDImageView *imageViewRight;
-@property(nonatomic, retain) IBOutlet DDImageView *imageViewFull;
+@property(nonatomic, retain) IBOutlet DDImageView *imageView;
+@property(nonatomic, retain) IBOutlet UIView *imageViewWrapper;
 @property(nonatomic, retain) IBOutlet UITextView *textViewContent;
-@property(nonatomic, retain) IBOutlet UIView *viewImagesContainer;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewBadge;
-@property(nonatomic, retain) IBOutlet UIImageView *imageViewBackground;
-@property(nonatomic, retain) IBOutlet UIView *wrapperView;
 
 + (CGFloat)heightForNotification:(DDNotification*)notification;
 
-- (void)drawInnerGlow;
-- (void)drawInnerShadow;
-- (void)drawInnerBlueLayer;
+- (void)drawInnerGradient;
 
 @end
