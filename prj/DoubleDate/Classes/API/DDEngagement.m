@@ -9,9 +9,9 @@
 #import "DDEngagement.h"
 #import "DDShortUser.h"
 
-NSString *DDEngagementStatusLocked = @"locked";
-NSString *DDEngagementStatusUnlocked = @"unlocked";
-NSString *DDEngagementStatusExpired = @"expired";
+NSString *DDEngagementStatusNew = @"new";
+NSString *DDEngagementStatusIgnored = @"ignored";
+NSString *DDEngagementStatusStarted = @"started";
 
 @implementation DDEngagement
 
@@ -122,6 +122,22 @@ NSString *DDEngagementStatusExpired = @"expired";
 - (NSString*)uniqueKeyField
 {
     return @"id";
+}
+
+- (BOOL)isStarted
+{
+#warning this should be DDEngagementStatusStarted instead of the string but it's not working
+    return [self.status isEqualToString:@"started"];
+}
+
+- (BOOL)isIgnored
+{
+    return [self.status isEqualToString:@"ignored"];
+}
+
+-(BOOL)isNew
+{
+    return [self.status isEqualToString:@"new"];
 }
 
 - (void)dealloc

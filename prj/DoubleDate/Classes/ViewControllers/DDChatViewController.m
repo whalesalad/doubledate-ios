@@ -40,10 +40,7 @@
 @property(nonatomic, retain) UIView *popover;
 
 - (void)presentPopoverWithUser:(DDShortUser*)user;
-
-- (void)updateLockedView;
-- (void)updateWarningView;
-- (void)animateWarningView;
+//- (void)updateLockedView;
 
 @end
 
@@ -77,9 +74,6 @@
 @synthesize imageViewTextFieldBackground;
 
 @synthesize labelTextFieldPlaceholder;
-@synthesize viewWarning;
-@synthesize labelWarning;
-@synthesize viewWarningAnimation;
 
 @synthesize viewLocked;
 
@@ -220,12 +214,6 @@
         [self.apiController getUser:requestUser];
     }
     
-    //set warning
-    if ([self.engagement.daysRemaining intValue] == 1)
-        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d day to chat remaining", @"Chat page: warning - remaining time to chat (singular)"), [self.engagement.daysRemaining intValue]];
-    else
-        self.labelWarning.text = [NSString stringWithFormat:NSLocalizedString(@"%d days to chat remaining", @"Chat page: warning - remaining time to chat (plural)"), [self.engagement.daysRemaining intValue]];
-
     //customize text view
     self.textViewInput.delegate = self;
     self.textViewInput.maxNumberOfLines = [DDTools isiPhone5Device]?16:10;
@@ -250,32 +238,24 @@
     //reload the table
     [self.tableView reloadData];
     
-    //check if you are the owner of engagement
+    self.viewBottomLocked.hidden = YES;
+    
+    // Check if you are the owner of engagement
     self.viewLocked.hidden = YES;
+    
     if (([[self.engagement.user identifier] intValue] == [[[DDAuthenticationController currentUser] userId] intValue]) ||
         ([[self.engagement.wing identifier] intValue] == [[[DDAuthenticationController currentUser] userId] intValue]))
     {
         //check if we need to unlock the engagement
-        if ([self.engagement.status isEqualToString:DDEngagementStatusLocked])
+        if ([self.engagement isNew])
         {
             //make bottom bar opaque
             self.bottomBarView.alpha = 0.2f;
-            self.viewWarning.hidden = YES;
             
             //put unlocked overlay
             self.viewLocked.hidden = NO;
         }
     }
-    
-    //update locked view
-    [self updateLockedView];
-    
-    //update warning view
-    [self updateWarningView];
-    
-    //add touch recognizer
-    UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
-    [self.view addGestureRecognizer:tapRecognizer];
     
     //add end chat functionality
     if ([[[DDAuthenticationController currentUser] userId] intValue] == [self.doubleDate.user.identifier intValue] ||
@@ -283,29 +263,12 @@
     {
         self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
     }
-    
-    //hide ignore button for wing
-    if ([[[DDAuthenticationController currentUser] userId] intValue] == [self.doubleDate.wing.identifier intValue] ||
-        [[[DDAuthenticationController currentUser] userId] intValue] == [self.engagement.wing.identifier intValue])
-    {
-        //hide ignore button
-        self.buttonIgnore.hidden = YES;
-        
-        //stretch start chat button
-        self.buttonStartChat.frame = CGRectMake(self.buttonIgnore.frame.origin.x, self.buttonStartChat.frame.origin.y, self.buttonStartChat.frame.origin.x + self.buttonStartChat.frame.size.width - self.buttonIgnore.frame.origin.x, self.buttonStartChat.frame.size.height);
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    //animate warning view
-    if (!warningAnimated_)
-    {
-        [self animateWarningView];
-        warningAnimated_ = YES;
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -410,9 +373,6 @@
     [imageViewChatBarBackground release];
     [imageViewTextFieldBackground release];
     [labelTextFieldPlaceholder release];
-    [viewWarning release];
-    [labelWarning release];
-    [viewWarningAnimation release];
     [viewLocked release];
     [labelMessageReceived release];
     [viewBottomLocked release];
@@ -475,10 +435,6 @@
     [self.apiController requestDeleteEngagement:self.engagement];
 }
 
-- (IBAction)closeWarningTouched:(id)sender
-{
-    [self hideWarningView];
-}
 
 - (IBAction)user1Touched:(id)sender
 {
@@ -585,201 +541,64 @@
     return @"hidden";
 }
 
-- (BOOL)isWarningShown
-{
-    return [[[self engagementDictionary] objectForKey:[self shownKey]] boolValue];
-}
-
-- (BOOL)isWarningHidden
-{
-    return [[[self engagementDictionary] objectForKey:[self hiddenKey]] boolValue];
-}
-
-- (void)saveThatWarningAlreadyShown
-{
-    //set current dictionary
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self engagementDictionary]];
-    [dic setObject:[NSNumber numberWithBool:YES] forKey:[self shownKey]];
-    
-    //set engagements dictionary
-    NSMutableDictionary *dics = [NSMutableDictionary dictionary];
-    [dics setObject:dic forKey:[self engagementKey]];
-    
-    //save engagements
-    [[NSUserDefaults standardUserDefaults] setObject:dics forKey:[self engagementsKey]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)saveThatWarningAlreadyHidden
-{
-    //set current dictionary
-    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self engagementDictionary]];
-    [dic setObject:[NSNumber numberWithBool:YES] forKey:[self hiddenKey]];
-    
-    //set engagements dictionary
-    NSMutableDictionary *dics = [NSMutableDictionary dictionary];
-    [dics setObject:dic forKey:[self engagementKey]];
-    
-    //save engagements
-    [[NSUserDefaults standardUserDefaults] setObject:dics forKey:[self engagementsKey]];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)updateWarningView
-{
-    //check if warning view is exist
-    if (self.viewWarning.hidden)
-        return;
-    
-    //hide initially
-    self.viewWarning.alpha = 0;
-    
-    //check the number of days to left
-    if ([self.engagement.daysRemaining intValue] == 5 ||
-        [self.engagement.daysRemaining intValue] == 3 ||
-        [self.engagement.daysRemaining intValue] == 1)
-        self.viewWarning.hidden = NO;
-    else
-        self.viewWarning.hidden = YES;
-    
-    //don't show once hidden warning
-    BOOL alreadyHidden = [self isWarningHidden];
-    if (alreadyHidden)
-        self.viewWarning.hidden = YES;
-    
-    //don't show once shown warning
-//    BOOL alreadyShown = [self isWarningShown];
-//    if (alreadyShown)
-//        self.viewWarning.hidden = YES;
-}
-
-- (void)animateWarningView
-{
-    //check if warning is not hidden
-    if (!self.viewWarning.hidden)
-    {
-        //save that shown
-        [self saveThatWarningAlreadyShown];
-        
-        //don't show out of the bouns
-        self.viewWarning.clipsToBounds = YES;
-        
-        //save the frame
-        CGRect warningFrame = self.viewWarningAnimation.frame;
-        
-        //change the height to 0
-        self.viewWarningAnimation.frame = CGRectMake(0, warningFrame.size.height, warningFrame.size.width, warningFrame.size.height);
-        
-        //animate
-        [UIView animateWithDuration:0.2f animations:^{
-            self.viewWarningAnimation.frame = warningFrame;
-            self.viewWarning.alpha = 1;
-        }];
-    }
-}
-
-- (void)hideWarningView
-{
-    //check if warning is not hidden
-    if (!self.viewWarning.hidden)
-    {
-        //save that shown
-        [self saveThatWarningAlreadyHidden];
-        
-        //disable user interaction
-        self.viewWarning.userInteractionEnabled = NO;
-        
-        //save the frame
-        CGRect warningFrame = self.viewWarningAnimation.frame;
-        
-        //animate
-        [UIView animateWithDuration:0.2f animations:^{
-            self.viewWarningAnimation.frame = CGRectMake(0, warningFrame.size.height, warningFrame.size.width, warningFrame.size.height);
-            self.viewWarning.alpha = 0;
-        } completion:^(BOOL finished) {
-            self.viewWarning.hidden = YES;
-        }];
-    }
-}
-
-- (void)updateLockedView
-{
-    //save locked/expired flags
-    BOOL locked = NO;
-    BOOL expired = NO;
-    
-    //save flags
-    locked = [engagement.status isEqualToString:DDEngagementStatusLocked] && ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
-                                                                              [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing]);
-    expired = [engagement.status isEqualToString:DDEngagementStatusExpired];
-    
-    //switch between different titles
-    if (locked)
-    {
-        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", nil) forState:UIControlStateNormal];
-        [self.labelLocked setText:NSLocalizedString(@"This chat hasn't started yet.", @"Chat page locked label while engagement is locked")];
-    }
-    else if (expired)
-    {
-        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:NSLocalizedString(@"Resume Chat", nil) forState:UIControlStateNormal];
-        [self.labelLocked setText:NSLocalizedString(@"Snooze you lose! This chat has expired.", @"Chat page locked label while engagement is expired")];
-    }
-    else
-    {
-        [self.buttonIgnore setTitle:nil forState:UIControlStateNormal];
-        [self.buttonStartChat setTitle:nil forState:UIControlStateNormal];
-        [self.labelLocked setText:nil];
-    }
-    
-    //update locked view
-    CAGradientLayer *bottomLockedGradient = [CAGradientLayer layer];
-    bottomLockedGradient.frame = self.viewBottomLocked.bounds;
-    bottomLockedGradient.colors = [NSArray arrayWithObjects: (id)[[UIColor colorWithRed:77/255.0f green:77/255.0f blue:77/255.0f alpha:1.0f] CGColor],
-                                                             (id)[[UIColor colorWithRed:44/255.0f green:44/255.0f blue:44/255.0f alpha:1.0f] CGColor], nil];
-
-    [self.viewBottomLocked.layer insertSublayer:bottomLockedGradient atIndex:0];
-    
-    CALayer *bottomLockedUpperLine = [CALayer layer];
-    CGRect bottomLockedUpperLineFrame = self.viewBottomLocked.bounds;
-    bottomLockedUpperLineFrame.size.height = 1.0f;
-    bottomLockedUpperLine.frame = bottomLockedUpperLineFrame;
-    bottomLockedUpperLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.15f].CGColor;
-    
-    viewBottomLocked.layer.shadowRadius = 2.0f;
-    viewBottomLocked.layer.shadowColor = [UIColor blackColor].CGColor;
-    viewBottomLocked.layer.shadowOpacity = 0.5f;
-    viewBottomLocked.layer.shadowOffset = CGSizeMake(0, -1);
-    
-    // Add the border to the scrollview
-    [self.viewBottomLocked.layer insertSublayer:bottomLockedUpperLine atIndex:1];
-    
-    //hide/show locked view
-    self.viewBottomLocked.hidden = !(locked || expired);
-    
-    //change frame accordingly
-    if (!self.viewBottomLocked.hidden) {
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
-        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 55, 0);
-    } else {
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
-        self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
-    }
-    
-}
-
-- (void)tap:(UITapGestureRecognizer*)sender
-{
-    BOOL warningTouched = NO;
-    if (CGRectContainsPoint(self.viewWarning.bounds, [sender locationInView:self.viewWarning]))
-    {
-        if (!self.viewWarning.hidden)
-            warningTouched = YES;
-    }
-    if (warningTouched)
-        [self closeWarningTouched:self];
-}
+//- (void)updateLockedView
+//{
+//    //save locked/expired flags
+//    BOOL started_and_date_owners = NO;
+//    
+//    //save flags
+//    started_and_date_owners = engagement.isStarted && ([self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOwner] ||
+//                                                       [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipWing]);
+//    
+//    //switch between different titles
+//    if (locked)
+//    {
+//        [self.buttonIgnore setTitle:NSLocalizedString(@"Ignore", nil) forState:UIControlStateNormal];
+//        [self.buttonStartChat setTitle:NSLocalizedString(@"Start Chat", nil) forState:UIControlStateNormal];
+//        [self.labelLocked setText:NSLocalizedString(@"This chat hasn't started yet.", @"Chat page locked label while engagement is locked")];
+//    }
+//    else
+//    {
+//        [self.buttonIgnore setTitle:nil forState:UIControlStateNormal];
+//        [self.buttonStartChat setTitle:nil forState:UIControlStateNormal];
+//        [self.labelLocked setText:nil];
+//    }
+//    
+//    //update locked view
+//    CAGradientLayer *bottomLockedGradient = [CAGradientLayer layer];
+//    bottomLockedGradient.frame = self.viewBottomLocked.bounds;
+//    bottomLockedGradient.colors = [NSArray arrayWithObjects: (id)[[UIColor colorWithRed:77/255.0f green:77/255.0f blue:77/255.0f alpha:1.0f] CGColor],
+//                                                             (id)[[UIColor colorWithRed:44/255.0f green:44/255.0f blue:44/255.0f alpha:1.0f] CGColor], nil];
+//
+//    [self.viewBottomLocked.layer insertSublayer:bottomLockedGradient atIndex:0];
+//    
+//    CALayer *bottomLockedUpperLine = [CALayer layer];
+//    CGRect bottomLockedUpperLineFrame = self.viewBottomLocked.bounds;
+//    bottomLockedUpperLineFrame.size.height = 1.0f;
+//    bottomLockedUpperLine.frame = bottomLockedUpperLineFrame;
+//    bottomLockedUpperLine.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.15f].CGColor;
+//    
+//    viewBottomLocked.layer.shadowRadius = 2.0f;
+//    viewBottomLocked.layer.shadowColor = [UIColor blackColor].CGColor;
+//    viewBottomLocked.layer.shadowOpacity = 0.5f;
+//    viewBottomLocked.layer.shadowOffset = CGSizeMake(0, -1);
+//    
+//    // Add the border to the scrollview
+//    [self.viewBottomLocked.layer insertSublayer:bottomLockedUpperLine atIndex:1];
+//    
+//    //hide/show locked view
+//    self.viewBottomLocked.hidden = !(locked || expired);
+//    
+//    //change frame accordingly
+//    if (!self.viewBottomLocked.hidden) {
+//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
+//        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 55, 0);
+//    } else {
+//        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 30, 0);
+//        self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+//    }
+//    
+//}
 
 #pragma mark -
 #pragma mark UITextViewDelegate
@@ -956,8 +775,8 @@
     //inform about change
     [[NSNotificationCenter defaultCenter] postNotificationName:DDObjectsControllerDidUpdateObjectNotification object:[DDAuthenticationController currentUser]];
     
-    //update locked view
-    [self updateLockedView];
+    // update locked view
+    // [self updateLockedView];
     
     //replay send button
     [self sendTouched:nil];

@@ -168,14 +168,14 @@
 {
     //add image view
     DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 75, 0, 75, 45);
+    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 45, 0, 45, 45);
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     //check if we need to update the wing
     if (self.wing)
     {
         //set wing label
-        cell.textLabel.text = [wing fullName];
+        cell.textLabel.text = [wing firstName];
         
         //update image view
         [imageView reloadFromUrl:[NSURL URLWithString:[self.wing photo].thumbUrl]];

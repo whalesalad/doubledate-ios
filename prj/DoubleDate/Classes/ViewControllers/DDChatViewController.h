@@ -22,7 +22,6 @@
     NSMutableArray *shortUsers_;
     NSMutableArray *users_;
     BOOL alreadyAppeared_;
-    BOOL warningAnimated_;
 }
 
 @property(nonatomic, assign) UIViewController *weakParentViewController;
@@ -52,10 +51,6 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelTextFieldPlaceholder;
 
-@property(nonatomic, retain) IBOutlet UIView *viewWarning;
-@property(nonatomic, retain) IBOutlet UILabel *labelWarning;
-@property(nonatomic, retain) IBOutlet UIView *viewWarningAnimation;
-
 @property(nonatomic, retain) IBOutlet UIView *viewLocked;
 
 @property(nonatomic, retain) IBOutlet UILabel *labelMessageReceived;
@@ -68,7 +63,6 @@
 - (IBAction)sendTouched:(id)sender;
 - (IBAction)ignoreTouched:(id)sender;
 - (IBAction)startChatTouched:(id)sender;
-- (IBAction)closeWarningTouched:(id)sender;
 
 - (IBAction)user1Touched:(id)sender;
 - (IBAction)user2Touched:(id)sender;

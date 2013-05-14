@@ -8,9 +8,9 @@
 
 #import "DDAPIObject.h"
 
-extern NSString *DDEngagementStatusLocked;
-extern NSString *DDEngagementStatusUnlocked;
-extern NSString *DDEngagementStatusExpired;
+extern NSString *DDEngagementStatusNew;
+extern NSString *DDEngagementStatusIgnored;
+extern NSString *DDEngagementStatusStarted;
 
 @class DDShortUser;
 
@@ -39,5 +39,9 @@ extern NSString *DDEngagementStatusExpired;
 @property(nonatomic, retain) DDShortUser *user;
 @property(nonatomic, retain) DDShortUser *wing;
 @property(nonatomic, retain) NSString *displayName;
+
+-(BOOL)isStarted;
+-(BOOL)isIgnored;
+-(BOOL)isBool;
 
 @end
