@@ -19,6 +19,7 @@
 #import "DDBarButtonItem.h"
 #import "DDImageEditDialogView.h"
 #import "DDImage.h"
+#import "DDTools.h"
 #import "UIImage+DD.h"
 #import "DDImageView.h"
 #import "DDWingTableViewCell.h"
@@ -90,13 +91,17 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    [DDTools styleDualUserView:self.viewTop];
+    
     //unset colors
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelLocation.backgroundColor = [UIColor clearColor];
-    self.viewTop.backgroundColor = [UIColor clearColor];
-    self.viewBottom.backgroundColor = [UIColor blackColor];
     self.viewNoBio.backgroundColor = [UIColor clearColor];
     self.viewNoDates.backgroundColor = [UIColor clearColor];
+    
+    self.viewBottom.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
+    
+    self.barYourDates.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"doubeldate-bar-bg.png"]];
     
     //add button handlers
     [self.buttonEditProfile addTarget:self action:@selector(editProfileTouched) forControlEvents:UIControlEventTouchUpInside];
@@ -188,13 +193,23 @@
     self.textView.text = self.user.bio;
     
     //change the geometry
-    CGFloat neededHeightOfTextView = [self.textView sizeThatFits:self.textView.contentSize].height;
-    CGFloat realHeightOfTextView = self.textView.frame.size.height;
-    CGFloat dy = neededHeightOfTextView - realHeightOfTextView;
+//    CGFloat neededHeightOfTextView = [self.textView sizeThatFits:self.textView.contentSize].height;
+//    CGFloat realHeightOfTextView = self.textView.frame.size.height;
+//    CGFloat dy = neededHeightOfTextView - realHeightOfTextView;
+//    [self.textView sizeThatFits:self.textView.contentSize];
+    CGRect frame = self.textView.frame;
+    UIEdgeInsets inset = self.textView.contentInset;
+    frame.size.height = self.textView.contentSize.height + inset.top + inset.bottom;
+    self.textView.frame = frame;
     
     //change the frame of top view
-    self.viewTop.frame = CGRectMake(self.viewTop.frame.origin.x, self.viewTop.frame.origin.y, self.viewTop.frame.size.width, self.viewTop.frame.size.height + dy);
-    self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x, self.isDatesViewFullScreen?0:CGRectGetMaxY(self.viewTop.frame), self.viewBottom.frame.size.width, self.isDatesViewFullScreen?self.view.bounds.size.height:self.view.bounds.size.height-CGRectGetMaxY(self.viewTop.frame));
+//    self.viewTop.frame = CGRectMake(self.viewTop.frame.origin.x, self.viewTop.frame.origin.y, self.viewTop.frame.size.width, self.viewTop.frame.size.height + dy);
+    
+    self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x, // x
+                                       self.isDatesViewFullScreen ? 0 : [self verticalOffsetForBottomView], // y
+                                       self.viewBottom.frame.size.width, // w
+                                       self.isDatesViewFullScreen ? self.view.bounds.size.height : self.view.bounds.size.height - [self verticalOffsetForBottomView] // h
+                                       );
 }
 
 - (void)reinitLocation
@@ -211,6 +226,11 @@
     //update visibility
     self.viewNoDates.hidden = !((doubleDatesMine_ != nil) && ([doubleDatesMine_ count] == 0));
     self.tableView.hidden = !([doubleDatesMine_ count] > 0);
+}
+
+- (CGFloat)verticalOffsetForBottomView
+{
+    return CGRectGetMaxY(self.viewTop.frame) + self.textView.frame.size.height + 28;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -789,8 +809,12 @@
     {
         isDatesViewFullScreen = v;
 #warning Michael customize animation parameters here
-        [UIView animateWithDuration:0.4f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-            self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x, self.isDatesViewFullScreen?0:CGRectGetMaxY(self.viewTop.frame), self.viewBottom.frame.size.width, self.isDatesViewFullScreen?self.view.bounds.size.height:self.view.bounds.size.height-CGRectGetMaxY(self.viewTop.frame));
+        [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+            self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x,
+                                               self.isDatesViewFullScreen ? 0 : [self verticalOffsetForBottomView],
+                                               self.viewBottom.frame.size.width,
+                                               self.isDatesViewFullScreen ? self.view.bounds.size.height : self.view.bounds.size.height - [self verticalOffsetForBottomView]
+                                               );
 
         } completion:^(BOOL finished) {
         }];
