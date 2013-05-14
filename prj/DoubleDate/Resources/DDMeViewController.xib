@@ -68,13 +68,13 @@
 							<int key="IBUIAutocapitalizationType">2</int>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="478177815">
+						<object class="IBUIFontDescription" key="IBUIFontDescription" id="105159783">
 							<string key="name">HelveticaNeue</string>
 							<string key="family">Helvetica Neue</string>
 							<int key="traits">0</int>
 							<double key="pointSize">15</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="766257705">
+						<object class="NSFont" key="IBUIFont" id="743624378">
 							<string key="NSName">HelveticaNeue-Medium</string>
 							<double key="NSSize">15</double>
 							<int key="NSfFlags">16</int>
@@ -107,8 +107,8 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAAA</bytes>
 						</object>
-						<reference key="IBUIFontDescription" ref="478177815"/>
-						<reference key="IBUIFont" ref="766257705"/>
+						<reference key="IBUIFontDescription" ref="105159783"/>
+						<reference key="IBUIFont" ref="743624378"/>
 					</object>
 					<object class="IBUIView" id="644078324">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -150,7 +150,7 @@
 									<int key="type">2</int>
 									<double key="pointSize">15</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="188984715">
+								<object class="NSFont" key="IBUIFont" id="547088229">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">15</double>
 									<int key="NSfFlags">16</int>
@@ -382,10 +382,10 @@
 										<reference key="IBUINormalTitleShadowColor" ref="557867955"/>
 										<object class="NSCustomResource" key="IBUINormalImage">
 											<string key="NSClassName">NSImage</string>
-											<string key="NSResourceName">create-date-plus-icon.png</string>
+											<string key="NSResourceName">doubledate-bar-plus-btn.png</string>
 										</object>
 										<reference key="IBUIFontDescription" ref="228182941"/>
-										<reference key="IBUIFont" ref="188984715"/>
+										<reference key="IBUIFont" ref="547088229"/>
 									</object>
 								</array>
 								<string key="NSFrameSize">{320, 38}</string>
@@ -876,7 +876,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="create-date-plus-icon.png">{32, 32}</string>
+			<string key="doubledate-bar-plus-btn.png">{16, 17}</string>
 			<string key="female-indicator-small.png">{9, 10}</string>
 			<string key="profile-button.png">{50, 34}</string>
 		</dictionary>
