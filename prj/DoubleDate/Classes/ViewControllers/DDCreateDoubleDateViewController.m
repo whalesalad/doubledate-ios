@@ -307,15 +307,25 @@
         [button addTarget:self action:@selector(chooseWingTouched:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
         
-        CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        fadeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        fadeAnimation.duration = 1;
-        fadeAnimation.repeatCount = HUGE_VAL;
-        fadeAnimation.autoreverses = YES;
-        fadeAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-        fadeAnimation.toValue = [NSNumber numberWithFloat:0.5f];
+        UILabel *selectWingLabel = [[[UILabel alloc] initWithFrame:usersView.bounds] autorelease];
+        selectWingLabel.text = @"Select\nWing";
+        selectWingLabel.backgroundColor = [UIColor redColor];
+        selectWingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
+        selectWingLabel.textColor = [UIColor whiteColor];
+        selectWingLabel.numberOfLines = 2;
+        selectWingLabel.textAlignment = NSTextAlignmentRight;
         
-        [button.layer addAnimation:fadeAnimation forKey:@"animateOpacity"];
+        [button addSubview:selectWingLabel];
+        
+//        CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+//        fadeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        fadeAnimation.duration = 1;
+//        fadeAnimation.repeatCount = HUGE_VAL;
+//        fadeAnimation.autoreverses = YES;
+//        fadeAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+//        fadeAnimation.toValue = [NSNumber numberWithFloat:0.5f];
+        
+//        [button.layer addAnimation:fadeAnimation forKey:@"animateOpacity"];
     }
 }
 
