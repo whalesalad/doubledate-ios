@@ -96,8 +96,10 @@
     //unset colors
     self.labelTitle.backgroundColor = [UIColor clearColor];
     self.labelLocation.backgroundColor = [UIColor clearColor];
-    self.viewNoBio.backgroundColor = [UIColor clearColor];
-    self.viewNoDates.backgroundColor = [UIColor clearColor];
+    
+    // no bio + no dates radius
+    self.viewNoDates.layer.cornerRadius = 5.0f;
+    self.viewNoBio.layer.cornerRadius = 5.0f;
     
     self.viewBottom.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
     
@@ -107,6 +109,7 @@
     
     //add button handlers
     [self.buttonEditProfile addTarget:self action:@selector(editProfileTouched) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewNoBio addTarget:self action:@selector(editProfileTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonEditPhoto addTarget:self action:@selector(changePhotoTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonYourDates addTarget:self action:@selector(addDateTouched) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -232,7 +235,8 @@
 
 - (CGFloat)verticalOffsetForBottomView
 {
-    return CGRectGetMaxY(self.viewTop.frame) + self.textView.frame.size.height + 28;
+    CGFloat bioHeight = self.textView.hidden ? self.viewNoBio.frame.size.height : self.textView.frame.size.height;
+    return CGRectGetMaxY(self.viewTop.frame) + bioHeight + 28;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
