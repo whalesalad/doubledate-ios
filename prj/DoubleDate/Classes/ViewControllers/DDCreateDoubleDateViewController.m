@@ -337,17 +337,16 @@
         darkLayer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
         darkLayer.layer.cornerRadius = 7;
         [mainView insertSubview:darkLayer belowSubview:button];
-
         
-        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        pulseAnimation.duration = 0.5;
-        pulseAnimation.repeatCount = HUGE_VAL;
-        pulseAnimation.autoreverses = YES;
-        pulseAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-        pulseAnimation.toValue = [NSNumber numberWithFloat:1.02f];
-        
-        [button.layer addAnimation:pulseAnimation forKey:@"transform"];
+//        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+//        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        pulseAnimation.duration = 0.5;
+//        pulseAnimation.repeatCount = HUGE_VAL;
+//        pulseAnimation.autoreverses = YES;
+//        pulseAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+//        pulseAnimation.toValue = [NSNumber numberWithFloat:1.02f];
+//        
+//        [button.layer addAnimation:pulseAnimation forKey:@"transform"];
     }
 }
 
