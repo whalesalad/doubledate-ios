@@ -282,11 +282,9 @@
     else
     {
         //add users view
-        DDUsersView *usersView = [[[DDUsersView alloc] initWithPlaceholderImage:[UIImage imageOfSize:CGSizeMake(1, 1) withColor:[UIColor redColor]]] autorelease];
-        usersView.frame = CGRectMake(150+12, 7, 146, 146);
+        DDUsersView *usersView = [[[DDUsersView alloc] initWithPlaceholderImage:[UIImage imageOfSize:CGSizeMake(1, 1) withColor:[UIColor darkGrayColor]]] autorelease];
+        usersView.frame = CGRectMake(165, 10, 140, 140);
         usersView.users = facebookFriends_;
-        usersView.layer.cornerRadius = 10.0f;
-        usersView.clipsToBounds = YES;
         [mainView addSubview:usersView];
         
         //add transparent button
@@ -308,6 +306,16 @@
         
         [button addTarget:self action:@selector(chooseWingTouched:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
+        
+        CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        fadeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        fadeAnimation.duration = 1;
+        fadeAnimation.repeatCount = HUGE_VAL;
+        fadeAnimation.autoreverses = YES;
+        fadeAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+        fadeAnimation.toValue = [NSNumber numberWithFloat:0.5f];
+        
+        [button.layer addAnimation:fadeAnimation forKey:@"animateOpacity"];
     }
 }
 

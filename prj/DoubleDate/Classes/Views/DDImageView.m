@@ -93,27 +93,6 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
     [self cancelCurrentImageLoad];
 }
 
-- (void)applyBorderStyling
-{
-    self.layer.borderColor = [UIColor blackColor].CGColor;
-    self.layer.borderWidth = 1.0f;
-    self.layer.cornerRadius = 6.0f;
-    
-    self.layer.shadowOpacity = 0.3f;
-    self.layer.shadowRadius = 2.0f;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOffset = CGSizeMake(0, 1);
-
-    // Inner white border
-    CALayer *innerGlowLayer = [CALayer layer];
-    innerGlowLayer.frame = CGRectInset(self.bounds, 1, 1);
-    innerGlowLayer.cornerRadius = 5;
-    innerGlowLayer.borderWidth = 1;
-    innerGlowLayer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
-
-    [self.layer insertSublayer:innerGlowLayer atIndex:1];    
-}
-
 - (void)dealloc
 {
     [activityIndicatorView_ release];
@@ -138,6 +117,7 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
     imageView_ = [[DDImageView alloc] initWithFrame:self.bounds];
     imageView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     imageView_.layer.cornerRadius = baseCornerRadius + 1;
+    imageView_.backgroundColor = [UIColor darkGrayColor];
     imageView_.clipsToBounds = YES;
     [self addSubview:imageView_];
     

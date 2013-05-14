@@ -14,8 +14,8 @@
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kReloadDelay 5
-#define kAnimationInterval 2
+#define kReloadDelay 3
+#define kAnimationInterval 1
 
 @interface DDUsersView ()
 
@@ -30,7 +30,7 @@
 
 - (UIImageView*)addNewImageView
 {
-    UIImageView *ret = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+    DDStyledImageView *ret = [[[DDStyledImageView alloc] initWithFrame:self.bounds] autorelease];
     ret.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self addSubview:ret];
     return ret;
@@ -89,7 +89,7 @@
             //animate transition
             if (self.currentView.image)
             {
-                [UIView transitionFromView:self.currentView toView:updatedView duration:kAnimationInterval options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
+                [UIView transitionFromView:self.currentView toView:updatedView duration:kAnimationInterval options:(UIViewAnimationOptionTransitionFlipFromTop|UIViewAnimationOptionCurveEaseOut) completion:^(BOOL finished) {
                     [oldView removeFromSuperview];
                 }];
             }
