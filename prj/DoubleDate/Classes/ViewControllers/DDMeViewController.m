@@ -86,11 +86,6 @@
     //add right button
     self.navigationItem.rightBarButtonItem = [DDBarButtonItem barButtonItemWithImage:[UIImage imageNamed:@"button-gear.png"] target:self action:@selector(editTouched:)];
     
-    //apply image view styling
-    self.imageViewPoster.clipsToBounds = YES;
-    self.imageViewPoster.layer.cornerRadius = 6.0f;
-    [self.imageViewPoster applyBorderStyling];
-    
     //apply table view
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

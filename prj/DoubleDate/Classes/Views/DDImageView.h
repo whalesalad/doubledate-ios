@@ -22,3 +22,9 @@ extern NSString *const DDImageViewUpdateNotification;
 - (void)applyBorderStyling;
 
 @end
+
+@interface DDStyledImageView : UIImageView
+
+- (void)reloadFromUrl:(NSURL*)url;
+
+@end

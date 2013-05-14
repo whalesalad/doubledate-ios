@@ -9,7 +9,7 @@
 #import "DDViewController.h"
 
 @class DDUser;
-@class DDImageView;
+@class DDStyledImageView;
 
 @interface DDMeViewController : DDViewController
 {
@@ -24,7 +24,7 @@
 @property(nonatomic, retain) IBOutlet UITextView *textView;
 @property(nonatomic, retain) IBOutlet UIView *viewTop;
 @property(nonatomic, retain) IBOutlet UIView *viewBottom;
-@property(nonatomic, retain) IBOutlet DDImageView *imageViewPoster;
+@property(nonatomic, retain) IBOutlet DDStyledImageView *imageViewPoster;
 @property(nonatomic, retain) IBOutlet UILabel *labelTitle;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocation;
 @property(nonatomic, retain) IBOutlet UIImageView *imageViewGender;

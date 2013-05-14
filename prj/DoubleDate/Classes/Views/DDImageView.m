@@ -134,3 +134,97 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
 }
 
 @end
+
+@implementation DDStyledImageView
+{
+    DDImageView *imageView_;
+}
+
+@synthesize image;
+
+- (void)initSelf
+{
+    imageView_ = [[DDImageView alloc] initWithFrame:self.bounds];
+    imageView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self addSubview:imageView_];
+    
+    UIView *innerGlow = [[[UIView alloc] initWithFrame:CGRectInset(self.bounds, 1, 1)] autorelease];
+    innerGlow.backgroundColor = [UIColor clearColor];
+    innerGlow.layer.cornerRadius = 5;
+    innerGlow.layer.borderWidth = 1;
+    innerGlow.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+    [self addSubview:innerGlow];
+
+    self.layer.borderColor = [UIColor blackColor].CGColor;
+    self.layer.borderWidth = 1.0f;
+    self.layer.cornerRadius = 6.0f;
+
+#warning Michael shadow opacity causes a bug when the image DDImageView visible under the opaque view (when we open a menu, for example); the effect bug I sent you throw the skype
+//    self.layer.shadowOpacity = 0.1f;
+    self.layer.shadowRadius = 2.0f;
+    self.layer.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f].CGColor;
+    self.layer.shadowOffset = CGSizeMake(0, 1);
+    
+    self.clipsToBounds = YES;
+    self.layer.cornerRadius = 7;    
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+    {
+        [self initSelf];
+    }
+    return self;
+}
+
+- (id)initWithImage:(UIImage*)i
+{
+    if ((self = [super initWithFrame:CGRectMake(0, 0, i.size.width, i.size.height)]))
+    {
+        [self initSelf];
+        self.image = i;
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+    {
+        [self initSelf];
+    }
+    return self;
+}
+
+- (void)setImage:(UIImage *)i
+{
+    if (self.image != i)
+    {
+        [imageView_ cancelCurrentImageLoad];
+        [imageView_ setImage:i];
+    }
+}
+
+- (UIImage*)image
+{
+    return imageView_.image;
+}
+
+- (void)reloadFromUrl:(NSURL*)url
+{
+    [imageView_ reloadFromUrl:url];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+
+- (void)dealloc
+{
+    [imageView_ release];
+    [super dealloc];
+}
+
+@end
