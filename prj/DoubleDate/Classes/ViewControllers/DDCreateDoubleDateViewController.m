@@ -661,7 +661,6 @@
     {
         headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Details", @"Create Date: Header view for details text view") detailedText:nil];
         UILabel *mainLabel = [self mainLabelForHeaderView:headerView];
-#warning here we can customize the text color if needed, but I don't like this... better to leave as it is to be consistent
         mainLabel.textColor = [UIColor whiteColor];
     }
     return headerView;

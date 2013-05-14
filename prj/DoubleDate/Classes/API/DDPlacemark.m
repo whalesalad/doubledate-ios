@@ -98,6 +98,16 @@ NSString *DDPlacemarkTypeVenue = @"venue";
     return @"id";
 }
 
+- (BOOL)isVenue
+{
+    return [self.type isEqualToString:@"venue"];
+}
+
+- (BOOL)isCity
+{
+    return [self.type isEqualToString:@"city"];
+}
+
 - (void)dealloc
 {
     [activitiesCount release];

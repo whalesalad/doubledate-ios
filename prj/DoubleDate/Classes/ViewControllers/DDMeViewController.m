@@ -198,17 +198,9 @@
     self.textView.text = self.user.bio;
     
     //change the geometry
-//    CGFloat neededHeightOfTextView = [self.textView sizeThatFits:self.textView.contentSize].height;
-//    CGFloat realHeightOfTextView = self.textView.frame.size.height;
-//    CGFloat dy = neededHeightOfTextView - realHeightOfTextView;
-//    [self.textView sizeThatFits:self.textView.contentSize];
-    CGRect frame = self.textView.frame;
-    UIEdgeInsets inset = self.textView.contentInset;
-    frame.size.height = self.textView.contentSize.height + inset.top + inset.bottom;
-    self.textView.frame = frame;
-    
-    //change the frame of top view
-//    self.viewTop.frame = CGRectMake(self.viewTop.frame.origin.x, self.viewTop.frame.origin.y, self.viewTop.frame.size.width, self.viewTop.frame.size.height + dy);
+    CGRect textFrame = self.textView.frame;
+    textFrame.size.height = self.textView.contentSize.height + self.textView.contentInset.top + self.textView.contentInset.bottom;
+    self.textView.frame = textFrame;
     
     self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x, // x
                                        self.isDatesViewFullScreen ? 0 : [self verticalOffsetForBottomView], // y
@@ -720,8 +712,12 @@
 - (void)applyScrollViewContentOffsetChange:(UIScrollView *)scrollView
 {
     CGFloat dh = scrollView.contentOffset.y - contentOffset_.y;
-#warning Michael customize drag distance here
     CGFloat dragDistance = 50;
+    
+# warning XXX: note for michael to look at this
+//    NSLog(@"dh: %f", dh);
+//    NSLog(@"scrollview y offset: %f", scrollView.contentOffset.y);
+    
     if (self.isDatesViewFullScreen)
     {
         if (dh < -dragDistance)

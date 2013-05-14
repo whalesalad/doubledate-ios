@@ -368,17 +368,19 @@
     
     if (section == 0)
     {
-        return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Your Bio", nil) uppercaseString] detailedText:[NSLocalizedString(@"Short n' Sweet", @"Editing profile: user bio sub-header detail text") uppercaseString]];
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Your Bio", nil)
+                                          detailedText:NSLocalizedString(@"Short n' Sweet", @"Editing profile: user bio sub-header detail text")];
     }
     
     if (section == 1)
     {
-        return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Your Location", nil) uppercaseString] detailedText:nil];
+        return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Your Location", nil)
+                                          detailedText:nil];
     }
     
     if (section == 2)
     {
-        UIView *header = [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Ice Breakers", @"Editing profile: interests header text.") uppercaseString]
+        UIView *header = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Ice Breakers", @"Editing profile: interests header text.")
                                                     detailedText:@"                                    "];
         [interestsHeaderViews_ addObject:header];
         [self updateLeftInterestsForView:header];

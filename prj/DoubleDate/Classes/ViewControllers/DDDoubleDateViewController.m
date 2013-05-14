@@ -15,6 +15,7 @@
 #import "DDShortUser.h"
 #import "DDEngagement.h"
 #import "DDUser.h"
+#import "DDPlacemark.h"
 #import "DDSendEngagementViewController.h"
 #import "DDButton.h"
 #import "DDPhotoView.h"
@@ -180,7 +181,15 @@
     
     //set text
     self.textView.text = [self.doubleDate details];
-
+    
+    // Adjust size of textview.
+    CGRect textFrame = self.textView.frame;
+    textFrame.size.height = self.textView.contentSize.height + self.textView.contentInset.top + self.textView.contentInset.bottom;
+    self.textView.frame = textFrame;
+    
+    // customize location view
+    [self customizeLocationView];
+    
     //customize user views
     DDUserView *userView = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([DDUserView class]) owner:self options:nil] objectAtIndex:0];
     userView.frame = self.leftUserView.bounds;
@@ -293,6 +302,24 @@
 
 #pragma mark -
 #pragma mark other
+
+- (void)customizeLocationView
+{
+    CGRect locationFrame = self.scrollBottomView.frame;
+    locationFrame.origin.y = self.textView.frame.origin.y + self.textView.frame.size.height + 20;
+    self.scrollBottomView.frame = locationFrame;
+    self.scrollBottomView.layer.cornerRadius = 5.0f;
+    
+    // Reposition the main label if there is no detailed label.
+    if (self.doubleDate.location.isCity) {
+        self.labelLocationMain.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+        CGRect locationMainFrame = self.labelLocationMain.frame;
+        locationMainFrame.origin.y = self.scrollBottomView.frame.size.height / 2 - self.labelLocationMain.frame.size.height / 2;
+        self.labelLocationMain.frame = locationMainFrame;
+        self.labelLocationDetailed.hidden = YES;
+    }
+    
+}
 
 - (void)switchToNeededMode
 {
