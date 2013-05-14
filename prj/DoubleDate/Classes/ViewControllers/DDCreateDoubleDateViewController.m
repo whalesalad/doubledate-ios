@@ -180,7 +180,7 @@
     self.optionalLocation = nil;
     
     //update cell
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
     //update navigation button
     [self updateNavigationBar];
@@ -192,7 +192,7 @@
     self.optionalLocation = nil;
     
     //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)postTouched:(id)sender
@@ -525,7 +525,7 @@
         self.optionalLocation = nil;
     
         //update cell
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
         //update navigation button
         [self updateNavigationBar];
@@ -536,7 +536,7 @@
         self.optionalLocation = [placemarks objectAtIndex:0];
         
         //reload only one cell
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     }
     
     //pop view controller
@@ -627,6 +627,24 @@
 
 #pragma mark -
 #pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)aTableView heightForHeaderInSection:(NSInteger)section
+{
+    return [[self tableView:aTableView viewForHeaderInSection:section] frame].size.height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = nil;
+    if (section == 0)
+    {
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Details", @"Create Date: Header view for details text view") detailedText:nil];
+        UILabel *mainLabel = [self mainLabelForHeaderView:headerView];
+#warning here we can customize the text color if needed, but I don't like this... better to leave as it is to be consistent
+        mainLabel.textColor = [UIColor whiteColor];
+    }
+    return headerView;
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

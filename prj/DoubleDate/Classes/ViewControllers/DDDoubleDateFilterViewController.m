@@ -180,7 +180,7 @@
     filter_.location = [DDLocationController currentLocationController].lastPlacemark;
     
     //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)tap
@@ -358,7 +358,7 @@
     }
     
     //update text view
-    DDLabelTableViewCell *cell = (DDLabelTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+    DDLabelTableViewCell *cell = (DDLabelTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     if ([cell isKindOfClass:[DDLabelTableViewCell class]])
         cell.label.text = [self ageTitle];
 }
