@@ -302,30 +302,52 @@
         button.layer.shadowRadius = 3.0f;
         button.layer.shadowOpacity = 0.5f;
 
-        button.frame = CGRectMake(150+12, 7, 146, 146);
+        button.frame = CGRectMake(161, 6, 148, 148);
         
         [button addTarget:self action:@selector(chooseWingTouched:) forControlEvents:UIControlEventTouchUpInside];
         [mainView addSubview:button];
         
-        UILabel *selectWingLabel = [[[UILabel alloc] initWithFrame:usersView.bounds] autorelease];
+        CGRect selectWingLabelFrame = usersView.bounds;
+        selectWingLabelFrame.size.width = selectWingLabelFrame.size.width - 44;
+        
+        UILabel *selectWingLabel = [[[UILabel alloc] initWithFrame:selectWingLabelFrame] autorelease];
         selectWingLabel.text = @"Select\nWing";
-        selectWingLabel.backgroundColor = [UIColor redColor];
+        
+        selectWingLabel.backgroundColor = [UIColor clearColor];
         selectWingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
         selectWingLabel.textColor = [UIColor whiteColor];
         selectWingLabel.numberOfLines = 2;
         selectWingLabel.textAlignment = NSTextAlignmentRight;
         
+        // shadow
+        selectWingLabel.layer.shadowOpacity = 0.75f;
+        selectWingLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        selectWingLabel.layer.shadowOffset = CGSizeMake(0, 1);
+        selectWingLabel.layer.shadowRadius = 1.0f;
+        
         [button addSubview:selectWingLabel];
         
-//        CABasicAnimation *fadeAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//        fadeAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        fadeAnimation.duration = 1;
-//        fadeAnimation.repeatCount = HUGE_VAL;
-//        fadeAnimation.autoreverses = YES;
-//        fadeAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-//        fadeAnimation.toValue = [NSNumber numberWithFloat:0.5f];
+        UIImage *selectWingArrow = [UIImage imageNamed:@"select-wing-right-arrow.png"];
+        UIImageView *selectWingArrowView = [[[UIImageView alloc] initWithImage:selectWingArrow] autorelease];
+        selectWingArrowView.frame = CGRectMake(selectWingLabel.frame.size.width + selectWingArrow.size.width, selectWingLabel.frame.size.height/2 - selectWingArrow.size.height/2, selectWingArrow.size.width, selectWingArrow.size.height);
         
-//        [button.layer addAnimation:fadeAnimation forKey:@"animateOpacity"];
+        [button addSubview:selectWingArrowView];
+        
+        UIView *darkLayer = [[[UIView alloc] initWithFrame:button.frame] autorelease];
+        darkLayer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
+        darkLayer.layer.cornerRadius = 7;
+        [mainView insertSubview:darkLayer belowSubview:button];
+
+        
+        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        pulseAnimation.duration = 0.5;
+        pulseAnimation.repeatCount = HUGE_VAL;
+        pulseAnimation.autoreverses = YES;
+        pulseAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+        pulseAnimation.toValue = [NSNumber numberWithFloat:1.02f];
+        
+        [button.layer addAnimation:pulseAnimation forKey:@"transform"];
     }
 }
 

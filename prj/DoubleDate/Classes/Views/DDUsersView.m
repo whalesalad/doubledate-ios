@@ -89,7 +89,7 @@
             //animate transition
             if (self.currentView.image)
             {
-                [UIView transitionFromView:self.currentView toView:updatedView duration:kAnimationInterval options:(UIViewAnimationOptionTransitionFlipFromTop|UIViewAnimationOptionCurveEaseOut) completion:^(BOOL finished) {
+                [UIView transitionFromView:self.currentView toView:updatedView duration:kAnimationInterval options:(UIViewAnimationOptionTransitionFlipFromRight|UIViewAnimationOptionCurveEaseInOut) completion:^(BOOL finished) {
                     [oldView removeFromSuperview];
                 }];
             }
