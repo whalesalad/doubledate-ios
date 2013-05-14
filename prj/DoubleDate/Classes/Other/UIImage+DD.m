@@ -137,10 +137,15 @@
 
 + (UIImage*)clearImageOfSize:(CGSize)size
 {
+    return [self imageOfSize:size withColor:[UIColor clearColor]];
+}
+
++ (UIImage*)imageOfSize:(CGSize)size withColor:(UIColor*)color
+{
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     CGRect fillRect = CGRectMake(0, 0, size.width, size.height);
-    CGContextSetFillColorWithColor(currentContext, [UIColor clearColor].CGColor);
+    CGContextSetFillColorWithColor(currentContext, color.CGColor);
     CGContextFillRect(currentContext, fillRect);
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

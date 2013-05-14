@@ -25,6 +25,7 @@
 #import "DDFacebookFriendsViewController.h"
 #import "DDUserView.h"
 #import "UIImage+DD.h"
+#import "DDUsersView.h"
 
 #define kTagCancelActionSheet 1
 
@@ -116,6 +117,10 @@
     
     //show navigation bar
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+    
+    //load facebook friends
+    if (!facebookFriends_)
+        [self.apiController getFacebookFriends];
 }
 
 - (void)didReceiveMemoryWarning
@@ -276,6 +281,14 @@
     }
     else
     {
+        //add users view
+        DDUsersView *usersView = [[[DDUsersView alloc] initWithPlaceholderImage:[UIImage imageOfSize:CGSizeMake(1, 1) withColor:[UIColor redColor]]] autorelease];
+        usersView.frame = CGRectMake(150+12, 7, 146, 146);
+        usersView.users = facebookFriends_;
+        usersView.layer.cornerRadius = 10.0f;
+        usersView.clipsToBounds = YES;
+        [mainView addSubview:usersView];
+        
         //add transparent button
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.2f];
@@ -542,6 +555,20 @@
     
     //show error
     [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)getFacebookFriendsSucceed:(NSArray *)friends
+{
+    //update facebook friends
+    [facebookFriends_ release];
+    facebookFriends_ = [friends retain];
+    
+    //update header
+    [self updateHeader];
+}
+
+- (void)getFacebookFriendsDidFailedWithError:(NSError *)error
+{
 }
 
 #pragma mark -

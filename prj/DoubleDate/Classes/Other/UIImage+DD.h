@@ -24,4 +24,6 @@
 
 + (UIImage*)clearImageOfSize:(CGSize)size;
 
++ (UIImage*)imageOfSize:(CGSize)size withColor:(UIColor*)color;
+
 @end

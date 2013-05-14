@@ -14,6 +14,7 @@
 
 @interface DDCreateDoubleDateViewController : DDViewController
 {
+    NSArray *facebookFriends_;
 }
 
 @property(nonatomic, retain) DDShortUser *wing;
