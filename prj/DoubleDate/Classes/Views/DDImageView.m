@@ -144,29 +144,31 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
 
 - (void)initSelf
 {
+    CGFloat baseCornerRadius = 6.0f;
+    
+    self.backgroundColor = [UIColor clearColor];
+    
     imageView_ = [[DDImageView alloc] initWithFrame:self.bounds];
     imageView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    imageView_.layer.cornerRadius = baseCornerRadius + 1;
+    imageView_.clipsToBounds = YES;
     [self addSubview:imageView_];
     
     UIView *innerGlow = [[[UIView alloc] initWithFrame:CGRectInset(self.bounds, 1, 1)] autorelease];
     innerGlow.backgroundColor = [UIColor clearColor];
-    innerGlow.layer.cornerRadius = 5;
+    innerGlow.layer.cornerRadius = baseCornerRadius - 1;
     innerGlow.layer.borderWidth = 1;
     innerGlow.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
     [self addSubview:innerGlow];
 
     self.layer.borderColor = [UIColor blackColor].CGColor;
     self.layer.borderWidth = 1.0f;
-    self.layer.cornerRadius = 6.0f;
+    self.layer.cornerRadius = baseCornerRadius;
 
-#warning Michael shadow opacity causes a bug when the image DDImageView visible under the opaque view (when we open a menu, for example); the effect bug I sent you throw the skype
-//    self.layer.shadowOpacity = 0.1f;
     self.layer.shadowRadius = 2.0f;
-    self.layer.shadowColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f].CGColor;
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 1);
-    
-    self.clipsToBounds = YES;
-    self.layer.cornerRadius = 7;    
+    self.layer.shadowOpacity = 0.3f;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

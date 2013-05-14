@@ -103,6 +103,8 @@
     
     self.barYourDates.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"doubeldate-bar-bg.png"]];
     
+    [self.buttonEditProfile setBackgroundImage:[[self.buttonEditProfile backgroundImageForState:UIControlStateNormal] resizableImage] forState:UIControlStateNormal];
+    
     //add button handlers
     [self.buttonEditProfile addTarget:self action:@selector(editProfileTouched) forControlEvents:UIControlEventTouchUpInside];
     [self.buttonEditPhoto addTarget:self action:@selector(changePhotoTouched) forControlEvents:UIControlEventTouchUpInside];
