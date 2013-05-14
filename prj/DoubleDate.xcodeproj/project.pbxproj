@@ -336,6 +336,8 @@
 		4CC627E41741523C005D889A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC627E31741523C005D889A /* AVFoundation.framework */; };
 		4CC627F91741547A005D889A /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC627F617415454005D889A /* libGPUImage.a */; };
 		4CC627FB17415696005D889A /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC627FA17415696005D889A /* CoreVideo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		4CC628101741B4C4005D889A /* doubeldate-bar-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6280E1741B4C4005D889A /* doubeldate-bar-bg.png */; };
+		4CC628111741B4C4005D889A /* doubeldate-bar-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6280F1741B4C4005D889A /* doubeldate-bar-bg@2x.png */; };
 		4CCFEB3116EF3A9F00F0D5DA /* wing-slideout-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCFEB2F16EF3A9F00F0D5DA /* wing-slideout-bg.png */; };
 		4CCFEB3216EF3A9F00F0D5DA /* wing-slideout-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCFEB3016EF3A9F00F0D5DA /* wing-slideout-bg@2x.png */; };
 		4CCFEB3516EF58D900F0D5DA /* wing-slideout-top.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CCFEB3316EF58D900F0D5DA /* wing-slideout-top.png */; };
@@ -1016,6 +1018,8 @@
 		4CC627E31741523C005D889A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4CC627EF17415454005D889A /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = GPUImage/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		4CC627FA17415696005D889A /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		4CC6280E1741B4C4005D889A /* doubeldate-bar-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doubeldate-bar-bg.png"; sourceTree = "<group>"; };
+		4CC6280F1741B4C4005D889A /* doubeldate-bar-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "doubeldate-bar-bg@2x.png"; sourceTree = "<group>"; };
 		4CCFEB2F16EF3A9F00F0D5DA /* wing-slideout-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-slideout-bg.png"; sourceTree = "<group>"; };
 		4CCFEB3016EF3A9F00F0D5DA /* wing-slideout-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-slideout-bg@2x.png"; sourceTree = "<group>"; };
 		4CCFEB3316EF58D900F0D5DA /* wing-slideout-top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wing-slideout-top.png"; sourceTree = "<group>"; };
@@ -1488,31 +1492,31 @@
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				96AF636A1714482E0081C518 /* photo-crop-assets */,
-				708E2485170252DE001E8C77 /* message-sent-bar */,
-				708E246C17022FE9001E8C77 /* notification-counter */,
-				965F0A3B16F8DDA400AF363D /* unlock-notice-bar */,
-				70F0DA1416F5228100FE01F4 /* resizable-dialog */,
-				708A059716EFC91000852CE1 /* wing-selection */,
-				70E1A26D16E3823A008979FD /* purchase-coins-assets */,
-				962DEA4B16DCBE94007B1603 /* date-stages */,
-				96E2620916D650E60041FD26 /* edit-profile-assets */,
 				4C3632D016D519F6001BBFE7 /* buttons */,
 				4C3632D716D519F6001BBFE7 /* chat-view */,
 				4C3632F416D519F6001BBFE7 /* coinbar */,
 				4C3632FD16D519F6001BBFE7 /* dark-tableview */,
+				962DEA4B16DCBE94007B1603 /* date-stages */,
 				4C36330416D519F6001BBFE7 /* doubledate-create */,
 				4C36330D16D519F6001BBFE7 /* doubledate-detail */,
+				96E2620916D650E60041FD26 /* edit-profile-assets */,
 				4C36333C16D519F7001BBFE7 /* engagement-create */,
 				4C36334716D519F7001BBFE7 /* engagement-list */,
 				4C36334A16D519F7001BBFE7 /* general */,
 				4C3633A916D519F7001BBFE7 /* incoming user list */,
 				4C3633B216D519F7001BBFE7 /* me */,
+				708E2485170252DE001E8C77 /* message-sent-bar */,
 				4C3633BB16D519F7001BBFE7 /* navigation */,
+				708E246C17022FE9001E8C77 /* notification-counter */,
 				4C3633CE16D519F7001BBFE7 /* notifications */,
+				96AF636A1714482E0081C518 /* photo-crop-assets */,
+				70E1A26D16E3823A008979FD /* purchase-coins-assets */,
+				70F0DA1416F5228100FE01F4 /* resizable-dialog */,
 				4C3633D716D519F7001BBFE7 /* search */,
+				965F0A3B16F8DDA400AF363D /* unlock-notice-bar */,
 				4C3633E416D519F7001BBFE7 /* welcome */,
 				4C36340416D519F7001BBFE7 /* wing-and-list-overlays */,
+				708A059716EFC91000852CE1 /* wing-selection */,
 				4CCFEB2E16EF3A9F00F0D5DA /* wing-slideout */,
 				4C36340D16D519F7001BBFE7 /* wings-list */,
 			);
@@ -1818,16 +1822,18 @@
 		4C3633B216D519F7001BBFE7 /* me */ = {
 			isa = PBXGroup;
 			children = (
-				4C36355616D6E9BA001BBFE7 /* me-photo-gradient-overlay.png */,
-				4C36355716D6E9BA001BBFE7 /* me-photo-gradient-overlay@2x.png */,
 				4C3633B316D519F7001BBFE7 /* bg-me-interest.png */,
 				4C3633B416D519F7001BBFE7 /* bg-me-interest@2x.png */,
 				4C3633B516D519F7001BBFE7 /* bg-me-photo-mask.png */,
 				4C3633B616D519F7001BBFE7 /* bg-me-photo-mask@2x.png */,
+				4CC6280E1741B4C4005D889A /* doubeldate-bar-bg.png */,
+				4CC6280F1741B4C4005D889A /* doubeldate-bar-bg@2x.png */,
 				4C3633B716D519F7001BBFE7 /* icon-gender-female.png */,
 				4C3633B816D519F7001BBFE7 /* icon-gender-female@2x.png */,
 				4C3633B916D519F7001BBFE7 /* icon-gender-male.png */,
 				4C3633BA16D519F7001BBFE7 /* icon-gender-male@2x.png */,
+				4C36355616D6E9BA001BBFE7 /* me-photo-gradient-overlay.png */,
+				4C36355716D6E9BA001BBFE7 /* me-photo-gradient-overlay@2x.png */,
 			);
 			path = me;
 			sourceTree = "<group>";
@@ -3259,6 +3265,8 @@
 				4C104153173D11D000411FA5 /* nav-btn-doubledate-highlighted.png in Resources */,
 				4C104154173D11D000411FA5 /* nav-btn-doubledate-highlighted@2x.png in Resources */,
 				708BFA3B173D8DE300F8D5AF /* DDUserView.xib in Resources */,
+				4CC628101741B4C4005D889A /* doubeldate-bar-bg.png in Resources */,
+				4CC628111741B4C4005D889A /* doubeldate-bar-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
