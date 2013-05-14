@@ -78,7 +78,6 @@
     //reload the image
     self.imageViewPhoto.image = nil;
     [self.imageViewPhoto reloadFromUrl:[NSURL URLWithString:[self photoUrl]]];
-    [self.imageViewPhoto applyBorderStyling];
     
     //update gender
     self.imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", self.gender]];

@@ -104,19 +104,6 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
     self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 1);
 
-    // create new layer for image with tighter border radius.
-    CALayer *imageLayer = [CALayer layer];
-    imageLayer.frame = self.bounds;
-    imageLayer.contents = (id) self.image.CGImage;
-    imageLayer.masksToBounds = YES;
-    imageLayer.cornerRadius = self.layer.cornerRadius + 1;
-    
-    // insert modified image
-    [self.layer insertSublayer:imageLayer atIndex:0];
-    
-    // remove the old image
-    [self setImage:nil];
-    
     // Inner white border
     CALayer *innerGlowLayer = [CALayer layer];
     innerGlowLayer.frame = CGRectInset(self.bounds, 1, 1);
