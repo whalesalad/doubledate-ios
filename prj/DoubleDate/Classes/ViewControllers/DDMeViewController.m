@@ -8,6 +8,7 @@
 
 #import "DDMeViewController.h"
 #import "DDUser.h"
+#import "DDShortUser.h"
 #import "DDAuthenticationController.h"
 #import "DDDialog.h"
 #import "DDDialogAlertView.h"
@@ -565,6 +566,18 @@
     //update object
     self.user.photo = photo;
     
+    //update photo in dates
+    for (DDDoubleDate *date in doubleDatesMine_)
+    {
+        if ([[date.user identifier] intValue] == [[self.user userId] intValue])
+            date.user.photo = photo;
+        if ([[date.wing identifier] intValue] == [[self.user userId] intValue])
+            date.wing.photo = photo;
+    }
+    
+    //reload the table
+    [self.tableView reloadData];
+    
     //update shared values
     if ([[[DDAuthenticationController currentUser] userId] intValue] == [user.userId intValue])
         [DDAuthenticationController setCurrentUser:self.user];
@@ -612,6 +625,18 @@
     
     //update object
     self.user.photo = photo;
+    
+    //update photo in dates
+    for (DDDoubleDate *date in doubleDatesMine_)
+    {
+        if ([[date.user identifier] intValue] == [[self.user userId] intValue])
+            date.user.photo = photo;
+        if ([[date.wing identifier] intValue] == [[self.user userId] intValue])
+            date.wing.photo = photo;
+    }
+    
+    //reload the table
+    [self.tableView reloadData];
 #endif
 }
 
