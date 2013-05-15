@@ -22,6 +22,8 @@
 @property(nonatomic, retain) DDImage *photo;
 @property(nonatomic, retain) NSNumber *approved;
 
++ (NSString*)nameForShortUser:(DDShortUser*)user;
+
 @end
 
 @interface DDShortGhost : DDShortUser

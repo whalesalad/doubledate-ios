@@ -25,7 +25,6 @@
 @synthesize shortUser;
 
 @synthesize labelTitle;
-@synthesize labelLocation;
 @synthesize imageViewWrapper;
 @synthesize imageViewPoster;
 @synthesize imageViewGender;
@@ -34,7 +33,7 @@
 
 + (CGFloat)height
 {
-    return 50;
+    return 55;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -56,35 +55,11 @@
     //hide checkmark
     imageViewCheckmark.hidden = YES;
     
-    imageViewWrapper.layer.borderColor = [UIColor blackColor].CGColor;
-    imageViewWrapper.layer.borderWidth = 1;
-    imageViewWrapper.layer.cornerRadius = 2;
-    
-    imageViewWrapper.layer.shadowColor = [UIColor blackColor].CGColor;
-    imageViewWrapper.layer.shadowOffset = CGSizeMake(0, 1);
-    imageViewWrapper.layer.shadowRadius = 1;
-    imageViewWrapper.layer.shadowOpacity = 0.5f;
-    // imageViewWrapper.layer.shadowPath = [[UIBezierPath bezierPathWithRect:viewEffects.bounds] CGPath];
-    
-    // set rounded corners
-    // tighter radius on inner layer = no tiny pixel artifacts on corner
-    imageViewPoster.layer.cornerRadius = 3;
-    imageViewPoster.layer.masksToBounds = YES;
-    imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
-    
-    // Add an inner white border on the top only
-    CALayer *topBorder = self.topBorderView.layer;
-    self.topBorderView.frame = CGRectMake(0, 1, imageViewPoster.frame.size.width, 1.0f);
-    topBorder.backgroundColor = [UIColor whiteColor].CGColor;
-    topBorder.opacity = 0.2f;
-    
     //unset background
-    labelLocation.backgroundColor = [UIColor clearColor];
     labelTitle.backgroundColor = [UIColor clearColor];
     
-    //customize poster
-    [[imageViewPoster layer] setMagnificationFilter:kCAFilterNearest];
-    imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
+    self.layer.shouldRasterize = YES;
+    self.layer.rasterizationScale = [UIScreen mainScreen].scale;
 }
 
 - (void)setShortUser:(DDShortUser *)v
@@ -101,21 +76,17 @@
     if (v.photo.thumbUrl && [NSURL URLWithString:v.photo.thumbUrl])
         [imageViewPoster reloadFromUrl:[NSURL URLWithString:v.photo.thumbUrl]];
 
-    labelTitle.text = [DDWingTableViewCell titleForShortUser:v];
+    labelTitle.text = [DDShortUser nameForShortUser:shortUser];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
     
-    labelLocation.text = v.location;
-    
     imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", v.gender]];
-
-    imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x+labelTitle.frame.size.width+4, labelTitle.center.y-imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
+    imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x + labelTitle.frame.size.width + 4, labelTitle.center.y - imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
 }
 
 - (void)dealloc
 {
     [shortUser release];
     [labelTitle release];
-    [labelLocation release];
     [imageViewPoster release];
     [imageViewGender release];
     [imageViewCheckmark release];

@@ -90,6 +90,15 @@
     [super dealloc];
 }
 
++ (NSString*)nameForShortUser:(DDShortUser*)user
+{
+    NSString *name = user.fullName;
+    if (!name)
+        name = user.firstName;
+    return name;
+}
+
+
 @end
 
 @implementation DDShortGhost
