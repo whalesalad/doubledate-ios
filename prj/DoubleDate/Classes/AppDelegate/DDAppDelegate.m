@@ -202,6 +202,7 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    [FBSession.activeSession close];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
