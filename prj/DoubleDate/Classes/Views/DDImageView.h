@@ -27,4 +27,6 @@ extern NSString *const DDImageViewUpdateNotification;
 
 - (void)reloadFromUrl:(NSURL*)url;
 
+- (void)addImageOverlay:(UIView*)view;
+
 @end

@@ -101,6 +101,12 @@
     self.viewNoDates.layer.cornerRadius = 5.0f;
     self.viewNoBio.layer.cornerRadius = 5.0f;
     
+    // add edit 'button' on user photo
+    UIImage *editPhotoImage = [UIImage imageNamed:@"profile-photo-edit-icon.png"];
+    UIImageView *editPhotoImageView = [[[UIImageView alloc] initWithImage:editPhotoImage] autorelease];
+    editPhotoImageView.frame = CGRectMake(0, self.imageViewPoster.frame.size.height - editPhotoImage.size.height, editPhotoImage.size.width, editPhotoImage.size.height);
+    [self.imageViewPoster addImageOverlay:editPhotoImageView];
+    
     self.viewBottom.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"dd-pinstripe-background"]];
     
     self.barYourDates.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"doubeldate-bar-bg.png"]];
@@ -810,7 +816,6 @@
     if (isDatesViewFullScreen != v)
     {
         isDatesViewFullScreen = v;
-#warning Michael customize animation parameters here
         [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
             self.viewBottom.frame = CGRectMake(self.viewBottom.frame.origin.x,
                                                self.isDatesViewFullScreen ? 0 : [self verticalOffsetForBottomView],

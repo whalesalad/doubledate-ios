@@ -190,6 +190,11 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
     [super layoutSubviews];
 }
 
+- (void)addImageOverlay:(UIView *)view
+{
+    [imageView_ addSubview:view];
+}
+
 - (void)dealloc
 {
     [imageView_ release];
