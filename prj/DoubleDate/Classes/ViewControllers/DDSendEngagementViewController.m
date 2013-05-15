@@ -66,7 +66,7 @@
     [buttonCreate setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Send a Message", nil);
+    self.navigationItem.title = NSLocalizedString(@"New Message", nil);
     
     //set left button
     self.navigationItem.leftBarButtonItem = nil;
@@ -168,7 +168,7 @@
 {
     //add image view
     DDImageView *imageView = [[[DDImageView alloc] init] autorelease];
-    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 45, 0, 45, 45);
+    imageView.frame = CGRectMake(cell.contentView.frame.size.width - 46, 0, 46, 45);
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     
     //check if we need to update the wing
@@ -301,7 +301,7 @@
     if (section == 0)
         return nil;
     
-    return [self oldStyleViewForHeaderWithMainText:[NSLocalizedString(@"Your Message", nil) uppercaseString] detailedText:nil];
+    return [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Message", nil) detailedText:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -71,7 +71,7 @@
     [buttonCreate setTitle:NSLocalizedString(@"Create", nil) forState:UIControlStateNormal];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Create a DoubleDate", nil);
+    self.navigationItem.title = NSLocalizedString(@"New DoubleDate", nil);
     
     //set left button
     self.navigationItem.leftBarButtonItem = nil;

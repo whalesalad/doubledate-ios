@@ -504,7 +504,7 @@
     [super viewDidLoad];
     
     //set title
-    self.navigationItem.title = NSLocalizedString(@"Choose you friend", @"Title of choose friend view controller");
+    self.navigationItem.title = NSLocalizedString(@"Select Wing", @"Title of choose friend view controller");
     
     //remove right bar button
     self.navigationItem.rightBarButtonItem = nil;

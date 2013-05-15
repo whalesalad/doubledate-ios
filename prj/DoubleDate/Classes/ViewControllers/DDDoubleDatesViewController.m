@@ -100,7 +100,7 @@ typedef enum
     UIImage *image = [UIImage imageNamed:@"btn-blue-create.png"];
     UIButton *ret = [self.view baseButtonWithImage:image];
     [ret addTarget:self action:@selector(plusTouched:) forControlEvents:UIControlEventTouchUpInside];
-    [ret setTitle:NSLocalizedString(@"Create a DoubleDate", nil) forState:UIControlStateNormal];
+    [ret setTitle:NSLocalizedString(@"New DoubleDate", nil) forState:UIControlStateNormal];
     return ret;
 }
 
@@ -128,7 +128,7 @@ typedef enum
         
         //customize
         [viewExplore applyNoDataWithMainText:NSLocalizedString(@"There aren't any\nDoubleDates nearby.", @"Main text of no data in EXPLORE dates")
-                                    infoText:[NSString stringWithFormat:NSLocalizedString(@"Be first to create a DoubleDate\nnearby and earn %d coins.", @"Detailed text of no data in EXPLORE dates"), kEarnCost]];
+                                    infoText:nil];
     }
 }
 
