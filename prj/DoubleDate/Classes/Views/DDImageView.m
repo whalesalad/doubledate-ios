@@ -195,6 +195,11 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
     [imageView_ addSubview:view];
 }
 
+- (UIImageView*)internalImageView
+{
+    return imageView_;
+}
+
 - (void)dealloc
 {
     [imageView_ release];

@@ -29,4 +29,6 @@ extern NSString *const DDImageViewUpdateNotification;
 
 - (void)addImageOverlay:(UIView*)view;
 
+- (UIImageView*)internalImageView;
+
 @end

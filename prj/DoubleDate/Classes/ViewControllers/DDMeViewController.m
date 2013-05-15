@@ -33,6 +33,8 @@
 #define kTagActionSheetChangePhoto 2
 #define kTagLoadingSpinner 3
 
+#define OWN_CROP_UI 0
+
 @interface DDMeViewController () <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, DDImageEditDialogViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, retain) DDImageEditDialogView *imageEditView;
@@ -323,6 +325,10 @@
     {
         UIImagePickerController *imagePicker = [[[UIImagePickerController alloc] init] autorelease];
         imagePicker.delegate = self;
+#if OWN_CROP_UI
+#else
+        imagePicker.allowsEditing = YES;
+#endif
         imagePicker.sourceType = type;
         imagePicker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
         [self.navigationController presentViewController:imagePicker animated:YES completion:^{
@@ -351,7 +357,11 @@
     [self.apiController cancelRequest:updatePhotoRequest_];
     
     //create new request
+#if OWN_CROP_UI
     [self.apiController getPhotoForMeFromFacebook];
+#else
+    updatePhotoRequest_ = [self.apiController updatePhotoForMeFromFacebook];
+#endif
 }
 
 - (void)setAvatarShown:(BOOL)shown
@@ -466,7 +476,7 @@
 
 - (void)imageViewUpdateNotification:(NSNotification*)notification
 {
-    if ([notification object] == self.imageViewPoster)
+    if ([notification object] == [self.imageViewPoster internalImageView])
         [self setAvatarShown:YES];
 }
 
@@ -518,7 +528,13 @@
         
         //show crop
         if (image)
+        {
+#if OWN_CROP_UI
             [self presentCropUIForImage:image];
+#else
+            [self updateAvatarWithImage:image];
+#endif
+        }
     }
     
     //dismiss view controller
@@ -538,9 +554,14 @@
 - (void)updatePhotoForMeSucceed:(DDImage*)photo
 {
     //update url only if updated not after cropping
+#if OWN_CROP_UI
     if ([self.apiController isRequestExist:updatePhotoRequest_])
         [self.imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.squareUrl]];
-        
+#else
+    //update url
+    [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.squareUrl]];
+#endif
+    
     //update object
     self.user.photo = photo;
     
@@ -583,12 +604,24 @@
 
 - (void)updatePhotoForMeFromFacebookSucceed:(DDImage*)photo
 {
+#if OWN_CROP_UI
     [self updatePhotoForMeSucceed:photo];
+#else
+    //update url
+    [imageViewPoster reloadFromUrl:[NSURL URLWithString:photo.squareUrl]];
+    
+    //update object
+    self.user.photo = photo;
+#endif
 }
 
 - (void)updatePhotoForMeFromFacebookDidFailedWithError:(NSError*)error
 {
+#if OWN_CROP_UI
     [self updatePhotoForMeDidFailedWithError:error];
+#else
+    [self getPhotoForMeFromFacebookDidFailedWithError:error];
+#endif
 }
 
 #pragma mark -
