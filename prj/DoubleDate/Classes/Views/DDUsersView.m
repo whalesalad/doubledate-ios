@@ -79,7 +79,11 @@
     //create view
     DDUsersViewCell *cell = [[[DDUsersViewCell alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width/columns_, self.frame.size.height/rows_)] autorelease];
     
-    //add image view
+    cell.clipsToBounds = YES;
+
+//    cell.layer.shouldRasterize = YES;
+//    cell.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    
     cell.imageView = [[[UIImageView alloc] initWithFrame:cell.bounds] autorelease];
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [cell addSubview:cell.imageView];
@@ -138,6 +142,36 @@
                 [self addCellInPosition:position];
             }
         }
+        
+        CGFloat baseCornerRadius = 6.0f;
+        
+        self.backgroundColor = [UIColor clearColor];
+        
+        self.grid.layer.cornerRadius = baseCornerRadius + 1;
+        self.grid.backgroundColor = [UIColor darkGrayColor];
+        
+        UIImage *darkOverlayImage = [UIImage imageNamed:@"select-wing-dark-overlay.png"];
+        UIImageView *darkOverlay = [[[UIImageView alloc] initWithImage:darkOverlayImage] autorelease];
+        darkOverlay.clipsToBounds = YES;
+        darkOverlay.layer.cornerRadius = 7.0f;
+        darkOverlay.frame = self.bounds;
+        [self insertSubview:darkOverlay aboveSubview:self.grid];
+        
+        UIView *innerGlow = [[[UIView alloc] initWithFrame:CGRectInset(self.bounds, 1, 1)] autorelease];
+        innerGlow.backgroundColor = [UIColor clearColor];
+        innerGlow.layer.cornerRadius = baseCornerRadius - 1;
+        innerGlow.layer.borderWidth = 1;
+        innerGlow.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+        [self addSubview:innerGlow];
+        
+        self.layer.borderColor = [UIColor blackColor].CGColor;
+        self.layer.borderWidth = 1.0f;
+        self.layer.cornerRadius = baseCornerRadius;
+        
+        self.layer.shadowRadius = 2.0f;
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 1);
+        self.layer.shadowOpacity = 0.3f;
         
         //start animating
         [self startAnimation];

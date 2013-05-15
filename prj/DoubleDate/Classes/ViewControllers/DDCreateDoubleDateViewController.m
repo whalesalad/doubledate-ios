@@ -288,18 +288,18 @@
         
         //add transparent button
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.2f];
+        button.backgroundColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.1f];
         button.layer.cornerRadius = 10.0f;
         
         // add blue border
-        button.layer.borderWidth = 2.0f;
+        button.layer.borderWidth = 1.0f;
         button.layer.borderColor = [UIColor colorWithRed:19/255.0f green:197/255.0f blue:255/255.0f alpha:1.0].CGColor;
         
         // add outer glow
         button.layer.shadowOffset = CGSizeMake(0,0);
         button.layer.shadowColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:1.0].CGColor;
         button.layer.shadowRadius = 3.0f;
-        button.layer.shadowOpacity = 0.5f;
+        button.layer.shadowOpacity = 0.3f;
 
         button.frame = CGRectMake(161, 6, 148, 148);
         
@@ -307,6 +307,7 @@
         [mainView addSubview:button];
         
         CGRect selectWingLabelFrame = usersView.bounds;
+        selectWingLabelFrame.origin.y = 5;
         selectWingLabelFrame.size.width = selectWingLabelFrame.size.width - 44;
         
         UILabel *selectWingLabel = [[[UILabel alloc] initWithFrame:selectWingLabelFrame] autorelease];
@@ -328,23 +329,20 @@
         
         UIImage *selectWingArrow = [UIImage imageNamed:@"select-wing-right-arrow.png"];
         UIImageView *selectWingArrowView = [[[UIImageView alloc] initWithImage:selectWingArrow] autorelease];
-        selectWingArrowView.frame = CGRectMake(selectWingLabel.frame.size.width + selectWingArrow.size.width, selectWingLabel.frame.size.height/2 - selectWingArrow.size.height/2, selectWingArrow.size.width, selectWingArrow.size.height);
+        
+        CGPoint arrowCenter = selectWingLabel.center;
+        arrowCenter.x = arrowCenter.x + selectWingArrow.size.width + selectWingLabel.frame.size.width/2 + 3;
+        selectWingArrowView.center = arrowCenter;
         
         [button addSubview:selectWingArrowView];
         
-        UIView *darkLayer = [[[UIView alloc] initWithFrame:button.frame] autorelease];
-        darkLayer.backgroundColor = [UIColor colorWithWhite:0 alpha:0.6f];
-        darkLayer.layer.cornerRadius = 7;
-        [mainView insertSubview:darkLayer belowSubview:button];
-        
 //        CABasicAnimation *pulseAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-//        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        pulseAnimation.duration = 0.5;
+//        pulseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+//        pulseAnimation.duration = 0.6;
 //        pulseAnimation.repeatCount = HUGE_VAL;
 //        pulseAnimation.autoreverses = YES;
-//        pulseAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+//        pulseAnimation.fromValue = [NSNumber numberWithFloat:0.98f];
 //        pulseAnimation.toValue = [NSNumber numberWithFloat:1.02f];
-//        
 //        [button.layer addAnimation:pulseAnimation forKey:@"transform"];
     }
 }

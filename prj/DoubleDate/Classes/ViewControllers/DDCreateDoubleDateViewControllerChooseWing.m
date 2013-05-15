@@ -155,7 +155,7 @@
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
     
     //apply text
-    cell.textLabel.text = [user fullName];
+    cell.textLabel.text = [user firstName];
 
     //check for photo
     if ([user.photo thumbUrl])

@@ -116,6 +116,7 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
     
     imageView_ = [[DDImageView alloc] initWithFrame:self.bounds];
     imageView_.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    imageView_.contentMode = UIViewContentModeScaleAspectFill;
     imageView_.layer.cornerRadius = baseCornerRadius + 1;
     imageView_.backgroundColor = [UIColor darkGrayColor];
     imageView_.clipsToBounds = YES;
