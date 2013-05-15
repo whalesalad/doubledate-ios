@@ -18,6 +18,8 @@
 #define kMovingTimeMin 3.0f
 #define kMovingTimeMax 5.0f
 
+#define kExtraItems 3
+
 @interface DDUsersViewCellParam : NSObject
 
 @property(nonatomic, assign) DWPosition position;
@@ -122,9 +124,9 @@
         
         //create cells
         self.cells = [NSMutableArray array];
-        for (int i = 0; i < rows + 3; i++)
+        for (int i = 0; i < rows + kExtraItems; i++)
         {
-            for (int j = 0; j < columns + 3; j++)
+            for (int j = 0; j < columns + kExtraItems; j++)
             {
                 //set position
                 DWPosition position;
@@ -177,7 +179,7 @@
                           delay:0
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-        [self.grid moveCellAtPosition:param.position horizontallyBy:0 withTranslation:CGPointMake(-self.frame.size.width/rows_, 0) reloadingData:NO];
+                         [self.grid moveCellAtPosition:param.position horizontallyBy:0 withTranslation:CGPointMake(self.frame.size.width/columns_*(param.position.row%2?1:-1), 0) reloadingData:NO];
     } completion:^(BOOL finished) {
         if (self.superview)
         {
@@ -215,12 +217,12 @@
 
 - (NSInteger)numberOfRowsInGridView:(DWGridView *)gridView
 {
-    return rows_+2;
+    return rows_ + kExtraItems;
 }
 
 - (NSInteger)numberOfColumnsInGridView:(DWGridView *)gridView
 {
-    return columns_+2;
+    return columns_ + kExtraItems;
 }
 
 - (NSInteger)numberOfVisibleRowsInGridView:(DWGridView *)gridView
