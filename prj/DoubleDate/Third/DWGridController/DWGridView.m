@@ -170,6 +170,14 @@ static inline DWPosition DWPositionMake(NSInteger row, NSInteger column) {
     return position;
 }
 
+-(void)stop{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [_easeOutTimer invalidate];
+    _easeOutTimer = nil;
+    [_easeThread cancel];
+    _easeThread = nil;
+}
+
 #pragma mark - Gestures
 
 -(void)panGestureDetected:(UIPanGestureRecognizer *)gestureRecognizer{

@@ -205,6 +205,7 @@
 {
     [users release];
     [cells release];
+    [grid stop];
     [grid release];
     [super dealloc];
 }
