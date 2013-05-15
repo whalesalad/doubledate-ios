@@ -152,7 +152,7 @@
 							<object class="IBUITextView" id="950756191">
 								<reference key="NSNextResponder" ref="693475908"/>
 								<int key="NSvFlags">277</int>
-								<string key="NSFrame">{{15, 199}, {275, 88}}</string>
+								<string key="NSFrame">{{15, 204}, {275, 88}}</string>
 								<reference key="NSSuperview" ref="693475908"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="257368905"/>
@@ -340,7 +340,6 @@
 										<string key="NSFrame">{{13, 0}, {240, 50}}</string>
 										<reference key="NSSuperview" ref="556406074"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClipsSubviews">YES</bool>
