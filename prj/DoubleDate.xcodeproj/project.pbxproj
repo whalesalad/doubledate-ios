@@ -606,6 +606,9 @@
 		96EA06CE1689D9DB009F09BC /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EA06C41689D9DB009F09BC /* UIImageView+WebCache.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		96EA06D01689DB19009F09BC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96EA06CF1689DB19009F09BC /* ImageIO.framework */; };
 		96EBDD9616C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EBDD9516C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.m */; };
+		96EC414B17437F7F00BA4A75 /* DWGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EC414617437F7E00BA4A75 /* DWGridView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96EC414C17437F7F00BA4A75 /* DWGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EC414817437F7E00BA4A75 /* DWGridViewCell.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		96EC414D17437F7F00BA4A75 /* DWGridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96EC414A17437F7F00BA4A75 /* DWGridViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		96EE845A16149B8600AE6EC1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96EE845916149B8600AE6EC1 /* QuartzCore.framework */; };
 		96F12DC816D4BAB0009127AF /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96F12DC716D4BAB0009127AF /* JBKenBurnsView.m */; };
 		96F293D4169EFF1200711F14 /* DDDoubleDateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96F293D3169EFF1200711F14 /* DDDoubleDateTableViewCell.xib */; };
@@ -1420,6 +1423,13 @@
 		96EA06CF1689DB19009F09BC /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		96EBDD9416C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDAppDelegate+NavigationMenu.h"; sourceTree = "<group>"; };
 		96EBDD9516C15B5700AD5D19 /* DDAppDelegate+NavigationMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DDAppDelegate+NavigationMenu.m"; sourceTree = "<group>"; };
+		96EC414417437F7E00BA4A75 /* DWGridController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWGridController.h; sourceTree = "<group>"; };
+		96EC414517437F7E00BA4A75 /* DWGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWGridView.h; sourceTree = "<group>"; };
+		96EC414617437F7E00BA4A75 /* DWGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWGridView.m; sourceTree = "<group>"; };
+		96EC414717437F7E00BA4A75 /* DWGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWGridViewCell.h; sourceTree = "<group>"; };
+		96EC414817437F7E00BA4A75 /* DWGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWGridViewCell.m; sourceTree = "<group>"; };
+		96EC414917437F7E00BA4A75 /* DWGridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWGridViewController.h; sourceTree = "<group>"; };
+		96EC414A17437F7F00BA4A75 /* DWGridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWGridViewController.m; sourceTree = "<group>"; };
 		96EE845916149B8600AE6EC1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		96F12DC616D4BAB0009127AF /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
 		96F12DC716D4BAB0009127AF /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
@@ -2615,6 +2625,7 @@
 		96E7F1D015F77EDD00200E1F /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				96EC414317437F7E00BA4A75 /* DWGridController */,
 				703950A4174162F4005B9575 /* GPUImage */,
 				962C2F001740E2E800624145 /* StackBlur */,
 				4C0105BF17102148007A0401 /* Mixpanel */,
@@ -2697,6 +2708,20 @@
 			);
 			name = SDWebImage;
 			path = SDWebImage/SDWebImage;
+			sourceTree = "<group>";
+		};
+		96EC414317437F7E00BA4A75 /* DWGridController */ = {
+			isa = PBXGroup;
+			children = (
+				96EC414417437F7E00BA4A75 /* DWGridController.h */,
+				96EC414517437F7E00BA4A75 /* DWGridView.h */,
+				96EC414617437F7E00BA4A75 /* DWGridView.m */,
+				96EC414717437F7E00BA4A75 /* DWGridViewCell.h */,
+				96EC414817437F7E00BA4A75 /* DWGridViewCell.m */,
+				96EC414917437F7E00BA4A75 /* DWGridViewController.h */,
+				96EC414A17437F7F00BA4A75 /* DWGridViewController.m */,
+			);
+			path = DWGridController;
 			sourceTree = "<group>";
 		};
 		96F12DC516D4BAB0009127AF /* KenBurns */ = {
@@ -3455,6 +3480,9 @@
 				962C2F031740E2E800624145 /* UIImage+StackBlur.m in Sources */,
 				703950AD1741768A005B9575 /* UIView+DD.m in Sources */,
 				96B14FE817428959001D6A1C /* DDUsersView.m in Sources */,
+				96EC414B17437F7F00BA4A75 /* DWGridView.m in Sources */,
+				96EC414C17437F7F00BA4A75 /* DWGridViewCell.m in Sources */,
+				96EC414D17437F7F00BA4A75 /* DWGridViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
