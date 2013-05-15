@@ -12,36 +12,132 @@
 #import "DDImageView.h"
 #import "DDImage.h"
 #import "UIImageView+WebCache.h"
+#import "DWGridView.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define kReloadDelay 3
-#define kAnimationInterval 1
+#define kMovingTimeMin 3.0f
+#define kMovingTimeMax 5.0f
 
-@interface DDUsersView ()
+@interface DDUsersViewCellParam : NSObject
 
-@property(nonatomic, retain) UIImageView *currentView;
+@property(nonatomic, assign) DWPosition position;
+@property(nonatomic, assign) CGFloat speed;
+
+@end
+
+@implementation DDUsersViewCellParam
+
+@synthesize position;
+@synthesize speed;
+
+@end
+
+@interface DDUsersViewCell : DWGridViewCell
+
+@property(nonatomic, retain) UIImageView *imageView;
+@property(nonatomic, assign) DWPosition position;
+
+@end
+
+@implementation DDUsersViewCell
+
+@synthesize imageView;
+@synthesize position;
+
+- (void)dealloc
+{
+    [imageView release];
+    [super dealloc];
+}
+
+@end
+
+@interface DWGridView (Hidden)
+
+-(void)moveCellAtPosition:(DWPosition)position horizontallyBy:(CGFloat)velocity withTranslation:(CGPoint)translation reloadingData:(BOOL)shouldReload;
+
+@end
+
+@interface DDUsersView ()<DWGridViewDataSource, DWGridViewDelegate>
+
+@property(nonatomic, retain) DWGridView *grid;
+@property(nonatomic, retain) NSMutableArray *cells;
 
 @end
 
 @implementation DDUsersView
 
-@synthesize currentView;
 @synthesize users;
 
-- (UIImageView*)addNewImageView
+@synthesize grid;
+@synthesize cells;
+
+- (DDUsersViewCell*)addCellInPosition:(DWPosition)position
 {
-    DDStyledImageView *ret = [[[DDStyledImageView alloc] initWithFrame:self.bounds] autorelease];
-    ret.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self addSubview:ret];
-    return ret;
+    //create view
+    DDUsersViewCell *cell = [[[DDUsersViewCell alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width/columns_, self.frame.size.height/rows_)] autorelease];
+    
+    //add image view
+    cell.imageView = [[[UIImageView alloc] initWithFrame:cell.bounds] autorelease];
+    [cell addSubview:cell.imageView];
+    
+    //set position
+    cell.position = position;
+    
+    //add cell
+    [self.cells addObject:cell];
+    
+    return cell;
 }
 
-- (id)initWithPlaceholderImage:(UIImage *)placeholder
+- (DDUsersViewCell*)existCellInPosition:(DWPosition)position
 {
-    if ((self = [super initWithFrame:CGRectZero]))
+    //get normalized position
+    position = [self.grid normalizePosition:position];
+    
+    //return needed cell
+    for (DDUsersViewCell *cell in self.cells)
     {
-        self.currentView = [self addNewImageView];
-        self.currentView.image = placeholder;
+        if (cell.position.row == position.row && cell.position.column == position.column)
+            return cell;
+    }
+    return nil;
+}
+
+- (id)initWithFrame:(CGRect)frame rows:(NSInteger)rows columns:(NSInteger)columns
+{
+    if ((self = [super initWithFrame:frame]))
+    {
+        //set parameters
+        rows_ = rows;
+        columns_ = columns;
+        
+        //create grid
+        self.grid = [[[DWGridView alloc] initWithFrame:self.bounds] autorelease];
+        self.grid.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [self addSubview:self.grid];
+        self.grid.clipsToBounds = YES;
+        self.grid.delegate = self;
+        self.grid.dataSource = self;
+        
+        //create cells
+        self.cells = [NSMutableArray array];
+        for (int i = 0; i < rows + 3; i++)
+        {
+            for (int j = 0; j < columns + 3; j++)
+            {
+                //set position
+                DWPosition position;
+                position.row = i;
+                position.column = j;
+                
+                //add cell
+                [self addCellInPosition:position];
+            }
+        }
+        
+        //start animating
+        [self startAnimation];
     }
     return self;
 }
@@ -60,73 +156,154 @@
     return nil;
 }
 
-- (void)start
-{
-    //get random url
-    NSURL *randomUrl = [self randomUrl];
-    
-    //check for no value
-    if (!randomUrl)
-        return;
-    
-    //add new subview
-    UIImageView *updatedView = [self addNewImageView];
-        
-    //reload from url
-    [updatedView setImageWithURL:randomUrl completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        
-        //check for transition
-        if (!self.currentView)
-        {
-            //update view
-            self.currentView = updatedView;
-        }
-        else
-        {
-            //save old view
-            UIView *oldView = self.currentView;
-            
-            //animate transition
-            if (self.currentView.image)
-            {
-                [UIView transitionFromView:self.currentView toView:updatedView duration:kAnimationInterval options:(UIViewAnimationOptionTransitionFlipFromRight|UIViewAnimationOptionCurveEaseInOut) completion:^(BOOL finished) {
-                    [oldView removeFromSuperview];
-                }];
-            }
-            
-            //save new view
-            self.currentView = updatedView;
-        }
-        
-        //repeat after delay
-        if (self.superview)
-            [self performSelector:@selector(start) withObject:nil afterDelay:kReloadDelay];
-    }];
-}
-
 - (void)setUsers:(NSArray *)v
 {
     //check for value
     if (users != v)
     {
-        //save if users were before
-        BOOL usersWereBefore = [users count] > 0;
-        
         //update value
         [users release];
         users = [v retain];
         
-        //start if no users before
-        if (!usersWereBefore)
-            [self start];
+        //set random url
+        for (DDUsersViewCell *cell in self.cells)
+            [cell.imageView setImageWithURL:[self randomUrl]];
+    }
+}
+
+- (void)animateWithParam:(DDUsersViewCellParam*)param
+{
+    [UIView animateWithDuration:param.speed
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+        [self.grid moveCellAtPosition:param.position horizontallyBy:0 withTranslation:CGPointMake(-self.frame.size.width/rows_, 0) reloadingData:NO];
+    } completion:^(BOOL finished) {
+        if (self.superview)
+        {
+            [self.grid reloadData];
+            [self animateWithParam:param];
+        }
+    }];
+}
+
+- (void)startAnimation
+{
+    for (int i = 0; i < rows_; i++)
+    {
+        DWPosition position;
+        position.row = i;
+        position.column = 0;
+        DDUsersViewCellParam *param = [[[DDUsersViewCellParam alloc] init] autorelease];
+        param.position = position;
+        param.speed = kMovingTimeMin + (kMovingTimeMax - kMovingTimeMin) * (rand()%100) / 100.0f;
+        [self animateWithParam:param];
     }
 }
 
 - (void)dealloc
 {
-    [currentView release];
     [users release];
+    [cells release];
+    [grid release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma DWGridViewDataSource
+
+- (NSInteger)numberOfRowsInGridView:(DWGridView *)gridView
+{
+    return rows_+2;
+}
+
+- (NSInteger)numberOfColumnsInGridView:(DWGridView *)gridView
+{
+    return columns_+2;
+}
+
+- (NSInteger)numberOfVisibleRowsInGridView:(DWGridView *)gridView
+{
+    return rows_;
+}
+
+- (NSInteger)numberOfVisibleColumnsInGridView:(DWGridView *)gridView
+{
+    return columns_;
+}
+
+#pragma mark -
+#pragma DWGridViewDelegate
+
+- (DWGridViewCell *)gridView:(DWGridView *)gridView cellAtPosition:(DWPosition)position
+{
+    DWGridViewCell *cell = [self existCellInPosition:position];
+    return cell?cell:[self addCellInPosition:position];
+}
+
+-(BOOL)gridView:(DWGridView *)gridView shouldScrollCell:(DWGridViewCell *)cell atPosition:(DWPosition)position
+{
+    return YES;
+}
+
+-(void)gridView:(DWGridView *)gridView willMoveCell:(DWGridViewCell *)cell fromPosition:(DWPosition)fromPosition toPosition:(DWPosition)toPosition
+{
+}
+
+-(void)gridView:(DWGridView *)gridView didMoveCell:(DWGridViewCell *)cell fromPosition:(DWPosition)fromPosition toPosition:(DWPosition)toPosition
+{
+    //moving vertically
+    toPosition = [gridView normalizePosition:toPosition];
+    if (toPosition.column == fromPosition.column)
+    {
+        //How many places is the tile moved (can be negative!)
+        NSInteger amount = toPosition.row - fromPosition.row;
+        DDUsersViewCell *cellDict = [self existCellInPosition:fromPosition];
+        DDUsersViewCell *toCell;
+        do
+        {
+            //Get the next cell
+            toCell = [self existCellInPosition:toPosition];
+            
+            //update the current cell
+            DWPosition position = cellDict.position;
+            position.row = toPosition.row;
+            cellDict.position = position;
+            
+            //prepare the next cell
+            cellDict = toCell;
+            
+            //calculate the next position
+            toPosition.row += amount;
+            
+            toPosition = [gridView normalizePosition:toPosition];
+        } while (toCell);
+    }
+    else //moving horizontally
+    {
+        //How many places is the tile moved (can be negative!)
+        NSInteger amount = toPosition.column - fromPosition.column;
+        DDUsersViewCell *cellDict = [self existCellInPosition:fromPosition];
+        DDUsersViewCell *toCell;
+        do
+        {
+            //Get the next cell
+            toCell = [self existCellInPosition:toPosition];
+            
+            //update the current cell
+            DWPosition position = cellDict.position;
+            position.column = toPosition.column;
+            cellDict.position = position;
+            
+            //prepare the next cell
+            cellDict = toCell;
+            
+            //calculate the next position
+            toPosition.column += amount;
+            toPosition = [gridView normalizePosition:toPosition];
+        } while (toCell);
+        
+    }
 }
 
 @end

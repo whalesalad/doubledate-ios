@@ -282,8 +282,7 @@
     else
     {
         //add users view
-        DDUsersView *usersView = [[[DDUsersView alloc] initWithPlaceholderImage:[UIImage imageOfSize:CGSizeMake(1, 1) withColor:[UIColor darkGrayColor]]] autorelease];
-        usersView.frame = CGRectMake(165, 10, 140, 140);
+        DDUsersView *usersView = [[[DDUsersView alloc] initWithFrame:CGRectMake(165, 10, 140, 140) rows:4 columns:4] autorelease];
         usersView.users = facebookFriends_;
         [mainView addSubview:usersView];
         

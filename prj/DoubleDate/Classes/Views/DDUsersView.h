@@ -10,10 +10,12 @@
 
 @interface DDUsersView : UIView
 {
+    NSInteger rows_;
+    NSInteger columns_;
 }
 
 @property(nonatomic, retain) NSArray *users;
 
-- (id)initWithPlaceholderImage:(UIImage*)placeholder;
+- (id)initWithFrame:(CGRect)frame rows:(NSInteger)rows columns:(NSInteger)columns;
 
 @end
