@@ -81,6 +81,7 @@
     
     //add image view
     cell.imageView = [[[UIImageView alloc] initWithFrame:cell.bounds] autorelease];
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     [cell addSubview:cell.imageView];
     
     //set position

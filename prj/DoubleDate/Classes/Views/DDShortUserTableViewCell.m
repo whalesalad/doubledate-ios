@@ -70,6 +70,7 @@
     // tighter radius on inner layer = no tiny pixel artifacts on corner
     imageViewPoster.layer.cornerRadius = 3;
     imageViewPoster.layer.masksToBounds = YES;
+    imageViewPoster.contentMode = UIViewContentModeScaleAspectFill;
     
     // Add an inner white border on the top only
     CALayer *topBorder = self.topBorderView.layer;

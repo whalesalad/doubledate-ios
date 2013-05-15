@@ -69,6 +69,7 @@
 {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
+    self.imageViewPhoto.contentMode = UIViewContentModeScaleAspectFill;
 //    self.imageViewPhoto.layer.cornerRadius = 6;
 //    self.imageViewPhoto.clipsToBounds = YES;
 }
