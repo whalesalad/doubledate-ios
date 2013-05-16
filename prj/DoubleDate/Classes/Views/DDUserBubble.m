@@ -126,7 +126,7 @@
     viewController_.pageControl.hidden = [self.users count] <= 1;
         
     //fill data
-    viewController_.labelTitle.text = [NSString stringWithFormat:@"%@, %d", [self.user firstName], [[self.user age] intValue]];
+    viewController_.labelTitle.text = [self.user displayName];
     CGSize newSize = [viewController_.labelTitle sizeThatFits:viewController_.labelTitle.frame.size];
     [viewController_.labelTitle setFrame:CGRectMake(viewController_.labelTitle.frame.origin.x, viewController_.labelTitle.frame.origin.y, newSize.width, viewController_.labelTitle.frame.size.height)];
     viewController_.labelLocation.text = self.user.location.name;

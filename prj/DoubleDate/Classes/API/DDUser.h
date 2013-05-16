@@ -56,4 +56,6 @@ extern NSString *DDUserInterestBoth;
 @property(nonatomic, retain) NSNumber *unreadMessagesCount;
 @property(nonatomic, retain) NSNumber *pendingWingsCount;
 
+- (NSString*)displayName;
+
 @end

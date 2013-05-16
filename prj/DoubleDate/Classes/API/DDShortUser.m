@@ -98,6 +98,12 @@
     return name;
 }
 
+- (NSString*)displayName;
+{
+    NSString *n = [DDShortGhost nameForShortUser:self];
+    NSString *a = self.age?[NSString stringWithFormat:@", %d", [self.age intValue]]:@"";
+    return [NSString stringWithFormat:@"%@%@", n, a];
+}
 
 @end
 

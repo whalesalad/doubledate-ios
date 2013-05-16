@@ -176,6 +176,13 @@ NSString *DDUserInterestBoth = @"both";
     return @"id";
 }
 
+- (NSString*)displayName
+{
+    if (self.age)
+        return [NSString stringWithFormat:@"%@, %d", [self.firstName capitalizedString], [self.age intValue]];
+    return [self.firstName capitalizedString];
+}
+
 - (void)dealloc
 {
     [birthday release];

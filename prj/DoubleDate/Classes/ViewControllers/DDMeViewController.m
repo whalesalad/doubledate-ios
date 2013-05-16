@@ -182,9 +182,9 @@
     CGFloat dx = CGRectGetMinX(self.imageViewGender.frame) - CGRectGetMaxX(self.labelTitle.frame);
     
     //update name
-    CGFloat labelWidth = MIN([[DDWingTableViewCell titleForUser:user] sizeWithFont:self.labelTitle.font].width, 160);
+    CGFloat labelWidth = MIN([[user displayName] sizeWithFont:self.labelTitle.font].width, 160);
     self.labelTitle.frame = CGRectMake(self.labelTitle.frame.origin.x, self.labelTitle.frame.origin.y, labelWidth, self.labelTitle.frame.size.height);
-    self.labelTitle.text = [DDWingTableViewCell titleForUser:user];
+    self.labelTitle.text = [user displayName];
     
     //layout gender
     self.imageViewGender.frame = CGRectMake( CGRectGetMaxX(self.labelTitle.frame) + dx, self.imageViewGender.frame.origin.y, self.imageViewGender.frame.size.width, self.imageViewGender.frame.size.height);
