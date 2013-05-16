@@ -33,11 +33,8 @@
 @interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
 
 @property(nonatomic, retain) DDPlacemark *location;
-@property(nonatomic, retain) DDPlacemark *optionalLocation;
 
 @property(nonatomic, retain) NSString *details;
-
-@property(nonatomic, assign) BOOL selectingVenue;
 
 @property(nonatomic, retain) MKMapView *mapView;
 
@@ -47,12 +44,10 @@
 
 @synthesize wing;
 @synthesize location;
-@synthesize optionalLocation;
 @synthesize tableView;
 @synthesize buttonCancel;
 @synthesize buttonCreate;
 @synthesize details;
-@synthesize selectingVenue;
 @synthesize mapView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -95,14 +90,7 @@
     
     //apply wing
     self.wing = self.wing;
-    
-    //apply location
-    self.location = self.location;
-    
-    //apply user location if no location exist
-    if (!self.location)
-        self.location = [DDLocationController currentLocationController].lastPlacemark;
-    
+        
     //update navigation bar
     [self updateNavigationBar];
     
@@ -146,7 +134,6 @@
 {
     [wing release];
     [location release];
-    [optionalLocation release];
     [tableView release];
     [buttonCancel release];
     [buttonCreate release];
@@ -178,36 +165,13 @@
 
 - (void)setLocation:(DDPlacemark *)v
 {
-    //update value
+    //check the same value
     if (location != v)
     {
+        //update value
         [location release];
         location = [v retain];
     }
-}
-
-- (void)resetLocationTouched:(id)sender
-{
-    //update the location
-    self.location = [DDLocationController currentLocationController].lastPlacemark;
-
-    //clear optional location
-    self.optionalLocation = nil;
-    
-    //update cell
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    
-    //update navigation button
-    [self updateNavigationBar];
-}
-
-- (void)resetOptionalLocationTouched:(id)sender
-{
-    //clear optional location
-    self.optionalLocation = nil;
-    
-    //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)postTouched:(id)sender
@@ -223,10 +187,7 @@
     doubleDate.user = [[[DDShortUser alloc] init] autorelease];
     doubleDate.user.identifier = [[DDAuthenticationController currentUser] userId];
     doubleDate.location = [[[DDPlacemark alloc] init] autorelease];
-    if (self.optionalLocation)
-        doubleDate.location.identifier = self.optionalLocation.identifier;
-    else
-        doubleDate.location.identifier = self.location.identifier;
+    doubleDate.location.identifier = self.location.identifier;
     
     //show hud
     [self showHudWithText:NSLocalizedString(@"Creating", @"DoubleDate is being created hud/status text") animated:YES];
@@ -389,7 +350,7 @@
 
 - (void)updateMapCell:(DDTableViewCell*)cell
 {
-    if (self.optionalLocation)
+    if (self.location)
     {
         //clips to bounds cell
         cell.clipsToBounds = YES;
@@ -402,17 +363,14 @@
         [cell.contentView addSubview:self.mapView];
         
         //apply location to map view
-        if (self.optionalLocation)
-        {
-            MKCoordinateRegion region;
-            region.center = CLLocationCoordinate2DMake([self.optionalLocation.latitude doubleValue], [self.optionalLocation.longitude doubleValue]);
-            MKCoordinateSpan span;
-            CGFloat oneMileDistanceDelta = 0.0144927536;
-            span.latitudeDelta = 10 * oneMileDistanceDelta;
-            span.longitudeDelta = 10 * oneMileDistanceDelta;
-            region.span = span;
-            [self.mapView setRegion:region];
-        }
+        MKCoordinateRegion region;
+        region.center = CLLocationCoordinate2DMake([self.location.latitude doubleValue], [self.location.longitude doubleValue]);
+        MKCoordinateSpan span;
+        CGFloat oneMileDistanceDelta = 0.0144927536;
+        span.latitudeDelta = 10 * oneMileDistanceDelta;
+        span.longitudeDelta = 10 * oneMileDistanceDelta;
+        region.span = span;
+        [self.mapView setRegion:region];
     }
     else
     {
@@ -432,81 +390,29 @@
     if (self.location)
     {
         //apply blank image by default
-        [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-location-icon.png"] loadedFromUrl:nil];
+        [self updateCell:cell withIcon:[UIImage clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.location.iconRetina]];
         
         //set location text
-        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Near %@", @"The city location when creating a DoubleDate."), location.name];
-        
-        //apply style
-        cell.textLabel.textColor = [UIColor whiteColor];
-        
-        //check if we need to add reset button
-        if ([[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue] != [[self.location identifier] intValue])
-        {
-            UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.backgroundColor = [UIColor clearColor];
-            button.frame = CGRectMake(0, 0, 30, 30);
-            cell.accessoryView = button;
-            [button setImage:cancelImage forState:UIControlStateNormal];
-            [button addTarget:self action:@selector(resetLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
-        }
-    }
-    else if ([DDLocationController currentLocationController].errorPlacemark)
-    {
-        //apply style
-        cell.textLabel.textColor = [UIColor grayColor];
-        
-        //set text
-        cell.textLabel.text = NSLocalizedString(@"Please enable location services.", nil);
-        
-        //disable touch
-        cell.userInteractionEnabled = NO;
-    }
-    else
-    {
-        //apply blank image by default
-        [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-location-icon.png"] loadedFromUrl:nil];
-
-        //set location text
-        cell.textLabel.text = NSLocalizedString(@"Choose a location", nil);
-        
-        //apply style
-        cell.textLabel.textColor = [UIColor grayColor];
-    }
-}
-
-- (void)updateOptionalLocationCell:(DDTableViewCell*)cell
-{
-    //enable touch
-    cell.userInteractionEnabled = YES;
-    
-    //check exist location
-    if (self.optionalLocation)
-    {
-        //apply blank image by default
-        [self updateCell:cell withIcon:[UIImage clearImageOfSize:CGSizeMake(28, 32)] loadedFromUrl:[NSURL URLWithString:self.optionalLocation.iconRetina]];
-        
-        //set location text
-        if ([self.optionalLocation address]){
-            cell.textLabel.text = [NSString stringWithFormat:@"%@, %@", [self.optionalLocation name], [self.optionalLocation address]];
-        } else {
-            cell.textLabel.text = [self.optionalLocation name];
-        }
-        cell.detailTextLabel.text = [self.optionalLocation locationName];
+        cell.textLabel.text = [self.location venue];
+        cell.detailTextLabel.text = [self.location locationName];
         
         //apply style
         cell.textLabel.textColor = [UIColor whiteColor];
         cell.detailTextLabel.textColor = [UIColor lightGrayColor];
         
-        //add reset button
-        UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.backgroundColor = [UIColor clearColor];
-        button.frame = CGRectMake(0, 0, 30, 30);
-        cell.accessoryView = button;
-        [button setImage:cancelImage forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(resetOptionalLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
+        //add distance
+        NSInteger tagLabelDistance = 2134;
+        UILabel *labelDistance = (UILabel*)[cell.contentView viewWithTag:tagLabelDistance];
+        if (!labelDistance)
+        {
+            labelDistance = [[[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width - 90, 0, 80, cell.contentView.frame.size.height)] autorelease];
+            labelDistance.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            labelDistance.textAlignment = NSTextAlignmentRight;
+            labelDistance.backgroundColor = [UIColor clearColor];
+            labelDistance.textColor = [UIColor lightGrayColor];
+            [cell.contentView addSubview:labelDistance];
+        }
+        labelDistance.text = [NSString stringWithFormat:@"%dkm", [self.location.distance intValue]];
     }
     else if ([DDLocationController currentLocationController].errorPlacemark)
     {
@@ -557,11 +463,6 @@
 
 - (NSIndexPath*)locationIndexPath
 {
-    return [NSIndexPath indexPathForRow:2 inSection:1];
-}
-
-- (NSIndexPath*)optionalLocationIndexPath
-{
     return [NSIndexPath indexPathForRow:1 inSection:1];
 }
 
@@ -601,28 +502,11 @@
 
 - (void)locationPickerViewControllerDidFoundPlacemarks:(NSArray*)placemarks
 {
-    if (!self.selectingVenue)
-    {
-        //set location
-        self.location = [placemarks objectAtIndex:0];
+    //set optional location
+    self.location = [placemarks objectAtIndex:0];
     
-        //clear optional location
-        self.optionalLocation = nil;
-    
-        //update cell
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    
-        //update navigation button
-        [self updateNavigationBar];
-    }
-    else
-    {
-        //set optional location
-        self.optionalLocation = [placemarks objectAtIndex:0];
-        
-        //reload only one cell
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-    }
+    //reload only one cell
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
     //pop view controller
     [self.navigationController popViewControllerAnimated:YES];
@@ -752,23 +636,9 @@
     //check pressed cell
     if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
     {
-        self.selectingVenue = NO;
         DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
         locationChooserViewController.delegate = self;
-        if ([[self.location identifier] intValue] != [[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue])
-            locationChooserViewController.ddLocation = self.location;
-        else
-            locationChooserViewController.clLocation = [DDLocationController currentLocationController].lastLocation;
-        locationChooserViewController.options = DDLocationSearchOptionsCities;
-        locationChooserViewController.distance = 200;
-        [self.navigationController pushViewController:locationChooserViewController animated:YES];
-    }
-    else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
-    {
-        self.selectingVenue = YES;
-        DDLocationChooserViewController *locationChooserViewController = [[[DDLocationChooserViewController alloc] initWithStyle:UITableViewStyleGrouped] autorelease];
-        locationChooserViewController.delegate = self;
-        locationChooserViewController.ddLocation = self.location;
+        locationChooserViewController.ddLocation = [[DDLocationController currentLocationController] lastPlacemark];
         locationChooserViewController.options = DDLocationSearchOptionsVenues;
         [self.navigationController pushViewController:locationChooserViewController animated:YES];
     }
@@ -804,9 +674,9 @@
     if (!cell)
     {
         //create icon table view cell
-        if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self mapIndexPath]] == NSOrderedSame)
+        if ([indexPath compare:[self mapIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+        else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier] autorelease];
         //create text view table view cell
         else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
@@ -821,8 +691,6 @@
         [self updateMapCell:cell];
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         [self updateLocationCell:cell];
-    else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
-        [self updateOptionalLocationCell:cell];
     else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         [self updateDetailsCell:(DDTextViewTableViewCell*)cell];
     
