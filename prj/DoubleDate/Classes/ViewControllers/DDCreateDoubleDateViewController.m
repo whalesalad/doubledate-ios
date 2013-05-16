@@ -350,6 +350,10 @@
 
 - (void)updateMapCell:(DDTableViewCell*)cell
 {
+    //unset selection style
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    //check location
     if (self.location)
     {
         //clips to bounds cell
@@ -377,7 +381,15 @@
         //remove map kit
         [self.mapView removeFromSuperview];
         
-        #warning Michael add dummy overlay here
+        //check the error
+        if ([DDLocationController currentLocationController].errorPlacemark)
+        {
+#warning Michael add error overlay here
+        }
+        else
+        {
+#warning Michael add dummy overlay here
+        }
     }
 }
 
