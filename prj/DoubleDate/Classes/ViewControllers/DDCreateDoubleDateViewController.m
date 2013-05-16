@@ -123,6 +123,9 @@
     
     //reload the table as we need to update the map
     [self.tableView reloadData];
+    
+    //update header
+    [self updateHeader];
 }
 
 - (void)didReceiveMemoryWarning
