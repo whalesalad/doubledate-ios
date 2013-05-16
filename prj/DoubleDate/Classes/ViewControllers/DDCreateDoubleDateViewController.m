@@ -28,6 +28,7 @@
 #import "DDUsersView.h"
 
 #define kTagCancelActionSheet 1
+#define kMapViewCornerRadius 6
 
 @interface DDCreateDoubleDateViewController () <DDCreateDoubleDateViewControllerChooseWingDelegate, DDLocationPickerViewControllerDelegate, UITextViewDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, DDSelectFacebookFriendViewControllerDelegate>
 
@@ -37,6 +38,8 @@
 @property(nonatomic, retain) NSString *details;
 
 @property(nonatomic, assign) BOOL selectingVenue;
+
+@property(nonatomic, retain) MKMapView *mapView;
 
 @end
 
@@ -50,6 +53,7 @@
 @synthesize buttonCreate;
 @synthesize details;
 @synthesize selectingVenue;
+@synthesize mapView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -109,6 +113,13 @@
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)] autorelease];
     tapRecognizer.delegate = self;
     [self.tableView addGestureRecognizer:tapRecognizer];
+    
+    //create map view
+    self.mapView = [[MKMapView alloc] init];
+    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.mapView.clipsToBounds = YES;
+    self.mapView.layer.cornerRadius = kMapViewCornerRadius;
+    self.mapView.showsUserLocation = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -121,6 +132,9 @@
     //load facebook friends
     if (!facebookFriends_)
         [self.apiController getFacebookFriends];
+    
+    //reload the table as we need to update the map
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,6 +151,7 @@
     [buttonCancel release];
     [buttonCreate release];
     [details release];
+    [mapView release];
     [super dealloc];
 }
 
@@ -372,10 +387,46 @@
     return imageView;
 }
 
+- (void)updateMapCell:(DDTableViewCell*)cell
+{
+    if (self.optionalLocation)
+    {
+        //clips to bounds cell
+        cell.clipsToBounds = YES;
+        cell.contentView.clipsToBounds = YES;
+        
+        //stretch to neeeded size
+        self.mapView.frame = CGRectMake(0, 0, cell.contentView.bounds.size.width, cell.contentView.bounds.size.height + kMapViewCornerRadius);
+        
+        //add mapview
+        [cell.contentView addSubview:self.mapView];
+        
+        //apply location to map view
+        if (self.optionalLocation)
+        {
+            MKCoordinateRegion region;
+            region.center = CLLocationCoordinate2DMake([self.optionalLocation.latitude doubleValue], [self.optionalLocation.longitude doubleValue]);
+            MKCoordinateSpan span;
+            CGFloat oneMileDistanceDelta = 0.0144927536;
+            span.latitudeDelta = 10 * oneMileDistanceDelta;
+            span.longitudeDelta = 10 * oneMileDistanceDelta;
+            region.span = span;
+            [self.mapView setRegion:region];
+        }
+    }
+    else
+    {
+        //remove map kit
+        [self.mapView removeFromSuperview];
+        
+        #warning Michael add dummy overlay here
+    }
+}
+
 - (void)updateLocationCell:(DDTableViewCell*)cell
 {
-    //enable/disable touch
-    cell.userInteractionEnabled = self.location != nil;
+    //enable touch
+    cell.userInteractionEnabled = YES;
     
     //check exist location
     if (self.location)
@@ -408,6 +459,9 @@
         
         //set text
         cell.textLabel.text = NSLocalizedString(@"Please enable location services.", nil);
+        
+        //disable touch
+        cell.userInteractionEnabled = NO;
     }
     else
     {
@@ -424,6 +478,9 @@
 
 - (void)updateOptionalLocationCell:(DDTableViewCell*)cell
 {
+    //enable touch
+    cell.userInteractionEnabled = YES;
+    
     //check exist location
     if (self.optionalLocation)
     {
@@ -436,9 +493,11 @@
         } else {
             cell.textLabel.text = [self.optionalLocation name];
         }
+        cell.detailTextLabel.text = [self.optionalLocation locationName];
         
         //apply style
         cell.textLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
         
         //add reset button
         UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
@@ -449,13 +508,16 @@
         [button setImage:cancelImage forState:UIControlStateNormal];
         [button addTarget:self action:@selector(resetOptionalLocationTouched:) forControlEvents:UIControlEventTouchUpInside];
     }
-    else if (!self.location)
+    else if ([DDLocationController currentLocationController].errorPlacemark)
     {
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
         
         //set text
         cell.textLabel.text = NSLocalizedString(@"Please enable location services.", nil);
+        
+        //disable touch
+        cell.userInteractionEnabled = NO;
     }
     else
     {
@@ -466,7 +528,7 @@
         imageView.alpha = 0.5f;
         
         //set location text
-        cell.textLabel.text = NSLocalizedString(@"Add an Optional Venue", nil);
+        cell.textLabel.text = NSLocalizedString(@"Add a Venue", nil);
         
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];
@@ -488,9 +550,14 @@
     cell.textView.textView.returnKeyType = UIReturnKeyDone;
 }
 
-- (NSIndexPath*)locationIndexPath
+- (NSIndexPath*)mapIndexPath
 {
     return [NSIndexPath indexPathForRow:0 inSection:1];
+}
+
+- (NSIndexPath*)locationIndexPath
+{
+    return [NSIndexPath indexPathForRow:2 inSection:1];
 }
 
 - (NSIndexPath*)optionalLocationIndexPath
@@ -673,6 +740,8 @@
 {
     if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
         return 100;
+    else if ([indexPath compare:[self mapIndexPath]] == NSOrderedSame)
+        return 90;
     else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         return 45;
     return [DDTableViewCell height];
@@ -735,8 +804,10 @@
     if (!cell)
     {
         //create icon table view cell
-        if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+        if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame || [indexPath compare:[self mapIndexPath]] == NSOrderedSame)
             cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
+            cell = [[[DDTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier] autorelease];
         //create text view table view cell
         else if ([indexPath compare:[self detailsIndexPath]] == NSOrderedSame)
             cell = [[[DDTextViewTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
@@ -746,7 +817,9 @@
     [cell applyGroupedBackgroundStyleForTableView:aTableView withIndexPath:indexPath];
     
     //check index path
-    if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
+    if ([indexPath compare:[self mapIndexPath]] == NSOrderedSame)
+        [self updateMapCell:cell];
+    else if ([indexPath compare:[self locationIndexPath]] == NSOrderedSame)
         [self updateLocationCell:cell];
     else if ([indexPath compare:[self optionalLocationIndexPath]] == NSOrderedSame)
         [self updateOptionalLocationCell:cell];
