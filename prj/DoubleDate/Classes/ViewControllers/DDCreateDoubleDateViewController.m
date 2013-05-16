@@ -520,6 +520,9 @@
     //reload only one cell
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
+    //update navigation bar
+    [self updateNavigationBar];
+    
     //pop view controller
     [self.navigationController popViewControllerAnimated:YES];
 }
