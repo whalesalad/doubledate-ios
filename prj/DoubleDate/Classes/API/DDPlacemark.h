@@ -37,3 +37,5 @@ extern NSString *DDPlacemarkTypeVenue;
 //- (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location;
 
 @end
+
+

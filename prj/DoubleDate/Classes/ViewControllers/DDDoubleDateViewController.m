@@ -329,11 +329,16 @@
     self.labelLocationDistance.textColor = [UIColor lightGrayColor];
     self.labelLocationDistance.text = [NSString stringWithFormat:@"%d km", [self.doubleDate.location.distance intValue]];
     
-    // Map view.
+    // Set region of map view
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.doubleDate.location.coordinate, 500, 500);
     [self.mapView setRegion:region animated:YES];
     
+    // Add a point for the location
+    MKPointAnnotation *locationPoint = [[MKPointAnnotation alloc] init];
+    locationPoint.coordinate = self.doubleDate.location.coordinate;
+    locationPoint.title = self.labelLocationMain.text;
     
+    [self.mapView addAnnotation:locationPoint];
     
 }
 
