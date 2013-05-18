@@ -317,10 +317,10 @@
     
     // Reposition the main label if there is no detailed label.
     if (self.doubleDate.location.isCity) {
-        self.labelLocationMain.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
-        CGRect locationMainFrame = self.labelLocationMain.frame;
-        locationMainFrame.origin.y = self.scrollBottomView.frame.size.height / 2 - self.labelLocationMain.frame.size.height / 2;
-        self.labelLocationMain.frame = locationMainFrame;
+        self.labelLocationMain.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+        CGPoint locationMainCenter = self.labelLocationMain.center;
+        locationMainCenter.y = self.labelLocationDistance.center.y;
+        self.labelLocationMain.center = locationMainCenter;
         self.labelLocationDetailed.hidden = YES;
     }
     
