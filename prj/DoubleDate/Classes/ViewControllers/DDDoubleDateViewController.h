@@ -6,6 +6,7 @@
 //  Copyright (c) 2012-2013 Belluba. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
 #import "DDViewController.h"
 
 @class DDDoubleDate;
@@ -33,6 +34,7 @@
 
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationMain;
 @property(nonatomic, retain) IBOutlet UILabel *labelLocationDetailed;
+@property(nonatomic, retain) IBOutlet UILabel *labelLocationDistance;
 
 @property(nonatomic, retain) IBOutlet UITextView *textView;
 
@@ -47,6 +49,9 @@
 
 @property(nonatomic, retain) IBOutlet UIView *leftUserView;
 @property(nonatomic, retain) IBOutlet UIView *rightUserView;
+
+@property(nonatomic, retain) IBOutlet MKMapView *mapView;
+
 
 - (IBAction)leftUserTouched:(id)sender;
 - (IBAction)rightUserTouched:(id)sender;

@@ -31,6 +31,7 @@
 #import "DDUserView.h"
 #import "UIImage+DD.h"
 #import <QuartzCore/QuartzCore.h>
+#import <MapKit/MapKit.h>
 
 @interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
 
@@ -77,6 +78,8 @@
 
 @synthesize leftUserView;
 @synthesize rightUserView;
+
+@synthesize mapView;
 
 - (id)initWithDoubleDate:(DDDoubleDate*)doubleDate
 {
@@ -268,6 +271,8 @@
     [labelMessageSent release];
     [leftUserView release];
     [rightUserView release];
+    [mapView release];
+    [_labelLocationDistance release];
     [super dealloc];
 }
 
@@ -318,6 +323,17 @@
         self.labelLocationMain.frame = locationMainFrame;
         self.labelLocationDetailed.hidden = YES;
     }
+    
+    // distance
+    self.labelLocationDistance.backgroundColor = [UIColor clearColor];
+    self.labelLocationDistance.textColor = [UIColor lightGrayColor];
+    self.labelLocationDistance.text = [NSString stringWithFormat:@"%d km", [self.doubleDate.location.distance intValue]];
+    
+    // Map view.
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.doubleDate.location.coordinate, 500, 500);
+    [self.mapView setRegion:region animated:YES];
+    
+    
     
 }
 

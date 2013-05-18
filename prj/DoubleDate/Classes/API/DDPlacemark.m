@@ -104,6 +104,10 @@ NSString *DDPlacemarkTypeVenue = @"venue";
     return [self.type isEqualToString:DDPlacemarkTypeCity];
 }
 
+- (CLLocationCoordinate2D)coordinate {
+    return CLLocationCoordinate2DMake([self.latitude floatValue], [self.longitude floatValue]);
+}
+
 - (void)dealloc
 {
     [address release];

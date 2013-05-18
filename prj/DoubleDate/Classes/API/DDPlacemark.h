@@ -6,6 +6,7 @@
 //  Copyright (c) 2012-2013 Belluba. All rights reserved.
 //
 
+#import "CoreLocation/CoreLocation.h"
 #import "DDAPIObject.h"
 
 extern NSString *DDPlacemarkTypeCity;
@@ -31,5 +32,8 @@ extern NSString *DDPlacemarkTypeVenue;
 
 - (BOOL)isVenue;
 - (BOOL)isCity;
+- (CLLocationCoordinate2D)coordinate;
+
+//- (BOOL)locationManagerShouldGeoDecodeLocation:(CLLocation*)location;
 
 @end

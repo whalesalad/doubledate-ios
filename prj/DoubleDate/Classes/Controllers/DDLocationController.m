@@ -53,6 +53,7 @@ static DDLocationController *_sharedLocationController = nil;
         //create location manager
         locationManager_ = [[CLLocationManager alloc] init];
         locationManager_.delegate = self;
+        locationManager_.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
         if ([CLLocationManager locationServicesEnabled])
             [locationManager_ startUpdatingLocation];
         
