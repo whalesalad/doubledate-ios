@@ -334,7 +334,7 @@
     [self.mapView setRegion:region animated:YES];
     
     // Add a point for the location
-    MKPointAnnotation *locationPoint = [[MKPointAnnotation alloc] init];
+    MKPointAnnotation *locationPoint = [[[MKPointAnnotation alloc] init] autorelease];
     locationPoint.coordinate = self.doubleDate.location.coordinate;
     locationPoint.title = self.labelLocationMain.text;
     
