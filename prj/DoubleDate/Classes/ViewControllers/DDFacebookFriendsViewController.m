@@ -45,7 +45,6 @@
 @interface DDFacebookFriendsViewController () <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 - (void)updateNavifationBar;
-- (NSString*)nameOfUser:(DDShortUser*)shortUser;
 
 @end
 
@@ -108,7 +107,7 @@
     //check each item
     for (DDShortUser *friend in friends_)
     {
-        if ([[self nameOfUser:friend] rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+        if ([[DDShortUser nameForShortUser:friend] rangeOfString:searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
             [friends addObject:friend];
     }
     
@@ -138,7 +137,7 @@
             continue;
         
         //get first symbol
-        NSString *firstSymbol = [[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString];
+        NSString *firstSymbol = [[[DDShortUser nameForShortUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString];
         
         //add if not exist
         if (![ret containsObject:firstSymbol])
@@ -168,7 +167,7 @@
         else
         {
             //add if name started from needed symbol
-            if ([[[[self nameOfUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString] isEqualToString:firstSymbol])
+            if ([[[[DDShortUser nameForShortUser:friend] substringWithRange:NSMakeRange(0, 1)] capitalizedString] isEqualToString:firstSymbol])
                 [ret addObject:friend];
         }
     }
@@ -275,13 +274,6 @@
     self.navigationItem.rightBarButtonItem.enabled = [friendsToInvite_ count] > 0;
 }
 
-- (NSString*)nameOfUser:(DDShortUser*)shortUser
-{
-    if ([shortUser name])
-        return [shortUser name];
-    return [shortUser fullName];
-}
-
 - (NSArray*)sortedFriends:(NSArray*)friends
 {
     NSMutableArray *friendsToRemove = [NSMutableArray arrayWithArray:friends];
@@ -292,7 +284,7 @@
         DDShortUser *lowest = [friendsToRemove objectAtIndex:0];
         for (DDShortUser *u in friendsToRemove)
         {
-            if ([[self nameOfUser:lowest] compare:[self nameOfUser:u] options:NSCaseInsensitiveSearch] == NSOrderedDescending)
+            if ([[DDShortUser nameForShortUser:lowest] compare:[DDShortUser nameForShortUser:u] options:NSCaseInsensitiveSearch] == NSOrderedDescending)
                 lowest = u;
         }
         [ret addObject:lowest];

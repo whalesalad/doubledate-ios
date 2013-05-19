@@ -47,7 +47,7 @@
     self.view.backgroundColor = [UIColor clearColor];
     
     //customize bubble view
-    self.textView.backgroundColor = [UIColor colorWithWhite:0.2f alpha:0.5f];
+    self.textView.backgroundColor = [UIColor colorWithWhite:0.1f alpha:0.6f];
     self.textView.layer.borderWidth = 1;
     self.textView.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.3f].CGColor;
     self.textView.layer.cornerRadius = 6;
