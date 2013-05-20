@@ -17,8 +17,9 @@
 #import "DDShortUserTableViewCell.h"
 #import "DDWingTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import <FacebookSDK/FacebookSDK.h>
 #import "Mixpanel.h"
+#import "DDSearchBar.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 #define kFriendsOnDoubleDateTitle NSLocalizedString(@"Friends on DoubleDate", nil)
 
@@ -75,6 +76,9 @@
     //check if we need to make a request
     if (!friends_)
         [self startRefreshWithText:NSLocalizedString(@"Loading", nil)];
+    
+    //set initial offset of locations search page
+    self.tableView.contentOffset = CGPointMake(0, -self.searchBar.frame.size.height);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
