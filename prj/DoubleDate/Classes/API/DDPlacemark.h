@@ -27,7 +27,6 @@ extern NSString *DDPlacemarkTypeVenue;
 @property(nonatomic, retain) NSString *venue;
 @property(nonatomic, retain) NSString *iconRetina;
 @property(nonatomic, retain) NSString *icon;
-@property(nonatomic, retain) NSNumber *distance;
 @property(nonatomic, retain) NSString *address;
 
 - (BOOL)isVenue;
