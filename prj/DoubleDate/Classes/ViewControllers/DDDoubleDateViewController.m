@@ -30,6 +30,7 @@
 #import "DDBarButtonItem.h"
 #import "DDUserView.h"
 #import "UIImage+DD.h"
+#import "NSNumber+DD.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 
@@ -327,7 +328,12 @@
     // distance
     self.labelLocationDistance.backgroundColor = [UIColor clearColor];
     self.labelLocationDistance.textColor = [UIColor lightGrayColor];
-    self.labelLocationDistance.text = [NSString stringWithFormat:@"%d km", [self.doubleDate.location.distance intValue]];
+    CLLocation *locationDate = [[[CLLocation alloc] initWithLatitude:[self.doubleDate.location.latitude doubleValue] longitude:[self.doubleDate.location.longitude doubleValue]] autorelease];
+    CLLocation *currentLocation = [[DDLocationController currentLocationController] lastLocation];
+    if (!currentLocation)
+        currentLocation = [[[CLLocation alloc] initWithLatitude:[[[[DDAuthenticationController currentUser] location] latitude] doubleValue] longitude:[[[[DDAuthenticationController currentUser] location] longitude] doubleValue]] autorelease];
+    double distanceKm = [currentLocation distanceFromLocation:locationDate] / 1000;
+    self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ km", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceKm] readableNumber]];
     
     // Set region of map view
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.doubleDate.location.coordinate, 500, 500);
