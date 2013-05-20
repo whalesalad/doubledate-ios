@@ -344,32 +344,23 @@
 
 - (void)switchToNeededMode
 {
-    //save visibility
+    // save visibility
     BOOL bottomVisible = (!messageSent_ && [self.doubleDate.relationship isEqualToString:DDDoubleDateRelationshipOpen]);
     
-    //change visibility
+    // change visibility
     self.bottomView.hidden = !bottomVisible;
-//    self.bottomView.hidden = FALSE;
-    
-    //change frame
-//    CGFloat yb = bottomVisible ? self.bottomView.frame.origin.y + 4 : self.bottomView.frame.origin.y + self.bottomView.frame.size.height - 8;
 
-//    self.scrollView.frame = CGRectMake(0, 0, 320, yb);
+    // adjust content height and insets
+    CGFloat contentHeight = self.scrollBottomView.frame.size.height + self.scrollBottomView.frame.origin.y;
+    CGFloat contentPadding = 20;
     
-    //this is a difference from xib
-    //XXX customization of text view from xib
-//    CGFloat diffBetweenTextViewAndCenterView = 142 - 86;
-//    CGFloat neededHeightOfTextField = [self.textView sizeThatFits:self.textView.contentSize].height;
-//    CGFloat neededHeightOfCenterView = MAX(neededHeightOfTextField + diffBetweenTextViewAndCenterView, 142);
-
-    //change center view frame
-//    self.scrollCenterView.frame = CGRectMake(0, self.scrollTopView.frame.origin.y+self.scrollTopView.frame.size.height, 320, neededHeightOfCenterView);
+    self.scrollView.contentSize = CGSizeMake(320, contentHeight + contentPadding);
     
-    //change content size
-//    self.scrollView.contentSize = CGSizeMake(320, self.scrollTopView.frame.size.height + self.scrollCenterView.frame.size.height + self.scrollBottomView.frame.size.height);
-    
-    //set bottom view frame
-//    self.scrollBottomView.frame = CGRectMake(self.scrollBottomView.frame.origin.x, self.scrollCenterView.frame.origin.y+scrollCenterView.frame.size.height, self.scrollBottomView.frame.size.width, self.scrollBottomView.frame.size.height);
+    if (bottomVisible)
+    {
+        self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, self.bottomView.frame.size.height, 0);
+        self.scrollView.scrollIndicatorInsets = self.scrollView.contentInset;
+    }
 }
 
 - (void)presentPopoverWithUser:(DDUser*)u inView:(UIView*)popoverView
