@@ -340,15 +340,22 @@
 #pragma mark -
 #pragma mark UITableViewDataSource
 
-//- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
-//{
-//    return [self sectionsForTableView:aTableView];
-//}
-//
-//- (NSInteger)tableView:(UITableView *)aTableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
-//{
-//    return [[self sectionsForTableView:aTableView] indexOfObject:title];
-//}
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
+{
+    NSArray *sections = [self sectionsForTableView:aTableView];
+
+    if ([sections count] == 0)
+        return sections;
+    
+    NSMutableArray *titles = [[NSMutableArray alloc] initWithArray:sections];
+    [titles removeObjectAtIndex:0];
+    return titles;
+}
+
+- (NSInteger)tableView:(UITableView *)aTableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return [[self sectionsForTableView:aTableView] indexOfObject:title];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
 {
