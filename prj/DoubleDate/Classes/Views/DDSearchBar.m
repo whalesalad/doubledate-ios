@@ -101,6 +101,25 @@
     [self customizeButton];
 }
 
+- (void)setInset:(UIEdgeInsets)v
+{
+    if ([self respondsToSelector:@selector(setContentInset:)])
+    {
+        UIScrollView *tmp = (UIScrollView*)self;
+        [tmp setContentInset:v];
+    }
+}
+
+- (UIEdgeInsets)inset
+{
+    if ([self respondsToSelector:@selector(contentInset)])
+    {
+        UIScrollView *tmp = (UIScrollView*)self;
+        return [tmp contentInset];
+    }
+    return UIEdgeInsetsZero;
+}
+
 - (void)dealloc
 {
     [super dealloc];

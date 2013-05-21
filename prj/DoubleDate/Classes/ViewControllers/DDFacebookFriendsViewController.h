@@ -12,6 +12,7 @@
 {
     NSArray *friends_;
     NSMutableArray *friendsToInvite_;
+    UIEdgeInsets searchBarInsets_;
 }
 
 @end

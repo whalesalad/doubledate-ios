@@ -12,6 +12,8 @@
 {
 }
 
+@property(nonatomic, assign) UIEdgeInsets inset;
+
 - (UITextField*)textField;
 - (UIButton*)button;
 

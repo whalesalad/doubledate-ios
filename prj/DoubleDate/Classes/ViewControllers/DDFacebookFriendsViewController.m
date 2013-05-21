@@ -25,6 +25,8 @@
 
 #define kTagInviteErrorAlert 5234
 
+#define kIndexesPadding 30
+
 @interface DDFacebookFriendsViewControllerTableViewCell : UITableViewCell
 
 @property(nonatomic, retain) DDShortUser *friend;
@@ -64,6 +66,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //hack for moving content inset of search bar
+    searchBarInsets_ = self.searchBar.inset;
+    [self.searchBar setInset:UIEdgeInsetsMake(searchBarInsets_.top, searchBarInsets_.left, searchBarInsets_.bottom, searchBarInsets_.right + kIndexesPadding)];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -492,6 +498,23 @@
 {
     //request friends
     [self.apiController getFacebookFriends];
+}
+
+#pragma mark -
+#pragma mark content management
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)aSearchBar
+{
+    if (self.searchBar == aSearchBar)
+        self.searchBar.inset = searchBarInsets_;
+    [super searchBarTextDidBeginEditing:aSearchBar];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)aSearchBar
+{
+    if (self.searchBar == aSearchBar)
+        [self.searchBar setInset:UIEdgeInsetsMake(searchBarInsets_.top, searchBarInsets_.left, searchBarInsets_.bottom, searchBarInsets_.right + kIndexesPadding)];
+    [super searchBarTextDidEndEditing:aSearchBar];
 }
 
 @end
