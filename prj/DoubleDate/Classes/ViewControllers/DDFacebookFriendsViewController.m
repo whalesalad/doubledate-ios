@@ -342,6 +342,9 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
+    if (self.searchTerm)
+        return nil;
+    
     if ([[self sectionsForTableView:aTableView] count] == 0)
         return [self sectionsForTableView:aTableView];
     
