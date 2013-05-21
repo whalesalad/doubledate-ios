@@ -17,7 +17,7 @@
 #import "DDShortUserTableViewCell.h"
 #import "DDWingTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import "Mixpanel.h"
+#import "DDStatisticksController.h"
 #import "DDSearchBar.h"
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -246,8 +246,8 @@
     //show facebook dialog
     [self showInvitationForFacebookUsers:fbIds ddUsers:ddIds];
     
-    Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    [mixpanel track:@"Tapped Invite from FB Friend List"];
+    //track event
+    [DDStatisticksController trackEvent:DDStatisticksControllerEventInviteFromFB];
 }
 
 - (void)cancelTouched:(id)sender

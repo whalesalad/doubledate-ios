@@ -21,7 +21,7 @@
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
 #import "DDTools.h"
-#import "Mixpanel.h"
+#import "DDStatisticksController.h"
 #import "DDFacebookFriendsViewController.h"
 #import "DDUserView.h"
 #import "UIImage+DD.h"
@@ -64,7 +64,8 @@
 {
     [super viewDidLoad];
 
-    [[Mixpanel sharedInstance] track:@"Create DoubleDate Started"];
+    //track event
+    [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateLoad];
     
     //localize
     [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
@@ -155,7 +156,8 @@
         wing = [v retain];
     }
     
-    [[Mixpanel sharedInstance] track:@"Create DoubleDate, Chose Wing"];
+    //track event
+    [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateChooseWing];
     
     //update header
     [self updateHeader];
@@ -222,7 +224,8 @@
     //request friends
     [self.apiController createDoubleDate:doubleDate];
     
-    [[Mixpanel sharedInstance] track:@"Create DoubleDate, Complete"];
+    //track event
+    [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateComplete];
 }
 
 - (void)backTouched:(id)sender
@@ -766,7 +769,8 @@
 {
     if (actionSheet.tag == kTagCancelActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            [[Mixpanel sharedInstance] track:@"Create DoubleDate, Cancelled"];
+            //track event
+            [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateCancelled];
         }];
 }
 
