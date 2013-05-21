@@ -15,6 +15,8 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
 
 - (void)initSelf
 {
+    self.contentMode = UIViewContentModeScaleAspectFill;
+    
     if (!activityIndicatorView_)
     {
         activityIndicatorView_ = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
