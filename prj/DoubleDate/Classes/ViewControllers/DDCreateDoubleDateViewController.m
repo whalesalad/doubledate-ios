@@ -317,7 +317,7 @@
         selectWingLabelFrame.size.width = selectWingLabelFrame.size.width - 44;
         
         UILabel *selectWingLabel = [[[UILabel alloc] initWithFrame:selectWingLabelFrame] autorelease];
-        selectWingLabel.text = @"Select\nWing";
+        selectWingLabel.text = NSLocalizedString(@"Select Wing", nil);
         
         selectWingLabel.backgroundColor = [UIColor clearColor];
         selectWingLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:20];
