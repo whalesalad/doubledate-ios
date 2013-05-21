@@ -318,7 +318,7 @@
     
     // Reposition the main label if there is no detailed label.
     if (self.doubleDate.location.isCity) {
-        self.labelLocationMain.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+        self.labelLocationMain.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
         CGPoint locationMainCenter = self.labelLocationMain.center;
         locationMainCenter.y = self.labelLocationDistance.center.y;
         self.labelLocationMain.center = locationMainCenter;
@@ -332,7 +332,10 @@
     CLLocation *currentLocation = [[DDLocationController currentLocationController] lastLocation];
     if (!currentLocation)
         currentLocation = [[[CLLocation alloc] initWithLatitude:[[[[DDAuthenticationController currentUser] location] latitude] doubleValue] longitude:[[[[DDAuthenticationController currentUser] location] longitude] doubleValue]] autorelease];
-    double distanceKm = [currentLocation distanceFromLocation:locationDate] / 1000;
+    
+    float distanceKm = [currentLocation distanceFromLocation:locationDate] / 1000;
+    
+#warning we'll want to localize this and show miles in america.
     self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ km", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceKm] readableNumber]];
     
     // Set region of map view

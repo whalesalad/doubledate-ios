@@ -83,8 +83,8 @@
     [super viewDidLoad];
     
     //localize
-    [self.viewNoBio setTitle:NSLocalizedString(@"Your bio is empty, tap to edit", @"Account Profile: No bio button") forState:UIControlStateNormal];
-    self.viewNoDates.text = NSLocalizedString(@"You haven't posted any yet", @"Account Profile: No dates label");
+    [self.viewNoBio setTitle:NSLocalizedString(@"Your bio is empty, tap to edit.", @"Account Profile: No bio button") forState:UIControlStateNormal];
+    self.viewNoDates.text = NSLocalizedString(@"You haven't posted any yet.", @"Account Profile: No dates label");
     [self.buttonEditProfile setTitle:NSLocalizedString(@"Edit Profile", @"Account Profile: Edit profile button") forState:UIControlStateNormal];
     
     //add right button
