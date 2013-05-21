@@ -31,7 +31,7 @@
     
     //add dim
     UIView *dim = [[[UIView alloc] initWithFrame:self.userPopover.bounds] autorelease];
-    dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f];
+    dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
     [self.userPopover addSubview:dim];
     
     //add scroll view

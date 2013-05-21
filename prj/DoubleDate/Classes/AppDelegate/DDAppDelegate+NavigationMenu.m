@@ -76,7 +76,7 @@
         
         //add dim
         UIView *dim = [[[UIView alloc] initWithFrame:blur.bounds] autorelease];
-        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7f];
+        dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
         [blur addSubview:dim];
         
         //add button under table view
