@@ -26,6 +26,8 @@
 #import "DDUserView.h"
 #import "UIImage+DD.h"
 #import "DDUsersView.h"
+#import "FBWebDialogs+DD.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 #define kTagCancelActionSheet 1
 
@@ -588,6 +590,18 @@
     //go back
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
+    
+    //show facebook dialog for needed user
+    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                  message:doubleDate.title
+                                                    title:NSLocalizedString(@"New Date", @"Facebook dialog title in create date")
+                                                    users:[NSArray arrayWithObject:doubleDate.wing]
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error)
+                                                      {
+                                                          [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                      }
+                                                  }];
 }
 
 - (void)createDoubleDateDidFailedWithError:(NSError*)error

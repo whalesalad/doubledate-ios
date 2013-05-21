@@ -420,6 +420,7 @@
 		70927FAD169E099D00052C9F /* DDWingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FAC169E099D00052C9F /* DDWingTableViewCell.m */; };
 		70927FBD169E16C800052C9F /* DDInvitationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */; };
 		70927FBF169E171000052C9F /* DDInvitationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */; };
+		7095546F174C1DE20070BC65 /* FBWebDialogs+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7095546E174C1DE20070BC65 /* FBWebDialogs+DD.m */; };
 		7099E8AC163BE2B800594BAA /* DDTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AB163BE2B800594BAA /* DDTextView.m */; };
 		7099E8AF163BF1D100594BAA /* DDDoubleDate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7099E8AE163BF1D100594BAA /* DDDoubleDate.m */; };
 		709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 709F069F1716146200E0ECA6 /* UIImage+DD.m */; };
@@ -1148,6 +1149,8 @@
 		70927FBB169E16C800052C9F /* DDInvitationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInvitationTableViewCell.h; sourceTree = "<group>"; };
 		70927FBC169E16C800052C9F /* DDInvitationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInvitationTableViewCell.m; sourceTree = "<group>"; };
 		70927FBE169E171000052C9F /* DDInvitationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DDInvitationTableViewCell.xib; sourceTree = "<group>"; };
+		7095546D174C1DE20070BC65 /* FBWebDialogs+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBWebDialogs+DD.h"; sourceTree = "<group>"; };
+		7095546E174C1DE20070BC65 /* FBWebDialogs+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBWebDialogs+DD.m"; sourceTree = "<group>"; };
 		7099E8AA163BE2B800594BAA /* DDTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTextView.h; sourceTree = "<group>"; };
 		7099E8AB163BE2B800594BAA /* DDTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTextView.m; sourceTree = "<group>"; };
 		7099E8AD163BF1D100594BAA /* DDDoubleDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDoubleDate.h; sourceTree = "<group>"; };
@@ -2288,6 +2291,8 @@
 		964A6EDE15F883E90077AAF1 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				7095546D174C1DE20070BC65 /* FBWebDialogs+DD.h */,
+				7095546E174C1DE20070BC65 /* FBWebDialogs+DD.m */,
 				7047C190174AA1CA0077FDDC /* NSNumber+DD.h */,
 				7047C191174AA1CA0077FDDC /* NSNumber+DD.m */,
 				703950AB1741768A005B9575 /* UIView+DD.h */,
@@ -3503,6 +3508,7 @@
 				96EC414D17437F7F00BA4A75 /* DWGridViewController.m in Sources */,
 				7047C192174AA1CA0077FDDC /* NSNumber+DD.m in Sources */,
 				7047C198174AEDDD0077FDDC /* DDStatisticsController.m in Sources */,
+				7095546F174C1DE20070BC65 /* FBWebDialogs+DD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

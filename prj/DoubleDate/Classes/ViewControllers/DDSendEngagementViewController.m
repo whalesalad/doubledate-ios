@@ -17,6 +17,7 @@
 #import "DDTextField.h"
 #import "DDTextView.h"
 #import "DDFacebookFriendsViewController.h"
+#import "FBWebDialogs+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kMaxDetailsLength 250
@@ -243,6 +244,18 @@
     
     //inform delegate
     [self.delegate sendEngagementViewControllerDidCreatedEngagement:engagement];
+    
+    //show facebook dialog for needed user
+    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                  message:engagement.activityTitle
+                                                    title:NSLocalizedString(@"New Activity", @"Facebook dialog title in create enagement")
+                                                    users:[NSArray arrayWithObject:engagement.wing]
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error)
+                                                      {
+                                                          [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                      }
+                                                  }];
 }
 
 - (void)createEngagementDidFailedWithError:(NSError*)error
