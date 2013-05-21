@@ -177,7 +177,7 @@
     labelTop.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     [self customizeTitleLabel:labelTop];
     
-    UIView *upperView = [[UIView alloc] initWithFrame:CGRectMake(20, 120, 280, imageViewTop.frame.size.height + labelTop.frame.size.height + 20)];
+    UIView *upperView = [[[UIView alloc] initWithFrame:CGRectMake(20, 120, 280, imageViewTop.frame.size.height + labelTop.frame.size.height + 20)] autorelease];
     
     CGRect labelFrame = upperView.bounds;
     labelFrame.size.height = 75;
@@ -199,7 +199,7 @@
         upperView.center = self.center;
     }
     
-    UIView *lowerView = [[UIView alloc] initWithFrame:CGRectMake(20, self.frame.size.height - 160, 280, 120)];
+    UIView *lowerView = [[[UIView alloc] initWithFrame:CGRectMake(20, self.frame.size.height - 160, 280, 120)] autorelease];
     
     // add create date button
     if (buttonTitle && target && action)

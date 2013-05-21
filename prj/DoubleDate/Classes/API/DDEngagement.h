@@ -42,6 +42,6 @@ extern NSString *DDEngagementStatusStarted;
 
 -(BOOL)isStarted;
 -(BOOL)isIgnored;
--(BOOL)isBool;
+-(BOOL)isNew;
 
 @end

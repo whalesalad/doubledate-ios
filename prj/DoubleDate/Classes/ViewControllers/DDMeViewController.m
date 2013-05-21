@@ -780,10 +780,6 @@
     CGFloat dh = scrollView.contentOffset.y - contentOffset_.y;
     CGFloat dragDistance = 50;
     
-# warning XXX: note for michael to look at this
-//    NSLog(@"dh: %f", dh);
-//    NSLog(@"scrollview y offset: %f", scrollView.contentOffset.y);
-    
     if (self.isDatesViewFullScreen)
     {
         if (dh < -dragDistance)

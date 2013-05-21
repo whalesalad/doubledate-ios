@@ -126,18 +126,17 @@ NSString *DDEngagementStatusStarted = @"started";
 
 - (BOOL)isStarted
 {
-#warning this should be DDEngagementStatusStarted instead of the string but it's not working
-    return [self.status isEqualToString:@"started"];
+    return [self.status isEqualToString:DDEngagementStatusStarted];
 }
 
 - (BOOL)isIgnored
 {
-    return [self.status isEqualToString:@"ignored"];
+    return [self.status isEqualToString:DDEngagementStatusIgnored];
 }
 
 -(BOOL)isNew
 {
-    return [self.status isEqualToString:@"new"];
+    return [self.status isEqualToString:DDEngagementStatusNew];
 }
 
 - (void)dealloc

@@ -36,7 +36,7 @@
     if ((self = [super initWithCoder:aDecoder]))
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.highlightLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 1.0f)];
+        self.highlightLine = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 1.0f)] autorelease];
         [self addSubview:self.highlightLine];
     }
     return self;

@@ -342,14 +342,10 @@
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)aTableView
 {
-    NSArray *sections = [self sectionsForTableView:aTableView];
-
-    if ([sections count] == 0)
-        return sections;
+    if ([[self sectionsForTableView:aTableView] count] == 0)
+        return [self sectionsForTableView:aTableView];
     
-    NSMutableArray *titles = [[NSMutableArray alloc] initWithArray:sections];
-    [titles removeObjectAtIndex:0];
-    return titles;
+    return [[self sectionsForTableView:aTableView] subarrayWithRange:NSMakeRange(1, [[self sectionsForTableView:aTableView] count] - 1)];
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index

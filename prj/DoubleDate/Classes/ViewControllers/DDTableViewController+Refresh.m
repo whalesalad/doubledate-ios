@@ -99,7 +99,7 @@
         NSMutableAttributedString *updatedText = [[[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"Updated %@", nil), [dateFormatter stringFromDate:[NSDate date]]]] autorelease];
         [updatedText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:0.3f alpha:1.0f] range:NSMakeRange(0,updatedText.length)];
 
-        NSShadow *updatedTextShadow = [[NSShadow alloc] init];
+        NSShadow *updatedTextShadow = [[[NSShadow alloc] init] autorelease];
         [updatedTextShadow setShadowBlurRadius:0.5f];
         [updatedTextShadow setShadowColor:[UIColor colorWithWhite:0 alpha:0.7f]];
         [updatedTextShadow setShadowOffset:CGSizeMake(0, 1)];
