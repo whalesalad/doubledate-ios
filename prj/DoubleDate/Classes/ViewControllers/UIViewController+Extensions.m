@@ -252,7 +252,7 @@ DECLARE_HUD_WITH_PROPERTY(DDNavigationController, hud_);
     labelMain.textColor = [UIColor grayColor];
     labelMain.text = mainText;
     [labelMain sizeToFit];
-    labelMain.frame = CGRectMake(22, 18, labelMain.frame.size.width, labelMain.frame.size.height);
+    labelMain.frame = CGRectMake(18, 18, labelMain.frame.size.width, labelMain.frame.size.height);
     labelMain.backgroundColor = [UIColor clearColor];
     [view addSubview:labelMain];
     

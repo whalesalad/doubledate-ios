@@ -74,7 +74,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    label_.frame = CGRectMake(8, 9, self.frame.size.width-10, 0);
+    label_.frame = CGRectMake(8, 8, self.frame.size.width-10, 0);
     [self updatePlaceholder];
     label_.frame = CGRectMake(label_.frame.origin.x, label_.frame.origin.y, label_.frame.size.width, [label_ sizeThatFits:label_.bounds.size].height);
     textView_.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);

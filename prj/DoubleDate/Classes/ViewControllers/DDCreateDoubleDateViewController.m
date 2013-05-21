@@ -662,9 +662,8 @@
     UIView *headerView = nil;
     if (section == 0)
     {
-        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Details", @"Create Date: Header view for details text view") detailedText:nil];
-        UILabel *mainLabel = [self mainLabelForHeaderView:headerView];
-        mainLabel.textColor = [UIColor whiteColor];
+        headerView = [self oldStyleViewForHeaderWithMainText:NSLocalizedString(@"Details", @"Create Date: Header view for details text view")
+                                                detailedText:nil];
     }
     return headerView;
 }
