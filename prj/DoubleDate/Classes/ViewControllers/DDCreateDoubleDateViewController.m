@@ -21,7 +21,7 @@
 #import "DDAuthenticationController.h"
 #import "DDTools.h"
 #import "DDTools.h"
-#import "DDStatisticksController.h"
+#import "DDStatisticsController.h"
 #import "DDFacebookFriendsViewController.h"
 #import "DDUserView.h"
 #import "UIImage+DD.h"
@@ -65,7 +65,7 @@
     [super viewDidLoad];
 
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateLoad];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateLoad];
     
     //localize
     [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
@@ -157,7 +157,7 @@
     }
     
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateChooseWing];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateChooseWing];
     
     //update header
     [self updateHeader];
@@ -225,7 +225,7 @@
     [self.apiController createDoubleDate:doubleDate];
     
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateComplete];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateComplete];
 }
 
 - (void)backTouched:(id)sender
@@ -770,7 +770,7 @@
     if (actionSheet.tag == kTagCancelActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             //track event
-            [DDStatisticksController trackEvent:DDStatisticksControllerEventCreateDateCancelled];
+            [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateCancelled];
         }];
 }
 

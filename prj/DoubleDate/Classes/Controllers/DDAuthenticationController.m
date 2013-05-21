@@ -15,7 +15,7 @@
 #import "DDAppDelegate.h"
 #import "DDAppDelegate+APNS.h"
 #import "DDUser.h"
-#import "DDStatisticksController.h"
+#import "DDStatisticsController.h"
 
 NSString *DDAuthenticationControllerAuthenticateDidSucceesNotification = @"DDAuthenticationControllerAuthenticateDidSucceesNotification";
 NSString *DDAuthenticationControllerAuthenticateDidFailedNotification = @"DDAuthenticationControllerAuthenticateDidFailedNotification";
@@ -127,10 +127,10 @@ static DDAuthenticationController *_sharedInstance = nil;
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
     
     //apply name
-    [DDStatisticksController setName:[NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName]];
+    [DDStatisticsController setName:[NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName]];
     
     //register user id
-    [DDStatisticksController registerProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.uuid, @"username", nil]];
+    [DDStatisticsController registerProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.uuid, @"username", nil]];
 }
 
 + (DDUser*)currentUser

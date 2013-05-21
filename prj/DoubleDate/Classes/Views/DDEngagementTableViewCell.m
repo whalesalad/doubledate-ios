@@ -111,8 +111,9 @@
             self.labelTitle.text = engagement.activityTitle;
             
             //update users label
-            NSString *format = NSLocalizedString(@"From %@ & %@ — %@ ago", @"detail text for engagement list item");
-            self.labelDetailed.text = [NSString stringWithFormat:format, userToShow.firstName, wingToShow.firstName, engagement.updatedAtAgo];
+            NSString *format = NSLocalizedString(@"From %@ & %@ — ", @"detail text for engagement list item");
+            format = [format stringByAppendingFormat:NSLocalizedString(@"%@ ago", @"Time ago"), engagement.updatedAtAgo];
+            self.labelDetailed.text = [NSString stringWithFormat:format, userToShow.firstName, wingToShow.firstName];
             
             //apply genders
             [self.imageViewUser reloadFromUrl:[NSURL URLWithString:userToShow.photo.thumbUrl]];

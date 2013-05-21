@@ -22,7 +22,7 @@
 #import "DDFacebookController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Crashlytics/Crashlytics.h>
-#import "DDStatisticksController.h"
+#import "DDStatisticsController.h"
 
 NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelegateApplicationBadgeNumberUpdatedNotification";
 
@@ -177,7 +177,7 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     NSNumber *seconds = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceDate:self.startTime]];
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventSession withProperties:[NSDictionary dictionaryWithObject:seconds forKey:@"Length"]];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventSession withProperties:[NSDictionary dictionaryWithObject:seconds forKey:@"Length"]];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

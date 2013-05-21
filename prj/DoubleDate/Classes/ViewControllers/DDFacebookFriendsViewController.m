@@ -17,7 +17,7 @@
 #import "DDShortUserTableViewCell.h"
 #import "DDWingTableViewCell.h"
 #import "UIImageView+WebCache.h"
-#import "DDStatisticksController.h"
+#import "DDStatisticsController.h"
 #import "DDSearchBar.h"
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -247,7 +247,7 @@
     [self showInvitationForFacebookUsers:fbIds ddUsers:ddIds];
     
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventInviteFromFB];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventInviteFromFB];
 }
 
 - (void)cancelTouched:(id)sender

@@ -374,7 +374,7 @@
 		7041769816E3A2CE003B6B24 /* DDPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */; };
 		7045B79F1624B84300E8D3C8 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7045B79E1624B84300E8D3C8 /* MessageUI.framework */; };
 		7047C192174AA1CA0077FDDC /* NSNumber+DD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7047C191174AA1CA0077FDDC /* NSNumber+DD.m */; };
-		7047C198174AEDDD0077FDDC /* DDStatisticksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7047C197174AEDDD0077FDDC /* DDStatisticksController.m */; };
+		7047C198174AEDDD0077FDDC /* DDStatisticsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7047C197174AEDDD0077FDDC /* DDStatisticsController.m */; };
 		704A62491687AF5C00B86F57 /* DDEngagementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */; };
 		704A624D1687BF1C00B86F57 /* DDEngagementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 704A624C1687BF1C00B86F57 /* DDEngagementTableViewCell.m */; };
 		70674F9D171B286200555B31 /* DDFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70674F9C171B286200555B31 /* DDFeedbackViewController.m */; };
@@ -1082,8 +1082,8 @@
 		7045B79E1624B84300E8D3C8 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7047C190174AA1CA0077FDDC /* NSNumber+DD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+DD.h"; sourceTree = "<group>"; };
 		7047C191174AA1CA0077FDDC /* NSNumber+DD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+DD.m"; sourceTree = "<group>"; };
-		7047C196174AEDDD0077FDDC /* DDStatisticksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDStatisticksController.h; sourceTree = "<group>"; };
-		7047C197174AEDDD0077FDDC /* DDStatisticksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDStatisticksController.m; sourceTree = "<group>"; };
+		7047C196174AEDDD0077FDDC /* DDStatisticsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDStatisticsController.h; sourceTree = "<group>"; };
+		7047C197174AEDDD0077FDDC /* DDStatisticsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDStatisticsController.m; sourceTree = "<group>"; };
 		704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementsViewController.h; sourceTree = "<group>"; };
 		704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDEngagementsViewController.m; sourceTree = "<group>"; };
 		704A624B1687BF1C00B86F57 /* DDEngagementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDEngagementTableViewCell.h; sourceTree = "<group>"; };
@@ -2677,8 +2677,8 @@
 		96E7F20215F7A05F00200E1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7047C196174AEDDD0077FDDC /* DDStatisticksController.h */,
-				7047C197174AEDDD0077FDDC /* DDStatisticksController.m */,
+				7047C196174AEDDD0077FDDC /* DDStatisticsController.h */,
+				7047C197174AEDDD0077FDDC /* DDStatisticsController.m */,
 				7086FFB616E545360051F95A /* DDStoreKitController.h */,
 				7086FFB716E545360051F95A /* DDStoreKitController.m */,
 				96EA06AC1689D36F009F09BC /* DDObjectsController.h */,
@@ -3502,7 +3502,7 @@
 				96EC414C17437F7F00BA4A75 /* DWGridViewCell.m in Sources */,
 				96EC414D17437F7F00BA4A75 /* DWGridViewController.m in Sources */,
 				7047C192174AA1CA0077FDDC /* NSNumber+DD.m in Sources */,
-				7047C198174AEDDD0077FDDC /* DDStatisticksController.m in Sources */,
+				7047C198174AEDDD0077FDDC /* DDStatisticsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

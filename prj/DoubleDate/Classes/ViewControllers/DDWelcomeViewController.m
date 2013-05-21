@@ -26,7 +26,7 @@
 #import "DDEngagementsViewController.h"
 #import "DDAppDelegate+Navigation.h"
 #import "JBKenBurnsView.h"
-#import "DDStatisticksController.h"
+#import "DDStatisticsController.h"
 
 #define kTagEmailActionSheet 1
 
@@ -172,7 +172,7 @@
     [super viewDidLoad];
 
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventWelcomeLoad];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventWelcomeLoad];
     
     //localize
     labelGrabAFriend.text = NSLocalizedString(@"GRAB A FRIEND • GO OUT • HAVE FUN", nil);
@@ -265,13 +265,13 @@
     self.privacyShown = !self.privacyShown;
     
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventWelcomeFBTap];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventWelcomeFBTap];
 }
 
 - (IBAction)facebookTouched:(id)sender
 {
     //track event
-    [DDStatisticksController trackEvent:DDStatisticksControllerEventWelcomeLoginTap];
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventWelcomeLoginTap];
     
     //just make a facebook login
     [[DDFacebookController sharedController] login];
