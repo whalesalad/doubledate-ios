@@ -172,7 +172,7 @@
     [super viewDidLoad];
 
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventWelcomeLoad];
+    [DDStatisticsController trackEvent:DDStatisticsEventWelcomeLoad];
     
     //localize
     labelGrabAFriend.text = NSLocalizedString(@"GRAB A FRIEND • GO OUT • HAVE FUN", nil);
@@ -265,13 +265,13 @@
     self.privacyShown = !self.privacyShown;
     
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventWelcomeFBTap];
+    [DDStatisticsController trackEvent:DDStatisticsEventWelcomeFBTap];
 }
 
 - (IBAction)facebookTouched:(id)sender
 {
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventWelcomeLoginTap];
+    [DDStatisticsController trackEvent:DDStatisticsEventWelcomeLoginTap];
     
     //just make a facebook login
     [[DDFacebookController sharedController] login];

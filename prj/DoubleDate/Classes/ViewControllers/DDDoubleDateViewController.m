@@ -237,7 +237,7 @@
     [super viewDidAppear:animated];
     
     // Track view
-    [DDStatisticsController trackEvent:DDStatisticsControllerUserViewedDate
+    [DDStatisticsController trackEvent:DDStatisticsUserViewedDate
                         withProperties:[NSDictionary dictionaryWithKeysAndObjects:@"doubledate_id", self.doubleDate.uniqueKey, nil]];
     
     //animate warning view

@@ -19,7 +19,7 @@
 #define SERVER_URL @"http://dbld8.com"
 #endif
 
-//#define API_URL @"https://prancer.dbld8.com"
+//#define API_URL @"http://Achilles.local:3000"
 
 NSString *DDErrorDomain = @"DDErrorDomain";
 

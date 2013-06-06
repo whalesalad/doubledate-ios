@@ -160,7 +160,7 @@ typedef enum
     
     // Track view
     if (mode_ == DDDoubleDatesViewControllerModeAll) {
-        [DDStatisticsController trackEvent:DDStatisticsControllerUserBrowsedDates
+        [DDStatisticsController trackEvent:DDStatisticsUserBrowsedDates
                             withProperties:[NSDictionary dictionaryWithObjectsAndKeys:[[self class] filterCityName], @"browse_location", nil]];
     }
 

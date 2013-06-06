@@ -177,7 +177,7 @@ NSString *DDAppDelegateApplicationBadgeNumberUpdatedNotification = @"DDAppDelega
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     NSNumber *seconds = [NSNumber numberWithDouble:[[NSDate date] timeIntervalSinceDate:self.startTime]];
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventSession withProperties:[NSDictionary dictionaryWithObject:seconds forKey:@"Length"]];
+    [DDStatisticsController trackEvent:DDStatisticsEventSession withProperties:[NSDictionary dictionaryWithObject:seconds forKey:@"Length"]];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

@@ -8,18 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *DDStatisticsControllerEventWelcomeLoad;
-extern NSString *DDStatisticsControllerEventWelcomeFBTap;
-extern NSString *DDStatisticsControllerEventWelcomeLoginTap;
-extern NSString *DDStatisticsControllerEventInviteFromFB;
-extern NSString *DDStatisticsControllerEventCreateDateLoad;
-extern NSString *DDStatisticsControllerEventCreateDateChooseWing;
-extern NSString *DDStatisticsControllerEventCreateDateComplete;
-extern NSString *DDStatisticsControllerEventCreateDateCancelled;
-extern NSString *DDStatisticsControllerEventSession;
-extern NSString *DDStatisticsControllerUserBrowsedDates;
-extern NSString *DDStatisticsControllerUserViewedDate;
-extern NSString *DDStatisticsControllerUserOpenedBubble;
+extern NSString *DDStatisticsEventWelcomeLoad;
+extern NSString *DDStatisticsEventWelcomeFBTap;
+extern NSString *DDStatisticsEventWelcomeLoginTap;
+extern NSString *DDStatisticsEventInviteFromFB;
+extern NSString *DDStatisticsEventCreateDateLoad;
+extern NSString *DDStatisticsEventCreateDateChooseWing;
+extern NSString *DDStatisticsEventCreateDateComplete;
+extern NSString *DDStatisticsEventCreateDateCancelled;
+extern NSString *DDStatisticsEventCreateDateDidInviteGhost;
+extern NSString *DDStatisticsEventCreateDateSkippedInviteGhost;
+extern NSString *DDStatisticsEventSession;
+extern NSString *DDStatisticsUserBrowsedDates;
+extern NSString *DDStatisticsUserViewedDate;
+extern NSString *DDStatisticsUserOpenedBubble;
+
 
 @interface DDStatisticsController : NSObject
 {

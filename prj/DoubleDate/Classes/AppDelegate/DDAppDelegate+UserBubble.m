@@ -98,7 +98,7 @@
     }];
     
     // Track Event
-    [DDStatisticsController trackEvent:DDStatisticsControllerUserOpenedBubble
+    [DDStatisticsController trackEvent:DDStatisticsUserOpenedBubble
                         withProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.userId, @"user_id", nil]];
 
 }

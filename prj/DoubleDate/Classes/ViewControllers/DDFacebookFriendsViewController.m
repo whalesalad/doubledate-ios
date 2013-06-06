@@ -253,7 +253,7 @@
     [self showInvitationForFacebookUsers:fbIds ddUsers:ddIds];
     
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventInviteFromFB];
+    [DDStatisticsController trackEvent:DDStatisticsEventInviteFromFB];
 }
 
 - (void)cancelTouched:(id)sender

@@ -26,7 +26,7 @@
 #import "DDUserView.h"
 #import "UIImage+DD.h"
 #import "DDUsersView.h"
-#import "FBWebDialogs+DD.h"
+//#import "FBWebDialogs+DD.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 #define kTagCancelActionSheet 1
@@ -67,7 +67,7 @@
     [super viewDidLoad];
 
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateLoad];
+    [DDStatisticsController trackEvent:DDStatisticsEventCreateDateLoad];
     
     //localize
     [buttonCancel setTitle:NSLocalizedString(@"Cancel", nil) forState:UIControlStateNormal];
@@ -224,7 +224,7 @@
     [self.apiController createDoubleDate:doubleDate];
     
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateComplete];
+    [DDStatisticsController trackEvent:DDStatisticsEventCreateDateComplete];
 }
 
 - (void)backTouched:(id)sender
@@ -588,11 +588,13 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
     
-    NSMutableDictionary* facebookParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@", doubleDate.wing.facebookId], @"to", nil];
+    NSMutableDictionary *facebookParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@", doubleDate.wing.facebookId], @"to", nil];
+    
+    NSLog(@"Facebook params: %@", facebookParams);
     
     //show facebook dialog for needed user
     [FBWebDialogs presentRequestsDialogModallyWithSession:nil
-                                                  message:NSLocalizedString(@"Hey! You're my wing on my new DoubleDate", @"Facebook request dialog text to ghost user for create date")
+                                                  message:NSLocalizedString(@"Hey! I posted a new DoubleDate and you're my wing.", @"Facebook request dialog text to ghost user for create date")
                                                     title:NSLocalizedString(@"Share with Wing", @"Facebook dialog title in create date")
                                                parameters:facebookParams
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
@@ -604,12 +606,11 @@
                                                       {
                                                           if (result == FBWebDialogResultDialogNotCompleted)
                                                           {
-#warning track this in mixpanel
-                                                              NSLog(@"User canceled request.");
+                                                              [DDStatisticsController trackEvent:DDStatisticsEventCreateDateSkippedInviteGhost];
                                                           }
                                                           else
                                                           {
-                                                              NSLog(@"Request sent successfully.");
+                                                              [DDStatisticsController trackEvent:DDStatisticsEventCreateDateDidInviteGhost];
                                                           }
                                                       }
                                                   }];
@@ -794,7 +795,7 @@
     if (actionSheet.tag == kTagCancelActionSheet && buttonIndex != actionSheet.cancelButtonIndex)
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             //track event
-            [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateCancelled];
+            [DDStatisticsController trackEvent:DDStatisticsEventCreateDateCancelled];
         }];
 }
 
@@ -816,7 +817,7 @@
     self.wing = user;
     
     //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateChooseWing];
+    [DDStatisticsController trackEvent:DDStatisticsEventCreateDateChooseWing];
     
     //pop view controller
     [self.navigationController popViewControllerAnimated:YES];

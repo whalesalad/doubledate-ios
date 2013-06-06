@@ -9,18 +9,20 @@
 #import "DDStatisticsController.h"
 #import "Mixpanel.h"
 
-NSString *DDStatisticsControllerEventWelcomeLoad = @"Welcome View Displayed";
-NSString *DDStatisticsControllerEventWelcomeFBTap = @"Welcome View, Why FB? Tapped";
-NSString *DDStatisticsControllerEventWelcomeLoginTap = @"Welcome View, Login Tapped";
-NSString *DDStatisticsControllerEventInviteFromFB = @"Tapped Invite from FB Friend List";
-NSString *DDStatisticsControllerEventCreateDateLoad = @"Create DoubleDate Started";
-NSString *DDStatisticsControllerEventCreateDateChooseWing = @"Create DoubleDate, Chose Wing";
-NSString *DDStatisticsControllerEventCreateDateComplete = @"Create DoubleDate, Complete";
-NSString *DDStatisticsControllerEventCreateDateCancelled = @"Create DoubleDate, Cancelled";
-NSString *DDStatisticsControllerEventSession = @"Session";
-NSString *DDStatisticsControllerUserBrowsedDates = @"User Browsed Dates";
-NSString *DDStatisticsControllerUserViewedDate = @"User Viewed a Date";
-NSString *DDStatisticsControllerUserOpenedBubble = @"User Opened a Bubble";
+NSString *DDStatisticsEventWelcomeLoad = @"Welcome View Displayed";
+NSString *DDStatisticsEventWelcomeFBTap = @"Welcome View, Why FB? Tapped";
+NSString *DDStatisticsEventWelcomeLoginTap = @"Welcome View, Login Tapped";
+NSString *DDStatisticsEventInviteFromFB = @"Tapped Invite from FB Friend List";
+NSString *DDStatisticsEventCreateDateLoad = @"Create DoubleDate Started";
+NSString *DDStatisticsEventCreateDateChooseWing = @"Create DoubleDate, Chose Wing";
+NSString *DDStatisticsEventCreateDateComplete = @"Create DoubleDate, Complete";
+NSString *DDStatisticsEventCreateDateCancelled = @"Create DoubleDate, Cancelled";
+NSString *DDStatisticsEventCreateDateDidInviteGhost = @"Create DoubleDate, Sent Facebook Request to Ghost";
+NSString *DDStatisticsEventCreateDateSkippedInviteGhost = @"Create DoubleDate, Skipped sending Facebook Request to Ghost";
+NSString *DDStatisticsEventSession = @"Session";
+NSString *DDStatisticsUserBrowsedDates = @"User Browsed Dates";
+NSString *DDStatisticsUserViewedDate = @"User Viewed a Date";
+NSString *DDStatisticsUserOpenedBubble = @"User Opened a Bubble";
 
 @implementation DDStatisticsController
 
