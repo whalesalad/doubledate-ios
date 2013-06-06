@@ -157,10 +157,7 @@
         [wing release];
         wing = [v retain];
     }
-    
-    //track event
-    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateChooseWing];
-    
+        
     //update header
     [self updateHeader];
     
@@ -591,15 +588,29 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
     }];
     
+    NSMutableDictionary* facebookParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@", doubleDate.wing.facebookId], @"to", nil];
+    
     //show facebook dialog for needed user
     [FBWebDialogs presentRequestsDialogModallyWithSession:nil
-                                                  message:doubleDate.title
-                                                    title:NSLocalizedString(@"New Date", @"Facebook dialog title in create date")
-                                                    users:[NSArray arrayWithObject:doubleDate.wing]
+                                                  message:NSLocalizedString(@"Hey! You're my wing on my new DoubleDate", @"Facebook request dialog text to ghost user for create date")
+                                                    title:NSLocalizedString(@"Share with Wing", @"Facebook dialog title in create date")
+                                               parameters:facebookParams
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
                                                       if (error)
                                                       {
                                                           [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                      }
+                                                      else
+                                                      {
+                                                          if (result == FBWebDialogResultDialogNotCompleted)
+                                                          {
+#warning track this in mixpanel
+                                                              NSLog(@"User canceled request.");
+                                                          }
+                                                          else
+                                                          {
+                                                              NSLog(@"Request sent successfully.");
+                                                          }
                                                       }
                                                   }];
 }
@@ -803,6 +814,9 @@
 {
     //set wing
     self.wing = user;
+    
+    //track event
+    [DDStatisticsController trackEvent:DDStatisticsControllerEventCreateDateChooseWing];
     
     //pop view controller
     [self.navigationController popViewControllerAnimated:YES];

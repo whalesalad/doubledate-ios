@@ -11,12 +11,13 @@
 #import "DDUser.h"
 #import "DDUserBubble.h"
 #import "UIImage+DD.h"
+#import "DDStatisticsController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DDAppDelegate (UserBubble)
 
 - (void)presentUserBubbleForUser:(DDUser*)user fromUsers:(NSArray*)users
-{
+{    
     //remove old
     [self.userPopover removeFromSuperview];
     
@@ -95,6 +96,11 @@
     [UIView animateWithDuration:0.3f animations:^{
         self.userPopover.alpha = 1;
     }];
+    
+    // Track Event
+    [DDStatisticsController trackEvent:DDStatisticsControllerUserOpenedBubble
+                        withProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.userId, @"user_id", nil]];
+
 }
 
 - (void)dismissUserPopover

@@ -29,6 +29,7 @@
 #import "DDObjectsController.h"
 #import "UIView+DD.h"
 #import "DDAppDelegate+NavigationMenu.h"
+#import "DDStatisticsController.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kEarnCost 50
@@ -147,6 +148,10 @@ typedef enum
     
     //customize no data view
     [self customizeNoDataView];
+    
+    // Track view
+    [DDStatisticsController trackEvent:DDStatisticsControllerUserBrowsedDates
+                        withProperties:[NSDictionary dictionaryWithObjectsAndKeys:[[self class] filterCityName], @"browse_location", nil]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

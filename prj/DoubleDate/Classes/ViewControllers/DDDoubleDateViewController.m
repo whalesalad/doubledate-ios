@@ -31,6 +31,7 @@
 #import "DDUserView.h"
 #import "UIImage+DD.h"
 #import "NSNumber+DD.h"
+#import "DDStatisticsController.h"
 #import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 
@@ -217,6 +218,11 @@
         requestUser.userId = self.doubleDate.wing.identifier;
         [self.apiController getUser:requestUser];
     }
+    
+    // Track view
+    [DDStatisticsController trackEvent:DDStatisticsControllerUserViewedDate
+                        withProperties:[NSDictionary dictionaryWithKeysAndObjects:@"doubledate_id", self.doubleDate.uniqueKey, nil]];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -233,7 +239,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+        
     //animate warning view
     if (!messageSentAnimated_)
     {

@@ -18,6 +18,9 @@ NSString *DDStatisticsControllerEventCreateDateChooseWing = @"Create DoubleDate,
 NSString *DDStatisticsControllerEventCreateDateComplete = @"Create DoubleDate, Complete";
 NSString *DDStatisticsControllerEventCreateDateCancelled = @"Create DoubleDate, Cancelled";
 NSString *DDStatisticsControllerEventSession = @"Session";
+NSString *DDStatisticsControllerUserBrowsedDates = @"User Browsed Dates";
+NSString *DDStatisticsControllerUserViewedDate = @"User Viewed a Date";
+NSString *DDStatisticsControllerUserOpenedBubble = @"User Opened a Bubble";
 
 @implementation DDStatisticsController
 
@@ -38,11 +41,13 @@ NSString *DDStatisticsControllerEventSession = @"Session";
 
 + (void)trackEvent:(NSString*)event
 {
+    NSLog(@"DDStatistics tracking: %@", event);
     [[Mixpanel sharedInstance] track:event];
 }
 
 + (void)trackEvent:(NSString*)event withProperties:(NSDictionary*)properties
 {
+    NSLog(@"DDStatistics tracking: %@, with properties: %@", event, properties);
     [[Mixpanel sharedInstance] track:event properties:properties];
 }
 

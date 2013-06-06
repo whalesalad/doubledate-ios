@@ -17,6 +17,9 @@ extern NSString *DDStatisticsControllerEventCreateDateChooseWing;
 extern NSString *DDStatisticsControllerEventCreateDateComplete;
 extern NSString *DDStatisticsControllerEventCreateDateCancelled;
 extern NSString *DDStatisticsControllerEventSession;
+extern NSString *DDStatisticsControllerUserBrowsedDates;
+extern NSString *DDStatisticsControllerUserViewedDate;
+extern NSString *DDStatisticsControllerUserOpenedBubble;
 
 @interface DDStatisticsController : NSObject
 {
