@@ -149,9 +149,6 @@ typedef enum
     //customize no data view
     [self customizeNoDataView];
     
-    // Track view
-    [DDStatisticsController trackEvent:DDStatisticsControllerUserBrowsedDates
-                        withProperties:[NSDictionary dictionaryWithObjectsAndKeys:[[self class] filterCityName], @"browse_location", nil]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -160,6 +157,13 @@ typedef enum
     
     //update navigation bar
     [self updateNavigationBar];
+    
+    // Track view
+    if (mode_ == DDDoubleDatesViewControllerModeAll) {
+        [DDStatisticsController trackEvent:DDStatisticsControllerUserBrowsedDates
+                            withProperties:[NSDictionary dictionaryWithObjectsAndKeys:[[self class] filterCityName], @"browse_location", nil]];
+    }
+
     
     //check for first time
     if (!requestDoubleDatesAll_ && !requestDoubleDatesMine_)

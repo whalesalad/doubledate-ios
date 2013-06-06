@@ -219,10 +219,6 @@
         [self.apiController getUser:requestUser];
     }
     
-    // Track view
-    [DDStatisticsController trackEvent:DDStatisticsControllerUserViewedDate
-                        withProperties:[NSDictionary dictionaryWithKeysAndObjects:@"doubledate_id", self.doubleDate.uniqueKey, nil]];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -239,7 +235,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-        
+    
+    // Track view
+    [DDStatisticsController trackEvent:DDStatisticsControllerUserViewedDate
+                        withProperties:[NSDictionary dictionaryWithKeysAndObjects:@"doubledate_id", self.doubleDate.uniqueKey, nil]];
+    
     //animate warning view
     if (!messageSentAnimated_)
     {
