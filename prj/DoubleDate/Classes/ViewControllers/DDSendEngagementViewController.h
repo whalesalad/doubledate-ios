@@ -21,6 +21,7 @@
 
 @interface DDSendEngagementViewController : DDViewController
 {
+    NSInteger activateKeyboardCode_;
 }
 
 @property(nonatomic, assign) id<DDSendEngagementViewControllerDelegate> delegate;

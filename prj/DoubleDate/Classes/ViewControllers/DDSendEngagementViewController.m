@@ -104,6 +104,18 @@
     [self updateLeftCharacters];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    //check if we need to show keyboard
+    if (activateKeyboardCode_ == 1)
+    {
+        activateKeyboardCode_++;
+        [[[self textViewDetails] textView] becomeFirstResponder];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -405,6 +417,9 @@
 {
     //set wing
     self.wing = user;
+    
+    //increase activate keyboard code
+    activateKeyboardCode_++;
     
     //update
     [self updateNavigationBar];

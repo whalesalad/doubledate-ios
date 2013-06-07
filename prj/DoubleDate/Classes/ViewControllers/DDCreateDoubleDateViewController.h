@@ -15,6 +15,7 @@
 @interface DDCreateDoubleDateViewController : DDViewController
 {
     NSArray *facebookFriends_;
+    NSInteger activateKeyboardCode_;
 }
 
 @property(nonatomic, retain) DDShortUser *wing;
