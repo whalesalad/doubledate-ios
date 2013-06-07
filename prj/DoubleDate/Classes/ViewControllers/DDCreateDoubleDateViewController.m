@@ -127,6 +127,13 @@
     
     //update header
     [self updateHeader];
+    
+    //scroll to bottom before showing keyboard
+    if (activateKeyboardCode_ == 1)
+    {
+        if (self.tableView.contentSize.height > self.tableView.bounds.size.height)
+            [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height - self.tableView.bounds.size.height) animated:NO];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
