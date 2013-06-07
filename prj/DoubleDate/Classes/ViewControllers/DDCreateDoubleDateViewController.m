@@ -589,25 +589,27 @@
     
     }];
     
-#warning only do this if the user is a ghost user
-    //show facebook dialog for needed user
-    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
-                                                  message:NSLocalizedString(@"Hey! I posted a new DoubleDate and you're my wing.", @"Facebook request dialog text to ghost user for create date")
-                                                    title:NSLocalizedString(@"Share with Wing", @"Facebook dialog title in create date")
-                                                    users:[NSArray arrayWithObject:doubleDate.wing]
-                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-                                                      if (error)
-                                                      {
-                                                          [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-                                                      }
-                                                      else
-                                                      {
-                                                          if (result == FBWebDialogResultDialogNotCompleted)
-                                                              [DDStatisticsController trackEvent:DDStatisticsEventCreateDateSkippedInviteGhost];
+    // Skip the FB dialog unless this is a ghost user.
+    if (doubleDate.wing.isGhost)
+        //show facebook dialog for needed user
+        [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                      message:NSLocalizedString(@"Hey! I posted a new DoubleDate and you're my wing.", @"Facebook request dialog text to ghost user for create date")
+                                                        title:NSLocalizedString(@"Share with Wing", @"Facebook dialog title in create date")
+                                                        users:[NSArray arrayWithObject:doubleDate.wing]
+                                                      handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                          if (error)
+                                                          {
+                                                              [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                          }
                                                           else
-                                                              [DDStatisticsController trackEvent:DDStatisticsEventCreateDateDidInviteGhost];
-                                                      }
-                                                  }];
+                                                          {
+                                                              if (result == FBWebDialogResultDialogNotCompleted)
+                                                                  [DDStatisticsController trackEvent:DDStatisticsEventCreateDateSkippedInviteGhost];
+                                                              else
+                                                                  [DDStatisticsController trackEvent:DDStatisticsEventCreateDateDidInviteGhost];
+                                                          }
+                                                      }];
+
 }
 
 - (void)createDoubleDateDidFailedWithError:(NSError*)error

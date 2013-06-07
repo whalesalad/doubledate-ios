@@ -21,8 +21,11 @@
 @property(nonatomic, retain) NSString *location;
 @property(nonatomic, retain) DDImage *photo;
 @property(nonatomic, retain) NSNumber *approved;
+@property(nonatomic, retain) NSNumber *ghost;
+
 
 - (NSString*)displayName;
+- (BOOL)isGhost;
 
 + (NSString*)nameForShortUser:(DDShortUser*)user;
 

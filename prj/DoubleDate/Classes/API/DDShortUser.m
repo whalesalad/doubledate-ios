@@ -20,6 +20,7 @@
 @synthesize location;
 @synthesize photo;
 @synthesize approved;
+@synthesize ghost;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -35,6 +36,9 @@
         self.location = [DDAPIObject stringForObject:[dictionary objectForKey:@"location"]];
         self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
         self.approved = [DDAPIObject numberForObject:[dictionary objectForKey:@"approved"]];
+        self.ghost = 0;
+        if ([dictionary objectForKey:@"ghost_user"])
+            self.ghost = [DDAPIObject numberForObject:[dictionary objectForKey:@"ghost_user"]];
     }
     return self;
 }
@@ -62,6 +66,8 @@
         [dictionary setObject:[self.photo dictionaryRepresentation] forKey:@"photo"];
     if (self.approved)
         [dictionary setObject:self.approved forKey:@"approved"];
+    if (self.ghost)
+        [dictionary setObject:self.ghost forKey:@"ghost_user"];
     return dictionary;
 }
 
@@ -73,6 +79,11 @@
 - (NSString*)uniqueKeyField
 {
     return @"id";
+}
+
+- (BOOL)isGhost
+{
+    return (BOOL)self.ghost;
 }
 
 - (void)dealloc
@@ -87,6 +98,7 @@
     [location release];
     [photo release];
     [approved release];
+    [ghost release];
     [super dealloc];
 }
 

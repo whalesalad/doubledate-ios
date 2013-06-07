@@ -246,25 +246,25 @@
     //inform delegate
     [self.delegate sendEngagementViewControllerDidCreatedEngagement:engagement];
     
-#warning only do this if the user is a ghost user
-    //show facebook dialog for needed user
-    [FBWebDialogs presentRequestsDialogModallyWithSession:nil
-                                                  message:NSLocalizedString(@"I'm interested in going on this DoubleDate picked you to be my wing.", @"Facebook request dialog text to ghost user for send engagement")
-                                                    title:NSLocalizedString(@"Tell Your Wing", @"Facebook dialog title in send enagement")
-                                                    users:[NSArray arrayWithObject:engagement.wing]
-                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
-                                                      if (error)
-                                                      {
-                                                          [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
-                                                      }
-                                                      else
-                                                      {
-                                                          if (result == FBWebDialogResultDialogNotCompleted)
-                                                              [DDStatisticsController trackEvent:DDStatisticsEventSentEngagementSkippedInviteGhost];
+    // Only show dialog for Ghost users
+    if (doubleDate.wing.isGhost)
+        [FBWebDialogs presentRequestsDialogModallyWithSession:nil
+                                                      message:NSLocalizedString(@"I'm interested in going on this DoubleDate picked you to be my wing.", @"Facebook request dialog text to ghost user for send engagement")
+                                                        title:NSLocalizedString(@"Tell Your Wing", @"Facebook dialog title in send enagement")
+                                                        users:[NSArray arrayWithObject:engagement.wing]
+                                                      handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                          if (error)
+                                                          {
+                                                              [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                          }
                                                           else
-                                                              [DDStatisticsController trackEvent:DDStatisticsEventSentEngagementDidInviteGhost];
-                                                      }
-                                                  }];
+                                                          {
+                                                              if (result == FBWebDialogResultDialogNotCompleted)
+                                                                  [DDStatisticsController trackEvent:DDStatisticsEventSentEngagementSkippedInviteGhost];
+                                                              else
+                                                                  [DDStatisticsController trackEvent:DDStatisticsEventSentEngagementDidInviteGhost];
+                                                          }
+                                                      }];
 }
 
 - (void)createEngagementDidFailedWithError:(NSError*)error
