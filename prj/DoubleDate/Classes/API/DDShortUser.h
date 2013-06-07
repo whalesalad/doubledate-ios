@@ -23,13 +23,8 @@
 @property(nonatomic, retain) NSNumber *approved;
 @property(nonatomic, retain) NSNumber *ghost;
 
-
 - (NSString*)displayName;
-- (BOOL)isGhost;
 
 + (NSString*)nameForShortUser:(DDShortUser*)user;
 
-@end
-
-@interface DDShortGhost : DDShortUser
 @end

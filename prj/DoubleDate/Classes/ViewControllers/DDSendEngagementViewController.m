@@ -247,7 +247,7 @@
     [self.delegate sendEngagementViewControllerDidCreatedEngagement:engagement];
     
     // Only show dialog for Ghost users
-    if (doubleDate.wing.isGhost)
+    if ([[doubleDate.wing ghost] boolValue])
         [FBWebDialogs presentRequestsDialogModallyWithSession:nil
                                                       message:NSLocalizedString(@"I'm interested in going on this DoubleDate picked you to be my wing.", @"Facebook request dialog text to ghost user for send engagement")
                                                         title:NSLocalizedString(@"Tell Your Wing", @"Facebook dialog title in send enagement")

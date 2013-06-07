@@ -590,7 +590,7 @@
     }];
     
     // Skip the FB dialog unless this is a ghost user.
-    if (doubleDate.wing.isGhost)
+    if ([[doubleDate.wing ghost] boolValue])
         //show facebook dialog for needed user
         [FBWebDialogs presentRequestsDialogModallyWithSession:nil
                                                       message:NSLocalizedString(@"Hey! I posted a new DoubleDate and you're my wing.", @"Facebook request dialog text to ghost user for create date")

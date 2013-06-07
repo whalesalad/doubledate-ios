@@ -36,9 +36,7 @@
         self.location = [DDAPIObject stringForObject:[dictionary objectForKey:@"location"]];
         self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
         self.approved = [DDAPIObject numberForObject:[dictionary objectForKey:@"approved"]];
-        self.ghost = 0;
-        if ([dictionary objectForKey:@"ghost_user"])
-            self.ghost = [DDAPIObject numberForObject:[dictionary objectForKey:@"ghost_user"]];
+        self.ghost = [DDAPIObject numberForObject:[dictionary objectForKey:@"ghost_user"]];
     }
     return self;
 }
@@ -81,11 +79,6 @@
     return @"id";
 }
 
-- (BOOL)isGhost
-{
-    return (BOOL)self.ghost;
-}
-
 - (void)dealloc
 {
     [gender release];
@@ -112,12 +105,9 @@
 
 - (NSString*)displayName;
 {
-    NSString *n = [DDShortGhost nameForShortUser:self];
+    NSString *n = [DDShortUser nameForShortUser:self];
     NSString *a = self.age?[NSString stringWithFormat:@", %d", [self.age intValue]]:@"";
     return [NSString stringWithFormat:@"%@%@", n, a];
 }
 
-@end
-
-@implementation DDShortGhost
 @end
