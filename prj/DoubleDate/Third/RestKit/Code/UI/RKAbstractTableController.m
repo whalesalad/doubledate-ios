@@ -569,7 +569,7 @@ static NSString *lastUpdatedDateDictionaryKey = @"lastUpdatedDateDictionaryKey";
 {
     RKTableViewCellMapping *cellMapping = [self cellMappingForObjectAtIndexPath:indexPath];
     if (cellMapping.onTapAccessoryButtonForObjectAtIndexPath) {
-        RKLogTrace(@"Found a block for tableView:accessoryButtonTappedForRowWithIndexPath: Executing...");
+        RKLogTrace(@"Found a block for tableView:accessoryButtonTappedForRowWithIndexPath: Executing…");
         UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         id object = [self objectForRowAtIndexPath:indexPath];
         cellMapping.onTapAccessoryButtonForObjectAtIndexPath(cell, object, indexPath);
@@ -580,7 +580,7 @@ static NSString *lastUpdatedDateDictionaryKey = @"lastUpdatedDateDictionaryKey";
 {
     RKTableViewCellMapping *cellMapping = [self cellMappingForObjectAtIndexPath:indexPath];
     if (cellMapping.titleForDeleteButtonForObjectAtIndexPath) {
-        RKLogTrace(@"Found a block for tableView:titleForDeleteConfirmationButtonForRowAtIndexPath: Executing...");
+        RKLogTrace(@"Found a block for tableView:titleForDeleteConfirmationButtonForRowAtIndexPath: Executing…");
         UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         id object = [self objectForRowAtIndexPath:indexPath];
         return cellMapping.titleForDeleteButtonForObjectAtIndexPath(cell, object, indexPath);
@@ -594,7 +594,7 @@ static NSString *lastUpdatedDateDictionaryKey = @"lastUpdatedDateDictionaryKey";
         RKTableViewCellMapping *cellMapping = [self cellMappingForObjectAtIndexPath:indexPath];
         UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
         if (cellMapping.editingStyleForObjectAtIndexPath) {
-            RKLogTrace(@"Found a block for tableView:editingStyleForRowAtIndexPath: Executing...");
+            RKLogTrace(@"Found a block for tableView:editingStyleForRowAtIndexPath: Executing…");
             id object = [self objectForRowAtIndexPath:indexPath];
             return cellMapping.editingStyleForObjectAtIndexPath(cell, object, indexPath);
         }
@@ -624,7 +624,7 @@ static NSString *lastUpdatedDateDictionaryKey = @"lastUpdatedDateDictionaryKey";
     if (_canMoveRows) {
         RKTableViewCellMapping *cellMapping = [self cellMappingForObjectAtIndexPath:sourceIndexPath];
         if (cellMapping.targetIndexPathForMove) {
-            RKLogTrace(@"Found a block for tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath: Executing...");
+            RKLogTrace(@"Found a block for tableView:targetIndexPathForMoveFromRowAtIndexPath:toProposedIndexPath: Executing…");
             UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:sourceIndexPath];
             id object = [self objectForRowAtIndexPath:sourceIndexPath];
             return cellMapping.targetIndexPathForMove(cell, object, sourceIndexPath, proposedDestinationIndexPath);

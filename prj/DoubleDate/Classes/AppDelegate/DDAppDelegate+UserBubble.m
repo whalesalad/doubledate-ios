@@ -14,14 +14,16 @@
 #import "DDStatisticsController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define kBubbleWidth 270
+
 @implementation DDAppDelegate (UserBubble)
 
 - (void)presentUserBubbleForUser:(DDUser*)user fromUsers:(NSArray*)users
 {    
-    //remove old
+    // Remove old popovers
     [self.userPopover removeFromSuperview];
     
-    //add user popover
+    // Create blurred background image
     UIImage *blurImage = [[DDTools imageFromView:self.window] blurImage];
     self.userPopover = [[[UIImageView alloc] initWithFrame:self.window.bounds] autorelease];
     ((UIImageView*)self.userPopover).image = blurImage;
@@ -30,51 +32,62 @@
     self.userPopover.alpha = 0;
     [self.window addSubview:self.userPopover];
     
-    //add dim
+    // Add dim overlay
     UIView *dim = [[[UIView alloc] initWithFrame:self.userPopover.bounds] autorelease];
     dim.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8f];
     [self.userPopover addSubview:dim];
     
-    //add scroll view
-    UIScrollView *sv = [[[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.userPopover.bounds.size.width, self.userPopover.bounds.size.height)] autorelease];
-    sv.contentSize = CGSizeMake(self.userPopover.bounds.size.width*[users count], self.userPopover.bounds.size.height);
-    sv.pagingEnabled = [users count]>1;
+    // Create Scroll View
+    UIScrollView *sv = [[[UIScrollView alloc] initWithFrame:CGRectMake(25, 40, kBubbleWidth, self.userPopover.bounds.size.height - 40)] autorelease];
+    sv.clipsToBounds = NO;
+    sv.pagingEnabled = [users count] > 1;
     sv.delegate = self;
     sv.showsHorizontalScrollIndicator = NO;
     sv.tag = 100;
+    
     [self.userPopover addSubview:sv];
     
-    //add tap recognizer
+    // Tap to close
     UITapGestureRecognizer *tapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUserPopover)] autorelease];
     [sv addGestureRecognizer:tapRecognizer];
     
-    //add gesture recognizer for close
+    // Swipe down to close
     UISwipeGestureRecognizer *swipeRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismissUserPopover)] autorelease];
     swipeRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
     [sv addGestureRecognizer:swipeRecognizer];
     
-    //add page control
+    // Page control
     UIPageControl *pageControl = [[[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, 80, 36)] autorelease];
-    // XXX Controlling page position
-    pageControl.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2, [UIScreen mainScreen].bounds.size.height-40);
+    
+    pageControl.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2,
+                                     [UIScreen mainScreen].bounds.size.height-20);
+    
     pageControl.backgroundColor = [UIColor clearColor];
     pageControl.numberOfPages = [users count];
-    [pageControl addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
+
+    [pageControl addTarget:self
+                    action:@selector(pageChanged:)
+          forControlEvents:UIControlEventValueChanged];
+    
+    pageControl.hidden = [users count] == 1;
+    
     [self.userPopover addSubview:pageControl];
     
     //bubbles storage
     NSMutableArray *bubbles = [NSMutableArray array];
     CGFloat maxBubbleHeight = FLT_MIN;
     
-    //add bubbles
-    CGRect bubbleRect = CGRectMake(25, 40, 250, 0);
+    // add bubbles
+    CGRect bubbleRect = CGRectMake(0, 20, 250, 0);
+    
     for (int i = 0; i < [users count]; i++)
     {
         //create bubble
         DDUserBubble *bubble = [[[DDUserBubble alloc] initWithFrame:bubbleRect] autorelease];
+        
         bubble.users = [NSArray arrayWithObject:[users objectAtIndex:i]];
-        bubble.frame = CGRectMake(bubbleRect.origin.x, bubbleRect.origin.y, bubbleRect.size.width, bubble.height);
-        bubble.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2+[UIScreen mainScreen].bounds.size.width*i, [UIScreen mainScreen].bounds.size.height/2);
+        bubble.frame = CGRectMake(i*kBubbleWidth, 0, kBubbleWidth, bubble.height);
+        
         [sv addSubview:bubble];
         [bubbles addObject:bubble];
         
@@ -82,15 +95,14 @@
         maxBubbleHeight = MAX(maxBubbleHeight, bubble.height);
     }
     
-    //move bubbles to top
-    for (DDUserBubble *bubble in bubbles)
-        bubble.center = CGPointMake(bubble.center.x, bubble.center.y - (maxBubbleHeight - bubble.height) / 2);
-    
-    //set needed current page
+    // Set current page
     pageControl.currentPage = [users indexOfObject:user];
     
-    //check for needed page
-    sv.contentOffset = CGPointMake([UIScreen mainScreen].bounds.size.width * [users indexOfObject:user], 0);
+    // Set the current page of the scrollview
+    sv.contentOffset = CGPointMake(kBubbleWidth * [users indexOfObject:user], 0);
+    
+    // Set the scroll view content size
+    sv.contentSize = CGSizeMake(kBubbleWidth * [users count], sv.frame.size.height);
     
     //animate appearing
     [UIView animateWithDuration:0.3f animations:^{
@@ -130,10 +142,9 @@
             sv = v;
     }
     
-    //set content offset
-    CGFloat pageWidth = sv.contentSize.width /sender.numberOfPages;
-    CGFloat x = sender.currentPage * pageWidth;
-    [sv scrollRectToVisible:CGRectMake(x, 0, pageWidth, sv.frame.size.height) animated:YES];
+    CGFloat x = kBubbleWidth + sender.numberOfPages;
+    
+    [sv scrollRectToVisible:CGRectMake(x, 0, kBubbleWidth, sv.frame.size.height) animated:YES];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)sender

@@ -35,7 +35,7 @@
       null,
       {
         "id": "Find",
-        "label": "Find..."
+        "label": "Find…"
       },
       {
         "id": "FindAgain",
@@ -70,7 +70,7 @@
       },
       {
         "id": "About",
-        "label": "About Adobe CVG Viewer..."
+        "label": "About Adobe CVG Viewer…"
       }
     ]
   }

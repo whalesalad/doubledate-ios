@@ -188,7 +188,7 @@
         //customize content
         [DDNotificationTableViewCell cutomizeTextView:self.textViewContent withNotification:notification];
         
-        [self.imageView reloadFromUrl:[NSURL URLWithString:notification.photo.squareUrl]];
+        [self.imageView reloadFromUrl:[NSURL URLWithString:notification.photo.thumbUrl]];
         
         // Show unread styles
         // self.imageViewBadge.hidden = ![notification.unread boolValue];

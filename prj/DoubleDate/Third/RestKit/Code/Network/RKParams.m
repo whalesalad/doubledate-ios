@@ -254,7 +254,7 @@ NSString * const kRKStringBoundary = @"0xKhTmLbOuNdArY";
 - (void)open
 {
     _streamStatus = NSStreamStatusOpen;
-    RKLogTrace(@"RKParams stream opened...");
+    RKLogTrace(@"RKParams stream opened…");
 }
 
 - (void)close

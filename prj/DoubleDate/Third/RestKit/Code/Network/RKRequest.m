@@ -472,7 +472,7 @@ RKRequestMethod RKRequestMethodTypeFromName(NSString *methodName) {
 
 - (RKResponse *)loadResponseFromCache
 {
-    RKLogDebug(@"Found cached content, loading...");
+    RKLogDebug(@"Found cached content, loading…");
     return [self.cache responseForRequest:self];
 }
 
@@ -510,7 +510,7 @@ RKRequestMethod RKRequestMethodTypeFromName(NSString *methodName) {
                                                        object:nil];
             [self fireAsynchronousRequest];
         } else if (self.backgroundPolicy == RKRequestBackgroundPolicyContinue) {
-            RKLogInfo(@"Beginning background task to perform processing...");
+            RKLogInfo(@"Beginning background task to perform processing…");
 
             // Fork a background task for continueing a long-running request
             __block RKRequest *weakSelf = self;

@@ -162,7 +162,7 @@
         cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
         
         //set location text
-        cell.textLabel.text = NSLocalizedString(@"Choose a nearby city...", @"Label for no city chosen in filter menu.");
+        cell.textLabel.text = NSLocalizedString(@"Choose a nearby city…", @"Label for no city chosen in filter menu.");
         
         //apply style
         cell.textLabel.textColor = [UIColor grayColor];

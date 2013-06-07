@@ -352,7 +352,7 @@ typedef enum
         [self setupSearchBar];
         
         //set placeholder
-        [[self searchBar] setPlaceholder:NSLocalizedString(@"Search DoubleDates", nil)];
+        [[self searchBar] setPlaceholder:NSLocalizedString(@"Search DoubleDates Nearby…", nil)];
     }
     else
     {

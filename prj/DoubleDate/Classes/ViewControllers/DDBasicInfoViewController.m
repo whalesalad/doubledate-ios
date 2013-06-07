@@ -65,7 +65,7 @@
     self.navigationItem.leftBarButtonItem = [DDBarButtonItem barButtonItemWithTitle:NSLocalizedString(@"Cancel", nil) target:self action:@selector(cancelTouched:)];
     
     //set placeholder
-    self.buttonLocation.placeholder = NSLocalizedString(@"We're finding your location...", nil);
+    self.buttonLocation.placeholder = NSLocalizedString(@"We're finding your location…", nil);
     
     //check if user exist
     if (user)

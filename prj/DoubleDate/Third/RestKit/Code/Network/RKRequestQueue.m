@@ -524,7 +524,7 @@ static const NSTimeInterval kFlushDelay = 0.3;
         RKLogDebug(@"Request %@ failed loading in queue %@ with error: %@.(Now loading %ld of %ld)", request, self,
                    [error localizedDescription], (long)self.loadingCount, (long)_concurrentRequestsLimit);
     } else {
-        RKLogWarning(@"Received RKRequestDidFailWithErrorNotification without a userInfo, something is amiss...");
+        RKLogWarning(@"Received RKRequestDidFailWithErrorNotification without a userInfo, something is amiss…");
     }
 
     if ([_delegate respondsToSelector:@selector(requestQueue:didFailRequest:withError:)]) {

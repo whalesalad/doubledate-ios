@@ -337,7 +337,7 @@
         [_object release];
         _object = nil;
     } else if ([updatedObjects containsObject:self.object]) {
-        RKLogDebug(@"Object was updated while being displayed in a RKForm. Refreshing...");
+        RKLogDebug(@"Object was updated while being displayed in a RKForm. Refreshing…");
         [context refreshObject:_object mergeChanges:YES];
     }
 }

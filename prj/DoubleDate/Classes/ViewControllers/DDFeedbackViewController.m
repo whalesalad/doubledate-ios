@@ -68,7 +68,7 @@
 - (void)sendTouched
 {
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Sending feedback...", @"Sending message of feedback page") animated:YES];
+    [self showHudWithText:NSLocalizedString(@"Sending feedback…", @"Sending message of feedback page") animated:YES];
     
     //extract text view cell
     DDTextViewTableViewCell *cell = (DDTextViewTableViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];

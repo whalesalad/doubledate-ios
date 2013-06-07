@@ -21,7 +21,7 @@
     [RKTestFactory managedObjectStore];
     RKSearchable *searchable = [RKSearchable createEntity];
     searchable.title = @"This is the title of my new object";
-    searchable.body = @"This is the point at which I begin pontificating at length about various and sundry things for no real reason at all. Furthermore, ...";
+    searchable.body = @"This is the point at which I begin pontificating at length about various and sundry things for no real reason at all. Furthermore, …";
     assertThat(searchable.searchWords, is(empty()));
     [searchable refreshSearchWords];
     assertThat(searchable.searchWords, isNot(empty()));

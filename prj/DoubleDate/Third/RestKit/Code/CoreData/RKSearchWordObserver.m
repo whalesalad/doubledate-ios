@@ -52,7 +52,7 @@ static RKSearchWordObserver *sharedSearchWordObserver = nil;
     NSManagedObjectContext *context = [notification object];
     NSSet *candidateObjects = [[NSSet setWithSet:context.insertedObjects] setByAddingObjectsFromSet:context.updatedObjects];
 
-    RKLogDebug(@"Managed object context will save notification received. Checking changed and inserted objects for searchable entities...");
+    RKLogDebug(@"Managed object context will save notification received. Checking changed and inserted objects for searchable entities…");
 
     for (NSManagedObject *object in candidateObjects) {
         if (! [object isKindOfClass:[RKSearchableManagedObject class]]) {

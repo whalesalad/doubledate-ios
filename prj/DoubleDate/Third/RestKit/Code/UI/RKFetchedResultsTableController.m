@@ -553,7 +553,7 @@
 {
     NSAssert(self.objectManager, @"Cannot perform a network load without an object manager");
     NSAssert(self.objectLoader, @"Cannot perform a network load when a network load is already in-progress");
-    RKLogTrace(@"About to loadTableWithObjectLoader...");
+    RKLogTrace(@"About to loadTableWithObjectLoader…");
     [self loadTableWithObjectLoader:self.objectLoader];
 }
 

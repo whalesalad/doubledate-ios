@@ -121,7 +121,7 @@ BOOL RKObjectIsValueEqualToValue(id sourceValue, id destinationValue) {
 
 - (NSDate *)parseDateFromString:(NSString *)string
 {
-    RKLogTrace(@"Transforming string value '%@' to NSDate...", string);
+    RKLogTrace(@"Transforming string value '%@' to NSDate…", string);
 
     NSDate *date = nil;
 
@@ -262,7 +262,7 @@ BOOL RKObjectIsValueEqualToValue(id sourceValue, id destinationValue) {
                 RKLogError(@"Validation failed while mapping attribute at key path '%@' to value %@. Error: %@", keyPath, *value, [_validationError localizedDescription]);
                 RKLogValidationError(_validationError);
             } else {
-                RKLogWarning(@"Destination object %@ rejected attribute value %@ for keyPath %@. Skipping...", self.destinationObject, *value, keyPath);
+                RKLogWarning(@"Destination object %@ rejected attribute value %@ for keyPath %@. Skipping…", self.destinationObject, *value, keyPath);
             }
         }
     }
@@ -370,7 +370,7 @@ BOOL RKObjectIsValueEqualToValue(id sourceValue, id destinationValue) {
     BOOL appliedMappings = (_nestedAttributeSubstitution != nil);
 
     if (!self.objectMapping.performKeyValueValidation) {
-        RKLogDebug(@"Key-value validation is disabled for mapping, skipping...");
+        RKLogDebug(@"Key-value validation is disabled for mapping, skipping…");
     }
 
     for (RKObjectAttributeMapping *attributeMapping in [self attributeMappings]) {
@@ -380,7 +380,7 @@ BOOL RKObjectIsValueEqualToValue(id sourceValue, id destinationValue) {
         }
 
         if (self.objectMapping.ignoreUnknownKeyPaths && ![self.sourceObject respondsToSelector:NSSelectorFromString(attributeMapping.sourceKeyPath)]) {
-            RKLogDebug(@"Source object is not key-value coding compliant for the keyPath '%@', skipping...", attributeMapping.sourceKeyPath);
+            RKLogDebug(@"Source object is not key-value coding compliant for the keyPath '%@', skipping…", attributeMapping.sourceKeyPath);
             continue;
         }
 
@@ -496,7 +496,7 @@ BOOL RKObjectIsValueEqualToValue(id sourceValue, id destinationValue) {
         if (relationshipMapping.mapping.forceCollectionMapping) {
             // If we have forced mapping of a dictionary, map each subdictionary
             if ([value isKindOfClass:[NSDictionary class]]) {
-                RKLogDebug(@"Collection mapping forced for NSDictionary, mapping each key/value independently...");
+                RKLogDebug(@"Collection mapping forced for NSDictionary, mapping each key/value independently…");
                 NSArray *objectsToMap = [NSMutableArray arrayWithCapacity:[value count]];
                 for (id key in value) {
                     NSDictionary *dictionaryToMap = [NSDictionary dictionaryWithObject:[value valueForKey:key] forKey:key];
@@ -652,14 +652,14 @@ BOOL RKObjectIsValueEqualToValue(id sourceValue, id destinationValue) {
 
 - (BOOL)performMapping:(NSError **)error
 {
-    RKLogDebug(@"Starting mapping operation...");
+    RKLogDebug(@"Starting mapping operation…");
     RKLogTrace(@"Performing mapping operation: %@", self);
 
     [self applyNestedMappings];
     BOOL mappedAttributes = [self applyAttributeMappings];
     BOOL mappedRelationships = [self applyRelationshipMappings];
     if ((mappedAttributes || mappedRelationships) && _validationError == nil) {
-        RKLogDebug(@"Finished mapping operation successfully...");
+        RKLogDebug(@"Finished mapping operation successfully…");
         return YES;
     }
 

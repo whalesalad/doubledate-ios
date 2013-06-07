@@ -99,7 +99,7 @@ NSString * const RKTestPaginatorDelegateTimeoutException = @"RKTestPaginatorDele
     while (loading) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         if ([[NSDate date] timeIntervalSinceDate:startDate] > self.timeout) {
-            [NSException raise:@"RKTestPaginatorDelegateTimeoutException" format:@"*** Operation timed out after %f seconds...", self.timeout];
+            [NSException raise:@"RKTestPaginatorDelegateTimeoutException" format:@"*** Operation timed out after %f seconds…", self.timeout];
             loading = NO;
         }
     }

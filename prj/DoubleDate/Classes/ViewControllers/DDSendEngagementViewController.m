@@ -17,6 +17,7 @@
 #import "DDTextField.h"
 #import "DDTextView.h"
 #import "DDFacebookFriendsViewController.h"
+#import "DDStatisticsController.h"
 #import "FBWebDialogs+DD.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -184,7 +185,7 @@
     else
     {
         //set placeholder
-        cell.textLabel.text = NSLocalizedString(@"Select your Wing...", nil);
+        cell.textLabel.text = NSLocalizedString(@"Select your Wing…", nil);
         
         //set text color
         cell.textLabel.textColor = [UIColor grayColor];
@@ -245,15 +246,23 @@
     //inform delegate
     [self.delegate sendEngagementViewControllerDidCreatedEngagement:engagement];
     
+#warning only do this if the user is a ghost user
     //show facebook dialog for needed user
     [FBWebDialogs presentRequestsDialogModallyWithSession:nil
-                                                  message:engagement.activityTitle
-                                                    title:NSLocalizedString(@"New Activity", @"Facebook dialog title in create enagement")
+                                                  message:NSLocalizedString(@"I'm interested in going on this DoubleDate picked you to be my wing.", @"Facebook request dialog text to ghost user for send engagement")
+                                                    title:NSLocalizedString(@"Tell Your Wing", @"Facebook dialog title in send enagement")
                                                     users:[NSArray arrayWithObject:engagement.wing]
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
                                                       if (error)
                                                       {
                                                           [[[[UIAlertView alloc] initWithTitle:nil message:[error localizedDescription] delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                                                      }
+                                                      else
+                                                      {
+                                                          if (result == FBWebDialogResultDialogNotCompleted)
+                                                              [DDStatisticsController trackEvent:DDStatisticsEventSentEngagementSkippedInviteGhost];
+                                                          else
+                                                              [DDStatisticsController trackEvent:DDStatisticsEventSentEngagementDidInviteGhost];
                                                       }
                                                   }];
 }

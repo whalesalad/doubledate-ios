@@ -18,6 +18,8 @@ extern NSString *DDStatisticsEventCreateDateComplete;
 extern NSString *DDStatisticsEventCreateDateCancelled;
 extern NSString *DDStatisticsEventCreateDateDidInviteGhost;
 extern NSString *DDStatisticsEventCreateDateSkippedInviteGhost;
+extern NSString *DDStatisticsEventSentEngagementDidInviteGhost;
+extern NSString *DDStatisticsEventSentEngagementSkippedInviteGhost;
 extern NSString *DDStatisticsEventSession;
 extern NSString *DDStatisticsUserBrowsedDates;
 extern NSString *DDStatisticsUserViewedDate;

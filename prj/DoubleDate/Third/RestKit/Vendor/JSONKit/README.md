@@ -227,7 +227,7 @@ The serializing interface includes [`NSString`][NSString] convenience methods fo
 
 Example       | Result            | Argument
 --------------|-------------------|--------------------
-`a "test"...` | `"a \"test\"..."` | `includeQuotes:YES`
+`a "test"...` | `"a \"test\"…"` | `includeQuotes:YES`
 `a "test"...` | `a \"test\"...`   | `includeQuotes:NO`
 
 **Note:** The [`NSString`][NSString] methods that do not include a `includeQuotes:` argument behave as if invoked with `includeQuotes:YES`.  

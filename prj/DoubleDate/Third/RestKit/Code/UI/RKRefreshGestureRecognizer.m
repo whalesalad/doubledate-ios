@@ -53,7 +53,7 @@ static CGFloat const kDefaultTriggerViewHeight = 64.f;
     self = [super initWithTarget:target action:action];
     if (self) {
         _triggerView = [[RKRefreshTriggerView alloc] initWithFrame:CGRectZero];
-        _triggerView.titleLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+        _triggerView.titleLabel.text = NSLocalizedString(@"Pull down to refresh…", @"Pull down to refresh status");
         _dateFormatter = [[NSDateFormatter alloc] init];
         [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -102,7 +102,7 @@ static CGFloat const kDefaultTriggerViewHeight = 64.f;
         case RKRefreshTriggered: {
             if (![self.triggerView.arrowView.layer animationForKey:RKRefreshGestureAnimationKey])
                 [self.triggerView.arrowView.layer addAnimation:[self triggeredAnimation] forKey:RKRefreshGestureAnimationKey];
-            self.triggerView.titleLabel.text = NSLocalizedString(@"Release to refresh...", @"Release to refresh status");
+            self.triggerView.titleLabel.text = NSLocalizedString(@"Release to refresh…", @"Release to refresh status");
         }
             break;
 
@@ -126,7 +126,7 @@ static CGFloat const kDefaultTriggerViewHeight = 64.f;
                 }
             }
             [self refreshLastUpdatedDate];
-            self.triggerView.titleLabel.text = NSLocalizedString(@"Pull down to refresh...", @"Pull down to refresh status");
+            self.triggerView.titleLabel.text = NSLocalizedString(@"Pull down to refresh…", @"Pull down to refresh status");
         }
             break;
 
@@ -137,7 +137,7 @@ static CGFloat const kDefaultTriggerViewHeight = 64.f;
                                                             bScrollView.contentInset.bottom,
                                                             bScrollView.contentInset.right);
             }];
-            self.triggerView.titleLabel.text = NSLocalizedString(@"Loading...", @"Loading Status");
+            self.triggerView.titleLabel.text = NSLocalizedString(@"Loading…", @"Loading Status");
             [self.triggerView.arrowView removeFromSuperview];
             [self.triggerView addSubview:self.triggerView.activityView];
             [self.triggerView.activityView startAnimating];

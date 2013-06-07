@@ -80,11 +80,11 @@ NSString * const RKTestResponseLoaderTimeoutException = @"RKTestResponseLoaderTi
     awaitingResponse = YES;
     NSDate *startDate = [NSDate date];
 
-    RKLogTrace(@"%@ Awaiting response loaded from for %f seconds...", self, self.timeout);
+    RKLogTrace(@"%@ Awaiting response loaded from for %f seconds…", self, self.timeout);
     while (awaitingResponse) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         if ([[NSDate date] timeIntervalSinceDate:startDate] > self.timeout) {
-            [NSException raise:RKTestResponseLoaderTimeoutException format:@"*** Operation timed out after %f seconds...", self.timeout];
+            [NSException raise:RKTestResponseLoaderTimeoutException format:@"*** Operation timed out after %f seconds…", self.timeout];
             awaitingResponse = NO;
         }
     }

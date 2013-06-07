@@ -29,12 +29,12 @@ an author, and a publication date. We expect our JSON to come back something lik
 ```json
 { "articles": [
     { "title": "RestKit Object Mapping Intro",
-      "body": "This article details how to use RestKit object mapping...",
+      "body": "This article details how to use RestKit object mapping…",
       "author": "Blake Watters",
       "publication_date": "7/4/2011"
     },
     { "title": "RestKit 1.0 Released",
-      "body": "RestKit 1.0 has been released to much fanfare across the galaxy...",
+      "body": "RestKit 1.0 has been released to much fanfare across the galaxy…",
       "author": "Blake Watters",
       "publication_date": "9/4/2011"
     }]
@@ -107,14 +107,14 @@ means that we would generate two object mapping operations:
 ```json
 // This dictionary will processed in one mapping operation
 { "title": "RestKit Object Mapping Intro",
-  "body": "This article details how to use RestKit object mapping...",
+  "body": "This article details how to use RestKit object mapping…",
   "author": "Blake Watters",
   "publication_date": "7/4/2011"
 }
 
 // This dictionary will be processed in another mapping operation
 { "title": "RestKit 1.0 Released",
-  "body": "RestKit 1.0 has been released to much fanfare across the galaxy...",
+  "body": "RestKit 1.0 has been released to much fanfare across the galaxy…",
   "author": "Blake Watters",
   "publication_date": "9/4/2011"
 }
@@ -245,7 +245,7 @@ extend our previous articles JSON to contain some nested relationship data:
 ```json
 { "articles": [
     { "title": "RestKit Object Mapping Intro",
-      "body": "This article details how to use RestKit object mapping...",
+      "body": "This article details how to use RestKit object mapping…",
       "author": {
           "name": "Blake Watters",
           "email": "blake@restkit.org"
@@ -392,7 +392,7 @@ but the JSON output looks like this:
 ```json
 [
     { "title": "RestKit Object Mapping Intro",
-      "body": "This article details how to use RestKit object mapping...",
+      "body": "This article details how to use RestKit object mapping…",
       "author": {
           "name": "Blake Watters",
           "email": "blake@restkit.org"

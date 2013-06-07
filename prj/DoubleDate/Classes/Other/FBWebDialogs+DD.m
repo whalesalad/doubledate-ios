@@ -48,6 +48,9 @@
     //set parameters
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    fbidsString, @"to", nil];
+    
+    NSLog(@"Facebook params: %@", params);
+    
     //show dialog
     [FBWebDialogs presentRequestsDialogModallyWithSession:session
                                                   message:message

@@ -235,7 +235,7 @@ static RKTestFactory *sharedFactory = nil;
     NSString *cachePath = [RKDirectory cachesDirectory];
     BOOL success = [[NSFileManager defaultManager] removeItemAtPath:cachePath error:&error];
     if (success) {
-        RKLogDebug(@"Cleared cache directory...");
+        RKLogDebug(@"Cleared cache directory…");
         success = [[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes:nil error:&error];
         if (!success) {
             RKLogError(@"Failed creation of cache path '%@': %@", cachePath, [error localizedDescription]);

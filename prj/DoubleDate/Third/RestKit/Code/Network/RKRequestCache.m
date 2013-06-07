@@ -243,7 +243,7 @@ static NSDateFormatter *__rfc1123DateFormatter;
 
 - (void)invalidateAll
 {
-    RKLogInfo(@"Invalidating all cache entries...");
+    RKLogInfo(@"Invalidating all cache entries…");
     [_cache invalidateSubDirectory:RKRequestCacheSessionCacheDirectory];
     [_cache invalidateSubDirectory:RKRequestCachePermanentCacheDirectory];
 }

@@ -310,7 +310,7 @@ static RKManagedObjectStore *defaultObjectStore = nil;
 {
     if (NO == [[NSFileManager defaultManager] fileExistsAtPath:self.pathToStoreFile]) {
         NSString *seedDatabasePath = [[NSBundle mainBundle] pathForResource:seedDatabase ofType:nil];
-        NSAssert1(seedDatabasePath, @"Unable to find seed database file '%@' in the Main Bundle, aborting...", seedDatabase);
+        NSAssert1(seedDatabasePath, @"Unable to find seed database file '%@' in the Main Bundle, aborting…", seedDatabase);
         RKLogInfo(@"No existing database found, copying from seed path '%@'", seedDatabasePath);
 
         NSError *error;

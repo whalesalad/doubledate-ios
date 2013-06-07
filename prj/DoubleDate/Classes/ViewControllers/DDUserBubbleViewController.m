@@ -21,9 +21,6 @@
 @synthesize imageViewGender;
 @synthesize photoView;
 @synthesize textView;
-@synthesize viewMain;
-@synthesize viewBottom;
-@synthesize pageControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -43,8 +40,6 @@
     self.labelLocation.backgroundColor = [UIColor clearColor];
     self.imageViewGender.backgroundColor = [UIColor clearColor];
     self.textView.backgroundColor = [UIColor clearColor];
-    self.viewBottom.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor clearColor];
     
     //customize bubble view
     self.textView.backgroundColor = [UIColor colorWithWhite:0.1f alpha:0.8f];
@@ -70,9 +65,6 @@
     [imageViewGender release];
     [photoView release];
     [textView release];
-    [viewMain release];
-    [viewBottom release];
-    [pageControl release];
     [super dealloc];
 }
 

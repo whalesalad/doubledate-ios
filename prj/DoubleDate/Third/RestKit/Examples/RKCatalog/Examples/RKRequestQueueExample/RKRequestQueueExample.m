@@ -92,12 +92,12 @@
 
 - (void)requestQueueDidBeginLoading:(RKRequestQueue *)queue
 {
-    statusLabel.text = [NSString stringWithFormat:@"Queue %@ Began Loading...", queue];
+    statusLabel.text = [NSString stringWithFormat:@"Queue %@ Began Loading…", queue];
 }
 
 - (void)requestQueueDidFinishLoading:(RKRequestQueue *)queue
 {
-    statusLabel.text = [NSString stringWithFormat:@"Queue %@ Finished Loading...", queue];
+    statusLabel.text = [NSString stringWithFormat:@"Queue %@ Finished Loading…", queue];
 }
 
 @end

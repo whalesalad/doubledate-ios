@@ -60,7 +60,7 @@
 - (void)customizeNoDataView
 {
     [self.viewNoData applyNoDataWithMainText:NSLocalizedString(@"You don't have any notifications.", @"Notifications no data main text.")
-                                    infoText:NSLocalizedString(@"Add wings, create some dates,\n let's get this party started!", @"Notifications no data detail text.")];
+                                    infoText:NSLocalizedString(@"Let's get this party started,\ngo forth and create some dates!", @"Notifications no data detail text.")];
 }
 
 - (void)viewDidLoad

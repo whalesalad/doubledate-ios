@@ -12,7 +12,7 @@
         {"id": "Pause"},
         {"id": "Mute"},
         null,
-        {"id": "Find", "label": "Find..."},
+        {"id": "Find", "label": "Find…"},
         {"id": "FindAgain", "label": "Find Again"},
         {"id": "Copy"},
         {"id": "CopyAgain", "label": "Copy Again"},
@@ -22,6 +22,6 @@
         {"id": "SaveAs", "label": "Save As"},
         null,
         {"id": "Help"},
-        {"id": "About", "label": "About Adobe CVG Viewer..."}
+        {"id": "About", "label": "About Adobe CVG Viewer…"}
     ]
 }}

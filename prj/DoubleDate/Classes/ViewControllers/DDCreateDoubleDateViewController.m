@@ -26,7 +26,7 @@
 #import "DDUserView.h"
 #import "UIImage+DD.h"
 #import "DDUsersView.h"
-//#import "FBWebDialogs+DD.h"
+#import "FBWebDialogs+DD.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 #define kTagCancelActionSheet 1
@@ -487,7 +487,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Explain the details...", @"Placeholder text for details of new DoubleDate.");
+    cell.textView.placeholder = NSLocalizedString(@"Explain the details", @"Placeholder text for details of new DoubleDate.");
     
     //set return button on post details
     cell.textView.textView.returnKeyType = UIReturnKeyDone;
@@ -586,17 +586,15 @@
     
     //go back
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    
     }];
     
-    NSMutableDictionary *facebookParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@", doubleDate.wing.facebookId], @"to", nil];
-    
-    NSLog(@"Facebook params: %@", facebookParams);
-    
+#warning only do this if the user is a ghost user
     //show facebook dialog for needed user
     [FBWebDialogs presentRequestsDialogModallyWithSession:nil
                                                   message:NSLocalizedString(@"Hey! I posted a new DoubleDate and you're my wing.", @"Facebook request dialog text to ghost user for create date")
                                                     title:NSLocalizedString(@"Share with Wing", @"Facebook dialog title in create date")
-                                               parameters:facebookParams
+                                                    users:[NSArray arrayWithObject:doubleDate.wing]
                                                   handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
                                                       if (error)
                                                       {
@@ -605,13 +603,9 @@
                                                       else
                                                       {
                                                           if (result == FBWebDialogResultDialogNotCompleted)
-                                                          {
                                                               [DDStatisticsController trackEvent:DDStatisticsEventCreateDateSkippedInviteGhost];
-                                                          }
                                                           else
-                                                          {
                                                               [DDStatisticsController trackEvent:DDStatisticsEventCreateDateDidInviteGhost];
-                                                          }
                                                       }
                                                   }];
 }

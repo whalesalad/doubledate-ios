@@ -189,8 +189,18 @@
     
     // Adjust size of textview.
     CGRect textFrame = self.textView.frame;
-    textFrame.size.height = self.textView.contentSize.height + self.textView.contentInset.top + self.textView.contentInset.bottom;
+    
+    textFrame.size.height = [self.textView.text sizeWithFont:self.textView.font
+                                           constrainedToSize:CGSizeMake(textFrame.size.width, FLT_MAX)
+                                               lineBreakMode:NSLineBreakByWordWrapping].height + 16;
+    
     self.textView.frame = textFrame;
+    
+    self.textView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.textView.layer.shadowOffset = CGSizeMake(0, -1);
+    self.textView.layer.shadowOpacity = 0.9f;
+    self.textView.layer.shadowRadius = 0.0f;
+    
     
     // customize location view
     [self customizeLocationView];
@@ -318,7 +328,7 @@
 - (void)customizeLocationView
 {
     CGRect locationFrame = self.scrollBottomView.frame;
-    locationFrame.origin.y = self.textView.frame.origin.y + self.textView.frame.size.height + 20;
+    locationFrame.origin.y = self.textView.frame.origin.y + self.textView.frame.size.height + 10;
     self.scrollBottomView.frame = locationFrame;
     self.scrollBottomView.layer.cornerRadius = 5.0f;
     
@@ -395,7 +405,7 @@
 - (void)loadDataForUser:(DDShortUser*)shortUser
 {
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Loading...", nil) animated:YES];
+    [self showHudWithText:NSLocalizedString(@"Loading…", nil) animated:YES];
     
     //request user
     DDUser *requestUser = [[[DDUser alloc] init] autorelease];

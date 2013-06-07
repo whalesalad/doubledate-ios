@@ -45,7 +45,7 @@
         if ([[NSDate date] timeIntervalSinceDate:startDate] > self.timeout) {
             NSLog(@"%@: Timed out!!!", self);
             _awaitingResponse = NO;
-            [NSException raise:nil format:@"*** Operation timed out after %f seconds...", self.timeout];
+            [NSException raise:nil format:@"*** Operation timed out after %f seconds…", self.timeout];
         }
     }
 }

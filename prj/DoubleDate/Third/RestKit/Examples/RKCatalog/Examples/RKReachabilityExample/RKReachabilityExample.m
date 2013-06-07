@@ -43,7 +43,7 @@
 - (void)viewDidLoad
 {
     if (! [_observer isReachabilityDetermined]) {
-        _statusLabel.text = @"Reachability is indeterminate...";
+        _statusLabel.text = @"Reachability is indeterminate…";
         _statusLabel.textColor = [UIColor blueColor];
     }
 }
@@ -57,7 +57,7 @@
 
     if ([observer isNetworkReachable]) {
         if ([observer isConnectionRequired]) {
-            _statusLabel.text = @"Connection is available...";
+            _statusLabel.text = @"Connection is available…";
             _statusLabel.textColor = [UIColor yellowColor];
             return;
         }

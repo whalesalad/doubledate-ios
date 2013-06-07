@@ -52,7 +52,7 @@
 - (void)refreshControlValueChanged:(UIRefreshControl*)sender
 {
     if (sender == [self sharedRefreshControl])
-        [self startRefreshWithText:NSLocalizedString(@"Loading...", nil)];
+        [self startRefreshWithText:NSLocalizedString(@"Loading…", nil)];
 }
 
 - (void)onChangedSearchTerm

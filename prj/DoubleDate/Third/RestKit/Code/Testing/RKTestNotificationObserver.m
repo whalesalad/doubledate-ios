@@ -80,7 +80,7 @@
     while (self.isAwaitingNotification) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         if ([[NSDate date] timeIntervalSinceDate:startDate] > self.timeout) {
-            [NSException raise:nil format:@"*** Operation timed out after %f seconds...", self.timeout];
+            [NSException raise:nil format:@"*** Operation timed out after %f seconds…", self.timeout];
             awaitingNotification = NO;
         }
     }

@@ -160,13 +160,13 @@ RKReachabilityObserver abstracts away the SCReachability C API's and instead pre
         NSLog(@"We have network access! Huzzah!");
 
         if ([observer isConnectionRequired]) {
-          NSLog(@"Network is available if we open a connection...");
+          NSLog(@"Network is available if we open a connection…");
         }
 
         if (RKReachabilityReachableViaWiFi == [observer networkStatus]) {
           NSLog(@"Online via WiFi!");
         } else if (RKReachabilityReachableViaWWAN == [observer networkStatus]) {
-          NSLog(@"Online via 3G or Edge...");
+          NSLog(@"Online via 3G or Edge…");
         }
       } else {
         NSLog(@"No network access.");

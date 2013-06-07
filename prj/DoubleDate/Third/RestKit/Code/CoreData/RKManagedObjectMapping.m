@@ -168,7 +168,7 @@
 
         // Get the primary key value out of the mappable data (if any)
         if ([primaryKeyAttributeMapping isMappingForKeyOfNestedDictionary]) {
-            RKLogDebug(@"Detected use of nested dictionary key as primaryKey attribute...");
+            RKLogDebug(@"Detected use of nested dictionary key as primaryKey attribute…");
             primaryKeyValue = [[mappableData allKeys] lastObject];
         } else {
             NSString *keyPathForPrimaryKeyElement = primaryKeyAttributeMapping.sourceKeyPath;

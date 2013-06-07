@@ -117,7 +117,7 @@
 
     if ([object respondsToSelector:@selector(countForObject:)] && [object count] > 0) {
         if ([object countForObject:[NSNull null]] == [object count]) {
-            RKLogDebug(@"Found a collection containing only NSNull values, considering the collection unmappable...");
+            RKLogDebug(@"Found a collection containing only NSNull values, considering the collection unmappable…");
             return YES;
         }
     }
@@ -176,7 +176,7 @@
     if (mapping.forceCollectionMapping) {
         // If we have forced mapping of a dictionary, map each subdictionary
         if ([mappableObjects isKindOfClass:[NSDictionary class]]) {
-            RKLogDebug(@"Collection mapping forced for NSDictionary, mapping each key/value independently...");
+            RKLogDebug(@"Collection mapping forced for NSDictionary, mapping each key/value independently…");
             objectsToMap = [NSMutableArray arrayWithCapacity:[mappableObjects count]];
             for (id key in mappableObjects) {
                 NSDictionary *dictionaryToMap = [NSDictionary dictionaryWithObject:[mappableObjects valueForKey:key] forKey:key];
@@ -290,7 +290,7 @@
         id mappingResult = nil;
         id mappableValue = nil;
 
-        RKLogTrace(@"Examining keyPath '%@' for mappable content...", keyPath);
+        RKLogTrace(@"Examining keyPath '%@' for mappable content…", keyPath);
 
         if ([keyPath isEqualToString:@""]) {
             mappableValue = self.sourceObject;

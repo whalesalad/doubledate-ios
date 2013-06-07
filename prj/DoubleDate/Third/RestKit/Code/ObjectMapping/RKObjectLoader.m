@@ -201,7 +201,7 @@
     id bodyAsString = [self.response bodyAsString];
     RKLogTrace(@"bodyAsString: %@", bodyAsString);
     if (bodyAsString == nil || [[bodyAsString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
-        RKLogDebug(@"Mapping attempted on empty response body...");
+        RKLogDebug(@"Mapping attempted on empty response body…");
         if (self.targetObject) {
             return [RKObjectMappingResult mappingResultWithDictionary:[NSDictionary dictionaryWithObject:self.targetObject forKey:@""]];
         }
@@ -371,7 +371,7 @@
 {
     if ((self.sourceObject && self.params == nil) && (self.method == RKRequestMethodPOST || self.method == RKRequestMethodPUT)) {
         NSAssert(self.serializationMapping, @"You must provide a serialization mapping for objects of type '%@'", NSStringFromClass([self.sourceObject class]));
-        RKLogDebug(@"POST or PUT request for source object %@, serializing to MIME Type %@ for transport...", self.sourceObject, self.serializationMIMEType);
+        RKLogDebug(@"POST or PUT request for source object %@, serializing to MIME Type %@ for transport…", self.sourceObject, self.serializationMIMEType);
         RKObjectSerializer *serializer = [RKObjectSerializer serializerWithObject:self.sourceObject mapping:self.serializationMapping];
         NSError *error = nil;
         id params = [serializer serializationForMIMEType:self.serializationMIMEType error:&error];

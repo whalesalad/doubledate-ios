@@ -297,7 +297,7 @@ typedef void (^MBProgressHUDCompletionBlock)();
 
 /** 
  * An optional short message to be displayed below the activity indicator. The HUD is automatically resized to fit
- * the entire text. If the text is too long it will get clipped by displaying "..." at the end. If left unchanged or
+ * the entire text. If the text is too long it will get clipped by displaying "…" at the end. If left unchanged or
  * set to @"", then no message is displayed.
  */
 @property (atomic, copy) NSString *labelText;

@@ -105,7 +105,7 @@
     [super viewDidLoad];
     
     //localize
-    labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
+    labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply…", nil);
     [buttonSend setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     labelMessageReceived.text = NSLocalizedString(@"Message received. We'll let you know when they reply.", nil);
     
@@ -168,7 +168,7 @@
     imageViewTextFieldBackground.image = [[UIImage imageNamed:@"bg-textfield.png"] resizableImage];
     
     //set placeholder
-    self.labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply...", nil);
+    self.labelTextFieldPlaceholder.text = NSLocalizedString(@"Reply…", nil);
     
     //set background for chat bar
     self.imageViewChatBarBackground.image = [[UIImage imageNamed:@"bg-chatbar.png"] resizableImage];
@@ -429,7 +429,7 @@
 - (void)stopChat
 {
     //show hud
-    [self showHudWithText:NSLocalizedString(@"Deleting...", @"Deleting engagement on chat page") animated:YES];
+    [self showHudWithText:NSLocalizedString(@"Deleting…", @"Deleting engagement on chat page") animated:YES];
     
     //request delete engagement
     [self.apiController requestDeleteEngagement:self.engagement];

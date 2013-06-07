@@ -7,6 +7,7 @@
 //
 
 #import "DDAppDelegate+APNS.h"
+#import "DDAppDelegate+UserBubble.h"
 #import "DDAPIController.h"
 #import "DDTools.h"
 #import "DDAuthenticationController.h"
@@ -193,10 +194,8 @@ NSString *DDAppDelegateAPNSDidCloseCallbackUrlNotification = @"DDAppDelegateAPNS
         //hide hud
         [self.window.rootViewController hideHud:YES];
         
-        //push view controller
-        DDMeViewController *viewController = [[[DDMeViewController alloc] init] autorelease];
-        viewController.user = (DDUser*)object;
-        [self presentModalViewController:viewController];
+        [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] presentUserBubbleForUser:(DDUser*)object
+                                                                                     fromUsers:[NSMutableArray arrayWithObject:object]];
     }
     else if ([object isKindOfClass:[DDDoubleDate class]])
     {
