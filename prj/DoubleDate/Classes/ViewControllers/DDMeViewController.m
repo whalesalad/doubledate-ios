@@ -479,8 +479,16 @@
 
 - (void)imageViewUpdateNotification:(NSNotification*)notification
 {
+    //check sender
     if ([notification object] == [self.imageViewPoster internalImageView])
-        [self setAvatarShown:YES];
+    {
+        //check if loaded from the server
+        if ([[[notification userInfo] objectForKey:DDImageViewUpdateNotificationCacheTypeUserInfoKey] intValue] == SDImageCacheTypeNone)
+        {
+            //show avatar
+            [self setAvatarShown:YES];
+        }
+    }
 }
 
 - (void)objectUpdatedNotification:(NSNotification*)notification

@@ -9,6 +9,7 @@
 #import "UIImageView+WebCache.h"
 
 extern NSString *const DDImageViewUpdateNotification;
+extern NSString *const DDImageViewUpdateNotificationCacheTypeUserInfoKey;
 
 @interface DDImageView : UIImageView
 {

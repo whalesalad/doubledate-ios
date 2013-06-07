@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification";
+NSString *const DDImageViewUpdateNotificationCacheTypeUserInfoKey = @"DDImageViewUpdateNotificationCacheTypeUserInfoKey";
 
 @implementation DDImageView
 
@@ -66,7 +67,7 @@ NSString *const DDImageViewUpdateNotification = @"DDImageViewUpdateNotification"
             self.image = image;
             
             //notify about change
-            [[NSNotificationCenter defaultCenter] postNotificationName:DDImageViewUpdateNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:DDImageViewUpdateNotification object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:cacheType] forKey:DDImageViewUpdateNotificationCacheTypeUserInfoKey]];
         }];
     }
 }
