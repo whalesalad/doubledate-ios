@@ -349,10 +349,17 @@
     if (!currentLocation)
         currentLocation = [[[CLLocation alloc] initWithLatitude:[[[[DDAuthenticationController currentUser] location] latitude] doubleValue] longitude:[[[[DDAuthenticationController currentUser] location] longitude] doubleValue]] autorelease];
     
-    float distanceKm = [currentLocation distanceFromLocation:locationDate] / 1000;
-    
-#warning we'll want to localize this and show miles in america.
-    self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ km", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceKm] readableNumber]];
+    //set distance
+    float distanceInKm = [currentLocation distanceFromLocation:locationDate] / 1000;
+    float distanceInMiles = distanceInKm * 0.621371192;
+    if ([[[NSLocale preferredLanguages] objectAtIndex:0] isEqualToString:@"en"])
+    {
+        self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ miles", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceInMiles] readableNumber]];
+    }
+    else
+    {
+        self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ km", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceInKm] readableNumber]];
+    }
     
     // Set region of map view
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.doubleDate.location.coordinate, 500, 500);
