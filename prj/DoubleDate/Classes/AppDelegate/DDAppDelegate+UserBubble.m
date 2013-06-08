@@ -87,6 +87,7 @@
         
         bubble.users = [NSArray arrayWithObject:[users objectAtIndex:i]];
         bubble.frame = CGRectMake(i*kBubbleWidth, 0, kBubbleWidth, bubble.height);
+        bubble.tag = i;
         
         [sv addSubview:bubble];
         [bubbles addObject:bubble];
@@ -108,6 +109,9 @@
     [UIView animateWithDuration:0.3f animations:^{
         self.userPopover.alpha = 1;
     }];
+    
+    //update opacity of bubbles
+    [self scrollViewDidScroll:sv];
     
     // Track Event
     [DDStatisticsController trackEvent:DDStatisticsUserOpenedBubble
@@ -159,6 +163,32 @@
     
     //set current page
     pc.currentPage = lround(sender.contentOffset.x / (sender.contentSize.width / pc.numberOfPages));
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    //get page view
+    UIPageControl *pc = nil;
+    for (UIPageControl *v in [sender.superview subviews])
+    {
+        if ([v isKindOfClass:[UIPageControl class]])
+            pc = v;
+    }
+    
+    //save current page number
+    CGFloat currentPage = sender.contentOffset.x / (sender.contentSize.width / pc.numberOfPages);
+    
+    //check each bubble
+    for (DDUserBubble *bubble in [sender subviews])
+    {
+        if ([bubble isKindOfClass:[DDUserBubble class]])
+        {
+            CGFloat diff = fabs(currentPage - bubble.tag);
+            if (diff > 1)
+                diff = 1;
+            bubble.alpha = 1.0f - 0.5f * diff;
+        }
+    }
 }
 
 @end
