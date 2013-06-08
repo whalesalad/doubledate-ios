@@ -57,6 +57,9 @@ static DDLocationController *_sharedLocationController = nil;
         if ([CLLocationManager locationServicesEnabled])
             [locationManager_ startUpdatingLocation];
         
+        //save authorization status
+        authorizationStatus_ = [CLLocationManager authorizationStatus];
+        
         //api controller
         apiController_ = [[DDAPIController alloc] init];
         apiController_.delegate = self;
@@ -120,6 +123,29 @@ static DDLocationController *_sharedLocationController = nil;
     
     //update delegate
     [self.delegate locationManagerDidFailedWithError:error];
+    
+    //check if alert alredy shown
+    static BOOL ownAlertOfDisabledServiceShown = NO;
+    if (!ownAlertOfDisabledServiceShown)
+    {
+        //save flag
+        ownAlertOfDisabledServiceShown = YES;
+        
+        //check if initially the status was not determined
+        if (authorizationStatus_ == kCLAuthorizationStatusNotDetermined)
+        {
+            //check for current status
+            if ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+            {
+                //we don't handle the answer because:
+                //1. we are not able to force dialog once again
+                //2. we are not able to switch on location programatically
+                //3. we are not able to open the settings
+                //prompt the custom dialog
+                [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warning", nil) message:NSLocalizedString(@"This is very important feature in our app", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+            }
+        }
+    }
 }
 
 #pragma mark -

@@ -28,6 +28,7 @@
     NSError *errorLocation_;
     DDPlacemark *placemark_;
     NSError *errorPlacemark_;
+    NSInteger authorizationStatus_;
 }
 
 @property(nonatomic, assign) id<DDLocationControllerDelegate> delegate;
