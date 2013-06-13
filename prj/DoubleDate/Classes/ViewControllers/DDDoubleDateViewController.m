@@ -354,7 +354,7 @@
     float distanceInMiles = distanceInKm * 0.621371192;
     if ([[[NSLocale preferredLanguages] objectAtIndex:0] isEqualToString:@"en"])
     {
-        self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ miles", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceInMiles] readableNumber]];
+        self.labelLocationDistance.text = [NSString stringWithFormat:NSLocalizedString(@"%@ mi", @"DoubleDate details - distance to date"), [[NSNumber numberWithDouble:distanceInMiles] readableNumber]];
     }
     else
     {

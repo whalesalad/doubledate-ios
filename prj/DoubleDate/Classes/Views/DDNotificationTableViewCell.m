@@ -16,8 +16,8 @@
 
 @interface DDNotificationTableViewCell ()
 
-@property(nonatomic, retain) CAGradientLayer *innerGradientLayer;
-//@property(nonatomic, retain) CALayer *upperSeperator;
+@property(nonatomic, retain) CAGradientLayer *innerGradientLayer, *innerBlueGradientLayer;
+@property(nonatomic, retain) CALayer *upperSeparator;
 
 @end
 
@@ -25,8 +25,8 @@
 
 @synthesize notification;
 @synthesize imageView;
-@synthesize imageViewWrapper;
 @synthesize textViewContent;
+@synthesize unreadIndicatorView;
 
 + (void)cutomizeTextView:(UITextView*)textView withNotification:(DDNotification*)notification
 {
@@ -94,6 +94,7 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     self.innerGradientLayer.frame = self.bounds;
+    self.innerBlueGradientLayer.frame = self.bounds;
     [CATransaction commit];
     [super layoutSubviews];
 }
@@ -105,36 +106,11 @@
     self.textViewContent.layer.shadowOffset = CGSizeMake(0, 1);
     self.textViewContent.layer.shadowRadius = 0;
     self.textViewContent.layer.shadowOpacity = 1;
-    self.textViewContent.backgroundColor = [UIColor clearColor];
     
-    // style user photo with border/inner-glow
-    {
-        self.imageViewWrapper.layer.borderColor = [UIColor blackColor].CGColor;
-        self.imageViewWrapper.layer.borderWidth = 1.0f;
-        self.imageViewWrapper.layer.cornerRadius = 6.0f;
-        
-        self.imageViewWrapper.layer.shadowOpacity = 0.3f;
-        self.imageViewWrapper.layer.shadowRadius = 2.0f;
-        self.imageViewWrapper.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.imageViewWrapper.layer.shadowOffset = CGSizeMake(0, 1);
-        
-        self.imageView.layer.masksToBounds = YES;
-        self.imageView.layer.cornerRadius = 7;
-        
-        // Inner white border on photo
-        CALayer *innerGlowLayer = [CALayer layer];
-        innerGlowLayer.frame = CGRectInset(self.imageView.bounds, 1, 1);
-        innerGlowLayer.cornerRadius = 5;
-        innerGlowLayer.borderWidth = 1;
-        innerGlowLayer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
-        
-        [self.imageViewWrapper.layer insertSublayer:innerGlowLayer atIndex:1];
-    }
-
     // draw inner gradient
     [self drawInnerGradient];
-
-    // [self drawInnerSeperators];
+    [self drawInnerBlueGradient];
+    [self drawInnerSeperators];
     
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
@@ -150,27 +126,39 @@
         self.innerGradientLayer.opacity = 0.5f;
         
         self.innerGradientLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor],
-                                                                 (id)[[UIColor blackColor] CGColor], nil];
+                                                                   (id)[[UIColor blackColor] CGColor], nil];
         
         [self.layer insertSublayer:self.innerGradientLayer atIndex:0];
     }
 }
 
-//- (void)drawInnerSeperators
-//{
-//    if (!self.upperSeperator)
-//    {
-//        self.upperSeperator = [CALayer layer];
-//        self.upperSeperator.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
-//
-//        CGRect seperatorFrame = self.bounds;
-//        seperatorFrame.size.height = 1;
-//        
-//        self.upperSeperator.frame = seperatorFrame;
-//        [self.layer insertSublayer:self.upperSeperator above:self.innerShadowLayer];
-//    }
-//    
-//}
+- (void)drawInnerBlueGradient
+{
+    if (!self.innerBlueGradientLayer)
+    {
+        self.innerBlueGradientLayer = [CAGradientLayer layer];
+        self.innerBlueGradientLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.3f] CGColor],
+                                                                       (id)[[UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.1f] CGColor], nil];
+
+        
+        [self.layer insertSublayer:self.innerBlueGradientLayer above:self.innerGradientLayer];
+    }
+}
+
+- (void)drawInnerSeperators
+{
+    if (!self.upperSeparator)
+    {
+        self.upperSeparator = [CALayer layer];
+        self.upperSeparator.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+
+        CGRect separatorFrame = self.bounds;
+        separatorFrame.size.height = 1;
+        self.upperSeparator.frame = separatorFrame;
+        
+        [self.layer insertSublayer:self.upperSeparator above:self.innerBlueGradientLayer];
+    }
+}
 
 - (void)setNotification:(DDNotification *)v
 {
@@ -191,8 +179,14 @@
         [self.imageView reloadFromUrl:[NSURL URLWithString:notification.photo.thumbUrl]];
         
         // Show unread styles
-        // self.imageViewBadge.hidden = ![notification.unread boolValue];
-        // self.innerBlueLayer.hidden = ![notification.unread boolValue];
+        self.unreadIndicatorView.hidden = ![notification.unread boolValue];
+        self.innerBlueGradientLayer.hidden = ![notification.unread boolValue];
+        
+        if ([notification.unread boolValue]) {
+            self.upperSeparator.backgroundColor = [UIColor colorWithRed:0 green:152/255.0f blue:216/255.0f alpha:0.3f].CGColor;
+        } else {
+            self.upperSeparator.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.1f].CGColor;
+        }
     }
     else
     {
@@ -205,10 +199,11 @@
 {
     [notification release];
     [imageView release];
-    [imageViewWrapper release];
+    [unreadIndicatorView release];
     [textViewContent release];
     [_innerGradientLayer release];
-//    [_upperSeperator release];
+    [_innerBlueGradientLayer release];
+    [_upperSeparator release];
     [super dealloc];
 }
 

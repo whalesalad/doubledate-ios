@@ -128,7 +128,12 @@
     //fill data
     viewController_.labelTitle.text = [self.user displayName];
     CGSize newSize = [viewController_.labelTitle sizeThatFits:viewController_.labelTitle.frame.size];
-    [viewController_.labelTitle setFrame:CGRectMake(viewController_.labelTitle.frame.origin.x, viewController_.labelTitle.frame.origin.y, newSize.width, viewController_.labelTitle.frame.size.height)];
+    
+    [viewController_.labelTitle setFrame:CGRectMake(viewController_.labelTitle.frame.origin.x,
+                                                    viewController_.labelTitle.frame.origin.y,
+                                                    newSize.width,
+                                                    viewController_.labelTitle.frame.size.height)];
+    
     viewController_.labelLocation.text = self.user.location.name;
     viewController_.textView.text = self.user.bio;
     
@@ -140,10 +145,11 @@
     
     //apply bio
     viewController_.textView.text = self.user.bio;
-    viewController_.textView.frame = CGRectMake(viewController_.textView.frame.origin.x, viewController_.textView.frame.origin.y, viewController_.textView.contentSize.width, MAX(viewController_.textView.contentSize.height + 10, 60));
     
-    //update bottom position
-    viewController_.viewBottom.frame = CGRectMake(viewController_.viewBottom.frame.origin.x, viewController_.textView.frame.origin.y + viewController_.textView.frame.size.height, viewController_.viewBottom.frame.size.width, viewController_.viewBottom.frame.size.height);
+    viewController_.textView.frame = CGRectMake(viewController_.textView.frame.origin.x,
+                                                viewController_.textView.frame.origin.y,
+                                                viewController_.textView.contentSize.width,
+                                                MAX(viewController_.textView.contentSize.height + 8, 38));
     
     //show/hide bio
     viewController_.textView.hidden = [[[self user] bio] length] == 0;

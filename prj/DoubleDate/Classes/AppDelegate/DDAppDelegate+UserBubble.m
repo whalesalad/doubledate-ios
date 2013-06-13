@@ -193,7 +193,7 @@
             CGFloat diff = fabs(currentPage - bubble.tag);
             if (diff > 1)
                 diff = 1;
-            bubble.alpha = 1.0f - 0.5f * diff;
+            bubble.alpha = 1.0f - 0.7f * diff;
         }
     }
 }

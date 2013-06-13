@@ -506,7 +506,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Explain the details", @"Placeholder text for details of new DoubleDate.");
+    cell.textView.placeholder = NSLocalizedString(@"Explain your DoubleDate…", @"Placeholder text for details of new DoubleDate.");
     
     //set return button on post details
     cell.textView.textView.returnKeyType = UIReturnKeyDone;

@@ -142,7 +142,11 @@ static DDLocationController *_sharedLocationController = nil;
                 //2. we are not able to switch on location programatically
                 //3. we are not able to open the settings
                 //prompt the custom dialog
-                [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Warning", nil) message:NSLocalizedString(@"This is very important feature in our app", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] autorelease] show];
+                [[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Are you sure?", nil)
+                                             message:NSLocalizedString(@"DoubleDate uses your current location to show you nearby dates. We do not store or track your location. Please give DoubleDate access in your location settings.", nil)
+                                            delegate:nil
+                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                   otherButtonTitles:nil] autorelease] show];
             }
         }
     }

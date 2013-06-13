@@ -18,8 +18,8 @@
 @property(nonatomic, retain) DDNotification *notification;
 
 @property(nonatomic, retain) IBOutlet DDImageView *imageView;
-@property(nonatomic, retain) IBOutlet UIView *imageViewWrapper;
 @property(nonatomic, retain) IBOutlet UITextView *textViewContent;
+@property(nonatomic, retain) IBOutlet UIImageView *unreadIndicatorView;
 
 + (CGFloat)heightForNotification:(DDNotification*)notification;
 

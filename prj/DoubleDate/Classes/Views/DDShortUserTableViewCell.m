@@ -27,7 +27,6 @@
 @synthesize labelTitle;
 @synthesize imageViewWrapper;
 @synthesize imageViewPoster;
-@synthesize imageViewGender;
 @synthesize imageViewCheckmark;
 @synthesize topBorderView;
 
@@ -78,9 +77,6 @@
 
     labelTitle.text = [DDShortUser nameForShortUser:shortUser];
     labelTitle.frame = CGRectMake(labelTitle.frame.origin.x, labelTitle.frame.origin.y, [labelTitle sizeThatFits:labelTitle.bounds.size].width, labelTitle.frame.size.height);
-    
-    imageViewGender.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@-indicator-small.png", v.gender]];
-    imageViewGender.frame = CGRectMake(labelTitle.frame.origin.x + labelTitle.frame.size.width + 4, labelTitle.center.y - imageViewGender.image.size.height/2, imageViewGender.image.size.width, imageViewGender.image.size.height);
 }
 
 - (void)dealloc
@@ -88,7 +84,6 @@
     [shortUser release];
     [labelTitle release];
     [imageViewPoster release];
-    [imageViewGender release];
     [imageViewCheckmark release];
     [topBorderView release];
     [super dealloc];
