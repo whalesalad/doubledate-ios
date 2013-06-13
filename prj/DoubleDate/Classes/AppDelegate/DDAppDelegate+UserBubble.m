@@ -12,6 +12,7 @@
 #import "DDUserBubble.h"
 #import "UIImage+DD.h"
 #import "DDStatisticsController.h"
+#import "DDTouchRedirectView.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kBubbleWidth 270
@@ -104,6 +105,12 @@
     
     // Set the scroll view content size
     sv.contentSize = CGSizeMake(kBubbleWidth * [users count], sv.frame.size.height);
+    
+    //add touch redirect view
+    DDTouchRedirectView *redirectView = [[[DDTouchRedirectView alloc] initWithFrame:self.userPopover.bounds] autorelease];
+    redirectView.backgroundColor = [UIColor clearColor];
+    redirectView.redirectView = sv;
+    [self.userPopover addSubview:redirectView];
     
     //animate appearing
     [UIView animateWithDuration:0.3f animations:^{

@@ -475,6 +475,7 @@
 		9614E54C1656718D0052ADD1 /* DDDoubleDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */; };
 		9615C8AA16E4EE3A00F5D0AC /* DDInAppProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */; };
 		96187E2516CA4676007D61E8 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96187E2416CA4676007D61E8 /* CoreText.framework */; };
+		9618890D1769D1A4000C217E /* DDTouchRedirectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9618890C1769D1A4000C217E /* DDTouchRedirectView.m */; };
 		962B410416256413004E0656 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410216256413004E0656 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		962B410516256413004E0656 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962B410316256413004E0656 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		962C2F031740E2E800624145 /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 962C2F021740E2E800624145 /* UIImage+StackBlur.m */; };
@@ -1234,6 +1235,8 @@
 		9615C8A816E4EE3A00F5D0AC /* DDInAppProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDInAppProduct.h; sourceTree = "<group>"; };
 		9615C8A916E4EE3A00F5D0AC /* DDInAppProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDInAppProduct.m; sourceTree = "<group>"; };
 		96187E2416CA4676007D61E8 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		9618890B1769D1A4000C217E /* DDTouchRedirectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTouchRedirectView.h; sourceTree = "<group>"; };
+		9618890C1769D1A4000C217E /* DDTouchRedirectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTouchRedirectView.m; sourceTree = "<group>"; };
 		962B410216256413004E0656 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		962B410316256413004E0656 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		962C2F011740E2E800624145 /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StackBlur.h"; sourceTree = "<group>"; };
@@ -2405,6 +2408,8 @@
 		96B59E17160719C100CFDA1C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9618890B1769D1A4000C217E /* DDTouchRedirectView.h */,
+				9618890C1769D1A4000C217E /* DDTouchRedirectView.m */,
 				96B14FE617428959001D6A1C /* DDUsersView.h */,
 				96B14FE717428959001D6A1C /* DDUsersView.m */,
 				708BFA2E173D8DA900F8D5AF /* DDUserView.h */,
@@ -3509,6 +3514,7 @@
 				7047C192174AA1CA0077FDDC /* NSNumber+DD.m in Sources */,
 				7047C198174AEDDD0077FDDC /* DDStatisticsController.m in Sources */,
 				7095546F174C1DE20070BC65 /* FBWebDialogs+DD.m in Sources */,
+				9618890D1769D1A4000C217E /* DDTouchRedirectView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
