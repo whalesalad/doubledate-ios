@@ -236,9 +236,11 @@
     
     //update delegate
     cell.textView.textView.delegate = self;
-    
+
     //set placeholder
     cell.textView.placeholder = [NSString stringWithFormat:NSLocalizedString(@"Enter your message to %@ & %@. Here is your chance to be unique and make a good first impression. You can only send one message until they reply, so make it a good one!", @"The variables are the activity creator and wing, respectively."), doubleDate.user.firstName, doubleDate.wing.firstName];
+    
+    cell.textView.textView.returnKeyType = UIReturnKeyDone;
 }
 
 - (NSIndexPath*)wingIndexPath
@@ -321,6 +323,12 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    if ([text isEqualToString:@"\n"])
+    {
+        if ([[[self textViewDetails] textView] isFirstResponder])
+            [[[self textViewDetails] textView] resignFirstResponder];
+        return NO;
+    }
     NSUInteger newLength = [textView.text length] + [text length] - range.length;
     return newLength <= kMaxDetailsLength;
 }
