@@ -11,15 +11,16 @@
 #import <QuartzCore/QuartzCore.h>
 #import <RestKit/RKISO8601DateFormatter.h>
 
-#if DEBUG
+//#if DEBUG
+//#define API_URL @"http://staging.dbld8.com"
+//#define SERVER_URL @"http://staging.dbld8.com"
+//#else
+//#define API_URL @"https://api.dbld8.com"
+//#define SERVER_URL @"http://dbld8.com"
+//#endif
+
 #define API_URL @"http://staging.dbld8.com"
 #define SERVER_URL @"http://staging.dbld8.com"
-#else
-#define API_URL @"https://api.dbld8.com"
-#define SERVER_URL @"http://dbld8.com"
-#endif
-
-//#define API_URL @"http://Achilles.local:3000"
 
 NSString *DDErrorDomain = @"DDErrorDomain";
 

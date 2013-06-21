@@ -247,13 +247,18 @@
         ([[self.engagement.wing identifier] intValue] == [[[DDAuthenticationController currentUser] userId] intValue]))
     {
         //check if we need to unlock the engagement
-        if ([self.engagement isNew])
+        if ([self.engagement isNew] || [self.engagement isIgnored])
         {
             //make bottom bar opaque
             self.bottomBarView.alpha = 0.2f;
             
             //put unlocked overlay
             self.viewLocked.hidden = NO;
+        }
+        
+        if ([self.engagement isIgnored])
+        {
+            labelMessageReceived.text = NSLocalizedString(@"The DoubleDate creator decided to end this chat.", @"Message that engagement users see when a chat has been ignored.");
         }
     }
     

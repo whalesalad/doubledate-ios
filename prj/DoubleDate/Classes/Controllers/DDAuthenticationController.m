@@ -126,11 +126,12 @@ static DDAuthenticationController *_sharedInstance = nil;
     //update application badge
     [(DDAppDelegate*)[[UIApplication sharedApplication] delegate] updateApplicationBadge];
     
-    //apply name
-    [DDStatisticsController setName:[NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName]];
-    
-    //register user id
-    [DDStatisticsController registerProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.uuid, @"username", nil]];
+//    //apply name
+//    [DDStatisticsController setName:[NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName]];
+//    
+//    //register user id
+//    [DDStatisticsController registerProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.uuid, @"username", nil]];
+    [DDStatisticsController setUser:user];
 }
 
 + (DDUser*)currentUser

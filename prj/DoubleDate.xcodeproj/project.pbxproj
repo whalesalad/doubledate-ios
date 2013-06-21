@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4C0105CD17102149007A0401 /* MPCJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105C317102148007A0401 /* MPCJSONDataSerializer.m */; };
-		4C0105CE17102149007A0401 /* MPCJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105C517102148007A0401 /* MPCJSONSerializer.m */; };
-		4C0105CF17102149007A0401 /* MPCSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105C717102148007A0401 /* MPCSerializedJSONData.m */; };
-		4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105CA17102149007A0401 /* NSData+MPBase64.m */; };
-		4C0105D117102149007A0401 /* Mixpanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0105CC17102149007A0401 /* Mixpanel.m */; };
 		4C0105D317102170007A0401 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0105D217102170007A0401 /* CoreTelephony.framework */; };
 		4C0EA1281743BB1200F2DC4F /* select-wing-dark-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0EA1261743BB1200F2DC4F /* select-wing-dark-overlay.png */; };
 		4C0EA1291743BB1200F2DC4F /* select-wing-dark-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0EA1271743BB1200F2DC4F /* select-wing-dark-overlay@2x.png */; };
@@ -323,6 +318,8 @@
 		4C36355816D6E9BA001BBFE7 /* me-photo-gradient-overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C36355616D6E9BA001BBFE7 /* me-photo-gradient-overlay.png */; };
 		4C36355916D6E9BA001BBFE7 /* me-photo-gradient-overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C36355716D6E9BA001BBFE7 /* me-photo-gradient-overlay@2x.png */; };
 		4C855AAD167EE36200DB39D5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */; };
+		4C88A01F1773ECED001ADBCC /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C88A01E1773ECED001ADBCC /* Analytics.framework */; };
+		4C88A0221773ED55001ADBCC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C88A0211773ED55001ADBCC /* libz.dylib */; };
 		4C9E27F716DCD8550050DF05 /* interest-tablecell-top-empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9E27F516DCD8550050DF05 /* interest-tablecell-top-empty.png */; };
 		4C9E27F816DCD8550050DF05 /* interest-tablecell-top-empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9E27F616DCD8550050DF05 /* interest-tablecell-top-empty@2x.png */; };
 		4C9E280416DCFB740050DF05 /* interest-search-tablecell.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C9E280216DCFB740050DF05 /* interest-search-tablecell.png */; };
@@ -701,16 +698,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C0105C217102148007A0401 /* MPCJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONDataSerializer.h; sourceTree = "<group>"; };
-		4C0105C317102148007A0401 /* MPCJSONDataSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONDataSerializer.m; sourceTree = "<group>"; };
-		4C0105C417102148007A0401 /* MPCJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCJSONSerializer.h; sourceTree = "<group>"; };
-		4C0105C517102148007A0401 /* MPCJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCJSONSerializer.m; sourceTree = "<group>"; };
-		4C0105C617102148007A0401 /* MPCSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPCSerializedJSONData.h; sourceTree = "<group>"; };
-		4C0105C717102148007A0401 /* MPCSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPCSerializedJSONData.m; sourceTree = "<group>"; };
-		4C0105C917102149007A0401 /* NSData+MPBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MPBase64.h"; sourceTree = "<group>"; };
-		4C0105CA17102149007A0401 /* NSData+MPBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MPBase64.m"; sourceTree = "<group>"; };
-		4C0105CB17102149007A0401 /* Mixpanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mixpanel.h; sourceTree = "<group>"; };
-		4C0105CC17102149007A0401 /* Mixpanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mixpanel.m; sourceTree = "<group>"; };
 		4C0105D217102170007A0401 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		4C0EA1261743BB1200F2DC4F /* select-wing-dark-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select-wing-dark-overlay.png"; sourceTree = "<group>"; };
 		4C0EA1271743BB1200F2DC4F /* select-wing-dark-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "select-wing-dark-overlay@2x.png"; sourceTree = "<group>"; };
@@ -1022,6 +1009,8 @@
 		4C36355616D6E9BA001BBFE7 /* me-photo-gradient-overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me-photo-gradient-overlay.png"; sourceTree = "<group>"; };
 		4C36355716D6E9BA001BBFE7 /* me-photo-gradient-overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me-photo-gradient-overlay@2x.png"; sourceTree = "<group>"; };
 		4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		4C88A01E1773ECED001ADBCC /* Analytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Analytics.framework; path = SegmentIO/Analytics.framework; sourceTree = "<group>"; };
+		4C88A0211773ED55001ADBCC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4C9E27F516DCD8550050DF05 /* interest-tablecell-top-empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interest-tablecell-top-empty.png"; sourceTree = "<group>"; };
 		4C9E27F616DCD8550050DF05 /* interest-tablecell-top-empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interest-tablecell-top-empty@2x.png"; sourceTree = "<group>"; };
 		4C9E280216DCFB740050DF05 /* interest-search-tablecell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "interest-search-tablecell.png"; sourceTree = "<group>"; };
@@ -1457,6 +1446,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C88A0221773ED55001ADBCC /* libz.dylib in Frameworks */,
 				4CC627FB17415696005D889A /* CoreVideo.framework in Frameworks */,
 				96EE845A16149B8600AE6EC1 /* QuartzCore.framework in Frameworks */,
 				4CC627E41741523C005D889A /* AVFoundation.framework in Frameworks */,
@@ -1487,53 +1477,13 @@
 				960A02D115F7371C00BA9EB0 /* CoreGraphics.framework in Frameworks */,
 				4C35AE4816CE59F800AD75CE /* Crashlytics.framework in Frameworks */,
 				96D968D316E78090009801A3 /* FacebookSDK.framework in Frameworks */,
+				4C88A01F1773ECED001ADBCC /* Analytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4C0105BF17102148007A0401 /* Mixpanel */ = {
-			isa = PBXGroup;
-			children = (
-				4C0105C017102148007A0401 /* Library */,
-				4C0105CB17102149007A0401 /* Mixpanel.h */,
-				4C0105CC17102149007A0401 /* Mixpanel.m */,
-			);
-			path = Mixpanel;
-			sourceTree = "<group>";
-		};
-		4C0105C017102148007A0401 /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				4C0105C117102148007A0401 /* JSON */,
-				4C0105C817102149007A0401 /* NSData_Base64 */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
-		4C0105C117102148007A0401 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				4C0105C217102148007A0401 /* MPCJSONDataSerializer.h */,
-				4C0105C317102148007A0401 /* MPCJSONDataSerializer.m */,
-				4C0105C417102148007A0401 /* MPCJSONSerializer.h */,
-				4C0105C517102148007A0401 /* MPCJSONSerializer.m */,
-				4C0105C617102148007A0401 /* MPCSerializedJSONData.h */,
-				4C0105C717102148007A0401 /* MPCSerializedJSONData.m */,
-			);
-			path = JSON;
-			sourceTree = "<group>";
-		};
-		4C0105C817102149007A0401 /* NSData_Base64 */ = {
-			isa = PBXGroup;
-			children = (
-				4C0105C917102149007A0401 /* NSData+MPBase64.h */,
-				4C0105CA17102149007A0401 /* NSData+MPBase64.m */,
-			);
-			path = NSData_Base64;
-			sourceTree = "<group>";
-		};
 		4C3632C016D519F6001BBFE7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -2038,6 +1988,14 @@
 			path = "wings-list";
 			sourceTree = "<group>";
 		};
+		4C88A0201773ECF0001ADBCC /* Segment.io */ = {
+			isa = PBXGroup;
+			children = (
+				4C88A01E1773ECED001ADBCC /* Analytics.framework */,
+			);
+			name = Segment.io;
+			sourceTree = "<group>";
+		};
 		4CC627F017415454005D889A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -2131,6 +2089,7 @@
 		960A02BD15F7371C00BA9EB0 = {
 			isa = PBXGroup;
 			children = (
+				4C88A0211773ED55001ADBCC /* libz.dylib */,
 				4C855AAC167EE36200DB39D5 /* Default-568h@2x.png */,
 				4CA80EDD16521236004A4BE9 /* app-icon@2x.png */,
 				4CA80EDB16521233004A4BE9 /* app-icon.png */,
@@ -2550,60 +2509,60 @@
 		96E7F1AD15F738CA00200E1F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				70674F9B171B286200555B31 /* DDFeedbackViewController.h */,
-				70674F9C171B286200555B31 /* DDFeedbackViewController.m */,
-				967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewController.h */,
-				967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */,
-				7041769616E3A2CD003B6B24 /* DDPurchaseViewController.h */,
-				7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */,
-				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
-				7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */,
-				96E2623316D651140041FD26 /* DDEditProfileViewController.h */,
-				96E2623416D651140041FD26 /* DDEditProfileViewController.m */,
-				706EFAA316C9B18F00DD5791 /* DDNotificationsViewController.h */,
-				706EFAA416C9B18F00DD5791 /* DDNotificationsViewController.m */,
+				964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */,
+				964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */,
+				960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */,
+				960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */,
 				965DADA916A7EE84005F8B25 /* DDChatViewController.h */,
 				965DADAA16A7EE84005F8B25 /* DDChatViewController.m */,
-				965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */,
-				965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */,
-				704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */,
-				704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */,
-				70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */,
-				70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */,
-				9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */,
-				9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */,
-				96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */,
-				96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */,
+				96892CB115FF1F740054C108 /* DDCompleteRegistrationViewController.h */,
+				96892CB215FF1F740054C108 /* DDCompleteRegistrationViewController.m */,
 				969353DA16393950007376AA /* DDCreateDoubleDateViewController.h */,
 				969353DB16393950007376AA /* DDCreateDoubleDateViewController.m */,
+				96E78E36164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.h */,
+				96E78E37164D3C0C00897C4F /* DDCreateDoubleDateViewControllerChooseWing.m */,
+				967A65DF16F089F300E59D03 /* DDDoubleDateFilterViewController.h */,
+				967A65E016F089F300E59D03 /* DDDoubleDateFilterViewController.m */,
 				969353D316392E08007376AA /* DDDoubleDatesViewController.h */,
 				969353D416392E08007376AA /* DDDoubleDatesViewController.m */,
+				9614E54A1656718D0052ADD1 /* DDDoubleDateViewController.h */,
+				9614E54B1656718D0052ADD1 /* DDDoubleDateViewController.m */,
+				96E2623316D651140041FD26 /* DDEditProfileViewController.h */,
+				96E2623416D651140041FD26 /* DDEditProfileViewController.m */,
+				704A62461687AF5C00B86F57 /* DDEngagementsViewController.h */,
+				704A62471687AF5C00B86F57 /* DDEngagementsViewController.m */,
 				70E672181627546D004D14CA /* DDFacebookFriendsViewController.h */,
 				70E672191627546D004D14CA /* DDFacebookFriendsViewController.m */,
+				70674F9B171B286200555B31 /* DDFeedbackViewController.h */,
+				70674F9C171B286200555B31 /* DDFeedbackViewController.m */,
+				960C846215FDFD9400EAF708 /* DDInterestsViewController.h */,
+				960C846315FDFD9400EAF708 /* DDInterestsViewController.m */,
 				96D77FE016108CE200E65D91 /* DDLocationChooserViewController.h */,
 				96D77FE116108CE200E65D91 /* DDLocationChooserViewController.m */,
 				96892D4915FF61770054C108 /* DDLocationPickerViewController.h */,
 				96892D4A15FF61770054C108 /* DDLocationPickerViewController.m */,
-				96892CB115FF1F740054C108 /* DDCompleteRegistrationViewController.h */,
-				96892CB215FF1F740054C108 /* DDCompleteRegistrationViewController.m */,
-				96892CA715FF15DD0054C108 /* DDMeViewController.h */,
-				96892CA815FF15DD0054C108 /* DDMeViewController.m */,
 				70C0834F15FE9314000A7E8C /* DDLoginViewController.h */,
 				70C0835015FE9314000A7E8C /* DDLoginViewController.m */,
-				960C846215FDFD9400EAF708 /* DDInterestsViewController.h */,
-				960C846315FDFD9400EAF708 /* DDInterestsViewController.m */,
-				960C7E8D15FDD98E00EAF708 /* DDBioViewController.h */,
-				960C7E8E15FDD98E00EAF708 /* DDBioViewController.m */,
-				964A6E7715F7E88F0077AAF1 /* DDBasicInfoViewController.h */,
-				964A6E7815F7E88F0077AAF1 /* DDBasicInfoViewController.m */,
-				96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */,
-				96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */,
+				96892CA715FF15DD0054C108 /* DDMeViewController.h */,
+				96892CA815FF15DD0054C108 /* DDMeViewController.m */,
+				706EFAA316C9B18F00DD5791 /* DDNotificationsViewController.h */,
+				706EFAA416C9B18F00DD5791 /* DDNotificationsViewController.m */,
+				7041769616E3A2CD003B6B24 /* DDPurchaseViewController.h */,
+				7041769716E3A2CE003B6B24 /* DDPurchaseViewController.m */,
+				7085EBFD16DBF30B00186088 /* DDSelectInterestsViewController.h */,
+				7085EBFE16DBF30B00186088 /* DDSelectInterestsViewController.m */,
+				70FFEE4F166EAF8300F1804E /* DDSendEngagementViewController.h */,
+				70FFEE50166EAF8300F1804E /* DDSendEngagementViewController.m */,
 				96C6D69916527D6F00DAC219 /* DDTableViewController+Refresh.h */,
 				96C6D69A16527D6F00DAC219 /* DDTableViewController+Refresh.m */,
 				96C6D65A16524BAF00DAC219 /* DDTableViewController.h */,
 				96C6D65B16524BAF00DAC219 /* DDTableViewController.m */,
+				965AF02D1688A6F400A014D1 /* DDUserBubbleViewController.h */,
+				965AF02E1688A6F400A014D1 /* DDUserBubbleViewController.m */,
 				96E7F1E115F788A900200E1F /* DDViewController.h */,
 				96E7F1E215F788A900200E1F /* DDViewController.m */,
+				96E7F1AE15F738CA00200E1F /* DDWelcomeViewController.h */,
+				96E7F1AF15F738CA00200E1F /* DDWelcomeViewController.m */,
 				96C6D6C8165296FD00DAC219 /* UIViewController+Extensions.h */,
 				96C6D6C9165296FF00DAC219 /* UIViewController+Extensions.m */,
 			);
@@ -2652,7 +2611,6 @@
 				96EC414317437F7E00BA4A75 /* DWGridController */,
 				703950A4174162F4005B9575 /* GPUImage */,
 				962C2F001740E2E800624145 /* StackBlur */,
-				4C0105BF17102148007A0401 /* Mixpanel */,
 				96135FA51709636F001C1C8E /* BCTabBarController */,
 				96F12DC516D4BAB0009127AF /* KenBurns */,
 				9662892B16B68521002E0AD1 /* HPGrowingTextView */,
@@ -2663,6 +2621,7 @@
 				964A6E7C15F808AF0077AAF1 /* RestKit */,
 				96E7F1DD15F780B400200E1F /* MBProgressHUD */,
 				96E7F1D115F77EDD00200E1F /* Facebook */,
+				4C88A0201773ECF0001ADBCC /* Segment.io */,
 			);
 			path = Third;
 			sourceTree = "<group>";
@@ -3496,11 +3455,6 @@
 				96135FB71709636F001C1C8E /* BCTabBarView.m in Sources */,
 				96135FB81709636F001C1C8E /* UINavigationController+icons.m in Sources */,
 				96135FB91709636F001C1C8E /* UIViewController+iconImage.m in Sources */,
-				4C0105CD17102149007A0401 /* MPCJSONDataSerializer.m in Sources */,
-				4C0105CE17102149007A0401 /* MPCJSONSerializer.m in Sources */,
-				4C0105CF17102149007A0401 /* MPCSerializedJSONData.m in Sources */,
-				4C0105D017102149007A0401 /* NSData+MPBase64.m in Sources */,
-				4C0105D117102149007A0401 /* Mixpanel.m in Sources */,
 				9645F5D31712F23C00100213 /* DDImageEditDialogView.m in Sources */,
 				709F06A01716146200E0ECA6 /* UIImage+DD.m in Sources */,
 				70674F9D171B286200555B31 /* DDFeedbackViewController.m in Sources */,
@@ -3600,6 +3554,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/DoubleDate/Third/Crashlytics\"",
+					"\"$(SRCROOT)/DoubleDate/Third/SegmentIO\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoubleDate/DoubleDate-Prefix.pch";
@@ -3625,6 +3580,7 @@
 					"\"$(SRCROOT)/DoubleDate/Third/Facebook\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/DoubleDate/Third/Crashlytics\"",
+					"\"$(SRCROOT)/DoubleDate/Third/SegmentIO\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DoubleDate/DoubleDate-Prefix.pch";

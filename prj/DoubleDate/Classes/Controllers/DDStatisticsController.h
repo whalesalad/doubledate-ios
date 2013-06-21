@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DDUser.h"
 
 extern NSString *DDStatisticsEventWelcomeLoad;
 extern NSString *DDStatisticsEventWelcomeFBTap;
@@ -31,6 +32,7 @@ extern NSString *DDStatisticsUserOpenedBubble;
 }
 
 + (void)setName:(NSString*)name;
++ (void)setUser:(DDUser*)user;
 
 + (void)registerProperties:(NSDictionary*)properties;
 

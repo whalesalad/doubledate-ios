@@ -134,7 +134,7 @@ NSString *DDEngagementStatusStarted = @"started";
     return [self.status isEqualToString:DDEngagementStatusIgnored];
 }
 
--(BOOL)isNew
+- (BOOL)isNew
 {
     return [self.status isEqualToString:DDEngagementStatusNew];
 }

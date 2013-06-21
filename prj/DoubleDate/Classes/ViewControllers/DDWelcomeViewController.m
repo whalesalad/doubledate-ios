@@ -170,9 +170,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //track event
-    [DDStatisticsController trackEvent:DDStatisticsEventWelcomeLoad];
     
     //localize
     labelGrabAFriend.text = NSLocalizedString(@"GRAB A FRIEND • GO OUT • HAVE FUN", nil);
@@ -210,6 +207,7 @@
     
     //save position of logo
     initialLogoPosition_ = self.logoImageView.center;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -226,6 +224,9 @@
     
     //start animation
     [self startAnimation];
+    
+    //track event
+    [DDStatisticsController trackEvent:DDStatisticsEventWelcomeLoad];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

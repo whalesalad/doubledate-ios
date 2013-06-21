@@ -7,7 +7,10 @@
 //
 
 #import "DDStatisticsController.h"
-#import "Mixpanel.h"
+#import "DDUser.h"
+
+//#import "Mixpanel.h"
+#import "Analytics/Analytics.h"
 
 NSString *DDStatisticsEventWelcomeLoad = @"Welcome View Displayed";
 NSString *DDStatisticsEventWelcomeFBTap = @"Welcome View, Why FB? Tapped";
@@ -30,29 +33,41 @@ NSString *DDStatisticsUserOpenedBubble = @"User Opened a Bubble";
 
 + (void)initialize
 {
-    [Mixpanel sharedInstanceWithToken:@"e3c54d5bdd57b7d06e543e3156e0f6d2"];
+    [Analytics withSecret:@"fi31zj6ejhs4amywwgsh"];
+//    [Mixpanel sharedInstanceWithToken:@"e3c54d5bdd57b7d06e543e3156e0f6d2"];
 }
 
 + (void)setName:(NSString*)name
 {
-    [[Mixpanel sharedInstance] setNameTag:name];
+//    [[Mixpanel sharedInstance] setNameTag:name];
+}
+
++ (void)setUser:(DDUser*)user
+{
+    //apply name
+//    [DDStatisticsController setName:[NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName]];
+    //register user id
+//    [DDStatisticsController registerProperties:[NSDictionary dictionaryWithObjectsAndKeys:user.uuid, @"username", nil]];
+    [[Analytics sharedAnalytics] identify:user.uuid];
 }
 
 + (void)registerProperties:(NSDictionary*)properties
 {
-    [[Mixpanel sharedInstance] registerSuperProperties:properties];
+//    [[Mixpanel sharedInstance] registerSuperProperties:properties];
 }
 
 + (void)trackEvent:(NSString*)event
 {
     NSLog(@"DDStatistics tracking: %@", event);
-    [[Mixpanel sharedInstance] track:event];
+//    [[Mixpanel sharedInstance] track:event];
+    [[Analytics sharedAnalytics] track:event];
 }
 
 + (void)trackEvent:(NSString*)event withProperties:(NSDictionary*)properties
 {
     NSLog(@"DDStatistics tracking: %@, with properties: %@", event, properties);
-    [[Mixpanel sharedInstance] track:event properties:properties];
+//    [[Mixpanel sharedInstance] track:event properties:properties];
+    [[Analytics sharedAnalytics] track:event properties:properties];
 }
 
 @end
