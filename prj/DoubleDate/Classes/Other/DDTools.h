@@ -30,6 +30,7 @@ extern NSString *DDErrorDomain;
 + (NSString*)codeMessageFromResponseData:(NSData*)data;
 
 + (UIImage*)imageFromView:(UIView*)view;
++ (UIImage*)screenshot;
 
 + (BOOL)isiPhone5Device;
 

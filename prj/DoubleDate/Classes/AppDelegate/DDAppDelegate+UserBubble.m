@@ -25,7 +25,7 @@
     [self.userPopover removeFromSuperview];
     
     // Create blurred background image
-    UIImage *blurImage = [[DDTools imageFromView:self.window] blurImage];
+    UIImage *blurImage = [[DDTools screenshot] blurImage];
     self.userPopover = [[[UIImageView alloc] initWithFrame:self.window.bounds] autorelease];
     ((UIImageView*)self.userPopover).image = blurImage;
     

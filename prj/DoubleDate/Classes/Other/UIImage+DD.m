@@ -105,7 +105,7 @@
     
     GPUImageFastBlurFilter *blurFilter = [[[GPUImageFastBlurFilter alloc] init] autorelease];
     
-    [blurFilter setBlurPasses:3.0f];
+    [blurFilter setBlurPasses:2.0f];
     [sourcePicture addTarget:blurFilter];
     
 //    GPUImageGrayscaleFilter *grayscaleFilter = [[[GPUImageGrayscaleFilter alloc] init] autorelease];

@@ -13,6 +13,7 @@
 #import "DDTools.h"
 #import "DDFeedbackViewController.h"
 #import "UIImage+DD.h"
+#import "UIImage+StackBlur.h"
 #import <QuartzCore/QuartzCore.h>
 #import "GPUImage.h"
 
@@ -33,13 +34,23 @@
     
     //remove previous one
     [self.navigationMenu removeFromSuperview];
-    self.navigationMenu = [[[UIView alloc] initWithFrame:self.window.bounds] autorelease];
+    
+    CGFloat statusBarOffset = [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    CGRect navFrame = self.window.frame;
+    navFrame.origin.y = navFrame.origin.y + statusBarOffset;
+    navFrame.size.height = navFrame.size.height - statusBarOffset;
+    
+    NSLog(@"window frame: %@", NSStringFromCGRect(self.window.frame));
+    NSLog(@"navFrame: %@", NSStringFromCGRect(navFrame));
+    
+    self.navigationMenu = [[[UIView alloc] initWithFrame:navFrame] autorelease];
     self.navigationMenu.backgroundColor = [UIColor clearColor];
     [self.window addSubview:self.navigationMenu];
     
     {
         //add fake navigation bar
-        UINavigationBar *navigationBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 20, self.window.frame.size.width, 44)] autorelease];
+        UINavigationBar *navigationBar = [[[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.window.frame.size.width, 44)] autorelease];
         navigationBar.alpha = 0;
         navigationBar.tag = kTagNavigationMenuBar;
         [navigationBar setBackgroundImage:[UIImage imageNamed:@"nav-background.png"] forBarMetrics:UIBarMetricsDefault];
@@ -60,16 +71,19 @@
     
     {
         //add main view
-        UIView *mainView = [[[UIView alloc] initWithFrame:CGRectMake(0, 20+44, self.window.frame.size.width, self.window.frame.size.height-20-44)] autorelease];
+        CGRect mainViewFrame = CGRectMake(0, 44, self.navigationMenu.frame.size.width, self.navigationMenu.frame.size.height - 44);
+        
+        NSLog(@"mainViewFrame: %@", NSStringFromCGRect(mainViewFrame));
+        
+        UIView *mainView = [[[UIView alloc] initWithFrame:mainViewFrame] autorelease];
         mainView.backgroundColor = [UIColor clearColor];
         mainView.clipsToBounds = YES;
         [self.navigationMenu addSubview:mainView];
         
         //add blur
-        UIImage *blurImage = [[DDTools imageFromView:self.topNavigationController.view] blurImage];
-        UIImageView *blur = [[[UIImageView alloc] initWithFrame:self.topNavigationController.view.bounds] autorelease];
+        UIImage *blurImage = [[DDTools screenshot] blurImage];
+        UIImageView *blur = [[[UIImageView alloc] initWithFrame:CGRectMake(0, -44 - statusBarOffset, self.window.frame.size.width, self.window.frame.size.height)] autorelease];
         blur.image = blurImage;
-        blur.center = CGPointMake(mainView.frame.size.width/2, mainView.frame.size.height/2-22);
         blur.tag = kTagNavigationMenuBlur;
         blur.alpha = 0;
         [mainView addSubview:blur];
