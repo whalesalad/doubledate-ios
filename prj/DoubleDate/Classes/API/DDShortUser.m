@@ -15,7 +15,7 @@
 @synthesize facebookId;
 @synthesize fullName;
 @synthesize firstName;
-@synthesize name;
+@synthesize lastName;
 @synthesize age;
 @synthesize location;
 @synthesize photo;
@@ -31,7 +31,7 @@
         self.facebookId = [DDAPIObject numberForObject:[dictionary objectForKey:@"facebook_id"]];
         self.fullName = [DDAPIObject stringForObject:[dictionary objectForKey:@"full_name"]];
         self.firstName = [DDAPIObject stringForObject:[dictionary objectForKey:@"first_name"]];
-        self.name = [DDAPIObject stringForObject:[dictionary objectForKey:@"name"]];
+        self.lastName = [DDAPIObject stringForObject:[dictionary objectForKey:@"last_name"]];
         self.age = [DDAPIObject numberForObject:[dictionary objectForKey:@"age"]];
         self.location = [DDAPIObject stringForObject:[dictionary objectForKey:@"location"]];
         self.photo = [DDImage objectWithDictionary:[dictionary objectForKey:@"photo"]];
@@ -54,8 +54,8 @@
         [dictionary setObject:self.fullName forKey:@"full_name"];
     if (self.firstName)
         [dictionary setObject:self.firstName forKey:@"first_name"];
-    if (self.name)
-        [dictionary setObject:self.name forKey:@"name"];
+    if (self.lastName)
+        [dictionary setObject:self.firstName forKey:@"last_name"];
     if (self.age)
         [dictionary setObject:self.age forKey:@"age"];
     if (self.location)
@@ -86,7 +86,7 @@
     [facebookId release];
     [fullName release];
     [firstName release];
-    [name release];
+    [lastName release];
     [age release];
     [location release];
     [photo release];
@@ -99,7 +99,7 @@
 {
     NSString *name = user.fullName;
     if (!name)
-        name = user.firstName;
+        name = [NSString stringWithFormat:@"%@ %@", user.firstName, user.lastName];
     return name;
 }
 

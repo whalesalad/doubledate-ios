@@ -41,9 +41,6 @@
     navFrame.origin.y = navFrame.origin.y + statusBarOffset;
     navFrame.size.height = navFrame.size.height - statusBarOffset;
     
-    NSLog(@"window frame: %@", NSStringFromCGRect(self.window.frame));
-    NSLog(@"navFrame: %@", NSStringFromCGRect(navFrame));
-    
     self.navigationMenu = [[[UIView alloc] initWithFrame:navFrame] autorelease];
     self.navigationMenu.backgroundColor = [UIColor clearColor];
     [self.window addSubview:self.navigationMenu];
@@ -72,8 +69,6 @@
     {
         //add main view
         CGRect mainViewFrame = CGRectMake(0, 44, self.navigationMenu.frame.size.width, self.navigationMenu.frame.size.height - 44);
-        
-        NSLog(@"mainViewFrame: %@", NSStringFromCGRect(mainViewFrame));
         
         UIView *mainView = [[[UIView alloc] initWithFrame:mainViewFrame] autorelease];
         mainView.backgroundColor = [UIColor clearColor];

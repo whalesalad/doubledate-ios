@@ -69,9 +69,7 @@
         BOOL existInSearch = [self.searchTerm length] == 0;
         if (self.searchTerm)
         {
-            if (user.name && [user.name rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
-                existInSearch = YES;
-            if (user.fullName && [user.fullName rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
+            if ([DDShortUser nameForShortUser:user] && [[DDShortUser nameForShortUser:user] rangeOfString:self.searchTerm options:NSCaseInsensitiveSearch].location != NSNotFound)
                 existInSearch = YES;
         }
         if (existInSearch)
