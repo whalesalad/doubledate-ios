@@ -35,7 +35,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
 
-@interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate>
+@interface DDDoubleDateViewController ()<DDSendEngagementViewControllerDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 - (void)loadDataForUser:(DDShortUser*)shortUser;
 - (void)presentLeftUserPopover;
@@ -171,7 +171,9 @@
     //localize
     labelInterested.text = NSLocalizedString(@"Interested in this DoubleDate?", nil);
     
-    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil) target:self action:@selector(backTouched:)];
+    self.navigationItem.leftBarButtonItem = [DDBarButtonItem backBarButtonItemWithTitle:NSLocalizedString(@"Back", nil)
+                                                                                 target:self
+                                                                                 action:@selector(backTouched:)];
     
     //set navigation item
     self.navigationItem.title = NSLocalizedString(@"Details", nil);
@@ -229,6 +231,12 @@
         [self.apiController getUser:requestUser];
     }
     
+    // swipe to go back! yay!
+    UISwipeGestureRecognizer *backRecognizer = [[[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                          action:@selector(backTouched:)] autorelease];
+    backRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    backRecognizer.delegate = self;
+    [self.view addGestureRecognizer:backRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -203,7 +203,7 @@
     self.optionalLocation = nil;
     
     //update cell
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     
     //update navigation button
     [self updateNavigationBar];
@@ -215,7 +215,7 @@
     self.optionalLocation = nil;
     
     //update cell
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 - (void)postTouched:(id)sender
@@ -408,7 +408,8 @@
         [self updateCell:cell withIcon:[UIImage imageNamed:@"create-date-location-icon.png"] loadedFromUrl:nil];
         
         //set location text
-        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Near %@", @"The city location when creating a DoubleDate."), location.name];
+//        cell.textLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Near %@", @"The city location when creating a DoubleDate."), location.name];
+        cell.textLabel.text = location.name;
         
         //apply style
         cell.textLabel.textColor = [UIColor whiteColor];
@@ -512,19 +513,19 @@
     cell.textView.textView.returnKeyType = UIReturnKeyDone;
 }
 
+- (NSIndexPath*)detailsIndexPath
+{
+    return [NSIndexPath indexPathForRow:0 inSection:0];
+}
+
 - (NSIndexPath*)locationIndexPath
 {
-    return [NSIndexPath indexPathForRow:0 inSection:1];
+    return [NSIndexPath indexPathForRow:1 inSection:0];
 }
 
 - (NSIndexPath*)optionalLocationIndexPath
 {
-    return [NSIndexPath indexPathForRow:1 inSection:1];
-}
-
-- (NSIndexPath*)detailsIndexPath
-{
-    return [NSIndexPath indexPathForRow:0 inSection:0];
+    return [NSIndexPath indexPathForRow:2 inSection:0];
 }
 
 - (DDTextView*)textViewDetails
@@ -567,7 +568,7 @@
         self.optionalLocation = nil;
     
         //update cell
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     
         //update navigation button
         [self updateNavigationBar];
@@ -578,7 +579,7 @@
         self.optionalLocation = [placemarks objectAtIndex:0];
         
         //reload only one cell
-        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:1 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     }
     
     //pop view controller
@@ -762,16 +763,16 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-        return 1;
-    else if (section == 1)
-        return 2;
-    return 0;
+//    if (section == 0)
+//        return 1;
+//    else if (section == 1)
+//        return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
