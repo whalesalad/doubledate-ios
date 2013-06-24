@@ -185,7 +185,7 @@
 - (void)updateLocationCell:(DDTableViewCell*)cell
 {
     //apply blank image by default
-    cell.imageView.image = [UIImage imageNamed:@"edit-profile-location-icon.png"];
+    cell.imageView.image = [UIImage imageNamed:@"create-date-location-icon.png"];
     
     //set location text
     cell.textLabel.text = [user_.location name];
