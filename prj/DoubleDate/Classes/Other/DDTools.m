@@ -13,9 +13,9 @@
 
 #if DEBUG
 #define API_URL @"http://comet.dbld8.com"
-#define SERVER_URL @"http://comet.dbld8.com"
+#define SERVER_URL @"http://dbld8.com"
 #else
-#define API_URL @"https://api.dbld8.com"
+#define API_URL @"https://comet.dbld8.com"
 #define SERVER_URL @"http://dbld8.com"
 #endif
 

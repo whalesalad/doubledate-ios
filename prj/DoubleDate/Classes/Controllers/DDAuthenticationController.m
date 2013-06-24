@@ -62,7 +62,7 @@ static DDAuthenticationController *_sharedInstance = nil;
 
 + (NSString*)token
 {
-//    return @"66b1a28d9115d3ad2d9224540f10f5afb54e9593";
+//    return @"90b2732c6ad4ae423973f4d7a1343c8604b6c6cd";
     NSObject *ret = [[DDAuthenticationController sharedController] token];
     if ([ret isKindOfClass:[NSNumber class]])
         return [(NSNumber*)ret stringValue];
