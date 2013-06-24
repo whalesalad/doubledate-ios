@@ -147,7 +147,7 @@
         //check if we need to add reset button
         if ([[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue] != [[filter_.location identifier] intValue])
         {
-            UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
+            UIImage *cancelImage = [UIImage imageNamed:@"x-icon.png"];
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.backgroundColor = [UIColor clearColor];
             button.frame = CGRectMake(0, 0, 30, 30);

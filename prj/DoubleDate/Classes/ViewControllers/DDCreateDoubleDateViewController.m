@@ -248,7 +248,7 @@
 
 - (void)backTouched:(id)sender
 {
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure?", nil)
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Are you sure you want to cancel?", nil)
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"No, Continue", @"Cancel date menu, continue creating date")
                                           destructiveButtonTitle:NSLocalizedString(@"Yes, Cancel", @"Cancel date menu, actually cancel")
@@ -417,7 +417,7 @@
         //check if we need to add reset button
         if ([[[[DDLocationController currentLocationController] lastPlacemark] identifier] intValue] != [[self.location identifier] intValue])
         {
-            UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
+            UIImage *cancelImage = [UIImage imageNamed:@"x-icon.png"];
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.backgroundColor = [UIColor clearColor];
             button.frame = CGRectMake(0, 0, 30, 30);
@@ -466,7 +466,7 @@
         cell.textLabel.textColor = [UIColor whiteColor];
         
         //add reset button
-        UIImage *cancelImage = [UIImage imageNamed:@"button-icon-cancel.png"];
+        UIImage *cancelImage = [UIImage imageNamed:@"x-icon.png"];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.backgroundColor = [UIColor clearColor];
         button.frame = CGRectMake(0, 0, 30, 30);
@@ -507,7 +507,7 @@
     cell.textView.textView.delegate = self;
     
     //set placeholder
-    cell.textView.placeholder = NSLocalizedString(@"Explain your DoubleDate…", @"Placeholder text for details of new DoubleDate.");
+    cell.textView.placeholder = NSLocalizedString(@"Example: We're hiking Mt. Wilson this weekend. We're packing lunch to have a picnic at the top. Come along!", @"Placeholder text for details of new DoubleDate.");
     
     //set return button on post details
     cell.textView.textView.returnKeyType = UIReturnKeyDone;
